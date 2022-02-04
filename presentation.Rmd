@@ -10,7 +10,7 @@ output:
     smart: TRUE
 ---
 
-# Estimating Price Elasticity of Orange Juice Demand
+# Price elasticity of demand for orange juice
 
 
 ## Price elasticity of demand
@@ -30,12 +30,16 @@ $\texttt{Price elasticity of demand} = \dfrac{\texttt{% Change in quantity deman
 
 ## Loading R packages and orange juice data
 ```{r, echo = TRUE, eval = TRUE, out.height = "75%", fig.align='center'}
-library(tidyverse)  # ggplot and more
-theme_set(theme_minimal()) # minimal theme for ggplot
-library(skimr) # a better summary of data
-library(stargazer)  # regression tables
-library(moderndive) # geom_parallel_slopes()
+library(tidyverse)      # ggplot and more
+theme_set(theme_minimal())  # minimal theme for ggplot
+library(skimr)          # a better summary of data
+library(stargazer)      # regression tables
+library(moderndive)     # geom_parallel_slopes()
+```
 
+- We will use weekly sales data for orange juice (OJ) from Dominick’s grocery stores in the 1990s.
+
+```{r, echo = TRUE, eval = TRUE, out.height = "75%", fig.align='center'}
 oj <- read.table(
   'https://bcecon.github.io/dominick_oj.csv',
   sep = ',',
@@ -44,9 +48,7 @@ oj <- read.table(
 )
 ```
 
-&nbsp;
 
-- We will use weekly sales data for orange juice (OJ) from Dominick’s grocery stores in the 1990s.
 
 
 # Descriptive statistics
@@ -99,25 +101,22 @@ knitr::kable(skimmed_numeric, "simple")   # from skimr::skim()
 
 - It is better to use a logarithmic scale when percent change matters.
 
+```{r, include = FALSE, out.height = "75%", fig.align='center'}
+mu <- oj %>% group_by(brand) %>% summarise(grp.mean=mean(log(price)))
+```
+
 ```{r, echo = TRUE, eval = TRUE, fig.height = 3.75, fig.align='center'}
 
-ggplot(data = oj) + 
-  geom_boxplot( aes( y = log(price), color = brand )) +
-  theme(axis.text.x = element_blank(), axis.ticks = element_blank())
-
+ggplot() + 
+  geom_boxplot(data = oj, aes( y = log(price), x = brand, color = brand )) +
+  geom_point(data = mu, aes(y = grp.mean, x = brand)) + 
+  theme(axis.text.y = element_blank(), axis.text.x = element_blank(), 
+        axis.ticks = element_blank())
 ```
 
 
-## Distribution of OJ sales
 
-```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center'}
-
-ggplot(data = oj) + 
-  geom_boxplot( aes( y = log(sales), color = brand )) +
-  theme(axis.text.x = element_blank(), axis.ticks = element_blank())
-```
-
-## Supply and demand for OJ
+## Demand for OJ
 ```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center', warning = FALSE, message = FALSE}
 ggplot(data = oj, aes( x = log(price), y = log(sales), 
                        color = brand )) + 
