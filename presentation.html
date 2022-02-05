@@ -178,7 +178,7 @@ slide:not(.current) .plotly.html-widget{
 
 <slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Price elasticity of demand for orange juice</h2></hgroup><article  id="price-elasticity-of-demand-for-orange-juice">
 
-</article></slide><slide class=""><hgroup><h2>Price elasticity of demand</h2></hgroup><article  id="price-elasticity-of-demand" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Price elasticity of demand</h2></hgroup><article  class="build faster" id="price-elasticity-of-demand">
 
 <ul>
 <li>Price elasticity of demand measures how sensitive the quantity demanded is to its price.</li>
@@ -202,7 +202,7 @@ slide:not(.current) .plotly.html-widget{
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Loading R packages and orange juice data</h2></hgroup><article  id="loading-r-packages-and-orange-juice-data" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Loading R packages and orange juice data</h2></hgroup><article  class="build faster" id="loading-r-packages-and-orange-juice-data">
 
 <pre class = 'prettyprint lang-r'>library(tidyverse)      # ggplot and more
 theme_set(theme_minimal())  # minimal theme for ggplot
@@ -224,7 +224,7 @@ library(gridExtra)      # sub figures</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Descriptive statistics</h2></hgroup><article  id="descriptive-statistics">
 
-</article></slide><slide class=""><hgroup><h2>OJ data</h2></hgroup><article  id="oj-data" class="build faster">
+</article></slide><slide class=""><hgroup><h2>OJ data</h2></hgroup><article  class="build faster" id="oj-data">
 
 <pre class = 'prettyprint lang-r'>head(oj)</pre>
 
@@ -240,7 +240,7 @@ library(gridExtra)      # sub figures</pre>
 
 <pre >## [1] &quot;dominicks&quot;   &quot;minute.maid&quot; &quot;tropicana&quot;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Descriptive statistics</h2></hgroup><article  id="descriptive-statistics-1" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Descriptive statistics</h2></hgroup><article  class="build faster" id="descriptive-statistics-1">
 
 <pre class = 'prettyprint lang-r'>knitr::kable(skimmed_chr, &quot;simple&quot;,   # from skimr::skim() 
              col.names = c(&#39;Variable&#39;, &#39;n_missing&#39;, &#39;n_Categories&#39;, &#39;Counts&#39;))  </pre>
@@ -319,7 +319,7 @@ library(gridExtra)      # sub figures</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Visualizing OJ data</h2></hgroup><article  id="visualizing-oj-data">
 
-</article></slide><slide class=""><hgroup><h2>Distribution of OJ prices</h2></hgroup><article  id="distribution-of-oj-prices" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Distribution of OJ prices</h2></hgroup><article  class="build faster" id="distribution-of-oj-prices">
 
 <ul>
 <li>It is better to use a logarithmic scale when percent change matters.</li>
@@ -333,7 +333,7 @@ library(gridExtra)      # sub figures</pre>
 
 <p><img src="presentation_files/figure-html/v_price-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Demand for OJ</h2></hgroup><article  id="demand-for-oj" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Demand for OJ</h2></hgroup><article  class="build faster" id="demand-for-oj">
 
 <pre class = 'prettyprint lang-r'>ggplot(data = oj, aes( x = log(price), y = log(sales), 
                        color = brand )) + 
@@ -343,7 +343,7 @@ library(gridExtra)      # sub figures</pre>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Regression models</h2></hgroup><article  id="regression-models">
 
-</article></slide><slide class=""><hgroup><h2>Regression model with brand dummies</h2></hgroup><article  id="regression-model-with-brand-dummies" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Regression model with brand dummies</h2></hgroup><article  class="build faster" id="regression-model-with-brand-dummies">
 
 <ul>
 <li>The regression model for price elasticity of OJ demand can be written as:</li>
@@ -685,7 +685,7 @@ F Statistic
 
 </table>
 
-</article></slide><slide class=""><hgroup><h2>Regression lines</h2></hgroup><article  id="regression-lines" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Regression lines</h2></hgroup><article  class="build faster" id="regression-lines">
 
 <pre class = 'prettyprint lang-r'>ggplot(data = oj, aes(x = log(price), y = log(sales), 
                       color = brand )) +
@@ -694,7 +694,7 @@ F Statistic
 
 <p><img src="presentation_files/figure-html/reg1_v-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Regerssion model with interaction terms</h2></hgroup><article  id="regerssion-model-with-interaction-terms" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Regerssion model with interaction terms</h2></hgroup><article  class="build faster" id="regerssion-model-with-interaction-terms">
 
 <ul>
 <li>How does consumer price sensitivity change across brands?</li>
@@ -730,7 +730,7 @@ F Statistic
              data=oj)
 stargazer(reg_oj1, reg_oj2, type = &quot;html&quot;, omit = c(&quot;Constant&quot;))</pre>
 
-</article></slide><slide class=""><hgroup><h2>Result</h2></hgroup><article  id="result" class="smaller">
+</article></slide><slide class=""><hgroup><h2>Result</h2></hgroup><article  class="smaller" id="result">
 
 <table style="text-align:center">
 
@@ -1236,7 +1236,7 @@ F Statistic
 
 </table>
 
-</article></slide><slide class=""><hgroup><h2>Regression lines</h2></hgroup><article  id="regression-lines-1" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Regression lines</h2></hgroup><article  class="build faster" id="regression-lines-1">
 
 <pre class = 'prettyprint lang-r'>reg_lines2 &lt;- ggplot(data = oj, aes(x = log(price), y = log(sales), color = brand )) +
   geom_point(size = .75, alpha = 0.15) + geom_smooth(method = lm, se=FALSE) +
@@ -1245,7 +1245,7 @@ grid.arrange(reg_lines1, reg_lines2, nrow = 1)   # sub-figures</pre>
 
 <p><img src="presentation_files/figure-html/reg2_v-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Advertisement effect</h2></hgroup><article  id="advertisement-effect" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Advertisement effect</h2></hgroup><article  class="build faster" id="advertisement-effect">
 
 <ul>
 <li>How does consumer price sensitivity change with advertisement?</li>
@@ -1281,7 +1281,7 @@ grid.arrange(reg_lines1, reg_lines2, nrow = 1)   # sub-figures</pre>
              data=oj)
 stargazer(reg_oj1, reg_oj2, reg_oj3, type = &quot;html&quot;, omit = c(&quot;Constant&quot;))</pre>
 
-</article></slide><slide class=""><hgroup><h2>Result</h2></hgroup><article  id="result-1" class="smaller">
+</article></slide><slide class=""><hgroup><h2>Result</h2></hgroup><article  class="smaller" id="result-1">
 
 <table style="text-align:center">
 
@@ -2299,7 +2299,7 @@ F Statistic
 
 </table>
 
-</article></slide><slide class=""><hgroup><h2>Regression lines</h2></hgroup><article  id="regression-lines-2" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Regression lines</h2></hgroup><article  class="build faster" id="regression-lines-2">
 
 <pre class = 'prettyprint lang-r'>ggplot(data = oj, aes(x = log(price), y = log(sales), color = brand )) +
   geom_point(size = .75, alpha = 0.15) +
@@ -2308,7 +2308,7 @@ F Statistic
 
 <p><img src="presentation_files/figure-html/reg3_v-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Price elasticities of OJ</h2></hgroup><article  id="price-elasticities-of-oj" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Price elasticities of OJ</h2></hgroup><article  class="build faster" id="price-elasticities-of-oj">
 
 <table class = 'rmdtable'>
 <tr class="header">
@@ -2364,7 +2364,7 @@ F Statistic
 
 <p><img src="presentation_files/figure-html/ad_barnd_v-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Residual plot and model fit</h2></hgroup><article  id="residual-plot-and-model-fit" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Residual plot and model fit</h2></hgroup><article  class="build faster" id="residual-plot-and-model-fit">
 
 <ul>
 <li><p>Which model is better?</p>
