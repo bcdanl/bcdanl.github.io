@@ -1,0 +1,394 @@
+---
+title: "Teaching Presentation"
+author: Byeong-Hak Choe
+date: February 4, 2022
+output: 
+  ioslides_presentation:
+    transition: 0
+    widescreen: TRUE
+    smaller: FALSE
+    smart: TRUE
+---
+
+# Price elasticity of demand for orange juice
+
+## Source of the lecture material
+
+- This is an example of the lecture on estimating price elasticity via the model of linear regression with interaction terms using data for orange juice sales. 
+
+- The example is taken from the book, "[Business Data Science: Combining Machine Learning and Economics to Optimize, Automate, and Accelerate Business Decisions](https://www.amazon.com/Business-Data-Science-Combining-Accelerate/dp/1260452778)," and modified by Byeong-Hak Choe.
+
+
+## Price elasticity of demand {.build .faster}
+
+- Price elasticity of demand  measures how sensitive the quantity demanded is to its price.
+
+&nbsp;
+<center>
+$\texttt{Price elasticity of demand} = \dfrac{\texttt{% Change in quantity demanded}}{\texttt{% Change in price}}$
+</center>
+
+&nbsp;
+
+- The concept of the elasticity plays an important role in industries.
+
+  - Marketers need to understand how consumers are sensitive to fluctuations in price.
+
+## Loading R packages and orange juice data {.build .faster}
+```{r setup, eval=TRUE, echo=TRUE, fig.align='center', out.height="75%"}
+library(tidyverse)      # ggplot and more
+theme_set(theme_minimal())  # minimal theme for ggplot
+library(skimr)          # a better summary of data
+library(stargazer)      # regression tables
+library(moderndive)     # geom_parallel_slopes()
+library(gridExtra)      # sub figures
+```
+
+- We will use weekly sales data for orange juice (OJ) from Dominick’s grocery stores in the 1990s.
+
+```{r data, eval=TRUE, echo=TRUE, fig.align='center', out.height="75%"}
+oj <- read.table(
+  'https://bcecon.github.io/dominick_oj.csv',
+  sep = ',',
+  header = TRUE,
+  stringsAsFactor = TRUE
+)
+```
+
+
+
+
+# Descriptive statistics
+
+## OJ data {.build .faster}
+```{r ds, eval=TRUE, echo=TRUE, fig.align='center', out.height="75%"}
+head(oj)
+levels(oj$brand)
+```
+
+
+## Descriptive statistics {.build .faster}
+```{r skim, include=FALSE}
+skimmed <- skim(oj)
+skimmed <- skimmed %>% 
+  select(-factor.ordered, -complete_rate)
+skimmed <- as_tibble(skimmed)
+skimmed_chr <- skimmed[1,2:5]
+skimmed_chr[1,4] <- "dominicks: 9649,  minute.maid: 9649,  tropicana: 9649"
+skimmed_numeric <- skimmed[2:4,c(2:3,5:13)]
+skimmed_numeric[,4:10] <- round(skimmed_numeric[,4:10], 2)
+skimmed_numeric <- skimmed_numeric %>% 
+  select(-factor.top_counts)
+```
+
+```{r skim_chr, eval=TRUE, echo=TRUE, fig.align='center', out.height="75%"}
+knitr::kable(skimmed_chr, "simple",   # from skimr::skim() 
+             col.names = c('Variable', 'n_missing', 'n_Categories', 'Counts'))  
+```
+
+
+## Descriptive statistics
+
+```{r skim_n, eval=TRUE, echo=TRUE, fig.align='center', out.height="75%"}
+knitr::kable(skimmed_numeric, "simple",   # from skimr::skim()
+             col.names = c('Variable', 'n_missing', 'Mean', 'SD',
+                           'Min', 'Q1', 'Median','Q3', 'Max', 'Hist'))
+```
+
+# Visualizing OJ data
+
+## Distribution of OJ prices {.build .faster}
+
+- It is better to use a logarithmic scale when percent change matters.
+
+```{r plyr, fig.align='center', include=FALSE, out.height="75%"}
+library(plyr)
+mu <- ddply(oj, "brand", summarise, grp.mean=mean(log(price)))
+detach("package:plyr", unload=TRUE)
+library(tidyverse)
+```
+
+```{r v_price, eval=TRUE, echo=TRUE, fig.align='center', fig.height=3.75}
+
+ggplot() + 
+  geom_boxplot(data = oj, aes( y = log(price), x = brand, color = brand )) +
+  geom_point(data = mu, aes(y = grp.mean, x = brand)) + 
+  theme(axis.text.x = element_blank(), 
+        axis.ticks = element_blank())
+```
+
+
+## Demand for OJ {.build .faster}
+```{r v_demand, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+ggplot(data = oj, aes( x = log(price), y = log(sales), 
+                       color = brand )) + 
+  geom_point( alpha = .25 ) 
+```
+
+
+# Regression models
+
+## Regression model with brand dummies {.build .faster}
+- The regression model for price elasticity of OJ demand can be written as:
+
+<center>
+$\log(\texttt{sales}) = \alpha_{\texttt{brand}} + \beta\log(\texttt{price}) + \epsilon$
+</center>
+
+&nbsp;
+
+- Here $\alpha_{\texttt{brand}}$ is shorthand for a separate indicator for each OJ brand:
+
+<center>
+$\alpha_{\texttt{brand}} = \alpha_{\texttt{d}}1_{\texttt{[brand=dominicks]}}+\alpha_{\texttt{m}}1_{\texttt{[brand=minut.emaid]}}+\alpha_{\texttt{t}}1_{\texttt{[brand=tropicana]}}$
+</center>
+
+&nbsp;
+
+- Here $\beta$ measures the price elasticity of OJ demand:
+
+<center>
+$\beta = \dfrac{\Delta\log(\texttt{sales})}{\Delta\log(\texttt{price})}\\\hspace{.25cm}  = \texttt{(% change in sales)} / \texttt{(% change in price)}$
+</center>
+
+
+
+## Run the model 
+
+```{r reg1, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4, results="asis"}
+
+reg_oj1 <- lm(log(sales) ~ log(price) + brand, 
+             data=oj)
+stargazer(reg_oj1, type = "html", omit = c("Constant"))
+```
+
+
+## Run the model 
+
+```{r reg1_r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, results="asis"}
+
+reg_oj1 <- lm(log(sales) ~ log(price) + brand, 
+             data=oj)
+stargazer(reg_oj1, type = "html", omit = c("Constant"))
+```
+
+
+## Regression lines {.build .faster}
+```{r reg1_vi, include=FALSE}
+reg_lines1 <- ggplot(data = oj, aes(x = log(price), y = log(sales), 
+                      color = brand )) +
+  geom_point(size = .75, alpha = 0.15) +
+  geom_parallel_slopes() + theme(aspect.ratio=3/4, legend.position="top")
+```
+
+```{r reg1_v, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4}
+
+ggplot(data = oj, aes(x = log(price), y = log(sales), 
+                      color = brand )) +
+  geom_point(size = .75, alpha = 0.15) +
+  geom_parallel_slopes()
+
+```
+
+
+## Regerssion model with interaction terms {.build .faster}
+
+- How does consumer price sensitivity change across brands?
+
+&nbsp;
+
+- The new regression model can be written as:
+
+<center>
+$\log(\texttt{sales}) = \alpha_{\texttt{brand}} + \beta_{\texttt{brand}}\log(\texttt{price}) + \epsilon$
+</center>
+
+&nbsp;
+
+- Here $\beta_{\texttt{brand}}$ is shorthand for the brand-specific price elasticity:
+
+<center>
+$\beta_{\texttt{brand}} = \hspace{.1cm}\beta_{\texttt{d}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m}}1_{\texttt{[brand=minutemaid]}}+\beta_{\texttt{t}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm}$
+</center>
+
+
+## Run the model
+
+```{r reg2, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4}
+
+reg_oj2 <- lm(log(sales) ~ log(price)*brand, 
+             data=oj)
+stargazer(reg_oj1, reg_oj2, type = "html", omit = c("Constant"))
+```
+
+## Result {.smaller}
+
+```{r reg2_r, eval=TRUE, echo=FALSE, fig.align='center', out.height="50%", results="asis"}
+
+reg_oj2 <- lm(log(sales) ~ log(price)*brand, 
+             data=oj)
+stargazer(reg_oj1, reg_oj2, type = "html", omit = c("Constant"))
+```
+
+
+## Regression lines {.build .faster}
+
+```{r reg2_v, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+
+reg_lines2 <- ggplot(data = oj, aes(x = log(price), y = log(sales), color = brand )) +
+  geom_point(size = .75, alpha = 0.15) + geom_smooth(method = lm, se=FALSE) +
+   theme(aspect.ratio=3/4, legend.position="top")
+grid.arrange(reg_lines1, reg_lines2, nrow = 1)   # sub-figures
+```
+
+
+
+## Advertisement effect {.build .faster}
+
+- How does consumer price sensitivity change with advertisement?
+
+&nbsp;
+
+- The new regression model can be written as:
+
+<center>
+$\log(\texttt{sales}) = \alpha_{\texttt{brand,feat}} + \beta_{\texttt{brand,feat}}\log(\texttt{price}) + \epsilon$
+</center>
+
+&nbsp;
+
+- Here $\beta_{\texttt{brand,feat}}$ measures the brand-feat-specific price elasticity:
+
+<center>
+$\beta_{\texttt{brand,feat}} = \hspace{.3cm}(\hspace{.1cm} \beta_{\texttt{d,no_ad}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m,no_ad}}1_{\texttt{[brand=minutemaid]}}\\\hspace{5.25cm}+\beta_{\texttt{t,no_ad}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm})\times1_{\texttt{[feat=0]}}\\   \hspace{4.25cm} + (\hspace{.1cm}\beta_{\texttt{d,ad}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m,ad}}1_{\texttt{[brand=minutemaid]}}\\\hspace{5.25cm}+\beta_{\texttt{t,ad}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm})\times1_{\texttt{[feat=1]}}$
+</center>
+
+## Run the model
+
+```{r reg3, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4}
+
+reg_oj3 <- lm(log(sales) ~ log(price)*brand*feat, 
+             data=oj)
+stargazer(reg_oj1, reg_oj2, reg_oj3, type = "html", omit = c("Constant"))
+```
+
+## Result {.smaller}
+
+```{r reg3_r, eval=TRUE, echo=FALSE, fig.align='center', out.height="50%", results="asis"}
+
+reg_oj3 <- lm(log(sales) ~ log(price)*brand*feat, 
+             data=oj)
+stargazer(reg_oj1, reg_oj2, reg_oj3, type = "html", omit = c("Constant"))
+```
+
+## Regression lines {.build .faster}
+```{r feat, fig.align='center', include=FALSE, out.height="75%"}
+feat_names <- c(`0` = "no ad", `1` = "ad")
+```
+
+```{r reg3_v, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+
+ggplot(data = oj, aes(x = log(price), y = log(sales), color = brand )) +
+  geom_point(size = .75, alpha = 0.15) +
+  geom_smooth(method=lm) +
+  facet_grid( . ~ feat, labeller = as_labeller(feat_names))
+
+```
+
+
+## Price elasticities of OJ {.build .faster}
+
+```{r elas_t, eval=TRUE, echo=FALSE, fig.align='center', out.height="75%"}
+coef1 <-  coef(reg_oj1)
+coef2 <-  coef(reg_oj2)
+coef3 <-  coef(reg_oj3)
+elasticity <- data.frame(
+  "dominicks" = c(coef1['log(price)'],coef2['log(price)'],coef3['log(price)'],coef3['log(price)']+coef3['log(price):feat']),
+  "minute.maid" = c(coef1['log(price)'],
+                coef2['log(price)']+coef2['log(price):brandminute.maid'], coef3['log(price)']+coef3['log(price):brandminute.maid'], coef3['log(price)']+coef3['log(price):brandminute.maid']+coef3['log(price):feat']+coef3['log(price):brandminute.maid:feat']),
+  "tropicana" = c(coef1['log(price)'],
+                coef2['log(price)']+coef2['log(price):brandtropicana'], coef3['log(price)']+coef3['log(price):brandtropicana'], coef3['log(price)']+coef3['log(price):brandtropicana']+coef3['log(price):feat']+coef3['log(price):brandtropicana:feat'])
+  )
+row.names(elasticity) <- c("Model 1", "Model 2", "Model 3 w/ no ad", "Model 3 w/ ad")
+
+knitr::kable(round(elasticity,1), "simple")   
+```
+
+&nbsp;
+
+- Which model is better?
+
+  - Which model is more realistic?
+  
+  - Why does being featured always lead to more price sensitivity?
+
+
+
+## The relationship between ad and brand
+
+```{r ad_brand_tb, fig.align='center', include=FALSE, out.height="75%"}
+by_brand <- group_by(oj, brand, feat)
+salestable <- summarize(by_brand, 
+                        sales_tot = 
+                          sum(sales, na.rm = TRUE)
+                        )
+salestable <- salestable %>% group_by(feat) %>% 
+  mutate(sales_prop = sales_tot/sum(sales_tot))
+```
+
+```{r ad_barnd_v, eval=TRUE, echo=TRUE, fig.align='center', fig.height=3.5}
+ggplot(data = salestable) +
+  geom_bar(mapping = aes(x = factor(feat), y = sales_prop, 
+                         fill = brand), stat = "identity") + 
+  xlab("feat") + ylab("proportion of sales") +
+  scale_x_discrete(breaks=c(0, 1), labels=c("no ad", "ad"))
+```
+
+
+
+## Residual plot and model fit {.build .faster}
+
+- Which model is better?
+
+  - On average, are the predictions correct?
+
+  - Are there systematic errors in prediction?
+  
+- Predicted log of sales can be calculated as follows:
+```{r pred, eval=TRUE, echo=TRUE, fig.align='center', fig.height=3.5}
+oj$predLogSales1 <- predict(reg_oj1, newdata = oj)  # Model 1
+oj$predLogSales2 <- predict(reg_oj2, newdata = oj)  # Model 2
+oj$predLogSales3 <- predict(reg_oj3, newdata = oj)  # Model 3
+```
+
+## Residual plot for model 1
+
+```{r resid1_v, eval=TRUE, echo=TRUE, fig.align='center', fig.height=3.775, message=FALSE, warning=FALSE}
+ggplot(data = oj, aes(x = predLogSales1, y = log(sales) - predLogSales1 )) +
+  geom_point(alpha = 0.2, color = "orange") + geom_smooth(color = "darkblue") +
+  geom_line(aes(x = predLogSales1, y = 0), color = "red", linetype = 2) +
+  xlab("prediction") + ylab("residual error (actual - prediction)")
+```
+
+
+
+## Residual plot for model 2 
+
+```{r resid2_v, eval=TRUE, echo=TRUE, fig.align='center', fig.height=3.775, message=FALSE, warning=FALSE}
+ggplot(data = oj, aes(x = predLogSales2, y = log(sales) - predLogSales2 )) +
+  geom_point(alpha = 0.2, color = "orange") + geom_smooth(color = "darkblue") +
+  geom_line(aes(x = predLogSales2, y = 0), color = "red", linetype = 2) +
+  xlab("prediction") + ylab("residual error (actual - prediction)")
+```
+
+
+
+## Residual plot for model 3 
+
+```{r resid3_v, eval=TRUE, echo=TRUE, fig.align='center', fig.height=3.775, message=FALSE, warning=FALSE}
+ggplot(data = oj, aes(x = predLogSales3, y = log(sales) - predLogSales3 )) +
+  geom_point(alpha = 0.2, color = "orange") + geom_smooth(color = "darkblue") +
+  geom_line(aes(x = predLogSales3, y = 0), color = "red", linetype = 2) +
+  xlab("prediction") + ylab("residual error (actual - prediction)")
+```
+
