@@ -20,23 +20,18 @@ $\texttt{Price elasticity of demand} = \dfrac{\texttt{% Change in quantity deman
 
 &nbsp;
 
-- The concept of the elasticity plays an important role in industries.
+- The concept of elasticity will play an important role in industries.
 
   - Marketers need to understand how consumers are sensitive to fluctuations in price.
 
 ## Loading R packages and orange juice data
-```{r setup, eval=TRUE, echo=TRUE, fig.align='center', out.height="75%"}
-library(tidyverse)      # ggplot and more
-theme_set(theme_minimal())  # minimal theme for ggplot
-library(skimr)          # a better summary of data
-library(stargazer)      # regression tables
-library(moderndive)     # geom_parallel_slopes()
-library(gridExtra)      # sub figures
-```
+```{r, echo = TRUE, eval = TRUE, out.height = "75%", fig.align='center'}
+library(tidyverse)  # ggplot and more
+theme_set(theme_minimal()) # minimal theme for ggplot
+library(skimr) # a better summary of data
+library(stargazer)  # regression tables
+library(moderndive) # geom_parallel_slopes()
 
-- We will use weekly sales data for orange juice (OJ) from Dominick’s grocery stores in the 1990s.
-
-```{r data, eval=TRUE, echo=TRUE, fig.align='center', out.height="75%"}
 oj <- read.table(
   'https://bcecon.github.io/dominick_oj.csv',
   sep = ',',
@@ -45,44 +40,53 @@ oj <- read.table(
 )
 ```
 
+&nbsp;
 
+- We will use weekly sales data for orange juice (OJ) from Dominick’s grocery stores in the 1990s.
 
 
 # Descriptive statistics
 
 ## OJ data
-```{r ds, eval=TRUE, echo=TRUE, fig.align='center', out.height="75%"}
+```{r, echo = TRUE, eval = TRUE, out.height = "75%", fig.align='center'}
 head(oj)
 levels(oj$brand)
 ```
 
 
 ## Descriptive statistics
-```{r skim, include=FALSE}
+```{r, include=FALSE}
 skimmed <- skim(oj)
 skimmed <- skimmed %>% 
   select(-factor.ordered, -complete_rate)
 skimmed <- as_tibble(skimmed)
 skimmed_chr <- skimmed[1,2:5]
+skimmed_chr <- skimmed_chr %>% 
+  rename(Variable = skim_variable) %>% 
+  rename(n_Categories = factor.n_unique) %>% 
+  rename(Counts = factor.top_counts) 
 skimmed_chr[1,4] <- "dominicks: 9649,  minute.maid: 9649,  tropicana: 9649"
 skimmed_numeric <- skimmed[2:4,c(2:3,5:13)]
 skimmed_numeric[,4:10] <- round(skimmed_numeric[,4:10], 2)
 skimmed_numeric <- skimmed_numeric %>% 
+  rename(Mean = numeric.mean) %>% 
+  rename(SD = numeric.sd) %>% 
+  rename(Min = numeric.p0) %>% 
+  rename(Q1 = numeric.p25) %>% 
+  rename(Median = numeric.p50) %>% 
+  rename(Q3 = numeric.p75) %>% 
+  rename(Max = numeric.p100) %>% 
+  rename(Hist = numeric.hist) %>% 
+  rename(Variable = skim_variable) %>% 
   select(-factor.top_counts)
 ```
 
-```{r skim_chr, eval=TRUE, echo=TRUE, fig.align='center', out.height="75%"}
-knitr::kable(skimmed_chr, "simple",   # from skimr::skim() 
-             col.names = c('Variable', 'n_missing', 'n_Categories', 'Counts'))  
+```{r, echo = TRUE, eval = TRUE, out.height = "75%", fig.align='center'}
+knitr::kable(skimmed_chr, "simple")   # from skimr::skim()
 ```
 
-
-## Descriptive statistics
-
-```{r skim_n, eval=TRUE, echo=TRUE, fig.align='center', out.height="75%"}
-knitr::kable(skimmed_numeric, "simple",   # from skimr::skim()
-             col.names = c('Variable', 'n_missing', 'Mean', 'SD',
-                           'Min', 'Q1', 'Median','Q3', 'Max', 'Hist'))
+```{r, echo = TRUE, eval = TRUE, out.height = "75%", fig.align='center'}
+knitr::kable(skimmed_numeric, "simple")   # from skimr::skim()
 ```
 
 # Visualizing OJ data
@@ -91,25 +95,26 @@ knitr::kable(skimmed_numeric, "simple",   # from skimr::skim()
 
 - It is better to use a logarithmic scale when percent change matters.
 
-```{r plyr, fig.align='center', include=FALSE, out.height="75%"}
-library(plyr)
-mu <- ddply(oj, "brand", summarise, grp.mean=mean(log(price)))
-detach("package:plyr", unload=TRUE)
-library(tidyverse)
-```
+```{r, echo = TRUE, eval = TRUE, fig.height = 3.75, fig.align='center'}
 
-```{r v_price, eval=TRUE, echo=TRUE, fig.align='center', fig.height=3.75}
+ggplot(data = oj) + 
+  geom_boxplot( aes( y = log(price), color = brand )) +
+  theme(axis.text.x = element_blank(), axis.ticks = element_blank())
 
-ggplot() + 
-  geom_boxplot(data = oj, aes( y = log(price), x = brand, color = brand )) +
-  geom_point(data = mu, aes(y = grp.mean, x = brand)) + 
-  theme(axis.text.x = element_blank(), 
-        axis.ticks = element_blank())
 ```
 
 
-## Demand for OJ
-```{r v_demand, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+## Distribution of OJ sales
+
+```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center'}
+
+ggplot(data = oj) + 
+  geom_boxplot( aes( y = log(sales), color = brand )) +
+  theme(axis.text.x = element_blank(), axis.ticks = element_blank())
+```
+
+## Supply and demand for OJ
+```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center', warning = FALSE, message = FALSE}
 ggplot(data = oj, aes( x = log(price), y = log(sales), 
                        color = brand )) + 
   geom_point( alpha = .25 ) 
@@ -145,7 +150,7 @@ $\beta = \dfrac{\Delta\log(\texttt{sales})}{\Delta\log(\texttt{price})}\\\hspace
 
 ## Run the model 
 
-```{r reg1, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4, results="asis"}
+```{r results = "asis", echo = TRUE, eval = FALSE, fig.height = 4, fig.align='center'}
 
 reg_oj1 <- lm(log(sales) ~ log(price) + brand, 
              data=oj)
@@ -153,9 +158,9 @@ stargazer(reg_oj1, type = "html", omit = c("Constant"))
 ```
 
 
-## Run the model 
+## Run the model {.smaller}
 
-```{r reg1_r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, results="asis"}
+```{r results = "asis", echo = FALSE, eval = TRUE, fig.height = 4, fig.align='center'}
 
 reg_oj1 <- lm(log(sales) ~ log(price) + brand, 
              data=oj)
@@ -164,18 +169,12 @@ stargazer(reg_oj1, type = "html", omit = c("Constant"))
 
 
 ## Regression lines
-```{r reg1_vi, include=FALSE}
-reg_lines1 <- ggplot(data = oj, aes(x = log(price), y = log(sales), 
-                      color = brand )) +
-  geom_point(size = .75, alpha = 0.15) +
-  geom_parallel_slopes() + theme(aspect.ratio=3/4, legend.position="top")
-```
 
-```{r reg1_v, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4}
+```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center'}
 
 ggplot(data = oj, aes(x = log(price), y = log(sales), 
                       color = brand )) +
-  geom_point(size = .75, alpha = 0.15) +
+  geom_point(size = .75, alpha = 0.25) +
   geom_parallel_slopes()
 
 ```
@@ -204,7 +203,7 @@ $\beta_{\texttt{brand}} = \hspace{.1cm}\beta_{\texttt{d}}1_{\texttt{[brand=domin
 
 ## Run the model
 
-```{r reg2, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4}
+```{r, echo = TRUE, eval = FALSE, fig.height = 4, fig.align='center'}
 
 reg_oj2 <- lm(log(sales) ~ log(price)*brand, 
              data=oj)
@@ -213,7 +212,7 @@ stargazer(reg_oj1, reg_oj2, type = "html", omit = c("Constant"))
 
 ## Result {.smaller}
 
-```{r reg2_r, eval=TRUE, echo=FALSE, fig.align='center', out.height="50%", results="asis"}
+```{r results = "asis", echo = FALSE, eval = TRUE, out.height = "50%", fig.align='center'}
 
 reg_oj2 <- lm(log(sales) ~ log(price)*brand, 
              data=oj)
@@ -223,12 +222,13 @@ stargazer(reg_oj1, reg_oj2, type = "html", omit = c("Constant"))
 
 ## Regression lines
 
-```{r reg2_v, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center', warning=FALSE, message=FALSE}
 
-reg_lines2 <- ggplot(data = oj, aes(x = log(price), y = log(sales), color = brand )) +
-  geom_point(size = .75, alpha = 0.15) + geom_smooth(method = lm, se=FALSE) +
-   theme(aspect.ratio=3/4, legend.position="top")
-grid.arrange(reg_lines1, reg_lines2, nrow = 1)   # sub-figures
+ggplot(data = oj, aes(x = log(price), y = log(sales), 
+                      color = brand )) +
+  geom_point(size = .75, alpha = 0.25) +
+  geom_smooth(method = lm, se=FALSE)
+
 ```
 
 
@@ -236,6 +236,8 @@ grid.arrange(reg_lines1, reg_lines2, nrow = 1)   # sub-figures
 ## Advertisement effect
 
 - How does consumer price sensitivity change with advertisement?
+
+  - In a brand-specific manner?
 
 &nbsp;
 
@@ -247,15 +249,15 @@ $\log(\texttt{sales}) = \alpha_{\texttt{brand,feat}} + \beta_{\texttt{brand,feat
 
 &nbsp;
 
-- Here $\beta_{\texttt{brand,feat}}$ measures the brand-feat-specific price elasticity:
+- Here $\beta_{\texttt{brand}}$ measures the brand-feat-specific price elasticity:
 
 <center>
-$\beta_{\texttt{brand,feat}} = \hspace{.3cm}(\hspace{.1cm} \beta_{\texttt{d,no_ad}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m,no_ad}}1_{\texttt{[brand=minutemaid]}}\\\hspace{5.25cm}+\beta_{\texttt{t,no_ad}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm})\times1_{\texttt{[feat=0]}}\\   \hspace{4.25cm} + (\hspace{.1cm}\beta_{\texttt{d,ad}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m,ad}}1_{\texttt{[brand=minutemaid]}}\\\hspace{5.25cm}+\beta_{\texttt{t,ad}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm})\times1_{\texttt{[feat=1]}}$
+$\beta_{\texttt{brand,feat}} = \hspace{.3cm}(\hspace{.1cm} \beta_{\texttt{d,no_ad}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m,no_ad}}1_{\texttt{[brand=minutemaid]}}\\\hspace{3cm}+\beta_{\texttt{t,no_ad}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm})\times1_{\texttt{[feat=0]}}\\   \hspace{2cm} + (\hspace{.1cm}\beta_{\texttt{d,ad}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m,ad}}1_{\texttt{[brand=minutemaid]}}\\\hspace{3cm}+\beta_{\texttt{t,ad}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm})\times1_{\texttt{[feat=1]}}$
 </center>
 
 ## Run the model
 
-```{r reg3, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4}
+```{r, echo = TRUE, eval = FALSE, fig.height = 4, fig.align='center'}
 
 reg_oj3 <- lm(log(sales) ~ log(price)*brand*feat, 
              data=oj)
@@ -264,7 +266,7 @@ stargazer(reg_oj1, reg_oj2, reg_oj3, type = "html", omit = c("Constant"))
 
 ## Result {.smaller}
 
-```{r reg3_r, eval=TRUE, echo=FALSE, fig.align='center', out.height="50%", results="asis"}
+```{r results = "asis", echo = FALSE, eval = TRUE, out.height = "50%", fig.align='center'}
 
 reg_oj3 <- lm(log(sales) ~ log(price)*brand*feat, 
              data=oj)
@@ -272,23 +274,23 @@ stargazer(reg_oj1, reg_oj2, reg_oj3, type = "html", omit = c("Constant"))
 ```
 
 ## Regression lines
-```{r feat, fig.align='center', include=FALSE, out.height="75%"}
+```{r, include = FALSE, out.height = "75%", fig.align='center'}
 feat_names <- c(`0` = "no ad", `1` = "ad")
 ```
 
-```{r reg3_v, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center', warning = FALSE, message = FALSE}
 
 ggplot(data = oj, aes(x = log(price), y = log(sales), color = brand )) +
-  geom_point(size = .75, alpha = 0.15) +
+  geom_point(size = .75, alpha = 0.25) +
   geom_smooth(method=lm) +
   facet_grid( . ~ feat, labeller = as_labeller(feat_names))
 
 ```
 
 
-## Price elasticities of OJ
+## Price elasticities of OJ {.font size="1"}
 
-```{r elas_t, eval=TRUE, echo=FALSE, fig.align='center', out.height="75%"}
+```{r, echo = FALSE, eval = TRUE, out.height = "75%", fig.align='center'}
 coef1 <-  coef(reg_oj1)
 coef2 <-  coef(reg_oj2)
 coef3 <-  coef(reg_oj3)
@@ -316,7 +318,7 @@ knitr::kable(round(elasticity,1), "simple")
 
 ## The relationship between ad and brand
 
-```{r ad_brand_tb, fig.align='center', include=FALSE, out.height="75%"}
+```{r, include = FALSE, out.height = "75%", fig.align='center'}
 by_brand <- group_by(oj, brand, feat)
 salestable <- summarize(by_brand, 
                         sales_tot = 
@@ -324,9 +326,11 @@ salestable <- summarize(by_brand,
                         )
 salestable <- salestable %>% group_by(feat) %>% 
   mutate(sales_prop = sales_tot/sum(sales_tot))
+
+feat_names <- c(`0` = "no ad", `1` = "ad")
 ```
 
-```{r ad_barnd_v, eval=TRUE, echo=TRUE, fig.align='center', fig.height=3.5}
+```{r, echo = TRUE, eval = TRUE, fig.height = 3.5, fig.align='center'}
 ggplot(data = salestable) +
   geom_bar(mapping = aes(x = factor(feat), y = sales_prop, 
                          fill = brand), stat = "identity") + 
@@ -338,22 +342,22 @@ ggplot(data = salestable) +
 
 ## Residual plot and model fit
 
+```{r include=FALSE}
+# Gets the predicted log(sales) from three different models
+oj$predLogSales1 <- predict(reg_oj1, newdata = oj)
+oj$predLogSales2 <- predict(reg_oj2, newdata = oj)
+oj$predLogSales3 <- predict(reg_oj3, newdata = oj)
+```
 - Which model is better?
 
   - On average, are the predictions correct?
 
   - Are there systematic errors in prediction?
-  
-- Predicted log of sales can be calculated as follows:
-```{r pred, eval=TRUE, echo=TRUE, fig.align='center', fig.height=3.5}
-oj$predLogSales1 <- predict(reg_oj1, newdata = oj)  # Model 1
-oj$predLogSales2 <- predict(reg_oj2, newdata = oj)  # Model 2
-oj$predLogSales3 <- predict(reg_oj3, newdata = oj)  # Model 3
-```
 
 ## Residual plot for model 1
 
-```{r resid1_v, eval=TRUE, echo=TRUE, fig.align='center', fig.height=3.775, message=FALSE, warning=FALSE}
+```{r, echo = TRUE, eval = TRUE, fig.height = 3.8, fig.align='center', warning=FALSE, message=FALSE}
+# Residual plot 1
 ggplot(data = oj, aes(x = predLogSales1, y = log(sales) - predLogSales1 )) +
   geom_point(alpha = 0.2, color = "orange") + geom_smooth(color = "darkblue") +
   geom_line(aes(x = predLogSales1, y = 0), color = "red", linetype = 2) +
@@ -362,9 +366,10 @@ ggplot(data = oj, aes(x = predLogSales1, y = log(sales) - predLogSales1 )) +
 
 
 
-## Residual plot for model 2 
+## Residual plot for model 2
 
-```{r resid2_v, eval=TRUE, echo=TRUE, fig.align='center', fig.height=3.775, message=FALSE, warning=FALSE}
+```{r, echo = TRUE, eval = TRUE, fig.height = 3.8, fig.align='center', warning=FALSE, message=FALSE}
+# Residual plot 2
 ggplot(data = oj, aes(x = predLogSales2, y = log(sales) - predLogSales2 )) +
   geom_point(alpha = 0.2, color = "orange") + geom_smooth(color = "darkblue") +
   geom_line(aes(x = predLogSales2, y = 0), color = "red", linetype = 2) +
@@ -373,9 +378,10 @@ ggplot(data = oj, aes(x = predLogSales2, y = log(sales) - predLogSales2 )) +
 
 
 
-## Residual plot for model 3 
+## Residual plot for model 3
 
-```{r resid3_v, eval=TRUE, echo=TRUE, fig.align='center', fig.height=3.775, message=FALSE, warning=FALSE}
+```{r, echo = TRUE, eval = TRUE, fig.height = 3.8, fig.align='center', warning=FALSE, message=FALSE}
+# Residual plot 3
 ggplot(data = oj, aes(x = predLogSales3, y = log(sales) - predLogSales3 )) +
   geom_point(alpha = 0.2, color = "orange") + geom_smooth(color = "darkblue") +
   geom_line(aes(x = predLogSales3, y = 0), color = "red", linetype = 2) +
