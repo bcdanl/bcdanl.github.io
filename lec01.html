@@ -288,7 +288,7 @@ $(document).ready(function () {
 </center>
 <p> </p>
 <ul>
-<li><p>The concept of the elasticity plays an important role in industries.</p>
+<li><p>The concept of elasticity will play an important role in industries.</p>
 <ul>
 <li>Marketers need to understand how consumers are sensitive to fluctuations in price.</li>
 </ul></li>
@@ -296,21 +296,22 @@ $(document).ready(function () {
 </div>
 <div id="loading-r-packages-and-orange-juice-data" class="section level2">
 <h2>Loading R packages and orange juice data</h2>
-<pre class="r"><code>library(tidyverse)      # ggplot and more
-theme_set(theme_minimal())  # minimal theme for ggplot
-library(skimr)          # a better summary of data
-library(stargazer)      # regression tables
-library(moderndive)     # geom_parallel_slopes()
-library(gridExtra)      # sub figures</code></pre>
-<ul>
-<li>We will use weekly sales data for orange juice (OJ) from Dominick’s grocery stores in the 1990s.</li>
-</ul>
-<pre class="r"><code>oj &lt;- read.table(
+<pre class="r"><code>library(tidyverse)  # ggplot and more
+theme_set(theme_minimal()) # minimal theme for ggplot
+library(skimr) # a better summary of data
+library(stargazer)  # regression tables
+library(moderndive) # geom_parallel_slopes()
+
+oj &lt;- read.table(
   &#39;https://bcecon.github.io/dominick_oj.csv&#39;,
   sep = &#39;,&#39;,
   header = TRUE,
   stringsAsFactor = TRUE
 )</code></pre>
+<p> </p>
+<ul>
+<li>We will use weekly sales data for orange juice (OJ) from Dominick’s grocery stores in the 1990s.</li>
+</ul>
 </div>
 <div id="descriptive-statistics" class="section level1">
 <h1>Descriptive statistics</h1>
@@ -329,8 +330,7 @@ library(gridExtra)      # sub figures</code></pre>
 </div>
 <div id="descriptive-statistics-1" class="section level2">
 <h2>Descriptive statistics</h2>
-<pre class="r"><code>knitr::kable(skimmed_chr, &quot;simple&quot;,   # from skimr::skim() 
-             col.names = c(&#39;Variable&#39;, &#39;n_missing&#39;, &#39;n_Categories&#39;, &#39;Counts&#39;))  </code></pre>
+<pre class="r"><code>knitr::kable(skimmed_chr, &quot;simple&quot;)   # from skimr::skim()</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -349,12 +349,7 @@ library(gridExtra)      # sub figures</code></pre>
 </tr>
 </tbody>
 </table>
-</div>
-<div id="descriptive-statistics-2" class="section level2">
-<h2>Descriptive statistics</h2>
-<pre class="r"><code>knitr::kable(skimmed_numeric, &quot;simple&quot;,   # from skimr::skim()
-             col.names = c(&#39;Variable&#39;, &#39;n_missing&#39;, &#39;Mean&#39;, &#39;SD&#39;,
-                           &#39;Min&#39;, &#39;Q1&#39;, &#39;Median&#39;,&#39;Q3&#39;, &#39;Max&#39;, &#39;Hist&#39;))</code></pre>
+<pre class="r"><code>knitr::kable(skimmed_numeric, &quot;simple&quot;)   # from skimr::skim()</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -418,19 +413,24 @@ library(gridExtra)      # sub figures</code></pre>
 <ul>
 <li>It is better to use a logarithmic scale when percent change matters.</li>
 </ul>
-<pre class="r"><code>ggplot() + 
-  geom_boxplot(data = oj, aes( y = log(price), x = brand, color = brand )) +
-  geom_point(data = mu, aes(y = grp.mean, x = brand)) + 
-  theme(axis.text.x = element_blank(), 
-        axis.ticks = element_blank())</code></pre>
-<p><img src="lec01_files/figure-html/v_price-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(data = oj) + 
+  geom_boxplot( aes( y = log(price), color = brand )) +
+  theme(axis.text.x = element_blank(), axis.ticks = element_blank())</code></pre>
+<p><img src="lec01_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="demand-for-oj" class="section level2">
-<h2>Demand for OJ</h2>
+<div id="distribution-of-oj-sales" class="section level2">
+<h2>Distribution of OJ sales</h2>
+<pre class="r"><code>ggplot(data = oj) + 
+  geom_boxplot( aes( y = log(sales), color = brand )) +
+  theme(axis.text.x = element_blank(), axis.ticks = element_blank())</code></pre>
+<p><img src="lec01_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="supply-and-demand-for-oj" class="section level2">
+<h2>Supply and demand for OJ</h2>
 <pre class="r"><code>ggplot(data = oj, aes( x = log(price), y = log(sales), 
                        color = brand )) + 
   geom_point( alpha = .25 ) </code></pre>
-<p><img src="lec01_files/figure-html/v_demand-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="lec01_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="regression-models" class="section level1">
@@ -464,8 +464,8 @@ library(gridExtra)      # sub figures</code></pre>
              data=oj)
 stargazer(reg_oj1, type = &quot;html&quot;, omit = c(&quot;Constant&quot;))</code></pre>
 </div>
-<div id="run-the-model-1" class="section level2">
-<h2>Run the model</h2>
+<div id="run-the-model-1" class="section level2 smaller">
+<h2 class="smaller">Run the model</h2>
 <table style="text-align:center">
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -620,9 +620,9 @@ F Statistic
 <h2>Regression lines</h2>
 <pre class="r"><code>ggplot(data = oj, aes(x = log(price), y = log(sales), 
                       color = brand )) +
-  geom_point(size = .75, alpha = 0.15) +
+  geom_point(size = .75, alpha = 0.25) +
   geom_parallel_slopes()</code></pre>
-<p><img src="lec01_files/figure-html/reg1_v-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="lec01_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="regerssion-model-with-interaction-terms" class="section level2">
 <h2>Regerssion model with interaction terms</h2>
@@ -907,16 +907,19 @@ F Statistic
 </div>
 <div id="regression-lines-1" class="section level2">
 <h2>Regression lines</h2>
-<pre class="r"><code>reg_lines2 &lt;- ggplot(data = oj, aes(x = log(price), y = log(sales), color = brand )) +
-  geom_point(size = .75, alpha = 0.15) + geom_smooth(method = lm, se=FALSE) +
-   theme(aspect.ratio=3/4, legend.position=&quot;top&quot;)
-grid.arrange(reg_lines1, reg_lines2, nrow = 1)   # sub-figures</code></pre>
-<p><img src="lec01_files/figure-html/reg2_v-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(data = oj, aes(x = log(price), y = log(sales), 
+                      color = brand )) +
+  geom_point(size = .75, alpha = 0.25) +
+  geom_smooth(method = lm, se=FALSE)</code></pre>
+<p><img src="lec01_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="advertisement-effect" class="section level2">
 <h2>Advertisement effect</h2>
 <ul>
-<li>How does consumer price sensitivity change with advertisement?</li>
+<li><p>How does consumer price sensitivity change with advertisement?</p>
+<ul>
+<li>In a brand-specific manner?</li>
+</ul></li>
 </ul>
 <p> </p>
 <ul>
@@ -927,10 +930,10 @@ grid.arrange(reg_lines1, reg_lines2, nrow = 1)   # sub-figures</code></pre>
 </center>
 <p> </p>
 <ul>
-<li>Here <span class="math inline">\(\beta_{\texttt{brand,feat}}\)</span> measures the brand-feat-specific price elasticity:</li>
+<li>Here <span class="math inline">\(\beta_{\texttt{brand}}\)</span> measures the brand-feat-specific price elasticity:</li>
 </ul>
 <center>
-<span class="math inline">\(\beta_{\texttt{brand,feat}} = \hspace{.3cm}(\hspace{.1cm} \beta_{\texttt{d,no_ad}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m,no_ad}}1_{\texttt{[brand=minutemaid]}}\\\hspace{5.25cm}+\beta_{\texttt{t,no_ad}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm})\times1_{\texttt{[feat=0]}}\\ \hspace{4.25cm} + (\hspace{.1cm}\beta_{\texttt{d,ad}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m,ad}}1_{\texttt{[brand=minutemaid]}}\\\hspace{5.25cm}+\beta_{\texttt{t,ad}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm})\times1_{\texttt{[feat=1]}}\)</span>
+<span class="math inline">\(\beta_{\texttt{brand,feat}} = \hspace{.3cm}(\hspace{.1cm} \beta_{\texttt{d,no_ad}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m,no_ad}}1_{\texttt{[brand=minutemaid]}}\\\hspace{3cm}+\beta_{\texttt{t,no_ad}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm})\times1_{\texttt{[feat=0]}}\\ \hspace{2cm} + (\hspace{.1cm}\beta_{\texttt{d,ad}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m,ad}}1_{\texttt{[brand=minutemaid]}}\\\hspace{3cm}+\beta_{\texttt{t,ad}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm})\times1_{\texttt{[feat=1]}}\)</span>
 </center>
 </div>
 <div id="run-the-model-3" class="section level2">
@@ -1453,13 +1456,13 @@ F Statistic
 <div id="regression-lines-2" class="section level2">
 <h2>Regression lines</h2>
 <pre class="r"><code>ggplot(data = oj, aes(x = log(price), y = log(sales), color = brand )) +
-  geom_point(size = .75, alpha = 0.15) +
+  geom_point(size = .75, alpha = 0.25) +
   geom_smooth(method=lm) +
   facet_grid( . ~ feat, labeller = as_labeller(feat_names))</code></pre>
-<p><img src="lec01_files/figure-html/reg3_v-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="lec01_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="price-elasticities-of-oj" class="section level2">
-<h2>Price elasticities of OJ</h2>
+<div id="price-elasticities-of-oj" class="section level2 font" size="1">
+<h2 class="font" size="1">Price elasticities of OJ</h2>
 <table>
 <thead>
 <tr class="header">
@@ -1512,7 +1515,7 @@ F Statistic
                          fill = brand), stat = &quot;identity&quot;) + 
   xlab(&quot;feat&quot;) + ylab(&quot;proportion of sales&quot;) +
   scale_x_discrete(breaks=c(0, 1), labels=c(&quot;no ad&quot;, &quot;ad&quot;))</code></pre>
-<p><img src="lec01_files/figure-html/ad_barnd_v-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="lec01_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="residual-plot-and-model-fit" class="section level2">
 <h2>Residual plot and model fit</h2>
@@ -1522,38 +1525,38 @@ F Statistic
 <li><p>On average, are the predictions correct?</p></li>
 <li><p>Are there systematic errors in prediction?</p></li>
 </ul></li>
-<li><p>Predicted log of sales can be calculated as follows:</p></li>
 </ul>
-<pre class="r"><code>oj$predLogSales1 &lt;- predict(reg_oj1, newdata = oj)  # Model 1
-oj$predLogSales2 &lt;- predict(reg_oj2, newdata = oj)  # Model 2
-oj$predLogSales3 &lt;- predict(reg_oj3, newdata = oj)  # Model 3</code></pre>
 </div>
 <div id="residual-plot-for-model-1" class="section level2">
 <h2>Residual plot for model 1</h2>
-<pre class="r"><code>ggplot(data = oj, aes(x = predLogSales1, y = log(sales) - predLogSales1 )) +
+<pre class="r"><code># Residual plot 1
+ggplot(data = oj, aes(x = predLogSales1, y = log(sales) - predLogSales1 )) +
   geom_point(alpha = 0.2, color = &quot;orange&quot;) + geom_smooth(color = &quot;darkblue&quot;) +
   geom_line(aes(x = predLogSales1, y = 0), color = &quot;red&quot;, linetype = 2) +
   xlab(&quot;prediction&quot;) + ylab(&quot;residual error (actual - prediction)&quot;)</code></pre>
-<p><img src="lec01_files/figure-html/resid1_v-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="lec01_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="residual-plot-for-model-2" class="section level2">
 <h2>Residual plot for model 2</h2>
-<pre class="r"><code>ggplot(data = oj, aes(x = predLogSales2, y = log(sales) - predLogSales2 )) +
+<pre class="r"><code># Residual plot 2
+ggplot(data = oj, aes(x = predLogSales2, y = log(sales) - predLogSales2 )) +
   geom_point(alpha = 0.2, color = &quot;orange&quot;) + geom_smooth(color = &quot;darkblue&quot;) +
   geom_line(aes(x = predLogSales2, y = 0), color = &quot;red&quot;, linetype = 2) +
   xlab(&quot;prediction&quot;) + ylab(&quot;residual error (actual - prediction)&quot;)</code></pre>
-<p><img src="lec01_files/figure-html/resid2_v-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="lec01_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="residual-plot-for-model-3" class="section level2">
 <h2>Residual plot for model 3</h2>
-<pre class="r"><code>ggplot(data = oj, aes(x = predLogSales3, y = log(sales) - predLogSales3 )) +
+<pre class="r"><code># Residual plot 3
+ggplot(data = oj, aes(x = predLogSales3, y = log(sales) - predLogSales3 )) +
   geom_point(alpha = 0.2, color = &quot;orange&quot;) + geom_smooth(color = &quot;darkblue&quot;) +
   geom_line(aes(x = predLogSales3, y = 0), color = &quot;red&quot;, linetype = 2) +
   xlab(&quot;prediction&quot;) + ylab(&quot;residual error (actual - prediction)&quot;)</code></pre>
-<p><img src="lec01_files/figure-html/resid3_v-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="lec01_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 
+<p>Copyright &copy; 2022 Byeong-Hak Choe. All rights reserved.</p>
 
 
 
