@@ -275,13 +275,6 @@ $(document).ready(function () {
 </div>
 
 
-<style type="text/css">
-  body{
-  font-family: Times New Roman;
-  <!-- font-family: Times New Roman; -->
-  font-size: 12pt;
-}
-</style>
 <p>This is an example of the lecture on estimating price elasticity via the model of linear regression with interaction terms using data for orange juice sales. The example is taken from the book, “<a href="https://www.amazon.com/Business-Data-Science-Combining-Accelerate/dp/1260452778">Business Data Science: Combining Machine Learning and Economics to Optimize, Automate, and Accelerate Business Decisions</a>,” and modified by Byeong-Hak Choe.</p>
 <p> </p>
 <div id="price-elasticity-of-demand" class="section level2">
@@ -303,23 +296,11 @@ $(document).ready(function () {
 </div>
 <div id="loading-r-packages-and-orange-juice-data" class="section level2">
 <h2>Loading R packages and orange juice data</h2>
-<pre class="r"><code>library(tidyverse)  # ggplot and more</code></pre>
-<pre><code>## ── Attaching packages ───────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
-<pre><code>## ✓ ggplot2 3.3.5     ✓ purrr   0.3.4
-## ✓ tibble  3.1.6     ✓ dplyr   1.0.7
-## ✓ tidyr   1.1.4     ✓ stringr 1.4.0
-## ✓ readr   2.1.2     ✓ forcats 0.5.1</code></pre>
-<pre><code>## ── Conflicts ──────────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code>theme_set(theme_minimal()) # minimal theme for ggplot
+<pre class="r"><code>library(tidyverse)  # ggplot and more
+theme_set(theme_minimal()) # minimal theme for ggplot
 library(skimr) # a better summary of data
-library(stargazer)  # regression tables</code></pre>
-<pre><code>## 
-## Please cite as:</code></pre>
-<pre><code>##  Hlavac, Marek (2018). stargazer: Well-Formatted Regression and Summary Statistics Tables.</code></pre>
-<pre><code>##  R package version 5.2.2. https://CRAN.R-project.org/package=stargazer</code></pre>
-<pre class="r"><code>library(moderndive) # geom_parallel_slopes()
+library(stargazer)  # regression tables
+library(moderndive) # geom_parallel_slopes()
 
 oj &lt;- read.table(
   &#39;https://bcecon.github.io/dominick_oj.csv&#39;,
