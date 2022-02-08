@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Byeong-Hak Choe" />
+
+<meta name="date" content="2022-02-04" />
+
+<title>Lecture</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">byeong-hak choe</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">home</a>
+</li>
+<li>
+  <a href="about.html">about me</a>
+</li>
+<li>
+  <a href="project.html">team project</a>
+</li>
+<li>
+  <a href="lec01.html">lecture</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Lecture</h1>
+<h4 class="author">Byeong-Hak Choe</h4>
+<h4 class="date">February 4, 2022</h4>
+
+</div>
+
+
+<p>This is an example of the lecture on estimating price elasticity via the model of linear regression with interaction terms using data for orange juice sales. The example is taken from the book, “<a href="https://www.amazon.com/Business-Data-Science-Combining-Accelerate/dp/1260452778">Business Data Science: Combining Machine Learning and Economics to Optimize, Automate, and Accelerate Business Decisions</a>,” and modified by Byeong-Hak Choe.</p>
+<p> </p>
+<div id="orange-juice-regression" class="section level2">
+<h2>Orange juice regression</h2>
+<p> </p>
+<p>The following loads the R packages and sets up the minimal theme for plots in this lecture.</p>
+<pre class="r"><code># install.packages(&quot;&quot;)  # in case you need to install the following R packages
+
+library(tidyverse)  # ggplot and more
+theme_set(theme_minimal()) # minimal theme for ggplot
+library(skimr) # a better summary of data
+library(stargazer)  # regression tables
+library(moderndive) # geom_parallel_slopes()</code></pre>
+<p>Let’s import the orange juice data. We will use sales data for orange juice (OJ) from Dominick’s grocery stores in the 1990s.</p>
+<pre class="r"><code>oj &lt;- read.table(
+  &#39;https://bcecon.github.io/dominick_oj.csv&#39;,
+  sep = &#39;,&#39;,
+  header = TRUE,
+  stringsAsFactor = TRUE
+)</code></pre>
+<p>The data include variables for weekly price and sales (in number of cartons “sold”) for three OJ brands—Tropicana, Minute Maid, Dominick’s, as well as an indicator variable, <code>feat</code>, showing whether each brand was advertised (in store or flyer) that week.</p>
+<pre class="r"><code>head(oj)</code></pre>
+<pre><code>##   sales price     brand feat
+## 1  8256  3.87 tropicana    0
+## 2  6144  3.87 tropicana    0
+## 3  3840  3.87 tropicana    0
+## 4  8000  3.87 tropicana    0
+## 5  8896  3.87 tropicana    0
+## 6  7168  3.87 tropicana    0</code></pre>
+<p><code>levels()</code> prints out the categories of the factor variable.</p>
+<pre class="r"><code>levels(oj$brand)</code></pre>
+<pre><code>## [1] &quot;dominicks&quot;   &quot;minute.maid&quot; &quot;tropicana&quot;</code></pre>
+<p><code>skim()</code> gives an output of summary statistics with more information including standard deviations, missing values, number of categories for character variables, and histograms.</p>
+<pre class="r"><code>skim(oj)</code></pre>
+<table>
+<caption>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">oj</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">28947</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">4</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">factor</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">3</td>
+</tr>
+<tr class="even">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: factor</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="left">ordered</th>
+<th align="right">n_unique</th>
+<th align="left">top_counts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">brand</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">FALSE</td>
+<td align="right">3</td>
+<td align="left">dom: 9649, min: 9649, tro: 9649</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">sales</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">17312.21</td>
+<td align="right">27477.66</td>
+<td align="right">64.00</td>
+<td align="right">4864.00</td>
+<td align="right">8384.00</td>
+<td align="right">17408.00</td>
+<td align="right">716416.00</td>
+<td align="left">▇▁▁▁▁</td>
+</tr>
+<tr class="even">
+<td align="left">price</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">2.28</td>
+<td align="right">0.65</td>
+<td align="right">0.52</td>
+<td align="right">1.79</td>
+<td align="right">2.17</td>
+<td align="right">2.73</td>
+<td align="right">3.87</td>
+<td align="left">▁▆▇▅▂</td>
+</tr>
+<tr class="odd">
+<td align="left">feat</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0.24</td>
+<td align="right">0.43</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">1.00</td>
+<td align="left">▇▁▁▁▂</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>ggplot(data = oj) + 
+  geom_boxplot( aes( y = log(price), color = brand )) +
+  theme(axis.text.x = element_blank(), axis.ticks = element_blank())</code></pre>
+<p><img src="lec01_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(data = oj) + 
+  geom_boxplot( aes( y = log(sales), color = brand )) +
+  theme(axis.text.x = element_blank(), axis.ticks = element_blank())</code></pre>
+<p><img src="lec01_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(data = oj, aes( x = log(price), y = log(sales), 
+                       color = brand )) + 
+  geom_point( alpha = .25 ) </code></pre>
+<p><img src="lec01_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>by_brand &lt;- group_by(oj, brand, feat)
+salestable &lt;- summarize(by_brand, 
+                        sales_tot = 
+                          sum(sales, na.rm = TRUE)
+                        )</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;brand&#39;. You can override using the
+## `.groups` argument.</code></pre>
+<pre class="r"><code>salestable &lt;- salestable %&gt;% group_by(feat) %&gt;% 
+  mutate(sales_prop = sales_tot/sum(sales_tot))
+
+ggplot(data = salestable) +
+  geom_bar(mapping = aes(x = factor(feat), y = sales_prop, 
+                         fill = brand), stat = &quot;identity&quot;) + 
+    xlab(&quot;feat&quot;) + ylab(&quot;proportion of sales&quot;) + scale_x_discrete(breaks=c(0, 1), labels=c(&quot;no ad&quot;, &quot;ad&quot;))</code></pre>
+<p><img src="lec01_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(data = oj) + 
+  geom_boxplot( aes( y = log(price), color = brand )) +
+  facet_grid( . ~ feat) +
+  theme(axis.text.x = element_blank(), axis.ticks = element_blank())</code></pre>
+<p><img src="lec01_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(data = oj) + 
+  geom_boxplot( aes( y = log(sales), color = brand )) +
+  facet_grid( . ~ feat) +
+  theme(axis.text.x = element_blank(), axis.ticks = element_blank())</code></pre>
+<p><img src="lec01_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(data = oj, aes( x = log(price), y = log(sales), 
+                       color = brand )) + 
+  geom_point( alpha = .25 ) +
+  facet_grid( . ~ feat)</code></pre>
+<p><img src="lec01_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>reg_oj1 &lt;- lm(log(sales) ~ log(price) + brand, 
+             data=oj)
+stargazer(reg_oj1, type = &quot;html&quot;, omit = c(&quot;Constant&quot;))</code></pre>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+log(sales)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+log(price)
+</td>
+<td>
+-3.139<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.023)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandminute.maid
+</td>
+<td>
+0.870<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.013)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandtropicana
+</td>
+<td>
+1.530<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.016)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+28,947
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.394
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.394
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+0.794 (df = 28943)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+6,275.074<sup>***</sup> (df = 3; 28943)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<pre class="r"><code>ggplot(data = oj, aes(x = log(price), y = log(sales), 
+                      color = brand )) +
+  geom_point(size = .75, alpha = 0.25) +
+  geom_parallel_slopes()</code></pre>
+<p><img src="lec01_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>reg_oj2 &lt;- lm(log(sales) ~ log(price)*brand, 
+             data=oj)
+stargazer(reg_oj1, reg_oj2, type = &quot;html&quot;, omit = c(&quot;Constant&quot;))</code></pre>
+<table style="text-align:center">
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="2">
+log(sales)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+log(price)
+</td>
+<td>
+-3.139<sup>***</sup>
+</td>
+<td>
+-3.378<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.023)
+</td>
+<td>
+(0.036)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandminute.maid
+</td>
+<td>
+0.870<sup>***</sup>
+</td>
+<td>
+0.888<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.042)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandtropicana
+</td>
+<td>
+1.530<sup>***</sup>
+</td>
+<td>
+0.962<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.016)
+</td>
+<td>
+(0.046)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+log(price):brandminute.maid
+</td>
+<td>
+</td>
+<td>
+0.057
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.057)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+log(price):brandtropicana
+</td>
+<td>
+</td>
+<td>
+0.666<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.054)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+28,947
+</td>
+<td>
+28,947
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.394
+</td>
+<td>
+0.398
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.394
+</td>
+<td>
+0.398
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+0.794 (df = 28943)
+</td>
+<td>
+0.791 (df = 28941)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+6,275.074<sup>***</sup> (df = 3; 28943)
+</td>
+<td>
+3,823.404<sup>***</sup> (df = 5; 28941)
+</td>
+</tr>
+<tr>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="2" style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<pre class="r"><code>ggplot(data = oj, aes(x = log(price), y = log(sales), 
+                      color = brand )) +
+  geom_point(size = .75, alpha = 0.25) +
+  geom_smooth(method = lm, se=FALSE)</code></pre>
+<p><img src="lec01_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>reg_oj3 &lt;- lm(log(sales) ~ log(price)*brand*feat, 
+             data=oj)
+stargazer(reg_oj1, reg_oj2, reg_oj3, type = &quot;html&quot;, omit = c(&quot;Constant&quot;))</code></pre>
+<table style="text-align:center">
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+log(sales)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+log(price)
+</td>
+<td>
+-3.139<sup>***</sup>
+</td>
+<td>
+-3.378<sup>***</sup>
+</td>
+<td>
+-2.774<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.023)
+</td>
+<td>
+(0.036)
+</td>
+<td>
+(0.039)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandminute.maid
+</td>
+<td>
+0.870<sup>***</sup>
+</td>
+<td>
+0.888<sup>***</sup>
+</td>
+<td>
+0.047
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.042)
+</td>
+<td>
+(0.047)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandtropicana
+</td>
+<td>
+1.530<sup>***</sup>
+</td>
+<td>
+0.962<sup>***</sup>
+</td>
+<td>
+0.708<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.016)
+</td>
+<td>
+(0.046)
+</td>
+<td>
+(0.051)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+feat
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+1.094<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.038)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+log(price):brandminute.maid
+</td>
+<td>
+</td>
+<td>
+0.057
+</td>
+<td>
+0.783<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.057)
+</td>
+<td>
+(0.061)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+log(price):brandtropicana
+</td>
+<td>
+</td>
+<td>
+0.666<sup>***</sup>
+</td>
+<td>
+0.736<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.054)
+</td>
+<td>
+(0.057)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+log(price):feat
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.471<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.074)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandminute.maid:feat
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+1.173<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.082)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandtropicana:feat
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.785<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.099)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+log(price):brandminute.maid:feat
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-1.109<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.122)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+log(price):brandtropicana:feat
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.986<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.124)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+28,947
+</td>
+<td>
+28,947
+</td>
+<td>
+28,947
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.394
+</td>
+<td>
+0.398
+</td>
+<td>
+0.535
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.394
+</td>
+<td>
+0.398
+</td>
+<td>
+0.535
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+0.794 (df = 28943)
+</td>
+<td>
+0.791 (df = 28941)
+</td>
+<td>
+0.695 (df = 28935)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+6,275.074<sup>***</sup> (df = 3; 28943)
+</td>
+<td>
+3,823.404<sup>***</sup> (df = 5; 28941)
+</td>
+<td>
+3,031.232<sup>***</sup> (df = 11; 28935)
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="3" style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<pre class="r"><code>ggplot(data = oj, aes(x = log(price), y = log(sales), color = brand )) +
+  geom_point(size = .75, alpha = 0.25) +
+  geom_smooth(method=lm) +
+  facet_grid( . ~ feat)</code></pre>
+<p><img src="lec01_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">dominicks</th>
+<th align="right">minute.maid</th>
+<th align="right">tropicana</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Model 1</td>
+<td align="right">-3.1</td>
+<td align="right">-3.1</td>
+<td align="right">-3.1</td>
+</tr>
+<tr class="even">
+<td>Model 2</td>
+<td align="right">-3.4</td>
+<td align="right">-3.3</td>
+<td align="right">-2.7</td>
+</tr>
+<tr class="odd">
+<td>Model 3 w/ no ad</td>
+<td align="right">-2.8</td>
+<td align="right">-2.0</td>
+<td align="right">-2.0</td>
+</tr>
+<tr class="even">
+<td>Model 3 w/ ad</td>
+<td align="right">-3.2</td>
+<td align="right">-3.6</td>
+<td align="right">-3.5</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Gets the predicted log(sales) from three different models
+oj$predLogSales1 &lt;- predict(reg_oj1, newdata = oj)
+oj$predLogSales2 &lt;- predict(reg_oj2, newdata = oj)
+oj$predLogSales3 &lt;- predict(reg_oj3, newdata = oj)</code></pre>
+<pre class="r"><code># Residual plot 1
+ggplot(data = oj, aes(x = predLogSales1, y = log(sales) - predLogSales1 )) +
+  geom_point(alpha = 0.2, color = &quot;orange&quot;) + geom_smooth(color = &quot;darkblue&quot;) +
+  geom_line(aes(x = predLogSales1, y = 0), color = &quot;red&quot;, linetype = 2) +
+  xlab(&quot;prediction&quot;) + ylab(&quot;residual error (actual - prediction)&quot;)</code></pre>
+<p><img src="lec01_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Residual plot 2
+ggplot(data = oj, aes(x = predLogSales2, y = log(sales) - predLogSales2 )) +
+  geom_point(alpha = 0.2, color = &quot;orange&quot;) + geom_smooth(color = &quot;darkblue&quot;) +
+  geom_line(aes(x = predLogSales2, y = 0), color = &quot;red&quot;, linetype = 2) +
+  xlab(&quot;prediction&quot;) + ylab(&quot;residual error (actual - prediction)&quot;)</code></pre>
+<p><img src="lec01_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code># Residual plot 3
+ggplot(data = oj, aes(x = predLogSales3, y = log(sales) - predLogSales3 )) +
+  geom_point(alpha = 0.2, color = &quot;orange&quot;) + geom_smooth(color = &quot;darkblue&quot;) +
+  geom_line(aes(x = predLogSales3, y = 0), color = &quot;red&quot;, linetype = 2) +
+  xlab(&quot;prediction&quot;) + ylab(&quot;residual error (actual - prediction)&quot;)</code></pre>
+<p><img src="lec01_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

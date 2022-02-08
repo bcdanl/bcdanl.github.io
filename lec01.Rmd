@@ -1,0 +1,215 @@
+---
+title: "Lecture"
+author: Byeong-Hak Choe
+date: February 4, 2022
+---
+
+This is an example of the lecture on estimating price elasticity via the model of linear regression with interaction terms using data for orange juice sales. The example is taken from the book, "[Business Data Science: Combining Machine Learning and Economics to Optimize, Automate, and Accelerate Business Decisions](https://www.amazon.com/Business-Data-Science-Combining-Accelerate/dp/1260452778)," and modified by Byeong-Hak Choe.
+
+&nbsp;
+
+## Orange juice regression
+
+&nbsp;
+
+The following loads the R packages and sets up the minimal theme for plots in this lecture.
+```{r, echo = TRUE, eval = TRUE, out.height = "100%",  fig.align='center'}
+# install.packages("")  # in case you need to install the following R packages
+
+library(tidyverse)  # ggplot and more
+theme_set(theme_minimal()) # minimal theme for ggplot
+library(skimr) # a better summary of data
+library(stargazer)  # regression tables
+library(moderndive) # geom_parallel_slopes()
+```
+
+Let's import the orange juice data. We will use sales data for orange juice (OJ) from Dominick’s grocery stores in the 1990s.
+```{r, echo = TRUE, eval = TRUE, out.height = "100%",  fig.align='center'}
+oj <- read.table(
+  'https://bcecon.github.io/dominick_oj.csv',
+  sep = ',',
+  header = TRUE,
+  stringsAsFactor = TRUE
+)
+```
+
+The data include variables for weekly price and sales (in number of cartons “sold”) for three OJ brands—Tropicana, Minute Maid, Dominick’s, as well as an indicator variable, `feat`, showing whether each brand was advertised (in store or flyer) that week.
+```{r, echo = TRUE, eval = TRUE, out.height = "100%",  fig.align='center'}
+head(oj)
+```
+
+`levels()` prints out the categories of the factor variable.
+```{r, echo = TRUE, eval = TRUE, out.height = "100%",  fig.align='center'}
+levels(oj$brand)
+```
+
+`skim()` gives an output of summary statistics with more information including standard deviations, missing values, number of categories for character variables, and histograms. 
+```{r, echo = TRUE, eval = TRUE, out.height = "100%",  fig.align='center'}
+skim(oj)
+```
+
+```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center'}
+
+ggplot(data = oj) + 
+  geom_boxplot( aes( y = log(price), color = brand )) +
+  theme(axis.text.x = element_blank(), axis.ticks = element_blank())
+
+```
+
+```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center'}
+
+ggplot(data = oj) + 
+  geom_boxplot( aes( y = log(sales), color = brand )) +
+  theme(axis.text.x = element_blank(), axis.ticks = element_blank())
+```
+
+```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center', warning = FALSE, message = FALSE}
+ggplot(data = oj, aes( x = log(price), y = log(sales), 
+                       color = brand )) + 
+  geom_point( alpha = .25 ) 
+```
+
+
+```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center'}
+by_brand <- group_by(oj, brand, feat)
+salestable <- summarize(by_brand, 
+                        sales_tot = 
+                          sum(sales, na.rm = TRUE)
+                        )
+salestable <- salestable %>% group_by(feat) %>% 
+  mutate(sales_prop = sales_tot/sum(sales_tot))
+
+ggplot(data = salestable) +
+  geom_bar(mapping = aes(x = factor(feat), y = sales_prop, 
+                         fill = brand), stat = "identity") + 
+    xlab("feat") + ylab("proportion of sales") + scale_x_discrete(breaks=c(0, 1), labels=c("no ad", "ad"))
+
+```
+
+
+```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center'}
+
+ggplot(data = oj) + 
+  geom_boxplot( aes( y = log(price), color = brand )) +
+  facet_grid( . ~ feat) +
+  theme(axis.text.x = element_blank(), axis.ticks = element_blank())
+
+```
+
+
+```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center'}
+
+ggplot(data = oj) + 
+  geom_boxplot( aes( y = log(sales), color = brand )) +
+  facet_grid( . ~ feat) +
+  theme(axis.text.x = element_blank(), axis.ticks = element_blank())
+```
+
+```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center', warning = FALSE, message = FALSE}
+ggplot(data = oj, aes( x = log(price), y = log(sales), 
+                       color = brand )) + 
+  geom_point( alpha = .25 ) +
+  facet_grid( . ~ feat)
+```
+
+
+
+```{r results = "asis", echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center'}
+
+reg_oj1 <- lm(log(sales) ~ log(price) + brand, 
+             data=oj)
+stargazer(reg_oj1, type = "html", omit = c("Constant"))
+```
+
+
+```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center'}
+
+ggplot(data = oj, aes(x = log(price), y = log(sales), 
+                      color = brand )) +
+  geom_point(size = .75, alpha = 0.25) +
+  geom_parallel_slopes()
+
+```
+
+```{r results = "asis", echo = TRUE, eval = TRUE, out.height = "50%", fig.align='center'}
+
+reg_oj2 <- lm(log(sales) ~ log(price)*brand, 
+             data=oj)
+stargazer(reg_oj1, reg_oj2, type = "html", omit = c("Constant"))
+```
+
+
+```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center', warning=FALSE, message=FALSE}
+
+ggplot(data = oj, aes(x = log(price), y = log(sales), 
+                      color = brand )) +
+  geom_point(size = .75, alpha = 0.25) +
+  geom_smooth(method = lm, se=FALSE)
+
+```
+
+```{r results = "asis", echo = TRUE, eval = TRUE, out.height = "50%", fig.align='center'}
+
+reg_oj3 <- lm(log(sales) ~ log(price)*brand*feat, 
+             data=oj)
+stargazer(reg_oj1, reg_oj2, reg_oj3, type = "html", omit = c("Constant"))
+```
+
+```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center', warning = FALSE, message = FALSE}
+
+ggplot(data = oj, aes(x = log(price), y = log(sales), color = brand )) +
+  geom_point(size = .75, alpha = 0.25) +
+  geom_smooth(method=lm) +
+  facet_grid( . ~ feat)
+
+```
+
+
+```{r, echo = FALSE, eval = TRUE, out.height = "75%", fig.align='center'}
+coef1 <-  coef(reg_oj1)
+coef2 <-  coef(reg_oj2)
+coef3 <-  coef(reg_oj3)
+elasticity <- data.frame(
+  "dominicks" = c(coef1['log(price)'],coef2['log(price)'],coef3['log(price)'],coef3['log(price)']+coef3['log(price):feat']),
+  "minute.maid" = c(coef1['log(price)'],
+                coef2['log(price)']+coef2['log(price):brandminute.maid'], coef3['log(price)']+coef3['log(price):brandminute.maid'], coef3['log(price)']+coef3['log(price):brandminute.maid']+coef3['log(price):feat']+coef3['log(price):brandminute.maid:feat']),
+  "tropicana" = c(coef1['log(price)'],
+                coef2['log(price)']+coef2['log(price):brandtropicana'], coef3['log(price)']+coef3['log(price):brandtropicana'], coef3['log(price)']+coef3['log(price):brandtropicana']+coef3['log(price):feat']+coef3['log(price):brandtropicana:feat'])
+  )
+row.names(elasticity) <- c("Model 1", "Model 2", "Model 3 w/ no ad", "Model 3 w/ ad")
+
+knitr::kable(round(elasticity,1), "simple")   
+```
+
+
+```{r, echo = TRUE, eval = TRUE, fig.height = 3.8, fig.align='center', warning=FALSE, message=FALSE}
+
+# Gets the predicted log(sales) from three different models
+oj$predLogSales1 <- predict(reg_oj1, newdata = oj)
+oj$predLogSales2 <- predict(reg_oj2, newdata = oj)
+oj$predLogSales3 <- predict(reg_oj3, newdata = oj)
+```
+
+```{r, echo = TRUE, eval = TRUE, fig.height = 3.8, fig.align='center', warning=FALSE, message=FALSE}
+# Residual plot 1
+ggplot(data = oj, aes(x = predLogSales1, y = log(sales) - predLogSales1 )) +
+  geom_point(alpha = 0.2, color = "orange") + geom_smooth(color = "darkblue") +
+  geom_line(aes(x = predLogSales1, y = 0), color = "red", linetype = 2) +
+  xlab("prediction") + ylab("residual error (actual - prediction)")
+```
+
+```{r, echo = TRUE, eval = TRUE, fig.height = 3.8, fig.align='center', warning=FALSE, message=FALSE}
+# Residual plot 2
+ggplot(data = oj, aes(x = predLogSales2, y = log(sales) - predLogSales2 )) +
+  geom_point(alpha = 0.2, color = "orange") + geom_smooth(color = "darkblue") +
+  geom_line(aes(x = predLogSales2, y = 0), color = "red", linetype = 2) +
+  xlab("prediction") + ylab("residual error (actual - prediction)")
+```
+
+```{r, echo = TRUE, eval = TRUE, fig.height = 3.8, fig.align='center', warning=FALSE, message=FALSE}
+# Residual plot 3
+ggplot(data = oj, aes(x = predLogSales3, y = log(sales) - predLogSales3 )) +
+  geom_point(alpha = 0.2, color = "orange") + geom_smooth(color = "darkblue") +
+  geom_line(aes(x = predLogSales3, y = 0), color = "red", linetype = 2) +
+  xlab("prediction") + ylab("residual error (actual - prediction)")
+```
