@@ -1,18 +1,17 @@
 ---
-title: "Lecture"
+title: "Lecture on Estimating Price Elasticities of Orange Juice"
 author: Byeong-Hak Choe
 date: February 4, 2022
 ---
 
 This is an example of the lecture on estimating price elasticity via the model of linear regression with interaction terms using data for orange juice sales. The example is taken from the book, "[Business Data Science: Combining Machine Learning and Economics to Optimize, Automate, and Accelerate Business Decisions](https://www.amazon.com/Business-Data-Science-Combining-Accelerate/dp/1260452778)," and modified by Byeong-Hak Choe.
 
-&nbsp;
+
 
 ## Orange juice regression
 
-&nbsp;
-
 The following loads the R packages and sets up the minimal theme for plots in this lecture.
+
 ```{r, echo = TRUE, eval = TRUE, out.height = "100%",  fig.align='center'}
 # install.packages("")  # in case you need to install the following R packages
 
@@ -24,6 +23,7 @@ library(moderndive) # geom_parallel_slopes()
 ```
 
 Let's import the orange juice data. We will use sales data for orange juice (OJ) from Dominick’s grocery stores in the 1990s.
+
 ```{r, echo = TRUE, eval = TRUE, out.height = "100%",  fig.align='center'}
 oj <- read.table(
   'https://bcecon.github.io/dominick_oj.csv',
@@ -34,16 +34,19 @@ oj <- read.table(
 ```
 
 The data include variables for weekly price and sales (in number of cartons “sold”) for three OJ brands—Tropicana, Minute Maid, Dominick’s, as well as an indicator variable, `feat`, showing whether each brand was advertised (in store or flyer) that week.
+
 ```{r, echo = TRUE, eval = TRUE, out.height = "100%",  fig.align='center'}
 head(oj)
 ```
 
 `levels()` prints out the categories of the factor variable.
+
 ```{r, echo = TRUE, eval = TRUE, out.height = "100%",  fig.align='center'}
 levels(oj$brand)
 ```
 
 `skim()` gives an output of summary statistics with more information including standard deviations, missing values, number of categories for character variables, and histograms. 
+
 ```{r, echo = TRUE, eval = TRUE, out.height = "100%",  fig.align='center'}
 skim(oj)
 ```
