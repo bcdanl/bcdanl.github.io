@@ -2214,6 +2214,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     text-transform: uppercase;
   }
 
+  .nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header{
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
 
 
   h1, h2, h3, h4, h5, h6 {
@@ -2748,6 +2752,8 @@ LECTURE
 </div>
 <p><img src="lec01_files/figure-html5/unnamed-chunk-12-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
+<p>The regression model is</p>
+<p><span class="math inline">\(\log(sales) = \alpha_{brand} + \beta\log(price) + \epsilon\)</span></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>reg_oj1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>sales</span><span class='op'>)</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span> <span class='op'>+</span> <span class='va'>brand</span>, 
@@ -3799,6 +3805,15 @@ F Statistic
 <div class="d-appendix">
 </div>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
