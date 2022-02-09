@@ -2209,15 +2209,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     text-transform: uppercase;
   }
 
-  .distill-site-menu { 
+  .nav-dropbtn { 
     letter-spacing: 2px;
     text-transform: uppercase;
   }
 
-  .nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header{
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
 
 
   h1, h2, h3, h4, h5, h6 {
@@ -2499,8 +2495,21 @@ LECTURE
 
 <div class="d-article">
 <p>This is an example of the lecture on estimating price elasticity via the model of linear regression with interaction terms using data for orange juice sales. The example is taken from the book, “<a href="https://www.amazon.com/Business-Data-Science-Combining-Accelerate/dp/1260452778">Business Data Science: Combining Machine Learning and Economics to Optimize, Automate, and Accelerate Business Decisions</a>,” and modified by Byeong-Hak Choe.</p>
-<h2 id="orange-juice-regression">Orange juice regression</h2>
-<p>The following loads the R packages and sets up the minimal theme for plots in this lecture.</p>
+<h1 id="orange-juice-regression">Orange juice regression</h1>
+<h2 id="price-elasticity-of-demand">Price elasticity of demand</h2>
+<ul>
+<li>Price elasticity of demand measures how sensitive the quantity demanded is to its price.</li>
+</ul>
+<center>
+<span class="math inline">\(\texttt{Price elasticity of demand} = \dfrac{\texttt{% Change in quantity demanded}}{\texttt{% Change in price}}\)</span>
+</center>
+<ul>
+<li><p>The concept of the elasticity plays an important role in industries.</p>
+<ul>
+<li>Marketers need to understand how consumers are sensitive to fluctuations in price.</li>
+</ul></li>
+</ul>
+<h2 id="loading-r-packages-and-orange-juice-data">Loading R packages and orange juice data</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># install.packages("")  # in case you need to install the following R packages</span>
@@ -2513,7 +2522,9 @@ LECTURE
 </code></pre>
 </div>
 </div>
-<p>Let’s import the orange juice data. We will use sales data for orange juice (OJ) from Dominick’s grocery stores in the 1990s.</p>
+<ul>
+<li>We will use weekly sales data for orange juice (OJ) from Dominick’s grocery stores in the 1990s.</li>
+</ul>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>oj</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span>
@@ -2525,7 +2536,8 @@ LECTURE
 </code></pre>
 </div>
 </div>
-<p>The data include variables for weekly price and sales (in number of cartons “sold”) for three OJ brands—Tropicana, Minute Maid, Dominick’s, as well as an indicator variable, <code>feat</code>, showing whether each brand was advertised (in store or flyer) that week.</p>
+<h1 id="descriptive-statistics">Descriptive statistics</h1>
+<h2 id="oj-data">OJ data</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>oj</span><span class='op'>)</span>
@@ -2677,6 +2689,11 @@ LECTURE
 </tbody>
 </table>
 </div>
+<h1 id="visualizing-oj-data">Visualizing OJ data</h1>
+<h2 id="distribution-of-oj-prices">Distribution of OJ prices</h2>
+<ul>
+<li>It is better to use a logarithmic scale when percent change matters.</li>
+</ul>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>oj</span><span class='op'>)</span> <span class='op'>+</span> 
@@ -2686,6 +2703,7 @@ LECTURE
 </div>
 <p><img src="lec01_files/figure-html5/unnamed-chunk-6-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
+<h2 id="distribution-of-oj-sales">Distribution of OJ sales</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>oj</span><span class='op'>)</span> <span class='op'>+</span> 
@@ -2695,6 +2713,7 @@ LECTURE
 </div>
 <p><img src="lec01_files/figure-html5/unnamed-chunk-7-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
+<h2 id="demand-for-oj">Demand for OJ</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>oj</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span> x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>sales</span><span class='op'>)</span>, 
@@ -2704,56 +2723,29 @@ LECTURE
 </div>
 <p><img src="lec01_files/figure-html5/unnamed-chunk-8-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>by_brand</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>oj</span>, <span class='va'>brand</span>, <span class='va'>feat</span><span class='op'>)</span>
-<span class='va'>salestable</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span><span class='va'>by_brand</span>, 
-                        sales_tot <span class='op'>=</span> 
-                          <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>sales</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-                        <span class='op'>)</span>
-<span class='va'>salestable</span> <span class='op'>&lt;-</span> <span class='va'>salestable</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>feat</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>sales_prop <span class='op'>=</span> <span class='va'>sales_tot</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>sales_tot</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>salestable</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>feat</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='va'>sales_prop</span>, 
-                         fill <span class='op'>=</span> <span class='va'>brand</span><span class='op'>)</span>, stat <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span> 
-    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span><span class='op'>(</span><span class='st'>"feat"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span><span class='op'>(</span><span class='st'>"proportion of sales"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_x_discrete</a></span><span class='op'>(</span>breaks<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"no ad"</span>, <span class='st'>"ad"</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
-<p><img src="lec01_files/figure-html5/unnamed-chunk-9-1.png" width="624" style="display: block; margin: auto;" /></p>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>oj</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span> y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='va'>brand</span> <span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span> <span class='va'>.</span> <span class='op'>~</span> <span class='va'>feat</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>axis.text.x <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span>, axis.ticks <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
-<p><img src="lec01_files/figure-html5/unnamed-chunk-10-1.png" width="624" style="display: block; margin: auto;" /></p>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>oj</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span> y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>sales</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='va'>brand</span> <span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span> <span class='va'>.</span> <span class='op'>~</span> <span class='va'>feat</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>axis.text.x <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span>, axis.ticks <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</code></pre>
-</div>
-<p><img src="lec01_files/figure-html5/unnamed-chunk-11-1.png" width="624" style="display: block; margin: auto;" /></p>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>oj</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span> x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>sales</span><span class='op'>)</span>, 
-                       color <span class='op'>=</span> <span class='va'>brand</span> <span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span> alpha <span class='op'>=</span> <span class='fl'>.25</span> <span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span> <span class='va'>.</span> <span class='op'>~</span> <span class='va'>feat</span><span class='op'>)</span>
-</code></pre>
-</div>
-<p><img src="lec01_files/figure-html5/unnamed-chunk-12-1.png" width="624" style="display: block; margin: auto;" /></p>
-</div>
-<p>The regression model is</p>
-<p><span class="math inline">\(\log(sales) = \alpha_{brand} + \beta\log(price) + \epsilon\)</span></p>
+<h1 id="regression-models">Regression models</h1>
+<h2 class="build faster" id="regression-model-with-brand-dummies">Regression model with brand dummies</h2>
+<ul>
+<li>The regression model for price elasticity of OJ demand can be written as:</li>
+</ul>
+<center>
+<span class="math inline">\(\log(\texttt{sales}) = \alpha_{\texttt{brand}} + \beta\log(\texttt{price}) + \epsilon\)</span>
+</center>
+<p> </p>
+<ul>
+<li>Here <span class="math inline">\(\alpha_{\texttt{brand}}\)</span> is shorthand for a separate indicator for each OJ brand:</li>
+</ul>
+<center>
+<span class="math inline">\(\alpha_{\texttt{brand}} = \alpha_{\texttt{d}}1_{\texttt{[brand=dominicks]}}+\alpha_{\texttt{m}}1_{\texttt{[brand=minut.emaid]}}+\alpha_{\texttt{t}}1_{\texttt{[brand=tropicana]}}\)</span>
+</center>
+<p> </p>
+<ul>
+<li>Here <span class="math inline">\(\beta\)</span> measures the price elasticity of OJ demand:</li>
+</ul>
+<center>
+<span class="math inline">\(\beta = \dfrac{\Delta\log(\texttt{sales})}{\Delta\log(\texttt{price})}\\\hspace{.25cm} = \texttt{(% change in sales)} / \texttt{(% change in price)}\)</span>
+</center>
+<h2 id="run-the-model">Run the model</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>reg_oj1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>sales</span><span class='op'>)</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span> <span class='op'>+</span> <span class='va'>brand</span>, 
@@ -2911,6 +2903,7 @@ F Statistic
 </tr>
 </table>
 </div>
+<h2 id="regression-lines">Regression lines</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>oj</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>sales</span><span class='op'>)</span>, 
@@ -2919,8 +2912,27 @@ F Statistic
   <span class='fu'><a href='moderndive.github.io/moderndive//reference/geom_parallel_slopes.html'>geom_parallel_slopes</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="lec01_files/figure-html5/unnamed-chunk-14-1.png" width="624" style="display: block; margin: auto;" /></p>
+<p><img src="lec01_files/figure-html5/unnamed-chunk-10-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
+<h2 id="regerssion-model-with-interaction-terms">Regerssion model with interaction terms</h2>
+<ul>
+<li>How does consumer price sensitivity change across brands?</li>
+</ul>
+<p> </p>
+<ul>
+<li>The new regression model can be written as:</li>
+</ul>
+<center>
+<span class="math inline">\(\log(\texttt{sales}) = \alpha_{\texttt{brand}} + \beta_{\texttt{brand}}\log(\texttt{price}) + \epsilon\)</span>
+</center>
+<p> </p>
+<ul>
+<li>Here <span class="math inline">\(\beta_{\texttt{brand}}\)</span> is shorthand for the brand-specific price elasticity:</li>
+</ul>
+<center>
+<span class="math inline">\(\beta_{\texttt{brand}} = \hspace{.1cm}\beta_{\texttt{d}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m}}1_{\texttt{[brand=minutemaid]}}+\beta_{\texttt{t}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm}\)</span>
+</center>
+<h2 id="run-the-model-1">Run the model</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>reg_oj2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>sales</span><span class='op'>)</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span><span class='op'>*</span><span class='va'>brand</span>, 
@@ -3181,6 +3193,7 @@ F Statistic
 </tr>
 </table>
 </div>
+<h2 id="regression-lines-1">Regression lines</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>oj</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>sales</span><span class='op'>)</span>, 
@@ -3189,8 +3202,27 @@ F Statistic
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_smooth.html'>geom_smooth</a></span><span class='op'>(</span>method <span class='op'>=</span> <span class='va'>lm</span>, se<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="lec01_files/figure-html5/unnamed-chunk-16-1.png" width="624" style="display: block; margin: auto;" /></p>
+<p><img src="lec01_files/figure-html5/unnamed-chunk-12-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
+<h2 class="build faster" id="advertisement-effect">Advertisement effect</h2>
+<ul>
+<li>How does consumer price sensitivity change with advertisement?</li>
+</ul>
+<p> </p>
+<ul>
+<li>The new regression model can be written as:</li>
+</ul>
+<center>
+<span class="math inline">\(\log(\texttt{sales}) = \alpha_{\texttt{brand,feat}} + \beta_{\texttt{brand,feat}}\log(\texttt{price}) + \epsilon\)</span>
+</center>
+<p> </p>
+<ul>
+<li>Here <span class="math inline">\(\beta_{\texttt{brand,feat}}\)</span> measures the brand-feat-specific price elasticity:</li>
+</ul>
+<center>
+<span class="math inline">\(\beta_{\texttt{brand,feat}} = \hspace{.3cm}(\hspace{.1cm} \beta_{\texttt{d,no_ad}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m,no_ad}}1_{\texttt{[brand=minutemaid]}}\\\hspace{5.25cm}+\beta_{\texttt{t,no_ad}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm})\times1_{\texttt{[feat=0]}}\\ \hspace{4.25cm} + (\hspace{.1cm}\beta_{\texttt{d,ad}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m,ad}}1_{\texttt{[brand=minutemaid]}}\\\hspace{5.25cm}+\beta_{\texttt{t,ad}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm})\times1_{\texttt{[feat=1]}}\)</span>
+</center>
+<h2 id="run-the-model-2">Run the model</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>reg_oj3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>sales</span><span class='op'>)</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span><span class='op'>*</span><span class='va'>brand</span><span class='op'>*</span><span class='va'>feat</span>, 
@@ -3707,6 +3739,7 @@ F Statistic
 </tr>
 </table>
 </div>
+<h2 id="regression-lines-2">Regression lines</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>oj</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>sales</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='va'>brand</span> <span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
@@ -3715,8 +3748,9 @@ F Statistic
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span> <span class='va'>.</span> <span class='op'>~</span> <span class='va'>feat</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="lec01_files/figure-html5/unnamed-chunk-18-1.png" width="624" style="display: block; margin: auto;" /></p>
+<p><img src="lec01_files/figure-html5/unnamed-chunk-14-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
+<h2 id="price-elasticities-of-oj">Price elasticities of OJ</h2>
 <div class="layout-chunk" data-layout="l-body">
 <table>
 <thead>
@@ -3755,15 +3789,80 @@ F Statistic
 </tbody>
 </table>
 </div>
+<ul>
+<li><p>Which model is better?</p>
+<ul>
+<li><p>Which model is more realistic?</p></li>
+<li><p>Why does being featured always lead to more price sensitivity?</p></li>
+</ul></li>
+</ul>
+<h2 id="the-relationship-between-ad-and-brand">The relationship between ad and brand</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Gets the predicted log(sales) from three different models</span>
-<span class='va'>oj</span><span class='op'>$</span><span class='va'>predLogSales1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>reg_oj1</span>, newdata <span class='op'>=</span> <span class='va'>oj</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>by_brand</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>oj</span>, <span class='va'>brand</span>, <span class='va'>feat</span><span class='op'>)</span>
+<span class='va'>salestable</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span><span class='va'>by_brand</span>, 
+                        sales_tot <span class='op'>=</span> 
+                          <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>sales</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+                        <span class='op'>)</span>
+<span class='va'>salestable</span> <span class='op'>&lt;-</span> <span class='va'>salestable</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>feat</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>sales_prop <span class='op'>=</span> <span class='va'>sales_tot</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>sales_tot</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>salestable</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>feat</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='va'>sales_prop</span>, 
+                         fill <span class='op'>=</span> <span class='va'>brand</span><span class='op'>)</span>, stat <span class='op'>=</span> <span class='st'>"identity"</span><span class='op'>)</span> <span class='op'>+</span> 
+    <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>xlab</a></span><span class='op'>(</span><span class='st'>"feat"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span><span class='op'>(</span><span class='st'>"proportion of sales"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_discrete.html'>scale_x_discrete</a></span><span class='op'>(</span>breaks<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, labels<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"no ad"</span>, <span class='st'>"ad"</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="lec01_files/figure-html5/unnamed-chunk-16-1.png" width="624" style="display: block; margin: auto;" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>oj</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span> y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='va'>brand</span> <span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span> <span class='va'>.</span> <span class='op'>~</span> <span class='va'>feat</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>axis.text.x <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span>, axis.ticks <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="lec01_files/figure-html5/unnamed-chunk-17-1.png" width="624" style="display: block; margin: auto;" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>oj</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span> y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>sales</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='va'>brand</span> <span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span> <span class='va'>.</span> <span class='op'>~</span> <span class='va'>feat</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>axis.text.x <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span>, axis.ticks <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="lec01_files/figure-html5/unnamed-chunk-18-1.png" width="624" style="display: block; margin: auto;" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>oj</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span> x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>sales</span><span class='op'>)</span>, 
+                       color <span class='op'>=</span> <span class='va'>brand</span> <span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span> alpha <span class='op'>=</span> <span class='fl'>.25</span> <span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/facet_grid.html'>facet_grid</a></span><span class='op'>(</span> <span class='va'>.</span> <span class='op'>~</span> <span class='va'>feat</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="lec01_files/figure-html5/unnamed-chunk-19-1.png" width="624" style="display: block; margin: auto;" /></p>
+</div>
+<h2 id="residual-plot-and-model-fit">Residual plot and model fit</h2>
+<ul>
+<li><p>Which model is better?</p>
+<ul>
+<li><p>On average, are the predictions correct?</p></li>
+<li><p>Are there systematic errors in prediction?</p></li>
+</ul></li>
+<li><p>Predicted log of sales can be calculated as follows:</p></li>
+</ul>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>oj</span><span class='op'>$</span><span class='va'>predLogSales1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>reg_oj1</span>, newdata <span class='op'>=</span> <span class='va'>oj</span><span class='op'>)</span>
 <span class='va'>oj</span><span class='op'>$</span><span class='va'>predLogSales2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>reg_oj2</span>, newdata <span class='op'>=</span> <span class='va'>oj</span><span class='op'>)</span>
 <span class='va'>oj</span><span class='op'>$</span><span class='va'>predLogSales3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>reg_oj3</span>, newdata <span class='op'>=</span> <span class='va'>oj</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
+<h2 id="residual-plot-for-model-1">Residual plot for model 1</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Residual plot 1</span>
@@ -3775,6 +3874,7 @@ F Statistic
 </div>
 <p><img src="lec01_files/figure-html5/unnamed-chunk-21-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
+<h2 id="residual-plot-for-model-2">Residual plot for model 2</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Residual plot 2</span>
@@ -3786,6 +3886,7 @@ F Statistic
 </div>
 <p><img src="lec01_files/figure-html5/unnamed-chunk-22-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
+<h2 id="residual-plot-for-model-3">Residual plot for model 3</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Residual plot 3</span>
