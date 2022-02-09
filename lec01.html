@@ -2496,7 +2496,7 @@ LECTURE
 <div class="d-article">
 <p>This is an example of the lecture on estimating price elasticity via the model of linear regression with interaction terms using data for orange juice sales. The example is taken from the book, “<a href="https://www.amazon.com/Business-Data-Science-Combining-Accelerate/dp/1260452778">Business Data Science: Combining Machine Learning and Economics to Optimize, Automate, and Accelerate Business Decisions</a>,” and modified by Byeong-Hak Choe.</p>
 <h1 id="orange-juice-regression">Orange juice regression</h1>
-<h2 id="price-elasticity-of-demand">Price elasticity of demand</h2>
+<!-- ## Price elasticity of demand -->
 <ul>
 <li>Price elasticity of demand measures how sensitive the quantity demanded is to its price.</li>
 </ul>
@@ -2509,7 +2509,7 @@ LECTURE
 <li>Marketers need to understand how consumers are sensitive to fluctuations in price.</li>
 </ul></li>
 </ul>
-<h2 id="loading-r-packages-and-orange-juice-data">Loading R packages and orange juice data</h2>
+<!-- ## Loading R packages and orange juice data -->
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># install.packages("")  # in case you need to install the following R packages</span>
@@ -2536,8 +2536,8 @@ LECTURE
 </code></pre>
 </div>
 </div>
-<h1 id="descriptive-statistics">Descriptive statistics</h1>
-<h2 id="oj-data">OJ data</h2>
+<!-- # Descriptive statistics -->
+<!-- ## OJ data -->
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>oj</span><span class='op'>)</span>
@@ -2689,8 +2689,8 @@ LECTURE
 </tbody>
 </table>
 </div>
-<h1 id="visualizing-oj-data">Visualizing OJ data</h1>
-<h2 id="distribution-of-oj-prices">Distribution of OJ prices</h2>
+<!-- # Visualizing OJ data -->
+<!-- ## Distribution of OJ prices -->
 <ul>
 <li>It is better to use a logarithmic scale when percent change matters.</li>
 </ul>
@@ -2703,7 +2703,7 @@ LECTURE
 </div>
 <p><img src="lec01_files/figure-html5/unnamed-chunk-6-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
-<h2 id="distribution-of-oj-sales">Distribution of OJ sales</h2>
+<!-- ## Distribution of OJ sales -->
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>oj</span><span class='op'>)</span> <span class='op'>+</span> 
@@ -2713,7 +2713,7 @@ LECTURE
 </div>
 <p><img src="lec01_files/figure-html5/unnamed-chunk-7-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
-<h2 id="demand-for-oj">Demand for OJ</h2>
+<!-- ## Demand for OJ -->
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>oj</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span> x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>sales</span><span class='op'>)</span>, 
@@ -2723,8 +2723,8 @@ LECTURE
 </div>
 <p><img src="lec01_files/figure-html5/unnamed-chunk-8-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
-<h1 id="regression-models">Regression models</h1>
-<h2 id="regression-model-with-brand-dummies">Regression model with brand dummies</h2>
+<!-- # Regression models -->
+<!-- ## Regression model with brand dummies -->
 <ul>
 <li>The regression model for price elasticity of OJ demand can be written as:</li>
 </ul>
@@ -2743,7 +2743,7 @@ LECTURE
 <center>
 <span class="math inline">\(\beta = \dfrac{\Delta\log(\texttt{sales})}{\Delta\log(\texttt{price})}\\\hspace{.25cm} = \texttt{(% change in sales)} / \texttt{(% change in price)}\)</span>
 </center>
-<h2 id="run-the-model">Run the model</h2>
+<!-- ## Run the model  -->
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>reg_oj1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>sales</span><span class='op'>)</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span> <span class='op'>+</span> <span class='va'>brand</span>, 
@@ -2901,7 +2901,7 @@ F Statistic
 </tr>
 </table>
 </div>
-<h2 id="regression-lines">Regression lines</h2>
+<!-- ## Regression lines -->
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>oj</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>sales</span><span class='op'>)</span>, 
@@ -2912,7 +2912,7 @@ F Statistic
 </div>
 <p><img src="lec01_files/figure-html5/unnamed-chunk-10-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
-<h2 id="regerssion-model-with-interaction-terms">Regerssion model with interaction terms</h2>
+<!-- ## Regerssion model with interaction terms -->
 <ul>
 <li><p>How does consumer price sensitivity change across brands?</p></li>
 <li><p>The new regression model can be written as:</p></li>
@@ -2926,7 +2926,7 @@ F Statistic
 <center>
 <span class="math inline">\(\beta_{\texttt{brand}} = \hspace{.1cm}\beta_{\texttt{d}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m}}1_{\texttt{[brand=minutemaid]}}+\beta_{\texttt{t}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm}\)</span>
 </center>
-<h2 id="run-the-model-1">Run the model</h2>
+<!-- ## Run the model -->
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>reg_oj2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>sales</span><span class='op'>)</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span><span class='op'>*</span><span class='va'>brand</span>, 
@@ -3187,7 +3187,7 @@ F Statistic
 </tr>
 </table>
 </div>
-<h2 id="regression-lines-1">Regression lines</h2>
+<!-- ## Regression lines  -->
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>oj</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>sales</span><span class='op'>)</span>, 
@@ -3198,7 +3198,7 @@ F Statistic
 </div>
 <p><img src="lec01_files/figure-html5/unnamed-chunk-12-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
-<h2 id="advertisement-effect">Advertisement effect</h2>
+<!-- ## Advertisement effect -->
 <ul>
 <li><p>How does consumer price sensitivity change with advertisement?</p></li>
 <li><p>The new regression model can be written as:</p></li>
@@ -3212,7 +3212,7 @@ F Statistic
 <center>
 <span class="math inline">\(\beta_{\texttt{brand,feat}} = \hspace{.3cm}(\hspace{.1cm} \beta_{\texttt{d,no_ad}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m,no_ad}}1_{\texttt{[brand=minutemaid]}}\\\hspace{5.25cm}+\beta_{\texttt{t,no_ad}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm})\times1_{\texttt{[feat=0]}}\\ \hspace{4.25cm} + (\hspace{.1cm}\beta_{\texttt{d,ad}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m,ad}}1_{\texttt{[brand=minutemaid]}}\\\hspace{5.25cm}+\beta_{\texttt{t,ad}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm})\times1_{\texttt{[feat=1]}}\)</span>
 </center>
-<h2 id="run-the-model-2">Run the model</h2>
+<!-- ## Run the model -->
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>reg_oj3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>sales</span><span class='op'>)</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span><span class='op'>*</span><span class='va'>brand</span><span class='op'>*</span><span class='va'>feat</span>, 
@@ -3729,7 +3729,7 @@ F Statistic
 </tr>
 </table>
 </div>
-<h2 id="regression-lines-2">Regression lines</h2>
+<!-- ## Regression lines -->
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>oj</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>price</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>sales</span><span class='op'>)</span>, color <span class='op'>=</span> <span class='va'>brand</span> <span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
@@ -3740,7 +3740,7 @@ F Statistic
 </div>
 <p><img src="lec01_files/figure-html5/unnamed-chunk-14-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
-<h2 id="price-elasticities-of-oj">Price elasticities of OJ</h2>
+<!-- ## Price elasticities of OJ -->
 <div class="layout-chunk" data-layout="l-body">
 <table>
 <thead>
@@ -3786,7 +3786,7 @@ F Statistic
 <li><p>Why does being featured always lead to more price sensitivity?</p></li>
 </ul></li>
 </ul>
-<h2 id="the-relationship-between-ad-and-brand">The relationship between ad and brand</h2>
+<!-- ## The relationship between ad and brand -->
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>by_brand</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>oj</span>, <span class='va'>brand</span>, <span class='va'>feat</span><span class='op'>)</span>
@@ -3835,7 +3835,7 @@ F Statistic
 </div>
 <p><img src="lec01_files/figure-html5/unnamed-chunk-19-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
-<h2 id="residual-plot-and-model-fit">Residual plot and model fit</h2>
+<!-- ## Residual plot and model fit -->
 <ul>
 <li><p>Which model is better?</p>
 <ul>
@@ -3852,7 +3852,7 @@ F Statistic
 </code></pre>
 </div>
 </div>
-<h2 id="residual-plot-for-model-1">Residual plot for model 1</h2>
+<!-- ## Residual plot for model 1 -->
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Residual plot 1</span>
@@ -3864,7 +3864,7 @@ F Statistic
 </div>
 <p><img src="lec01_files/figure-html5/unnamed-chunk-21-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
-<h2 id="residual-plot-for-model-2">Residual plot for model 2</h2>
+<!-- ## Residual plot for model 2 -->
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Residual plot 2</span>
@@ -3876,7 +3876,7 @@ F Statistic
 </div>
 <p><img src="lec01_files/figure-html5/unnamed-chunk-22-1.png" width="624" style="display: block; margin: auto;" /></p>
 </div>
-<h2 id="residual-plot-for-model-3">Residual plot for model 3</h2>
+<!-- ## Residual plot for model 3 -->
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Residual plot 3</span>
