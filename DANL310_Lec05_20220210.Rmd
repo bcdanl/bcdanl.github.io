@@ -142,12 +142,11 @@ p <- ggplot(data = gapminder,
 p + geom_point() +
     geom_smooth(method = "loess") +
     scale_x_log10()
-
 ```
 
 ## Mapping aesthetics vs setting them 
 
-```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=5, message=FALSE, warning=FALSE}
 p <- ggplot(data = gapminder,
             mapping = aes(x = gdpPercap, y = lifeExp,
                           color = "purple"))
@@ -171,7 +170,7 @@ p + geom_point(color = "purple") +
 
 ## Mapping aesthetics vs setting them
 
-```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=5, message=FALSE, warning=FALSE}
 p <- ggplot(data = gapminder,
             mapping = aes(x = gdpPercap,
                           y = lifeExp))
@@ -203,7 +202,7 @@ p + geom_point(alpha = 0.3) +
 ```
 ## Mapping aesthetics vs setting them
 
-```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=5, message=FALSE, warning=FALSE}
 p + geom_point(alpha = 0.3) +
     geom_smooth(method = "gam") +
     scale_x_log10(labels = scales::dollar) +
@@ -228,7 +227,7 @@ p + geom_point() +
 
 ## Mapping aesthetics vs setting them
 
-```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=5, message=FALSE, warning=FALSE}
 p <- ggplot(data = gapminder,
             mapping = aes(x = gdpPercap,
                           y = lifeExp,
@@ -255,7 +254,7 @@ p + geom_point() +
 
 ## Mapping aesthetics vs setting them 
 
-```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=5, message=FALSE, warning=FALSE}
 p <- ggplot(data = gapminder,
             mapping = aes(x = gdpPercap,
                           y = lifeExp,
@@ -280,7 +279,7 @@ p + geom_point(mapping = aes(color = continent)) +
 
 ## Aesthetics can be mapped per geom
 
-```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=5, message=FALSE, warning=FALSE}
 p <- ggplot(data = gapminder, 
             mapping = aes(x = gdpPercap, y = lifeExp))
 
@@ -387,7 +386,7 @@ p + geom_line(color="gray70", aes(group = country)) +
 
 ## Facet to make small multiples
 
-```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=5, message=FALSE, warning=FALSE}
 p + geom_line(color="gray70", aes(group = country)) +
     geom_smooth(size = 1.1, method = "loess", se = FALSE) +
     scale_y_log10(labels=scales::dollar) +
@@ -412,7 +411,7 @@ p + geom_line(color="gray70", aes(group = country)) +
 
 ## Facet to make small multiples
 
-```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=5, message=FALSE, warning=FALSE}
 p + geom_line(color="gray70", aes(group = country)) +
     geom_smooth(size = 1.1, method = "loess", se = FALSE) +
     scale_y_log10(labels=scales::dollar) +
@@ -420,7 +419,7 @@ p + geom_line(color="gray70", aes(group = country)) +
     labs(x = "Year", y = "GDP per capita",
          title = "GDP per capita on Five Continents") + 
     theme(axis.text.x = element_text(angle = 45),
-          axis.title.x = element_text(margin = margin(t = 25)))
+          axis.title.x = element_text(margin = margin(t = 20)))
 ```
 
 
