@@ -1,5 +1,5 @@
 ---
-title: "DANL 310: Lecture 05. Make a Plot"
+title: "DANL 310 Lecture 05"
 author: "Byeong-Hak Choe"
 date: February 10, 2022
 output: 
@@ -9,12 +9,19 @@ output:
     smaller: FALSE
     smart: TRUE
 ---
+# Make a Plot
 
-## Loading the R packages and setting the theme for ggplot {.build .faster}
+## Loading the R packages
 
 ```{r setup}
 library(tidyverse)
-library(skimr)   # a better summary of data
+library(skimr)   # a better summary of data frame
+library(scales)  # scales for ggplot
+```
+
+## Setting the theme for ggplot {.build .faster}
+
+```{r}
 theme_set(theme_minimal()) # setting the minimal theme for ggplot
 ```
 
@@ -22,13 +29,13 @@ theme_set(theme_minimal()) # setting the minimal theme for ggplot
 
 - The following lists the ggplot themes:  
 
-theme           | theme
-----------------|----------------
-theme_grey()    | theme_gray()
-theme_bw()      | theme_linedraw()
-theme_light()   | theme_dark()
-theme_minimal() | theme_classic()
-theme_void()    | theme_test()
+theme            | theme
+-----------------|-----------------
+theme_grey()     | theme_gray()
+theme_bw()       | theme_linedraw()
+theme_light()    | theme_dark()
+theme_minimal()  | theme_classic()
+theme_void()     | theme_test()
 
 
 ## gapminder data {.build .faster}
@@ -40,105 +47,68 @@ library(gapminder)
 gapminder
 ```
 
-```{r}
-head(gapminder)
+## Descriptive statistics 
+```{r, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+skim(gapminder)
 ```
 
-## Descriptive statistics {.build .faster}
-```{r skim, include=FALSE}
-skimmed <- skim(gapminder)
-skimmed <- skimmed %>% 
-  select(-factor.ordered, -complete_rate)
-skimmed <- as_tibble(skimmed)
-skimmed_chr <- skimmed[1:2,2:5]
-skimmed_numeric <- skimmed[3:6,c(2:3,5:13)]
-skimmed_numeric[,4:10] <- round(skimmed_numeric[,4:10], 2)
-skimmed_numeric <- skimmed_numeric %>% 
-  select(-factor.top_counts)
-```
+## Mappings link data to things you see 
 
-```{r skim_chr, eval=TRUE, echo=TRUE, fig.align='center', out.height="75%"}
-knitr::kable(skimmed_chr, "simple",   # from skimr::skim() 
-             col.names = c('Variable', 'n_missing', 'n_Categories', 'Counts'))  
-```
-
-## Descriptive statistics {.build .faster}
-
-```{r skim_n, eval=TRUE, echo=TRUE, fig.align='center', out.height="75%"}
-knitr::kable(skimmed_numeric, "simple",   # from skimr::skim()
-             col.names = c('Variable', 'n_missing', 'Mean', 'SD',
-                           'Min', 'Q1', 'Median','Q3', 'Max', 'Hist'))
-```
-
-## Mappings link data to things you see {.build .faster}
-
-```{r, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4, results="asis"}
+```{r, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
 p <- ggplot(data = gapminder)
 
 p <- ggplot(data = gapminder,
             mapping = aes(x = gdpPercap,
                           y = lifeExp))
 p
+```
 
+
+## Mappings link data to things you see
+
+```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+p <- ggplot(data = gapminder)
+
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y = lifeExp))
+p
+```
+
+
+## Mappings link data to things you see {.build .faster}
+
+```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
 p + geom_point() 
 
 ```
 
-## Mappings link data to things you see {.build .faster}
-
-```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, results="asis"}
-p <- ggplot(data = gapminder)
-
-p <- ggplot(data = gapminder,
-            mapping = aes(x = gdpPercap,
-                          y = lifeExp))
-p
-```
-
-## Mappings link data to things you see {.build .faster}
-
-```{r, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4, results="asis"}
-p <- ggplot(data = gapminder)
-
-p <- ggplot(data = gapminder,
-            mapping = aes(x = gdpPercap,
-                          y = lifeExp))
-p
-```
 
 
-## Mappings link data to things you see {.build .faster}
-
-```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, results="asis"}
-p + geom_point() 
-
-```
 
 ## Build your plots layer by layer {.build .faster}
 
-```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, results="asis"}
-p <- ggplot(data = gapminder,
-            mapping = aes(x = gdpPercap,
-                          y=lifeExp))
+```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
 p + geom_smooth()
 ```
+
 ## Build your plots layer by layer {.build .faster}
 
-```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, results="asis"}
+```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
 p + geom_point() + geom_smooth() 
 ```
 
 
 ## Build your plots layer by layer {.build .faster}
 
-```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, results="asis"}
+```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
 p + geom_point() + geom_smooth(method = "lm") 
 ```
 
 
 ## Build your plots layer by layer {.build .faster}
 
-```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, results="asis"}
+```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
 p + geom_point() +
     geom_smooth(method = "gam") +
     scale_x_log10()
@@ -147,49 +117,27 @@ p + geom_point() +
 
 ## Build your plots layer by layer {.build .faster}
 
-```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, results="asis"}
+```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
 p + geom_point() +
     geom_smooth(method = "gam") +
     scale_x_log10(labels = scales::dollar)
 ```
 
-
-## Build your plots layer by layer {.build .faster}
-
-```{r, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4, results="asis"}
-p <- ggplot(data = gapminder,
-            mapping = aes(x = gdpPercap,
-                          y=lifeExp))
-p + geom_smooth()
-
-p + geom_point() + geom_smooth() 
-
-p + geom_point() + geom_smooth(method = "lm") 
-
-p + geom_point() +
-    geom_smooth(method = "gam") +
-    scale_x_log10()
-
-p + geom_point() +
-    geom_smooth(method = "gam") +
-    scale_x_log10(labels = scales::dollar)
-```
 
 ## Mapping aesthetics vs setting them {.build .faster}
 
-```{r}
+```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
 p <-  ggplot(data = gapminder,
-             mapping = aes(x = gdpPercap,
-                            y = lifeExp,
-                            color = continent))
+             mapping = aes(x = gdpPercap, y = lifeExp,
+                           color = continent))
+p
 ```
 
-## Mapping aesthetics vs setting them {.build .faster}
+## Mapping aesthetics vs setting them
 
-```{r}
+```{r, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
 p <- ggplot(data = gapminder,
-            mapping = aes(x = gdpPercap,
-                          y = lifeExp,
+            mapping = aes(x = gdpPercap, y = lifeExp,
                           color = "purple"))
 p + geom_point() +
     geom_smooth(method = "loess") +
@@ -197,9 +145,33 @@ p + geom_point() +
 
 ```
 
-## Mapping aesthetics vs setting them {.build .faster}
+## Mapping aesthetics vs setting them 
 
-```{r}
+```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap, y = lifeExp,
+                          color = "purple"))
+p + geom_point() +
+    geom_smooth(method = "loess") +
+    scale_x_log10()
+
+```
+
+## Mapping aesthetics vs setting them
+
+```{r, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y = lifeExp))
+p + geom_point(color = "purple") +
+    geom_smooth(method = "loess") +
+    scale_x_log10()
+
+```
+
+## Mapping aesthetics vs setting them
+
+```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
 p <- ggplot(data = gapminder,
             mapping = aes(x = gdpPercap,
                           y = lifeExp))
@@ -211,20 +183,16 @@ p + geom_point(color = "purple") +
 
 ## Mapping aesthetics vs setting them {.build .faster}
 
-```{r}
-p <- ggplot(data = gapminder,
-            mapping = aes(x = gdpPercap,
-                          y = lifeExp)) 
+```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE} 
 p + geom_point(alpha = 0.3) +
     geom_smooth(color = "orange", se = FALSE, size = 8, method = "lm") +
     scale_x_log10()
 
 ```
 
-## Mapping aesthetics vs setting them {.build .faster}
+## Mapping aesthetics vs setting them
 
-```{r}
-p <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y=lifeExp))
+```{r, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
 p + geom_point(alpha = 0.3) +
     geom_smooth(method = "gam") +
     scale_x_log10(labels = scales::dollar) +
@@ -232,12 +200,22 @@ p + geom_point(alpha = 0.3) +
          title = "Economic Growth and Life Expectancy",
          subtitle = "Data points are country-years",
          caption = "Source: Gapminder.")
+```
+## Mapping aesthetics vs setting them
 
+```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+p + geom_point(alpha = 0.3) +
+    geom_smooth(method = "gam") +
+    scale_x_log10(labels = scales::dollar) +
+    labs(x = "GDP Per Capita", y = "Life Expectancy in Years",
+         title = "Economic Growth and Life Expectancy",
+         subtitle = "Data points are country-years",
+         caption = "Source: Gapminder.")
 ```
 
-## Mapping aesthetics vs setting them {.build .faster}
+## Mapping aesthetics vs setting them
 
-```{r}
+```{r, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
 p <- ggplot(data = gapminder,
             mapping = aes(x = gdpPercap,
                           y = lifeExp,
@@ -247,9 +225,23 @@ p + geom_point() +
     scale_x_log10()
 ```
 
-## Mapping aesthetics vs setting them {.build .faster}
 
-```{r}
+## Mapping aesthetics vs setting them
+
+```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y = lifeExp,
+                          color = continent))
+p + geom_point() +
+    geom_smooth(method = "loess") +
+    scale_x_log10()
+```
+
+
+## Mapping aesthetics vs setting them 
+
+```{r, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
 p <- ggplot(data = gapminder,
             mapping = aes(x = gdpPercap,
                           y = lifeExp,
@@ -258,58 +250,79 @@ p <- ggplot(data = gapminder,
 p + geom_point() +
     geom_smooth(method = "loess") +
     scale_x_log10()
-
 ```
 
-## Aesthetics can be mapped per geom {.build .faster}
 
-```{r}
-p <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp))
+## Mapping aesthetics vs setting them 
+
+```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y = lifeExp,
+                          color = continent,
+                          fill = continent))
+p + geom_point() +
+    geom_smooth(method = "loess") +
+    scale_x_log10()
+```
+
+
+## Aesthetics can be mapped per geom
+
+```{r, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+p <- ggplot(data = gapminder, 
+            mapping = aes(x = gdpPercap, y = lifeExp))
+
 p + geom_point(mapping = aes(color = continent)) +
     geom_smooth(method = "loess") +
     scale_x_log10()
+```
 
+## Aesthetics can be mapped per geom
+
+```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+p <- ggplot(data = gapminder, 
+            mapping = aes(x = gdpPercap, y = lifeExp))
+
+p + geom_point(mapping = aes(color = continent)) +
+    geom_smooth(method = "loess") +
+    scale_x_log10()
 ```
 
 ## Aesthetics can be mapped per geom {.build .faster}
 
-```{r}
-library(scales)
-p <- ggplot(data = gapminder,
-            mapping = aes(x = gdpPercap,
-                          y = lifeExp))
+```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
 p + geom_point(mapping = aes(color = log(pop))) +
-      scale_x_continuous(trans = scales::log_trans())   # natural log scale
-     # scale_x_log10()  for base 10 log scale
+      scale_x_continuous(trans = scales::log_trans())  # natural log scale
 ```
 
-## Save your work {.build .faster}
+## Save your work
 
-```{r}
+```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
 knitr::opts_chunk$set(fig.width=8, fig.height=5) 
 ```
 
-## Save your work {.build .faster}
+## Save your work
 
-```{r example}
+```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
 p + geom_point()
 ```
 
-## Save your work {.build .faster}
+## Save your work
 
-```{r, fig.width = 12, fig.height = 9}
+```{r, fig.width = 12, fig.height = 9, message=FALSE, warning=FALSE}
 ggsave(filename = "my_figure.png")
 ```
 
-## Save your work {.build .faster}
+## Save your work
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 ggsave(filename = "my_figure.pdf")
 ```
 
-## Save your work {.build .faster}
+## Save your work
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 p_out <- p + geom_point() +
     geom_smooth(method = "loess") +
     scale_x_log10()
@@ -318,16 +331,96 @@ ggsave("my_figure.pdf", plot = p_out)
 
 ## Save your work {.build .faster}
 
-```{r}
-# here() starts at the directory where the project is created.
-# Create the "figures" folder in the directory where the project is created. 
-ggsave("lifexp_vs_gdp_gradient.pdf", plot = p_out)
+```{r, message=FALSE, warning=FALSE}
+library(here)
+ggsave(here("figures", "lifexp_vs_gdp_gradient.pdf"), plot = p_out)
 ```
 
-## Save your work {.build .faster}
+- `here()` starts at the directory where the project is created.
 
-```{r}
+- Create the "figures" folder in the directory where the project is created. 
+
+## Save your work
+
+```{r, message=FALSE, warning=FALSE}
 ggsave("lifexp_vs_gdp_gradient.pdf",
        plot = p_out, height = 8, width = 10, units = "in")
 ```
+
+
+# Show the right number
+
+## Grouped data and the “group” aesthetic {.build .faster}
+
+```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+p <- ggplot(data = gapminder,
+            mapping = aes(x = year,
+                          y = gdpPercap))
+p + geom_line() 
+```
+
+
+## Grouped data and the “group” aesthetic {.build .faster}
+
+```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+p + geom_line(aes(group=country)) 
+```
+
+
+## Facet to make small multiples {.build .faster}
+
+```{r, eval=TRUE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+p + geom_line(aes(group = country)) + facet_wrap(~ continent)
+```
+
+## Facet to make small multiples
+
+```{r, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+p + geom_line(color="gray70", aes(group = country)) +
+    geom_smooth(size = 1.1, method = "loess", se = FALSE) +
+    scale_y_log10(labels=scales::dollar) +
+    facet_wrap(~ continent, ncol = 5) +
+    labs(x = "Year", y = "GDP per capita",
+         title = "GDP per capita on Five Continents")
+```
+
+
+## Facet to make small multiples
+
+```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+p + geom_line(color="gray70", aes(group = country)) +
+    geom_smooth(size = 1.1, method = "loess", se = FALSE) +
+    scale_y_log10(labels=scales::dollar) +
+    facet_wrap(~ continent, ncol = 5) +
+    labs(x = "Year", y = "GDP per capita",
+         title = "GDP per capita on Five Continents")
+```
+
+
+## Facet to make small multiples
+
+```{r, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+p + geom_line(color="gray70", aes(group = country)) +
+    geom_smooth(size = 1.1, method = "loess", se = FALSE) +
+    scale_y_log10(labels=scales::dollar) +
+    facet_wrap(~ continent, ncol = 5) +
+    labs(x = "Year", y = "GDP per capita",
+         title = "GDP per capita on Five Continents") + 
+    theme(axis.text.x = element_text(angle = 45),
+          axis.title.x = element_text(margin = margin(t = 25)))
+```
+
+## Facet to make small multiples
+
+```{r, eval=TRUE, echo=FALSE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
+p + geom_line(color="gray70", aes(group = country)) +
+    geom_smooth(size = 1.1, method = "loess", se = FALSE) +
+    scale_y_log10(labels=scales::dollar) +
+    facet_wrap(~ continent, ncol = 5) +
+    labs(x = "Year", y = "GDP per capita",
+         title = "GDP per capita on Five Continents") + 
+    theme(axis.text.x = element_text(angle = 45),
+          axis.title.x = element_text(margin = margin(t = 25)))
+```
+
 

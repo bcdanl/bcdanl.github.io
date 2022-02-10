@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>DANL 310: Lecture 05. Make a Plot</title>
+  <title>DANL 310 Lecture 05</title>
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
@@ -20,7 +20,7 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: 'DANL 310: Lecture 05. Make a Plot',
+                title: 'DANL 310 Lecture 05',
                         useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -176,11 +176,17 @@ slide:not(.current) .plotly.html-widget{
           </hgroup>
   </slide>
 
-<slide class=""><hgroup><h2>Loading the R packages and setting the theme for ggplot</h2></hgroup><article  class="build faster" id="loading-the-r-packages-and-setting-the-theme-for-ggplot">
+<slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Make a Plot</h2></hgroup><article  id="make-a-plot">
+
+</article></slide><slide class=""><hgroup><h2>Loading the R packages</h2></hgroup><article  id="loading-the-r-packages">
 
 <pre class = 'prettyprint lang-r'>library(tidyverse)
-library(skimr)   # a better summary of data
-theme_set(theme_minimal()) # setting the minimal theme for ggplot</pre>
+library(skimr)   # a better summary of data frame
+library(scales)  # scales for ggplot</pre>
+
+</article></slide><slide class=""><hgroup><h2>Setting the theme for ggplot</h2></hgroup><article  class="build faster" id="setting-the-theme-for-ggplot">
+
+<pre class = 'prettyprint lang-r'>theme_set(theme_minimal()) # setting the minimal theme for ggplot</pre>
 
 <ul>
 <li><p>Use <code>theme()</code> if you want to tweak the display of an existing theme.</p></li>
@@ -238,129 +244,11 @@ gapminder</pre>
 ## 10 Afghanistan Asia       1997    41.8 22227415      635.
 ## # … with 1,694 more rows</pre>
 
-<pre class = 'prettyprint lang-r'>head(gapminder)</pre>
+</article></slide><slide class=""><hgroup><h2>Descriptive statistics</h2></hgroup><article  id="descriptive-statistics">
 
-<pre >## # A tibble: 6 × 6
-##   country     continent  year lifeExp      pop gdpPercap
-##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
-## 1 Afghanistan Asia       1952    28.8  8425333      779.
-## 2 Afghanistan Asia       1957    30.3  9240934      821.
-## 3 Afghanistan Asia       1962    32.0 10267083      853.
-## 4 Afghanistan Asia       1967    34.0 11537966      836.
-## 5 Afghanistan Asia       1972    36.1 13079460      740.
-## 6 Afghanistan Asia       1977    38.4 14880372      786.</pre>
+<pre class = 'prettyprint lang-r'>skim(gapminder)</pre>
 
-</article></slide><slide class=""><hgroup><h2>Descriptive statistics</h2></hgroup><article  class="build faster" id="descriptive-statistics">
-
-<pre class = 'prettyprint lang-r'>knitr::kable(skimmed_chr, &quot;simple&quot;,   # from skimr::skim() 
-             col.names = c(&#39;Variable&#39;, &#39;n_missing&#39;, &#39;n_Categories&#39;, &#39;Counts&#39;))  </pre>
-
-<table class = 'rmdtable'>
-<tr class="header">
-<th align="left">Variable</th>
-<th align="right">n_missing</th>
-<th align="right">n_Categories</th>
-<th align="left">Counts</th>
-</tr>
-<tr class="odd">
-<td align="left">country</td>
-<td align="right">0</td>
-<td align="right">142</td>
-<td align="left">Afg: 12, Alb: 12, Alg: 12, Ang: 12</td>
-</tr>
-<tr class="even">
-<td align="left">continent</td>
-<td align="right">0</td>
-<td align="right">5</td>
-<td align="left">Afr: 624, Asi: 396, Eur: 360, Ame: 300</td>
-</tr>
-</table>
-
-</article></slide><slide class=""><hgroup><h2>Descriptive statistics</h2></hgroup><article  class="build faster" id="descriptive-statistics-1">
-
-<pre class = 'prettyprint lang-r'>knitr::kable(skimmed_numeric, &quot;simple&quot;,   # from skimr::skim()
-             col.names = c(&#39;Variable&#39;, &#39;n_missing&#39;, &#39;Mean&#39;, &#39;SD&#39;,
-                           &#39;Min&#39;, &#39;Q1&#39;, &#39;Median&#39;,&#39;Q3&#39;, &#39;Max&#39;, &#39;Hist&#39;))</pre>
-
-<table class = 'rmdtable'>
-<tr class="header">
-<th align="left">Variable</th>
-<th align="right">n_missing</th>
-<th align="right">Mean</th>
-<th align="right">SD</th>
-<th align="right">Min</th>
-<th align="right">Q1</th>
-<th align="right">Median</th>
-<th align="right">Q3</th>
-<th align="right">Max</th>
-<th align="left">Hist</th>
-</tr>
-<tr class="odd">
-<td align="left">year</td>
-<td align="right">0</td>
-<td align="right">1979.50</td>
-<td align="right">17.27</td>
-<td align="right">1952.00</td>
-<td align="right">1965.75</td>
-<td align="right">1979.50</td>
-<td align="right">1993.25</td>
-<td align="right">2007.0</td>
-<td align="left">▇▅▅▅▇</td>
-</tr>
-<tr class="even">
-<td align="left">lifeExp</td>
-<td align="right">0</td>
-<td align="right">59.47</td>
-<td align="right">12.92</td>
-<td align="right">23.60</td>
-<td align="right">48.20</td>
-<td align="right">60.71</td>
-<td align="right">70.85</td>
-<td align="right">82.6</td>
-<td align="left">▁▆▇▇▇</td>
-</tr>
-<tr class="odd">
-<td align="left">pop</td>
-<td align="right">0</td>
-<td align="right">29601212.32</td>
-<td align="right">106157896.74</td>
-<td align="right">60011.00</td>
-<td align="right">2793664.00</td>
-<td align="right">7023595.50</td>
-<td align="right">19585221.75</td>
-<td align="right">1318683096.0</td>
-<td align="left">▇▁▁▁▁</td>
-</tr>
-<tr class="even">
-<td align="left">gdpPercap</td>
-<td align="right">0</td>
-<td align="right">7215.33</td>
-<td align="right">9857.45</td>
-<td align="right">241.17</td>
-<td align="right">1202.06</td>
-<td align="right">3531.85</td>
-<td align="right">9325.46</td>
-<td align="right">113523.1</td>
-<td align="left">▇▁▁▁▁</td>
-</tr>
-</table>
-
-</article></slide><slide class=""><hgroup><h2>Mappings link data to things you see</h2></hgroup><article  class="build faster" id="mappings-link-data-to-things-you-see">
-
-<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gapminder)
-
-p &lt;- ggplot(data = gapminder,
-            mapping = aes(x = gdpPercap,
-                          y = lifeExp))
-p
-
-p + geom_point() </pre>
-
-</article></slide><slide class=""><hgroup><h2>Mappings link data to things you see</h2></hgroup><article  class="build faster" id="mappings-link-data-to-things-you-see-1">
-
-<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-4-1.png" width="720" style="display: block; margin: auto;" /></p>
-
-</article></slide><slide class=""><hgroup><h2>Mappings link data to things you see</h2></hgroup><article  class="build faster" id="mappings-link-data-to-things-you-see-2">
+</article></slide><slide class=""><hgroup><h2>Mappings link data to things you see</h2></hgroup><article  id="mappings-link-data-to-things-you-see">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gapminder)
 
@@ -369,7 +257,11 @@ p &lt;- ggplot(data = gapminder,
                           y = lifeExp))
 p</pre>
 
-</article></slide><slide class=""><hgroup><h2>Mappings link data to things you see</h2></hgroup><article  class="build faster" id="mappings-link-data-to-things-you-see-3">
+</article></slide><slide class=""><hgroup><h2>Mappings link data to things you see</h2></hgroup><article  id="mappings-link-data-to-things-you-see-1">
+
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-5-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Mappings link data to things you see</h2></hgroup><article  class="build faster" id="mappings-link-data-to-things-you-see-2">
 
 <pre class = 'prettyprint lang-r'>p + geom_point() </pre>
 
@@ -377,90 +269,61 @@ p</pre>
 
 </article></slide><slide class=""><hgroup><h2>Build your plots layer by layer</h2></hgroup><article  class="build faster" id="build-your-plots-layer-by-layer">
 
-<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gapminder,
-            mapping = aes(x = gdpPercap,
-                          y=lifeExp))
-p + geom_smooth()</pre>
+<pre class = 'prettyprint lang-r'>p + geom_smooth()</pre>
 
-<pre >## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</pre>
-
-<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-7-1.png" width="720" style="display: block; margin: auto;" /> ## Build your plots layer by layer {.build .faster}</p>
-
-<pre class = 'prettyprint lang-r'>p + geom_point() + geom_smooth() </pre>
-
-<pre >## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</pre>
-
-<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-8-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-7-1.png" width="720" style="display: block; margin: auto;" /></p>
 
 </article></slide><slide class=""><hgroup><h2>Build your plots layer by layer</h2></hgroup><article  class="build faster" id="build-your-plots-layer-by-layer-1">
 
-<pre class = 'prettyprint lang-r'>p + geom_point() + geom_smooth(method = &quot;lm&quot;) </pre>
+<pre class = 'prettyprint lang-r'>p + geom_point() + geom_smooth() </pre>
 
-<pre >## `geom_smooth()` using formula &#39;y ~ x&#39;</pre>
-
-<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-9-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-8-1.png" width="720" style="display: block; margin: auto;" /></p>
 
 </article></slide><slide class=""><hgroup><h2>Build your plots layer by layer</h2></hgroup><article  class="build faster" id="build-your-plots-layer-by-layer-2">
 
-<pre class = 'prettyprint lang-r'>p + geom_point() +
-    geom_smooth(method = &quot;gam&quot;) +
-    scale_x_log10()</pre>
+<pre class = 'prettyprint lang-r'>p + geom_point() + geom_smooth(method = &quot;lm&quot;) </pre>
 
-<pre >## `geom_smooth()` using formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</pre>
-
-<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-10-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-9-1.png" width="720" style="display: block; margin: auto;" /></p>
 
 </article></slide><slide class=""><hgroup><h2>Build your plots layer by layer</h2></hgroup><article  class="build faster" id="build-your-plots-layer-by-layer-3">
 
 <pre class = 'prettyprint lang-r'>p + geom_point() +
     geom_smooth(method = &quot;gam&quot;) +
-    scale_x_log10(labels = scales::dollar)</pre>
+    scale_x_log10()</pre>
 
-<pre >## `geom_smooth()` using formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</pre>
-
-<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-11-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-10-1.png" width="720" style="display: block; margin: auto;" /></p>
 
 </article></slide><slide class=""><hgroup><h2>Build your plots layer by layer</h2></hgroup><article  class="build faster" id="build-your-plots-layer-by-layer-4">
 
-<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gapminder,
-            mapping = aes(x = gdpPercap,
-                          y=lifeExp))
-p + geom_smooth()
-
-p + geom_point() + geom_smooth() 
-
-p + geom_point() + geom_smooth(method = &quot;lm&quot;) 
-
-p + geom_point() +
-    geom_smooth(method = &quot;gam&quot;) +
-    scale_x_log10()
-
-p + geom_point() +
+<pre class = 'prettyprint lang-r'>p + geom_point() +
     geom_smooth(method = &quot;gam&quot;) +
     scale_x_log10(labels = scales::dollar)</pre>
+
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-11-1.png" width="720" style="display: block; margin: auto;" /></p>
 
 </article></slide><slide class=""><hgroup><h2>Mapping aesthetics vs setting them</h2></hgroup><article  class="build faster" id="mapping-aesthetics-vs-setting-them">
 
 <pre class = 'prettyprint lang-r'>p &lt;-  ggplot(data = gapminder,
-             mapping = aes(x = gdpPercap,
-                            y = lifeExp,
-                            color = continent))</pre>
+             mapping = aes(x = gdpPercap, y = lifeExp,
+                           color = continent))
+p</pre>
 
-</article></slide><slide class=""><hgroup><h2>Mapping aesthetics vs setting them</h2></hgroup><article  class="build faster" id="mapping-aesthetics-vs-setting-them-1">
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-12-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Mapping aesthetics vs setting them</h2></hgroup><article  id="mapping-aesthetics-vs-setting-them-1">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gapminder,
-            mapping = aes(x = gdpPercap,
-                          y = lifeExp,
+            mapping = aes(x = gdpPercap, y = lifeExp,
                           color = &quot;purple&quot;))
 p + geom_point() +
     geom_smooth(method = &quot;loess&quot;) +
     scale_x_log10()</pre>
 
-<pre >## `geom_smooth()` using formula &#39;y ~ x&#39;</pre>
+</article></slide><slide class=""><hgroup><h2>Mapping aesthetics vs setting them</h2></hgroup><article  id="mapping-aesthetics-vs-setting-them-2">
 
-<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-14-1.png" width="720" /></p>
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-14-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Mapping aesthetics vs setting them</h2></hgroup><article  class="build faster" id="mapping-aesthetics-vs-setting-them-2">
+</article></slide><slide class=""><hgroup><h2>Mapping aesthetics vs setting them</h2></hgroup><article  id="mapping-aesthetics-vs-setting-them-3">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gapminder,
             mapping = aes(x = gdpPercap,
@@ -469,27 +332,21 @@ p + geom_point(color = &quot;purple&quot;) +
     geom_smooth(method = &quot;loess&quot;) +
     scale_x_log10()</pre>
 
-<pre >## `geom_smooth()` using formula &#39;y ~ x&#39;</pre>
+</article></slide><slide class=""><hgroup><h2>Mapping aesthetics vs setting them</h2></hgroup><article  id="mapping-aesthetics-vs-setting-them-4">
 
-<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-15-1.png" width="720" /></p>
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-16-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Mapping aesthetics vs setting them</h2></hgroup><article  class="build faster" id="mapping-aesthetics-vs-setting-them-3">
+</article></slide><slide class=""><hgroup><h2>Mapping aesthetics vs setting them</h2></hgroup><article  class="build faster" id="mapping-aesthetics-vs-setting-them-5">
 
-<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gapminder,
-            mapping = aes(x = gdpPercap,
-                          y = lifeExp)) 
-p + geom_point(alpha = 0.3) +
+<pre class = 'prettyprint lang-r'>p + geom_point(alpha = 0.3) +
     geom_smooth(color = &quot;orange&quot;, se = FALSE, size = 8, method = &quot;lm&quot;) +
     scale_x_log10()</pre>
 
-<pre >## `geom_smooth()` using formula &#39;y ~ x&#39;</pre>
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-17-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-16-1.png" width="720" /></p>
+</article></slide><slide class=""><hgroup><h2>Mapping aesthetics vs setting them</h2></hgroup><article  id="mapping-aesthetics-vs-setting-them-6">
 
-</article></slide><slide class=""><hgroup><h2>Mapping aesthetics vs setting them</h2></hgroup><article  class="build faster" id="mapping-aesthetics-vs-setting-them-4">
-
-<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y=lifeExp))
-p + geom_point(alpha = 0.3) +
+<pre class = 'prettyprint lang-r'>p + geom_point(alpha = 0.3) +
     geom_smooth(method = &quot;gam&quot;) +
     scale_x_log10(labels = scales::dollar) +
     labs(x = &quot;GDP Per Capita&quot;, y = &quot;Life Expectancy in Years&quot;,
@@ -497,11 +354,11 @@ p + geom_point(alpha = 0.3) +
          subtitle = &quot;Data points are country-years&quot;,
          caption = &quot;Source: Gapminder.&quot;)</pre>
 
-<pre >## `geom_smooth()` using formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</pre>
+</article></slide><slide class=""><hgroup><h2>Mapping aesthetics vs setting them</h2></hgroup><article  id="mapping-aesthetics-vs-setting-them-7">
 
-<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-17-1.png" width="720" /></p>
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-19-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Mapping aesthetics vs setting them</h2></hgroup><article  class="build faster" id="mapping-aesthetics-vs-setting-them-5">
+</article></slide><slide class=""><hgroup><h2>Mapping aesthetics vs setting them</h2></hgroup><article  id="mapping-aesthetics-vs-setting-them-8">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gapminder,
             mapping = aes(x = gdpPercap,
@@ -511,11 +368,11 @@ p + geom_point() +
     geom_smooth(method = &quot;loess&quot;) +
     scale_x_log10()</pre>
 
-<pre >## `geom_smooth()` using formula &#39;y ~ x&#39;</pre>
+</article></slide><slide class=""><hgroup><h2>Mapping aesthetics vs setting them</h2></hgroup><article  id="mapping-aesthetics-vs-setting-them-9">
 
-<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-18-1.png" width="720" /></p>
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-21-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Mapping aesthetics vs setting them</h2></hgroup><article  class="build faster" id="mapping-aesthetics-vs-setting-them-6">
+</article></slide><slide class=""><hgroup><h2>Mapping aesthetics vs setting them</h2></hgroup><article  id="mapping-aesthetics-vs-setting-them-10">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gapminder,
             mapping = aes(x = gdpPercap,
@@ -526,83 +383,120 @@ p + geom_point() +
     geom_smooth(method = &quot;loess&quot;) +
     scale_x_log10()</pre>
 
-<pre >## `geom_smooth()` using formula &#39;y ~ x&#39;</pre>
+</article></slide><slide class=""><hgroup><h2>Mapping aesthetics vs setting them</h2></hgroup><article  id="mapping-aesthetics-vs-setting-them-11">
 
-<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-19-1.png" width="720" /></p>
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-23-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Aesthetics can be mapped per geom</h2></hgroup><article  class="build faster" id="aesthetics-can-be-mapped-per-geom">
+</article></slide><slide class=""><hgroup><h2>Aesthetics can be mapped per geom</h2></hgroup><article  id="aesthetics-can-be-mapped-per-geom">
 
-<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y = lifeExp))
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gapminder, 
+            mapping = aes(x = gdpPercap, y = lifeExp))
+
 p + geom_point(mapping = aes(color = continent)) +
     geom_smooth(method = &quot;loess&quot;) +
     scale_x_log10()</pre>
 
-<pre >## `geom_smooth()` using formula &#39;y ~ x&#39;</pre>
+</article></slide><slide class=""><hgroup><h2>Aesthetics can be mapped per geom</h2></hgroup><article  id="aesthetics-can-be-mapped-per-geom-1">
 
-<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-20-1.png" width="720" /></p>
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-25-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Aesthetics can be mapped per geom</h2></hgroup><article  class="build faster" id="aesthetics-can-be-mapped-per-geom-1">
+</article></slide><slide class=""><hgroup><h2>Aesthetics can be mapped per geom</h2></hgroup><article  class="build faster" id="aesthetics-can-be-mapped-per-geom-2">
 
-<pre class = 'prettyprint lang-r'>library(scales)
-p &lt;- ggplot(data = gapminder,
-            mapping = aes(x = gdpPercap,
-                          y = lifeExp))
-p + geom_point(mapping = aes(color = log(pop))) +
-      scale_x_continuous(trans = scales::log_trans())   # natural log scale</pre>
+<pre class = 'prettyprint lang-r'>p + geom_point(mapping = aes(color = log(pop))) +
+      scale_x_continuous(trans = scales::log_trans())  # natural log scale</pre>
 
-<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-21-1.png" width="720" /></p>
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-26-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-<pre class = 'prettyprint lang-r'>     # scale_x_log10()  for base 10 log scale</pre>
-
-</article></slide><slide class=""><hgroup><h2>Save your work</h2></hgroup><article  class="build faster" id="save-your-work">
+</article></slide><slide class=""><hgroup><h2>Save your work</h2></hgroup><article  id="save-your-work">
 
 <pre class = 'prettyprint lang-r'>knitr::opts_chunk$set(fig.width=8, fig.height=5) </pre>
 
-</article></slide><slide class=""><hgroup><h2>Save your work</h2></hgroup><article  class="build faster" id="save-your-work-1">
+</article></slide><slide class=""><hgroup><h2>Save your work</h2></hgroup><article  id="save-your-work-1">
 
 <pre class = 'prettyprint lang-r'>p + geom_point()</pre>
 
-<p><img src="DANL310_Lec05_20220210_files/figure-html/example-1.png" width="768" /></p>
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-28-1.png" width="768" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Save your work</h2></hgroup><article  class="build faster" id="save-your-work-2">
+</article></slide><slide class=""><hgroup><h2>Save your work</h2></hgroup><article  id="save-your-work-2">
 
 <pre class = 'prettyprint lang-r'>ggsave(filename = &quot;my_figure.png&quot;)</pre>
 
-<pre >## Saving 12 x 9 in image</pre>
-
-</article></slide><slide class=""><hgroup><h2>Save your work</h2></hgroup><article  class="build faster" id="save-your-work-3">
+</article></slide><slide class=""><hgroup><h2>Save your work</h2></hgroup><article  id="save-your-work-3">
 
 <pre class = 'prettyprint lang-r'>ggsave(filename = &quot;my_figure.pdf&quot;)</pre>
 
-<pre >## Saving 8 x 5 in image</pre>
-
-</article></slide><slide class=""><hgroup><h2>Save your work</h2></hgroup><article  class="build faster" id="save-your-work-4">
+</article></slide><slide class=""><hgroup><h2>Save your work</h2></hgroup><article  id="save-your-work-4">
 
 <pre class = 'prettyprint lang-r'>p_out &lt;- p + geom_point() +
     geom_smooth(method = &quot;loess&quot;) +
     scale_x_log10()
 ggsave(&quot;my_figure.pdf&quot;, plot = p_out)</pre>
 
-<pre >## Saving 8 x 5 in image</pre>
-
-<pre >## `geom_smooth()` using formula &#39;y ~ x&#39;</pre>
-
 </article></slide><slide class=""><hgroup><h2>Save your work</h2></hgroup><article  class="build faster" id="save-your-work-5">
 
-<pre class = 'prettyprint lang-r'># here() starts at the directory where the project is created.
-# Create the &quot;figures&quot; folder in the directory where the project is created. 
-ggsave(&quot;lifexp_vs_gdp_gradient.pdf&quot;, plot = p_out)</pre>
+<pre class = 'prettyprint lang-r'>library(here)
+ggsave(here(&quot;figures&quot;, &quot;lifexp_vs_gdp_gradient.pdf&quot;), plot = p_out)</pre>
 
-<pre >## Saving 8 x 5 in image</pre>
+<ul>
+<li><p><code>here()</code> starts at the directory where the project is created.</p></li>
+<li><p>Create the &ldquo;figures&rdquo; folder in the directory where the project is created.</p></li>
+</ul>
 
-<pre >## `geom_smooth()` using formula &#39;y ~ x&#39;</pre>
-
-</article></slide><slide class=""><hgroup><h2>Save your work</h2></hgroup><article  class="build faster" id="save-your-work-6">
+</article></slide><slide class=""><hgroup><h2>Save your work</h2></hgroup><article  id="save-your-work-6">
 
 <pre class = 'prettyprint lang-r'>ggsave(&quot;lifexp_vs_gdp_gradient.pdf&quot;,
        plot = p_out, height = 8, width = 10, units = &quot;in&quot;)</pre>
 
-<pre >## `geom_smooth()` using formula &#39;y ~ x&#39;</pre></article></slide>
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Show the right number</h2></hgroup><article  id="show-the-right-number">
+
+</article></slide><slide class=""><hgroup><h2>Grouped data and the &ldquo;group&rdquo; aesthetic</h2></hgroup><article  class="build faster" id="grouped-data-and-the-group-aesthetic">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gapminder,
+            mapping = aes(x = year,
+                          y = gdpPercap))
+p + geom_line() </pre>
+
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-34-1.png" width="768" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Grouped data and the &ldquo;group&rdquo; aesthetic</h2></hgroup><article  class="build faster" id="grouped-data-and-the-group-aesthetic-1">
+
+<pre class = 'prettyprint lang-r'>p + geom_line(aes(group=country)) </pre>
+
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-35-1.png" width="768" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Facet to make small multiples</h2></hgroup><article  class="build faster" id="facet-to-make-small-multiples">
+
+<pre class = 'prettyprint lang-r'>p + geom_line(aes(group = country)) + facet_wrap(~ continent)</pre>
+
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-36-1.png" width="768" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Facet to make small multiples</h2></hgroup><article  id="facet-to-make-small-multiples-1">
+
+<pre class = 'prettyprint lang-r'>p + geom_line(color=&quot;gray70&quot;, aes(group = country)) +
+    geom_smooth(size = 1.1, method = &quot;loess&quot;, se = FALSE) +
+    scale_y_log10(labels=scales::dollar) +
+    facet_wrap(~ continent, ncol = 5) +
+    labs(x = &quot;Year&quot;, y = &quot;GDP per capita&quot;,
+         title = &quot;GDP per capita on Five Continents&quot;)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Facet to make small multiples</h2></hgroup><article  id="facet-to-make-small-multiples-2">
+
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-38-1.png" width="768" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Facet to make small multiples</h2></hgroup><article  id="facet-to-make-small-multiples-3">
+
+<pre class = 'prettyprint lang-r'>p + geom_line(color=&quot;gray70&quot;, aes(group = country)) +
+    geom_smooth(size = 1.1, method = &quot;loess&quot;, se = FALSE) +
+    scale_y_log10(labels=scales::dollar) +
+    facet_wrap(~ continent, ncol = 5) +
+    labs(x = &quot;Year&quot;, y = &quot;GDP per capita&quot;,
+         title = &quot;GDP per capita on Five Continents&quot;) + 
+    theme(axis.text.x = element_text(angle = 45),
+          axis.title.x = element_text(margin = margin(t = 25)))</pre>
+
+</article></slide><slide class=""><hgroup><h2>Facet to make small multiples</h2></hgroup><article  id="facet-to-make-small-multiples-4">
+
+<p><img src="DANL310_Lec05_20220210_files/figure-html/unnamed-chunk-40-1.png" width="768" style="display: block; margin: auto;" /></p></article></slide>
 
 
   <slide class="backdrop"></slide>
