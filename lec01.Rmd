@@ -15,9 +15,9 @@ This is an example of the lecture on estimating price elasticity via the model o
 Price elasticity of demand  measures how sensitive the quantity demanded is to its price.  
 
 <center>
-${Price elasticity of demand} = {(% Change in quantity demanded)}/{(% Change in price)}$
+${Price elasticity of demand} = (\% {Change in quantity demanded})/(\% {Change in price})$
 </center>  
-
+  
 The concept of the elasticity plays an important role in industries.  
 
 Marketers need to understand how consumers are sensitive to fluctuations in price.  
@@ -106,22 +106,20 @@ The regression model for price elasticity of OJ demand can be written as:
 <center>
 $\log({sales}) = \alpha_{{brand}} + \beta\log({price}) + \epsilon$
 </center>  
-
+  
 
 Here $\alpha_{{brand}}$ is shorthand for a separate indicator for each OJ brand:
 
 <center>
 $\alpha_{{brand}} = \alpha_{{d}}1_{{[brand=dominicks]}}+\alpha_{{m}}1_{{[brand=minut.emaid]}}+\alpha_{{t}}1_{{[brand=tropicana]}}$
 </center>  
+  
 
-
-
-Here $\beta$ measures the price elasticity of OJ demand:
+By the property of natural log, $\beta$ measures the price elasticity of OJ demand:
 
 <center>
-$\beta = \Delta\log({sales})/\Delta\log({price}) = {(% change in sales)}/{(% change in price)}$
+$\beta = \Delta\log({sales})/\Delta\log({price})$
 </center>  
-
 
 
 ## Run the model 
@@ -153,7 +151,7 @@ The new regression model can be written as:
 <center>
 $\log({sales}) = \alpha_{{brand}} + \beta_{{brand}}\log({price}) + \epsilon$
 </center>  
-
+  
 Here $\beta_{{brand}}$ is shorthand for the brand-specific price elasticity:
 
 <center>
@@ -190,12 +188,12 @@ The new regression model can be written as:
 <center>
 $\log({sales}) = \alpha_{{brand,feat}} + \beta_{{brand,feat}}\log({price}) + \epsilon$
 </center>  
-
+  
 
 Here $\beta_{{brand,feat}}$ measures the brand-feat-specific price elasticity:
 
 <center>
-$\beta_{{brand,feat}} = \hspace{.3cm}(\hspace{.1cm} \beta_{{d,noAd}}1_{{[brand=dominicks]}}+\beta_{{m,noAd}}1_{{[brand=minutemaid]}}\\\hspace{5.25cm}+\beta_{{t,noAd}}1_{{[brand=tropicana]}}\hspace{.1cm})\times1_{{[feat=0]}}\\   \hspace{2cm} + (\hspace{.1cm}\beta_{{d,Ad}}1_{{[brand=dominicks]}}+\beta_{{m,Ad}}1_{{[brand=minutemaid]}}\\\hspace{5.25cm}+\beta_{{t,Ad}}1_{{[brand=tropicana]}}\hspace{.1cm})\times1_{{[feat=1]}}$
+$\beta_{{brand,feat}} = \hspace{.3cm}(\hspace{.1cm} \beta_{{d,noAd}}1_{{[brand=dominicks]}}+\beta_{{m,noAd}}1_{{[brand=minutemaid]}}\\\hspace{5.25cm}+\beta_{{t,noAd}}1_{{[brand=tropicana]}}\hspace{.1cm})\times1_{{[feat=0]}}\\   \hspace{2.5cm} + (\hspace{.1cm}\beta_{{d,Ad}}1_{{[brand=dominicks]}}+\beta_{{m,Ad}}1_{{[brand=minutemaid]}}\\\hspace{5.25cm}+\beta_{{t,Ad}}1_{{[brand=tropicana]}}\hspace{.1cm})\times1_{{[feat=1]}}$
 </center>  
 
 
