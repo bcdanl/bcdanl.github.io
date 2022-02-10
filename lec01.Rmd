@@ -14,7 +14,7 @@ This is an example of the lecture on estimating price elasticity via the model o
 
 Price elasticity of demand  measures how sensitive the quantity demanded is to its price.  
 
-$\texttt{Price elasticity of demand} = \dfrac{\texttt{% Change in quantity demanded}}{\texttt{% Change in price}}$
+${Price elasticity of demand} = \dfrac{{% Change in quantity demanded}}{{% Change in price}}$
 
 
 The concept of the elasticity plays an important role in industries.  
@@ -103,13 +103,13 @@ ggplot(data = oj, aes( x = log(price), y = log(sales),
 The regression model for price elasticity of OJ demand can be written as:
 
 
-$\log(\texttt{sales}) = \alpha_{\texttt{brand}} + \beta\log(\texttt{price}) + \epsilon$
+$\log({sales}) = \alpha_{{brand}} + \beta\log({price}) + \epsilon$
 
 
-Here $\alpha_{\texttt{brand}}$ is shorthand for a separate indicator for each OJ brand:
+Here $\alpha_{{brand}}$ is shorthand for a separate indicator for each OJ brand:
 
 
-$\alpha_{\texttt{brand}} = \alpha_{\texttt{d}}1_{\texttt{[brand=dominicks]}}+\alpha_{\texttt{m}}1_{\texttt{[brand=minut.emaid]}}+\alpha_{\texttt{t}}1_{\texttt{[brand=tropicana]}}$
+$\alpha_{{brand}} = \alpha_{{d}}1_{{[brand=dominicks]}}+\alpha_{{m}}1_{{[brand=minut.emaid]}}+\alpha_{{t}}1_{{[brand=tropicana]}}$
 
 
 
@@ -117,7 +117,7 @@ $\alpha_{\texttt{brand}} = \alpha_{\texttt{d}}1_{\texttt{[brand=dominicks]}}+\al
 Here $\beta$ measures the price elasticity of OJ demand:
 
 
-$\beta = \dfrac{\Delta\log(\texttt{sales})}{\Delta\log(\texttt{price})}\\\hspace{.25cm}  = \texttt{(% change in sales)} / \texttt{(% change in price)}$
+$\beta = \dfrac{\Delta\log({sales})}{\Delta\log({price})}\\\hspace{.25cm}  = {(% change in sales)} / {(% change in price)}$
 
 
 
@@ -151,15 +151,15 @@ How does consumer price sensitivity change across brands?
 The new regression model can be written as:
 
 
-$\log(\texttt{sales}) = \alpha_{\texttt{brand}} + \beta_{\texttt{brand}}\log(\texttt{price}) + \epsilon$
+$\log({sales}) = \alpha_{{brand}} + \beta_{{brand}}\log({price}) + \epsilon$
 
 
 
 
-Here $\beta_{\texttt{brand}}$ is shorthand for the brand-specific price elasticity:
+Here $\beta_{{brand}}$ is shorthand for the brand-specific price elasticity:
 
 
-$\beta_{\texttt{brand}} = \hspace{.1cm}\beta_{\texttt{d}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m}}1_{\texttt{[brand=minutemaid]}}+\beta_{\texttt{t}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm}$
+$\beta_{{brand}} = \hspace{.1cm}\beta_{{d}}1_{{[brand=dominicks]}}+\beta_{{m}}1_{{[brand=minutemaid]}}+\beta_{{t}}1_{{[brand=tropicana]}}\hspace{.1cm}$
 
 
 
@@ -190,15 +190,15 @@ How does consumer price sensitivity change with advertisement?
 The new regression model can be written as:
 
 
-$\log(\texttt{sales}) = \alpha_{\texttt{brand,feat}} + \beta_{\texttt{brand,feat}}\log(\texttt{price}) + \epsilon$
+$\log({sales}) = \alpha_{{brand,feat}} + \beta_{{brand,feat}}\log({price}) + \epsilon$
 
 
 
 
-Here $\beta_{\texttt{brand,feat}}$ measures the brand-feat-specific price elasticity:
+Here $\beta_{{brand,feat}}$ measures the brand-feat-specific price elasticity:
 
 
-$\beta_{\texttt{brand,feat}} = \hspace{.3cm}(\hspace{.1cm} \beta_{\texttt{d,no_ad}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m,no_ad}}1_{\texttt{[brand=minutemaid]}}\\\hspace{5.25cm}+\beta_{\texttt{t,no_ad}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm})\times1_{\texttt{[feat=0]}}\\   \hspace{4.25cm} + (\hspace{.1cm}\beta_{\texttt{d,ad}}1_{\texttt{[brand=dominicks]}}+\beta_{\texttt{m,ad}}1_{\texttt{[brand=minutemaid]}}\\\hspace{5.25cm}+\beta_{\texttt{t,ad}}1_{\texttt{[brand=tropicana]}}\hspace{.1cm})\times1_{\texttt{[feat=1]}}$
+$\beta_{{brand,feat}} = \hspace{.3cm}(\hspace{.1cm} \beta_{{d,no_ad}}1_{{[brand=dominicks]}}+\beta_{{m,no_ad}}1_{{[brand=minutemaid]}}\\\hspace{5.25cm}+\beta_{{t,no_ad}}1_{{[brand=tropicana]}}\hspace{.1cm})\times1_{{[feat=0]}}\\   \hspace{4.25cm} + (\hspace{.1cm}\beta_{{d,ad}}1_{{[brand=dominicks]}}+\beta_{{m,ad}}1_{{[brand=minutemaid]}}\\\hspace{5.25cm}+\beta_{{t,ad}}1_{{[brand=tropicana]}}\hspace{.1cm})\times1_{{[feat=1]}}$
 
 
 ## Run the model
