@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DANL 310 Lecture 06</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="generator" content="pandoc" />
+
+
+
+  <meta name="date" content="2022-02-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <base target="_blank">
+
+  <script type="text/javascript">
+    var SLIDE_CONFIG = {
+      // Slide settings
+      settings: {
+                title: 'DANL 310 Lecture 06',
+                        useBuilds: true,
+        usePrettify: true,
+        enableSlideAreas: true,
+        enableTouch: true,
+                      },
+
+      // Author information
+      presenters: [
+            {
+        name:  'Byeong-Hak Choe' ,
+        company: '',
+        gplus: '',
+        twitter: '',
+        www: '',
+        github: ''
+      },
+            ]
+    };
+  </script>
+
+  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <link href="site_libs/ioslides-13.5.1/fonts/fonts.css" rel="stylesheet" />
+  <link href="site_libs/ioslides-13.5.1/theme/css/default.css" rel="stylesheet" />
+  <link href="site_libs/ioslides-13.5.1/theme/css/phone.css" rel="stylesheet" />
+  <script src="site_libs/ioslides-13.5.1/js/modernizr.custom.45394.js"></script>
+  <script src="site_libs/ioslides-13.5.1/js/prettify/prettify.js"></script>
+  <script src="site_libs/ioslides-13.5.1/js/prettify/lang-r.js"></script>
+  <script src="site_libs/ioslides-13.5.1/js/prettify/lang-yaml.js"></script>
+  <script src="site_libs/ioslides-13.5.1/js/hammer.js"></script>
+  <script src="site_libs/ioslides-13.5.1/js/slide-controller.js"></script>
+  <script src="site_libs/ioslides-13.5.1/js/slide-deck.js"></script>
+
+  <style type="text/css">
+
+    b, strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    summary {
+      display: list-item;
+    }
+
+    slides > slide {
+      -webkit-transition: all 0s ease-in-out;
+      -moz-transition: all 0s ease-in-out;
+      -o-transition: all 0s ease-in-out;
+      transition: all 0s ease-in-out;
+    }
+
+    .auto-fadein {
+      -webkit-transition: opacity 0.6s ease-in;
+      -webkit-transition-delay: 0s;
+      -moz-transition: opacity 0.6s ease-in 0s;
+      -o-transition: opacity 0.6s ease-in 0s;
+      transition: opacity 0.6s ease-in 0s;
+      opacity: 0;
+    }
+/* https://github.com/ropensci/plotly/pull/524#issuecomment-468142578 */
+slide:not(.current) .plotly.html-widget{
+  display: block;
+}
+
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+            pre > code.sourceCode { white-space: pre; position: relative; }
+            pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+            pre > code.sourceCode > span:empty { height: 1.2em; }
+            .sourceCode { overflow: visible; }
+            code.sourceCode > span { color: inherit; text-decoration: inherit; }
+            div.sourceCode { margin: 1em 0; }
+            pre.sourceCode { margin: 0; }
+            @media screen {
+            div.sourceCode { overflow: auto; }
+            }
+            @media print {
+            pre > code.sourceCode { white-space: pre-wrap; }
+            pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+            }
+            pre.numberSource code
+              { counter-reset: source-line 0; }
+            pre.numberSource code > span
+              { position: relative; left: -4em; counter-increment: source-line; }
+            pre.numberSource code > span > a:first-child::before
+              { content: counter(source-line);
+                position: relative; left: -1em; text-align: right; vertical-align: baseline;
+                border: none; display: inline-block;
+                -webkit-touch-callout: none; -webkit-user-select: none;
+                -khtml-user-select: none; -moz-user-select: none;
+                -ms-user-select: none; user-select: none;
+                padding: 0 4px; width: 4em;
+                color: #aaaaaa;
+              }
+            pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+            div.sourceCode
+              {   }
+            @media screen {
+            pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+            }
+            code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+            code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+            code span.at { color: #7d9029; } /* Attribute */
+            code span.bn { color: #40a070; } /* BaseN */
+            code span.bu { } /* BuiltIn */
+            code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+            code span.ch { color: #4070a0; } /* Char */
+            code span.cn { color: #880000; } /* Constant */
+            code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+            code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+            code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+            code span.dt { color: #902000; } /* DataType */
+            code span.dv { color: #40a070; } /* DecVal */
+            code span.er { color: #ff0000; font-weight: bold; } /* Error */
+            code span.ex { } /* Extension */
+            code span.fl { color: #40a070; } /* Float */
+            code span.fu { color: #06287e; } /* Function */
+            code span.im { } /* Import */
+            code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+            code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+            code span.op { color: #666666; } /* Operator */
+            code span.ot { color: #007020; } /* Other */
+            code span.pp { color: #bc7a00; } /* Preprocessor */
+            code span.sc { color: #4070a0; } /* SpecialChar */
+            code span.ss { color: #bb6688; } /* SpecialString */
+            code span.st { color: #4070a0; } /* String */
+            code span.va { color: #19177c; } /* Variable */
+            code span.vs { color: #4070a0; } /* VerbatimString */
+            code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+        
+  </style>
+
+
+</head>
+
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+        <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+            <p style="margin-top: 6px; margin-left: -2px;">February 15, 2022</p>
+          </hgroup>
+  </slide>
+
+<slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Show me the right number</h2></hgroup><article  id="show-me-the-right-number">
+
+</article></slide><slide class=""><hgroup><h2>Loading the R packages</h2></hgroup><article  id="loading-the-r-packages">
+
+<pre class = 'prettyprint lang-r'>library(tidyverse)
+library(skimr)   # a better summary of data frame
+library(scales)  # scales for ggplot
+library(gapminder) # gapminder data
+library(socviz)  # data for visualization practice</pre>
+
+</article></slide><slide class=""><hgroup><h2>Facet to make small multiples</h2></hgroup><article  class="build faster" id="facet-to-make-small-multiples">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gapminder,
+            mapping = aes(x = year,
+                          y = gdpPercap))
+
+p + geom_line(color=&quot;gray70&quot;, aes(group = country)) +
+    geom_smooth(size = 1.1, method = &quot;loess&quot;, se = FALSE) +
+    scale_y_log10(labels=scales::dollar) +
+    facet_wrap(~ continent, ncol = 5) +
+    labs(x = &quot;Year&quot;, y = &quot;GDP per capita&quot;,
+         title = &quot;GDP per capita on Five Continents&quot;) + 
+    theme(axis.text.x = element_text(angle = 45),
+          axis.title.x = element_text(margin = margin(t = 20)))</pre>
+
+<ul>
+<li>The <code>facet_wrap()</code> function is best used when you want a series of small multiples based on a single categorical variable.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Facet to make small multiples</h2></hgroup><article  id="facet-to-make-small-multiples-1">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-2-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>The 2016 General Social Survey data</h2></hgroup><article  id="the-2016-general-social-survey-data">
+
+<ul>
+<li>The <code>socviz</code> package includes the <code>gss_sm</code> data frame.
+
+<ul>
+<li><code>gss_sm</code> is a dataset containing an extract from the 2016 General Social Survey.</li>
+</ul></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>?gss_sm
+glimpse(gss_sm)
+skim(gss_sm)
+view(gss_sm)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Facet to make small multiples</h2></hgroup><article  class="build faster" id="facet-to-make-small-multiples-2">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = age, y = childs))
+
+p + geom_point(alpha = 0.2) +
+    geom_smooth() +
+    facet_grid(sex ~ race)</pre>
+
+<ul>
+<li><p>The <code>facet_grid()</code> function is best used when you cross-classify some data by two categorical variables.</p>
+
+<ul>
+<li>e.g., the relationship between the age and the number of children by sex and race</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Facet to make small multiples</h2></hgroup><article  id="facet-to-make-small-multiples-3">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-5-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  class="build faster" id="geoms-can-transform-data">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion))
+p + geom_bar()</pre>
+
+<ul>
+<li>The <code>count</code> statistic is the one <code>geom_bar()</code> uses by default.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  id="geoms-can-transform-data-1">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-7-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  class="build faster" id="geoms-can-transform-data-2">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion))
+p + geom_bar(mapping = aes(y = ..prop..))</pre>
+
+<ul>
+<li><p>If we want a chart of relative frequencies rather than counts, we will need to get the <code>prop</code> statistic instead.</p></li>
+<li><p>Our call to statistic from the <code>aes()</code> function generically looks like this: <code>&lt;mapping&gt; = &lt;..statistic..&gt;</code>.</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  id="geoms-can-transform-data-3">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-9-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  class="build faster" id="geoms-can-transform-data-4">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion))
+p + geom_bar(mapping = aes(y = ..prop.., group = 1)) </pre>
+
+<ul>
+<li><p>We need to tell ggplot to ignore the x-categories when calculating denominator of the proportion, and use the total number observations instead.</p>
+
+<ul>
+<li>To do so we specify <code>group = 1</code> inside the <code>aes()</code> call.</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  id="geoms-can-transform-data-5">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-11-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  class="build faster" id="geoms-can-transform-data-6">
+
+<pre class = 'prettyprint lang-r'>table(gss_sm$religion)</pre>
+
+<pre >## 
+## Protestant   Catholic     Jewish       None      Other 
+##       1371        649         51        619        159</pre>
+
+</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  class="build faster" id="geoms-can-transform-data-7">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = religion, color = religion))
+p + geom_bar()</pre>
+
+<ul>
+<li>If we map religion to <code>color</code>, only the border lines of the bars will be assigned colors, and the insides will remain gray.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  id="geoms-can-transform-data-8">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-14-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  class="build faster" id="geoms-can-transform-data-9">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = religion, fill = religion))
+p + geom_bar() + guides( fill = &quot;none&quot; )</pre>
+
+<ul>
+<li><p>If the gray bars look boring and we want to fill them with color instead, we can map the religion variable to <code>fill</code> in addition to mapping it to <code>x</code>.</p></li>
+<li><p>The default legend is about the color variable, which is redundant.</p>
+
+<ul>
+<li>If we set <code>guides(fill = &quot;none&quot;)</code>, the legend is removed.</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  id="geoms-can-transform-data-10">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-16-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  class="build faster" id="frequency-plots-the-slightly-awkward-way">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion, fill = religion))
+p + geom_bar()</pre>
+
+<ul>
+<li><p>A more appropriate use of the <code>fill</code> aesthetic with <code>geom_bar()</code> is to cross-classify two categorical variables.</p>
+
+<ul>
+<li>The default output of such <code>geom_bar()</code> is a stacked bar chart, with counts on the y-axis.</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  id="frequency-plots-the-slightly-awkward-way-1">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-18-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  class="build faster" id="frequency-plots-the-slightly-awkward-way-2">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion, fill = religion))
+p + geom_bar(position = &quot;fill&quot;)</pre>
+
+<ul>
+<li>An alternative choice is to set the position argument to <code>&quot;fill&quot;</code>.
+
+<ul>
+<li>It is to compare proportions across groups.</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  id="frequency-plots-the-slightly-awkward-way-3">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-20-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  class="build faster" id="frequency-plots-the-slightly-awkward-way-4">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion, fill = religion))
+p + geom_bar(position = &quot;dodge&quot;,
+             mapping = aes(y = ..prop..))</pre>
+
+<ul>
+<li>We can use <code>position=&quot;dodge&quot;</code> to make the bars within each region of the country appear side by side.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  id="frequency-plots-the-slightly-awkward-way-5">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-22-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  class="build faster" id="frequency-plots-the-slightly-awkward-way-6">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion, fill = religion))
+p + geom_bar(position = &quot;dodge&quot;,
+             mapping = aes(y = ..prop.., group = religion))</pre>
+
+<ul>
+<li>In this case our grouping variable is <code>religion</code>, so we might try mapping that to the <code>group</code> aesthetic.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  id="frequency-plots-the-slightly-awkward-way-7">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-24-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  class="build faster" id="frequency-plots-the-slightly-awkward-way-8">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = religion))
+p + geom_bar(position = &quot;dodge&quot;,
+             mapping = aes(y = ..prop.., group = bigregion)) +
+    facet_wrap(~ bigregion, ncol = 1)</pre>
+
+<ul>
+<li>Instead, we can ask ggplot to give us a proportional bar chart of religious affiliation, and then facet that by region.
+
+<ul>
+<li>The proportions are calculated within each panel, which is the breakdown we wanted.</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  id="frequency-plots-the-slightly-awkward-way-9">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-26-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Midwest demographics</h2></hgroup><article  class="build faster" id="midwest-demographics">
+
+<pre class = 'prettyprint lang-r'>?midwest
+glimpse(midwest)
+skim(midwest)
+view(midwest)</pre>
+
+<ul>
+<li>The <code>ggplot</code> package comes with a dataset, <code>midwest</code>, containing information on counties in several midwestern states of the USA.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  class="build faster" id="histograms-and-density-plots">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = midwest,
+            mapping = aes(x = area))
+p + geom_histogram()</pre>
+
+<ul>
+<li>By default, the <code>geom_histogram()</code> function will choose a bin size for us based on a rule of thumb.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  id="histograms-and-density-plots-1">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-29-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  class="build faster" id="histograms-and-density-plots-2">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = midwest,
+            mapping = aes(x = area))
+p + geom_histogram(bins = 10)</pre>
+
+<ul>
+<li>When drawing histograms it is worth experimenting with <code>bins</code> and also optionally the <code>origin</code> of the x-axis.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  id="histograms-and-density-plots-3">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-31-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  class="build faster" id="histograms-and-density-plots-4">
+
+<pre class = 'prettyprint lang-r'>oh_wi &lt;- c(&quot;OH&quot;, &quot;WI&quot;)
+
+p &lt;- ggplot(data = subset(midwest, subset = state %in% oh_wi),
+            mapping = aes(x = percollege, fill = state))
+p + geom_histogram(alpha = 0.4, bins = 20)</pre>
+
+<ul>
+<li>We can facet histograms by some variable of interest, or as here we can compare them in the same plot using the <code>fill</code> mapping.
+
+<ul>
+<li>We subset the data here to pick out just two states.</li>
+<li>The <code>%in%</code> operator is a convenient way to filter on more than one term in a variable when using <code>subset()</code></li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  id="histograms-and-density-plots-5">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-33-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  class="build faster" id="histograms-and-density-plots-6">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = midwest,
+            mapping = aes(x = area))
+p + geom_density()</pre>
+
+<ul>
+<li>When working with a continuous variable, an alternative to binning the data and making a histogram is using the <code>geom_density()</code> function.
+
+<ul>
+<li>It calculates a kernel density estimate of the underlying distribution.</li>
+<li>The area under the whole curve is usually 1.</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  id="histograms-and-density-plots-7">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-35-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  class="build faster" id="histograms-and-density-plots-8">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = midwest,
+            mapping = aes(x = area, fill = state, color = state))
+p + geom_density(alpha = 0.3)</pre>
+
+<ul>
+<li>We can use <code>color</code> (for the lines) and <code>fill</code> (for the body of the density curve).
+
+<ul>
+<li>These figures often look quite nice.</li>
+<li>When there are several filled areas on the plot, as in this case, the overlap can become hard to read.</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  id="histograms-and-density-plots-9">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-37-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  class="build faster" id="histograms-and-density-plots-10">
+
+<pre class = 'prettyprint lang-r'>oh_wi &lt;- c(&quot;OH&quot;, &quot;WI&quot;)
+p &lt;- ggplot(data = subset(midwest, subset = state %in% oh_wi),
+            mapping = aes(x = area, fill = state, color = state))
+p + geom_density(alpha = 0.3, mapping = (aes(y = ..scaled..)))</pre>
+
+<ul>
+<li><p>For <code>geom_density()</code>, the <code>stat_density()</code> function can return its default <code>..density..</code> statistic, or <code>..scaled..</code>, which will give a proportional density estimate.</p></li>
+<li><p>It can also return a statistic called <code>..count..</code>, which is the density times the number of points. This can be used in stacked density plots.</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  id="histograms-and-density-plots-11">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-39-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Titanic data</h2></hgroup><article  id="titanic-data">
+
+<ul>
+<li>The <code>socviz</code> package includes the <code>titanic</code> data frame.
+
+<ul>
+<li>the aggregated data on who survived the Titanic disaster by sex.</li>
+</ul></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>?titanic
+titanic</pre>
+
+<pre >##       fate    sex    n percent
+## 1 perished   male 1364    62.0
+## 2 perished female  126     5.7
+## 3 survived   male  367    16.7
+## 4 survived female  344    15.6</pre>
+
+</article></slide><slide class=""><hgroup><h2>Avoid transformations when necessary</h2></hgroup><article  class="build faster" id="avoid-transformations-when-necessary">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = titanic,
+            mapping = aes(x = fate, y = percent, fill = sex))
+
+p + geom_bar(position = &quot;dodge&quot;, stat = &quot;identity&quot;) + theme(legend.position = &quot;top&quot;)</pre>
+
+<ul>
+<li>We can tell <code>geom_bar()</code> not to do any work on the variable before plotting it.
+
+<ul>
+<li><code>stat = &quot;identity&quot;</code> means &ldquo;don’t do any summary calculations&rdquo;.</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Avoid transformations when necessary</h2></hgroup><article  id="avoid-transformations-when-necessary-1">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-42-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>OECD data</h2></hgroup><article  id="oecd-data">
+
+<ul>
+<li>The <code>socviz</code> package also includes the <code>oecd_sum</code> data frame.
+
+<ul>
+<li>The <code>oecd_sum</code> table information on average life expectancy at birth within the United States, and across other OECD countries.</li>
+</ul></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>?oecd_sum
+oecd_sum</pre>
+
+<pre >## # A tibble: 57 × 5
+## # Groups:   year [57]
+##     year other   usa  diff hi_lo
+##    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
+##  1  1960  68.6  69.9 1.30  Below
+##  2  1961  69.2  70.4 1.20  Below
+##  3  1962  68.9  70.2 1.30  Below
+##  4  1963  69.1  70   0.900 Below
+##  5  1964  69.5  70.3 0.800 Below
+##  6  1965  69.6  70.3 0.700 Below
+##  7  1966  69.9  70.3 0.400 Below
+##  8  1967  70.1  70.7 0.600 Below
+##  9  1968  70.1  70.4 0.300 Below
+## 10  1969  70.1  70.6 0.5   Below
+## # … with 47 more rows</pre>
+
+</article></slide><slide class=""><hgroup><h2>Avoid transformations when necessary</h2></hgroup><article  class="build faster" id="avoid-transformations-when-necessary-2">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = oecd_sum,
+            mapping = aes(x = year, y = diff, fill = hi_lo))
+p + geom_col() + guides( fill = &quot;none&quot; ) + 
+  labs(x = NULL, y = &quot;Difference in Years&quot;,
+       title = &quot;The US Life Expectancy Gap&quot;,
+       subtitle = &quot;Difference between US and OECD
+                   average life expectancies, 1960-2015&quot;,
+       caption = &quot;Data: OECD. After a chart by Christopher Ingraham,
+                  Washington Post, December 27th 2017.&quot;)</pre>
+
+<ul>
+<li><p>For convenience <code>ggplot</code> also provides a related geom, <code>geom_col()</code>, which has exactly the same effect but its default is <code>stat = &quot;identity&quot;</code>.</p></li>
+<li><p>The <code>position</code> argument in <code>geom_bar()</code> and <code>geom_col()</code> can also take the value of <code>&quot;identity&quot;</code>.</p>
+
+<ul>
+<li><code>position = &quot;identity&quot;</code> means &ldquo;just plot the values as given&rdquo;.</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Avoid transformations when necessary</h2></hgroup><article  id="avoid-transformations-when-necessary-3">
+
+<p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-45-1.png" width="720" style="display: block; margin: auto;" /></p></article></slide>
+
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!-- map slide visiblity events into shiny -->
+<script>
+  (function() {
+    if (window.jQuery) {
+       window.jQuery(document).on('slideleave', function(e) {
+         window.jQuery(e.target).trigger('hidden');
+      });
+       window.jQuery(document).on('slideenter', function(e) {
+         window.jQuery(e.target).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>

@@ -87,26 +87,30 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--radix_placeholder_meta_tags-->
-  <title>byeong-hak choe: Team Project</title>
+  <title>byeong-hak choe: DANL 310: Data Visualization &amp; Presentation - Notes</title>
 
 
 
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2022-02-08"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-02-08"/>
+  <meta name="article:author" content="Byeong-Hak Choe"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
-  <meta property="og:title" content="byeong-hak choe: Team Project"/>
+  <meta property="og:title" content="byeong-hak choe: DANL 310: Data Visualization &amp; Presentation - Notes"/>
   <meta property="og:type" content="article"/>
   <meta property="og:locale" content="en_US"/>
   <meta property="og:site_name" content="byeong-hak choe"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
-  <meta property="twitter:title" content="byeong-hak choe: Team Project"/>
+  <meta property="twitter:title" content="byeong-hak choe: DANL 310: Data Visualization &amp; Presentation - Notes"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title"]}},"value":[{"type":"character","attributes":{},"value":["Team Project"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","date"]}},"value":[{"type":"character","attributes":{},"value":["DANL 310: Data Visualization & Presentation - Notes"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Byeong-Hak Choe"]}]}]},{"type":"character","attributes":{},"value":["February 8, 2022"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2439,7 +2443,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Team Project","authors":[]}
+{"title":"DANL 310: Data Visualization & Presentation - Notes","authors":[{"author":"Byeong-Hak Choe","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-02-08T00:00:00.000-05:00","citationText":"Choe, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2477,45 +2481,127 @@ lecture
 <!--/radix_placeholder_site_before_body-->
 
 <div class="d-title">
-<h1>Team Project</h1>
+<h1>DANL 310: Data Visualization &amp; Presentation - Notes</h1>
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
 
 </div>
 
+<div class="d-byline">
+  
+  Byeong-Hak Choe
+  
+<br/>February 8, 2022
+</div>
 
 <div class="d-article">
-<p>This is an example of the team project web-page.</p>
-<p> </p>
-<h2 id="us-county-map-of-climate-change-belief-in-2018">US county map of climate change belief in 2018</h2>
-<p>  <strong>Estimated percentage who think that global warming is caused mostly by human activities</strong></p>
+<h2 id="data-visualization-notes">Data Visualization Notes</h2>
+<p>This is a starter RMarkdown template to accompany <em>Data Visualization</em> (Princeton University Press, 2019). You can use it to take notes, write your code, and produce a good-looking, reproducible document that records the work you have done. At the very top of the file is a section of <em>metadata</em>, or information about what the file is and what it does. The metadata is delimited by three dashes at the start and another three at the end. You should change the title, author, and date to the values that suit you. Keep the <code>output</code> line as it is for now, however. Each line in the metadata has a structure. First the <em>key</em> (“title”, “author”, etc), then a colon, and then the <em>value</em> associated with the key.</p>
+<h2 id="this-is-an-rmarkdown-file">This is an RMarkdown File</h2>
+<p>Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
+<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. A <em>code chunk</em> is a specially delimited section of the file. You can add one by moving the cursor to a blank line choosing Code &gt; Insert Chunk from the RStudio menu. When you do, an empty chunk will appear:</p>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/jrnold/ggthemes'>ggthemes</a></span><span class='op'>)</span>
-
-<span class='va'>cc_belief_county</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.table</a></span><span class='op'>(</span>
-  <span class='st'>'data/cc_belief_county.csv'</span>,
-  sep <span class='op'>=</span> <span class='st'>','</span>,
-  header <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  stringsAsFactor <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span>
-
-<span class='co'># US county map of climate change opinion</span>
-<span class='va'>legend_title</span> <span class='op'>&lt;-</span> <span class='st'>""</span>
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>cc_belief_county</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_polygon.html'>geom_polygon</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>long</span>, <span class='va'>lat</span>, group <span class='op'>=</span> <span class='va'>group</span>, 
-                   fill <span class='op'>=</span> <span class='va'>human2018</span><span class='op'>)</span>,
-               color <span class='op'>=</span> <span class='st'>"grey"</span>, size <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/coord_map.html'>coord_map</a></span><span class='op'>(</span><span class='st'>"bonne"</span>, parameters <span class='op'>=</span> <span class='fl'>41.6</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_gradient.html'>scale_fill_gradient</a></span><span class='op'>(</span><span class='va'>legend_title</span>, low<span class='op'>=</span><span class='st'>'lightblue'</span>, high<span class='op'>=</span><span class='st'>'hotpink'</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/ggthemes/man/theme_map.html'>theme_map</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>legend.position<span class='op'>=</span><span class='st'>"right"</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>caption <span class='op'>=</span> <span class='st'>"Data source: Yale Climate Change Communication"</span><span class='op'>)</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>mpg</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>hwy</span>, y<span class='op'>=</span><span class='va'>cty</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
-<p><img src="project_files/figure-html5/countymap-1.png" width="1600px" style="display: block; margin: auto;" /></p>
+<p><img src="DANL310_Lec04_20220208_start_files/figure-html5/unnamed-chunk-3-1.png" width="624" /></p>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<p>Code chunks are delimited by three backticks (found to the left of the 1 key on US and UK keyboards) at the start and end. The opening backticks also have a pair of braces and the letter <code>r</code>, to indicate what language the chunk is written in. You write your code inside the code chunks. Write your notes and other material around them, as here.</p>
+<h2 id="before-you-begin">Before you Begin</h2>
+<p>To install the tidyverse, make sure you have an Internet connection. Then <em>manually</em> run the code in the chunk below. If you knit the document if will be skipped. We do this because you only need to install these packages once, not every time you run this file. Either knit the chunk using the little green “play” arrow to the right of the chunk area, or copy and paste the text into the console window.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## This code will not be evaluated automatically.</span>
+<span class='co'>## (Notice the eval = FALSE declaration in the options section of the</span>
+<span class='co'>## code chunk)</span>
+
+<span class='va'>my_packages</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"tidyverse"</span>, <span class='st'>"broom"</span>, <span class='st'>"coefplot"</span>, <span class='st'>"cowplot"</span>,
+                 <span class='st'>"gapminder"</span>, <span class='st'>"GGally"</span>, <span class='st'>"ggrepel"</span>, <span class='st'>"ggridges"</span>, <span class='st'>"gridExtra"</span>,
+                 <span class='st'>"here"</span>, <span class='st'>"interplot"</span>, <span class='st'>"margins"</span>, <span class='st'>"maps"</span>, <span class='st'>"mapproj"</span>,
+                 <span class='st'>"mapdata"</span>, <span class='st'>"MASS"</span>, <span class='st'>"quantreg"</span>, <span class='st'>"rlang"</span>, <span class='st'>"scales"</span>,
+                 <span class='st'>"survey"</span>, <span class='st'>"srvyr"</span>, <span class='st'>"viridis"</span>, <span class='st'>"viridisLite"</span>, <span class='st'>"devtools"</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='va'>my_packages</span>, repos <span class='op'>=</span> <span class='st'>"http://cran.rstudio.com"</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<h2 id="set-up-your-project-and-load-libraries">Set Up Your Project and Load Libraries</h2>
+<p>To begin we must load some libraries we will be using. If we do not load them, R will not be able to find the functions contained in these libraries. The tidyverse includes ggplot and other tools. We also load the socviz and gapminder libraries.</p>
+<p>Notice that here, the braces at the start of the code chunk have some additional options set in them. There is the language, <code>r</code>, as before. This is required. Then there is the word <code>setup</code>, which is a label for your code chunk. Labels are useful to briefly say what the chunk does. Label names must be unique (no two chunks in the same document can have the same label) and cannot contain spaces. Then, after the comma, an option is set: <code>include=FALSE</code>. This tells R to run this code but not to include the output in the final document.</p>
+<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>gapminder</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 1,704 × 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# … with 1,694 more rows</code></pre>
+</div>
+<p>The remainder of this document contains the chapter headings for the book, and an empty code chunk in each section to get you started. Try knitting this document now by clicking the “Knit” button in the RStudio toolbar, or choosing File &gt; Knit Document from the RStudio menu.</p>
+<h2 id="get-started">Get Started</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>url</span> <span class='op'>&lt;-</span> <span class='st'>"https://cdn.rawgit.com/kjhealy/viz-organdata/master/organdonation.csv"</span>
+
+<span class='va'>organs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span>file <span class='op'>=</span> <span class='va'>url</span><span class='op'>)</span>
+
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/jennybc/gapminder'>gapminder</a></span><span class='op'>)</span>
+<span class='va'>gapminder</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 1,704 × 6
+   country     continent  year lifeExp      pop gdpPercap
+   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+ 1 Afghanistan Asia       1952    28.8  8425333      779.
+ 2 Afghanistan Asia       1957    30.3  9240934      821.
+ 3 Afghanistan Asia       1962    32.0 10267083      853.
+ 4 Afghanistan Asia       1967    34.0 11537966      836.
+ 5 Afghanistan Asia       1972    36.1 13079460      740.
+ 6 Afghanistan Asia       1977    38.4 14880372      786.
+ 7 Afghanistan Asia       1982    39.9 12881816      978.
+ 8 Afghanistan Asia       1987    40.8 13867957      852.
+ 9 Afghanistan Asia       1992    41.7 16317921      649.
+10 Afghanistan Asia       1997    41.8 22227415      635.
+# … with 1,694 more rows</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>gapminder</span>,
+       mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>gdpPercap</span>, y <span class='op'>=</span> <span class='va'>lifeExp</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="DANL310_Lec04_20220208_start_files/figure-html5/unnamed-chunk-6-1.png" width="768" /></p>
+</div>
+<h2 id="make-a-plot">Make a Plot</h2>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
