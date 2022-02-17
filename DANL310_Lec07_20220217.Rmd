@@ -556,12 +556,6 @@ view(elections_historic)
 
 
 
-## Plot text directly {.build .faster}
-- `geom_text_repel()` makes sure the labels do not overlap with each other, or obscure other points.
-
-- We use two new geoms, `geom_hline()` and `geom_vline()` to make the lines. 
-
-
 
 ## Plot text directly {.build .faster}
 ```{r, echo=T, eval=F, fig.align='center', fig.height=5.5, message=FALSE, warning=FALSE}
@@ -574,10 +568,10 @@ y_label <- "Winner's share of Electoral College Votes"
 p <- ggplot(elections_historic, aes(x = popular_pct, y = ec_pct,
                                     label = winner_label))
 
-p + geom_hline(yintercept = 0.5, size = 1.4, color = "gray80") +
+p + geom_hline(yintercept = 0.5, size = 1.4, color = "gray80") +  # We use two new geoms, `geom_hline()` and `geom_vline()` to make the lines. 
     geom_vline(xintercept = 0.5, size = 1.4, color = "gray80") +
     geom_point() +
-    geom_text_repel() +
+    geom_text_repel() +  # `geom_text_repel()` makes sure the labels do not overlap with each other, or obscure other points.
     scale_x_continuous(labels = scales::percent) +
     scale_y_continuous(labels = scales::percent) +
     labs(x = x_label, y = y_label, title = p_title, subtitle = p_subtitle,
@@ -587,4 +581,4 @@ p + geom_hline(yintercept = 0.5, size = 1.4, color = "gray80") +
 
 
 ## Plot text directly
-![](lec_figs/socviz_fig5_18.png){width=84%}
+![](lec_figs/socviz_fig5_18.png){height=100%}
