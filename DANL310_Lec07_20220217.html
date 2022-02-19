@@ -753,22 +753,23 @@ p_subtitle &lt;- &quot;1824-2016&quot;
 p_caption &lt;- &quot;Data for 2016 are provisional.&quot;
 x_label &lt;- &quot;Winner&#39;s share of Popular Vote&quot;
 y_label &lt;- &quot;Winner&#39;s share of Electoral College Votes&quot;
-
-p &lt;- ggplot(elections_historic, aes(x = popular_pct, y = ec_pct,
-                                    label = winner_label))
-
-p + geom_hline(yintercept = 0.5, size = 1.4, color = &quot;gray80&quot;) +  # We use two new geoms, `geom_hline()` and `geom_vline()` to make the lines. 
+p &lt;- ggplot(elections_historic, aes(x = popular_pct, y = ec_pct, label = winner_label))
+p + geom_hline(yintercept = 0.5, size = 1.4, color = &quot;gray80&quot;) + 
     geom_vline(xintercept = 0.5, size = 1.4, color = &quot;gray80&quot;) +
-    geom_point() +
-    geom_text_repel() +  # `geom_text_repel()` makes sure the labels do not overlap with each other, or obscure other points.
+    geom_point() + geom_text_repel() +  
     scale_x_continuous(labels = scales::percent) +
     scale_y_continuous(labels = scales::percent) +
     labs(x = x_label, y = y_label, title = p_title, subtitle = p_subtitle,
          caption = p_caption)</pre>
 
+<ul>
+<li><p><code>geom_hline()</code> and <code>geom_vline()</code> to make the lines.</p></li>
+<li><p><code>geom_text_repel()</code> makes sure the labels do not overlap with each other, or obscure other points.</p></li>
+</ul>
+
 </article></slide><slide class=""><hgroup><h2>Plot text directly</h2></hgroup><article  id="plot-text-directly-5">
 
-<p><img src='lec_figs/socviz_fig5_18.png' title=''/>{width=84%, fig.align = &lsquo;center&rsquo;}</p></article></slide>
+<img width="84%" src='lec_figs/socviz_fig5_18.png' title=''/></article></slide>
 
 
   <slide class="backdrop"></slide>
