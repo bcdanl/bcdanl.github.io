@@ -178,7 +178,7 @@ slide:not(.current) .plotly.html-widget{
 
 <slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Graph tables, add labels, make notes</h2></hgroup><article  id="graph-tables-add-labels-make-notes">
 
-</article></slide><slide class=""><hgroup><h2>Graph tables, add labels, make notes</h2></hgroup><article  id="graph-tables-add-labels-make-notes-1" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Graph tables, add labels, make notes</h2></hgroup><article  class="build faster" id="graph-tables-add-labels-make-notes-1">
 
 <ul>
 <li><p>We will learn about how to transform data <em>before</em> we send it to ggplot to be turned into a figure.</p></li>
@@ -215,7 +215,7 @@ glimpse(gss_sm)
 skim(gss_sm)
 view(gss_sm)</pre>
 
-</article></slide><slide class=""><hgroup><h2>Graph tables</h2></hgroup><article  id="graph-tables" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Graph tables</h2></hgroup><article  class="build faster" id="graph-tables">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
             mapping = aes(x = bigregion, fill = religion))
@@ -233,7 +233,7 @@ p + geom_bar(position = &quot;fill&quot;)</pre>
 
 <img width="100%" src='lec_figs/socviz_tab5_2.png' title=''/>
 
-</article></slide><slide class=""><hgroup><h2>Graph tables</h2></hgroup><article  id="graph-tables-3" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Graph tables</h2></hgroup><article  class="build faster" id="graph-tables-3">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
             mapping = aes(x = bigregion ))
@@ -255,13 +255,13 @@ p + geom_bar(position = &quot;dodge&quot;,
 
 </article></slide><slide class=""><hgroup><h2>Graph tables</h2></hgroup><article  id="graph-tables-5">
 
-<img width="100%" src='lec_figs/socviz_tab5_1.png' title=''/>
+<img width="100%" src='lec_figs/socviz_tab5_2.png' title=''/>
 
 </article></slide><slide class=""><hgroup><h2>Graph tables</h2></hgroup><article  id="graph-tables-6">
 
 <img width="100%" src='lec_figs/socviz_fig5_1.png' title=''/>
 
-</article></slide><slide class=""><hgroup><h2>Use pipes to summarize data</h2></hgroup><article  id="use-pipes-to-summarize-data" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Use pipes to summarize data</h2></hgroup><article  class="build faster" id="use-pipes-to-summarize-data">
 
 <ul>
 <li>We will use the <code>%&gt;%</code> (pipe) operator when tidying data.
@@ -272,7 +272,7 @@ p + geom_bar(position = &quot;dodge&quot;,
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Use pipes to summarize data</h2></hgroup><article  id="use-pipes-to-summarize-data-1" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Use pipes to summarize data</h2></hgroup><article  class="build faster" id="use-pipes-to-summarize-data-1">
 
 <ul>
 <li>A pipeline is typically a series of operations that do one or more of four things:
@@ -289,7 +289,7 @@ p + geom_bar(position = &quot;dodge&quot;,
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Use pipes to summarize data</h2></hgroup><article  id="use-pipes-to-summarize-data-2" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Use pipes to summarize data</h2></hgroup><article  class="build faster" id="use-pipes-to-summarize-data-2">
 
 <pre class = 'prettyprint lang-r'>rel_by_region &lt;- gss_sm %&gt;%
     group_by( bigregion, religion ) %&gt;%
@@ -314,7 +314,7 @@ rel_by_region</pre>
 ## 10 Midwest   None         157 0.226      23
 ## # … with 14 more rows</pre>
 
-</article></slide><slide class=""><hgroup><h2>Use pipes to summarize data</h2></hgroup><article  id="use-pipes-to-summarize-data-3" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Use pipes to summarize data</h2></hgroup><article  class="build faster" id="use-pipes-to-summarize-data-3">
 
 <ul>
 <li><p>Reading from the left, the code says this:</p>
@@ -325,7 +325,7 @@ rel_by_region</pre>
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Use pipes to summarize data</h2></hgroup><article  id="use-pipes-to-summarize-data-4" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Use pipes to summarize data</h2></hgroup><article  class="build faster" id="use-pipes-to-summarize-data-4">
 
 <ul>
 <li><code>summarize(N = n()) %&gt;%</code>: Summarize this table to create a new, much smaller table, with three columns:
@@ -337,7 +337,7 @@ rel_by_region</pre>
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Use pipes to summarize data</h2></hgroup><article  id="use-pipes-to-summarize-data-5" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Use pipes to summarize data</h2></hgroup><article  class="build faster" id="use-pipes-to-summarize-data-5">
 
 <ul>
 <li><code>mutate(freq = N / sum(N), pct = round((freq*100), 0))</code>: With this new table, use the <code>N</code> variable to calculate two new columns:
@@ -352,7 +352,7 @@ rel_by_region</pre>
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Use pipes to summarize data</h2></hgroup><article  id="use-pipes-to-summarize-data-6" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Use pipes to summarize data</h2></hgroup><article  class="build faster" id="use-pipes-to-summarize-data-6">
 
 <pre class = 'prettyprint lang-r'>rel_by_region %&gt;% group_by(bigregion) %&gt;%
     summarize(total = sum(pct))</pre>
@@ -365,7 +365,7 @@ rel_by_region</pre>
 ## 3 South       100
 ## 4 West        101</pre>
 
-</article></slide><slide class=""><hgroup><h2>Use pipes to summarize data</h2></hgroup><article  id="use-pipes-to-summarize-data-7" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Use pipes to summarize data</h2></hgroup><article  class="build faster" id="use-pipes-to-summarize-data-7">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(rel_by_region, aes(x = bigregion, y = pct, fill = religion))
 
@@ -381,7 +381,7 @@ p + geom_col(position = &quot;dodge&quot;) +
 
 <p><img src="DANL310_Lec07_20220217_files/figure-html/unnamed-chunk-9-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Use pipes to summarize data</h2></hgroup><article  id="use-pipes-to-summarize-data-9" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Use pipes to summarize data</h2></hgroup><article  class="build faster" id="use-pipes-to-summarize-data-9">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(rel_by_region, aes(x = religion, y = pct, fill = religion))
 
@@ -414,7 +414,7 @@ glimpse(organdata)
 skim(organdata)
 view(organdata)</pre>
 
-</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  id="continuous-variables-by-group-or-category" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  class="build faster" id="continuous-variables-by-group-or-category">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = organdata,
             mapping = aes(x = year, y = donors))
@@ -428,7 +428,7 @@ p + geom_point()</pre>
 
 <p><img src="DANL310_Lec07_20220217_files/figure-html/unnamed-chunk-14-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  id="continuous-variables-by-group-or-category-2" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  class="build faster" id="continuous-variables-by-group-or-category-2">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = organdata,
             mapping = aes(x = year, y = donors))
@@ -444,7 +444,7 @@ p + geom_line(aes(group = country)) + facet_wrap(~ country) +
 
 <p><img src="DANL310_Lec07_20220217_files/figure-html/unnamed-chunk-16-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  id="continuous-variables-by-group-or-category-4" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  class="build faster" id="continuous-variables-by-group-or-category-4">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = organdata,
             mapping = aes(x = country, y = donors))
@@ -458,7 +458,7 @@ p + geom_boxplot() + coord_flip()</pre>
 
 <p><img src="DANL310_Lec07_20220217_files/figure-html/unnamed-chunk-18-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  id="continuous-variables-by-group-or-category-6" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  class="build faster" id="continuous-variables-by-group-or-category-6">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = organdata,
             mapping = aes(x = reorder(country, donors, na.rm=TRUE),
@@ -480,7 +480,7 @@ p + geom_boxplot() +
 
 <p><img src="DANL310_Lec07_20220217_files/figure-html/unnamed-chunk-20-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  id="continuous-variables-by-group-or-category-8" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  class="build faster" id="continuous-variables-by-group-or-category-8">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = organdata,
             mapping = aes(x = reorder(country, donors, na.rm=TRUE),
@@ -497,7 +497,7 @@ p + geom_boxplot() + labs(x=NULL) +
 
 <p><img src="DANL310_Lec07_20220217_files/figure-html/unnamed-chunk-22-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  id="continuous-variables-by-group-or-category-10" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  class="build faster" id="continuous-variables-by-group-or-category-10">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = organdata,
             mapping = aes(x = reorder(country, donors, na.rm=TRUE),
@@ -513,7 +513,7 @@ p + geom_point(alpha = .5) + labs(x=NULL) +
 
 <p><img src="DANL310_Lec07_20220217_files/figure-html/unnamed-chunk-24-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  id="continuous-variables-by-group-or-category-12" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  class="build faster" id="continuous-variables-by-group-or-category-12">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = organdata,
             mapping = aes(x = reorder(country, donors, na.rm=TRUE),
@@ -529,7 +529,7 @@ p + geom_jitter(position = position_jitter(width=0.15)) +
 
 <p><img src="DANL310_Lec07_20220217_files/figure-html/unnamed-chunk-26-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  id="continuous-variables-by-group-or-category-14" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  class="build faster" id="continuous-variables-by-group-or-category-14">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = organdata,
             mapping = aes(x = reorder(country, donors, na.rm=TRUE),
@@ -545,13 +545,13 @@ p + geom_jitter(position = position_jitter(width=0.15)) +
 
 <p><img src="DANL310_Lec07_20220217_files/figure-html/unnamed-chunk-28-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  id="continuous-variables-by-group-or-category-16" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  class="build faster" id="continuous-variables-by-group-or-category-16">
 
 <ul>
 <li>When we want to summarize a categorical variable that just has one point per category, we should use this approach as well.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  id="continuous-variables-by-group-or-category-17" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  class="build faster" id="continuous-variables-by-group-or-category-17">
 
 <pre class = 'prettyprint lang-r'>by_country &lt;- organdata %&gt;% group_by(consent_law, country) %&gt;%
     summarize(donors_mean= mean(donors, na.rm = TRUE),
@@ -586,7 +586,7 @@ by_country</pre>
 ## 17 Presumed    Switzerland           14.2     1.71    27233        2776.       96.4
 ## # … with 1 more variable: cerebvas_mean &lt;dbl&gt;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  id="continuous-variables-by-group-or-category-18" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  class="build faster" id="continuous-variables-by-group-or-category-18">
 
 <ul>
 <li><p>What we would like to do is apply the <code>mean()</code> and <code>sd()</code> functions to every numerical variable in <code>organdata</code>, but only the numerical ones.</p></li>
@@ -597,7 +597,7 @@ by_country</pre>
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  id="continuous-variables-by-group-or-category-19" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  class="build faster" id="continuous-variables-by-group-or-category-19">
 
 <pre class = 'prettyprint lang-r'>by_country &lt;- organdata %&gt;% group_by(consent_law, country) %&gt;%
     summarize_if(is.numeric, funs(mean, sd), na.rm = TRUE) %&gt;%
@@ -632,7 +632,7 @@ by_country</pre>
 ## #   health_lag_sd &lt;dbl&gt;, pubhealth_sd &lt;dbl&gt;, roads_sd &lt;dbl&gt;, cerebvas_sd &lt;dbl&gt;,
 ## #   assault_sd &lt;dbl&gt;, external_sd &lt;dbl&gt;, txp_pop_sd &lt;dbl&gt;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Cleveland dotplot</h2></hgroup><article  id="cleveland-dotplot" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Cleveland dotplot</h2></hgroup><article  class="build faster" id="cleveland-dotplot">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = by_country,
             mapping = aes(x = donors_mean, y = reorder(country, donors_mean),
@@ -650,7 +650,7 @@ p + geom_point(size=3) +
 
 <p><img src="DANL310_Lec07_20220217_files/figure-html/unnamed-chunk-32-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Cleveland dotplot</h2></hgroup><article  id="cleveland-dotplot-2" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Cleveland dotplot</h2></hgroup><article  class="build faster" id="cleveland-dotplot-2">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = by_country,
             mapping = aes(x = donors_mean,
@@ -675,7 +675,7 @@ p + geom_point(size=3) +
 
 <p><img src="DANL310_Lec07_20220217_files/figure-html/unnamed-chunk-34-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Cleveland dotplot</h2></hgroup><article  id="cleveland-dotplot-4" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Cleveland dotplot</h2></hgroup><article  class="build faster" id="cleveland-dotplot-4">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = by_country, mapping = aes(x = reorder(country,
               donors_mean), y = donors_mean))
@@ -693,7 +693,7 @@ p + geom_pointrange(mapping = aes(ymin = donors_mean - donors_sd,
 
 <p><img src="DANL310_Lec07_20220217_files/figure-html/unnamed-chunk-36-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Plot text directly</h2></hgroup><article  id="plot-text-directly" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Plot text directly</h2></hgroup><article  class="build faster" id="plot-text-directly">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = by_country,
             mapping = aes(x = roads_mean, y = donors_mean))
@@ -711,7 +711,7 @@ p + geom_point() + geom_text(mapping = aes(label = country))</pre>
 
 <p><img src="DANL310_Lec07_20220217_files/figure-html/unnamed-chunk-38-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Plot text directly</h2></hgroup><article  id="plot-text-directly-2" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Plot text directly</h2></hgroup><article  class="build faster" id="plot-text-directly-2">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = by_country,
             mapping = aes(x = roads_mean, y = donors_mean))
@@ -746,7 +746,7 @@ glimpse(elections_historic)
 skim(elections_historic)
 view(elections_historic)</pre>
 
-</article></slide><slide class=""><hgroup><h2>Plot text directly</h2></hgroup><article  id="plot-text-directly-4" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Plot text directly</h2></hgroup><article  class="build faster" id="plot-text-directly-4">
 
 <pre class = 'prettyprint lang-r'>p_title &lt;- &quot;Presidential Elections: Popular &amp; Electoral College Margins&quot;
 p_subtitle &lt;- &quot;1824-2016&quot;
@@ -768,7 +768,7 @@ p + geom_hline(yintercept = 0.5, size = 1.4, color = &quot;gray80&quot;) +  # We
 
 </article></slide><slide class=""><hgroup><h2>Plot text directly</h2></hgroup><article  id="plot-text-directly-5">
 
-<img height="100%" src='lec_figs/socviz_fig5_18.png' title=''/></article></slide>
+<p><img src='lec_figs/socviz_fig5_18.png' title=''/>{width=84%, fig.align = &lsquo;center&rsquo;}</p></article></slide>
 
 
   <slide class="backdrop"></slide>
