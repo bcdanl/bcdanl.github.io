@@ -186,7 +186,7 @@ library(scales)  # scales for ggplot
 library(gapminder) # gapminder data
 library(socviz)  # data for visualization practice</pre>
 
-</article></slide><slide class=""><hgroup><h2>Facet to make small multiples</h2></hgroup><article  id="facet-to-make-small-multiples" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Facet to make small multiples</h2></hgroup><article  class="build faster" id="facet-to-make-small-multiples">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gapminder,
             mapping = aes(x = year,
@@ -224,7 +224,7 @@ glimpse(gss_sm)
 skim(gss_sm)
 view(gss_sm)</pre>
 
-</article></slide><slide class=""><hgroup><h2>Facet to make small multiples</h2></hgroup><article  id="facet-to-make-small-multiples-2" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Facet to make small multiples</h2></hgroup><article  class="build faster" id="facet-to-make-small-multiples-2">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
             mapping = aes(x = age, y = childs))
@@ -245,7 +245,7 @@ p + geom_point(alpha = 0.2) +
 
 <p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-5-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  id="geoms-can-transform-data" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  class="build faster" id="geoms-can-transform-data">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
             mapping = aes(x = bigregion))
@@ -259,7 +259,7 @@ p + geom_bar()</pre>
 
 <p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-7-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  id="geoms-can-transform-data-2" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  class="build faster" id="geoms-can-transform-data-2">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
             mapping = aes(x = bigregion))
@@ -274,7 +274,7 @@ p + geom_bar(mapping = aes(y = ..prop..))</pre>
 
 <p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-9-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  id="geoms-can-transform-data-4" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  class="build faster" id="geoms-can-transform-data-4">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
             mapping = aes(x = bigregion))
@@ -292,7 +292,7 @@ p + geom_bar(mapping = aes(y = ..prop.., group = 1)) </pre>
 
 <p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-11-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  id="geoms-can-transform-data-6" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  class="build faster" id="geoms-can-transform-data-6">
 
 <pre class = 'prettyprint lang-r'>table(gss_sm$religion)</pre>
 
@@ -300,7 +300,7 @@ p + geom_bar(mapping = aes(y = ..prop.., group = 1)) </pre>
 ## Protestant   Catholic     Jewish       None      Other 
 ##       1371        649         51        619        159</pre>
 
-</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  id="geoms-can-transform-data-7" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  class="build faster" id="geoms-can-transform-data-7">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
             mapping = aes(x = religion, color = religion))
@@ -314,7 +314,7 @@ p + geom_bar()</pre>
 
 <p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-14-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  id="geoms-can-transform-data-9" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Geoms can transform data</h2></hgroup><article  class="build faster" id="geoms-can-transform-data-9">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
             mapping = aes(x = religion, fill = religion))
@@ -333,7 +333,7 @@ p + geom_bar() + guides( fill = &quot;none&quot; )</pre>
 
 <p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-16-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  id="frequency-plots-the-slightly-awkward-way" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  class="build faster" id="frequency-plots-the-slightly-awkward-way">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
             mapping = aes(x = bigregion, fill = religion))
@@ -351,7 +351,7 @@ p + geom_bar()</pre>
 
 <p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-18-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  id="frequency-plots-the-slightly-awkward-way-2" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  class="build faster" id="frequency-plots-the-slightly-awkward-way-2">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
             mapping = aes(x = bigregion, fill = religion))
@@ -369,7 +369,7 @@ p + geom_bar(position = &quot;fill&quot;)</pre>
 
 <p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-20-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  id="frequency-plots-the-slightly-awkward-way-4" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  class="build faster" id="frequency-plots-the-slightly-awkward-way-4">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
             mapping = aes(x = bigregion, fill = religion))
@@ -384,7 +384,7 @@ p + geom_bar(position = &quot;dodge&quot;,
 
 <p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-22-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  id="frequency-plots-the-slightly-awkward-way-6" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  class="build faster" id="frequency-plots-the-slightly-awkward-way-6">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
             mapping = aes(x = bigregion, fill = religion))
@@ -399,7 +399,7 @@ p + geom_bar(position = &quot;dodge&quot;,
 
 <p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-24-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  id="frequency-plots-the-slightly-awkward-way-8" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Frequency plots the slightly awkward way</h2></hgroup><article  class="build faster" id="frequency-plots-the-slightly-awkward-way-8">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_sm,
             mapping = aes(x = religion))
@@ -419,7 +419,7 @@ p + geom_bar(position = &quot;dodge&quot;,
 
 <p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-26-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Midwest demographics</h2></hgroup><article  id="midwest-demographics" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Midwest demographics</h2></hgroup><article  class="build faster" id="midwest-demographics">
 
 <pre class = 'prettyprint lang-r'>?midwest
 glimpse(midwest)
@@ -430,7 +430,7 @@ view(midwest)</pre>
 <li>The <code>ggplot</code> package comes with a dataset, <code>midwest</code>, containing information on counties in several midwestern states of the USA.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  id="histograms-and-density-plots" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  class="build faster" id="histograms-and-density-plots">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = midwest,
             mapping = aes(x = area))
@@ -444,7 +444,7 @@ p + geom_histogram()</pre>
 
 <p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-29-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  id="histograms-and-density-plots-2" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  class="build faster" id="histograms-and-density-plots-2">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = midwest,
             mapping = aes(x = area))
@@ -458,7 +458,7 @@ p + geom_histogram(bins = 10)</pre>
 
 <p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-31-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  id="histograms-and-density-plots-4" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  class="build faster" id="histograms-and-density-plots-4">
 
 <pre class = 'prettyprint lang-r'>oh_wi &lt;- c(&quot;OH&quot;, &quot;WI&quot;)
 
@@ -479,7 +479,7 @@ p + geom_histogram(alpha = 0.4, bins = 20)</pre>
 
 <p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-33-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  id="histograms-and-density-plots-6" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  class="build faster" id="histograms-and-density-plots-6">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = midwest,
             mapping = aes(x = area))
@@ -498,7 +498,7 @@ p + geom_density()</pre>
 
 <p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-35-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  id="histograms-and-density-plots-8" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  class="build faster" id="histograms-and-density-plots-8">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = midwest,
             mapping = aes(x = area, fill = state, color = state))
@@ -517,7 +517,7 @@ p + geom_density(alpha = 0.3)</pre>
 
 <p><img src="DANL310_Lec06_20220215_files/figure-html/unnamed-chunk-37-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  id="histograms-and-density-plots-10" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Histograms and density plots</h2></hgroup><article  class="build faster" id="histograms-and-density-plots-10">
 
 <pre class = 'prettyprint lang-r'>oh_wi &lt;- c(&quot;OH&quot;, &quot;WI&quot;)
 p &lt;- ggplot(data = subset(midwest, subset = state %in% oh_wi),
@@ -552,7 +552,7 @@ titanic</pre>
 ## 3 survived   male  367    16.7
 ## 4 survived female  344    15.6</pre>
 
-</article></slide><slide class=""><hgroup><h2>Avoid transformations when necessary</h2></hgroup><article  id="avoid-transformations-when-necessary" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Avoid transformations when necessary</h2></hgroup><article  class="build faster" id="avoid-transformations-when-necessary">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = titanic,
             mapping = aes(x = fate, y = percent, fill = sex))
@@ -600,7 +600,7 @@ oecd_sum</pre>
 ## 10  1969  70.1  70.6 0.5   Below
 ## # … with 47 more rows</pre>
 
-</article></slide><slide class=""><hgroup><h2>Avoid transformations when necessary</h2></hgroup><article  id="avoid-transformations-when-necessary-2" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Avoid transformations when necessary</h2></hgroup><article  class="build faster" id="avoid-transformations-when-necessary-2">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = oecd_sum,
             mapping = aes(x = year, y = diff, fill = hi_lo))
