@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DANL 310 Lecture 10</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="generator" content="pandoc" />
+
+
+
+  <meta name="date" content="2022-03-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <base target="_blank">
+
+  <script type="text/javascript">
+    var SLIDE_CONFIG = {
+      // Slide settings
+      settings: {
+                title: 'DANL 310 Lecture 10',
+                        useBuilds: true,
+        usePrettify: true,
+        enableSlideAreas: true,
+        enableTouch: true,
+                      },
+
+      // Author information
+      presenters: [
+            {
+        name:  'Byeong-Hak Choe' ,
+        company: '',
+        gplus: '',
+        twitter: '',
+        www: '',
+        github: ''
+      },
+            ]
+    };
+  </script>
+
+  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <link href="site_libs/ioslides-13.5.1/fonts/fonts.css" rel="stylesheet" />
+  <link href="site_libs/ioslides-13.5.1/theme/css/default.css" rel="stylesheet" />
+  <link href="site_libs/ioslides-13.5.1/theme/css/phone.css" rel="stylesheet" />
+  <script src="site_libs/ioslides-13.5.1/js/modernizr.custom.45394.js"></script>
+  <script src="site_libs/ioslides-13.5.1/js/prettify/prettify.js"></script>
+  <script src="site_libs/ioslides-13.5.1/js/prettify/lang-r.js"></script>
+  <script src="site_libs/ioslides-13.5.1/js/prettify/lang-yaml.js"></script>
+  <script src="site_libs/ioslides-13.5.1/js/hammer.js"></script>
+  <script src="site_libs/ioslides-13.5.1/js/slide-controller.js"></script>
+  <script src="site_libs/ioslides-13.5.1/js/slide-deck.js"></script>
+
+  <style type="text/css">
+
+    b, strong {
+      font-weight: bold;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    summary {
+      display: list-item;
+    }
+
+    slides > slide {
+      -webkit-transition: all 0s ease-in-out;
+      -moz-transition: all 0s ease-in-out;
+      -o-transition: all 0s ease-in-out;
+      transition: all 0s ease-in-out;
+    }
+
+    .auto-fadein {
+      -webkit-transition: opacity 0.6s ease-in;
+      -webkit-transition-delay: 0s;
+      -moz-transition: opacity 0.6s ease-in 0s;
+      -o-transition: opacity 0.6s ease-in 0s;
+      transition: opacity 0.6s ease-in 0s;
+      opacity: 0;
+    }
+/* https://github.com/ropensci/plotly/pull/524#issuecomment-468142578 */
+slide:not(.current) .plotly.html-widget{
+  display: block;
+}
+
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+            pre > code.sourceCode { white-space: pre; position: relative; }
+            pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+            pre > code.sourceCode > span:empty { height: 1.2em; }
+            .sourceCode { overflow: visible; }
+            code.sourceCode > span { color: inherit; text-decoration: inherit; }
+            div.sourceCode { margin: 1em 0; }
+            pre.sourceCode { margin: 0; }
+            @media screen {
+            div.sourceCode { overflow: auto; }
+            }
+            @media print {
+            pre > code.sourceCode { white-space: pre-wrap; }
+            pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+            }
+            pre.numberSource code
+              { counter-reset: source-line 0; }
+            pre.numberSource code > span
+              { position: relative; left: -4em; counter-increment: source-line; }
+            pre.numberSource code > span > a:first-child::before
+              { content: counter(source-line);
+                position: relative; left: -1em; text-align: right; vertical-align: baseline;
+                border: none; display: inline-block;
+                -webkit-touch-callout: none; -webkit-user-select: none;
+                -khtml-user-select: none; -moz-user-select: none;
+                -ms-user-select: none; user-select: none;
+                padding: 0 4px; width: 4em;
+                color: #aaaaaa;
+              }
+            pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+            div.sourceCode
+              {   }
+            @media screen {
+            pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+            }
+            code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+            code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+            code span.at { color: #7d9029; } /* Attribute */
+            code span.bn { color: #40a070; } /* BaseN */
+            code span.bu { } /* BuiltIn */
+            code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+            code span.ch { color: #4070a0; } /* Char */
+            code span.cn { color: #880000; } /* Constant */
+            code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+            code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+            code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+            code span.dt { color: #902000; } /* DataType */
+            code span.dv { color: #40a070; } /* DecVal */
+            code span.er { color: #ff0000; font-weight: bold; } /* Error */
+            code span.ex { } /* Extension */
+            code span.fl { color: #40a070; } /* Float */
+            code span.fu { color: #06287e; } /* Function */
+            code span.im { } /* Import */
+            code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+            code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+            code span.op { color: #666666; } /* Operator */
+            code span.ot { color: #007020; } /* Other */
+            code span.pp { color: #bc7a00; } /* Preprocessor */
+            code span.sc { color: #4070a0; } /* SpecialChar */
+            code span.ss { color: #bb6688; } /* SpecialString */
+            code span.st { color: #4070a0; } /* String */
+            code span.va { color: #19177c; } /* Variable */
+            code span.vs { color: #4070a0; } /* VerbatimString */
+            code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+        
+  </style>
+
+
+</head>
+
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+        <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+            <p style="margin-top: 6px; margin-left: -2px;">March 1, 2022</p>
+          </hgroup>
+  </slide>
+
+<slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Draw maps</h2></hgroup><article  id="draw-maps">
+
+</article></slide><slide class=""><hgroup><h2>R packages</h2></hgroup><article  id="r-packages">
+
+<pre class = 'prettyprint lang-r'>library(tidyverse)
+library(socviz)
+library(ggthemes)
+theme_set(theme_minimal())</pre>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data" class="build faster">
+
+<ul>
+<li>The <code>socviz::election</code> dataset has various measures of the vote and vote shares by state.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>election %&gt;% select(state, total_vote,
+                    r_points, pct_trump, party, census) %&gt;%
+    sample_n(5)</pre>
+
+<pre >## # A tibble: 5 × 6
+##   state                total_vote r_points pct_trump party      census   
+##   &lt;chr&gt;                     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;    
+## 1 New Jersey              3906723   -14.0      41    Democratic Northeast
+## 2 South Dakota             370093    29.8      61.5  Republican Midwest  
+## 3 Arkansas                1130635    26.9      60.6  Republican South    
+## 4 District of Columbia     311268   -86.8       4.09 Democratic South    
+## 5 North Carolina          4741564     3.66     49.8  Republican South</pre>
+
+<ul>
+<li>We don’t have to represent spatial data spatially.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-1" class="build faster">
+
+<pre class = 'prettyprint lang-r'>party_colors &lt;- c(&quot;#2E74C0&quot;, &quot;#CB454A&quot;)  # Hex color codes for Dem Blue and Rep Red
+p0 &lt;- ggplot(data = subset(election, st %nin% &quot;DC&quot;),
+             mapping = aes(x = r_points,
+                           y = reorder(state, r_points),
+                           color = party))
+
+p1 &lt;- p0 + geom_vline(xintercept = 0, color = &quot;gray30&quot;) +
+    geom_point(size = 2)
+
+p2 &lt;- p1 + scale_color_manual(values = party_colors)
+
+p3 &lt;- p2 + scale_x_continuous(breaks = c(-30, -20, -10, 0, 10, 20, 30, 40),
+                              labels = c(&quot;30\n (Clinton)&quot;, &quot;20&quot;, &quot;10&quot;, &quot;0&quot;,
+                                         &quot;10&quot;, &quot;20&quot;, &quot;30&quot;, &quot;40\n(Trump)&quot;))
+
+p3 + facet_wrap(~ census, ncol=1, scales=&quot;free_y&quot;) +
+     guides(color = &quot;none&quot;) + labs(x = &quot;Point Margin&quot;, y = &quot;&quot;) +
+     theme(axis.text=element_text(size=8))</pre>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-2">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-4-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-3" class="build faster">
+
+<ul>
+<li>Let us get a data frame of the US state map</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>us_states &lt;- map_data(&quot;state&quot;)
+head(us_states)</pre>
+
+<pre >##        long      lat group order  region subregion
+## 1 -87.46201 30.38968     1     1 alabama      &lt;NA&gt;
+## 2 -87.48493 30.37249     1     2 alabama      &lt;NA&gt;
+## 3 -87.52503 30.37249     1     3 alabama      &lt;NA&gt;
+## 4 -87.53076 30.33239     1     4 alabama      &lt;NA&gt;
+## 5 -87.57087 30.32665     1     5 alabama      &lt;NA&gt;
+## 6 -87.58806 30.32665     1     6 alabama      &lt;NA&gt;</pre>
+
+<pre class = 'prettyprint lang-r'>dim(us_states)</pre>
+
+<pre >## [1] 15537     6</pre>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-4" class="build faster">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = us_states,
+            mapping = aes(x = long, y = lat,
+                          group = group))
+
+p + geom_polygon(fill = &quot;white&quot;, color = &quot;black&quot;)</pre>
+
+<ul>
+<li>A map is a set of lines drawn in the right order on a grid.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-5">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-7-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-6" class="build faster">
+
+<ul>
+<li>Let’s <code>fill</code> the map.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = us_states,
+            aes(x = long, y = lat,
+                group = group, fill = region))
+
+p + geom_polygon(color = &quot;gray90&quot;, size = 0.1) + guides(fill = FALSE)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-7">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-9-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-8" class="build faster">
+
+<ul>
+<li>Let’s deal with the projection.
+
+<ul>
+<li>By default, the map is plotted using the venerable <em>Mercator</em> projection.</li>
+<li>The <em>Albers</em> projection is nicer.</li>
+</ul></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = us_states,
+            mapping = aes(x = long, y = lat,
+                          group = group, fill = region))
+
+p + geom_polygon(color = &quot;gray90&quot;, size = 0.1) +
+    coord_map(projection = &quot;albers&quot;, lat0 = 39, lat1 = 45) +
+    guides(fill = FALSE)</pre>
+
+<ul>
+<li><p>We can transform the default projection used by <code>geom_polygon()</code>, via the <code>coord_map()</code> function.</p>
+
+<ul>
+<li>The <em>Albers</em> projection requires two latitude parameters, <code>lat0</code> and <code>lat1</code>.</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-9">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-11-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-10" class="build faster">
+
+<ul>
+<li>Let’s get the <code>election</code> data on to the map</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>election$region &lt;- tolower(election$state)
+us_states_elec &lt;- left_join(us_states, election)</pre>
+
+<ul>
+<li><p>In the map data, <code>us_states</code>, the state names (in a variable named <code>region</code>) are in lower case.</p></li>
+<li><p>Here we can create a variable in the <code>election</code> data frame to correspond to this, using the <code>tolower()</code> function to convert the state names.</p></li>
+<li><p>It is important to know your data and variables well enough to check that they have merged properly.</p>
+
+<ul>
+<li>FIPS code is useful in joining the data.</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-11" class="build faster">
+
+<pre class = 'prettyprint lang-r'>p0 &lt;- ggplot(data = us_states_elec,
+            aes(x = long, y = lat,
+                group = group, fill = party))
+
+p0 + geom_polygon(color = &quot;gray90&quot;, size = 0.1) +
+    coord_map(projection = &quot;albers&quot;, lat0 = 39, lat1 = 45) </pre>
+
+<ul>
+<li>We use our <code>party</code> colors for the <code>fill</code>.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-12">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-14-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-13" class="build faster">
+
+<pre class = 'prettyprint lang-r'>p1 &lt;- p0 + geom_polygon(color = &quot;gray90&quot;, size = 0.1) +
+    coord_map(projection = &quot;albers&quot;, lat0 = 39, lat1 = 45) 
+
+p2 &lt;- p1 + scale_fill_manual(values = party_colors) +
+    labs(title = &quot;Election Results 2016&quot;, fill = NULL)
+
+p2 + theme_map() </pre>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-14">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-16-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-15" class="build faster">
+
+<ul>
+<li>To the <code>fill</code> aethetic, let’s try a continuous measure, such as the percentage of the vote received by Donald Trump (<code>pct_trump</code>).</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>p0 &lt;- ggplot(data = us_states_elec,
+             mapping = aes(x = long, y = lat, group = group, fill = pct_trump))
+
+p1 &lt;- p0 + geom_polygon(color = &quot;gray90&quot;, size = 0.1) +
+    coord_map(projection = &quot;albers&quot;, lat0 = 39, lat1 = 45) 
+
+p1 + labs(title = &quot;Trump vote&quot;) + theme_map() + labs(fill = &quot;Percent&quot;)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-16">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-18-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-17" class="build faster">
+
+<ul>
+<li><p>Blue is not the color we want here.</p></li>
+<li><p>The color gradient runs in the wrong direction.</p></li>
+<li><p>Let’s fix these problems using <code>scale_fill_gradient()</code>:</p></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>p2 &lt;- p1 + scale_fill_gradient(low = &quot;white&quot;, high = &quot;#CB454A&quot;) +
+        labs(title = &quot;Trump vote&quot;) 
+p2 + theme_map() + labs(fill = &quot;Percent&quot;)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-18">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-20-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-19" class="build faster">
+
+<ul>
+<li>For election results, we might prefer a gradient that diverges from a midpoint.
+
+<ul>
+<li>The <code>scale_gradient2()</code> function gives us a blue-red spectrum that passes through white by default.</li>
+<li>We can also re-specify the mid-level color along with the <code>high</code> and <code>low</code> colors.</li>
+</ul></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>p0 &lt;- ggplot(data = us_states_elec,
+             mapping = aes(x = long, y = lat, group = group, fill = d_points))
+
+p1 &lt;- p0 + geom_polygon(color = &quot;gray90&quot;, size = 0.1) +
+    coord_map(projection = &quot;albers&quot;, lat0 = 39, lat1 = 45) 
+
+p2 &lt;- p1 + scale_fill_gradient2() + labs(title = &quot;Winning margins&quot;) 
+p2 + theme_map() + labs(fill = &quot;Percent&quot;)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-20">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-22-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-21" class="build faster">
+
+<ul>
+<li>From the <code>scale_gradient2()</code> function, we can also re-specify the mid-level color along with the <code>high</code> and <code>low</code> colors.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>p3 &lt;- p1 + scale_fill_gradient2(low = &quot;red&quot;, 
+                                mid = scales::muted(&quot;purple&quot;),
+                                high = &quot;blue&quot;, 
+                                breaks = c(-25, 0, 25, 50, 75)) 
+p3 + theme_map() + labs(fill = &quot;Percent&quot;, title = &quot;Winning margins&quot;)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-22">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-24-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-23" class="build faster">
+
+<ul>
+<li>If you take a look at the gradient scale for this first &ldquo;purple America&rdquo; map, <code>p3</code>, you’ll see that it extends very high on the Blue side.
+
+<ul>
+<li>This is because Washington DC is included in the data.</li>
+</ul></li>
+<li>If we omit Washington DC, we’ll see that our color scale shifts.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>p0 &lt;- ggplot(data = subset(us_states_elec,
+                           region %nin% &quot;district of columbia&quot;),
+             aes(x = long, y = lat, group = group, fill = d_points))
+
+p3 &lt;- p1 + scale_fill_gradient2(low = &quot;red&quot;, 
+                                mid = scales::muted(&quot;purple&quot;),
+                                high = &quot;blue&quot;, 
+                                breaks = c(-25, 0, 25, 50, 75)) 
+p3 + theme_map() + labs(fill = &quot;Percent&quot;, title = &quot;Winning margins&quot;, caption = &quot;DC is omitted.&quot;)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-24">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-26-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>America’s ur-choropleths</h2></hgroup><article  id="americas-ur-choropleths">
+
+<ul>
+<li><p>Choropleth maps display divided geographical areas or regions that are colored, shaded or patterned in relation to a data variable.</p></li>
+<li><p>County-level US choropleth maps can be aesthetically pleasing, because of the added detail they bring to a national map.</p></li>
+<li><p>The county-level datasets (<code>county_map</code> and <code>county_data</code>) are included in the <code>socviz</code> library.</p>
+
+<ul>
+<li>The county map data frame, <code>county_map</code>, has been processed a little in order to transform it to an <em>Albers</em> projection, and also to relocate (and re-scale) Alaska and Hawaii.</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>America’s ur-choropleths</h2></hgroup><article  id="americas-ur-choropleths-1" class="build faster">
+
+<pre class = 'prettyprint lang-r'>county_map %&gt;% sample_n(5)
+
+county_data %&gt;%
+    select(id, name, state, pop_dens, pct_black) %&gt;%
+    sample_n(5)
+
+county_full &lt;- left_join(county_map, county_data, by = &quot;id&quot;)</pre>
+
+<ul>
+<li><p>The <code>id</code> field is the FIPS code for the county.</p></li>
+<li><p><code>pop_dens</code> is population density.</p></li>
+<li><p><code>pct_black</code> is percent of African-American population.</p></li>
+<li><p>We merge the data frames using the shared FIPS <code>id</code> column.</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data" class="build faster">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = county_full,
+            mapping = aes(x = long, y = lat,
+                          fill = pop_dens, 
+                          group = group))
+p1 &lt;- p + geom_polygon(color = &quot;gray90&quot;, size = 0.05) + coord_equal()
+p1</pre>
+
+<ul>
+<li><p><code>p1</code> object produces a legible map, but by default it chooses an unordered categorical layout.</p></li>
+<li><p>This is because the <code>pop_dens</code> variable is not ordered.</p></li>
+<li><p><code>pop_dens</code> is an un-ordered discrete variable.</p></li>
+<li><p><code>summary(county_full$pop_dens)</code></p></li>
+<li><p>The use of <code>coord_equal()</code> makes sure that the relative scale of our map does not change even if we alter the overall dimensions of the plot.</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-1">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-29-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-2" class="build faster">
+
+<pre class = 'prettyprint lang-r'>p2 &lt;- p1 + scale_fill_brewer(palette = &quot;Blues&quot;,
+                             labels = c(&quot;0-10&quot;, &quot;10-50&quot;, &quot;50-100&quot;, &quot;100-500&quot;,&quot;500-1,000&quot;, &quot;1,000-5,000&quot;, &quot;&gt;5,000&quot;))
+
+p2 + labs(fill = &quot;Population per\nsquare mile&quot;) +
+    theme_map() +
+    guides(fill = guide_legend(nrow = 1)) + 
+    theme(legend.position = &quot;bottom&quot;)</pre>
+
+<ul>
+<li><p>We can manually supply the right sort of scale using the <code>scale_fill_brewer()</code> function, together with a nicer set of labels.</p></li>
+<li><p>We can also use the <code>guides()</code> function to make sure each element of the key in the <em>legend</em> appears on the same row.</p></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-3">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-31-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-4" class="build faster">
+
+<ul>
+<li>We can now do exactly the same thing for our map of percent African-American population by county.
+
+<ul>
+<li><code>pct_black</code> is an un-ordered factor variable.</li>
+<li><code>summary(county_full$pct_black)</code></li>
+</ul></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = county_full,
+            mapping = aes(x = long, y = lat, fill = pct_black, 
+                          group = group))
+p1 &lt;- p + geom_polygon(color = &quot;gray90&quot;, size = 0.05) + coord_equal()
+
+p2 &lt;- p1 + scale_fill_brewer(palette=&quot;Greens&quot;)
+
+p2 + labs(fill = &quot;US Population, Percent Black&quot;) +
+    guides(fill = guide_legend(nrow = 1)) + 
+    theme_map() + theme(legend.position = &quot;bottom&quot;)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-5">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-33-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-6" class="build faster">
+
+<ul>
+<li><p>Let’s draw two new county-level choropleths.</p></li>
+<li><p>We have a <code>pop_dens6</code> variable that divides the population density into six categories.</p></li>
+<li><p>We will map the color scale to the value of variable.</p></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>orange_pal &lt;- RColorBrewer::brewer.pal(n = 6, name = &quot;Oranges&quot;)
+orange_pal
+
+orange_rev &lt;- rev(orange_pal)
+orange_rev</pre>
+
+<ul>
+<li>We use the <code>RColorBrewer::brewer.pal()</code> function to manually create two palettes.
+
+<ul>
+<li>The <code>brewer.pal()</code> function produces evenly-spaced color schemes.</li>
+</ul></li>
+<li>We use the <code>rev()</code> function to reverse the order of a color vector.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-7" class="build faster">
+
+<pre class = 'prettyprint lang-r'>pop_p &lt;- ggplot(data = county_full,
+            mapping = aes(x = long, y = lat,
+                          fill = pop_dens6, 
+                          group = group))
+
+pop_p1 &lt;- pop_p + geom_polygon(color = &quot;gray90&quot;, size = 0.05) + coord_equal()
+
+pop_p2 &lt;- pop_p1 + scale_fill_manual(values = orange_pal)
+
+pop_p2 + labs(title = &quot;Population Density&quot;,
+              fill = &quot;People per square mile&quot;) +
+    theme_map() + theme(legend.position = &quot;bottom&quot;)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-8">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-37-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-9" class="build faster">
+
+<pre class = 'prettyprint lang-r'>pop_p2_rev &lt;- pop_p1 + scale_fill_manual(values = orange_rev)
+
+pop_p2_rev + labs(title = &quot;Reverse-coded Population Density&quot;,
+              fill = &quot;People per square mile&quot;) +
+    theme_map() + theme(legend.position = &quot;bottom&quot;)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-10">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-39-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-11" class="build faster">
+
+<ul>
+<li>Let’s consider a county map of a continuous variable, such as <code>per_gop_2016</code>.
+
+<ul>
+<li>Check <code>class(county_full$per_gop_2016)</code>.</li>
+</ul></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>gop_p &lt;- ggplot(data = county_full,
+            mapping = aes(x = long, y = lat,
+                          fill = per_gop_2016, 
+                          group = group))
+
+gop_p1 &lt;- gop_p + geom_polygon(color = &quot;gray70&quot;, size = 0.05) + coord_equal()
+gop_p1</pre>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-12">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-41-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-13" class="build faster">
+
+<ul>
+<li>For a continuous variable, we can use <code>scale_fill_gradient()</code>, <code>scale_fill_gradient2()</code>, or <code>scale_fill_gradient2()</code> function:
+
+<ul>
+<li><code>scale_fill_gradient()</code> produces a two-color gradient.</li>
+<li><code>scale_fill_gradient2()</code> produces a three-color gradient with specified midpoint.</li>
+<li><code>scale_fill_gradientn()</code> produces an n-color gradient.</li>
+</ul></li>
+<li>For <code>scale_fill_gradient2()</code>, choose the value and color for <code>midpoint</code> carefully.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-14" class="build faster">
+
+<pre class = 'prettyprint lang-r'>gop_p2 &lt;- gop_p1 + scale_fill_gradient2( 
+    low = &#39;#2E74C0&#39;,  # from party_colors for DEM
+    mid = &#39;#FFFFFF&#39;,  # transparent white
+    high = &#39;#CB454A&#39;,  # from party_colors for GOP
+    na.value = &quot;grey50&quot;,
+    midpoint = .5)
+
+gop_p2 + labs(title = &quot;US Presidential Election 2016&quot;,
+              fill = &quot;Trump vote share&quot;) +
+    theme_map() + theme(legend.position = &quot;bottom&quot;)</pre>
+
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-15">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-43-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Statebins</h2></hgroup><article  id="statebins" class="build faster">
+
+<ul>
+<li>As an alternative to state-level choropleths, we can consider <code>statebins</code>.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'># install.packages(&quot;statebins&quot;)
+library(statebins)
+p &lt;- ggplot( data = election, 
+             mapping = aes( state = state, fill = pct_trump ) )
+p1 &lt;- p +  geom_statebins(lbl_size = 5,
+                          border_col = &quot;grey90&quot;, border_size = 1)
+p2 &lt;- p1 + labs(fill = &quot;Percent Trump&quot;) +
+  coord_equal() +
+  theme_statebins( legend_position = c(.45, 1) ) +
+  theme( legend.direction=&quot;horizontal&quot; )
+
+p2 + scale_fill_gradient2( 
+    low = &#39;#2E74C0&#39;,  # from party_colors for DEM
+    mid = &#39;#FFFFFF&#39;,  # transparent white
+    high = &#39;#CB454A&#39;,  # from party_colors for GOP
+    na.value = &quot;grey50&quot;,
+    midpoint = 50)   # set the midpoint value</pre>
+
+</article></slide><slide class=""><hgroup><h2>Statebins</h2></hgroup><article  id="statebins-1">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-45-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Statebins</h2></hgroup><article  id="statebins-2" class="build faster">
+
+<ul>
+<li>Let’s remove DC and use <code>scale_fill_gradient()</code>.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = subset(election, st != &quot;DC&quot;)  , 
+            mapping = aes(state=state, fill=pct_clinton)) 
+p1 &lt;- p + geom_statebins(lbl_size = 5,
+                         border_col = &quot;grey90&quot;,
+                         border_size = 1)
+p2 &lt;- p1 + labs(fill = &quot;Percent Clinton&quot;) +
+  coord_equal() +
+  theme_statebins( legend_position = c(.45, 1) ) +
+  theme( legend.direction=&quot;horizontal&quot; )
+
+p2 + scale_fill_gradient( 
+    low = &#39;#FFFFFF&#39;,  # transparent white
+    high = &#39;#2E74C0&#39;,  # from party_colors for DEM
+    na.value = &quot;grey50&quot;)   # set the midpoint value</pre>
+
+</article></slide><slide class=""><hgroup><h2>Statebins</h2></hgroup><article  id="statebins-3">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-47-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Statebins</h2></hgroup><article  id="statebins-4" class="build faster">
+
+<ul>
+<li><p>Let’s use <code>scale_fill_manual()</code> to <code>fill</code> color by <code>party</code>.</p></li>
+<li><p><code>legend_position</code> allows for adjusting a coordinate for the legend position.</p></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = election  , 
+            mapping = aes(state=state, fill=party)) 
+p1 &lt;- p + geom_statebins(lbl_size = 5,
+                         border_col = &quot;grey90&quot;,
+                         border_size = 1)
+p2 &lt;- p1 + labs(fill = &quot;Winner&quot;) +
+  coord_equal() +
+  theme_statebins( legend_position = c(.25, 1) ) +
+  theme( legend.direction=&quot;horizontal&quot;,
+         legend.title = element_text(size=30),
+         legend.text = element_text(size=30) )
+
+p2 + scale_fill_manual( values = c(Republican = &quot;darkred&quot;, 
+                                   Democratic = &quot;royalblue&quot;))</pre>
+
+</article></slide><slide class=""><hgroup><h2>Statebins</h2></hgroup><article  id="statebins-5">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-49-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Statebins</h2></hgroup><article  id="statebins-6" class="build faster">
+
+<ul>
+<li>Let’s discretize a continuous variable using <code>scale_fill_gradient()</code> with <code>breaks</code>.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = election  , 
+            mapping = aes(state = state, fill=pct_trump)) 
+p1 &lt;- p + geom_statebins(lbl_size = 5,
+                         border_col = &quot;grey90&quot;,
+                         border_size = 1)
+p2 &lt;- p1 + labs(fill = &quot;Percent Trump&quot;) +
+  coord_equal() +
+  theme_statebins( legend_position = c(.2, 1) ) +
+  theme( legend.direction=&quot;horizontal&quot;)
+
+p2 + scale_fill_gradient(breaks = c(5, 21, 41, 48, 57),
+                         labels = c(&quot;&lt; 5&quot;, &quot;5-21&quot;, &quot;21-41&quot;, &quot;41-58&quot;, &quot;&gt; 57&quot;),
+                         low = &quot;#f9ecec&quot;, high = &quot;#CB454A&quot;) +
+  guides(fill = guide_legend())</pre>
+
+</article></slide><slide class=""><hgroup><h2>Statebins</h2></hgroup><article  id="statebins-7">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-51-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Small-multiple maps</h2></hgroup><article  id="small-multiple-maps" class="build faster">
+
+<ul>
+<li>Sometimes we have geographical data with repeated observations over time.
+
+<ul>
+<li>A common case is to have a country- or state-level measure observed over a period of years (Panel data).</li>
+</ul></li>
+<li>Let’s consider consider the poverty rate determined by level of educational attainment in NY.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>NY_socioecon_geo_poverty &lt;- read.table(
+  &#39;https://bcecon.github.io/NY_socioecon_geo_poverty.csv&#39;,
+  sep = &#39;,&#39;,
+  header = TRUE,
+  stringsAsFactor = TRUE
+)
+
+library(viridis)</pre>
+
+<ul>
+<li><p>The <code>viridis</code> colors run in low-to-high sequences and combines perceptually uniform colors with easy-to-see, easily-contrasted hues along their scales.</p>
+
+<ul>
+<li>The <code>scale_fill_viridis_c()</code> function is for continuous data.</li>
+<li>The <code>scale_fill_viridis_d()</code> function is for discrete data.</li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Small-multiple maps</h2></hgroup><article  id="small-multiple-maps-1" class="build faster">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = NY_socioecon_geo_poverty,
+            mapping = aes(x = long, y = lat, group = group, 
+                          fill = c04_058 ))
+  
+p1 &lt;- p + geom_polygon(color = &quot;grey&quot;, size = 0.1) +
+    coord_map(projection = &quot;albers&quot;, lat0 = 39, lat1 = 45) 
+
+p2 &lt;- p1 + scale_fill_viridis_c(option = &quot;plasma&quot;) + theme_map() 
+
+p2 + facet_wrap(~ year, ncol = 3) +
+    theme(legend.position = &quot;bottom&quot;,
+          strip.background = element_blank()) +
+    labs(fill = &quot;Poverty rate in NY (%)&quot;,
+         title = &quot;Poverty rate for the male population 25 years and over \nfor whom the highest educational attainment is bachelor&#39;s degree&quot;)</pre>
+
+<ul>
+<li>We facet the maps just like any other small-multiple with <code>facet_wrap()</code>.</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Small-multiple maps</h2></hgroup><article  id="small-multiple-maps-2">
+
+<p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-54-1.png" width="720" style="display: block; margin: auto;" /></p></article></slide>
+
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!-- map slide visiblity events into shiny -->
+<script>
+  (function() {
+    if (window.jQuery) {
+       window.jQuery(document).on('slideleave', function(e) {
+         window.jQuery(e.target).trigger('hidden');
+      });
+       window.jQuery(document).on('slideenter', function(e) {
+         window.jQuery(e.target).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
