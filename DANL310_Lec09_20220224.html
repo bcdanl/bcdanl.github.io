@@ -189,7 +189,7 @@ library(ggthemes)
 library(broom)
 theme_set(theme_minimal())</pre>
 
-</article></slide><slide class=""><hgroup><h2>Work with models</h2></hgroup><article  id="work-with-models" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Work with models</h2></hgroup><article  class="build faster" id="work-with-models">
 
 <ul>
 <li>Let us consider the linear regression of <code>lifeExp</code> on <code>gdpPercap</code>, <code>pop</code>, and <code>continent</code>.</li>
@@ -295,7 +295,7 @@ summary(out)</pre>
 <li>Try <code>out$coefficients</code>, <code>out$residuals</code>, and <code>out$fitted.values</code>.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Tidy model objects with <code>broom</code></h2></hgroup><article  id="tidy-model-objects-with-broom" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Tidy model objects with <code>broom</code></h2></hgroup><article  class="build faster" id="tidy-model-objects-with-broom">
 
 <ul>
 <li><p>The <code>broom</code> package to help us do a lot of things with our model output.</p></li>
@@ -378,7 +378,7 @@ out_conf$nicelabs &lt;- prefix_strip(out_conf$term, &quot;continent&quot;)</pre>
 <li>The <code>socviz::prefix_strip()</code> strips a series of characters from the beginning of a character vector.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Get component-level statistics with <code>tidy()</code></h2></hgroup><article  id="get-component-level-statistics-with-tidy-5" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Get component-level statistics with <code>tidy()</code></h2></hgroup><article  class="build faster" id="get-component-level-statistics-with-tidy-5">
 
 <ul>
 <li>We can use <code>geom_pointrange()</code> to make a figure that displays some information about our confidence in the variable estimates</li>
@@ -408,36 +408,35 @@ p + geom_pointrange() + coord_flip() + labs(x=&quot;&quot;, y=&quot;OLS Estimate
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Get observation-level statistics with <code>augment()</code></h2></hgroup><article  id="get-observation-level-statistics-with-augment-1" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Get observation-level statistics with <code>augment()</code></h2></hgroup><article  class="build faster" id="get-observation-level-statistics-with-augment-1">
 
 <pre class = 'prettyprint lang-r'>out_aug &lt;- augment(out)
 head(out_aug) </pre>
 
 <pre >## # A tibble: 6 × 9
-##   lifeExp `log(gdpPercap)`     pop continent .fitted    .hat .sigma .cooksd
-##     &lt;dbl&gt;            &lt;dbl&gt;   &lt;int&gt; &lt;fct&gt;       &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
-## 1    28.8             6.66  8.43e6 Asia         50.2 0.00427   6.95 0.00578
-## 2    30.3             6.71  9.24e6 Asia         50.5 0.00416   6.95 0.00503
-## 3    32.0             6.75  1.03e7 Asia         50.8 0.00408   6.95 0.00426
-## 4    34.0             6.73  1.15e7 Asia         50.6 0.00410   6.96 0.00337
-## 5    36.1             6.61  1.31e7 Asia         49.9 0.00433   6.96 0.00244
-## 6    38.4             6.67  1.49e7 Asia         50.3 0.00419   6.96 0.00175
+##   lifeExp `log(gdpPercap)`      pop continent .fitted    .hat .sigma .cooksd
+##     &lt;dbl&gt;            &lt;dbl&gt;    &lt;int&gt; &lt;fct&gt;       &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+## 1    28.8             6.66  8425333 Asia         50.2 0.00427   6.95 0.00578
+## 2    30.3             6.71  9240934 Asia         50.5 0.00416   6.95 0.00503
+## 3    32.0             6.75 10267083 Asia         50.8 0.00408   6.95 0.00426
+## 4    34.0             6.73 11537966 Asia         50.6 0.00410   6.96 0.00337
+## 5    36.1             6.61 13079460 Asia         49.9 0.00433   6.96 0.00244
+## 6    38.4             6.67 14880372 Asia         50.3 0.00419   6.96 0.00175
 ## # … with 1 more variable: .std.resid &lt;dbl&gt;</pre>
 
 <pre class = 'prettyprint lang-r'>head(out_aug) %&gt;% round_df()</pre>
 
 <pre >## # A tibble: 6 × 9
-##   lifeExp `log(gdpPercap)`      pop continent .fitted  .hat .sigma .cooksd
-##     &lt;dbl&gt;            &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
-## 1    28.8             6.66  8425333 Asia         50.2     0   6.95    0.01
-## 2    30.3             6.71  9240934 Asia         50.5     0   6.95    0.01
-## 3    32               6.75 10267083 Asia         50.8     0   6.95    0   
-## 4    34.0             6.73 11537966 Asia         50.6     0   6.96    0   
-## 5    36.1             6.61 13079460 Asia         49.9     0   6.96    0   
-## 6    38.4             6.67 14880372 Asia         50.3     0   6.96    0   
-## # … with 1 more variable: .std.resid &lt;dbl&gt;</pre>
+##   lifeExp `log(gdpPercap)`    pop continent .fitted  .hat .sigma .cooksd .std.resid
+##     &lt;dbl&gt;            &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
+## 1    28.8             6.66 8.43e6 Asia         50.2     0   6.95    0.01      -3.07
+## 2    30.3             6.71 9.24e6 Asia         50.5     0   6.95    0.01      -2.9 
+## 3    32               6.75 1.03e7 Asia         50.8     0   6.95    0         -2.7 
+## 4    34.0             6.73 1.15e7 Asia         50.6     0   6.96    0         -2.39
+## 5    36.1             6.61 1.31e7 Asia         49.9     0   6.96    0         -1.98
+## 6    38.4             6.67 1.49e7 Asia         50.3     0   6.96    0         -1.7</pre>
 
-</article></slide><slide class=""><hgroup><h2>Get observation-level statistics with <code>augment()</code></h2></hgroup><article  id="get-observation-level-statistics-with-augment-2" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Get observation-level statistics with <code>augment()</code></h2></hgroup><article  class="build faster" id="get-observation-level-statistics-with-augment-2">
 
 <ul>
 <li>The new columns created by <code>augment()</code> can be used to create some standard regression plots.
@@ -451,11 +450,11 @@ head(out_aug) </pre>
             mapping = aes(x = .fitted, y = lifeExp - .fitted))
 p + geom_point()</pre>
 
-</article></slide><slide class=""><hgroup><h2>Get observation-level statistics with <code>augment()</code></h2></hgroup><article  id="get-observation-level-statistics-with-augment-3" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Get observation-level statistics with <code>augment()</code></h2></hgroup><article  class="build faster" id="get-observation-level-statistics-with-augment-3">
 
 <p><img src="DANL310_Lec09_20220224_files/figure-html/unnamed-chunk-13-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Get model-level statistics with <code>glance()</code></h2></hgroup><article  id="get-model-level-statistics-with-glance" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Get model-level statistics with <code>glance()</code></h2></hgroup><article  class="build faster" id="get-model-level-statistics-with-glance">
 
 <ul>
 <li><code>glance()</code> returns the information typically presented at the bottom of a model’s <code>summary()</code> output.</li>
@@ -464,13 +463,12 @@ p + geom_point()</pre>
 <pre class = 'prettyprint lang-r'>glance(out) %&gt;% round_df()</pre>
 
 <pre >## # A tibble: 1 × 12
-##   r.squared adj.r.squared sigma statistic p.value    df logLik    AIC
-##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-## 1      0.71          0.71  6.97      693.       0     6 -5722. 11460.
-## # … with 4 more variables: BIC &lt;dbl&gt;, deviance &lt;dbl&gt;, df.residual &lt;dbl&gt;,
-## #   nobs &lt;dbl&gt;</pre>
+##   r.squared adj.r.squared sigma statistic p.value    df logLik    AIC    BIC
+##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1      0.71          0.71  6.97      693.       0     6 -5722. 11460. 11503.
+## # … with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;dbl&gt;, nobs &lt;dbl&gt;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  id="grouped-analysis-and-list-columns" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  class="build faster" id="grouped-analysis-and-list-columns">
 
 <ul>
 <li>Consider the linear regression model for the relationship between life expectancy and GDP by continent, for each year in the data.</li>
@@ -499,7 +497,7 @@ summary(fit)</pre>
 ## Multiple R-squared:  0.5572, Adjusted R-squared:  0.5414 
 ## F-statistic: 35.24 on 1 and 28 DF,  p-value: 2.173e-06</pre>
 
-</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  id="grouped-analysis-and-list-columns-1" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  class="build faster" id="grouped-analysis-and-list-columns-1">
 
 <ul>
 <li>With <code>dplyr</code> and <code>broom</code> we can do the grouped analysis for every continent-year slice of the data in a compact and tidy way.</li>
@@ -534,7 +532,7 @@ out_le</pre>
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  id="grouped-analysis-and-list-columns-2" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  class="build faster" id="grouped-analysis-and-list-columns-2">
 
 <ul>
 <li>We can look at specific group, for example, &ldquo;Europe 1977&rdquo;, if we like, by filtering the data and then unnesting the list column.</li>
@@ -559,7 +557,7 @@ out_le</pre>
 ## 10 Europe     1977 France                    73.8 53165019    18293.
 ## # … with 20 more rows</pre>
 
-</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  id="grouped-analysis-and-list-columns-3" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  class="build faster" id="grouped-analysis-and-list-columns-3">
 
 <ul>
 <li>List columns are useful because we can act on them in a compact and tidy way.</li>
@@ -596,7 +594,7 @@ out_le</pre>
 <li><code>map()</code> function applies a function to each element of a vector.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  id="grouped-analysis-and-list-columns-4" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  class="build faster" id="grouped-analysis-and-list-columns-4">
 
 <pre class = 'prettyprint lang-r'>fit_ols &lt;- function(df) {
     lm(lifeExp ~ log(gdpPercap), data = df)
@@ -611,7 +609,7 @@ out_tidy &lt;- gapminder %&gt;%
     filter(term != &quot;(Intercept)&quot; &amp;
            continent != &quot;Oceania&quot;)</pre>
 
-</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  id="grouped-analysis-and-list-columns-5" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  class="build faster" id="grouped-analysis-and-list-columns-5">
 
 <ul>
 <li>We now have tidy regression output with an estimate of the association between log GDP per capita and life expectancy <em>for each year</em>, <em>within continents</em>.</li>
@@ -632,7 +630,7 @@ p + geom_pointrange(position = position_dodge(width = 1)) +
 
 <p><img src="DANL310_Lec09_20220224_files/figure-html/unnamed-chunk-21-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data">
 
 <ul>
 <li>The <code>socviz::election</code> dataset has various measures of the vote and vote shares by state.</li>
@@ -643,19 +641,19 @@ p + geom_pointrange(position = position_dodge(width = 1)) +
     sample_n(5)</pre>
 
 <pre >## # A tibble: 5 × 6
-##   state          total_vote r_points pct_trump party      census   
-##   &lt;chr&gt;               &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;    
-## 1 Connecticut       1644920  -13.6        40.9 Democratic Northeast
-## 2 South Carolina    2103027   14.3        54.9 Republican South    
-## 3 New Hampshire      744296   -0.370      46.5 Democratic Northeast
-## 4 Georgia           4141447    5.09       50.4 Republican South    
-## 5 Indiana           2757965   19.0        56.5 Republican Midwest</pre>
+##   state       total_vote r_points pct_trump party      census 
+##   &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;  
+## 1 Illinois       5594825   -16.9       38.4 Democratic Midwest
+## 2 Minnesota      2945233    -1.51      44.9 Democratic Midwest
+## 3 Utah           1143601    17.9       45.0 Republican West   
+## 4 Mississippi    1211088    17.8       57.9 Republican South  
+## 5 Arkansas       1130635    26.9       60.6 Republican South</pre>
 
 <ul>
 <li>We don’t have to represent spatial data spatially.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-1" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-1">
 
 <pre class = 'prettyprint lang-r'>party_colors &lt;- c(&quot;#2E74C0&quot;, &quot;#CB454A&quot;)  # Hex color codes for Dem Blue and Rep Red
 p0 &lt;- ggplot(data = subset(election, st %nin% &quot;DC&quot;),
@@ -680,7 +678,7 @@ p3 + facet_wrap(~ census, ncol=1, scales=&quot;free_y&quot;) +
 
 <p><img src="DANL310_Lec09_20220224_files/figure-html/unnamed-chunk-24-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-3" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-3">
 
 <ul>
 <li>Let us get a data frame of the US state map</li>
@@ -701,7 +699,7 @@ head(us_states)</pre>
 
 <pre >## [1] 15537     6</pre>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-4" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-4">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = us_states,
             mapping = aes(x = long, y = lat,
@@ -717,7 +715,7 @@ p + geom_polygon(fill = &quot;white&quot;, color = &quot;black&quot;)</pre>
 
 <p><img src="DANL310_Lec09_20220224_files/figure-html/unnamed-chunk-27-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-6" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-6">
 
 <ul>
 <li>Let’s <code>fill</code> the map.</li>
@@ -733,7 +731,7 @@ p + geom_polygon(color = &quot;gray90&quot;, size = 0.1) + guides(fill = FALSE)<
 
 <p><img src="DANL310_Lec09_20220224_files/figure-html/unnamed-chunk-29-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-8" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-8">
 
 <ul>
 <li>Let’s deal with the projection.
@@ -764,7 +762,7 @@ p + geom_polygon(color = &quot;gray90&quot;, size = 0.1) +
 
 <p><img src="DANL310_Lec09_20220224_files/figure-html/unnamed-chunk-31-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-10" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-10">
 
 <ul>
 <li>Let’s get the <code>election</code> data on to the map</li>
@@ -783,7 +781,7 @@ us_states_elec &lt;- left_join(us_states, election)</pre>
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-11" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-11">
 
 <pre class = 'prettyprint lang-r'>p0 &lt;- ggplot(data = us_states_elec,
             aes(x = long, y = lat,
@@ -800,7 +798,7 @@ p0 + geom_polygon(color = &quot;gray90&quot;, size = 0.1) +
 
 <p><img src="DANL310_Lec09_20220224_files/figure-html/unnamed-chunk-34-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-13" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-13">
 
 <pre class = 'prettyprint lang-r'>p1 &lt;- p0 + geom_polygon(color = &quot;gray90&quot;, size = 0.1) +
     coord_map(projection = &quot;albers&quot;, lat0 = 39, lat1 = 45) 
@@ -814,7 +812,7 @@ p2 + theme_map() </pre>
 
 <p><img src="DANL310_Lec09_20220224_files/figure-html/unnamed-chunk-36-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-15" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-15">
 
 <ul>
 <li>To the <code>fill</code> aethetic, let’s try a continuous measure, such as the percentage of the vote received by Donald Trump (<code>pct_trump</code>).</li>
@@ -832,7 +830,7 @@ p1 + labs(title = &quot;Trump vote&quot;) + theme_map() + labs(fill = &quot;Perc
 
 <p><img src="DANL310_Lec09_20220224_files/figure-html/unnamed-chunk-38-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-17" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-17">
 
 <ul>
 <li><p>Blue is not the color we want here.</p></li>
@@ -848,7 +846,7 @@ p2 + theme_map() + labs(fill = &quot;Percent&quot;)</pre>
 
 <p><img src="DANL310_Lec09_20220224_files/figure-html/unnamed-chunk-40-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-19" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-19">
 
 <ul>
 <li>For election results, we might prefer a gradient that diverges from a midpoint.
@@ -872,7 +870,7 @@ p2 + theme_map() + labs(fill = &quot;Percent&quot;)</pre>
 
 <p><img src="DANL310_Lec09_20220224_files/figure-html/unnamed-chunk-42-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-21" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-21">
 
 <ul>
 <li>From the <code>scale_gradient2()</code> function, we can also re-specify the mid-level color along with the <code>high</code> and <code>low</code> colors.</li>
@@ -888,7 +886,7 @@ p3 + theme_map() + labs(fill = &quot;Percent&quot;, title = &quot;Winning margin
 
 <p><img src="DANL310_Lec09_20220224_files/figure-html/unnamed-chunk-44-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-23" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-23">
 
 <ul>
 <li>If you take a look at the gradient scale for this first &ldquo;purple America&rdquo; map, <code>p3</code>, you’ll see that it extends very high on the Blue side.
