@@ -637,7 +637,7 @@ glimpse(organdata)</pre>
 
 <pre class = 'prettyprint lang-r'>view(organdata)</pre>
 
-</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  id="continuous-variables-by-group-or-category" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  class="build faster" id="continuous-variables-by-group-or-category">
 
 <ul>
 <li><p>What we would like to do is apply the <code>mean()</code> and <code>sd()</code> functions to every numerical variable in <code>organdata</code>, but only the numerical ones.</p></li>
@@ -648,7 +648,7 @@ glimpse(organdata)</pre>
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  id="continuous-variables-by-group-or-category-1" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  class="build faster" id="continuous-variables-by-group-or-category-1">
 
 <pre class = 'prettyprint lang-r'>by_country &lt;- organdata %&gt;% group_by(consent_law, country) %&gt;%
     summarize_if(is.numeric, funs(mean, sd), na.rm = TRUE) %&gt;%
@@ -683,7 +683,7 @@ by_country</pre>
 ## #   health_sd &lt;dbl&gt;, health_lag_sd &lt;dbl&gt;, pubhealth_sd &lt;dbl&gt;, roads_sd &lt;dbl&gt;,
 ## #   cerebvas_sd &lt;dbl&gt;, assault_sd &lt;dbl&gt;, external_sd &lt;dbl&gt;, txp_pop_sd &lt;dbl&gt;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Cleveland dotplot</h2></hgroup><article  id="cleveland-dotplot" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Cleveland dotplot</h2></hgroup><article  class="build faster" id="cleveland-dotplot">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = by_country,
             mapping = aes(x = donors_mean, y = reorder(country, donors_mean),
@@ -701,7 +701,7 @@ p + geom_point(size=3) +
 
 <p><img src="DANL310_Lec08_20220222_files/figure-html/unnamed-chunk-6-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Plot text directly</h2></hgroup><article  id="plot-text-directly" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Plot text directly</h2></hgroup><article  class="build faster" id="plot-text-directly">
 
 <pre class = 'prettyprint lang-r'>p_title &lt;- &quot;Presidential Elections: Popular &amp; Electoral College Margins&quot;
 p_subtitle &lt;- &quot;1824-2016&quot;
@@ -726,7 +726,7 @@ p + geom_hline(yintercept = 0.5, size = 1.4, color = &quot;gray80&quot;) +
 
 <img width="84%" src='lec_figs/socviz_fig5_18.png' title=''/>
 
-</article></slide><slide class=""><hgroup><h2>Label outliers</h2></hgroup><article  id="label-outliers" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Label outliers</h2></hgroup><article  class="build faster" id="label-outliers">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = by_country,
             mapping = aes(x = gdp_mean, y = health_mean))
@@ -747,7 +747,7 @@ p + geom_point() +
 
 <p><img src="DANL310_Lec08_20220222_files/figure-html/unnamed-chunk-9-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Label outliers</h2></hgroup><article  id="label-outliers-2" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Label outliers</h2></hgroup><article  class="build faster" id="label-outliers-2">
 
 <pre class = 'prettyprint lang-r'>p + geom_point() +
     geom_text_repel(data = subset(by_country,
@@ -759,7 +759,7 @@ p + geom_point() +
 
 <p><img src="DANL310_Lec08_20220222_files/figure-html/unnamed-chunk-11-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Label outliers</h2></hgroup><article  id="label-outliers-4" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Label outliers</h2></hgroup><article  class="build faster" id="label-outliers-4">
 
 <pre class = 'prettyprint lang-r'>organdata$ind &lt;- organdata$ccode %in% c(&quot;Ita&quot;, &quot;Spa&quot;) &amp;
                     organdata$year &gt; 1998
@@ -776,7 +776,7 @@ p + geom_point() +
 
 <p><img src="DANL310_Lec08_20220222_files/figure-html/unnamed-chunk-13-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Write and draw in the plot area</h2></hgroup><article  id="write-and-draw-in-the-plot-area" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Write and draw in the plot area</h2></hgroup><article  class="build faster" id="write-and-draw-in-the-plot-area">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = organdata, mapping = aes(x = roads, y = donors))
 p + geom_point() + annotate(geom = &quot;text&quot;, x = 91, y = 33,
@@ -795,7 +795,7 @@ p + geom_point() + annotate(geom = &quot;text&quot;, x = 91, y = 33,
 
 <p><img src="DANL310_Lec08_20220222_files/figure-html/unnamed-chunk-15-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Write and draw in the plot area</h2></hgroup><article  id="write-and-draw-in-the-plot-area-2" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Write and draw in the plot area</h2></hgroup><article  class="build faster" id="write-and-draw-in-the-plot-area-2">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = organdata,
             mapping = aes(x = roads, y = donors))
@@ -836,7 +836,7 @@ p + geom_point() +
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Understanding scales, guides, and themes</h2></hgroup><article  id="understanding-scales-guides-and-themes-1" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Understanding scales, guides, and themes</h2></hgroup><article  class="build faster" id="understanding-scales-guides-and-themes-1">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = organdata,
             mapping = aes(x = roads,
@@ -862,7 +862,7 @@ p + geom_point()</pre>
 
 <p><img src="DANL310_Lec08_20220222_files/figure-html/unnamed-chunk-19-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Understanding scales, guides, and themes</h2></hgroup><article  id="understanding-scales-guides-and-themes-3" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Understanding scales, guides, and themes</h2></hgroup><article  class="build faster" id="understanding-scales-guides-and-themes-3">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = organdata,
             mapping = aes(x = roads,
@@ -888,7 +888,7 @@ p + geom_point() +
 
 <p><img src="DANL310_Lec08_20220222_files/figure-html/unnamed-chunk-21-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Understanding scales, guides, and themes</h2></hgroup><article  id="understanding-scales-guides-and-themes-5" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Understanding scales, guides, and themes</h2></hgroup><article  class="build faster" id="understanding-scales-guides-and-themes-5">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = organdata,
             mapping = aes(x = roads,
@@ -911,7 +911,7 @@ p + geom_point() +
 
 <p><img src="DANL310_Lec08_20220222_files/figure-html/unnamed-chunk-23-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Understanding scales, guides, and themes</h2></hgroup><article  id="understanding-scales-guides-and-themes-7" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Understanding scales, guides, and themes</h2></hgroup><article  class="build faster" id="understanding-scales-guides-and-themes-7">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = organdata,
             mapping = aes(x = roads,
@@ -1124,7 +1124,7 @@ p + geom_point() +
 <li>We can use the <code>str()</code> function to learn more about the internal structure of any object.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Work with models</h2></hgroup><article  id="work-with-models" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Work with models</h2></hgroup><article  class="build faster" id="work-with-models">
 
 <ul>
 <li>Let us consider the linear regression of <code>lifeExp</code> on <code>gdpPercap</code>, <code>pop</code>, and <code>continent</code>.</li>
@@ -1891,7 +1891,7 @@ summary(out)</pre>
 ##  66.12679  66.31049  66.79209  67.38816  56.36554  56.42275  56.48818  56.56537 
 ##  [ reached getOption(&quot;max.print&quot;) -- omitted 704 entries ]</pre>
 
-</article></slide><slide class=""><hgroup><h2>Generate predictions to graph</h2></hgroup><article  id="generate-predictions-to-graph" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Generate predictions to graph</h2></hgroup><article  class="build faster" id="generate-predictions-to-graph">
 
 <ul>
 <li>Having fitted a model, then, we might want to get a picture of the predictions the model produces over the range of some particular variable.</li>
@@ -1922,7 +1922,7 @@ dim(pred_df)</pre>
 ## 5 4818.2150 7023596    Africa
 ## 6 5962.4773 7023596    Africa</pre>
 
-</article></slide><slide class=""><hgroup><h2>Generate predictions to graph</h2></hgroup><article  id="generate-predictions-to-graph-1" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Generate predictions to graph</h2></hgroup><article  class="build faster" id="generate-predictions-to-graph-1">
 
 <ul>
 <li>Now we can use <code>predict()</code>
@@ -1946,7 +1946,7 @@ head(pred_out)</pre>
 ## 5 50.02604 33.60497 66.44711
 ## 6 50.54039 34.11885 66.96193</pre>
 
-</article></slide><slide class=""><hgroup><h2>Generate predictions to graph</h2></hgroup><article  id="generate-predictions-to-graph-2" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Generate predictions to graph</h2></hgroup><article  class="build faster" id="generate-predictions-to-graph-2">
 
 <ul>
 <li>We can bind the two data frames, <code>pred_df</code> and <code>pred_out</code>, together by column.</li>
@@ -1964,7 +1964,7 @@ head(pred_df)</pre>
 ## 5 4818.2150 7023596    Africa 50.02604 33.60497 66.44711
 ## 6 5962.4773 7023596    Africa 50.54039 34.11885 66.96193</pre>
 
-</article></slide><slide class=""><hgroup><h2>Generate predictions to graph</h2></hgroup><article  id="generate-predictions-to-graph-3" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Generate predictions to graph</h2></hgroup><article  class="build faster" id="generate-predictions-to-graph-3">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = subset(pred_df, continent %in% c(&quot;Europe&quot;, &quot;Africa&quot;)),
             aes(x = gdpPercap, 
@@ -1992,7 +1992,7 @@ p + geom_point(data = subset(gapminder,
 
 <p><img src="DANL310_Lec08_20220222_files/figure-html/unnamed-chunk-32-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Tidy model objects with <code>broom</code></h2></hgroup><article  id="tidy-model-objects-with-broom" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Tidy model objects with <code>broom</code></h2></hgroup><article  class="build faster" id="tidy-model-objects-with-broom">
 
 <ul>
 <li><p>The <code>broom</code> package to help us do a lot of things with our model output.</p></li>
@@ -2071,7 +2071,7 @@ out_conf %&gt;% round_df()</pre>
 <pre class = 'prettyprint lang-r'>out_conf &lt;- subset(out_conf, term != &quot;(Intercept)&quot;)
 out_conf$nicelabs &lt;- prefix_strip(out_conf$term, &quot;continent&quot;)</pre>
 
-</article></slide><slide class=""><hgroup><h2>Get component-level statistics with <code>tidy()</code></h2></hgroup><article  id="get-component-level-statistics-with-tidy-5" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Get component-level statistics with <code>tidy()</code></h2></hgroup><article  class="build faster" id="get-component-level-statistics-with-tidy-5">
 
 <ul>
 <li>We can use <code>geom_pointrange()</code> to make a figure that displays some information about our confidence in the variable estimates</li>
@@ -2102,7 +2102,7 @@ p + geom_pointrange() + coord_flip() + labs(x=&quot;&quot;, y=&quot;OLS Estimate
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Get observation-level statistics with <code>augment()</code></h2></hgroup><article  id="get-observation-level-statistics-with-augment-1" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Get observation-level statistics with <code>augment()</code></h2></hgroup><article  class="build faster" id="get-observation-level-statistics-with-augment-1">
 
 <pre class = 'prettyprint lang-r'>out_aug &lt;- augment(out)
 head(out_aug) </pre>
@@ -2130,7 +2130,7 @@ head(out_aug) </pre>
 ## 5    36.1      740. 1.31e7 Asia         56.4  -20.3     0   8.35    0         -2.44
 ## 6    38.4      786. 1.49e7 Asia         56.5  -18.0     0   8.36    0         -2.16</pre>
 
-</article></slide><slide class=""><hgroup><h2>Get observation-level statistics with <code>augment()</code></h2></hgroup><article  id="get-observation-level-statistics-with-augment-2" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Get observation-level statistics with <code>augment()</code></h2></hgroup><article  class="build faster" id="get-observation-level-statistics-with-augment-2">
 
 <ul>
 <li>The new columns created by <code>augment()</code> can be used to create some standard regression plots.
@@ -2144,11 +2144,11 @@ head(out_aug) </pre>
             mapping = aes(x = .fitted, y = .resid))
 p + geom_point()</pre>
 
-</article></slide><slide class=""><hgroup><h2>Get observation-level statistics with <code>augment()</code></h2></hgroup><article  id="get-observation-level-statistics-with-augment-3" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Get observation-level statistics with <code>augment()</code></h2></hgroup><article  class="build faster" id="get-observation-level-statistics-with-augment-3">
 
 <p><img src="DANL310_Lec08_20220222_files/figure-html/unnamed-chunk-43-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Get model-level statistics with <code>glance()</code></h2></hgroup><article  id="get-model-level-statistics-with-glance" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Get model-level statistics with <code>glance()</code></h2></hgroup><article  class="build faster" id="get-model-level-statistics-with-glance">
 
 <ul>
 <li><code>glance()</code> returns the information typically presented at the bottom of a model’s <code>summary()</code> output.</li>
@@ -2162,7 +2162,7 @@ p + geom_point()</pre>
 ## 1      0.58          0.58  8.37      394.       0     6 -6034. 12084. 12127.
 ## # … with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;dbl&gt;, nobs &lt;dbl&gt;</pre>
 
-</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  id="grouped-analysis-and-list-columns" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  class="build faster" id="grouped-analysis-and-list-columns">
 
 <ul>
 <li>Consider the linear regression model for the relationship between life expectancy and GDP by continent, for each year in the data.</li>
@@ -2191,7 +2191,7 @@ summary(fit)</pre>
 ## Multiple R-squared:  0.5572, Adjusted R-squared:  0.5414 
 ## F-statistic: 35.24 on 1 and 28 DF,  p-value: 2.173e-06</pre>
 
-</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  id="grouped-analysis-and-list-columns-1" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  class="build faster" id="grouped-analysis-and-list-columns-1">
 
 <ul>
 <li>With <code>dplyr</code> and <code>broom</code> we can do the grouped analysis for every continent-year slice of the data in a compact and tidy way.</li>
@@ -2226,7 +2226,7 @@ out_le</pre>
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  id="grouped-analysis-and-list-columns-2" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  class="build faster" id="grouped-analysis-and-list-columns-2">
 
 <ul>
 <li>We can look at specific group, for example, &ldquo;Europe 1977&rdquo;, if we like, by filtering the data and then unnesting the list column.</li>
@@ -2251,7 +2251,7 @@ out_le</pre>
 ## 10 Europe     1977 France                    73.8 53165019    18293.
 ## # … with 20 more rows</pre>
 
-</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  id="grouped-analysis-and-list-columns-3" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  class="build faster" id="grouped-analysis-and-list-columns-3">
 
 <ul>
 <li>List columns are useful because we can act on them in a compact and tidy way.</li>
@@ -2288,7 +2288,7 @@ out_le</pre>
 <li><code>map()</code> function applies a function to each element of a vector.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  id="grouped-analysis-and-list-columns-4" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  class="build faster" id="grouped-analysis-and-list-columns-4">
 
 <ul>
 <li>List columns are useful because we can act on them in a compact and tidy way.</li>
@@ -2307,7 +2307,7 @@ out_tidy &lt;- gapminder %&gt;%
     filter(term != &quot;(Intercept)&quot; &amp;
            continent != &quot;Oceania&quot;)</pre>
 
-</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  id="grouped-analysis-and-list-columns-5" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  class="build faster" id="grouped-analysis-and-list-columns-5">
 
 <ul>
 <li>We now have tidy regression output with an estimate of the association between log GDP per capita and life expectancy <em>for each year</em>, <em>within continents</em>.</li>

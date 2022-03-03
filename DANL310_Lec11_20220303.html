@@ -213,7 +213,7 @@ theme_set(theme_minimal())</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>RColorBrewer</code>’s sequential palettes</h2></hgroup><article  id="rcolorbrewers-sequential-palettes">
 
-<img hight="90%" src='lec_figs/socviz_fig8_4.png' title=''/>
+<img hight="85%" src='lec_figs/socviz_fig8_4.png' title=''/>
 
 </article></slide><slide class=""><hgroup><h2><code>RColorBrewer</code>’s diverging palettes</h2></hgroup><article  id="rcolorbrewers-diverging-palettes">
 
@@ -658,7 +658,7 @@ yr_labs &lt;- data.frame(x = 85, y = 0.8,
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = subset(gss_lon, year %in% yrs),
             mapping = aes(x = age))
-p1 &lt;- p + geom_density(fill = &quot;gray20&quot;, color = FALSE,
+p1 &lt;- p + geom_density(fill = &quot;black&quot;, color = FALSE,
                        alpha = 0.9, mapping = aes(y = ..scaled..)) +
     geom_vline(data = subset(mean_age, year %in% yrs),
                aes(xintercept = xbar), color = &quot;white&quot;, size = 0.5) +
@@ -667,7 +667,8 @@ p1 &lt;- p + geom_density(fill = &quot;gray20&quot;, color = FALSE,
               color = &quot;white&quot;, size = 3.5, hjust = 1) +
     geom_text(data = subset(yr_labs, year %in% yrs),
               aes(x = x, y = y, label = year)) +
-    facet_grid(year ~ ., switch = &quot;y&quot;)</pre>
+    facet_grid(year ~ ., switch = &quot;y&quot;)
+p1</pre>
 
 <ul>
 <li><p>The first <code>geom_text()</code> call uses a <code>nudge</code> argument to push the label slightly to the right of its x-value (<code>nudge_x</code>).</p></li>
@@ -680,7 +681,7 @@ p1 &lt;- p + geom_density(fill = &quot;gray20&quot;, color = FALSE,
 <li>With the structure of the plot in place, we then style the elements in the way that we want, using a series of instructions to <code>theme()</code>.</li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>p1 + theme(plot.title = element_text(size = 16),
+<pre class = 'prettyprint lang-r'>p2a &lt;- p1 + theme(plot.title = element_text(size = 16),
            axis.text.x= element_text(size = 12),
            axis.line.x = NULL,
            axis.title.y=element_blank(),
@@ -692,13 +693,10 @@ p1 &lt;- p + geom_density(fill = &quot;gray20&quot;, color = FALSE,
            panel.grid.minor = element_blank()) +
   labs(x = &quot;Age&quot;,
        y = NULL,
-       title = &quot;Age Distribution of\nGSS Respondents&quot;)</pre>
+       title = &quot;Age Distribution of\nGSS Respondents&quot;)
+p2a</pre>
 
-</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  id="change-the-appearance-of-plots-with-themes-18">
-
-<p><img src="DANL310_Lec11_20220303_files/figure-html/unnamed-chunk-42-1.png" width="720" style="display: block; margin: auto;" /></p>
-
-</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  id="change-the-appearance-of-plots-with-themes-19" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  id="change-the-appearance-of-plots-with-themes-18" class="build faster">
 
 <ul>
 <li><code>ggridges</code> allows the distributions to overlap vertically.
@@ -711,24 +709,35 @@ p1 &lt;- p + geom_density(fill = &quot;gray20&quot;, color = FALSE,
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = gss_lon,
             mapping = aes(x = age, y = factor(year, levels = rev(unique(year)),
                                      ordered = TRUE)))
-
-p + geom_density_ridges(alpha = 0.6, fill = &quot;lightblue&quot;, scale = 1.5) +
+p2b &lt;- p + geom_density_ridges(alpha = 0.6, fill = &quot;lightblue&quot;, scale = 1.5) +
     scale_x_continuous(breaks = c(25, 50, 75)) +
     scale_y_discrete(expand = c(0.01, 0)) + 
     labs(x = &quot;Age&quot;, y = NULL,
          title = &quot;Age Distribution of\nGSS Respondents&quot;) +
     theme_ridges() +
-    theme(title = element_text(size = 16, face = &quot;bold&quot;))</pre>
+    theme(title = element_text(size = 16, face = &quot;bold&quot;))
+p2b</pre>
+
+</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  id="change-the-appearance-of-plots-with-themes-19">
+
+<p><img src="DANL310_Lec11_20220303_files/figure-html/unnamed-chunk-44-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Arrange plots with <code>grid.arrange()</code></h2></hgroup><article  id="arrange-plots-with-grid.arrange" class="build faster">
 
 <ul>
-<li><p>The <code>expand</code> argument in <code>scale_y_discrete()</code> adjusts the scaling of the y-axis slightly.</p></li>
-<li><p><code>theme_ridges()</code> makes the labels become aligned properly.</p></li>
-<li><p>The degree of overlap in the distributions is controlled by the <code>scale</code> argument in the <code>geom_density_ridge()</code>.</p></li>
+<li><code>gridExtra</code> package provides <code>grid.arrange()</code> function.
+
+<ul>
+<li><code>grid.arrange()</code> arranges multiple <code>ggplot</code> objects on a page, and draw tables of figures.</li>
+</ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  id="change-the-appearance-of-plots-with-themes-20">
+<pre class = 'prettyprint lang-r'>library(gridExtra)
+grid.arrange(p2a, p2b, nrow = 1)   # sub-figures</pre>
 
-<p><img src="DANL310_Lec11_20220303_files/figure-html/unnamed-chunk-44-1.png" width="720" style="display: block; margin: auto;" /></p></article></slide>
+</article></slide><slide class=""><hgroup><h2>Arrange plots with <code>grid.arrange()</code></h2></hgroup><article  id="arrange-plots-with-grid.arrange-1">
+
+<p><img src="DANL310_Lec11_20220303_files/figure-html/unnamed-chunk-46-1.png" width="720" style="display: block; margin: auto;" /></p></article></slide>
 
 
   <slide class="backdrop"></slide>
