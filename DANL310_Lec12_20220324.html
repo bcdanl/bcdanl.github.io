@@ -181,18 +181,22 @@ slide:not(.current) .plotly.html-widget{
 </article></slide><slide class=""><hgroup><h2>R packages</h2></hgroup><article  id="r-packages">
 
 <pre class = 'prettyprint lang-r'># install.packages(&quot;gganimate&quot;) 
+# install.packages(&quot;plotly&quot;) 
 # install.packages(&quot;gifski&quot;)   # for PCs.
 # install.packages(&quot;transformr&quot;)   # for manipulating polygons and paths
-# install.packages(&quot;magick&quot;)  # for rendering
+# install.packages(&quot;magick&quot;)  # for animation rendering
+# install.packages(&quot;htmltools&quot;)  # for html rendering
 
 library(tidyverse)
+library(plotly)
 library(gganimate)
 library(gifski)
 library(transformr)
 library(magick)
+library(htmltools)
 theme_set(theme_bw())</pre>
 
-</article></slide><slide class=""><hgroup><h2>gganimate</h2></hgroup><article  class="build faster" id="gganimate">
+</article></slide><slide class=""><hgroup><h2>gganimate</h2></hgroup><article  id="gganimate" class="build faster">
 
 <ul>
 <li>Consider the relationship between <em>cyl</em> and <em>mpg</em> from <strong>mtcars</strong> data, which is provided by the ggplot2 package.</li>
@@ -210,7 +214,7 @@ p</pre>
 
 <p><img src="DANL310_Lec12_20220324_files/figure-html/unnamed-chunk-3-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>gganimate</h2></hgroup><article  class="build faster" id="gganimate-2">
+</article></slide><slide class=""><hgroup><h2>gganimate</h2></hgroup><article  id="gganimate-2" class="build faster">
 
 <ul>
 <li>Let us consider how the relationship between <em>cyl</em> and <em>mpg</em> vary by <em>gear</em>.</li>
@@ -222,7 +226,7 @@ p</pre>
 
 <p><img src="DANL310_Lec12_20220324_files/figure-html/unnamed-chunk-5-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>gganimate</h2></hgroup><article  class="build faster" id="gganimate-4">
+</article></slide><slide class=""><hgroup><h2>gganimate</h2></hgroup><article  id="gganimate-4" class="build faster">
 
 <ul>
 <li><p><strong>gganimate</strong> turn our ggplot visualizations into moving images.</p>
@@ -241,7 +245,7 @@ my_anim</pre>
 
 <p><img src="DANL310_Lec12_20220324_files/figure-html/unnamed-chunk-7-1.gif" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>gganimate</h2></hgroup><article  class="build faster" id="gganimate-6">
+</article></slide><slide class=""><hgroup><h2>gganimate</h2></hgroup><article  id="gganimate-6" class="build faster">
 
 <ul>
 <li><p><code>transition_states()</code> is intended to use primarily with categorical variables.</p>
@@ -251,16 +255,278 @@ my_anim</pre>
 </ul></li>
 </ul>
 
-<pre class = 'prettyprint lang-r'>my_anim &lt;- p + 
+<pre class = 'prettyprint lang-r'>my_anim2 &lt;- p + 
   transition_states(gear,
     transition_length = 3,  # relative length
     state_length = 2)  # relative length
 
-my_anim</pre>
+my_anim2</pre>
 
-</article></slide><slide class=""><hgroup><h2>gganimate</h2></hgroup><article  class="build faster" id="gganimate-7">
+</article></slide><slide class=""><hgroup><h2>gganimate</h2></hgroup><article  id="gganimate-7" class="build faster">
 
-<p><img src="DANL310_Lec12_20220324_files/figure-html/unnamed-chunk-9-1.gif" style="display: block; margin: auto;" /></p></article></slide>
+<p><img src="DANL310_Lec12_20220324_files/figure-html/unnamed-chunk-9-1.gif" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Cooperative Congressional Election Survey</h2></hgroup><article  id="cooperative-congressional-election-survey" class="build faster">
+
+<ul>
+<li><p>Cooperative Congressional Election Survey (CCES) is a 50,000+ person national stratified sample survey.</p></li>
+<li><p>We can use <code>recode()</code> to create a new variable corresponding to other factor variable.</p></li>
+<li><p>Here we summarize the number of Democrats and Republicans in a series of years.</p></li>
+<li><p>There are usually 435 seats in total in the House of Representatives.</p></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>cces &lt;- read_csv(url(&quot;https://bcdanl.github.io/data/cces.csv&quot;))
+cces &lt;- cces %&gt;% 
+  mutate(party = recode(dem,`1`=&quot;Democrat&quot;,`0`=&quot;Republican&quot;))
+
+cong_dat &lt;- cces %&gt;% 
+  group_by(year, party) %&gt;%
+  summarise( seats =n())</pre>
+
+</article></slide><slide class=""><hgroup><h2>Cooperative Congressional Election Survey</h2></hgroup><article  id="cooperative-congressional-election-survey-1" class="build faster">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(cong_dat, 
+            aes(x = year, y= seats, 
+                fill = party)) +
+  geom_bar(stat=&quot;identity&quot;) +
+  geom_hline(yintercept = 217) +  # threshold for having a majority of seats in the house.
+  scale_fill_manual(values=c(&quot;blue&quot;,&quot;red&quot;))
+
+p</pre>
+
+</article></slide><slide class=""><hgroup><h2>Cooperative Congressional Election Survey</h2></hgroup><article  id="cooperative-congressional-election-survey-2" class="build faster">
+
+<p><img src="DANL310_Lec12_20220324_files/figure-html/unnamed-chunk-13-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>gganimate</h2></hgroup><article  id="gganimate-8" class="build faster">
+
+<ul>
+<li><code>transition_time()</code> is intended for time-series data like hours, minutes, days, weeks months, years, etc.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>anim2 &lt;- p + transition_time(year)
+
+anim2</pre>
+
+</article></slide><slide class=""><hgroup><h2>gganimate</h2></hgroup><article  id="gganimate-9">
+
+<p><img src="DANL310_Lec12_20220324_files/figure-html/unnamed-chunk-15-1.gif" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>Cooperative Congressional Election Survey</h2></hgroup><article  id="cooperative-congressional-election-survey-3" class="build faster">
+
+<ul>
+<li><p>Let’s consider a scatter plot of <code>seniority</code> against <code>all_pass</code>.</p>
+
+<ul>
+<li><p>Variable <code>seniority</code> is about how long a member has been in Congress.</p></li>
+<li><p>Variable <code>all_pass</code> is about how many bills a member passed</p></li>
+</ul></li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2>Cooperative Congressional Election Survey</h2></hgroup><article  id="cooperative-congressional-election-survey-4" class="build faster">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot() + geom_jitter(data = filter(cces, 
+                            congress==115 &amp; party==&quot;Democrat&quot;),
+              aes(x = seniority, y = all_pass,
+                  color = party) ) +
+  geom_jitter(data = filter(cces, 
+                            congress==115 &amp; party==&quot;Republican&quot;),
+              aes(x = seniority, y = all_pass,
+                  color = party) ) +
+  geom_smooth(data = filter(cces, 
+                            congress==115 &amp; party==&quot;Democrat&quot;),
+              aes(x = seniority, y = all_pass,
+                  color = party) ) +
+  geom_smooth(data = filter(cces, 
+                            congress==115 &amp; party==&quot;Republican&quot;),
+              aes(x = seniority, y = all_pass,
+                  color = party) ) +
+  scale_color_manual(values=c(&quot;blue&quot;,&quot;red&quot;))
+
+p</pre>
+
+</article></slide><slide class=""><hgroup><h2>Cooperative Congressional Election Survey</h2></hgroup><article  id="cooperative-congressional-election-survey-5">
+
+<p><img src="DANL310_Lec12_20220324_files/figure-html/unnamed-chunk-17-1.png" width="720" style="display: block; margin: auto;" /></p>
+
+</article></slide><slide class=""><hgroup><h2>gganimate</h2></hgroup><article  id="gganimate-10" class="build faster">
+
+<ul>
+<li><code>transition_layers()</code> allow for building up a plot layer by layer with an animation.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>anim2 &lt;- p + transition_layers()
+
+anim2</pre>
+
+</article></slide><slide class=""><hgroup><h2>gganimate</h2></hgroup><article  id="gganimate-11" class="build faster">
+
+<ul>
+<li><p><code>enter_*()</code> and <code>exit_*()</code> allow for controlling the entering and exiting in <code>gganimate</code>.</p>
+
+<ul>
+<li><code>*_fade()</code> will set the alpha value to zero making the elements fade in/out during the transition.</li>
+</ul></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>anim &lt;- ggplot(mtcars, aes(factor(cyl), mpg)) +
+  geom_boxplot() +
+  transition_states(factor(cyl))
+
+# Fade-in, fade-out
+anim1 &lt;- anim +
+  enter_fade() +
+  exit_fade()
+
+anim1</pre>
+
+</article></slide><slide class=""><hgroup><h2>gganimate</h2></hgroup><article  id="gganimate-12" class="build faster">
+
+<ul>
+<li><p><code>shadow_*()</code> allows you to retain previous or preview future frames of the animation.</p></li>
+<li><p><code>shadow_wake()</code> shows preceding frames with gradual falloff.</p>
+
+<ul>
+<li><code>alpha</code> is for transparency modification of the wake.</li>
+<li><code>wrap</code> should the shadow wrap around, so that the first frame will get shadows from the end of the animation.</li>
+</ul></li>
+<li><p>There are also <code>shadow_mark()</code>, <code>shadow_null()</code>, and <code>shadow_trail()</code>.</p></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(cong_dat,
+                aes(x = year, y = seats, fill = party)) +
+  geom_bar(stat = &quot;identity&quot;) +
+  geom_hline(yintercept = 217) +
+  scale_fill_manual(values = c(&quot;blue&quot;,&quot;red&quot;))
+
+
+anim3 &lt;- p + transition_time(year) +
+  shadow_wake(wake_length = 1,
+              alpha = FALSE,
+              wrap = FALSE)
+
+anim3</pre>
+
+</article></slide><slide class=""><hgroup><h2>gganimate</h2></hgroup><article  id="gganimate-13" class="build faster">
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(cong_dat,
+                aes(x = year, y = seats, fill = party)) +
+  geom_bar(stat = &quot;identity&quot;) +
+  geom_hline(yintercept = 217) +
+  scale_fill_manual(values = c(&quot;blue&quot;,&quot;red&quot;))
+
+
+anim3 &lt;- p + transition_time(year) +
+  shadow_wake(wake_length = 1,
+              alpha = FALSE,
+              wrap = FALSE)
+
+anim3</pre>
+
+</article></slide><slide class=""><hgroup><h2>gganimate</h2></hgroup><article  id="gganimate-14" class="build faster">
+
+<ul>
+<li><code>anim_save()</code> saves saves the animation object as a <code>*.gif</code> file.</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>anim_save(&quot;test.gif&quot;, animation = anim3)</pre>
+
+</article></slide><slide class=""><hgroup><h2>plotly</h2></hgroup><article  id="plotly" class="build faster">
+
+<ul>
+<li><p><code>plotly</code> is an alternative to <code>ggplot</code> with a relatively easy to learn syntax for generating many of the same kinds of plots.</p></li>
+<li><p><code>plotly</code> is mainly for the interactive figures of visualization.</p>
+
+<ul>
+<li><p>We will focus only on <code>plotly::ggplotly()</code>.</p></li>
+<li><p><code>ggplotly()</code> interacts with ggplot figures to make those figures interactive.</p></li>
+</ul></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'># Make some noisily increasing data
+dat &lt;- data.frame(cond = rep(c(&quot;A&quot;, &quot;B&quot;), each = 10),
+                  xvar = 1:20 + rnorm(20, sd=3),
+                  yvar = 1:20 + rnorm(20, sd=3))
+
+p &lt;- ggplot(dat, aes(x = xvar, y = yvar)) +
+  geom_point(shape=1)      # Use hollow circles
+fig &lt;- ggplotly(p)
+fig</pre>
+
+</article></slide><slide class=""><hgroup><h2>plotly</h2></hgroup><article  id="plotly-1" class="build faster">
+
+<ul>
+<li><p>Like <code>gganimate</code>, <code>plotly</code> can animate ggplot figures by creating frames of the animation based on some value in your data.</p></li>
+<li><p>Consider the static relationship between seniority and legislative effectiveness using CCES data.</p>
+
+<ul>
+<li>Variable <code>les</code> is a score for legislative effectiveness.</li>
+<li>It measures how productive members of Congress are at making laws.</li>
+</ul></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(cces, aes(x = seniority, y = les,
+                      color = party))+
+  geom_point()+
+  scale_color_manual(values=c(&quot;blue&quot;,&quot;red&quot;)) +
+  labs(x = &quot;Seniority&quot;, y = &quot;Leg. Effectiveness&quot;)
+
+p</pre>
+
+</article></slide><slide class=""><hgroup><h2>plotly</h2></hgroup><article  id="plotly-2" class="build faster">
+
+<ul>
+<li><p>Now consider the <strong>dynamic</strong> relationship between seniority and legislative effectiveness using CCES data.</p>
+
+<ul>
+<li><code>frame</code> parameter in the <code>aes()</code> function animates the figure.</li>
+</ul></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(cces, aes(x = seniority, y = les,
+                      color = party,
+                      frame = year) ) + #this animates the figure
+  geom_point()+
+  scale_color_manual(values = c(&quot;blue&quot;,&quot;red&quot;)) +
+  labs(x = &quot;Seniority&quot;, y = &quot;Leg. Effectiveness&quot;)
+
+p1 &lt;- ggplotly(p)
+p1</pre>
+
+</article></slide><slide class=""><hgroup><h2>plotly</h2></hgroup><article  id="plotly-3" class="build faster">
+
+<ul>
+<li><p>Now consider the <strong>dynamic</strong> relationship between seniority and legislative effectiveness using CCES data.</p>
+
+<ul>
+<li><p><code>ids</code> parameter in the <code>aes()</code>function smooths out the figure by adding the object constancy to the figure.</p>
+
+<ul>
+<li><code>ids</code> causes points to move from their points in the previous frame rather than being redrawn from scratch every single time.</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>p &lt;- ggplot(cces, aes(x = seniority, y = les,
+                      color = party,
+                      frame = year,
+                      ids = thomas_name) ) + # this adds the object constancy
+  geom_point()+
+  scale_color_manual(values = c(&quot;blue&quot;,&quot;red&quot;)) +
+  labs(x = &quot;Seniority&quot;, y = &quot;Leg. Effectiveness&quot;)
+
+p1 &lt;- ggplotly(p)
+p1</pre>
+
+</article></slide><slide class=""><hgroup><h2>plotly</h2></hgroup><article  id="plotly-4" class="build faster">
+
+<ul>
+<li><ul>
+<li><code>htmlwidgets::saveWidget()</code> saves the ggplotly object as an <code>*.html</code> file.</li>
+</ul></li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>htmlwidgets::saveWidget(p1, &quot;fig.html&quot;)</pre></article></slide>
 
 
   <slide class="backdrop"></slide>

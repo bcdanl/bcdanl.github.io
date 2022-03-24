@@ -355,15 +355,15 @@ p + geom_point() + coord_flip() </pre>
 out_conf %&gt;% round_df()</pre>
 
 <pre >## # A tibble: 7 × 7
-##   term          estimate std.error statistic p.value conf.low conf.high
-##   &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
-## 1 (Intercept)       1.48      1.35      1.09    0.28    -1.18      4.13
-## 2 log(gdpPerca…     6.52      0.18     35.8     0        6.17      6.88
-## 3 pop               0         0         6.06    0        0         0   
-## 4 continentAme…     6.73      0.55     12.2     0        5.65      7.81
-## 5 continentAsia     5.16      0.49     10.6     0        4.2       6.11
-## 6 continentEur…     9.29      0.6      15.5     0        8.11     10.5 
-## 7 continentOce…     8.96      1.52      5.9     0        5.98     12.0</pre>
+##   term              estimate std.error statistic p.value conf.low conf.high
+##   &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+## 1 (Intercept)           1.48      1.35      1.09    0.28    -1.18      4.13
+## 2 log(gdpPercap)        6.52      0.18     35.8     0        6.17      6.88
+## 3 pop                   0         0         6.06    0        0         0   
+## 4 continentAmericas     6.73      0.55     12.2     0        5.65      7.81
+## 5 continentAsia         5.16      0.49     10.6     0        4.2       6.11
+## 6 continentEurope       9.29      0.6      15.5     0        8.11     10.5 
+## 7 continentOceania      8.96      1.52      5.9     0        5.98     12.0</pre>
 
 </article></slide><slide class=""><hgroup><h2>Get component-level statistics with <code class="build faster">tidy()</code></h2></hgroup><article  id="get-component-level-statistics-with-tidy-4">
 
@@ -414,28 +414,28 @@ p + geom_pointrange() + coord_flip() + labs(x=&quot;&quot;, y=&quot;OLS Estimate
 head(out_aug) </pre>
 
 <pre >## # A tibble: 6 × 9
-##   lifeExp `log(gdpPercap)`      pop continent .fitted    .hat .sigma
-##     &lt;dbl&gt;            &lt;dbl&gt;    &lt;int&gt; &lt;fct&gt;       &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
-## 1    28.8             6.66  8425333 Asia         50.2 0.00427   6.95
-## 2    30.3             6.71  9240934 Asia         50.5 0.00416   6.95
-## 3    32.0             6.75 10267083 Asia         50.8 0.00408   6.95
-## 4    34.0             6.73 11537966 Asia         50.6 0.00410   6.96
-## 5    36.1             6.61 13079460 Asia         49.9 0.00433   6.96
-## 6    38.4             6.67 14880372 Asia         50.3 0.00419   6.96
-## # … with 2 more variables: .cooksd &lt;dbl&gt;, .std.resid &lt;dbl&gt;</pre>
+##   lifeExp `log(gdpPercap)`      pop continent .fitted    .hat .sigma .cooksd
+##     &lt;dbl&gt;            &lt;dbl&gt;    &lt;int&gt; &lt;fct&gt;       &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+## 1    28.8             6.66  8425333 Asia         50.2 0.00427   6.95 0.00578
+## 2    30.3             6.71  9240934 Asia         50.5 0.00416   6.95 0.00503
+## 3    32.0             6.75 10267083 Asia         50.8 0.00408   6.95 0.00426
+## 4    34.0             6.73 11537966 Asia         50.6 0.00410   6.96 0.00337
+## 5    36.1             6.61 13079460 Asia         49.9 0.00433   6.96 0.00244
+## 6    38.4             6.67 14880372 Asia         50.3 0.00419   6.96 0.00175
+## # … with 1 more variable: .std.resid &lt;dbl&gt;</pre>
 
 <pre class = 'prettyprint lang-r'>head(out_aug) %&gt;% round_df()</pre>
 
 <pre >## # A tibble: 6 × 9
-##   lifeExp `log(gdpPercap)`      pop continent .fitted  .hat .sigma
-##     &lt;dbl&gt;            &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-## 1    28.8             6.66  8425333 Asia         50.2     0   6.95
-## 2    30.3             6.71  9240934 Asia         50.5     0   6.95
-## 3    32               6.75 10267083 Asia         50.8     0   6.95
-## 4    34.0             6.73 11537966 Asia         50.6     0   6.96
-## 5    36.1             6.61 13079460 Asia         49.9     0   6.96
-## 6    38.4             6.67 14880372 Asia         50.3     0   6.96
-## # … with 2 more variables: .cooksd &lt;dbl&gt;, .std.resid &lt;dbl&gt;</pre>
+##   lifeExp `log(gdpPercap)`      pop continent .fitted  .hat .sigma .cooksd
+##     &lt;dbl&gt;            &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+## 1    28.8             6.66  8425333 Asia         50.2     0   6.95    0.01
+## 2    30.3             6.71  9240934 Asia         50.5     0   6.95    0.01
+## 3    32               6.75 10267083 Asia         50.8     0   6.95    0   
+## 4    34.0             6.73 11537966 Asia         50.6     0   6.96    0   
+## 5    36.1             6.61 13079460 Asia         49.9     0   6.96    0   
+## 6    38.4             6.67 14880372 Asia         50.3     0   6.96    0   
+## # … with 1 more variable: .std.resid &lt;dbl&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Get observation-level statistics with <code>augment()</code></h2></hgroup><article  id="get-observation-level-statistics-with-augment-2" class="build faster">
 
@@ -464,11 +464,10 @@ p + geom_point()</pre>
 <pre class = 'prettyprint lang-r'>glance(out) %&gt;% round_df()</pre>
 
 <pre >## # A tibble: 1 × 12
-##   r.squared adj.r.squared sigma statistic p.value    df logLik    AIC
-##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-## 1      0.71          0.71  6.97      693.       0     6 -5722. 11460.
-## # … with 4 more variables: BIC &lt;dbl&gt;, deviance &lt;dbl&gt;,
-## #   df.residual &lt;dbl&gt;, nobs &lt;dbl&gt;</pre>
+##   r.squared adj.r.squared sigma statistic p.value    df logLik    AIC    BIC
+##       &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1      0.71          0.71  6.97      693.       0     6 -5722. 11460. 11503.
+## # … with 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;dbl&gt;, nobs &lt;dbl&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Grouped analysis and list columns</h2></hgroup><article  id="grouped-analysis-and-list-columns" class="build faster">
 
@@ -643,13 +642,13 @@ p + geom_pointrange(position = position_dodge(width = 1)) +
     sample_n(5)</pre>
 
 <pre >## # A tibble: 5 × 6
-##   state       total_vote r_points pct_trump party      census 
-##   &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;  
-## 1 New Mexico      798319    -8.22      40.0 Democratic West   
-## 2 Missouri       2828266    18.5       56.4 Republican Midwest
-## 3 Wyoming         255849    46.3       68.2 Republican West   
-## 4 Texas          8993166     8.98      52.1 Republican South  
-## 5 Mississippi    1211088    17.8       57.9 Republican South</pre>
+##   state       total_vote r_points pct_trump party      census   
+##   &lt;chr&gt;            &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;    
+## 1 Connecticut    1644920    -13.6      40.9 Democratic Northeast
+## 2 Louisiana      2029032     19.6      58.1 Republican South    
+## 3 Oklahoma       1452992     36.4      65.3 Republican South    
+## 4 Alabama        2123372     27.7      62.1 Republican South    
+## 5 Indiana        2757965     19.0      56.5 Republican Midwest</pre>
 
 <ul>
 <li>We don’t have to represent spatial data spatially.</li>

@@ -185,7 +185,7 @@ library(socviz)
 library(ggthemes)
 theme_set(theme_minimal())</pre>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data">
 
 <ul>
 <li>The <code>socviz::election</code> dataset has various measures of the vote and vote shares by state.</li>
@@ -196,19 +196,19 @@ theme_set(theme_minimal())</pre>
     sample_n(5)</pre>
 
 <pre >## # A tibble: 5 × 6
-##   state         total_vote r_points pct_trump party      census   
-##   &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;    
-## 1 Vermont           315067  -26.4        30.3 Democratic Northeast
-## 2 Louisiana        2029032   19.6        58.1 Republican South    
-## 3 Oregon           2001336  -11.0        39.1 Democratic West     
-## 4 South Dakota      370093   29.8        61.5 Republican Midwest  
-## 5 New Hampshire     744296   -0.370      46.5 Democratic Northeast</pre>
+##   state          total_vote r_points pct_trump party      census   
+##   &lt;chr&gt;               &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;    
+## 1 South Carolina    2103027     14.3      54.9 Republican South    
+## 2 Arizona           2604657      3.5      48.1 Republican West     
+## 3 Louisiana         2029032     19.6      58.1 Republican South    
+## 4 Massachusetts     3325046    -27.2      32.8 Democratic Northeast
+## 5 Washington        3316996    -15.7      36.8 Democratic West</pre>
 
 <ul>
 <li>We don’t have to represent spatial data spatially.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-1" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-1">
 
 <pre class = 'prettyprint lang-r'>party_colors &lt;- c(&quot;#2E74C0&quot;, &quot;#CB454A&quot;)  # Hex color codes for Dem Blue and Rep Red
 p0 &lt;- ggplot(data = subset(election, st %nin% &quot;DC&quot;),
@@ -233,7 +233,7 @@ p3 + facet_wrap(~ census, ncol=1, scales=&quot;free_y&quot;) +
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-4-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-3" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-3">
 
 <ul>
 <li>Let us get a data frame of the US state map</li>
@@ -254,7 +254,7 @@ head(us_states)</pre>
 
 <pre >## [1] 15537     6</pre>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-4" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-4">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = us_states,
             mapping = aes(x = long, y = lat,
@@ -270,7 +270,7 @@ p + geom_polygon(fill = &quot;white&quot;, color = &quot;black&quot;)</pre>
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-7-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-6" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-6">
 
 <ul>
 <li>Let’s <code>fill</code> the map.</li>
@@ -286,7 +286,7 @@ p + geom_polygon(color = &quot;gray90&quot;, size = 0.1) + guides(fill = FALSE)<
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-9-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-8" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-8">
 
 <ul>
 <li>Let’s deal with the projection.
@@ -317,7 +317,7 @@ p + geom_polygon(color = &quot;gray90&quot;, size = 0.1) +
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-11-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-10" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-10">
 
 <ul>
 <li>Let’s get the <code>election</code> data on to the map</li>
@@ -336,7 +336,7 @@ us_states_elec &lt;- left_join(us_states, election)</pre>
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-11" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-11">
 
 <pre class = 'prettyprint lang-r'>p0 &lt;- ggplot(data = us_states_elec,
             aes(x = long, y = lat,
@@ -353,7 +353,7 @@ p0 + geom_polygon(color = &quot;gray90&quot;, size = 0.1) +
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-14-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-13" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-13">
 
 <pre class = 'prettyprint lang-r'>p1 &lt;- p0 + geom_polygon(color = &quot;gray90&quot;, size = 0.1) +
     coord_map(projection = &quot;albers&quot;, lat0 = 39, lat1 = 45) 
@@ -367,7 +367,7 @@ p2 + theme_map() </pre>
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-16-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-15" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-15">
 
 <ul>
 <li>To the <code>fill</code> aethetic, let’s try a continuous measure, such as the percentage of the vote received by Donald Trump (<code>pct_trump</code>).</li>
@@ -385,7 +385,7 @@ p1 + labs(title = &quot;Trump vote&quot;) + theme_map() + labs(fill = &quot;Perc
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-18-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-17" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-17">
 
 <ul>
 <li><p>Blue is not the color we want here.</p></li>
@@ -401,7 +401,7 @@ p2 + theme_map() + labs(fill = &quot;Percent&quot;)</pre>
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-20-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-19" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-19">
 
 <ul>
 <li>For election results, we might prefer a gradient that diverges from a midpoint.
@@ -425,7 +425,7 @@ p2 + theme_map() + labs(fill = &quot;Percent&quot;)</pre>
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-22-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-21" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-21">
 
 <ul>
 <li>From the <code>scale_gradient2()</code> function, we can also re-specify the mid-level color along with the <code>high</code> and <code>low</code> colors.</li>
@@ -441,7 +441,7 @@ p3 + theme_map() + labs(fill = &quot;Percent&quot;, title = &quot;Winning margin
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-24-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  id="map-u.s.-state-level-data-23" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. state-level data</h2></hgroup><article  class="build faster" id="map-u.s.-state-level-data-23">
 
 <ul>
 <li>If you take a look at the gradient scale for this first &ldquo;purple America&rdquo; map, <code>p3</code>, you’ll see that it extends very high on the Blue side.
@@ -478,7 +478,7 @@ p3 + theme_map() + labs(fill = &quot;Percent&quot;, title = &quot;Winning margin
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>America’s ur-choropleths</h2></hgroup><article  id="americas-ur-choropleths-1" class="build faster">
+</article></slide><slide class=""><hgroup><h2>America’s ur-choropleths</h2></hgroup><article  class="build faster" id="americas-ur-choropleths-1">
 
 <pre class = 'prettyprint lang-r'>county_map %&gt;% sample_n(5)
 
@@ -495,7 +495,7 @@ county_full &lt;- left_join(county_map, county_data, by = &quot;id&quot;)</pre>
 <li><p>We merge the data frames using the shared FIPS <code>id</code> column.</p></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  class="build faster" id="map-u.s.-county-level-data">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = county_full,
             mapping = aes(x = long, y = lat,
@@ -516,7 +516,7 @@ p1</pre>
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-29-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-2" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  class="build faster" id="map-u.s.-county-level-data-2">
 
 <pre class = 'prettyprint lang-r'>p2 &lt;- p1 + scale_fill_brewer(palette = &quot;Blues&quot;,
                              labels = c(&quot;0-10&quot;, &quot;10-50&quot;, &quot;50-100&quot;, &quot;100-500&quot;,&quot;500-1,000&quot;, &quot;1,000-5,000&quot;, &quot;&gt;5,000&quot;))
@@ -535,7 +535,7 @@ p2 + labs(fill = &quot;Population per\nsquare mile&quot;) +
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-31-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-4" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  class="build faster" id="map-u.s.-county-level-data-4">
 
 <ul>
 <li>We can now do exactly the same thing for our map of percent African-American population by county.
@@ -561,7 +561,7 @@ p2 + labs(fill = &quot;US Population, Percent Black&quot;) +
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-33-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-6" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  class="build faster" id="map-u.s.-county-level-data-6">
 
 <ul>
 <li><p>Let’s draw two new county-level choropleths.</p></li>
@@ -584,7 +584,7 @@ orange_rev</pre>
 <li>We use the <code>rev()</code> function to reverse the order of a color vector.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-7" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  class="build faster" id="map-u.s.-county-level-data-7">
 
 <pre class = 'prettyprint lang-r'>pop_p &lt;- ggplot(data = county_full,
             mapping = aes(x = long, y = lat,
@@ -603,7 +603,7 @@ pop_p2 + labs(title = &quot;Population Density&quot;,
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-37-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-9" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  class="build faster" id="map-u.s.-county-level-data-9">
 
 <pre class = 'prettyprint lang-r'>pop_p2_rev &lt;- pop_p1 + scale_fill_manual(values = orange_rev)
 
@@ -615,7 +615,7 @@ pop_p2_rev + labs(title = &quot;Reverse-coded Population Density&quot;,
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-39-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-11" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  class="build faster" id="map-u.s.-county-level-data-11">
 
 <ul>
 <li>Let’s consider a county map of a continuous variable, such as <code>per_gop_2016</code>.
@@ -637,7 +637,7 @@ gop_p1</pre>
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-41-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-13" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  class="build faster" id="map-u.s.-county-level-data-13">
 
 <ul>
 <li>For a continuous variable, we can use <code>scale_fill_gradient()</code>, <code>scale_fill_gradient2()</code>, or <code>scale_fill_gradient2()</code> function:
@@ -650,7 +650,7 @@ gop_p1</pre>
 <li>For <code>scale_fill_gradient2()</code>, choose the value and color for <code>midpoint</code> carefully.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  id="map-u.s.-county-level-data-14" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Map U.S. county-level data</h2></hgroup><article  class="build faster" id="map-u.s.-county-level-data-14">
 
 <pre class = 'prettyprint lang-r'>gop_p2 &lt;- gop_p1 + scale_fill_gradient2( 
     low = &#39;#2E74C0&#39;,  # from party_colors for DEM
@@ -667,7 +667,7 @@ gop_p2 + labs(title = &quot;US Presidential Election 2016&quot;,
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-43-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Statebins</h2></hgroup><article  id="statebins" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Statebins</h2></hgroup><article  class="build faster" id="statebins">
 
 <ul>
 <li>As an alternative to state-level choropleths, we can consider <code>statebins</code>.</li>
@@ -695,7 +695,7 @@ p2 + scale_fill_gradient2(
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-45-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Statebins</h2></hgroup><article  id="statebins-2" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Statebins</h2></hgroup><article  class="build faster" id="statebins-2">
 
 <ul>
 <li>Let’s remove DC and use <code>scale_fill_gradient()</code>.</li>
@@ -720,7 +720,7 @@ p2 + scale_fill_gradient(
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-47-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Statebins</h2></hgroup><article  id="statebins-4" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Statebins</h2></hgroup><article  class="build faster" id="statebins-4">
 
 <ul>
 <li><p>Let’s use <code>scale_fill_manual()</code> to <code>fill</code> color by <code>party</code>.</p></li>
@@ -746,7 +746,7 @@ p2 + scale_fill_manual( values = c(Republican = &quot;darkred&quot;,
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-49-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Statebins</h2></hgroup><article  id="statebins-6" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Statebins</h2></hgroup><article  class="build faster" id="statebins-6">
 
 <ul>
 <li>Let’s discretize a continuous variable using <code>scale_fill_gradient()</code> with <code>breaks</code>.</li>
@@ -771,7 +771,7 @@ p2 + scale_fill_gradient(breaks = c(5, 21, 41, 48, 57),
 
 <p><img src="DANL310_Lec10_20220301_files/figure-html/unnamed-chunk-51-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Small-multiple maps</h2></hgroup><article  id="small-multiple-maps" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Small-multiple maps</h2></hgroup><article  class="build faster" id="small-multiple-maps">
 
 <ul>
 <li>Sometimes we have geographical data with repeated observations over time.
@@ -800,7 +800,7 @@ library(viridis)</pre>
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Small-multiple maps</h2></hgroup><article  id="small-multiple-maps-1" class="build faster">
+</article></slide><slide class=""><hgroup><h2>Small-multiple maps</h2></hgroup><article  class="build faster" id="small-multiple-maps-1">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = NY_socioecon_geo_poverty,
             mapping = aes(x = long, y = lat, group = group, 
