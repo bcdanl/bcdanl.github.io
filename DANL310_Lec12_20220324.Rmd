@@ -1,0 +1,131 @@
+---
+title: "DANL 310 Lecture 12"
+author: "Byeong-Hak Choe"
+date: March 24, 2022
+output: 
+  ioslides_presentation:
+    transition: 0
+    widescreen: TRUE
+    smaller: FALSE
+    smart: TRUE
+---
+# Interactive visualization
+
+
+## R packages
+
+```{r, echo=T, eval=T, fig.align='center', fig.height=5.5, message=FALSE, warning=FALSE}
+# install.packages("gganimate") 
+# install.packages("gifski")   # for PCs.
+# install.packages("transformr")   # for manipulating polygons and paths
+# install.packages("magick")  # for rendering
+
+library(tidyverse)
+library(gganimate)
+library(gifski)
+library(transformr)
+library(magick)
+theme_set(theme_bw())
+```
+
+
+## gganimate {.build .faster}
+- Consider the relationship between *cyl* and *mpg* from **mtcars** data, which is provided by the ggplot2 package.
+
+```{r, echo=T, eval=F, fig.align='center', fig.height=5.5, message=FALSE, warning=FALSE}
+data(mtcars)
+
+p <- ggplot(data = mtcars,
+       mapping = aes(x = factor(cyl), y = mpg)) +
+  geom_boxplot()
+
+p
+
+```
+
+
+## gganimate
+
+```{r, echo=F, eval=T, fig.align='center', fig.height=5.5, message=FALSE, warning=FALSE}
+data(mtcars)
+
+p <- ggplot(data = mtcars,
+       mapping = aes(x = factor(cyl), y = mpg)) +
+  geom_boxplot()
+
+p
+```
+
+
+
+## gganimate {.build .faster}
+- Let us consider how the relationship between *cyl* and *mpg* vary by *gear*.
+
+```{r, echo=T, eval=F, fig.align='center', fig.height=5.5, message=FALSE, warning=FALSE}
+p + facet_wrap(~gear)
+
+```
+
+
+## gganimate
+
+```{r, echo=F, eval=T, fig.align='center', fig.height=5.5, message=FALSE, warning=FALSE}
+p + facet_wrap(~gear)
+
+```
+
+
+
+## gganimate {.build .faster}
+
+- **gganimate** turn our ggplot visualizations into moving images.
+
+  - **gganimate** takes a ggplot figure and creates many different versions of it by changing a single parameter in the data.
+
+```{r, echo=T, eval=F, fig.align='center', fig.height=2.5, fig.width= 4, message=FALSE, warning=FALSE}
+my_anim <- p + 
+  transition_states(gear)
+
+my_anim
+```
+
+
+## gganimate
+
+```{r, echo=F, eval=T, fig.align='center', fig.height=2.5, fig.width= 4, message=FALSE, warning=FALSE}
+my_anim <- p + 
+  transition_states(gear)
+
+my_anim
+```
+
+
+## gganimate {.build .faster}
+
+- `transition_states()` is intended to use primarily with categorical variables. 
+
+  - You can control the link for each transition and the amount of time spent on each of the states using the `transition_length` and `state_length` arguments.
+
+```{r, echo=T, eval=F, fig.align='center', fig.height=2.5, fig.width= 4, message=FALSE, warning=FALSE}
+my_anim <- p + 
+  transition_states(gear,
+    transition_length = 3,  # relative length
+    state_length = 2)  # relative length
+
+my_anim
+```
+
+
+
+## gganimate {.build .faster}
+
+
+```{r, echo=F, eval=T, fig.align='center', fig.height=2.5, fig.width= 4, message=FALSE, warning=FALSE}
+my_anim <- p + 
+  transition_states(gear,
+    transition_length = 3,  # relative length
+    state_length = 2)  # relative length
+
+my_anim
+```
+
