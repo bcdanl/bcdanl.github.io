@@ -41,7 +41,7 @@
     };
   </script>
 
-  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
   <link href="site_libs/ioslides-13.5.1/fonts/fonts.css" rel="stylesheet" />
   <link href="site_libs/ioslides-13.5.1/theme/css/default.css" rel="stylesheet" />
   <link href="site_libs/ioslides-13.5.1/theme/css/phone.css" rel="stylesheet" />
@@ -65,6 +65,10 @@
 
     summary {
       display: list-item;
+    }
+
+    details > summary > p:only-child {
+      display: inline;
     }
 
     slides > slide {
@@ -189,7 +193,7 @@ library(RColorBrewer)
 library(dichromat)
 theme_set(theme_minimal())</pre>
 
-</article></slide><slide class=""><hgroup><h2>Use color to your advantage</h2></hgroup><article  class="build faster" id="use-color-to-your-advantage">
+</article></slide><slide class=""><hgroup><h2>Use color to your advantage</h2></hgroup><article  id="use-color-to-your-advantage" class="build faster">
 
 <ul>
 <li>You should choose a color palette based on the types of the data you are plotting.
@@ -200,7 +204,7 @@ theme_set(theme_minimal())</pre>
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Use color to your advantage</h2></hgroup><article  class="build faster" id="use-color-to-your-advantage-1">
+</article></slide><slide class=""><hgroup><h2>Use color to your advantage</h2></hgroup><article  id="use-color-to-your-advantage-1" class="build faster">
 
 <ul>
 <li><p>We choose color palettes for mappings through one of the <code>scale_</code> functions for <code>color</code> or <code>fill</code>.</p></li>
@@ -223,7 +227,7 @@ theme_set(theme_minimal())</pre>
 
 <img hight="90%" src='lec_figs/socviz_fig8_6.png' title=''/>
 
-</article></slide><slide class=""><hgroup><h2>Use color to your advantage</h2></hgroup><article  class="build faster" id="use-color-to-your-advantage-2">
+</article></slide><slide class=""><hgroup><h2>Use color to your advantage</h2></hgroup><article  id="use-color-to-your-advantage-2" class="build faster">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = organdata,
             mapping = aes(x = roads, y = donors, color = world))
@@ -235,7 +239,7 @@ p + geom_point(size = 2) + scale_color_brewer(palette = &quot;Set2&quot;) +
 
 <p><img src="DANL310_Lec11_20220303_files/figure-html/unnamed-chunk-3-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Use color to your advantage</h2></hgroup><article  class="build faster" id="use-color-to-your-advantage-4">
+</article></slide><slide class=""><hgroup><h2>Use color to your advantage</h2></hgroup><article  id="use-color-to-your-advantage-4" class="build faster">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = organdata,
             mapping = aes(x = roads, y = donors, color = world))
@@ -247,7 +251,7 @@ p + geom_point(size = 2) + scale_color_brewer(palette = &quot;Pastel2&quot;) +
 
 <p><img src="DANL310_Lec11_20220303_files/figure-html/unnamed-chunk-5-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Use color to your advantage</h2></hgroup><article  class="build faster" id="use-color-to-your-advantage-6">
+</article></slide><slide class=""><hgroup><h2>Use color to your advantage</h2></hgroup><article  id="use-color-to-your-advantage-6" class="build faster">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = organdata,
             mapping = aes(x = roads, y = donors, color = world))
@@ -259,7 +263,7 @@ p + geom_point(size = 2) + scale_color_brewer(palette = &quot;Dark2&quot;) +
 
 <p><img src="DANL310_Lec11_20220303_files/figure-html/unnamed-chunk-7-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Use color to your advantage</h2></hgroup><article  class="build faster" id="use-color-to-your-advantage-8">
+</article></slide><slide class=""><hgroup><h2>Use color to your advantage</h2></hgroup><article  id="use-color-to-your-advantage-8" class="build faster">
 
 <ul>
 <li>We can also specify colors manually, via <code>scale_color_manual()</code> or <code>scale_fill_manual()</code>.
@@ -280,7 +284,7 @@ p + geom_point(size = 2) +
 
 <p><img src="DANL310_Lec11_20220303_files/figure-html/unnamed-chunk-9-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Use color to your advantage</h2></hgroup><article  class="build faster" id="use-color-to-your-advantage-10">
+</article></slide><slide class=""><hgroup><h2>Use color to your advantage</h2></hgroup><article  id="use-color-to-your-advantage-10" class="build faster">
 
 <ul>
 <li><p>Even though colorblind people can recognize a wide range of colors, it might be hard to differentiate between certain colors.</p>
@@ -375,7 +379,7 @@ color_table</pre>
 ## YlOrBr           9      seq       TRUE
 ## YlOrRd           9      seq       TRUE</pre>
 
-</article></slide><slide class=""><hgroup><h2>Layer color and text together</h2></hgroup><article  class="build faster" id="layer-color-and-text-together">
+</article></slide><slide class=""><hgroup><h2>Layer color and text together</h2></hgroup><article  id="layer-color-and-text-together" class="build faster">
 
 <ul>
 <li><p>Color is very useful when we want to pick out or highlight some aspect of our data.</p></li>
@@ -397,7 +401,7 @@ p1</pre>
 
 <p><img src="DANL310_Lec11_20220303_files/figure-html/unnamed-chunk-16-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Layer color and text together</h2></hgroup><article  class="build faster" id="layer-color-and-text-together-2">
+</article></slide><slide class=""><hgroup><h2>Layer color and text together</h2></hgroup><article  id="layer-color-and-text-together-2" class="build faster">
 
 <ul>
 <li>Next, we add a second <code>geom_point()</code> layer.
@@ -420,7 +424,7 @@ p2</pre>
 
 <p><img src="DANL310_Lec11_20220303_files/figure-html/unnamed-chunk-18-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Layer color and text together</h2></hgroup><article  class="build faster" id="layer-color-and-text-together-4">
+</article></slide><slide class=""><hgroup><h2>Layer color and text together</h2></hgroup><article  id="layer-color-and-text-together-4" class="build faster">
 
 <ul>
 <li>Next, we set the y-axis scale and the labels.</li>
@@ -439,7 +443,7 @@ p3</pre>
 
 <p><img src="DANL310_Lec11_20220303_files/figure-html/unnamed-chunk-20-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Layer color and text together</h2></hgroup><article  class="build faster" id="layer-color-and-text-together-6">
+</article></slide><slide class=""><hgroup><h2>Layer color and text together</h2></hgroup><article  id="layer-color-and-text-together-6" class="build faster">
 
 <ul>
 <li>Finally, we add a third layer using the <code>geom_text_repel()</code> function.
@@ -520,7 +524,7 @@ p4 + theme_minimal() +
 <li><code>ggthemes</code> package provides <code>theme_economist()</code> and <code>theme_wsj()</code>.</li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  class="build faster" id="change-the-appearance-of-plots-with-themes-1">
+</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  id="change-the-appearance-of-plots-with-themes-1" class="build faster">
 
 <ul>
 <li>If we want to change the overall look of it all at once, we can do that using ggplot’s theme engine.
@@ -537,7 +541,7 @@ p4 + theme(legend.position=&quot;top&quot;)</pre>
 
 <p><img src="DANL310_Lec11_20220303_files/figure-html/unnamed-chunk-24-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  class="build faster" id="change-the-appearance-of-plots-with-themes-3">
+</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  id="change-the-appearance-of-plots-with-themes-3" class="build faster">
 
 <pre class = 'prettyprint lang-r'>theme_set(theme_wsj())
 p4 + theme(plot.title = element_text(size = rel(0.6)),
@@ -549,7 +553,7 @@ p4 + theme(plot.title = element_text(size = rel(0.6)),
 
 <p><img src="DANL310_Lec11_20220303_files/figure-html/unnamed-chunk-26-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  class="build faster" id="change-the-appearance-of-plots-with-themes-5">
+</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  id="change-the-appearance-of-plots-with-themes-5" class="build faster">
 
 <ul>
 <li>We can adjust the text size using <code>element_text()</code> function.</li>
@@ -565,7 +569,7 @@ p4 + theme(plot.title = element_text(size = rel(0.6)),
 
 <p><img src="DANL310_Lec11_20220303_files/figure-html/unnamed-chunk-28-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  class="build faster" id="change-the-appearance-of-plots-with-themes-7">
+</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  id="change-the-appearance-of-plots-with-themes-7" class="build faster">
 
 <ul>
 <li><code>cowplot</code> package provides <code>theme_cowplot()</code>.</li>
@@ -580,7 +584,7 @@ p4 + theme(legend.position=&quot;top&quot;)</pre>
 
 <p><img src="DANL310_Lec11_20220303_files/figure-html/unnamed-chunk-30-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  class="build faster" id="change-the-appearance-of-plots-with-themes-9">
+</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  id="change-the-appearance-of-plots-with-themes-9" class="build faster">
 
 <ul>
 <li><code>hrbrthemes</code> package provides <code>theme_ipsum()</code>, which is similar to the theme used in our textbook.</li>
@@ -595,7 +599,7 @@ p4 + theme(legend.position=&quot;top&quot;)</pre>
 
 <p><img src="DANL310_Lec11_20220303_files/figure-html/unnamed-chunk-32-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  class="build faster" id="change-the-appearance-of-plots-with-themes-11">
+</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  id="change-the-appearance-of-plots-with-themes-11" class="build faster">
 
 <ul>
 <li>We can also change font and color of the text.</li>
@@ -616,7 +620,7 @@ p4 + theme(legend.position=&quot;top&quot;)</pre>
 
 <p><img src="DANL310_Lec11_20220303_files/figure-html/unnamed-chunk-34-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  class="build faster" id="change-the-appearance-of-plots-with-themes-13">
+</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  id="change-the-appearance-of-plots-with-themes-13" class="build faster">
 
 <ul>
 <li>We can also use <code>element_blank()</code> to remove a number of elements by naming them and making them disappear.</li>
@@ -634,7 +638,7 @@ p4 + theme(legend.position=&quot;top&quot;)</pre>
 
 <p><img src="DANL310_Lec11_20220303_files/figure-html/unnamed-chunk-36-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  class="build faster" id="change-the-appearance-of-plots-with-themes-15">
+</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  id="change-the-appearance-of-plots-with-themes-15" class="build faster">
 
 <ul>
 <li><p>Let’s create an effective small multiple of the age distribution of General Social Survey (GSS) respondents over the years using <code>gss_lon</code> data.</p></li>
@@ -654,7 +658,7 @@ mean_age$y &lt;- 0.3 # to position the age as a text label.
 yr_labs &lt;- data.frame(x = 85, y = 0.8,
                       year = yrs)</pre>
 
-</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  class="build faster" id="change-the-appearance-of-plots-with-themes-16">
+</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  id="change-the-appearance-of-plots-with-themes-16" class="build faster">
 
 <pre class = 'prettyprint lang-r'>p &lt;- ggplot(data = subset(gss_lon, year %in% yrs),
             mapping = aes(x = age))
@@ -675,7 +679,7 @@ p1</pre>
 <li><p>In the <code>facet_grid()</code> we use the <code>switch</code> argument to move the labels to the left.</p></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  class="build faster" id="change-the-appearance-of-plots-with-themes-17">
+</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  id="change-the-appearance-of-plots-with-themes-17" class="build faster">
 
 <ul>
 <li>With the structure of the plot in place, we then style the elements in the way that we want, using a series of instructions to <code>theme()</code>.</li>
@@ -696,7 +700,7 @@ p1</pre>
        title = &quot;Age Distribution of\nGSS Respondents&quot;)
 p2a</pre>
 
-</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  class="build faster" id="change-the-appearance-of-plots-with-themes-18">
+</article></slide><slide class=""><hgroup><h2>Change the appearance of plots with themes</h2></hgroup><article  id="change-the-appearance-of-plots-with-themes-18" class="build faster">
 
 <ul>
 <li><code>ggridges</code> allows the distributions to overlap vertically.
@@ -722,7 +726,7 @@ p2b</pre>
 
 <p><img src="DANL310_Lec11_20220303_files/figure-html/unnamed-chunk-44-1.png" width="720" style="display: block; margin: auto;" /></p>
 
-</article></slide><slide class=""><hgroup><h2>Arrange plots with <code>grid.arrange()</code></h2></hgroup><article  class="build faster" id="arrange-plots-with-grid.arrange">
+</article></slide><slide class=""><hgroup><h2>Arrange plots with <code>grid.arrange()</code></h2></hgroup><article  id="arrange-plots-with-grid.arrange" class="build faster">
 
 <ul>
 <li><code>gridExtra</code> package provides <code>grid.arrange()</code> function.

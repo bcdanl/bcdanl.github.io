@@ -41,7 +41,7 @@
     };
   </script>
 
-  <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
   <link href="site_libs/ioslides-13.5.1/fonts/fonts.css" rel="stylesheet" />
   <link href="site_libs/ioslides-13.5.1/theme/css/default.css" rel="stylesheet" />
   <link href="site_libs/ioslides-13.5.1/theme/css/phone.css" rel="stylesheet" />
@@ -65,6 +65,10 @@
 
     summary {
       display: list-item;
+    }
+
+    details > summary > p:only-child {
+      display: inline;
     }
 
     slides > slide {
@@ -565,26 +569,26 @@ by_country</pre>
 
 <pre >## # A tibble: 17 × 8
 ## # Groups:   consent_law [2]
-##    consent_law country       donors_mean donors_sd gdp_mean health_mean
-##    &lt;chr&gt;       &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
-##  1 Informed    Australia            10.6     1.14    22179.       1958.
-##  2 Informed    Canada               14.0     0.751   23711.       2272.
-##  3 Informed    Denmark              13.1     1.47    23722.       2054.
-##  4 Informed    Germany              13.0     0.611   22163.       2349.
-##  5 Informed    Ireland              19.8     2.48    20824.       1480.
-##  6 Informed    Netherlands          13.7     1.55    23013.       1993.
-##  7 Informed    United Kingd…        13.5     0.775   21359.       1561.
-##  8 Informed    United States        20.0     1.33    29212.       3988.
-##  9 Presumed    Austria              23.5     2.42    23876.       1875.
-## 10 Presumed    Belgium              21.9     1.94    22500.       1958.
-## 11 Presumed    Finland              18.4     1.53    21019.       1615.
-## 12 Presumed    France               16.8     1.60    22603.       2160.
-## 13 Presumed    Italy                11.1     4.28    21554.       1757 
-## 14 Presumed    Norway               15.4     1.11    26448.       2217.
-## 15 Presumed    Spain                28.1     4.96    16933        1289.
-## 16 Presumed    Sweden               13.1     1.75    22415.       1951.
-## 17 Presumed    Switzerland          14.2     1.71    27233        2776.
-## # … with 2 more variables: roads_mean &lt;dbl&gt;, cerebvas_mean &lt;dbl&gt;</pre>
+##    consent_law country     donors_mean donors_sd gdp_mean health_mean roads_mean
+##    &lt;chr&gt;       &lt;chr&gt;             &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;      &lt;dbl&gt;
+##  1 Informed    Australia          10.6     1.14    22179.       1958.      105. 
+##  2 Informed    Canada             14.0     0.751   23711.       2272.      109. 
+##  3 Informed    Denmark            13.1     1.47    23722.       2054.      102. 
+##  4 Informed    Germany            13.0     0.611   22163.       2349.      113. 
+##  5 Informed    Ireland            19.8     2.48    20824.       1480.      118. 
+##  6 Informed    Netherlands        13.7     1.55    23013.       1993.       76.1
+##  7 Informed    United Kin…        13.5     0.775   21359.       1561.       67.9
+##  8 Informed    United Sta…        20.0     1.33    29212.       3988.      155. 
+##  9 Presumed    Austria            23.5     2.42    23876.       1875.      150. 
+## 10 Presumed    Belgium            21.9     1.94    22500.       1958.      155. 
+## 11 Presumed    Finland            18.4     1.53    21019.       1615.       93.6
+## 12 Presumed    France             16.8     1.60    22603.       2160.      156. 
+## 13 Presumed    Italy              11.1     4.28    21554.       1757       122. 
+## 14 Presumed    Norway             15.4     1.11    26448.       2217.       70.0
+## 15 Presumed    Spain              28.1     4.96    16933        1289.      161. 
+## 16 Presumed    Sweden             13.1     1.75    22415.       1951.       72.3
+## 17 Presumed    Switzerland        14.2     1.71    27233        2776.       96.4
+## # … with 1 more variable: cerebvas_mean &lt;dbl&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Continuous variables by group or category</h2></hgroup><article  class="build faster" id="continuous-variables-by-group-or-category-18">
 
@@ -606,32 +610,32 @@ by_country</pre>
 by_country</pre>
 
 <pre >## # A tibble: 17 × 28
-##    consent_law country      donors_mean pop_mean pop_dens_mean gdp_mean
-##    &lt;chr&gt;       &lt;chr&gt;              &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;    &lt;dbl&gt;
-##  1 Informed    Australia           10.6   18318.         0.237   22179.
-##  2 Informed    Canada              14.0   29608.         0.297   23711.
-##  3 Informed    Denmark             13.1    5257.        12.2     23722.
-##  4 Informed    Germany             13.0   80255.        22.5     22163.
-##  5 Informed    Ireland             19.8    3674.         5.23    20824.
-##  6 Informed    Netherlands         13.7   15548.        37.4     23013.
-##  7 Informed    United King…        13.5   58187.        24.0     21359.
-##  8 Informed    United Stat…        20.0  269330.         2.80    29212.
-##  9 Presumed    Austria             23.5    7927.         9.45    23876.
-## 10 Presumed    Belgium             21.9   10153.        30.7     22500.
-## 11 Presumed    Finland             18.4    5112.         1.51    21019.
-## 12 Presumed    France              16.8   58056.        10.5     22603.
-## 13 Presumed    Italy               11.1   57360.        19.0     21554.
-## 14 Presumed    Norway              15.4    4386.         1.35    26448.
-## 15 Presumed    Spain               28.1   39666.         7.84    16933 
-## 16 Presumed    Sweden              13.1    8789.         1.95    22415.
-## 17 Presumed    Switzerland         14.2    7037.        17.0     27233 
-## # … with 22 more variables: gdp_lag_mean &lt;dbl&gt;, health_mean &lt;dbl&gt;,
-## #   health_lag_mean &lt;dbl&gt;, pubhealth_mean &lt;dbl&gt;, roads_mean &lt;dbl&gt;,
-## #   cerebvas_mean &lt;dbl&gt;, assault_mean &lt;dbl&gt;, external_mean &lt;dbl&gt;,
-## #   txp_pop_mean &lt;dbl&gt;, donors_sd &lt;dbl&gt;, pop_sd &lt;dbl&gt;,
-## #   pop_dens_sd &lt;dbl&gt;, gdp_sd &lt;dbl&gt;, gdp_lag_sd &lt;dbl&gt;,
-## #   health_sd &lt;dbl&gt;, health_lag_sd &lt;dbl&gt;, pubhealth_sd &lt;dbl&gt;,
-## #   roads_sd &lt;dbl&gt;, cerebvas_sd &lt;dbl&gt;, assault_sd &lt;dbl&gt;, …</pre>
+##    consent_law country  donors_mean pop_mean pop_dens_mean gdp_mean gdp_lag_mean
+##    &lt;chr&gt;       &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;
+##  1 Informed    Austral…        10.6   18318.         0.237   22179.       21779.
+##  2 Informed    Canada          14.0   29608.         0.297   23711.       23353.
+##  3 Informed    Denmark         13.1    5257.        12.2     23722.       23275 
+##  4 Informed    Germany         13.0   80255.        22.5     22163.       21938.
+##  5 Informed    Ireland         19.8    3674.         5.23    20824.       20154.
+##  6 Informed    Netherl…        13.7   15548.        37.4     23013.       22554.
+##  7 Informed    United …        13.5   58187.        24.0     21359.       20962.
+##  8 Informed    United …        20.0  269330.         2.80    29212.       28699.
+##  9 Presumed    Austria         23.5    7927.         9.45    23876.       23415.
+## 10 Presumed    Belgium         21.9   10153.        30.7     22500.       22096.
+## 11 Presumed    Finland         18.4    5112.         1.51    21019.       20763 
+## 12 Presumed    France          16.8   58056.        10.5     22603.       22211.
+## 13 Presumed    Italy           11.1   57360.        19.0     21554.       21195.
+## 14 Presumed    Norway          15.4    4386.         1.35    26448.       25769.
+## 15 Presumed    Spain           28.1   39666.         7.84    16933        16584.
+## 16 Presumed    Sweden          13.1    8789.         1.95    22415.       22094 
+## 17 Presumed    Switzer…        14.2    7037.        17.0     27233        26931.
+## # … with 21 more variables: health_mean &lt;dbl&gt;, health_lag_mean &lt;dbl&gt;,
+## #   pubhealth_mean &lt;dbl&gt;, roads_mean &lt;dbl&gt;, cerebvas_mean &lt;dbl&gt;,
+## #   assault_mean &lt;dbl&gt;, external_mean &lt;dbl&gt;, txp_pop_mean &lt;dbl&gt;,
+## #   donors_sd &lt;dbl&gt;, pop_sd &lt;dbl&gt;, pop_dens_sd &lt;dbl&gt;, gdp_sd &lt;dbl&gt;,
+## #   gdp_lag_sd &lt;dbl&gt;, health_sd &lt;dbl&gt;, health_lag_sd &lt;dbl&gt;, pubhealth_sd &lt;dbl&gt;,
+## #   roads_sd &lt;dbl&gt;, cerebvas_sd &lt;dbl&gt;, assault_sd &lt;dbl&gt;, external_sd &lt;dbl&gt;,
+## #   txp_pop_sd &lt;dbl&gt;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Cleveland dotplot</h2></hgroup><article  class="build faster" id="cleveland-dotplot">
 
