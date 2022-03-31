@@ -595,11 +595,11 @@ knitr::kable(d, digits = 4)
 ---
 ## Format numeric columns
 
-|     X1|    X2|       X3|
-|------:|-----:|--------:|
-| 0.3832| 1e+03| 634.5207|
-| 0.6323| 1e+05| -29.8792|
-| 0.7605| 1e+07| -58.6550|
+|     X1|    X2|         X3|
+|------:|-----:|----------:|
+| 0.5893| 1e+03|   361.5301|
+| 0.2797| 1e+05|  -796.8558|
+| 0.7161| 1e+07| -1285.1059|
 
 ---
 ## Format numeric columns
@@ -614,11 +614,11 @@ knitr::kable(d, digits = c(5, 0, 2))
 ---
 ## Format numeric columns
 
-|      X1|    X2|     X3|
-|-------:|-----:|------:|
-| 0.38319| 1e+03| 634.52|
-| 0.63226| 1e+05| -29.88|
-| 0.76050| 1e+07| -58.65|
+|      X1|    X2|       X3|
+|-------:|-----:|--------:|
+| 0.58935| 1e+03|   361.53|
+| 0.27973| 1e+05|  -796.86|
+| 0.71612| 1e+07| -1285.11|
 
 ---
 ## Format numeric columns
@@ -633,11 +633,11 @@ knitr::kable(d, digits = 3, format.args = list(scientific = FALSE))
 ---
 ## Format numeric columns
 
-|    X1|       X2|      X3|
-|-----:|--------:|-------:|
-| 0.383|     1000| 634.521|
-| 0.632|   100000| -29.879|
-| 0.761| 10000000| -58.655|
+|    X1|       X2|        X3|
+|-----:|--------:|---------:|
+| 0.589|     1000|   361.530|
+| 0.280|   100000|  -796.856|
+| 0.716| 10000000| -1285.106|
 
 ---
 ## Format numeric columns
@@ -652,11 +652,11 @@ knitr::kable(d, digits = 3, format.args = list(big.mark = ",",
 ---
 ## Format numeric columns
 
-|    X1|         X2|      X3|
-|-----:|----------:|-------:|
-| 0.383|      1,000| 634.521|
-| 0.632|    100,000| -29.879|
-| 0.761| 10,000,000| -58.655|
+|    X1|         X2|         X3|
+|-----:|----------:|----------:|
+| 0.589|      1,000|    361.530|
+| 0.280|    100,000|   -796.856|
+| 0.716| 10,000,000| -1,285.106|
 
 
 ---
@@ -674,11 +674,11 @@ knitr::kable(d)  # NA is displayed by default
 ---
 ## Display missing values
 
-|        X1|    X2|        X3|
-|---------:|-----:|---------:|
-|        NA| 1e+03| 634.52073|
-| 0.6322591| 1e+05|        NA|
-| 0.7605015|    NA| -58.65495|
+|       X1|    X2|         X3|
+|--------:|-----:|----------:|
+|       NA| 1e+03|   361.5301|
+| 0.279732| 1e+05|         NA|
+| 0.716118|    NA| -1285.1059|
 
 
 ---
@@ -696,11 +696,11 @@ knitr::kable(d)
 ---
 ## Display missing values
 
-|        X1|    X2|        X3|
-|---------:|-----:|---------:|
-|          | 1e+03| 634.52073|
-| 0.6322591| 1e+05|          |
-| 0.7605015|      | -58.65495|
+|       X1|    X2|         X3|
+|--------:|-----:|----------:|
+|         | 1e+03|   361.5301|
+| 0.279732| 1e+05|           |
+| 0.716118|      | -1285.1059|
 
 
 ---
@@ -720,11 +720,11 @@ options(opts)  # restore global R options
 ---
 ## Display missing values
 
-|        X1|    X2|        X3|
-|---------:|-----:|---------:|
-|        **| 1e+03| 634.52073|
-| 0.6322591| 1e+05|        **|
-| 0.7605015|    **| -58.65495|
+|       X1|    X2|         X3|
+|--------:|-----:|----------:|
+|       **| 1e+03|   361.5301|
+| 0.279732| 1e+05|         **|
+| 0.716118|    **| -1285.1059|
 
 
 
@@ -3159,7 +3159,7 @@ kbl(collapse_rows_dt, align = "c") %&gt;%
    &lt;td style="text-align:center;font-weight: bold;"&gt; a &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; c &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;font-weight: bold;"&gt; a &lt;/td&gt;
@@ -3189,7 +3189,7 @@ kbl(collapse_rows_dt, align = "c") %&gt;%
    &lt;td style="text-align:center;font-weight: bold;"&gt; a &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; c &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 6 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;font-weight: bold;"&gt; a &lt;/td&gt;
@@ -3243,7 +3243,7 @@ kbl(collapse_rows_dt, align = "c") %&gt;%
    &lt;td style="text-align:center;font-weight: bold;"&gt; b &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; d &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 15 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
