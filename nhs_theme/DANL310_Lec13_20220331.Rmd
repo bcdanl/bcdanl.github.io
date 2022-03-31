@@ -1,0 +1,1229 @@
+---
+title: "DANL 310 Lecture 13"
+subtitle: "knitr::kable and kableExtra"
+author: "Byeong-Hak Choe"
+institute: "SUNY Geneseo"
+date: "March 31, 2022"
+output:
+  xaringan::moon_reader:
+    css: 
+      - default
+      - css/nhsr.css
+      - css/nhsr-fonts.css
+    lib_dir: libs
+    seal: false
+    nature:
+      highlightStyle: googlecode
+      highlightLines: true
+      highlightLanguage: ["r"]
+      countIncrementalSlides: false
+      ratio: "16:9"
+    includes:
+      after_body: [css/insert-logo.html]
+---
+
+```{r setup, include = FALSE}
+library(knitr)
+library(tidyverse)
+library(NHSRtheme)
+# set default options
+opts_chunk$set(echo = FALSE,
+               fig.width = 7.252,
+               fig.height = 4,
+               dpi = 300)
+
+
+# uncomment the following lines if you want to use the NHS-R theme colours by default
+# scale_fill_continuous <- partial(scale_fill_nhs, discrete = FALSE)
+# scale_fill_discrete <- partial(scale_fill_nhs, discrete = TRUE)
+# scale_colour_continuous <- partial(scale_colour_nhs, discrete = FALSE)
+# scale_colour_discrete <- partial(scale_colour_nhs, discrete = TRUE)
+```
+
+class: title-slide, left, bottom
+
+# `r rmarkdown::metadata$title`
+----
+## **`r rmarkdown::metadata$subtitle`**
+### `r rmarkdown::metadata$author`
+### `r rmarkdown::metadata$date`
+
+
+---
+class: inverse, middle, center
+
+# Creating tables using `knitr::kable`
+
+
+
+---
+## Change column names
+- The names of columns in a data frame may not be the same as what we want to display to readers.
+
+- We can use the `col.names` argument to replace the column names with a vector of new names.
+
+```{r, echo=TRUE, eval=FALSE}
+library(ggplot2)
+knitr::kable(
+  iris,
+  col.names = c('We', 'Need', 'Five', 'Names', 'Here')
+)
+```
+
+---
+## Change column names
+```{r, echo=FALSE}
+knitr::kable(
+  iris,
+  col.names = c('We', 'Need', 'Five', 'Names', 'Here')
+)
+```
+
+
+
+---
+## Specify column alignment
+- To change the alignment of the table columns, you can use either a vector of values consisting of characters `l` (left), `c` (center), and `r` (right).
+  - `kable(..., align = c('c', 'l'))` or
+  - `kable(..., align = 'cl')`
+  
+```{r, echo=TRUE, eval=FALSE}
+# left, center, center, right, right
+knitr::kable(iris, align = "lccrr")
+```
+
+---
+## Specify column alignment
+```{r, echo=FALSE}
+# left, center, center, right, right
+knitr::kable(iris, align = "lccrr")
+```
+
+
+---
+## Add a table caption
+- You can add a caption to the table via the `caption` argument.
+
+```{r, echo=TRUE, eval=FALSE}
+knitr::kable(iris, caption = "An example table caption.")
+```
+
+---
+## Add a table caption
+```{r, echo=FALSE}
+knitr::kable(iris, caption = "An example table caption.")
+```
+
+
+---
+## Format numeric columns
+- You can set the maximum number of decimal places via the `round()` function and other formatting arguments such as the `format()` function in base R.
+```{r, echo=TRUE, eval=FALSE}
+round(1.234567, 0)
+round(1.234567, digits = 1)
+round(1.234567, digits = 3)
+
+format(1000, scientific = TRUE)
+format(10000.123, big.mark = ",")
+
+```
+
+---
+## Format numeric columns
+```{r, echo=FALSE}
+round(1.234567, 0)
+round(1.234567, digits = 1)
+round(1.234567, digits = 3)
+
+format(1000, scientific = TRUE)
+format(10000.123, big.mark = ",")
+```
+
+---
+## Format numeric columns
+- In `kable`, you can set the maximum number of decimal places via the `digits` argument.
+
+```{r, echo=TRUE, eval=FALSE}
+d <- cbind(X1 = runif(3), X2 = 10^c(3, 5, 7), X3 = rnorm(3,
+  0, 1000))
+# at most 4 decimal places
+knitr::kable(d, digits = 4)
+
+```
+
+---
+## Format numeric columns
+```{r, echo=FALSE}
+d <- cbind(X1 = runif(3), X2 = 10^c(3, 5, 7), X3 = rnorm(3,
+  0, 1000))
+# at most 4 decimal places
+knitr::kable(d, digits = 4)
+
+```
+
+---
+## Format numeric columns
+- You can set the *different* maximum numbers of decimal places via the `digits` argument.
+
+```{r, echo=TRUE, eval=FALSE}
+# round columns separately
+knitr::kable(d, digits = c(5, 0, 2))
+
+```
+
+---
+## Format numeric columns
+```{r, echo=FALSE}
+# round columns separately
+knitr::kable(d, digits = c(5, 0, 2))
+
+```
+
+---
+## Format numeric columns
+- You can use the `format.args` argument to not use scientific number formatting.
+
+```{r, echo=TRUE, eval=FALSE}
+# do not use the scientific notation
+knitr::kable(d, digits = 3, format.args = list(scientific = FALSE))
+```
+
+---
+## Format numeric columns
+```{r, echo=FALSE}
+# do not use the scientific notation
+knitr::kable(d, digits = 3, format.args = list(scientific = FALSE))
+```
+
+---
+## Format numeric columns
+- We can add commas to big numbers.
+
+```{r, echo=TRUE, eval=FALSE}
+knitr::kable(d, digits = 3, format.args = list(big.mark = ",",
+  scientific = FALSE))
+```
+
+---
+## Format numeric columns
+```{r, echo=FALSE}
+# add commas to big numbers
+knitr::kable(d, digits = 3, format.args = list(big.mark = ",",
+  scientific = FALSE))
+```
+
+
+---
+## Display missing values
+- By default, missing values (i.e., `NA`) are displayed as the character string `NA` in the table.
+
+- Here is the example of the table with `NA`.
+
+```{r, echo=TRUE, eval=FALSE}
+d[rbind(c(1, 1), c(2, 3), c(3, 2))] <- NA
+knitr::kable(d)  # NA is displayed by default
+```
+
+---
+## Display missing values
+```{r, echo=FALSE}
+# add commas to big numbers
+d[rbind(c(1, 1), c(2, 3), c(3, 2))] <- NA
+knitr::kable(d)  # NA is displayed by default
+```
+
+
+---
+## Display missing values
+- We can replace `NA` with empty strings by changing a global option via the `options()` function.
+```{r, echo=TRUE, eval=FALSE}
+# replace NA with empty strings
+opts <- options(knitr.kable.NA = "")
+knitr::kable(d)
+
+```
+
+
+
+---
+## Display missing values
+```{r, echo=FALSE}
+# replace NA with empty strings
+opts <- options(knitr.kable.NA = "")
+knitr::kable(d)
+```
+
+
+---
+## Display missing values
+- Or with "**"
+- We can use `options(opts)` to restore global R options.
+
+```{r, echo=TRUE, eval=FALSE}
+options(knitr.kable.NA = "**")
+knitr::kable(d)
+
+options(opts)  # restore global R options
+```
+
+
+---
+## Display missing values
+```{r, echo=FALSE}
+options(knitr.kable.NA = "**")
+knitr::kable(d)
+
+options(opts)  # restore global R options
+
+```
+
+
+
+
+---
+class: inverse, middle, center
+
+# Creating tables using `kableExtra`
+
+
+---
+
+# Getting Started with `kableExtra`
+
+```{r, echo=TRUE, eval=FALSE}
+# install.packages("kableExtra")
+library(kableExtra)
+dt <- mtcars[1:5, 1:6]
+```
+---
+
+# Getting Started with `kableExtra`
+
+```{r, echo=FALSE}
+# install.packages("kableExtra")
+library(kableExtra)
+dt <- mtcars[1:5, 1:6]
+```
+
+---
+## Basic HTML table
+- Basic HTML output of `kable` may look crude. To the end, it's just a plain HTML table without any CSS features.
+
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(dt)
+```
+
+---
+## Basic HTML table
+
+```{r, echo=FALSE}
+kbl(dt)
+```
+
+
+---
+## Bootstrap theme
+- When used on a HTML table, `kable_styling()` will automatically apply twitter `bootstrap` theme to the table. 
+
+- Now it should looks the same as the original `pandoc` output (the one when you don’t specify format in `kable()`) but this time, you are controlling it.
+
+
+```{r, echo=TRUE, eval=FALSE}
+dt %>%
+  kbl() %>%
+  kable_styling()
+```
+
+---
+## Bootstrap theme
+
+```{r, echo=FALSE}
+dt %>%
+  kbl() %>%
+  kable_styling()
+```
+
+---
+## Alternative themes
+- `kableExtra` offers a few in-house alternative HTML table themes other than the default bootstrap theme. 
+
+- Right now there are 6 of them: 
+  - `kable_paper`, 
+  - `kable_classic`, 
+  - `kable_classic_2`, 
+  - `kable_minimal`, 
+  - `kable_material`,
+  - `kable_material_dark.` 
+  
+- These functions are alternatives to `kable_styling`.
+  - You can specify any additional formatting options in `kable_styling` in these functions too.
+  - `hover` is available.
+
+
+```{r, echo=TRUE, eval=FALSE}
+dt %>%
+  kbl() %>%
+  kable_paper("hover", full_width = F)
+```
+
+---
+## Alternative themes
+
+```{r, echo=FALSE}
+dt %>%
+  kbl() %>%
+  kable_paper("hover", full_width = F)
+```
+
+---
+## Alternative themes
+- You can choose an `html_font` for the table.
+```{r, echo=TRUE, eval=FALSE}
+dt %>%
+  kbl(caption = "Recreating booktabs style table") %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+```
+
+
+---
+## Alternative themes
+
+```{r, echo=FALSE}
+dt %>%
+  kbl(caption = "Recreating booktabs style table") %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+```
+
+
+---
+## Alternative themes
+- This is the `kable_classic_2` theme.
+```{r, echo=TRUE, eval=FALSE}
+dt %>%
+  kbl() %>%
+  kable_classic_2(full_width = F)
+```
+
+
+---
+## Alternative themes
+```{r, echo=FALSE}
+dt %>%
+  kbl() %>%
+  kable_classic_2(full_width = F)
+```
+
+
+---
+## Alternative themes
+- This is the `kable_minimal` theme.
+
+```{r, echo=TRUE, eval=FALSE}
+dt %>%
+  kbl() %>%
+  kable_minimal()
+```
+
+
+
+---
+## Alternative themes
+```{r, echo=FALSE}
+dt %>%
+  kbl() %>%
+  kable_minimal()
+```
+
+
+
+---
+## Alternative themes
+- This is the `kable_material` theme.
+
+```{r, echo=TRUE, eval=FALSE}
+dt %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+```
+
+
+---
+## Alternative themes
+```{r, echo=FALSE}
+dt %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+```
+
+
+---
+## Alternative themes
+- This is the `kable_material_dark` theme.
+
+```{r, echo=TRUE, eval=FALSE}
+dt %>%
+  kbl() %>%
+  kable_material_dark()
+```
+
+---
+## Alternative themes
+```{r, echo=FALSE}
+dt %>%
+  kbl() %>%
+  kable_material_dark()
+```
+
+
+
+---
+class: inverse, middle, center
+
+# Table Styles
+
+
+---
+## Bootstrap table classes
+- You can take a look at the *twitter bootstrap* documentation site to get a sense of how the options---`striped`, `bordered`, `hover`, `condensed` and `responsive`---look like. 
+
+- For example, to add striped lines (alternative row colors) to your table and you want to highlight the hovered row, you can simply type:
+
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(dt) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+---
+## Bootstrap table classes
+
+```{r, echo=FALSE}
+kbl(dt) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+
+---
+## Bootstrap table classes
+- The option `condensed` can also be handy in many cases when you don’t want your table to be too large. 
+  - It has slightly shorter row height.
+
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(dt) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+
+---
+## Bootstrap table classes
+```{r, echo=FALSE}
+kbl(dt) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"))
+```
+
+
+---
+## Bootstrap table classes
+- Tables with option `responsive` looks the same with others on a large screen. 
+  - On a small screen like phone, they are horizontally scrollable. 
+  - You can resize your window to see the result.
+
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(dt) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+
+
+
+---
+## Bootstrap table classes
+```{r, echo=FALSE}
+kbl(dt) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+
+
+
+---
+## Full width?
+- By default, a bootstrap table takes 100% of the width. 
+
+- For some small tables with only few columns, a page wide table looks awful. 
+- To make it look better, you can specify whether you want the table to have `full_width` or not in `kable_styling`. 
+
+- By default, `full_width` is set to be `TRUE` for HTML tables.
+
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(dt) %>%
+  kable_paper(bootstrap_options = "striped", full_width = F)
+```
+
+
+---
+## Full width?
+
+```{r, echo=FALSE}
+kbl(dt) %>%
+  kable_paper(bootstrap_options = "striped", full_width = F)
+```
+
+---
+## Position
+- Table `position` only matters when the table doesn’t have `full_width`. 
+- You can choose to align the table to `center`, `left` or `right` side of the page.
+
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+```
+
+
+---
+## Position
+```{r, echo=FALSE}
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+```
+
+
+---
+## Position
+- Becides `left`, `right`, and `center` options, you can also wrap text around the table using the `float-left` or `float-right` options.
+
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_right")
+```
+
+
+---
+## Position
+```{r, echo=FALSE}
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "float_right")
+```
+
+
+---
+## Font size
+- If one of your tables is huge and you want to use a smaller font size for that specific table, you can use the `font_size` option.
+
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", font_size = 7)
+```
+
+
+---
+## Font size
+```{r, echo=FALSE}
+kbl(dt) %>%
+  kable_styling(bootstrap_options = "striped", font_size = 7)
+```
+
+---
+## Fixed Table Header Row
+
+- If you happened to have a very long table, you may consider to use this `fixed_header` option to fix the header row on top as your readers scroll. 
+
+- By default, the background is set to `white`. If you need a different color, you can set `fixed_header = list(enabled = T, background = "red")`.
+
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(mtcars[1:10, 1:5]) %>%
+  kable_styling(fixed_thead = T)
+```
+
+
+---
+## Fixed Table Header Row
+
+
+```{r, echo=FALSE}
+kbl(mtcars[1:10, 1:5]) %>%
+  kable_styling(fixed_thead = T)
+```
+
+
+---
+class: inverse, middle, center
+# Column / Row Specification
+
+---
+
+## Column spec
+
+- When you have a table with lots of explanatory texts, you may want to specified the column width for different column.
+
+- Also, sometimes, you may want to highlight a column (e.g. a “Total” column) by making it bold. 
+
+- In these scenario, you can use `column_spec()`. 
+
+```{r, echo=TRUE, eval=FALSE}
+text_tbl <- data.frame(
+  Items = c("Item 1", "Item 2", "Item 3"),
+  Features = c(
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vehicula tempor ex. Morbi malesuada sagittis turpis, at venenatis nisl luctus a. ",
+    "In eu urna at magna luctus rhoncus quis in nisl. Fusce in velit varius, posuere risus et, cursus augue. Duis eleifend aliquam ante, a aliquet ex tincidunt in. ", 
+    "Vivamus venenatis egestas eros ut tempus. Vivamus id est nisi. Aliquam molestie erat et sollicitudin venenatis. In ac lacus at velit scelerisque mattis. "
+  )
+)
+
+kbl(text_tbl) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "30em", background = "yellow")
+```
+
+
+---
+## Column spec
+```{r, echo=FALSE}
+text_tbl <- data.frame(
+  Items = c("Item 1", "Item 2", "Item 3"),
+  Features = c(
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vehicula tempor ex. Morbi malesuada sagittis turpis, at venenatis nisl luctus a. ",
+    "In eu urna at magna luctus rhoncus quis in nisl. Fusce in velit varius, posuere risus et, cursus augue. Duis eleifend aliquam ante, a aliquet ex tincidunt in. ", 
+    "Vivamus venenatis egestas eros ut tempus. Vivamus id est nisi. Aliquam molestie erat et sollicitudin venenatis. In ac lacus at velit scelerisque mattis. "
+  )
+)
+
+kbl(text_tbl) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "30em", background = "yellow")
+```
+
+
+---
+## Row spec
+- Similar with `column_spec`, you can define specifications for rows.
+
+- Currently, you can either `bold` or `italicize` an entire row. 
+
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(dt) %>%
+  kable_paper("striped", full_width = F) %>%
+  column_spec(5:7, bold = T) %>%
+  row_spec(3:5, bold = T, color = "white", background = "#D7261E")
+```
+
+
+
+---
+## Row spec
+```{r, echo=FALSE}
+kbl(dt) %>%
+  kable_paper("striped", full_width = F) %>%
+  column_spec(5:7, bold = T) %>%
+  row_spec(3:5, bold = T, color = "white", background = "#D7261E")
+```
+
+---
+## Header Rows
+- One special case of `row_spec` is that you can specify the format of the header row via `row_spec(row = 0, ...)`.
+
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(dt) %>%
+  kable_paper("striped", full_width = F) %>%
+  row_spec(0, angle = -45)
+```
+
+
+---
+## Header Rows
+```{r, echo=FALSE}
+kbl(dt) %>%
+  kable_paper("striped", full_width = F) %>%
+  row_spec(0, angle = -45)
+```
+
+
+---
+class: inverse, middle, center
+# Cell/Text Specification
+---
+
+## Conditional logic
+- It is very easy to use `cell_spec` with conditional logic. Here is an example.
+
+
+```{r, echo=TRUE, eval=FALSE}
+library(dplyr)
+mtcars[1:10, 1:2] %>%
+  mutate(
+    car = row.names(.),
+    mpg = cell_spec(mpg, "html", color = ifelse(mpg > 20, "red", "blue")),
+    cyl = cell_spec(cyl, "html", color = "white", align = "c", angle = 45,
+                    background = factor(cyl, c(4, 6, 8),
+                                        c("#666666", "#999999", "#BBBBBB")))
+  ) %>%
+  select(car, mpg, cyl) %>%
+  kbl(format = "html", escape = F) %>%
+  kable_paper("striped", full_width = F)
+```
+
+
+---
+
+## Conditional logic
+```{r, echo=FALSE}
+library(dplyr)
+mtcars[1:10, 1:2] %>%
+  mutate(
+    car = row.names(.),
+    mpg = cell_spec(mpg, "html", color = ifelse(mpg > 20, "red", "blue")),
+    cyl = cell_spec(cyl, "html", color = "white", align = "c", angle = 45,
+                    background = factor(cyl, c(4, 6, 8),
+                                        c("#666666", "#999999", "#BBBBBB")))
+  ) %>%
+  select(car, mpg, cyl) %>%
+  kbl(format = "html", escape = F) %>%
+  kable_paper("striped", full_width = F)
+```
+
+
+
+
+---
+## Visualize data with Viridis Color
+- `kableExtra` package also comes with a few helper functions, including `spec_color`, `spec_font_size`, and `spec_angle.` 
+
+- These functions can rescale continuous variables to certain scales. 
+
+- For example, function `spec_color` would map a continuous variable to any `viridis` color palettes. 
+
+
+```{r, echo=TRUE, eval=FALSE}
+iris[1:10, ] %>%
+  mutate_if(is.numeric, function(x) {
+    cell_spec(x, bold = T,
+              color = spec_color(x, end = 0.9),
+              font_size = spec_font_size(x))
+  }) %>%
+  mutate(Species = cell_spec(
+    Species, color = "white", bold = T,
+    background = spec_color(1:10, end = 0.9, option = "A", direction = -1)
+  )) %>%
+  kable(escape = F, align = "c") %>%
+  kable_paper(c("striped", "condensed"), full_width = F)
+```
+
+
+---
+## Visualize data with Viridis Color
+```{r, echo=FALSE}
+iris[1:10, ] %>%
+  mutate_if(is.numeric, function(x) {
+    cell_spec(x, bold = T,
+              color = spec_color(x, end = 0.9),
+              font_size = spec_font_size(x))
+  }) %>%
+  mutate(Species = cell_spec(
+    Species, color = "white", bold = T,
+    background = spec_color(1:10, end = 0.9, option = "A", direction = -1)
+  )) %>%
+  kable(escape = F, align = "c") %>%
+  kable_paper(c("striped", "condensed"), full_width = F)
+```
+
+
+
+---
+## Popover Message
+
+```{r, echo=TRUE, eval=FALSE}
+popover_dt <- data.frame(
+  position = c("top", "bottom", "right", "left"),
+  stringsAsFactors = FALSE
+)
+popover_dt$`Hover over these items` <- cell_spec(
+  paste("Message on", popover_dt$position), # Cell texts
+  popover = spec_popover(
+    content = popover_dt$position,
+    title = NULL,                           # title will add a Title Panel on top
+    position = popover_dt$position
+  ))
+kbl(popover_dt, escape = FALSE) %>%
+  kable_paper("striped", full_width = FALSE)
+```
+
+
+
+
+---
+class: inverse, middle, center
+
+# Grouped Columns / Rows
+
+---
+## Add header rows to group columns
+
+- Tables with multi-row headers can be very useful to demonstrate grouped data. 
+
+- To do that, you can pipe your kable object into `add_header_above()`. 
+
+- The header variable is supposed to be a named character with the names as new column names and values as column span. 
+
+- For your convenience, if column span equals to 1, you can ignore the =1 part so the function below can be written as `add_header_above(c(" " = 1, "Group 1" = 2, "Group 2" = 2, "Group 3" = 2))`.
+
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(dt) %>%
+  kable_classic() %>%
+  add_header_above(c(" " = 1, "Group 1" = 2, "Group 2" = 2, "Group 3" = 2))
+```
+
+
+
+---
+## Add header rows to group columns
+
+```{r, echo=FALSE}
+kbl(dt) %>%
+  kable_classic() %>%
+  add_header_above(c(" " = 1, "Group 1" = 2, "Group 2" = 2, "Group 3" = 2))
+```
+
+
+---
+## Add header rows to group columns
+- In fact, if you want to add another row of header on top, please feel free to do so.
+
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(dt) %>%
+  kable_paper() %>%
+  add_header_above(c(" ", "Group 1" = 2, "Group 2" = 2, "Group 3" = 2)) %>%
+  add_header_above(c(" ", "Group 4" = 4, "Group 5" = 2)) %>%
+  add_header_above(c(" ", "Group 6" = 6))
+```
+
+
+
+---
+## Add header rows to group columns
+
+```{r, echo=FALSE}
+kbl(dt) %>%
+  kable_paper() %>%
+  add_header_above(c(" ", "Group 1" = 2, "Group 2" = 2, "Group 3" = 2)) %>%
+  add_header_above(c(" ", "Group 4" = 4, "Group 5" = 2)) %>%
+  add_header_above(c(" ", "Group 6" = 6))
+```
+
+---
+## Group rows via labeling
+- Sometimes we want a few rows of the table being grouped together.
+  - E.g., different data groups for a categorical variable (e.g., age < 40, age > 40). 
+
+
+- With the function `group_rows()`/`pack_rows()` in `kableExtra`, this kind of task can be completed in one line. 
+
+- You only need to think about the row numbers in the “original R dataframe”.
+
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(mtcars[1:10, 1:6], caption = "Group Rows") %>%
+  kable_paper("striped", full_width = F) %>%
+  pack_rows("Group 1", 4, 7) %>%
+  pack_rows("Group 2", 8, 10)
+```
+
+
+
+---
+## Group rows via labeling
+```{r, echo=FALSE}
+kbl(mtcars[1:10, 1:6], caption = "Group Rows") %>%
+  kable_paper("striped", full_width = F) %>%
+  pack_rows("Group 1", 4, 7) %>%
+  pack_rows("Group 2", 8, 10)
+```
+
+
+---
+## Group rows via labeling
+- Another way to use `pack_rows` is to provide an grouping index, similar with `add_header_above()`. 
+
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(mtcars[1:10, 1:6], caption = "Group Rows") %>%
+  kable_paper("striped", full_width = F) %>%
+  pack_rows(index = c(" " = 3, "Group 1" = 4, "Group 2" = 3))
+```
+
+
+
+---
+## Group rows via labeling
+```{r, echo=FALSE}
+kbl(mtcars[1:10, 1:6], caption = "Group Rows") %>%
+  kable_paper("striped", full_width = F) %>%
+  pack_rows(index = c(" " = 3, "Group 1" = 4, "Group 2" = 3))
+```
+
+
+
+---
+## Group rows via labeling
+
+- For advanced users, you can even define your own css for the group labeling using `label_row_css` argument.
+
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(dt) %>%
+  kable_paper("striped", full_width = F) %>%
+  pack_rows("Group 1", 3, 5, label_row_css = "background-color: #666; color: #fff;")
+```
+
+
+---
+## Group rows via labeling
+
+```{r, echo=FALSE}
+kbl(dt) %>%
+  kable_paper("striped", full_width = F) %>%
+  pack_rows("Group 1", 3, 5, label_row_css = "background-color: #666; color: #fff;")
+```
+
+
+---
+## Row indentation
+
+- `add_indent()` add indention, which could be useful to make subgroups.
+
+
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(dt) %>%
+  kable_paper("striped", full_width = F) %>%
+  add_indent(c(1, 3, 5))
+```
+
+
+---
+## Row indentation
+```{r, echo=FALSE}
+kbl(dt) %>%
+  kable_paper("striped", full_width = F) %>%
+  add_indent(c(1, 3, 5))
+```
+
+
+
+---
+## Group rows via multi-row cell
+- Function `pack_rows` is great for showing simple structural information on rows but sometimes people may need to show structural information with multiple layers. 
+
+- When it happens, you may consider to use `collapse_rows` instead, 
+  - This will put repeating cells in columns into multi-row cells. 
+
+  - The vertical allignment of the cell is controlled by `valign` with default as `"top"`.
+
+
+```{r, echo=TRUE, eval=FALSE}
+collapse_rows_dt <- data.frame(C1 = c(rep("a", 10), rep("b", 5)),
+                 C2 = c(rep("c", 7), rep("d", 3), rep("c", 2), rep("d", 3)),
+                 C3 = 1:15,
+                 C4 = sample(c(0,1), 15, replace = TRUE))
+kbl(collapse_rows_dt, align = "c") %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T) %>%
+  collapse_rows(columns = 1:2, valign = "top")
+```
+
+
+---
+## Group rows via multi-row cell
+
+```{r, echo=FALSE}
+collapse_rows_dt <- data.frame(C1 = c(rep("a", 10), rep("b", 5)),
+                 C2 = c(rep("c", 7), rep("d", 3), rep("c", 2), rep("d", 3)),
+                 C3 = 1:15,
+                 C4 = sample(c(0,1), 15, replace = TRUE))
+kbl(collapse_rows_dt, align = "c") %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T) %>%
+  collapse_rows(columns = 1:2, valign = "top")
+```
+
+---
+class: inverse, middle, center
+# Table Footnote
+---
+
+## Table Footnote
+- There are four notation systems in `footnote`, namely `general`, `number`, `alphabet` and `symbol`. 
+
+
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(dt, align = "c") %>%
+  kable_classic(full_width = F) %>%
+  footnote(general = "Here is a general comments of the table. ",
+           number = c("Footnote 1; ", "Footnote 2; "),
+           alphabet = c("Footnote A; ", "Footnote B; "),
+           symbol = c("Footnote Symbol 1; ", "Footnote Symbol 2")
+           )
+```
+
+
+---
+## Table Footnote
+```{r, echo=FALSE}
+kbl(dt, align = "c") %>%
+  kable_classic(full_width = F) %>%
+  footnote(general = "Here is a general comments of the table. ",
+           number = c("Footnote 1; ", "Footnote 2; "),
+           alphabet = c("Footnote A; ", "Footnote B; "),
+           symbol = c("Footnote Symbol 1; ", "Footnote Symbol 2")
+           )
+```
+
+---
+## Table Footnote
+- You can also specify title for each category by using the `***_title` arguments. 
+
+- Default value for `general_title` is “Note:” and "" for the rest three. 
+
+- You can also change the order using `footnote_order`. You can even display footnote as chunk texts (default is as a list) using `footnote_as_chunk`. 
+
+- The font format of the titles are controlled by `title_format` with options including `“italic”` (default), `“bold”` and `“underline”`.
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(dt, align = "c") %>%
+  kable_paper(full_width = F) %>%
+  footnote(general = "Here is a general comments of the table. ",
+           number = c("Footnote 1; ", "Footnote 2; "),
+           alphabet = c("Footnote A; ", "Footnote B; "),
+           symbol = c("Footnote Symbol 1; ", "Footnote Symbol 2"),
+           general_title = "General: ", number_title = "Type I: ",
+           alphabet_title = "Type II: ", symbol_title = "Type III: ",
+           footnote_as_chunk = T, title_format = c("italic", "underline")
+           )
+```
+
+
+---
+## Table Footnote
+
+
+```{r, echo=FALSE}
+kbl(dt, align = "c") %>%
+  kable_paper(full_width = F) %>%
+  footnote(general = "Here is a general comments of the table. ",
+           number = c("Footnote 1; ", "Footnote 2; "),
+           alphabet = c("Footnote A; ", "Footnote B; "),
+           symbol = c("Footnote Symbol 1; ", "Footnote Symbol 2"),
+           general_title = "General: ", number_title = "Type I: ",
+           alphabet_title = "Type II: ", symbol_title = "Type III: ",
+           footnote_as_chunk = T, title_format = c("italic", "underline")
+           )
+```
+
+
+---
+## Table Footnote
+- If you need to add footnote marks in table, you need to do it manually (no fancy) using `footnote_mark_***()`. 
+
+
+```{r, echo=TRUE, eval=FALSE}
+dt_footnote <- dt
+names(dt_footnote)[2] <- paste0(names(dt_footnote)[2], 
+                                footnote_marker_symbol(1))
+row.names(dt_footnote)[4] <- paste0(row.names(dt_footnote)[4], 
+                                footnote_marker_alphabet(1))
+kbl(dt_footnote, align = "c", 
+      # Remember this escape = F
+      escape = F) %>%
+  kable_paper(full_width = F) %>%
+  footnote(alphabet = "Footnote A; ",
+           symbol = "Footnote Symbol 1; ",
+           alphabet_title = "Type II: ", symbol_title = "Type III: ",
+           footnote_as_chunk = T)
+```
+
+
+
+---
+## Table Footnote
+```{r, echo=FALSE}
+dt_footnote <- dt
+names(dt_footnote)[2] <- paste0(names(dt_footnote)[2], 
+                                footnote_marker_symbol(1))
+row.names(dt_footnote)[4] <- paste0(row.names(dt_footnote)[4], 
+                                footnote_marker_alphabet(1))
+kbl(dt_footnote, align = "c", 
+      # Remember this escape = F
+      escape = F) %>%
+  kable_paper(full_width = F) %>%
+  footnote(alphabet = "Footnote A; ",
+           symbol = "Footnote Symbol 1; ",
+           alphabet_title = "Type II: ", symbol_title = "Type III: ",
+           footnote_as_chunk = T)
+```
+
+
+---
+class: inverse, middle, center
+
+# HTML Only Features
+---
+
+## Scroll box
+- If you have a huge table and you don’t want to reduce the font size to unreadable, you may want to put your HTML table in a scroll box.
+
+When you use `scroll_box`, you can specify either `height` or `width`. 
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(cbind(mtcars, mtcars)) %>%
+  kable_paper() %>%
+  scroll_box(width = "500px", height = "200px")
+```
+
+
+---
+## Scroll box
+```{r, echo=FALSE}
+kbl(cbind(mtcars, mtcars)) %>%
+  kable_paper() %>%
+  scroll_box(width = "500px", height = "200px")
+```
+
+
+---
+## Scroll box
+- You can also specify width using a percentage.
+
+
+```{r, echo=TRUE, eval=FALSE}
+kbl(cbind(mtcars, mtcars)) %>%
+  add_header_above(c("a" = 5, "b" = 18)) %>%
+  kable_paper() %>%
+  scroll_box(width = "100%", height = "200px")
+```
+
+
+
+---
+## Scroll box
+```{r, echo=FALSE}
+kbl(cbind(mtcars, mtcars)) %>%
+  add_header_above(c("a" = 5, "b" = 18)) %>%
+  kable_paper() %>%
+  scroll_box(width = "100%", height = "200px")
+```
+
+
+
