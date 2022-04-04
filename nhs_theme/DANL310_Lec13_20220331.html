@@ -597,9 +597,9 @@ knitr::kable(d, digits = 4)
 
 |     X1|    X2|         X3|
 |------:|-----:|----------:|
-| 0.5893| 1e+03|   361.5301|
-| 0.2797| 1e+05|  -796.8558|
-| 0.7161| 1e+07| -1285.1059|
+| 0.9146| 1e+03|   780.6191|
+| 0.8407| 1e+05|  -575.6786|
+| 0.4335| 1e+07| -2104.6160|
 
 ---
 ## Format numeric columns
@@ -616,9 +616,9 @@ knitr::kable(d, digits = c(5, 0, 2))
 
 |      X1|    X2|       X3|
 |-------:|-----:|--------:|
-| 0.58935| 1e+03|   361.53|
-| 0.27973| 1e+05|  -796.86|
-| 0.71612| 1e+07| -1285.11|
+| 0.91459| 1e+03|   780.62|
+| 0.84071| 1e+05|  -575.68|
+| 0.43346| 1e+07| -2104.62|
 
 ---
 ## Format numeric columns
@@ -635,9 +635,9 @@ knitr::kable(d, digits = 3, format.args = list(scientific = FALSE))
 
 |    X1|       X2|        X3|
 |-----:|--------:|---------:|
-| 0.589|     1000|   361.530|
-| 0.280|   100000|  -796.856|
-| 0.716| 10000000| -1285.106|
+| 0.915|     1000|   780.619|
+| 0.841|   100000|  -575.679|
+| 0.433| 10000000| -2104.616|
 
 ---
 ## Format numeric columns
@@ -654,9 +654,9 @@ knitr::kable(d, digits = 3, format.args = list(big.mark = ",",
 
 |    X1|         X2|         X3|
 |-----:|----------:|----------:|
-| 0.589|      1,000|    361.530|
-| 0.280|    100,000|   -796.856|
-| 0.716| 10,000,000| -1,285.106|
+| 0.915|      1,000|    780.619|
+| 0.841|    100,000|   -575.679|
+| 0.433| 10,000,000| -2,104.616|
 
 
 ---
@@ -674,11 +674,11 @@ knitr::kable(d)  # NA is displayed by default
 ---
 ## Display missing values
 
-|       X1|    X2|         X3|
-|--------:|-----:|----------:|
-|       NA| 1e+03|   361.5301|
-| 0.279732| 1e+05|         NA|
-| 0.716118|    NA| -1285.1059|
+|        X1|    X2|         X3|
+|---------:|-----:|----------:|
+|        NA| 1e+03|   780.6191|
+| 0.8407138| 1e+05|         NA|
+| 0.4334623|    NA| -2104.6160|
 
 
 ---
@@ -696,11 +696,11 @@ knitr::kable(d)
 ---
 ## Display missing values
 
-|       X1|    X2|         X3|
-|--------:|-----:|----------:|
-|         | 1e+03|   361.5301|
-| 0.279732| 1e+05|           |
-| 0.716118|      | -1285.1059|
+|        X1|    X2|         X3|
+|---------:|-----:|----------:|
+|          | 1e+03|   780.6191|
+| 0.8407138| 1e+05|           |
+| 0.4334623|      | -2104.6160|
 
 
 ---
@@ -720,11 +720,11 @@ options(opts)  # restore global R options
 ---
 ## Display missing values
 
-|       X1|    X2|         X3|
-|--------:|-----:|----------:|
-|       **| 1e+03|   361.5301|
-| 0.279732| 1e+05|         **|
-| 0.716118|    **| -1285.1059|
+|        X1|    X2|         X3|
+|---------:|-----:|----------:|
+|        **| 1e+03|   780.6191|
+| 0.8407138| 1e+05|         **|
+| 0.4334623|    **| -2104.6160|
 
 
 
@@ -3159,19 +3159,19 @@ kbl(collapse_rows_dt, align = "c") %&gt;%
    &lt;td style="text-align:center;font-weight: bold;"&gt; a &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; c &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;font-weight: bold;"&gt; a &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; c &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;font-weight: bold;"&gt; a &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; c &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 3 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;font-weight: bold;"&gt; a &lt;/td&gt;
@@ -3195,13 +3195,13 @@ kbl(collapse_rows_dt, align = "c") %&gt;%
    &lt;td style="text-align:center;font-weight: bold;"&gt; a &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; c &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 7 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;font-weight: bold;"&gt; a &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; d &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 8 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;font-weight: bold;"&gt; a &lt;/td&gt;
@@ -3213,7 +3213,7 @@ kbl(collapse_rows_dt, align = "c") %&gt;%
    &lt;td style="text-align:center;font-weight: bold;"&gt; a &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; d &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 10 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;font-weight: bold;"&gt; b &lt;/td&gt;
@@ -3225,7 +3225,7 @@ kbl(collapse_rows_dt, align = "c") %&gt;%
    &lt;td style="text-align:center;font-weight: bold;"&gt; b &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; c &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 12 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;font-weight: bold;"&gt; b &lt;/td&gt;
@@ -3237,7 +3237,7 @@ kbl(collapse_rows_dt, align = "c") %&gt;%
    &lt;td style="text-align:center;font-weight: bold;"&gt; b &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; d &lt;/td&gt;
    &lt;td style="text-align:center;"&gt; 14 &lt;/td&gt;
-   &lt;td style="text-align:center;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:center;"&gt; 0 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:center;font-weight: bold;"&gt; b &lt;/td&gt;
@@ -5368,8 +5368,8 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   position: absolute;
   top: 1em;
   right: 1em;
-  width: 110px;
-  height: 128px;
+  width: 90px;
+  height: 104px;
   z-index: 0;
 }
 </style>
