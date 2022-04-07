@@ -83,7 +83,7 @@ name: git
 ---
 
 
-# Git(Hub) for scientific research
+# Git(Hub) for scientific projects
 
 ### From software development...
 
@@ -94,7 +94,7 @@ Git and GitHub's role in global software development is not in question.
 ### ... to scientific works
 
 Data scientists and academic researchers are cottoning on too. 
-- Benefits of VC and collaboration tools aside, Git(Hub) helps to operate the ideals of open science and reproducibility.
+- Benefits of version control and collaboration tools aside, Git(Hub) helps to operate the ideals of open science and reproducibility.
 
 - Data science teams have increasingly strict requirements regarding reproducibility and data access. GitHub makes this easy.
 
@@ -163,15 +163,12 @@ For the moment, it will be useful to group the first two operations and last two
 # Why this workflow?
 
 Creating the repo on GitHub first means that it will always be "upstream" of your (and any other) local copies.
-- In effect, this allows GitHub to act as the central node in the distributed VC network.
+- In effect, this allows GitHub to act as the central node in the network of version control.
 - Especially valuable when you are collaborating on a project with others — more on this later — but also has advantages when you are working alone.
-- If you would like to move an existing project to GitHub, my advice is still to create an empty repo there first, clone it locally, and then copy all your files across.
 
 RStudio Projects are great. 
 - Again, they interact seamlessly with Git(Hub), as we've just seen. 
-- They also solve absolute vs. relative path problems, since the .Rproj file acts as an anchor point for all other files in the repo.<sup>1</sup>
-
-.footnote[<sup>1</sup> You know that calling files from `YourComputer/YourName/Documents/Special-Subfolder/etc` in your scripts makes you a bad person, right?]
+- They also solve absolute vs. relative path problems, since the .Rproj file acts as an anchor point for all other files in the repo.
 
 ---
 class: inverse, center, middle
@@ -191,11 +188,7 @@ The GitHub + RStudio Project combo is ideal for new users.
 However, I want to go over Git <a href="http://happygitwithr.com/ssh-keys.html#shell" target="_blank">shell</a> commands so that you can internalise the basics.
 - The shell is more powerful and flexible. Does some things that the RStudio Git GUI can't.
 - Potentially more appropriate for projects that aren't primarily based in R. (Although, no real harm in using RStudio Projects to clone a non-R repo.)
-- Also, I'm kinda tired of screen recording animated GIFs.
 
---
-
-(Yes, we're going to cover the shell in depth next lecture, but think of this as a sneak preview.)
 
 ---
 
@@ -584,10 +577,9 @@ This is especially useful if you want to exclude whole folders or a class of fil
 - Proprietary data files should be ignored from the beginning if you intend to make a repo public at some point.
 - Very large individual files (>100 MB) exceed GitHub's maximum allowable size and should be ignored regardless. See <a href="https://help.github.com/articles/working-with-large-files/" target="_blank">here</a> and <a href="https://help.github.com/articles/versioning-large-files/" target=_"blank">here</a>.
 
-I typically add compiled datasets to my .gitignore in the early stages of a project.
 - Reduces redundant version control history, where the main thing is the code that produces the compiled dataset, not the end CSV in of itself. ("Source is real.")
-- Simple to remove from my .gitignore once the project is being finalised (e.g. paper is being submitted).
-  
+
+
 ---
 
 # .gitignore (cont.)
@@ -632,7 +624,7 @@ name: summary
 
 4. Commit your changes: `$ git commit -m "Helpful message"`
 
-5. Pull from GitHub: `$ git pull`
+5. Pull from GitHub: `$ git pull --rebase` or `$ git pull`
 
 6. (Fix any merge conflicts.)
 
@@ -642,8 +634,9 @@ name: summary
 
 Repeat steps 3—7 (but especially steps 3 and 4) often.
 
+Check out [Git Guides](https://github.com/git-guides/).
 
 ---
 # Reference
-- [Data Science for Economists](https://github.com/uo-ec607/lectures/tree/master/02-git)
+- [Data Science for Economists](https://github.com/uo-ec607/lectures)
 
