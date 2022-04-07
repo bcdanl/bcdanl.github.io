@@ -32,8 +32,6 @@ opts_chunk$set(echo = FALSE,
                fig.height = 4,
                dpi = 300)
 xaringanExtra::use_panelset()
-
-
 # uncomment the following lines if you want to use the NHS-R theme colours by default
 # scale_fill_continuous <- partial(scale_fill_nhs, discrete = FALSE)
 # scale_fill_discrete <- partial(scale_fill_nhs, discrete = TRUE)
@@ -175,7 +173,6 @@ class: inverse, middle, center
   to a quiet place and kill him."
 >
 > --- Mark Twain
-
 ]
 
 
@@ -331,13 +328,11 @@ plt.show()
 {r, results = 'hide'}
 library(DBI)
 library(bigrquery)
-
 db <- dbConnect(
     bigrquery::bigquery(),
     project = "bigquery-public-data",
     dataset = "new_york_citibike",
     billing = "danl210test")
-
 {sql, connection=db}
 SELECT * FROM citibike_stations
 ```
@@ -349,7 +344,6 @@ SELECT * FROM citibike_stations
 ```{r}
 library(DBI)
 library(bigrquery)
-
 db <- dbConnect(
     bigrquery::bigquery(),
     project = "bigquery-public-data",
@@ -422,23 +416,12 @@ xfun::file_string('https://bcdanl.github.io/climate_opinion_map_interactive.html
 xfun::file_string('climate_opinion_map_interactive.html')
 ```
 ]
-
 ]
-
-
-
-
-
-
 ---
 ## HTML document 
-
 .panelset[
-
 .panel[.panel-name[YAML metadata]
 - To create an HTML document from R Markdown, you specify the `html_document` output format in the YAML metadata of your document:
-
-
 ```r
 ---
 title: Habits
@@ -447,14 +430,9 @@ date: March 22, 2005
 output: html_document
 ---
 ```
-
 ]
-
 .panel[.panel-name[Table of contents]
-
 - You can add a table of contents (TOC) using the `toc` option and specify the depth of headers that it applies to using the `toc_depth` option.
-
-
 ```r
 ---
 title: "Habits"
@@ -465,13 +443,9 @@ output:
 ---
 ```
 ]
-
 - If the table of contents depth is not explicitly specified, it defaults to 3
-
 .panel[.panel-name[Floating TOC]
-
 - You can specify the `toc_float` option to float the table of contents to the *left* of the main document content.
-
 ```r
 ---
 title: "Habits"
@@ -482,15 +456,9 @@ output:
 ---
 ```
 ]
-
-
-
 .panel[.panel-name[Floating TOC 2]
-
 - You may optionally specify a list of options for the `toc_float` parameter which control its behavior. 
-
   - `collapsed` (defaults to `TRUE`) controls whether the TOC appears with only the top-level headers. 
-
   - `smooth_scroll` (defaults to `TRUE`) controls whether page scrolls are animated when TOC items are navigated to via mouse clicks.
   
 ```r
@@ -505,10 +473,7 @@ output:
 ---
 ```
 ]
-
-
 .panel[.panel-name[Section numbering]
-
 - You can add section numbering to headers using the `number_sections` option:
   
 ```r
@@ -521,41 +486,21 @@ output:
 ---
 ```
 ]
-
-
-
 .panel[.panel-name[Tabbed sections]
-
 - You can organize content using tabs by applying the `.tabset` class attribute to headers within a document.
-
-
-
 ```r
 ## Quarterly Results {.tabset}
-
 ### By Product
-
 (tab content)
-
 ### By Region
-
 (tab content)
 ```
 ]
-
-
-
 .panel[.panel-name[Figure options]
-
 - There are a number of options that affect the output of figures within HTML documents:
-
   - `fig_width` and `fig_height` can be used to control the default figure width and height (7x5 is used by default).
-
   - `fig_caption` controls whether figures are rendered with captions.
-
   - `dev` controls the graphics device used to render figures (defaults to png).
-
-
 ```r
 ---
 title: "Habits"
@@ -567,12 +512,8 @@ output:
 ---
 ```
 ]
-
 .panel[.panel-name[Data frame printing]
-
 - You can enhance the default display of data frames via the `df_print` option. 
-
-
 ```r
 ---
 title: "Motor Trend Car Road Tests"
@@ -580,21 +521,15 @@ output:
   html_document:
     df_print: paged
 ---
-
 {r}
 mtcars
 ```
 ]
-
 .panel[.panel-name[Code folding]
-
 -  In some cases, it may be appropriate to exclude code entirely (`echo = FALSE`) 
-
 - In other cases you might want the code to be available but not visible by default.
   
   - The `code_folding: hide` option enables you to include R code but have it hidden by default. 
-
-
 ```r
 ---
 title: "Habits"
@@ -604,7 +539,4 @@ output:
 ---
 ```
 ]
-
-
-
 ]
