@@ -1,0 +1,101 @@
+---
+title: "DANL 310 Lecture 16"
+subtitle: "Practice Session"
+author: "Byeong-Hak Choe"
+institute: "SUNY Geneseo"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    df_print: paged
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    number_sections: true
+---
+   
+
+# Set Up Your Project and Load Libraries
+
+To begin we must load some libraries we will be using. If we do not load them, R will not be able to find the functions contained in these libraries. The tidyverse includes ggplot and other tools. We also load the socviz and gapminder libraries.
+
+```{r setup, include=FALSE}
+
+## By defult, show code for all chunks in the knitted document,
+## as well as the output. To override for a particular chunk
+## use echo = FALSE in its options.
+knitr::opts_chunk$set(echo = TRUE) 
+
+## Set the default size of figures
+knitr::opts_chunk$set(fig.width=8, fig.height=5)  
+
+## Load the libraries we will be using
+library(skimr)
+library(tidyverse)
+
+```
+
+<br>
+
+
+# Making a table for summary statistics
+
+Here is the data:
+```{r data}
+library(skimr)
+
+oj <- read.table(
+  'https://bcecon.github.io/dominick_oj.csv',
+  sep = ',',
+  header = TRUE,
+  stringsAsFactor = TRUE
+)
+
+oj
+```
+
+
+
+<br> 
+The number of variables is ; the number of observations is .
+
+<br>
+
+Here is the making of the table for descriptive statistics for the data using `skim`:
+
+
+```{r include = F}
+skimmed <- skim(oj)
+skimmed <- skimmed %>% 
+  select(-factor.ordered, -complete_rate)
+
+skimmed <- as_tibble(skimmed)
+skimmed_chr <- skimmed[1,2:5]
+skimmed_chr[1,4] <- "dominicks: 9649,  minute.maid: 9649,  tropicana: 9649"
+
+skimmed_numeric <- skimmed[2:4,c(2:3,5:13)]
+skimmed_numeric[,4:10] <- round(skimmed_numeric[,4:10], 2)
+skimmed_numeric <- skimmed_numeric %>% 
+  select(-factor.top_counts)
+```
+
+<br>
+
+Here is the summary of the factor variable in `oj`:
+
+```{r skim_chr, eval=TRUE, echo=TRUE, fig.align='center', out.height="75%"}
+knitr::kable(skimmed_chr, "simple",   # from skimr::skim() 
+             col.names = c('Variable', 'n_Missing', 'n_Categories', 'Counts'))  
+```
+
+
+<br>
+
+Here is the summary of the numeric variables in `oj`:
+
+```{r skim_n, eval=TRUE, echo=TRUE, fig.align='center', out.height="75%"}
+knitr::kable(skimmed_numeric, "simple",   # from skimr::skim()
+             col.names = c('Variable', 'n_Missing', 'Mean', 'SD',
+                           'Min', 'Q1', 'Median','Q3', 'Max', 'Hist'))
+```
+
+
