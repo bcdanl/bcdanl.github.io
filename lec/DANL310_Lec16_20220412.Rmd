@@ -40,7 +40,7 @@ library(tidyverse)
 # Making a table for summary statistics
 
 Here is the data:
-```{r data}
+```{r}
 library(skimr)
 
 oj <- read.table(
@@ -51,19 +51,56 @@ oj <- read.table(
 )
 
 oj
+nvars <- format(round(ncol(oj), 0), nsmall=0, big.mark=",") 
+nobs <- format(round(nrow(oj), 0), nsmall=0, big.mark=",") 
 ```
 
 
 
 <br> 
-The number of variables is ; the number of observations is .
+The number of variables is `r nvars`; the number of observations is `r nobs`.
 
 <br>
 
-Here is the making of the table for descriptive statistics for the data using `skim`:
+Here is the making of the table for descriptive statistics for the data using `Hmisc::describe`:
 
 
-```{r include = F}
+
+```{r}
+Hmisc::describe(oj) %>% Hmisc::html()
+```
+
+<br>
+
+Here is the making of the table for descriptive statistics for the data using `skimr::skim`:
+
+```{r}
+skim(oj)
+```
+
+<br>
+
+Here is the making of the table for descriptive statistics for the data using `rstatix::get_summary_stats`:
+
+```{r}
+rstatix::get_summary_stats(oj, type = "full")
+```
+
+
+<br>
+
+Here is the making of the table for descriptive statistics for the data using `dplyr::summarize()`:
+
+```{r, results = 'asis', message=F}
+library(papeR)
+library(knitr)
+kable(summarize(oj, type = "numeric"))
+kable(summarize(oj, type = "factor", variables = "brand", cumulative = TRUE))
+kable(summarize(oj, type = "numeric", group = "brand", test = FALSE))
+```
+
+
+```{r}
 skimmed <- skim(oj)
 skimmed <- skimmed %>% 
   select(-factor.ordered, -complete_rate)
