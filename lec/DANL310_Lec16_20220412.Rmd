@@ -1,12 +1,13 @@
 ---
 title: "DANL 310 Lecture 16"
 subtitle: "Practice Session"
-author: "Byeong-Hak Choe"
+author: 
+  - "Byeong-Hak Choe 1"
+  - "Byeong-Hak Choe 2"
 institute: "SUNY Geneseo"
 date: "`r Sys.Date()`"
 output: 
-  html_document:
-    df_print: paged
+  distill::distill_article:
     toc: true
     toc_depth: 2
     toc_float: true
@@ -40,6 +41,7 @@ library(tidyverse)
 # Making a table for summary statistics
 
 Here is the data:
+
 ```{r}
 library(skimr)
 
@@ -50,7 +52,7 @@ oj <- read.table(
   stringsAsFactor = TRUE
 )
 
-oj
+rmarkdown::paged_table(oj)
 nvars <- format(round(ncol(oj), 0), nsmall=0, big.mark=",") 
 nobs <- format(round(nrow(oj), 0), nsmall=0, big.mark=",") 
 ```
