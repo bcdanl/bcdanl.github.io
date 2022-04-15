@@ -123,6 +123,8 @@ Hmisc::describe(oj) %>% Hmisc::html()
 
 <br>
 
+## `skim::skimr()`
+
 Here is the making of the table for descriptive statistics for the data using `skimr::skim`:
 
 ```{r}
@@ -130,18 +132,6 @@ skim(oj)
 ```
 
 <br>
-
-Here is the making of the table for descriptive statistics for the data using `rstatix::get_summary_stats`:
-
-```{r}
-rstatix::get_summary_stats(oj, type = "full")
-```
-
-
-<br>
-
-## `skim::skimr()`
-
 
 ```{r}
 skimmed <- skim(oj)
@@ -178,4 +168,16 @@ knitr::kable(skimmed_numeric, "simple",   # from skimr::skim()
                            'Min', 'Q1', 'Median','Q3', 'Max', 'Hist'))
 ```
 
+
+
+<br>
+
+## `rstatix::get_summary_stats()`
+
+
+Here is the making of the table for descriptive statistics for the data using `rstatix::get_summary_stats`:
+
+```{r}
+rstatix::get_summary_stats(oj, type = "full")
+```
 
