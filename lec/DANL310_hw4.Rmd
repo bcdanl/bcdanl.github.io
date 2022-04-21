@@ -1,0 +1,57 @@
+---
+title: "Homework Assignment 4"
+subtitle: "Interactive and animated plots<br><br>" 
+author: 
+  - "Byeong-Hak Choe"
+  - <br>
+date: "`r Sys.Date()`<br><br>"
+
+output: 
+  html_document:
+    df_print: paged
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    number_sections: true
+    theme: yeti
+    highlight: espresso
+---
+```{r, include=FALSE}
+library(tidyverse)
+```
+
+
+Publish your web-page in your personal website on GitHub, just like this web-page.
+  - For each section, provide your R command to produce interactive/animated plots.
+
+# `gganimate`
+
+The following link is for the data that is used to generate the figure in this Section.
+```{r}
+imf_growth <- read_csv(url('https://bcdanl.github.io/data/imf_growth_quarterly.csv'))
+
+# gy: growth rate of GDP per worker 
+```
+
+![](/Users/byeong-hakchoe/Documents/website/bcdanl.github.io/lec_figs/gganim_imf_gdp_growth.gif)
+The effect of the COVID-19 Pandemic on economic growth can be observed in the animation above. Data comes from 
+
+
+# `ggiraph`
+
+```{r}
+climate_opinion <- read_csv(
+  'https://bcdanl.github.io/data/climate_opinion_2021.csv')
+# human
+```
+
+
+````{=html}
+```{r, echo=FALSE, results='asis'}
+xfun::file_string('/Users/byeong-hakchoe/Documents/website/bcdanl.github.io/climate_opinion_map_interactive.html')
+```
+````
+
+Climate 
+
+

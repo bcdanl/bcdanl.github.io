@@ -1,0 +1,426 @@
+---
+title: "2022 Business Analytics Competition @ Manhattan College"
+subtitle: "Questions facing the COVID-19 Pandemic"
+author: 
+  - "James Jordan and Jason Rappazzo (Advisor: Byeong-Hak Choe)"
+institute: "SUNY Geneseo"
+date: "April 23, 2022"
+output:
+  xaringan::moon_reader:
+    css: 
+      - default
+      - css/nhsr.css
+      - css/nhsr-fonts.css
+    lib_dir: libs
+    seal: false
+    nature:
+      highlightStyle: googlecode
+      highlightLines: true
+      highlightLanguage: ["r"]
+      countIncrementalSlides: false
+      ratio: "16:9"
+    includes:
+      after_body: [css/insert-logo.html]
+---
+
+```{r setup, include = FALSE}
+library(knitr)
+library(readxl)
+library(skimr)
+library(tidyverse)
+library(NHSRtheme)
+library(stargazer)
+# set default options
+opts_chunk$set(echo = FALSE,
+               fig.width = 7.252,
+               fig.height = 4,
+               comment = "#",
+               dpi = 300)
+
+knitr::knit_engines$set("markdown")
+
+xaringanExtra::use_tile_view()
+xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard()
+xaringanExtra::use_webcam()
+xaringanExtra::use_broadcast()
+# xaringanExtra::use_share_again()
+# xaringanExtra::style_share_again(
+#   share_buttons = c("twitter", "linkedin", "pocket")
+# )
+
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+
+# uncomment the following lines if you want to use the NHS-R theme colours by default
+# scale_fill_continuous <- partial(scale_fill_nhs, discrete = FALSE)
+# scale_fill_discrete <- partial(scale_fill_nhs, discrete = TRUE)
+# scale_colour_continuous <- partial(scale_colour_nhs, discrete = FALSE)
+# scale_colour_discrete <- partial(scale_colour_nhs, discrete = TRUE)
+
+
+
+```
+
+class: title-slide, left, bottom
+
+# `r rmarkdown::metadata$title`
+----
+## **`r rmarkdown::metadata$subtitle`**
+### `r rmarkdown::metadata$author`
+### `r rmarkdown::metadata$date`
+
+
+---
+class: inverse, center, middle
+
+# Questions facing the COVID-19 Pandemic
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+---
+
+<!--  What have we learned about facing the effects of a pandemic, globally? -->
+<!--  Are we better prepared for the NEXT health crisis? -->
+<!--  When looking at the Bloomberg and Oxford studies consider how the rankings were constructed. What data did they use? How can we characterize responses? What is the range of responses across countries? Based on our analysis, what advice can we give our colleagues in other countries?” -->
+
+
+# Questions facing the COVID-19 Pandemic
+- What have we learned about facing the effects of a pandemic, globally?
+
+- Are we better prepared for the NEXT health crisis?
+
+- What data did the Bloomberg and Oxford studies use? 
+  - How can we characterize responses? 
+  - What is the range of responses across countries? 
+  - Based on our analysis, what advice can we give our colleagues in other countries?”
+
+
+
+---
+class: inverse, center, middle
+
+# Bloomberg Studies
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+---
+
+---
+
+# Bloomberg Covid Resiliency
+
+## Covid Resilience Ranking for 53 largest economies
+  - Ranking based on success containing virus with the least amount of social economic disruptions
+  - Data taken since June 2021
+
+## How Current is Data?
+  - Use the most up-to-date datasets where possible
+  - Maximum lag time of about one year at the start of ranking
+  - Nine indicators refreshed daily, one weekly, and two annually
+
+## Who Collects the Data?
+  - Data is compiled by Bloomberg or indicators from “reputable third-party organizations with track records of collation and analysis”
+
+
+
+---
+## Bloomberg's Covid Resilience Ranking
+
+
+```{r, out.width='25%', fig.align='center', fig.cap='...'}
+knitr::include_graphics('/Users/byeong-hakchoe/Google Drive/SUNY_Geneseo/Spring2022/bac2022/bloomberg_var1.png')
+```
+
+---
+## Bloomberg's Covid Resilience Ranking
+
+
+```{r, out.width='25%', fig.align='center', fig.cap='...'}
+knitr::include_graphics('/Users/byeong-hakchoe/Google Drive/SUNY_Geneseo/Spring2022/bac2022/bloomberg_var2.png')
+```
+
+
+
+---
+## Bloomberg's Covid Resilience Ranking
+
+
+```{r, out.width='25%', fig.align='center', fig.cap='...'}
+knitr::include_graphics('/Users/byeong-hakchoe/Google Drive/SUNY_Geneseo/Spring2022/bac2022/bloomberg_var3.png')
+```
+
+
+---
+# Bloomberg's methods
+ 
+## How is the Ranking Aggregated?
+  - Aggregated through the “max-min” method
+    - Used to convert metrics expressed in different scales into a common one
+- All indicators are scored 0-100
+  - 100 (blue) indicates best performance
+  - 0 (orange) indicates worst
+  - Final score is determined by averaging country’s performance across 12 indicators with equal weight
+
+---
+# Bloomberg's methods
+ 
+## Reopening Progress tag
+  - New reopening tab introduced in June
+  
+  - 4 indicators that help measure country’s path toward opening up
+  
+  - Include vaccination progress and lockdown severity
+  
+  - 2 new data sets, flight capacity and vaccinated travel routes
+  
+  - Flight capacity calculates the provision of plane seats in each place
+  
+  - Vaccination routes: look at entry restrictions on the destination end to determine openness of a route. Some country specific requirements are not factored in
+
+---
+# Bloomberg's methods
+ 
+## Vaccine Doses per 100
+  -  Previous indicator approximated percentage of a country’s population that is fully inoculated by looking at total doses administered and mix of vaccine types
+  
+  -  Boosters risked harming the calculation by marking those getting a third shot as “newly vaccinated”
+  
+  - Determined doses per 100 people was a better metric
+
+## Lockdown Severity
+  - Based on index produced by University of Oxford
+  
+  - Restrictive Government policies interpreted as negative in strictness ranking
+    - Seen as a failure to progress
+
+---
+# Bloomberg's methods
+ 
+## Does Lockdown Severity reflect conditions across an entire economy?
+  - Index reflects the most stringent conditions in place anywhere in a given economy
+  
+  - Will naturally penalize larger countries such as US and China
+  
+  - Effects smaller places with a developed system of government
+
+## Why 2 data points on virus deaths?
+  - Case-fatality rate is an indicator of whether a palace is effectively treating infected and preventing COVID-19 deaths
+  
+  - Does not cover total deaths properly
+  
+  - Total deaths per 1 million shows long term effects in order to balance out scores
+
+
+---
+
+## What does the positive test rate show
+  - Positive test rate is considered by experts as the most reliable way to determine if a
+  place is testing enough
+  
+  - High rates of positive means authorities are probably only testing sick people
+  
+  - Economies that don't report daily positives
+    - # of cases/ total tests administered on the last day the data was disclosed
+
+## What does community mobility show
+  - Tracks people's real time movements and helps round out our understanding of how they are responding to virus restrictions in their everyday loss
+  
+  - Tracks movement from retail, recreational, and work places
+  
+  - 30 day periods to smooth out holiday periods
+
+## What does the GDP measure Track
+- Reflects the percentage contraction or expansion projected this year
+
+- Ranking is meant to show the best place to be currently
+
+## Why is the state of pre-pandemic health care relevant to COVID-19
+  - Universal healthcare indicator draws from a 2019 dataset published by Institute for
+  health metrics and evaluation
+    - Maps the effectiveness of 23 preventative and treatment measures ranging from access to basic non-covid vaccines to cancer care
+    
+  - Reflects an economy’s ability to effectively prevent, detect and treat illness across a population
+
+## What’s the point of including the Human Development Index?
+  - Produced annually by the United Nations Development Programme
+  
+  - Has three parts
+    - Life expectancy at birth
+    - Years of schooling
+    - Wealth per capita
+    
+  - Chosen to represent the overall well-being of society
+  
+  - Years of schooling reflects
+    - Access to education, proxy for populations trust in science (experts say is key)
+    
+  - Wealth per capita reflects people’s income adjusted for purchasing power
+  
+  - Life expectancy is a proxy for whether access to health-care is equitable across a
+  population
+
+
+---
+class: inverse, center, middle
+
+# Oxford's Studies
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+---
+
+
+# Overview
+- Oxford’s goal is to track covid policy data consistently and use it to compare policy responses to COVID-19.
+
+- They collect data on 180 different countries and 23 different indicators.
+
+- The data collection began on January 1st, 2020 which marks the very early stages of the global pandemic
+
+---
+
+# Indicators Utilized
+- There are 21 live indicators that are imputed into the dataset daily.
+
+- Containment and Closure Policies: Marked as C1-C8 on the dataset.
+
+- Economic Policies: E1-E4
+
+- Health System Policies: H1-H8
+
+- Vaccine Policies: V1-V4
+
+---
+# Data Types
+- Five kinds of data are utilized in the dataset.
+
+- Ordinal: On a simple scale of severity.
+
+- Numeric: Specific number typically in U.S. dollars.
+
+- Text: An open ended free response.
+
+- Categorical: Range of eligible options to select and occasionally rank.
+
+- Binary: Present (1) or absent (0).
+
+---
+# Policy Indices (1 of 2)
+- Overall Government Response Index: 
+  - Calculated using ordinal indicators
+  
+- Containment and Health Index: 
+  - Combines lockdown restrictions and closure measures with health variables such as testing policy, contact tracing, and others. 
+  - Calculated using all ordinal containment and closure policy indicators and health system policy indicators.
+  
+- Stringency Index: 
+  - Measures the strictness of lockdown style. 
+  - Calculated using all ordinal containment and closure policy indicators, plus an indicator recording public information campaigns.
+
+---
+# Policy Indices (2 of 2)
+- Economic Support Index: 
+  - Measures income support and debt relief. 
+  - Calculated using all ordinal economic policy indicators
+- Risk of Openness Index:
+  - Based on the recommendations set out by the World Health Organization of measures that should be put in place before COVID-19 response policies can be safely relaxed.
+
+---
+# Calculation of Policy Indices
+- Policy indices are averages of the individual component indicators.
+
+$\textit{index} = \dfrac{1}{k}\sum_{j=1}^{k} I_{j}$
+
+  - $k$: the number of component indicators in an index; 
+  - $I_{j}$: the sub-index score for an individual indicator.
+  
+  
+---
+
+# Relation between National and Sub-National Data 
+- So far, Oxford has incorporated data for Brazilian states, Canadian provinces and territories, Chinese provinces, UK developed nations, and U.S. States.
+
+- 3 main usage for the OxCGRT data:
+  1. Describe all government responses relevant to a certain country
+  2. Describe policies put in place by a given level and lower levels of government
+  3. Compare government responses across different levels of government
+
+---
+
+# Variation in Government Response (1 of 2)
+-Government responses have become stronger as time continues during the pandemic and the response picked up in March of 2020.
+
+- There are variations across countries however, the variation is becoming less overtime as countries create more comprehensive plans.
+
+
+
+
+---
+
+# Variation in Government Response (1 of 2)
+
+
+```{r, out.width='25%', fig.align='center', fig.cap='...'}
+knitr::include_graphics('/Users/byeong-hakchoe/Google Drive/SUNY_Geneseo/Spring2022/bac2022/OxCGRT_indices_vs_time.png')
+```
+
+
+
+---
+# Variation in Government Response (2 of 2)
+- A graph showing the reported number of new cases and the government response index showed there are differences between the countries response.
+
+- Brazil and America were similar in their government response index being below the number of reported new cases while Canada, Italy, and the United Kingdom’s index closely matched the number of reported new cases.
+
+- China on the other hand, had the government response ratio higher than the number of reported new cases.
+
+---
+
+## What have we learned about facing the effects of a pandemic, globally? (1 of 2)
+
+ - We have learned that we need to look at specific countries to find the effectiveness of COVID-19 policies.
+ 
+ - Countries have different responsiveness to their government interventions which is why country is an explanatory variable in our daily death per capita regression
+ 
+ - Misplaced concerns about the risk of the vaccine relative to getting COVID-19, over-confidence in their own natural immunity, and adherence to the range of theories that lack scientific evidence could be why we do not see a large magnitude of impact on COVID-19 deaths by our explanatory variables.
+
+---
+## What have we learned about facing the effects of a pandemic, globally? (2 of 2)
+
+ - As we can see from our Solow growth regression, labor growth and technology growth got hit the hardest.
+ 
+ - Utilizing quarterly data is important due to the rapid changes that occur during the midst of the pandemic.
+ 
+ - More specifically, service and entertainment sectors were impacted the most.
+
+---
+
+## Are we better prepared for the NEXT health crisis?
+
+ - Countries have many goals, all of which requiring different strategies that may conflict with each other:
+ - Community resilience to potential disasters 
+ - Reliable critical economic and societal infrastructure
+ - Long term strategic imperatives such as industrial transformation
+ - There is evidence of facial coverings, targeted income support,  ___ ____ being statistically significant from 0 and negative meaning that it reduces the reproductive rate of COVID-19.
+ - This information can be utilized and explored even further to aid in fighting the future viruses that may take the world by storm.
+
+---
+
+## Based on our analysis, what advice can we give our colleagues in other countries?
+ - Governments are unable fill all gaps themselves; must look to utilize the  capabilities of other sectors
+Was shown by (Insert data here)
+ - Look into creating a research and development ecosystem for Global resilience
+   - This will increase trust in public information globally. Our data shows that Public Information actually led to an        increase in daily deaths around the world. This could be due to the fact that COVID-19 was such an unknown virus that      early public information about it could have been incorrect or misleading. This then led to widespread public             distrust of governments internationally.
+ - Coordinate crisis management exercise involving both public and private sectors
+
+---
+## References
+- World Economic Forum, “Global Risks Report 2022,” 11 Jan. 2022, https://www.weforum.org/reports/global-risks-report-2022/in-full/chapter-6-refreshing-resilience-from-covid-19-lessons-to-a-whole-of-society-response. 
+
+- Hale, Thomas, Jessica Anania, Noam Angrist, Thomas Boby, Emily Cameron-Blake, Martina Di Folco, Lucy Ellen, Rafael Goldszmidt, Laura Hallas, Beatriz Kira, Maria Luciano, Saptarshi Majumdar, Radhika Nagesh, Anna Petherick, Toby Phillips, Helen Tatlow, Samuel Webster, Andrew Wood, Yuxi Zhang, “Variation in Government Responses to COVID-19” Version 12.0. Blavatnik School of Government Working Paper. 11 June 2021. Available: www.bsg.ox.ac.uk/covidtracker
+
+- Thomas Hale, Noam Angrist, Rafael Goldszmidt, Beatriz Kira, Anna Petherick, Toby Phillips, Samuel Webster, Emily Cameron-Blake, Laura Hallas, Saptarshi Majumdar, and Helen Tatlow. (2021). “A global panel database of pandemic policies (Oxford COVID-19 Government Response Tracker).” Nature Human Behaviour. https://doi.org/10.1038/s41562-021-01079-8
+
+
+---
+
+
+
