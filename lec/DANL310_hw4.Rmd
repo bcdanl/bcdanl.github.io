@@ -13,7 +13,7 @@ output:
     toc_depth: 2
     toc_float: true
     number_sections: true
-    theme: yeti
+    theme: united
     highlight: espresso
 ---
 ```{r, include=FALSE}
@@ -21,28 +21,34 @@ library(tidyverse)
 ```
 
 
-Publish your web-page in your personal website on GitHub, just like this web-page.
-  - For each section, provide your R command to produce interactive/animated plots.
+Publish your web-page in your personal website on GitHub, just like this web-page, by 1:00 P.M., April 28.
+
+- For each section, provide both R codes to produce interactive/animated plots and the output of your R codes.
+
+- The Section of title is the name of R package you need for this homework.
 
 # `gganimate`
 
 The following link is for the data that is used to generate the figure in this Section.
-```{r}
+```{r, message=F}
 imf_growth <- read_csv(url('https://bcdanl.github.io/data/imf_growth_quarterly.csv'))
 
 # gy: growth rate of GDP per worker 
 ```
 
+  - `geom_tile()` and `geom_text()` can be useful for this.
+
 ![](/Users/byeong-hakchoe/Documents/website/bcdanl.github.io/lec_figs/gganim_imf_gdp_growth.gif)
-The effect of the COVID-19 Pandemic on economic growth can be observed in the animation above. Data comes from 
+The effect of the COVID-19 Pandemic on economic growth can be observed in the animation above. 
 
 
 # `ggiraph`
+The following link is for the data that is used to generate the figure in this Section.
 
-```{r}
+```{r, message = F}
 climate_opinion <- read_csv(
   'https://bcdanl.github.io/data/climate_opinion_2021.csv')
-# human
+# Variable `human` is a percentage of people who believe that global warming is mostly caused by human activity.
 ```
 
 
@@ -52,6 +58,5 @@ xfun::file_string('/Users/byeong-hakchoe/Documents/website/bcdanl.github.io/clim
 ```
 ````
 
-Climate 
-
+You can hover your mouse cursor on the map and see the percentage level and the name of county.
 
