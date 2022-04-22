@@ -1,7 +1,7 @@
 ---
 title: "Price Elasticities of Orange Juice Demand"
-author: Byeong-Hak Choe
-date: February 4, 2022
+author: "Byeong-Hak Choe<br><br>"
+date: "February 4, 2022<br><br>"
 output: 
   html_document:
     df_print: paged
@@ -15,8 +15,9 @@ output:
 
 This is an example of the lecture on estimating price elasticity via the model of linear regression with interaction terms using data for orange juice sales. The example is taken from the book, "[Business Data Science: Combining Machine Learning and Economics to Optimize, Automate, and Accelerate Business Decisions](https://www.amazon.com/Business-Data-Science-Combining-Accelerate/dp/1260452778)," and modified by Byeong-Hak Choe.
 
+<br>
 
-## Price elasticity of demand
+- Price elasticity of demand
 
 Price elasticity of demand  measures how sensitive the quantity demanded is to its price.  
 
@@ -28,7 +29,9 @@ The concept of the elasticity plays an important role in industries.
 
 Marketers need to understand how consumers are sensitive to fluctuations in price.  
 
-## Loading R packages and orange juice data
+<br>
+
+- Loading R packages and orange juice data
 
 ```{r, echo = TRUE, eval = TRUE, out.height = "100%",  fig.align='center'}
 # install.packages("")  # in case you need to install the following R packages
@@ -51,6 +54,9 @@ oj <- read.table(
 )
 ```
 
+<br>
+
+
 # Descriptive statistics
 
 ## OJ data
@@ -72,6 +78,9 @@ skim(oj)
 ```
 
 
+<br>
+
+
 # Visualizing OJ data
 
 ## Distribution of OJ prices
@@ -86,6 +95,9 @@ ggplot(data = oj) +
 
 ```
 
+<br>
+
+
 ## Distribution of OJ sales
 
 ```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center'}
@@ -95,6 +107,9 @@ ggplot(data = oj) +
   theme(axis.text.x = element_blank(), axis.ticks = element_blank())
 ```
 
+<br>
+
+
 ## Demand for OJ
 
 ```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center', warning = FALSE, message = FALSE}
@@ -103,6 +118,7 @@ ggplot(data = oj, aes( x = log(price), y = log(sales),
   geom_point( alpha = .25 ) 
 ```
 
+<br>
 
 # Regression models
 
@@ -128,6 +144,9 @@ $\beta = \Delta\log({sales})/\Delta\log({price})$
 </center>  
 
 
+<br>
+
+
 ## Run the model 
 
 ```{r results = "asis", echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center'}
@@ -136,6 +155,9 @@ reg_oj1 <- lm(log(sales) ~ log(price) + brand,
              data=oj)
 stargazer(reg_oj1, type = "html", omit = c("Constant"))
 ```
+
+<br>
+
 
 ## Regression lines
 
@@ -147,6 +169,9 @@ ggplot(data = oj, aes(x = log(price), y = log(sales),
   geom_parallel_slopes()
 
 ```
+
+<br>
+
 
 ## Regerssion model with interaction terms
 
@@ -165,6 +190,9 @@ $\beta_{{brand}} = \hspace{.1cm}\beta_{{d}}1_{{[brand=dominicks]}}+\beta_{{m}}1_
 </center>  
 
 
+<br>
+
+
 ## Run the model
 
 ```{r results = "asis", echo = TRUE, eval = TRUE, out.height = "50%", fig.align='center'}
@@ -173,6 +201,9 @@ reg_oj2 <- lm(log(sales) ~ log(price)*brand,
              data=oj)
 stargazer(reg_oj1, reg_oj2, type = "html", omit = c("Constant"))
 ```
+
+<br>
+
 
 ## Regression lines 
 
@@ -184,6 +215,9 @@ ggplot(data = oj, aes(x = log(price), y = log(sales),
   geom_smooth(method = lm, se=FALSE)
 
 ```
+
+<br>
+
 
 ## Advertisement effect
 
@@ -203,6 +237,9 @@ $\beta_{{brand,feat}} = \hspace{.3cm}(\hspace{.1cm} \beta_{{d,noAd}}1_{{[brand=d
 </center>  
 
 
+<br>
+
+
 ## Run the model
 
 ```{r results = "asis", echo = TRUE, eval = TRUE, out.height = "50%", fig.align='center'}
@@ -211,6 +248,9 @@ reg_oj3 <- lm(log(sales) ~ log(price)*brand*feat,
              data=oj)
 stargazer(reg_oj1, reg_oj2, reg_oj3, type = "html", omit = c("Constant"))
 ```
+
+<br>
+
 
 ## Regression lines
 
@@ -222,6 +262,9 @@ ggplot(data = oj, aes(x = log(price), y = log(sales), color = brand )) +
   facet_grid( . ~ feat)
 
 ```
+
+<br>
+
 
 ## Price elasticities of OJ
 
@@ -241,11 +284,14 @@ row.names(elasticity) <- c("Model 1", "Model 2", "Model 3 w/ no ad", "Model 3 w/
 knitr::kable(round(elasticity,1), "simple")   
 ```
 
-Which model is better?  
+- Which model is better?  
 
-Which model is more realistic?  
+- Which model is more realistic?  
   
-Why does being featured always lead to more price sensitivity?  
+- Why does being featured always lead to more price sensitivity?  
+
+
+<br>
 
 
 ## The relationship between ad and brand
@@ -294,15 +340,20 @@ ggplot(data = oj, aes( x = log(price), y = log(sales),
 ```
 
 
+<br>
+
+
 
 ## Residual plot and model fit
 
-Which model is better?
+- Which model is better?
 
-On average, are the predictions correct?
+  - On average, are the predictions correct?
 
-Are there systematic errors in prediction?
-  
+  - Are there systematic errors in prediction?
+
+<br>
+
 Predicted log of sales can be calculated as follows:
 
 ```{r, echo = TRUE, eval = TRUE, fig.height = 3.8, fig.align='center', warning=FALSE, message=FALSE}
@@ -310,6 +361,9 @@ oj$predLogSales1 <- predict(reg_oj1, newdata = oj)
 oj$predLogSales2 <- predict(reg_oj2, newdata = oj)
 oj$predLogSales3 <- predict(reg_oj3, newdata = oj)
 ```
+
+<br>
+
 
 ## Residual plot for model 1
 
@@ -321,6 +375,9 @@ ggplot(data = oj, aes(x = predLogSales1, y = log(sales) - predLogSales1 )) +
   xlab("prediction") + ylab("residual error (actual prediction)")
 ```
 
+<br>
+
+
 ## Residual plot for model 2
 
 ```{r, echo = TRUE, eval = TRUE, fig.height = 3.8, fig.align='center', warning=FALSE, message=FALSE}
@@ -330,6 +387,9 @@ ggplot(data = oj, aes(x = predLogSales2, y = log(sales) - predLogSales2 )) +
   geom_line(aes(x = predLogSales2, y = 0), color = "red", linetype = 2) +
   xlab("prediction") + ylab("residual error (actual prediction)")
 ```
+
+<br>
+
 
 ## Residual plot for model 3
 
