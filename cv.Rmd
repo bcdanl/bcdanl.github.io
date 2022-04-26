@@ -24,7 +24,7 @@ library(kableExtra)
 library(DT)
 library(glue)
 library(readxl)
-library(stringi)
+# library(stringi)
 
 # install.packages("remotes")
 # remotes::install_github("mitchelloharawild/icons")
@@ -92,11 +92,6 @@ Here is my [curriculum vitae `r fa("fas fa-file-pdf", fill = "red")`](chose_cv.p
 ::::
 
 
-
-
-
-
-
 <br>
 
 # Current Position
@@ -107,7 +102,7 @@ cv_entries %>%
                       where)) %>% 
   select(year, what) %>% 
   kbl(padding = 0, col.names = NULL, escape = FALSE) %>%
-  kable_styling( bootstrap_options = c("hover", "condensed"))  %>% 
+  kable_styling( bootstrap_options = c("hover"))  %>% 
   column_spec(1, width = "15%")
 
 ```
