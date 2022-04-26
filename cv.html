@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Résumé  </title>
+
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">SUNY Geneseo DANL310</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">home</a>
+</li>
+<li>
+  <a href="about.html">about me</a>
+</li>
+<li>
+  <a href="cv.html">cv</a>
+</li>
+<li>
+  <a href="list_github.html">github list</a>
+</li>
+<li>
+  <a href="lec01.html">OJ project</a>
+</li>
+<li>
+  <a href="shiny_storms.html">shiny</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    hw &amp; exams
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="DANL310_hw1_a.html">hw 1 anwers</a>
+    </li>
+    <li>
+      <a href="DANL310_hw2_a.html">hw 2 anwers</a>
+    </li>
+    <li>
+      <a href="DANL310_hw4.html">hw 4</a>
+    </li>
+    <li>
+      <a href="DANL310_midterm_a.html">midterm anwers</a>
+    </li>
+    <li>
+      <a href="DANL310_midterm_v2_a.html">midterm 2 anwers</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    lecture
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lec/DANL310_Lec05_20220210.html">Lecture 05</a>
+    </li>
+    <li>
+      <a href="lec/DANL310_Lec06_20220215.html">Lecture 06</a>
+    </li>
+    <li>
+      <a href="lec/DANL310_Lec07_20220217.html">Lecture 07</a>
+    </li>
+    <li>
+      <a href="lec/DANL310_Lec08_20220222.html">Lecture 08</a>
+    </li>
+    <li>
+      <a href="lec/DANL310_Lec09_20220224.html">Lecture 09</a>
+    </li>
+    <li>
+      <a href="lec/DANL310_Lec10_20220301.html">Lecture 10</a>
+    </li>
+    <li>
+      <a href="lec/DANL310_Lec11_20220303.html">Lecture 11</a>
+    </li>
+    <li>
+      <a href="lec/DANL310_Lec12_20220324.html">Lecture 12</a>
+    </li>
+    <li>
+      <a href="lec/DANL310_Lec13_20220331.html">Lecture 13</a>
+    </li>
+    <li>
+      <a href="lec/DANL310_Lec14_20220405.html">Lecture 14</a>
+    </li>
+    <li>
+      <a href="lec/DANL310_Lec15_20220407.html">Lecture 15</a>
+    </li>
+    <li>
+      <a href="lec/DANL310_Lec16_20220414.html">Lecture 16</a>
+    </li>
+    <li>
+      <a href="lec/DANL310_default.html">Summary Table</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Résumé<br><br></h1>
+
+</div>
+
+
+<div id="summary" class="section level1">
+<h1>Summary</h1>
+<div style="display: flex;">
+<div>
+<p>I view myself as an <strong>applied economist</strong> with interest in the field of <strong>environmental economics</strong> and a particular focus on <strong>climate change policy</strong>. Methodologically, I make use of <strong>econometric/machine learning methods and data science tools</strong> to conduct empirical analysis. I also use computational methods to solve <strong>integrated assessment models (IAM) of climate change</strong> as well as theoretical economic models, such as <strong>dynamic contracts</strong>.</p>
+<p>My <strong>research</strong> focuses on how to improve <strong>effectiveness of climate policy</strong> at both micro and macro levels. In particular, I am interested in building relevant climate-economy models that analyze <strong>the interaction between economies and the climate under risks arising from (1) climate change and (2) a transition to carbon-neutral economies</strong>.</p>
+<p>As <strong>a teacher in economics and data science</strong>, my goal is to equip students with the essential analytical tools of machine learning, econometrics, and data analytics to <strong>think critically about business and socioeconomic real-world issues</strong>. As an instructor, I let students use those analytical tools to deal with important <strong>business strategies, social issues, and individual decision-making</strong>.</p>
+<p>Here is my <a href="chose_cv.pdf">curriculum vitae <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:red;overflow:visible;position:relative;"><path d="M181.9 256.1c-5-16-4.9-46.9-2-46.9 8.4 0 7.6 36.9 2 46.9zm-1.7 47.2c-7.7 20.2-17.3 43.3-28.4 62.7 18.3-7 39-17.2 62.9-21.9-12.7-9.6-24.9-23.4-34.5-40.8zM86.1 428.1c0 .8 13.2-5.4 34.9-40.2-6.7 6.3-29.1 24.5-34.9 40.2zM248 160h136v328c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V24C0 10.7 10.7 0 24 0h200v136c0 13.2 10.8 24 24 24zm-8 171.8c-20-12.2-33.3-29-42.7-53.8 4.5-18.5 11.6-46.6 6.2-64.2-4.7-29.4-42.4-26.5-47.8-6.8-5 18.3-.4 44.1 8.1 77-11.6 27.6-28.7 64.6-40.8 85.8-.1 0-.1.1-.2.1-27.1 13.9-73.6 44.5-54.5 68 5.6 6.9 16 10 21.5 10 17.9 0 35.7-18 61.1-61.8 25.8-8.5 54.1-19.1 79-23.2 21.7 11.8 47.1 19.5 64 19.5 29.2 0 31.2-32 19.7-43.4-13.9-13.6-54.3-9.7-73.6-7.2zM377 105L279 7c-4.5-4.5-10.6-7-17-7h-6v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-74.1 255.3c4.1-2.7-2.5-11.9-42.8-9 37.1 15.8 42.8 9 42.8 9z"/></svg></a>.</p>
+<div style="text-align: right">
+Last updated: 2022-04-26
+</div>
+</div>
+<div>
+<p><img src="bchoe20201027.jpg" style="width:75.0%" /></p>
+</div>
+</div>
+<p><br></p>
+</div>
+<div id="current-position" class="section level1">
+<h1>Current Position</h1>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2021 — present
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Lecturer in Data Analytics</span><br>School of Business, SUNY Geneseo
+</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+</div>
+<div id="education" class="section level1">
+<h1>Education</h1>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2016 — 2021
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Ph.D. in Economics</span>, University of Wyoming<br>Supervisors: <a href="http://www.uwyo.edu/economics/faculty-staff/charles-mason/">Chuck Mason</a> and <a href="http://www.uwyo.edu/economics/faculty-staff/thorsten-janus/">Thorsten Janus</a><br>Dissertaion: Essays in Political Economy
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2014 — 2015
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">M.Sc. in Economics</span>, Arizona State University<br><br>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2012 — 2014
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">M.A. in Economics</span>, SUNY Stony Brook<br><br>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2006 — 2012
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">B.Sc. in Applied Mathematics</span>, Hanyang University at Ansan, South Korea<br><br>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2006 — 2012
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">B.A. in Economics</span>, Hanyang University at Ansan, South Korea<br><br>
+</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+</div>
+<div id="teaching" class="section level1">
+<h1>Teaching</h1>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2021
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Instructor, <a href="https://bcdanl.github.io/">Data Visualization and Presentation</a></span><br class="work-break">SUNY Geneseo<br>Taught for reproducible data visualization and paper writing on the web.
+</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+</div>
+<div id="service" class="section level1">
+<h1>Service</h1>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2021 — present
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Data Analytics Curriculumn Meetings</span><br class="work-break"><a href="https://transparentstatistics.org">School of Business, SUNY Geneseo</a>
+</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+</div>
+<div id="work-experience" class="section level1">
+<h1>Work Experience</h1>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2020 — present
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Lecturer in Data Analytics</span><br class="work-break"><a href="https://www.geneseo.edu/business/">School of Business, SUNY Geneseo</a><br>I teach data analytics for undergraduate students.
+</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+</div>
+<div id="professional-activities" class="section level1">
+<h1>Professional activities</h1>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2018
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Invited participant to the Global Dialogue for Happiness</span>, <a href="https://www.worldgovernmentsummit.org">World Government Summit</a>, Dubai
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2017
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title"><a href="https://www.sbs.ox.ac.uk/research/skoll-centre-social-entrepreneurship/social-impact-education/leading-impact">Leading for Impact</a> fellow</span>, 4-month leadership training programme at Saïd Business School, University of Oxford
+</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+</div>
+<div id="hornors-awards" class="section level1">
+<h1>Hornors &amp; Awards</h1>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2019
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">H. A. True Chair in Petroleum and Economics Scholarship</span>, University of Wyoming
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15%; ">
+<span class="repeated-year">2019</span>
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">John S. Bugas Economics Scholarship</span>, University of Wyoming
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2018
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Ralph d’Arge Scholarship in Natural Resource Economics and Finance</span>, University of Wyoming
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15%; ">
+<span class="repeated-year">2018</span>
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">McMurry Excellence Fund</span>, University of Wyoming
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15%; ">
+<span class="repeated-year">2018</span>
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Joseph C. and Katherine A. Drew Scholarship</span>, University of Wyoming
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2012
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Highest Grade Point Average in Economics Class of 2012</span>, Hanyang University at Ansan, South Korea
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2010
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">University Tutor of the Excellent Tutoring Team</span>, Hanyang University at Ansan, South Korea
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2006
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Merit-based Scholarships</span>, Hanyang University at Ansan, South Korea
+</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+</div>
+<div id="grants-and-funding" class="section level1">
+<h1>Grants and funding</h1>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2020
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Summer Augmentation Scholarship for Ph.D. Dissertation Research</span>, University of Wyoming<br>Conducted online due to the corona pandemic
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2019
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Graduate Student Conference Travel Funding</span>, University of Wyoming
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15%; ">
+<span class="repeated-year">2019</span>
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Graduate Student Conference Travel Funding</span>, University of Wyoming
+</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+</div>
+<div id="miscelaneous" class="section level1">
+<h1>Miscelaneous</h1>
+<div id="computing-skills" class="section level2">
+<h2>Computing skills</h2>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+<i class="fa fa-lg fa-bar-chart"></i>  <span class="cv-entry-title">Programming, data analysis and visualisation</span> in R (tidyverse), Python, and D3.js
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+<i class="fa fa-lg fa-flask"></i>  <span class="cv-entry-title">Reproducible research</span> with R Markdown (bookdown, xaringan, pagedown) + LaTeX + HTML
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+<i class="fa fa-lg fa-laptop"></i>  <span class="cv-entry-title">Web development</span> (HTML, CSS, JavaScript, Hugo, blogdown, Jekyll, GitHub Pages, Netlify)
+</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+</div>
+<div id="skills-volunteering" class="section level2">
+<h2>Skills &amp; volunteering</h2>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2017 — present
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Founding Band Member</span><br class="work-break"><a href="https://karaokecollective.com">The Karaoke Collective</a><br>Inventor, MC and drummer; the KC is a group of seasoned musicians in Oxford and London where we blend the fun of karaoke with the magic of a live band.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2017 — 2019
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Computer Science Ambassador</span><br class="work-break">Dept. of Computer Science, University of Oxford<br>I gave regular talks about my group’s and my personal research to 14-18 year old students from schools in the UK visiting the Dept. of Computer Science
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2017 — 2019
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Steering committee member, Oxford Scandinavian Society</span><br class="work-break">Co-organiser of ‘sittnings’ (traditional Scandinavian dinner- and drinking parties), movie nights, summer BBQs and more. Webmaster at oxfordscandinavian.com
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2017
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Head of Entertainment, Linacre College Ball</span><br class="work-break">Planned, contracted, and produced 15+ acts, including a 30-piece swing band, funk orchestra, live karaoke, glitter fairy, space hopper race, treasure hunt and drumming DJ
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 15%; ">
+2013 — 2016
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Interview Coach</span><br class="work-break"><a href="https://oxfizz.org/">Oxbridge Interviews, Oxfizz</a><br>Provided interview training to 30+ teenagers from families not traditionally going to university wishing to apply to Oxford or Cambridge
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>pagedown-cv</title>
+
+<script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+<link rel="stylesheet" href="css/pagedown_cv_styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Ulrik Lyngs</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://ulriklyngs.com">Home</a>
+</li>
+<li>
+  <a href="https://ulriklyngs.com/projects">Projects</a>
+</li>
+<li>
+  <a href="https://ulriklyngs.com/publications">Publications</a>
+</li>
+<li>
+  <a href="https://ulriklyngs.com/cv">CV</a>
+</li>
+<li>
+  <a href="https://ulriklyngs.com/blog/">Blog</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">pagedown-cv</h1>
+
+</div>
+
+
+<div id="welcome-to-pagedown-cv" class="section level1">
+<h1>Welcome to <code>pagedown-cv</code></h1>
+<p>This repository different examples of building a cv with <a href="https://rmarkdown.rstudio.com"><code>rmarkdown</code></a> and <a href="https://github.com/rstudio/pagedown"><code>pagedown</code></a>, illustrated with my personal resumé.</p>
+<p>(NOTE: for now 1-3 only works properly in Chrome, as some aspects of CSS Paged Media are only supported by this browser):</p>
+<ol style="list-style-type: decimal">
+<li><a href="one-column-paged-academic.html">Paged, academic resume (<strong>one-column-paged-academic.Rmd</strong>)</a></li>
+<li><a href="two-column-paged-brief.html">Paged, 2-column brief resume (<strong>two-column-paged-brief.Rmd</strong>)</a></li>
+<li><a href="one-column-paged.html">Paged, 1-column resume (<strong>one-column-paged.Rmd</strong>)</a></li>
+<li><a href="one-column.html">Ordinary scrolling HTML resume (<strong>one-column.Rmd</strong>)</a></li>
+<li><a href="website-cv.html">Ordinary scrolling HTML resume, formatted in the style of an old version of my personal website (<strong>website-cv.Rmd</strong>)</a></li>
+<li>(For an in-practice example of the website cv, <a href="https://ulriklyngs.com/cv/">see the current version on my website</a>)</li>
+</ol>
+<div id="but-why" class="section level2">
+<h2>But why?</h2>
+<p>I liked the idea of making a CV easier to maintain by separating the content from the output (see e.g. Nick Strayer’s <a href="http://nickstrayer.me/datadrivencv/">data-driven cv</a>).</p>
+<p>The brilliant <a href="https://github.com/rstudio/pagedown"><code>pagedown</code></a> package makes it possible to output an R Markdown file to paged HTML content which can then be saved as PDF. This means we can easily use R Markdown to programmatically pull out content from some spreadsheet with our CV data, output it to a paged format, and do the styling with CSS. Brilliant!</p>
+<p>However, I didn’t find he base format for resumés provided by <code>pagedown</code> (<code>pagedown::html_resume</code>) particularly aesthetically pleasing, so I developed my own paged formats.</p>
+</div>
+<div id="which-do-you-use" class="section level2">
+<h2>Which do you use?</h2>
+<p>My currently favoured format for academic purposes (example 1) was inspired by, amongst others, the resumé of <a href="http://www.mjskay.com/">Matthew Kay</a>:</p>
+<div class="example-cv">
+<p><img src="examples/cur_cv_pg1.jpg" style="width:40.0%" /> <img src="examples/cur_cv_pg2.jpg" style="width:40.0%" /></p>
+</div>
+<p>The two-column resume layout I mainly use for brief, 2-page resumés. I originally made this layout in Microsoft Word (!). After I became enamoured with R Markdown, I at some point set out to recreate this with <code>pagedown</code> (example 2):</p>
+<div class="example-cv">
+<p><img src="examples/page1_new.png" style="width:40.0%" /> <img src="examples/page2.png" style="width:40.0%" /></p>
+</div>
+</div>
+<div id="how-does-it-work" class="section level2">
+<h2>How does it work?</h2>
+<p>Each resumé is generated by an R Markdown file and pulls in its content from <strong>_content/cv_entries.csv</strong> and <strong>_content/publications.csv</strong>.</p>
+<p>The CSV files with the content are just local copies of the corresponding tabs in <a href="https://docs.google.com/spreadsheets/d/1ta71CAGkcLqm-W1UdVRA_JJSddWV2TsrRZsCnQlmOis/edit?usp=sharing">this google sheet</a>, which holds most of the content for <a href="https://ulriklyngs.com/">my website</a>.</p>
+<p>The R script <strong>_content/sync_w_gsheets.R</strong> grabs the current content of the ‘cv_entries’ and the ‘publications’ tabs in the google sheet and stores it in the <strong>_content</strong> folder.</p>
+</div>
+<div id="how-can-i-use-it" class="section level2">
+<h2>How can I use it?</h2>
+<p>To use this for your own CV, download or clone the GitHub repo: <a href="https://github.com/ulyngs/pagedown-cv/" class="uri">https://github.com/ulyngs/pagedown-cv/</a></p>
+<p>Then replace the content in the CSV files with your own stuff and tweak the <strong>.Rmd</strong> files accordingly.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
