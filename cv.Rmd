@@ -32,8 +32,6 @@ library(readxl)
 library(fontawesome)
 
 
-#### publications #####
-publications <- read_csv("_content/publications.csv")
 
 #### all other entries #####
 cv_entries <- read_csv("_content/cv_entries.csv") %>%
@@ -126,6 +124,33 @@ cv_entries %>%
 
 ```
 
+<br>
+
+# Research
+## Working papers
+```{r}
+cv_entries %>% 
+  filter(type == 'wp') %>% 
+  mutate(what = str_c("<span class='cv-entry-title'>", what, "</span> ", additional_info)) %>% 
+  select(type, what) %>% 
+  mutate(type = "") %>% 
+  kbl(padding = 0, col.names = NULL, escape=FALSE) %>%
+  kable_styling( bootstrap_options = c("hover", "condensed")) 
+```
+
+<br>
+
+## Work in progress
+```{r}
+cv_entries %>% 
+  filter(type == 'wp-progress') %>% 
+  mutate(what = str_c("<span class='cv-entry-title'>", what, "</span> ", additional_info)) %>% 
+  select(type, what) %>% 
+  mutate(type = "") %>% 
+  kbl(padding = 0, col.names = NULL, escape=FALSE) %>%
+  kable_styling( bootstrap_options = c("hover", "condensed")) 
+```
+
 
 <br>
 
@@ -145,53 +170,31 @@ cv_entries %>%
 
 <br>
 
-# Service
-```{r}
-cv_entries %>% 
-  filter(type == 'service') %>% 
-  mutate(where = ifelse(!is.na(url), str_c("[", where, "](", url, ")"), where)) %>% 
-  mutate(what = ifelse(!is.na(additional_info),
-                       str_c("<span class='cv-entry-title'>", what,
-                      "</span><br class='work-break'>", 
-                      where),
-                      str_c("<span class='cv-entry-title'>", what,
-                      "</span><br class='work-break'>", 
-                      where))) %>% 
-  arrange(desc(date_end), desc(date)) %>% 
-  select(year, what) %>% 
-  kbl(padding = 0, col.names = NULL, escape = FALSE) %>%
-  kable_styling( bootstrap_options = c("hover", "condensed")) %>% 
-  column_spec(1, width = "15%")  
-
-```
-
-
-<br>
-
-# Work Experience
-```{r}
-cv_entries %>% 
-  filter(type == 'work', is.na(website)) %>% 
-  mutate(additional_info = replace_na(additional_info, "")) %>% 
-  mutate(what = str_c("<span class='cv-entry-title'>", what, "</span><br class='work-break'>", where, "<br>", additional_info)) %>% 
-  arrange(desc(date)) %>% 
-  select(year, what) %>% 
-  kbl(padding = 0, col.names = NULL, escape = FALSE) %>%
-  kable_styling( bootstrap_options = c("hover", "condensed"))   %>% 
-  column_spec(1, width = "15%")
-```
-
-<br>
-
 # Professional activities
+## Presentations
 ```{r}
 cv_entries %>% 
-  filter(type == 'prof-act') %>% 
+  filter(type == 'presentation') %>% 
   mutate(what = str_c("<span class='cv-entry-title'>", what, "</span>, ", where)) %>% 
   select(year_begin, what) %>% 
   kbl(padding = 0, col.names = NULL, align = c("l", "l"), escape = FALSE) %>%
   kable_styling( bootstrap_options = c("hover", "condensed")) %>% 
   column_spec(1, width = "15%")  
+```
+
+<br>
+
+## Memberships
+```{r}
+cv_entries %>% 
+  filter(type == 'membership', is.na(exclude)) %>%
+  mutate(what = str_c("<span class='cv-entry-title'>", what, "</span><br>", 
+                      where)) %>% 
+  select(year, what) %>% 
+  kbl(padding = 0, col.names = NULL, escape = FALSE) %>%
+  kable_styling( bootstrap_options = c("hover"))  %>% 
+  column_spec(1, width = "15%")
+
 ```
 
 <br>
@@ -233,19 +236,37 @@ cv_entries %>%
   column_spec(1, width = "15%")   
 ```
 
+<br>
 
+# Service
+```{r}
+cv_entries %>% 
+  filter(type == 'service') %>% 
+  mutate(where = ifelse(!is.na(url), str_c("[", where, "](", url, ")"), where)) %>% 
+  mutate(what = ifelse(!is.na(additional_info),
+                       str_c("<span class='cv-entry-title'>", what,
+                      "</span><br class='work-break'>", 
+                      where),
+                      str_c("<span class='cv-entry-title'>", what,
+                      "</span><br class='work-break'>", 
+                      where))) %>% 
+  arrange(desc(date_end), desc(date)) %>% 
+  select(year, what) %>% 
+  kbl(padding = 0, col.names = NULL, escape = FALSE) %>%
+  kable_styling( bootstrap_options = c("hover", "condensed")) %>% 
+  column_spec(1, width = "15%")  
+
+```
 
 <br>
 
 # Miscelaneous
-## Computing skills
 ```{r}
 cv_entries %>% 
   filter(type == 'technical') %>% 
   mutate(icon = case_when(
-    str_detect(what, "data analysis") ~ "fa-bar-chart",
-    str_detect(what, "research") ~ "fa-flask",
-    str_detect(what, "Web") ~ "fa-laptop"
+    str_detect(what, "Computing") ~ "fa-laptop",
+    str_detect(what, "Language") ~ "fa-language"
   )) %>% 
   mutate(what = str_c("<i class='fa fa-lg ", icon, "'></i> &nbsp;<span class='cv-entry-title'>", what, "</span> ", additional_info)) %>% 
   select(type, what) %>% 
@@ -256,17 +277,17 @@ cv_entries %>%
 
 <br>
 
-
-## Skills & volunteering
+# Non-Academic Experience
 ```{r}
-cv_entries %>%
-  filter(type == 'volunteering') %>%
-  mutate(what = str_c("<span class='cv-entry-title'>", what, "</span><br class='work-break'>", where)) %>%
-  mutate(what = ifelse(!is.na(additional_info), str_c(what, "<br>", additional_info), what)) %>%
-  arrange(desc(date_end)) %>% 
-  select(year, what) %>%
-  kbl(padding = 0, col.names = NULL, escape = FALSE)  %>%
-  kable_styling( bootstrap_options = c("hover", "condensed")) %>% 
+cv_entries %>% 
+  filter(type == 'non-academic', is.na(website)) %>% 
+  mutate(additional_info = replace_na(additional_info, "")) %>% 
+  mutate(what = str_c("<span class='cv-entry-title'>", what, "</span><br class='work-break'>", where, "<br>", additional_info)) %>% 
+  arrange(desc(date)) %>% 
+  select(year, what) %>% 
+  kbl(padding = 0, col.names = NULL, escape = FALSE) %>%
+  kable_styling( bootstrap_options = c("hover", "condensed"))   %>% 
   column_spec(1, width = "15%")
 ```
+
 

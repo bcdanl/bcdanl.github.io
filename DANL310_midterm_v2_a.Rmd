@@ -45,7 +45,7 @@ library(ggridges)
 
 # Question 1
 
-```{r, message=F, warning=F}
+```{r, echo = T, message=F, warning=F}
 nyc_flights <- read_csv(
   'https://bcdanl.github.io/data/nyc_flights_grouped.csv')
 
@@ -81,7 +81,7 @@ nyc_flights %>%
 # Question 2
 
 
-```{r, message=F, warning=F}
+```{r, echo = T, message=F, warning=F}
 library(gapminder)
 gapminder
 
@@ -106,7 +106,7 @@ ggplot(data = filter(gapminder, year == 2007),
 
 # Question 3
 
-```{r, message=F, warning=F}
+```{r, echo = T, message=F, warning=F}
 political_ideology <- read_csv(
   'https://bcdanl.github.io/data/political_ideology.csv')
 
@@ -157,7 +157,7 @@ ggplot(political_ideology,
 
 
 # Question 4
-```{r, message=F, warning=F}
+```{r, echo = T, message=F, warning=F}
 covid_country_info <- read.csv('https://bcecon.github.io/covid_country_info.csv',
                 stringsAsFactors = FALSE, 
                 encoding = 'UTF-8')
@@ -172,7 +172,7 @@ covid_country_info
 <br>
 
 Q4a. Calculate new COVID-19 cases and new deaths for each country for each day.
-```{r, message=F, warning=F}
+```{r, echo = T, message=F, warning=F}
 country_info4a <- covid_country_info %>% 
   group_by(country) %>% 
   mutate( cases_new = total_cases - lag(total_cases),
@@ -186,7 +186,7 @@ country_info4a
 
 
 Q4b. Calculate the mean level of new COVID-19 cases and new deaths  for each country for each month.
-```{r, message=F, warning=F}
+```{r, echo = T, message=F, warning=F}
 
 country_info4b <- covid_country_info %>% 
   group_by(country, year, month) %>% 
@@ -209,7 +209,7 @@ Q4c. Describe the relationship between aged_65_older and monthly average of new 
   
 <br>
 
-```{r, message=F, warning=F}
+```{r, echo = T, message=F, warning=F}
 
 country_info4c <- covid_country_info %>% 
   group_by(continent, country, year, month, 
@@ -252,7 +252,7 @@ Q4d. Describe the average relationship between gdp_per_capita and monthly averag
   
 <br>
 
-```{r, message=F, warning=F}
+```{r, echo = T, message=F, warning=F}
 ggplot(data = country_info4c,
        mapping = aes(x = gdp_per_capita, 
                      y = deaths_mean) ) +
