@@ -77,7 +77,7 @@ My **research** focuses on how to improve **effectiveness of climate policy** at
 As **a teacher in economics and data science**, my goal is to equip students with the essential analytical tools of machine learning, econometrics, and data analytics to **think critically about business and socioeconomic real-world issues**. As an instructor, I let students use those analytical tools to deal with important **business strategies, social issues, and individual decision-making**. 
 
 
-Here is my [curriculum vitae `r fa("fas fa-file-pdf", fill = "red")`](chose_cv.pdf).
+Here is my [curriculum vitae](choe_cv.pdf) `r fa("fas fa-file-pdf", fill = "red")`.
 
 <div style="text-align: right"> Last updated: `r Sys.Date()` </div>
 :::
@@ -131,7 +131,7 @@ cv_entries %>%
 ```{r}
 cv_entries %>% 
   filter(type == 'wp') %>% 
-  mutate(what = str_c("<span class='cv-entry-title'>", what, "</span> ", additional_info)) %>% 
+  mutate(what = str_c("<span class='cv-entry-title'>", what, "&nbsp;</span><br> ", additional_info)) %>% 
   select(type, what) %>% 
   mutate(type = "") %>% 
   kbl(padding = 0, col.names = NULL, escape=FALSE) %>%
@@ -144,7 +144,7 @@ cv_entries %>%
 ```{r}
 cv_entries %>% 
   filter(type == 'wp-progress') %>% 
-  mutate(what = str_c("<span class='cv-entry-title'>", what, "</span> ", additional_info)) %>% 
+  mutate(what = str_c("<span class='cv-entry-title'>", what, "&nbsp;</span><br> ", additional_info)) %>% 
   select(type, what) %>% 
   mutate(type = "") %>% 
   kbl(padding = 0, col.names = NULL, escape=FALSE) %>%
@@ -188,8 +188,7 @@ cv_entries %>%
 ```{r}
 cv_entries %>% 
   filter(type == 'membership', is.na(exclude)) %>%
-  mutate(what = str_c("<span class='cv-entry-title'>", what, "</span><br>", 
-                      where)) %>% 
+  mutate(what = str_c("<span class='cv-entry-title'>", what, "</span>")) %>% 
   select(year, what) %>% 
   kbl(padding = 0, col.names = NULL, escape = FALSE) %>%
   kable_styling( bootstrap_options = c("hover"))  %>% 
@@ -264,16 +263,14 @@ cv_entries %>%
 ```{r}
 cv_entries %>% 
   filter(type == 'technical') %>% 
-  mutate(icon = case_when(
-    str_detect(what, "Computing") ~ "fa-laptop",
-    str_detect(what, "Language") ~ "fa-language"
-  )) %>% 
-  mutate(what = str_c("<i class='fa fa-lg ", icon, "'></i> &nbsp;<span class='cv-entry-title'>", what, "</span> ", additional_info)) %>% 
-  select(type, what) %>% 
-  mutate(type = "") %>% 
+  mutate(what = str_c("<span class='cv-entry-title'>", what, "&nbsp;</span> ")) %>% 
+  select(year, what, additional_info) %>% 
+  mutate(year = what) %>% select(-what) %>% 
   kbl(padding = 0, col.names = NULL, escape=FALSE) %>%
-  kable_styling( bootstrap_options = c("hover", "condensed")) 
+  kable_styling( bootstrap_options = c("hover", "condensed")) %>% 
+  column_spec(1, width = "15%")  
 ```
+
 
 <br>
 

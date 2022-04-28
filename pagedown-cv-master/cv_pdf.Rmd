@@ -1,0 +1,293 @@
+---
+output:
+  pagedown::html_paged:
+    css: ["css/one-column-paged-academic.css",  "https://use.fontawesome.com/releases/v5.7.2/css/all.css"]
+    number_sections: false
+links-to-footnotes: true
+knit: pagedown::chrome_print
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(knitr)
+library(lubridate)
+library(glue)
+library(kableExtra)
+
+######## CREATE HELPER FUNCTIONS
+# function which takes a name and replaces the first name with initial and dot
+replace_first_name_with_initial_and_dot <- function(author_name) {
+  str_replace(author_name, "(?<=\\S)\\S+", "\\.")
+}
+
+# function for doing this for an entry with a number of authors
+replace_first_names_in_list_with_initial_and_dot <- function(authors){
+  authors_split <- str_split(authors, ",") %>% 
+    map(str_trim)
+  
+  authors_split[[1]] %>% map_chr(replace_first_name_with_initial_and_dot) %>% 
+    paste0(collapse = ", ")
+}
+
+# function for adding leading zero's when there's more than 10 entries
+padding_function <- function(cv_entries_tibble, letter_to_pad){
+  if(nrow(cv_entries_tibble) > 9){
+    cv_entries_tibble %>% 
+      arrange(date) %>%
+  mutate(number = str_pad(row_number(), width = 2, side = "left", pad = "0"),
+         number = str_c(letter_to_pad, number)) %>%
+  arrange(desc(date))
+  } else {
+    cv_entries_tibble %>% 
+      arrange(date) %>%
+  mutate(number = str_pad(row_number(), width = 1, side = "left", pad = "0"),
+         number = str_c(letter_to_pad, number)) %>%
+  arrange(desc(date))
+  }
+}
+
+# function for making a year blank when it's the same as the one preceding it
+
+####### READ IN DATA
+#### publications #####
+publications <- read_csv("_content/publications.csv") %>% 
+  mutate(authors_full = map_chr(authors_full, replace_first_names_in_list_with_initial_and_dot)) %>% 
+  mutate(authors_full = str_replace(authors_full, "U\\. Lyngs", "*U\\. Lyngs*")) %>%    # make my name italic
+  mutate(year = year(date)) %>% 
+  mutate(venue_abbrev = if_else(!is.na(venue_abbrev), str_c(venue_abbrev, ": "), "")) # make the abbrevation an empty string if NA; add a colon and a space after if it if there is one
+
+
+#### all other entries #####
+cv_entries <- read_csv("../_content/cv_entries.csv") %>%
+  mutate(year_begin = year(date)) %>%
+  mutate(year_end = case_when(
+    date_end == "present" ~ date_end,
+    !is.na(date_end) ~ str_sub(date_end, 1, 4),
+    is.na(date_end) ~ date_end
+  )) %>%
+  mutate(year = ifelse((is.na(year_end) | year_begin == year_end),
+                      year_begin,
+                      str_c(year_begin, " --- ", year_end)))
+
+
+blank_year_when_repeated <- function(cv_entry_tibble){
+  cv_entry_tibble %>% 
+    mutate(row_number = row_number()) %>% 
+    mutate(year = as.character(year),
+           year = case_when(
+             row_number == 1 ~ year,
+             year == lag(year) ~ "",
+             year != lag(year) ~ year
+           )) %>% 
+    select(-row_number)
+}
+
+
+```
+
+
+```{css}
+:root{
+  --last-updated: " \00a0 \00a0 \00a0 \00a0 Last updated: April 2022";
+}
+```
+
+
+
+:::::: {.title-and-contact}
+
+::: {.title}
+<h1 class="title">Byeong-Hak Choe</h1>
+:::
+
+::: {.contact-info}
+bchoe@geneseo.edu  \
+https://bcecon.github.io
+:::
+
+::::::
+
+## Research summary
+:::::: {.research-interests}
+
+::: {.spacer}
+:::
+
+::: {.interests}
+I view myself as an **applied economist** with interest in the field of **environmental economics** and a particular focus on **climate change policy**. Methodologically, I make use of **econometric/machine learning methods and data science tools** to conduct empirical analysis. I also use computational methods to solve **integrated assessment models (IAM) of climate change** as well as theoretical economic models, such as **dynamic contracts**.
+
+:::
+::::::
+
+# Current Position
+```{r}
+cv_entries %>% 
+  filter(type == 'current_positions', is.na(exclude)) %>%
+  mutate(what = str_c("<span class='cv-entry-title'>", what, "</span><br>", 
+                      where)) %>% 
+  select(year, what) %>% 
+  kbl(padding = 0, col.names = NULL, escape = FALSE) %>%
+  column_spec(1, width = "15%")
+
+```
+
+
+# Education
+```{r}
+cv_entries %>% 
+  filter(type == 'education') %>% 
+  mutate(what = str_c( "<span class='cv-entry-title'>", 
+                              what, "</span>, ", where,
+                              "<br>", 
+                       ifelse(is.na(additional_info), "", additional_info) 
+                       , "<br>", 
+                       ifelse(is.na(additional_info2), "", additional_info2))) %>% 
+  select(year, what) %>% 
+  kbl(padding = 0, col.names = NULL, escape = FALSE) %>%
+  column_spec(1, width = "15%")
+
+```
+
+
+# Research
+## Working papers
+```{r}
+cv_entries %>% 
+  filter(type == 'wp') %>% 
+  mutate(what = str_c("<span class='cv-entry-title'>", what, "&nbsp;</span>")) %>% 
+  select(type, what) %>% 
+  mutate(type = "") %>% 
+  kbl(padding = 0, col.names = NULL, escape=FALSE)
+   
+```
+
+
+## Work in progress
+```{r}
+cv_entries %>% 
+  filter(type == 'wp-progress') %>% 
+  mutate(what = str_c("<span class='cv-entry-title'>", what, "&nbsp;</span>")) %>% 
+  select(type, what) %>% 
+  mutate(type = "") %>% 
+  kbl(padding = 0, col.names = NULL, escape=FALSE) 
+   
+```
+
+
+
+# Teaching
+```{r}
+cv_entries %>% 
+  filter(type == 'teaching') %>% 
+  mutate(what = ifelse(!is.na(additional_info), 
+    str_c("<span class='cv-entry-title'>", what, "</span><br class='work-break'>", where, "<br>", additional_info),
+    str_c("<span class='cv-entry-title'>", what, "</span><br class='work-break'>", where))) %>% 
+  select(year, what) %>% 
+  kbl(padding = 0, col.names = NULL, escape = FALSE) %>%
+  column_spec(1, width = "15%") 
+  
+```
+
+
+# Professional activities
+## Presentations
+```{r}
+cv_entries %>% 
+  filter(type == 'presentation') %>% 
+  mutate(what = str_c("<span class='cv-entry-title'>", what, "</span>, ", where)) %>% 
+  select(year_begin, what) %>% 
+  kbl(padding = 0, col.names = NULL, align = c("l", "l"), escape = FALSE) %>% column_spec(1, width = "15%")  
+```
+
+
+## Memberships
+```{r}
+cv_entries %>% 
+  filter(type == 'membership', is.na(exclude)) %>%
+  mutate(what = str_c("<span class='cv-entry-title'>", what, "</span>")) %>% 
+  select(year, what) %>% 
+  kbl(padding = 0, col.names = NULL, escape = FALSE) %>%
+  column_spec(1, width = "15%")
+
+```
+
+
+# Hornors & Awards
+```{r}
+cv_entries %>% 
+  filter(type == 'awards') %>%
+  filter(!(website == "n") | is.na(website)) %>% 
+  mutate(what = if_else(
+    !is.na(where),
+    str_c("<span class='cv-entry-title'>", what, "</span>, ", where),
+    str_c("<span class='cv-entry-title'>", what, "</span>"))
+  ) %>% 
+  blank_year_when_repeated() %>% 
+  select(year_begin, what) %>% 
+  kbl(padding = 0, col.names = NULL, align = c("l", "l"), escape = FALSE) %>% column_spec(1, width = "15%")
+```
+ 
+
+# Grants and funding
+```{r}
+cv_entries %>% 
+  filter(type == 'minor_grants' | type == 'major_grants',
+         is.na(exclude)) %>%
+  filter(!(website == "n") | is.na(website)) %>% 
+  mutate(what = if_else(
+    !is.na(additional_info),
+    str_c("<span class='cv-entry-title'>", what, "</span>, ", where, "<br>", additional_info),
+    str_c("<span class='cv-entry-title'>", what, "</span>, ", where))
+  ) %>% 
+  blank_year_when_repeated() %>% 
+  select(year, what) %>% 
+  kbl(padding = 0, col.names = NULL, align = c("l", "l"), escape = FALSE)  %>% column_spec(1, width = "15%")   
+```
+
+
+# Service
+```{r}
+cv_entries %>% 
+  filter(type == 'service') %>% 
+  mutate(where = ifelse(!is.na(url), str_c("[", where, "](", url, ")"), where)) %>% 
+  mutate(what = ifelse(!is.na(additional_info),
+                       str_c("<span class='cv-entry-title'>", what,
+                      "</span><br class='work-break'>", 
+                      where),
+                      str_c("<span class='cv-entry-title'>", what,
+                      "</span><br class='work-break'>", 
+                      where))) %>% 
+  arrange(desc(date_end), desc(date)) %>% 
+  select(year, what) %>% 
+  kbl(padding = 0, col.names = NULL, escape = FALSE) %>%
+  column_spec(1, width = "15%")  
+
+```
+
+
+# Miscelaneous
+```{r}
+cv_entries %>% 
+  filter(type == 'technical') %>% 
+  mutate(what = str_c("<span class='cv-entry-title'>", what, "&nbsp;</span> ")) %>% 
+  select(year, what, additional_info) %>% 
+  mutate(year = what) %>% select(-what) %>% 
+  kbl(padding = 0, col.names = NULL, escape=FALSE) %>%
+  column_spec(1, width = "15%")  
+```
+
+
+
+# Non-Academic Experience
+```{r}
+cv_entries %>% 
+  filter(type == 'non-academic', is.na(website)) %>% 
+  mutate(additional_info = replace_na(additional_info, "")) %>% 
+  mutate(what = str_c("<span class='cv-entry-title'>", what, "</span><br class='work-break'>", where, "<br>", additional_info)) %>% 
+  arrange(desc(date)) %>% 
+  select(year, what) %>% 
+  kbl(padding = 0, col.names = NULL, escape = FALSE) %>%
+  column_spec(1, width = "15%")
+```
+
