@@ -11,7 +11,6 @@ output:
     toc_depth: 2
     toc_float: true
     number_sections: true
-    theme: united
     highlight: espresso
 ---
 ```{r, include=FALSE}
@@ -121,25 +120,10 @@ climate_opinion <- read_csv(
 
 
 ```{r, echo = T, message = F, warning = F}
-
-climate_opinion <- climate_opinion %>% 
-  filter(GeoType == "County")
-class(climate_opinion$GEOID)
-
-climate_opinion <- climate_opinion %>% 
-  rename(id = GEOID) %>% 
-  select(GeoType, id, GeoName,
-         happening, human)
-
-climate_opinion_long <- climate_opinion %>% 
-  pivot_longer(cols = happening:human,
-               names_to = "belief",
-               values_to = "perc")
-
 library(socviz)
 county_map <- county_map
 county_map$id <- as.integer(county_map$id)
-county_full <- left_join(county_map, climate_opinion_long)
+county_full <- left_join(county_map, climate_opinion)
 
 
 na_map <- function(yr){
@@ -163,6 +147,8 @@ county_full$GeoName <-
          , to = "UTF-8"
          , sub = "" )
 
+library(ggiraph)
+library(ggthemes)
 p1 <- ggplot(data = filter(county_full, !is.na(belief),
                            belief == "human")) + 
   geom_polygon_interactive(mapping = aes(x = long, y = lat, 
