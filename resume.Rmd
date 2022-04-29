@@ -128,7 +128,7 @@ cv_entries %>%
 ```{r}
 cv_entries %>% 
   filter(type == 'wp') %>% 
-  mutate(what = str_c("<span class='cv-entry-title'>", what, "&nbsp;</span><br> ", additional_info)) %>% 
+  mutate(what = str_c("<span class='cv-entry-title'> <u>", what, "</u>&nbsp;</span><br> ", additional_info)) %>% 
   select(type, what) %>% 
   mutate(type = "") %>% 
   kbl(padding = 0, col.names = NULL, escape=FALSE) %>%
@@ -141,7 +141,7 @@ cv_entries %>%
 ```{r}
 cv_entries %>% 
   filter(type == 'wp-progress') %>% 
-  mutate(what = str_c("<span class='cv-entry-title'>", what, "&nbsp;</span><br> ", additional_info)) %>% 
+  mutate(what = str_c("<span class='cv-entry-title'> <u>", what, "</u>&nbsp;</span><br> ", additional_info)) %>% 
   select(type, what) %>% 
   mutate(type = "") %>% 
   kbl(padding = 0, col.names = NULL, escape=FALSE) %>%
