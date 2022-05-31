@@ -297,10 +297,13 @@ knitr::kable(round(elasticity,1), "simple")
 
 ```{r, echo = TRUE, eval = TRUE, fig.height = 4, fig.align='center'}
 by_brand <- group_by(oj, brand, feat)
-salestable <- summarize(by_brand, 
+salestable <- mutate(by_brand, 
                         sales_tot = 
                           sum(sales, na.rm = TRUE)
-                        )
+                        ) %>% 
+  select(sales_tot, brand, feat) %>% 
+  unique()
+
 salestable <- salestable %>% group_by(feat) %>% 
   mutate(sales_prop = sales_tot/sum(sales_tot))
 

@@ -209,16 +209,18 @@ Q4c. Describe the relationship between aged_65_older and monthly average of new 
 <br>
 
 ```{r, echo = T, message=F, warning=F}
-rm(country_info4c)
 country_info4c <- covid_country_info %>% 
   group_by(continent, country, year, month, 
            aged_65_older, median_age, gdp_per_capita) %>% 
   mutate( cases_new = total_cases - lag(total_cases),
           deaths_new = total_deaths - lag(total_deaths) ) %>% 
-  summarize( cases_mean = mean(cases_new, na.rm = TRUE),
+  mutate( cases_mean = mean(cases_new, na.rm = TRUE),
              deaths_mean = mean(deaths_new, na.rm = TRUE),
              cases_tot = sum(cases_new, na.rm = TRUE),
-             deaths_tot = sum(deaths_new, na.rm = TRUE))
+             deaths_tot = sum(deaths_new, na.rm = TRUE)) %>% 
+  select(continent, country, year, month, 
+           aged_65_older, median_age, gdp_per_capita,
+         cases_mean, deaths_mean, cases_tot, deaths_tot)
 
 
 ggplot(data = country_info4c,  
