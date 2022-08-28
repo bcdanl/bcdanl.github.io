@@ -1,0 +1,255 @@
+---
+title: "DANL 100 Lecture 1"
+subtitle: "DANL 100: Programming for Data Analytics"
+author: "Byeong-Hak Choe"
+institute: "SUNY Geneseo"
+date: "August 30, 2022"
+output:
+  xaringan::moon_reader:
+    css: 
+      - default
+      - css/nhsr.css
+      - css/nhsr-fonts.css
+    lib_dir: libs
+    seal: false
+    nature:
+      highlightStyle: googlecode
+      highlightLines: true
+      highlightLanguage: ["r"]
+      countIncrementalSlides: false
+      ratio: "16:9"
+    includes:
+      after_body: [css/insert-logo.html]
+---
+
+```{r setup, include = FALSE}
+library(knitr)
+library(tidyverse)
+library(NHSRtheme)
+# set default options
+opts_chunk$set(echo = FALSE,
+               fig.width = 7.252,
+               fig.height = 4,
+               comment = "#",
+               dpi = 300)
+
+knitr::knit_engines$set("markdown")
+
+xaringanExtra::use_tile_view()
+xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard()
+xaringanExtra::use_webcam()
+xaringanExtra::use_broadcast()
+xaringanExtra::use_share_again()
+xaringanExtra::style_share_again(
+  share_buttons = c("twitter", "linkedin", "pocket")
+)
+
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+
+# uncomment the following lines if you want to use the NHS-R theme colours by default
+# scale_fill_continuous <- partial(scale_fill_nhs, discrete = FALSE)
+# scale_fill_discrete <- partial(scale_fill_nhs, discrete = TRUE)
+# scale_colour_continuous <- partial(scale_colour_nhs, discrete = FALSE)
+# scale_colour_discrete <- partial(scale_colour_nhs, discrete = TRUE)
+```
+
+class: title-slide, left, bottom
+
+# `r rmarkdown::metadata$title`
+----
+## **`r rmarkdown::metadata$subtitle`**
+### `r rmarkdown::metadata$author`
+### `r rmarkdown::metadata$date`
+
+
+---
+class: inverse, center, middle
+
+# R Markdown Basics
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+---
+
+
+# Code chunks and inline R code
+
+- You should define the object for the number in the code chunck, so that you can use that number in the narratives of the project document.
+
+
+### <p style="color:#327ec6">R Markdown Code</p>
+
+```r
+library(tidyverse)
+oj <- read_csv('https://bcecon.github.io/dominick_oj.csv')
+nvars <- format(round(ncol(oj), 0), 
+                nsmall=0, 
+                big.mark=",") 
+nobs <- format(round(nrow(oj), 0), 
+                nsmall=0, 
+                big.mark=",") 
+```
+
+The number of variables is <code>&grave;r nvars&grave;</code>; the number of observations is <code>&grave;r nobs&grave;</code>.
+
+
+
+### <p style="color:#327ec6">Output</p>
+
+```{r, message=F}
+library(tidyverse)
+oj <- read_csv(
+  'https://bcdanl.github.io/data/dominick_oj.csv')
+nvars <- format(round(ncol(oj), 0), 
+                nsmall=0, big.mark=",") 
+nobs <- format(round(nrow(oj), 0), 
+               nsmall=0, big.mark=",") 
+```
+
+The number of variables is `r nvars`; the number of observations is `r nobs`.
+
+Roses are <span style="color: red;">red</span>, violets are <span style="color: blue;">blue</span>.
+
+---
+
+
+# Font color
+
+- The Markdown syntax has no built-in method for changing text colors. We can use HTML syntax to change the formatting of words:
+
+
+
+### <p style="color:#327ec6">R Markdown Code</p>
+
+```r
+Roses are <span style="color: red;">red</span>, violets are <span style="color: blue;">blue</span>.
+```
+
+### <p style="color:#327ec6">Output</p>
+
+Roses are <span style="color: red;">red</span>, violets are <span style="color: red;">blue</span>.
+
+---
+
+
+# Spacing
+
+- To add a space between paragraphs or lines, you can use `<br>`.
+
+
+.pull-left[
+### <p style="color:#327ec6">R Markdown Code</p>
+
+```r
+One
+<br>
+
+Two
+```
+]
+
+.pull-right[
+### <p style="color:#327ec6">Output</p>
+
+One
+<br>
+
+Two
+]
+
+
+---
+
+# YAML
+
+- Here is an example of the YAML metadata for an HTML document from R Markdown:
+
+.pull-left[
+### <p style="color:#327ec6">R Markdown YAML Example</p>
+
+```r
+title: "TITLE_OF_YOUR_PROJECT"
+subtitle: "SUBTITLE_OF_YOUR_PROJECT<br><br>" 
+author: 
+  - "AUTHOR_1"
+  - "AUTHOR_2"
+  - <br>
+date: "`r Sys.Date()`<br><br>"
+
+output: 
+  html_document:
+    df_print: paged
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    number_sections: true
+    theme: united
+    highlight: tango
+```
+]
+
+.pull-right[
+### <p style="color:#327ec6"> `theme` </p>
+- `theme` specifies the Bootstrap theme to use for the page (themes are drawn from the Bootswatch theme library). 
+  - Valid themes include `default`, `bootstrap`, `cerulean`, `cosmo`, `darkly`, `flatly`, `journal`, `lumen`, `paper`, `readable`, `sandstone`, `simplex`, `spacelab`, `united`, and `yeti.`
+
+  - Pass `null` for no theme (in this case you can use the `css` parameter to add your own styles).
+
+
+
+]
+
+
+---
+
+
+# YAML
+
+- Here is an example of the YAML metadata for an HTML document from R Markdown:
+
+.pull-left[
+### <p style="color:#327ec6">R Markdown YAML Example</p>
+
+```r
+title: "TITLE_OF_YOUR_PROJECT"
+subtitle: "SUBTITLE_OF_YOUR_PROJECT<br><br>" 
+author: 
+  - "AUTHOR_1"
+  - "AUTHOR_2"
+  - <br>
+date: "`r Sys.Date()`<br><br>"
+
+output: 
+  html_document:
+    df_print: paged
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    number_sections: true
+    theme: united
+    highlight: tango
+```
+]
+
+.pull-right[
+### <p style="color:#327ec6"> `highlight` </p>
+
+- `highlight` specifies the syntax highlighting style. 
+
+  - Supported styles include `default`, `tango`, `pygments`, `kate`, `monochrome`, `espresso`, `zenburn`, `haddock`, `breezedark`, and `textmate.` 
+  
+  - Pass `null` to prevent syntax highlighting.
+
+]
+
+
+
+---
+
+class: inverse, center, middle
+
+# Tables for Descriptive Statisics
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
