@@ -24,6 +24,7 @@ output:
 
 ```{r setup, include = FALSE}
 library(knitr)
+library(kableExtra)
 library(tidyverse)
 library(NHSRtheme)
 # set default options
@@ -70,17 +71,339 @@ class: title-slide, left, bottom
 ---
 class: inverse, center, middle
 
-# R Markdown Basics
+# Instructor
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
 ---
 
+# Instructor
+### <p style="color:#00449E"> Current Appointment & Education </p>
 
+- Name: Byeong-Hak Choe.
+- Lecturer in Data Analytics at School of Business at SUNY Geneseo.
+
+- Ph.D. in Economics from University of Wyoming.
+- M.S. in Economics from Arizona State University.
+- M.A. in Economics from SUNY Stony Brook.
+- B.A. in Economics & B.S. in Applied Mathematics from Hanyang University at Ansan, South Korea
+  - Minor in Business Administration.
+  - Concentration in Finance.
+---
+
+# Instructor
+### <p style="color:#00449E"> Data Science and Climate Change </p>
+
+- Choe, B.H., 2021. "Social Media Campaigns, Lobbying and Legislation: Evidence from #climatechange/#globalwarming and Energy Lobbies."
+
+- Question: To what extent do social media campaigns compete with fossil fuel lobbying on climate change legislation?
+
+- Data include:
+  - 5.0 million tweets with #climatechange/#globalwarming around the globe;
+  - 12.0 million retweets/likes to those tweets;
+  - 0.8 million Twitter users who wrote those tweets;
+  - 1.4 million Twitter users who retweeted or liked those tweets;
+  - 0.3 million US Twitter users with their location at a city level;
+  - Firm-level lobbying data (expenses, targeted bills, etc.). 
+
+
+---
+class: inverse, center, middle
+
+# Syllabus
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+---
+
+# Syllabus
+
+### <p style="color:#00449E">Email, Class & Office Hours Code</p>
+
+- Email: [bchoe@geneseo.edu](bchoe@geneseo.edu)
+
+- Class Homepage: 
+  - [https://canvas.geneseo.edu/courses/22959](https://canvas.geneseo.edu/courses/22959)
+  - [https://bcdanl.github.io](https://bcdanl.github.io)
+  
+- Office: South Hall 117B.
+- Office Hours: Tuesdays and Wednesdays 3:45 PM-5:45 PM.
+
+---
+
+# Syllabus
+
+### <p style="color:#00449E">Course Prerequisites</p>
+
+- Business \& Economics Statistics or Equivalent:
+  - Economics 205, Geography 278, Mathematics 242, Mathematics 262, Political Science 251, Psychology 250, or Sociology 211.
+  
+- Programming for Data Analytics:
+  - Data Analytics 100.
+
+---
+
+# Syllabus
+
+### <p style="color:#00449E">Required Textbook</p>
+
+- **Practical Data Science with R, 2nd Edition** by Nina Zumel & John Mount (henceforth, ZM)
+  
+- **R for Data Science** by Hadley Wickham & Garrett Grolemund (henceforth, r4s)
+  - A free online version of this book is available at [https://r4ds.had.co.nz/](https://r4ds.had.co.nz/).
+
+---
+
+# Syllabus
+
+### <p style="color:#00449E">Course Description</p>
+
+- The goal of this course is to help you unlock the potential of data analysis and improve the ability to transform data into a powerful tool in decision making. 
+
+- You will develop foundational data analytics skills to prepare for a career or future learning that involves more advanced topics in data analytics.
+
+- During the course, you will work hands-on with the R programming language and its associated data analysis libraries.
+
+---
+
+# Syllabus
+
+### <p style="color:#00449E">Course Requirements</p>
+
+- Laptop: You should bring your own laptop (**Mac** or **Windows**) to the classroom. 
+  - It is recommended to have 2+ core CPU, 4+ GB RAM, and 500+ GB disk storage in your laptop for this course.
+- Homework: There will be six homework assignments.
+- Exams: There will be midterm and final exams. 
+  - The final exam is comprehensive.
+
+---
+
+# Syllabus
+
+### <p style="color:#00449E">Course Contents</p>
+
+- There will be tentatively 28 class sessions:
+  - 27 lectures;
+  - 1 midterm exam.
+
+```{r, out.width='100%', fig.align='center'}
+text_tbl <- data.frame(
+  Lecture = c("1", "2", "3-4", "5-7", "8-9", "10-11"),
+  Contents = c("ZM Ch.1 The data science process",
+"ZM Ch.2 Starting with R and data",
+"r4s Ch.3 Data visualization",
+"r4s Ch.5 Data transformation",
+"r4s Ch.7 Exploratory data analysis",
+"ZM Ch.3 Exploring data"),
+  HW = c("",  "", "1", "2", "2", "2")
+  )
+
+
+kable(text_tbl, format = "html") %>%
+  kable_paper(full_width = T) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  kable_styling(html_font = 'sans-serif, helvetica, arial',
+                bootstrap_options = c("hover", "condensed") ) %>% 
+  pack_rows("Data Exploration", 3, 6)
+
+```
+
+---
+
+# Syllabus
+
+### <p style="color:#00449E">Course Contents</p>
+
+```{r, out.width='100%', fig.align='center'}
+text_tbl <- data.frame(
+  Lecture = c("12-14", "15-16", "17-18", "19", "20-27"),
+  Contents = c("WG  Ch.12 Tidy Data",
+"WG  Ch.13 Relational Data",
+"WG Ch.14-16. Strings, Factors, Dates and Time",
+"ZM Ch.6. Choosing and evaluating models",
+"ZM Ch.7.1 Linear regression and its applications"),
+  HW = c("3",  "4", "4", "5-6", "5-6")
+  )
+
+
+kbl(text_tbl) %>%
+  kable_paper(full_width = T) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  kable_styling(html_font = 'sans-serif, helvetica, arial', bootstrap_options = c("hover", "condensed")) %>% 
+  pack_rows("Data Wrangling", 1, 3) %>% 
+  pack_rows("Machine Learning Analysis", 4, 5) 
+
+```
+
+---
+
+
+# Syllabus
+
+### <p style="color:#00449E">Grading</p>
+
+- Homework assignments account for 33% of the total percentage grade.
+
+- Exams account for 67% of the total percentage grade.
+
+$$ 
+\begin{align}
+&(\text{Total Percentage Grade}) \notag\\
+=\; &0.33\times(\text{Total Homework Score}) \,+\, 0.67\times(\text{Total Exam Score}).\notag
+\end{align}
+$$
+
+---
+# Syllabus
+
+### <p style="color:#00449E">Grading</p>
+
+- The lowest homework score will be dropped when calculating the total homework score.
+
+- Each of the five homework accounts for 20% of the total homework score.
+
+---
+
+# Syllabus
+
+### <p style="color:#00449E">Grading</p>
+
+- The total exam score is the maximum between the following two average scores:
+  1. the simple average of two exam scores;
+  2. the weighted average of them with one-fourth weight on the midterm exam score and three-fourth weight on the final exam score.
+  
+$$
+\begin{align}
+&(\text{Total Exam Score}) \notag\\
+=\; &\max\,\left\{0.5\times(\text{Midterm Exam Score}) \,+\, 0.5\times(\text{Final Exam Score})\right.,\notag\\ 
+&\qquad\;\,\left.0.25\times(\text{Midterm Exam Score}) \,+\, 0.75\times(\text{Final Exam Score})\right\}.\notag
+\end{align}
+$$
+
+---
+
+# Syllabus
+
+### <p style="color:#00449E">Grading</p>
+
+- Letter grades will be determined by the total percentage grade:
+  
+$$
+\begin{align*}
+\! 100\; \geq\; A\;\;\, \geq \;93>\; A- \geq 90;\\
+90 >\; B+ \geq 87\; >\; B\;\;\, \geq \;83 >\; B- \geq 80;\\
+80 >\; C+ \geq 77\; >\; C\;\;\, \geq \;73 >\; C- \geq 70;\\
+70\; >\; D\;\;\, \geq\; 60 >\; E.\qquad\quad\;
+\end{align*}
+$$
+
+
+---
+
+# Syllabus
+
+### <p style="color:#00449E">Make-up exams</p>
+
+-  Make-up exams will not be given unless you have either a medically verified excuse or an absence excused by the University.
+
+- If you cannot take exams because of religious obligations, notify me by email at least two weeks in advance so that an alternative exam time may be set.
+
+- A missed exam without an excused absence earns a grade of zero.
+  
+
+---
+
+# Syllabus
+
+### <p style="color:#00449E">Academic Integrity and Plagiarism</p>
+
+-  All homework assignments and exams must be the original work by you. 
+
+- Examples of academic dishonesty include:
+  - *representing the work, thoughts, and ideas of another person as your own*
+  - *allowing others to represent your work, thoughts, or ideas as theirs*, and
+  - *being complicit in academic dishonesty by suspecting or knowing of it and not taking action*.
+
+
+- Geneseo’s Library offers frequent workshops to help you understand how to **paraphrase**, **quote**, and **cite** outside sources properly. 
+  - See [https://www.geneseo.edu/library/library-workshops](https://www.geneseo.edu/library/\\library-workshops).
+  
+
+---
+
+# Syllabus
+
+### <p style="color:#00449E">Accessibility</p>
+
+-  The Office of Accessibility will coordinate reasonable accommodations for persons with physical, emotional, or cognitive disabilities to ensure equal access to academic programs, activities, and services at Geneseo.
+
+- Please contact me and the Office of Accessibility Services for questions related to access and accommodations.
+  
+
+
+---
+
+# Syllabus
+
+### <p style="color:#00449E">Well-being</p>
+
+- You are strongly encouraged to communicate your needs to faculty and staff and seek support if you are experiencing unmanageable stress or are having difficulties with daily functioning.
+
+- Liz Felski, the School of Business Student Advocate ([felski@geneseo.edu](felski@geneseo.edu), South Hall 303), or the Dean of Students (585-245-5706) can assist and provide direction to appropriate campus resources.
+
+- For more information, see [https://www.geneseo.edu/dean_students](https://www.geneseo.edu/dean_students).
+  
+
+---
+# Syllabus
+
+### <p style="color:#00449E">Career Design</p>
+
+- To get information about career development, you can visit the Career Development Events Calendar ([https://www.geneseo.edu/career_development/events/calendar](https://www.geneseo.edu/career_development/events/calendar)).
+
+- You can stop by South 112 to get assistance in completing your Handshake Profile [https://app.joinhandshake.com/login](https://app.joinhandshake.com/login).
+  - Handshake is ranked #1 by students as the best place to find full-time jobs.
+  - 50% of the 2018-2020 graduates received a job or internship offer on Handshake.
+  - Handshake is trusted by all 500 of the Fortune 500.
+  
+
+
+---
+class: inverse, center, middle
+
+# Data Science Process
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+---
+# Data Science Process
+
+### <p style="color:#00449E">Data Science Process</p>
+
+- Data science is a cross-disciplinary practice that draws on methods from data cleaning, exploratory data analysis, and machine learning analysis.
+  
+- Data science focuses on implementing data-driven decisions and managing their consequences.
+
+
+
+---
+# Data Science Process
+
+### <p style="color:#00449E">Data science project roles and responsibilities</p>
+
+- **Project sponsor** represents the business interests; champions the project;
+- **Client** represents end users' interests;
+- **Data scientist** sets and executes analytic strategy; communicates with sponsor and client;
+- **Data architect** manages data and data storage and sometimes manages data collection;
+- **Operations** manage infrastructure and deploy final project results.  
+
+
+---
+# Data Science Process
+
+### <p style="color:#00449E">Stages of a data science project</p>
+
+![](/Users/byeong-hakchoe/Documents/website/bcdanl.github.io/lec_figs/fig1_1.png)
+
+---
 # Code chunks and inline R code
 
-- You should define the object for the number in the code chunck, so that you can use that number in the narratives of the project document.
-
-
-### <p style="color:#327ec6">R Markdown Code</p>
+### <p style="color:#00449E">R Markdown Code</p>
 
 ```r
 library(tidyverse)
@@ -97,12 +420,12 @@ The number of variables is <code>&grave;r nvars&grave;</code>; the number of obs
 
 
 
-### <p style="color:#327ec6">Output</p>
+### <p style="color:#00449E">Output</p>
 
 ```{r, message=F}
 library(tidyverse)
 oj <- read_csv(
-  'https://bcecon.github.io/dominick_oj.csv')
+  'https://bcdanl.github.io/data/dominick_oj.csv')
 nvars <- format(round(ncol(oj), 0), 
                 nsmall=0, big.mark=",") 
 nobs <- format(round(nrow(oj), 0), 
@@ -122,13 +445,13 @@ Roses are <span style="color: red;">red</span>, violets are <span style="color: 
 
 
 
-### <p style="color:#327ec6">R Markdown Code</p>
+### <p style="color:#00449E">R Markdown Code</p>
 
 ```r
 Roses are <span style="color: red;">red</span>, violets are <span style="color: blue;">blue</span>.
 ```
 
-### <p style="color:#327ec6">Output</p>
+### <p style="color:#00449E">Output</p>
 
 Roses are <span style="color: red;">red</span>, violets are <span style="color: red;">blue</span>.
 
@@ -141,7 +464,7 @@ Roses are <span style="color: red;">red</span>, violets are <span style="color: 
 
 
 .pull-left[
-### <p style="color:#327ec6">R Markdown Code</p>
+### <p style="color:#00449E">R Markdown Code</p>
 
 ```r
 One
@@ -152,7 +475,7 @@ Two
 ]
 
 .pull-right[
-### <p style="color:#327ec6">Output</p>
+### <p style="color:#00449E">Output</p>
 
 One
 <br>
@@ -168,7 +491,7 @@ Two
 - Here is an example of the YAML metadata for an HTML document from R Markdown:
 
 .pull-left[
-### <p style="color:#327ec6">R Markdown YAML Example</p>
+### <p style="color:#00449E">R Markdown YAML Example</p>
 
 ```r
 title: "TITLE_OF_YOUR_PROJECT"
@@ -192,7 +515,7 @@ output:
 ]
 
 .pull-right[
-### <p style="color:#327ec6"> `theme` </p>
+### <p style="color:#00449E"> `theme` </p>
 - `theme` specifies the Bootstrap theme to use for the page (themes are drawn from the Bootswatch theme library). 
   - Valid themes include `default`, `bootstrap`, `cerulean`, `cosmo`, `darkly`, `flatly`, `journal`, `lumen`, `paper`, `readable`, `sandstone`, `simplex`, `spacelab`, `united`, and `yeti.`
 
@@ -211,7 +534,7 @@ output:
 - Here is an example of the YAML metadata for an HTML document from R Markdown:
 
 .pull-left[
-### <p style="color:#327ec6">R Markdown YAML Example</p>
+### <p style="color:#00449E">R Markdown YAML Example</p>
 
 ```r
 title: "TITLE_OF_YOUR_PROJECT"
@@ -235,7 +558,7 @@ output:
 ]
 
 .pull-right[
-### <p style="color:#327ec6"> `highlight` </p>
+### <p style="color:#00449E"> `highlight` </p>
 
 - `highlight` specifies the syntax highlighting style. 
 
