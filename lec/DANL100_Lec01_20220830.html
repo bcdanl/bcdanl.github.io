@@ -27,6 +27,8 @@
     <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
     <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
     <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
   </head>
@@ -48,181 +50,615 @@ class: title-slide, left, bottom
 ---
 class: inverse, center, middle
 
-# R Markdown Basics
+# Instructor
 &lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
 ---
 
+# Instructor
+### &lt;p style="color:#00449E"&gt; Current Appointment &amp; Education &lt;/p&gt;
 
-# Code chunks and inline R code
+- Name: Byeong-Hak Choe.
+- Lecturer in Data Analytics at School of Business at SUNY Geneseo.
 
-- You should define the object for the number in the code chunck, so that you can use that number in the narratives of the project document.
-
-
-### &lt;p style="color:#327ec6"&gt;R Markdown Code&lt;/p&gt;
-
-```r
-library(tidyverse)
-oj &lt;- read_csv('https://bcecon.github.io/dominick_oj.csv')
-nvars &lt;- format(round(ncol(oj), 0), 
-                nsmall=0, 
-                big.mark=",") 
-nobs &lt;- format(round(nrow(oj), 0), 
-                nsmall=0, 
-                big.mark=",") 
-```
-
-The number of variables is &lt;code&gt;&amp;grave;r nvars&amp;grave;&lt;/code&gt;; the number of observations is &lt;code&gt;&amp;grave;r nobs&amp;grave;&lt;/code&gt;.
-
-
-
-### &lt;p style="color:#327ec6"&gt;Output&lt;/p&gt;
-
-
-
-The number of variables is 4; the number of observations is 28,947.
-
-Roses are &lt;span style="color: red;"&gt;red&lt;/span&gt;, violets are &lt;span style="color: blue;"&gt;blue&lt;/span&gt;.
-
+- Ph.D. in Economics from University of Wyoming.
+- M.S. in Economics from Arizona State University.
+- M.A. in Economics from SUNY Stony Brook.
+- B.A. in Economics &amp; B.S. in Applied Mathematics from Hanyang University at Ansan, South Korea
+  - Minor in Business Administration.
+  - Concentration in Finance.
 ---
 
+# Instructor
+### &lt;p style="color:#00449E"&gt; Data Science and Climate Change &lt;/p&gt;
 
-# Font color
+- Choe, B.H., 2021. "Social Media Campaigns, Lobbying and Legislation: Evidence from #climatechange/#globalwarming and Energy Lobbies."
 
-- The Markdown syntax has no built-in method for changing text colors. We can use HTML syntax to change the formatting of words:
+- Question: To what extent do social media campaigns compete with fossil fuel lobbying on climate change legislation?
 
-
-
-### &lt;p style="color:#327ec6"&gt;R Markdown Code&lt;/p&gt;
-
-```r
-Roses are &lt;span style="color: red;"&gt;red&lt;/span&gt;, violets are &lt;span style="color: blue;"&gt;blue&lt;/span&gt;.
-```
-
-### &lt;p style="color:#327ec6"&gt;Output&lt;/p&gt;
-
-Roses are &lt;span style="color: red;"&gt;red&lt;/span&gt;, violets are &lt;span style="color: red;"&gt;blue&lt;/span&gt;.
-
----
-
-
-# Spacing
-
-- To add a space between paragraphs or lines, you can use `&lt;br&gt;`.
-
-
-.pull-left[
-### &lt;p style="color:#327ec6"&gt;R Markdown Code&lt;/p&gt;
-
-```r
-One
-&lt;br&gt;
-
-Two
-```
-]
-
-.pull-right[
-### &lt;p style="color:#327ec6"&gt;Output&lt;/p&gt;
-
-One
-&lt;br&gt;
-
-Two
-]
+- Data include:
+  - 5.0 million tweets with #climatechange/#globalwarming around the globe;
+  - 12.0 million retweets/likes to those tweets;
+  - 0.8 million Twitter users who wrote those tweets;
+  - 1.4 million Twitter users who retweeted or liked those tweets;
+  - 0.3 million US Twitter users with their location at a city level;
+  - Firm-level lobbying data (expenses, targeted bills, etc.). 
 
 
 ---
-
-# YAML
-
-- Here is an example of the YAML metadata for an HTML document from R Markdown:
-
-.pull-left[
-### &lt;p style="color:#327ec6"&gt;R Markdown YAML Example&lt;/p&gt;
-
-```r
-title: "TITLE_OF_YOUR_PROJECT"
-subtitle: "SUBTITLE_OF_YOUR_PROJECT&lt;br&gt;&lt;br&gt;" 
-author: 
-  - "AUTHOR_1"
-  - "AUTHOR_2"
-  - &lt;br&gt;
-date: "2022-08-27&lt;br&gt;&lt;br&gt;"
-
-output: 
-  html_document:
-    df_print: paged
-    toc: true
-    toc_depth: 2
-    toc_float: true
-    number_sections: true
-    theme: united
-    highlight: tango
-```
-]
-
-.pull-right[
-### &lt;p style="color:#327ec6"&gt; `theme` &lt;/p&gt;
-- `theme` specifies the Bootstrap theme to use for the page (themes are drawn from the Bootswatch theme library). 
-  - Valid themes include `default`, `bootstrap`, `cerulean`, `cosmo`, `darkly`, `flatly`, `journal`, `lumen`, `paper`, `readable`, `sandstone`, `simplex`, `spacelab`, `united`, and `yeti.`
-
-  - Pass `null` for no theme (in this case you can use the `css` parameter to add your own styles).
-
-
-
-]
-
-
----
-
-
-# YAML
-
-- Here is an example of the YAML metadata for an HTML document from R Markdown:
-
-.pull-left[
-### &lt;p style="color:#327ec6"&gt;R Markdown YAML Example&lt;/p&gt;
-
-```r
-title: "TITLE_OF_YOUR_PROJECT"
-subtitle: "SUBTITLE_OF_YOUR_PROJECT&lt;br&gt;&lt;br&gt;" 
-author: 
-  - "AUTHOR_1"
-  - "AUTHOR_2"
-  - &lt;br&gt;
-date: "2022-08-27&lt;br&gt;&lt;br&gt;"
-
-output: 
-  html_document:
-    df_print: paged
-    toc: true
-    toc_depth: 2
-    toc_float: true
-    number_sections: true
-    theme: united
-    highlight: tango
-```
-]
-
-.pull-right[
-### &lt;p style="color:#327ec6"&gt; `highlight` &lt;/p&gt;
-
-- `highlight` specifies the syntax highlighting style. 
-
-  - Supported styles include `default`, `tango`, `pygments`, `kate`, `monochrome`, `espresso`, `zenburn`, `haddock`, `breezedark`, and `textmate.` 
-  
-  - Pass `null` to prevent syntax highlighting.
-
-]
-
-
-
----
-
 class: inverse, center, middle
 
-# Tables for Descriptive Statisics
+# Syllabus
 &lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+---
+
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Email, Class &amp; Office Hours Code&lt;/p&gt;
+
+- Email: [bchoe@geneseo.edu](bchoe@geneseo.edu)
+
+- Class Webpages: 
+  - [https://canvas.geneseo.edu/courses/27499](https://canvas.geneseo.edu/courses/27499)
+  - [https://bcdanl.github.io](https://bcdanl.github.io)
+
+- Classroom: Welles, Room 24.
+
+- Office: South Hall 117B.
+- Office Hours: Tuesdays and Wednesdays 3:45 PM-5:45 PM.
+
+---
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Required Textbook&lt;/p&gt;
+
+\item\textit{Python for Everybody} by Charles R. Severance (Henceforth, \texttt{py4e}).
+\item A free HTML version of this book is available at \href{https://books.trinket.io/pfe/01-intro.html}{https://books.trinket.io/pfe/01-intro.html}.
+\item A free PDF version of this book is available at \href{http://do1.dr-chuck.com/pythonlearn/EN\_us/pythonlearn.pdf}{http://do1.dr-chuck.com/pythonlearn/EN\_us/pythonlearn.pdf}.
+\item A free ePUB version of this book is available at \href{http://do1.dr-chuck.com/pythonlearn/EN\_us/pythonlearn.epub}{http://do1.dr-chuck.com/pythonlearn/EN\_us/pythonlearn.epub}.
+\item ISBN-13: 978-1530051120; ISBN-10: 1530051126
+
+\item\textit{Python for Data Analysis} by Wes McKinney (Henceforth, \texttt{mckinney}).
+\item A free HTML version of this book is available at \href{https://wesmckinney.com/book/}{https://wesmckinney.com/book/}.
+\item ISBN-13: 978-1098104030; ISBN-10: 109810403X
+
+\item\textit{R for Data Science} by Hadley Wickham \&amp; Garrett Grolemund (Henceforth, \texttt{r4s}).
+\item A free HTML version of this book is available at \href{https://r4ds.had.co.nz}{https://r4ds.had.co.nz}.
+\item ISBN-13: 978-1491910399; ISBN-10: 1491910399
+
+\item \textit{Strategic Analytics: The Insights You Need from Harvard Business Review} by Harvard Business Review, Eric Siegel,  Edward L. Glaeser,  Cassie Kozyrkov, and Thomas H. Davenport (Henceforth, \textbf{HBR}).
+\item An eTextbook is available at \href{https://www.amazon.com/Strategic-Analytics-Insights-Harvard-Business-ebook/dp/B07VB56L6J/ref=tmm\_kin\_swatch\_0?\_encoding=UTF8\&amp;qid=\&amp;sr=}{https://www.amazon.com/Strategic-Analytics-Insights-Harvard-Business-ebook/dp/B07VB56L6J/ref=tmm\_kin\_swatch\_0?\_encoding=UTF8\&amp;qid=\&amp;sr=}.
+\item ISBN-13: 978-1633698987; ISBN-10: 163369898X
+
+---
+
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Course Description&lt;/p&gt;
+
+- This course introduces the essential general programming concepts and techniques to a data analytics audience without prior programming experience.
+
+- Topics covered include 
+  1. introduction to Data Analytics thinking, 
+  2. data types such as numbers, characters, and Boolean (or logical values), 
+  3. control and programming structures such as loops, conditionals (e.g., if-else), and functions. 
+
+
+- During the course, you will work hands-on with the Python and R programming languages and its associated data analysis libraries such as `pandas` and `tidyverse`.
+
+---
+
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Course Requirements&lt;/p&gt;
+
+- Laptop: You should bring your own laptop (**Mac** or **Windows**) to the classroom. 
+  - It is recommended to have 2+ core CPU, 4+ GB RAM, and 500+ GB disk storage in your laptop for this course.
+- Homework: There will be six homework assignments.
+- Exams: There will be midterm and final exams. 
+  - The final exam is comprehensive.
+
+---
+
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Course Contents&lt;/p&gt;
+
+- There will be tentatively 28 class sessions:
+  - 27 lectures;
+  - 1 midterm exam.
+
+&lt;table class=" lightable-paper table table-hover table-condensed" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto; font-family: sans-serif, helvetica, arial; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Lecture &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Contents &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; HW &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; ZM Ch.1 The data science process &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; ZM Ch.2 Starting with R and data &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr grouplength="4"&gt;&lt;td colspan="3" style="border-bottom: 1px solid #00000020;"&gt;&lt;strong&gt;Data Exploration&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;padding-left: 2em;" indentlevel="1"&gt; 3-4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; r4s Ch.3 Data visualization &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;padding-left: 2em;" indentlevel="1"&gt; 5-7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; r4s Ch.5 Data transformation &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;padding-left: 2em;" indentlevel="1"&gt; 8-9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; r4s Ch.7 Exploratory data analysis &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;padding-left: 2em;" indentlevel="1"&gt; 10-11 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; ZM Ch.3 Exploring data &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Course Contents&lt;/p&gt;
+
+&lt;table class=" lightable-paper table table-hover table-condensed" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto; font-family: sans-serif, helvetica, arial; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Lecture &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Contents &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; HW &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr grouplength="3"&gt;&lt;td colspan="3" style="border-bottom: 1px solid #00000020;"&gt;&lt;strong&gt;Data Wrangling&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;padding-left: 2em;" indentlevel="1"&gt; 12-14 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; WG  Ch.12 Tidy Data &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;padding-left: 2em;" indentlevel="1"&gt; 15-16 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; WG  Ch.13 Relational Data &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;padding-left: 2em;" indentlevel="1"&gt; 17-18 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; WG Ch.14-16. Strings, Factors, Dates and Time &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr grouplength="2"&gt;&lt;td colspan="3" style="border-bottom: 1px solid #00000020;"&gt;&lt;strong&gt;Machine Learning Analysis&lt;/strong&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;padding-left: 2em;" indentlevel="1"&gt; 19 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; ZM Ch.6. Choosing and evaluating models &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5-6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;padding-left: 2em;" indentlevel="1"&gt; 20-27 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; ZM Ch.7.1 Linear regression and its applications &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5-6 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+
+
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Grading&lt;/p&gt;
+
+- Homework assignments account for 33% of the total percentage grade.
+
+- Exams account for 67% of the total percentage grade.
+
+$$ 
+`\begin{align}
+&amp;(\text{Total Percentage Grade}) \notag\\
+=\; &amp;0.33\times(\text{Total Homework Score}) \,+\, 0.67\times(\text{Total Exam Score}).\notag
+\end{align}`
+$$
+
+---
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Grading&lt;/p&gt;
+
+- The lowest homework score will be dropped when calculating the total homework score.
+
+- Each of the five homework accounts for 20% of the total homework score.
+
+---
+
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Grading&lt;/p&gt;
+
+- The total exam score is the maximum between the following two average scores:
+  1. the simple average of two exam scores;
+  2. the weighted average of them with one-fourth weight on the midterm exam score and three-fourth weight on the final exam score.
+  
+$$
+`\begin{align}
+&amp;(\text{Total Exam Score}) \notag\\
+=\; &amp;\max\,\left\{0.5\times(\text{Midterm Exam Score}) \,+\, 0.5\times(\text{Final Exam Score})\right.,\notag\\ 
+&amp;\qquad\;\,\left.0.25\times(\text{Midterm Exam Score}) \,+\, 0.75\times(\text{Final Exam Score})\right\}.\notag
+\end{align}`
+$$
+
+---
+
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Grading&lt;/p&gt;
+
+- Letter grades will be determined by the total percentage grade:
+  
+$$
+`\begin{align*}
+\! 100\; \geq\; A\;\;\, \geq \;93&gt;\; A- \geq 90;\\
+90 &gt;\; B+ \geq 87\; &gt;\; B\;\;\, \geq \;83 &gt;\; B- \geq 80;\\
+80 &gt;\; C+ \geq 77\; &gt;\; C\;\;\, \geq \;73 &gt;\; C- \geq 70;\\
+70\; &gt;\; D\;\;\, \geq\; 60 &gt;\; E.\qquad\quad\;
+\end{align*}`
+$$
+
+
+---
+
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Make-up exams&lt;/p&gt;
+
+-  Make-up exams will not be given unless you have either a medically verified excuse or an absence excused by the University.
+
+- If you cannot take exams because of religious obligations, notify me by email at least two weeks in advance so that an alternative exam time may be set.
+
+- A missed exam without an excused absence earns a grade of zero.
+  
+
+---
+
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Academic Integrity and Plagiarism&lt;/p&gt;
+
+-  All homework assignments and exams must be the original work by you. 
+
+- Examples of academic dishonesty include:
+  - *representing the work, thoughts, and ideas of another person as your own*
+  - *allowing others to represent your work, thoughts, or ideas as theirs*, and
+  - *being complicit in academic dishonesty by suspecting or knowing of it and not taking action*.
+
+
+- Geneseo’s Library offers frequent workshops to help you understand how to **paraphrase**, **quote**, and **cite** outside sources properly. 
+  - See [https://www.geneseo.edu/library/library-workshops](https://www.geneseo.edu/library/\\library-workshops).
+  
+
+---
+
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Accessibility&lt;/p&gt;
+
+-  The Office of Accessibility will coordinate reasonable accommodations for persons with physical, emotional, or cognitive disabilities to ensure equal access to academic programs, activities, and services at Geneseo.
+
+- Please contact me and the Office of Accessibility Services for questions related to access and accommodations.
+  
+
+
+---
+
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Well-being&lt;/p&gt;
+
+- You are strongly encouraged to communicate your needs to faculty and staff and seek support if you are experiencing unmanageable stress or are having difficulties with daily functioning.
+
+- Liz Felski, the School of Business Student Advocate ([felski@geneseo.edu](felski@geneseo.edu), South Hall 303), or the Dean of Students (585-245-5706) can assist and provide direction to appropriate campus resources.
+
+- For more information, see [https://www.geneseo.edu/dean_students](https://www.geneseo.edu/dean_students).
+  
+
+---
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Career Design&lt;/p&gt;
+
+- To get information about career development, you can visit the Career Development Events Calendar ([https://www.geneseo.edu/career_development/events/calendar](https://www.geneseo.edu/career_development/events/calendar)).
+
+- You can stop by South 112 to get assistance in completing your Handshake Profile [https://app.joinhandshake.com/login](https://app.joinhandshake.com/login).
+  - Handshake is ranked #1 by students as the best place to find full-time jobs.
+  - 50% of the 2018-2020 graduates received a job or internship offer on Handshake.
+  - Handshake is trusted by all 500 of the Fortune 500.
+  
+
+
+---
+class: inverse, center, middle
+
+# Data Science Process
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+# Data Science Process
+
+### &lt;p style="color:#00449E"&gt;Data Science Process&lt;/p&gt;
+
+- Data science is a cross-disciplinary practice that draws on methods from data cleaning, exploratory data analysis, and machine learning analysis.
+  
+- Data science focuses on implementing data-driven decisions and managing their consequences.
+
+
+
+---
+# Data Science Process
+
+### &lt;p style="color:#00449E"&gt;Data science project roles and responsibilities&lt;/p&gt;
+
+- **Project sponsor** represents the business interests; champions the project;
+- **Client** represents end users' interests;
+- **Data scientist** sets and executes analytic strategy; communicates with sponsor and client;
+- **Data architect** manages data and data storage and sometimes manages data collection;
+- **Operations** manage infrastructure and deploy final project results.  
+
+
+---
+# Data Science Process
+
+### &lt;p style="color:#00449E"&gt;Stages of a data science project&lt;/p&gt;
+
+&lt;img src="../lec_figs/fig1_1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+# Data Science Process
+
+### &lt;p style="color:#00449E"&gt;Motivational example of data science project&lt;/p&gt;
+
+- Suppose you're interested in how much social media campaigns are effective on climate change legislation.
+
+- The fossil fuel industry may feel that it's losing too much money because of regulations related to climate change and wants to reduce its losses via lobbying. 
+
+- To what extent do social media campaigns competite against fossil fuel lobbying on climate change legislation?
+
+
+
+---
+class: inverse, center, middle
+
+# Social Media Campaigns, Lobbying and Legislation: Evidence from #climatechange/#globalwarming and Energy Lobbies
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+# Social Media
+
+### &lt;p style="color:#00449E"&gt;The Rise of Social Media&lt;/p&gt;
+
+&lt;img src="../lec_figs/n_social_media_users.png" width="66%" style="display: block; margin: auto;" /&gt;
+
+---
+# Social Media
+
+### &lt;p style="color:#00449E"&gt;Climate Change Campaigns in Social Media&lt;/p&gt;
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../lec_figs/ts_n_tweets.png" alt="Trend in the number of tweets with #climatechange/#globalwarming and retweets/likes to those tweets" width="66%" /&gt;
+&lt;p class="caption"&gt;Trend in the number of tweets with #climatechange/#globalwarming and retweets/likes to those tweets&lt;/p&gt;
+&lt;/div&gt;
+
+---
+# Social Media
+
+### &lt;p style="color:#00449E"&gt;Climate Change Campaigns in Social Media&lt;/p&gt;
+
+- Climate change campaigns in social media are most likely to be driven by a small group of active campaigners.
+
+
+- During the years 2012-2017,
+  - 753,853 users wrote 5.0 million tweets with #climatechange/#globalwarming.
+  - 26,000 users, approximately 3% of those 753,853 users,  wrote more than 3.0 million tweets, 60% of those 5.0 million tweets.
+  - 1,403,639 users retweeted/liked to those tweets 12.1 million times in total.
+  
+---
+# Social Media
+
+### &lt;p style="color:#00449E"&gt;Climate Change Campaigns in Social Media&lt;/p&gt;
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../lec_figs/n_tweets_pop_2012.png" alt="Per-capita number of tweets, retweets and likes with #climatechange/#globalwarming (2012 and 2013)" width="50%" /&gt;&lt;img src="../lec_figs/n_tweets_pop_2013.png" alt="Per-capita number of tweets, retweets and likes with #climatechange/#globalwarming (2012 and 2013)" width="50%" /&gt;
+&lt;p class="caption"&gt;Per-capita number of tweets, retweets and likes with #climatechange/#globalwarming (2012 and 2013)&lt;/p&gt;
+&lt;/div&gt;
+
+  
+---
+# Social Media
+
+### &lt;p style="color:#00449E"&gt;Climate Change Campaigns in Social Media&lt;/p&gt;
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../lec_figs/n_tweets_pop_2014.png" alt="Per-capita number of tweets, retweets and likes with #climatechange/#globalwarming (2014 and 2015)" width="50%" /&gt;&lt;img src="../lec_figs/n_tweets_pop_2015.png" alt="Per-capita number of tweets, retweets and likes with #climatechange/#globalwarming (2014 and 2015)" width="50%" /&gt;
+&lt;p class="caption"&gt;Per-capita number of tweets, retweets and likes with #climatechange/#globalwarming (2014 and 2015)&lt;/p&gt;
+&lt;/div&gt;
+
+  
+---
+# Social Media
+
+### &lt;p style="color:#00449E"&gt;Climate Change Campaigns in Social Media&lt;/p&gt;
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../lec_figs/n_tweets_pop_2016.png" alt="Per-capita number of tweets, retweets and likes with #climatechange/#globalwarming (2016 and 2017)" width="50%" /&gt;&lt;img src="../lec_figs/n_tweets_pop_2017.png" alt="Per-capita number of tweets, retweets and likes with #climatechange/#globalwarming (2016 and 2017)" width="50%" /&gt;
+&lt;p class="caption"&gt;Per-capita number of tweets, retweets and likes with #climatechange/#globalwarming (2016 and 2017)&lt;/p&gt;
+&lt;/div&gt;
+
+  
+  
+---
+# Social Media
+
+### &lt;p style="color:#00449E"&gt;Narratives in Social Media Campaigns&lt;/p&gt;
+
+- *Topic modeling* method clusters a group of words that best characterize a document.
+
+- The idea behind the topic modeling is that documents are a mixture of latent topics, in which a topic is characterized by a probability distribution over words.
+
+
+---
+# Social Media
+
+### &lt;p style="color:#00449E"&gt;Narratives in Social Media Campaigns&lt;/p&gt;
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../lec_figs/topic_word_cloud_2016_1_20210727.png" alt="Topics 1, 2, &amp;amp; 3 from 2016 US tweets with #climatechange/#globalwarming" width="33%" /&gt;&lt;img src="../lec_figs/topic_word_cloud_2016_2_20210727.png" alt="Topics 1, 2, &amp;amp; 3 from 2016 US tweets with #climatechange/#globalwarming" width="33%" /&gt;&lt;img src="../lec_figs/topic_word_cloud_2016_3_20210727.png" alt="Topics 1, 2, &amp;amp; 3 from 2016 US tweets with #climatechange/#globalwarming" width="33%" /&gt;
+&lt;p class="caption"&gt;Topics 1, 2, &amp; 3 from 2016 US tweets with #climatechange/#globalwarming&lt;/p&gt;
+&lt;/div&gt;
+
+---
+# Social Media
+
+### &lt;p style="color:#00449E"&gt;Narratives in Social Media Campaigns&lt;/p&gt;
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../lec_figs/topic_word_cloud_2016_4_20210727.png" alt="Topics 4, 5, &amp;amp; 6 from 2016 US tweets with #climatechange/#globalwarming" width="33%" /&gt;&lt;img src="../lec_figs/topic_word_cloud_2016_5_20210727.png" alt="Topics 4, 5, &amp;amp; 6 from 2016 US tweets with #climatechange/#globalwarming" width="33%" /&gt;&lt;img src="../lec_figs/topic_word_cloud_2016_6_20210727.png" alt="Topics 4, 5, &amp;amp; 6 from 2016 US tweets with #climatechange/#globalwarming" width="33%" /&gt;
+&lt;p class="caption"&gt;Topics 4, 5, &amp; 6 from 2016 US tweets with #climatechange/#globalwarming&lt;/p&gt;
+&lt;/div&gt;
+
+  
+  
+---
+# Social Media
+
+### &lt;p style="color:#00449E"&gt;Narratives in Social Media Campaigns&lt;/p&gt;
+
+- Social media campaigns have increasingly become more politically influential. 
+  - My text analysis indicates that at least 20% of US tweets with #climatechange/#globalwarming during 2012-2017 contain some political words. 
+
+- The two most frequently appeared words from the US tweets with #climatechange/#globalwarming during 2012-2017 are:
+  - **UniteBlue**: an organization or slogan for the wide range of the left activists.
+  - **Tcot**: an acronym for ``Top Conservative on Twitter.''
+
+  
+---
+# Social Media
+
+### &lt;p style="color:#00449E"&gt;Sentiment in Social Media Campaigns&lt;/p&gt;
+
+- Sentiment in social media campaigns may play an important role in forming public opinion.
+
+- Some research finds that ...
+  - Sentiment of tweets can contribute to the vote outcome.
+  - Information with negative sentiment is transmitted faster than one with positive sentiment.
+  
+  
+  
+  
+---
+# Social Media
+
+### &lt;p style="color:#00449E"&gt;Sentiment in Social Media Campaigns, Neutral&lt;/p&gt;
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../lec_figs/word_cloud_USneutral_all.png" alt="Word clouds from US tweets with #climatechange/#globalwarming, Neutral" width="50%" /&gt;
+&lt;p class="caption"&gt;Word clouds from US tweets with #climatechange/#globalwarming, Neutral&lt;/p&gt;
+&lt;/div&gt;
+
+  
+  
+---
+# Social Media
+
+### &lt;p style="color:#00449E"&gt;Sentiment in Social Media Campaigns, Negative&lt;/p&gt;
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../lec_figs/word_cloud_USwn_all.png" alt="Word clouds from US tweets with #climatechange/#globalwarming, Weakly and Strongly Negative" width="50%" /&gt;&lt;img src="../lec_figs/word_cloud_USsn_all.png" alt="Word clouds from US tweets with #climatechange/#globalwarming, Weakly and Strongly Negative" width="50%" /&gt;
+&lt;p class="caption"&gt;Word clouds from US tweets with #climatechange/#globalwarming, Weakly and Strongly Negative&lt;/p&gt;
+&lt;/div&gt;
+
+---
+# Social Media
+
+### &lt;p style="color:#00449E"&gt;Sentiment in Social Media Campaigns, Positive&lt;/p&gt;
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../lec_figs/word_cloud_USwp_all.png" alt="Word clouds from US tweets with #climatechange/#globalwarming, Weakly and Strongly Positive" width="50%" /&gt;&lt;img src="../lec_figs/word_cloud_USsp_all.png" alt="Word clouds from US tweets with #climatechange/#globalwarming, Weakly and Strongly Positive" width="50%" /&gt;
+&lt;p class="caption"&gt;Word clouds from US tweets with #climatechange/#globalwarming, Weakly and Strongly Positive&lt;/p&gt;
+&lt;/div&gt;
+
+  
+---
+# Climate-unfriendly Bills
+
+### &lt;p style="color:#00449E"&gt;Climate-unfriendly legislation&lt;/p&gt;
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../lec_figs/bills_113.png" alt="Bills that include sections, which are unfavorable to the action on climate change, 113th US Congress (2013-2014)" width="61%" /&gt;
+&lt;p class="caption"&gt;Bills that include sections, which are unfavorable to the action on climate change, 113th US Congress (2013-2014)&lt;/p&gt;
+&lt;/div&gt;
+
+- H.R.4923-113th **prohibits** funds made available by this Act from being used to design, implement, administer or carry out several programs, reports, and technical updates related to **global climate change** and the **social cost of carbon**.
+  
+---
+# Climate-unfriendly Bills
+
+### &lt;p style="color:#00449E"&gt;Climate-unfriendly legislation&lt;/p&gt;
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../lec_figs/bills_114.png" alt="Bills that include sections, which are unfavorable to the action on climate change, 114th US Congress (2015-2016)" width="67%" /&gt;
+&lt;p class="caption"&gt;Bills that include sections, which are unfavorable to the action on climate change, 114th US Congress (2015-2016)&lt;/p&gt;
+&lt;/div&gt;
+
+- H.R.2822-114th **prohibits** funds from being used to incorporate the **social cost of carbon** into any rule-making or guidance document until a new Interagency Working Group makes specified revisions to the estimates.  
+
+---
+# Climate-unfriendly Bills
+
+### &lt;p style="color:#00449E"&gt;Climate-unfriendly legislation&lt;/p&gt;
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../lec_figs/bills_115_1.png" alt="Bills that include sections, which are unfavorable to the action on climate change, 115th US Congress (2017-2018)" width="67%" /&gt;
+&lt;p class="caption"&gt;Bills that include sections, which are unfavorable to the action on climate change, 115th US Congress (2017-2018)&lt;/p&gt;
+&lt;/div&gt;
+
+- H.CON.RES.119-115th expresses the sense of Congress that a **carbon tax** would be detrimental to American families and businesses and is not in the best interest of the United States.
+  
+---
+# Climate-unfriendly Bills
+
+### &lt;p style="color:#00449E"&gt;Climate-unfriendly legislation&lt;/p&gt;
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../lec_figs/bills_115_2.png" alt="Bills that include sections, which are unfavorable to the action on climate change, 115th US Congress (2017-2018)" width="67%" /&gt;
+&lt;p class="caption"&gt;Bills that include sections, which are unfavorable to the action on climate change, 115th US Congress (2017-2018)&lt;/p&gt;
+&lt;/div&gt;
+
+
+---
+# Social Media Campaigns vs. Lobbying on Legislation
+
+### &lt;p style="color:#00449E"&gt;Why Does It Matter?&lt;/p&gt;
+
+- I provide empirical evidence on ...
+  - competition between NGO activism and industry lobbying for political influences.
+  - the effects of social media campaigns on legislation.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

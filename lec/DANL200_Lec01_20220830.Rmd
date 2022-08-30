@@ -119,7 +119,7 @@ class: inverse, center, middle
 - Email: [bchoe@geneseo.edu](bchoe@geneseo.edu)
 
 - Class Homepage: 
-  - [https://canvas.geneseo.edu/courses/22959](https://canvas.geneseo.edu/courses/22959)
+  - [https://canvas.geneseo.edu/](https://canvas.geneseo.edu/)
   - [https://bcdanl.github.io](https://bcdanl.github.io)
   
 - Office: South Hall 117B.
@@ -398,181 +398,259 @@ class: inverse, center, middle
 
 ### <p style="color:#00449E">Stages of a data science project</p>
 
-![](/Users/byeong-hakchoe/Documents/website/bcdanl.github.io/lec_figs/fig1_1.png)
+```{r, echo=FALSE, out.width = '50%', fig.align='center'}
+knitr::include_graphics("../lec_figs/fig1_1.png")
+```
 
 ---
-# Code chunks and inline R code
+# Data Science Process
 
-### <p style="color:#00449E">R Markdown Code</p>
+### <p style="color:#00449E">Motivational example of data science project</p>
 
-```r
-library(tidyverse)
-oj <- read_csv('https://bcecon.github.io/dominick_oj.csv')
-nvars <- format(round(ncol(oj), 0), 
-                nsmall=0, 
-                big.mark=",") 
-nobs <- format(round(nrow(oj), 0), 
-                nsmall=0, 
-                big.mark=",") 
-```
+- Suppose you're interested in how much social media campaigns are effective on climate change legislation.
 
-The number of variables is <code>&grave;r nvars&grave;</code>; the number of observations is <code>&grave;r nobs&grave;</code>.
+- The fossil fuel industry may feel that it's losing too much money because of regulations related to climate change and wants to reduce its losses via lobbying. 
 
-
-
-### <p style="color:#00449E">Output</p>
-
-```{r, message=F}
-library(tidyverse)
-oj <- read_csv(
-  'https://bcdanl.github.io/data/dominick_oj.csv')
-nvars <- format(round(ncol(oj), 0), 
-                nsmall=0, big.mark=",") 
-nobs <- format(round(nrow(oj), 0), 
-               nsmall=0, big.mark=",") 
-```
-
-The number of variables is `r nvars`; the number of observations is `r nobs`.
-
-Roses are <span style="color: red;">red</span>, violets are <span style="color: blue;">blue</span>.
-
----
-
-
-# Font color
-
-- The Markdown syntax has no built-in method for changing text colors. We can use HTML syntax to change the formatting of words:
-
-
-
-### <p style="color:#00449E">R Markdown Code</p>
-
-```r
-Roses are <span style="color: red;">red</span>, violets are <span style="color: blue;">blue</span>.
-```
-
-### <p style="color:#00449E">Output</p>
-
-Roses are <span style="color: red;">red</span>, violets are <span style="color: red;">blue</span>.
-
----
-
-
-# Spacing
-
-- To add a space between paragraphs or lines, you can use `<br>`.
-
-
-.pull-left[
-### <p style="color:#00449E">R Markdown Code</p>
-
-```r
-One
-<br>
-
-Two
-```
-]
-
-.pull-right[
-### <p style="color:#00449E">Output</p>
-
-One
-<br>
-
-Two
-]
-
-
----
-
-# YAML
-
-- Here is an example of the YAML metadata for an HTML document from R Markdown:
-
-.pull-left[
-### <p style="color:#00449E">R Markdown YAML Example</p>
-
-```r
-title: "TITLE_OF_YOUR_PROJECT"
-subtitle: "SUBTITLE_OF_YOUR_PROJECT<br><br>" 
-author: 
-  - "AUTHOR_1"
-  - "AUTHOR_2"
-  - <br>
-date: "`r Sys.Date()`<br><br>"
-
-output: 
-  html_document:
-    df_print: paged
-    toc: true
-    toc_depth: 2
-    toc_float: true
-    number_sections: true
-    theme: united
-    highlight: tango
-```
-]
-
-.pull-right[
-### <p style="color:#00449E"> `theme` </p>
-- `theme` specifies the Bootstrap theme to use for the page (themes are drawn from the Bootswatch theme library). 
-  - Valid themes include `default`, `bootstrap`, `cerulean`, `cosmo`, `darkly`, `flatly`, `journal`, `lumen`, `paper`, `readable`, `sandstone`, `simplex`, `spacelab`, `united`, and `yeti.`
-
-  - Pass `null` for no theme (in this case you can use the `css` parameter to add your own styles).
-
-
-
-]
-
-
----
-
-
-# YAML
-
-- Here is an example of the YAML metadata for an HTML document from R Markdown:
-
-.pull-left[
-### <p style="color:#00449E">R Markdown YAML Example</p>
-
-```r
-title: "TITLE_OF_YOUR_PROJECT"
-subtitle: "SUBTITLE_OF_YOUR_PROJECT<br><br>" 
-author: 
-  - "AUTHOR_1"
-  - "AUTHOR_2"
-  - <br>
-date: "`r Sys.Date()`<br><br>"
-
-output: 
-  html_document:
-    df_print: paged
-    toc: true
-    toc_depth: 2
-    toc_float: true
-    number_sections: true
-    theme: united
-    highlight: tango
-```
-]
-
-.pull-right[
-### <p style="color:#00449E"> `highlight` </p>
-
-- `highlight` specifies the syntax highlighting style. 
-
-  - Supported styles include `default`, `tango`, `pygments`, `kate`, `monochrome`, `espresso`, `zenburn`, `haddock`, `breezedark`, and `textmate.` 
-  
-  - Pass `null` to prevent syntax highlighting.
-
-]
+- To what extent do social media campaigns competite against fossil fuel lobbying on climate change legislation?
 
 
 
 ---
-
 class: inverse, center, middle
 
-# Tables for Descriptive Statisics
+# Social Media Campaigns, Lobbying and Legislation: Evidence from #climatechange/#globalwarming and Energy Lobbies
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+---
+# Social Media
+
+### <p style="color:#00449E">The Rise of Social Media</p>
+
+```{r, echo=FALSE, out.width = '66%', fig.align='center'}
+
+knitr::include_graphics("../lec_figs/n_social_media_users.png")
+```
+
+---
+# Social Media
+
+### <p style="color:#00449E">Climate Change Campaigns in Social Media</p>
+
+```{r, echo=FALSE, out.width = '66%', fig.align='center', fig.cap = "Trend in the number of tweets with #climatechange/#globalwarming and retweets/likes to those tweets"}
+
+knitr::include_graphics("../lec_figs/ts_n_tweets.png")
+```
+
+---
+# Social Media
+
+### <p style="color:#00449E">Climate Change Campaigns in Social Media</p>
+
+- Climate change campaigns in social media are most likely to be driven by a small group of active campaigners.
+
+
+- During the years 2012-2017,
+  - 753,853 users wrote 5.0 million tweets with #climatechange/#globalwarming.
+  - 26,000 users, approximately 3% of those 753,853 users,  wrote more than 3.0 million tweets, 60% of those 5.0 million tweets.
+  - 1,403,639 users retweeted/liked to those tweets 12.1 million times in total.
+  
+---
+# Social Media
+
+### <p style="color:#00449E">Climate Change Campaigns in Social Media</p>
+
+
+```{r, echo=FALSE, fig.show="hold", out.width="50%", fig.align='center', fig.cap = "Per-capita number of tweets, retweets and likes with #climatechange/#globalwarming (2012 and 2013)"}
+
+knitr::include_graphics("../lec_figs/n_tweets_pop_2012.png")
+knitr::include_graphics("../lec_figs/n_tweets_pop_2013.png")
+
+```
+
+  
+---
+# Social Media
+
+### <p style="color:#00449E">Climate Change Campaigns in Social Media</p>
+
+
+```{r, echo=FALSE, fig.show="hold", out.width="50%", fig.align='center', fig.cap = "Per-capita number of tweets, retweets and likes with #climatechange/#globalwarming (2014 and 2015)"}
+
+knitr::include_graphics("../lec_figs/n_tweets_pop_2014.png")
+knitr::include_graphics("../lec_figs/n_tweets_pop_2015.png")
+
+```
+
+  
+---
+# Social Media
+
+### <p style="color:#00449E">Climate Change Campaigns in Social Media</p>
+
+
+```{r, echo=FALSE, fig.show="hold", out.width="50%", fig.align='center', fig.cap = "Per-capita number of tweets, retweets and likes with #climatechange/#globalwarming (2016 and 2017)"}
+
+knitr::include_graphics("../lec_figs/n_tweets_pop_2016.png")
+knitr::include_graphics("../lec_figs/n_tweets_pop_2017.png")
+
+```
+
+  
+  
+---
+# Social Media
+
+### <p style="color:#00449E">Narratives in Social Media Campaigns</p>
+
+- *Topic modeling* method clusters a group of words that best characterize a document.
+
+- The idea behind the topic modeling is that documents are a mixture of latent topics, in which a topic is characterized by a probability distribution over words.
+
+
+---
+# Social Media
+
+### <p style="color:#00449E">Narratives in Social Media Campaigns</p>
+
+
+```{r, echo=FALSE, fig.show="hold", out.width="33%", fig.align='center', fig.cap = "Topics 1, 2, & 3 from 2016 US tweets with #climatechange/#globalwarming"}
+
+knitr::include_graphics("../lec_figs/topic_word_cloud_2016_1_20210727.png")
+knitr::include_graphics("../lec_figs/topic_word_cloud_2016_2_20210727.png")
+knitr::include_graphics("../lec_figs/topic_word_cloud_2016_3_20210727.png")
+
+```
+
+---
+# Social Media
+
+### <p style="color:#00449E">Narratives in Social Media Campaigns</p>
+
+
+```{r, echo=FALSE, fig.show="hold", out.width="33%", fig.align='center', fig.cap = "Topics 4, 5, & 6 from 2016 US tweets with #climatechange/#globalwarming"}
+
+knitr::include_graphics("../lec_figs/topic_word_cloud_2016_4_20210727.png")
+knitr::include_graphics("../lec_figs/topic_word_cloud_2016_5_20210727.png")
+knitr::include_graphics("../lec_figs/topic_word_cloud_2016_6_20210727.png")
+
+```
+
+  
+  
+---
+# Social Media
+
+### <p style="color:#00449E">Narratives in Social Media Campaigns</p>
+
+- Social media campaigns have increasingly become more politically influential. 
+  - My text analysis indicates that at least 20% of US tweets with #climatechange/#globalwarming during 2012-2017 contain some political words. 
+
+- The two most frequently appeared words from the US tweets with #climatechange/#globalwarming during 2012-2017 are:
+  - **UniteBlue**: an organization or slogan for the wide range of the left activists.
+  - **Tcot**: an acronym for ``Top Conservative on Twitter.''
+
+  
+---
+# Social Media
+
+### <p style="color:#00449E">Sentiment in Social Media Campaigns</p>
+
+- Sentiment in social media campaigns may play an important role in forming public opinion.
+
+- Some research finds that ...
+  - Sentiment of tweets can contribute to the vote outcome.
+  - Information with negative sentiment is transmitted faster than one with positive sentiment.
+  
+  
+  
+  
+---
+# Social Media
+
+### <p style="color:#00449E">Sentiment in Social Media Campaigns, Neutral</p>
+
+```{r, echo=FALSE, out.width = '50%', fig.align='center', fig.cap="Word clouds from US tweets with #climatechange/#globalwarming, Neutral"}
+
+knitr::include_graphics("../lec_figs/word_cloud_USneutral_all.png")
+```
+
+  
+  
+---
+# Social Media
+
+### <p style="color:#00449E">Sentiment in Social Media Campaigns, Negative</p>
+
+```{r, echo=FALSE, fig.show="hold", out.width="50%", fig.align='center', fig.cap="Word clouds from US tweets with #climatechange/#globalwarming, Weakly and Strongly Negative"}
+
+knitr::include_graphics("../lec_figs/word_cloud_USwn_all.png")
+knitr::include_graphics("../lec_figs/word_cloud_USsn_all.png")
+```
+
+---
+# Social Media
+
+### <p style="color:#00449E">Sentiment in Social Media Campaigns, Positive</p>
+
+```{r, echo=FALSE, fig.show="hold", out.width="50%", fig.align='center', fig.cap="Word clouds from US tweets with #climatechange/#globalwarming, Weakly and Strongly Positive"}
+
+knitr::include_graphics("../lec_figs/word_cloud_USwp_all.png")
+knitr::include_graphics("../lec_figs/word_cloud_USsp_all.png")
+```
+
+  
+---
+# Climate-unfriendly Bills
+
+### <p style="color:#00449E">Climate-unfriendly legislation</p>
+
+```{r, echo=FALSE, out.width = '61%', fig.align='center', fig.cap="Bills that include sections, which are unfavorable to the action on climate change, 113th US Congress (2013-2014)"}
+
+knitr::include_graphics("../lec_figs/bills_113.png")
+```
+
+- H.R.4923-113th **prohibits** funds made available by this Act from being used to design, implement, administer or carry out several programs, reports, and technical updates related to **global climate change** and the **social cost of carbon**.
+  
+---
+# Climate-unfriendly Bills
+
+### <p style="color:#00449E">Climate-unfriendly legislation</p>
+
+```{r, echo=FALSE, out.width = '67%', fig.align='center', fig.cap="Bills that include sections, which are unfavorable to the action on climate change, 114th US Congress (2015-2016)"}
+
+knitr::include_graphics("../lec_figs/bills_114.png")
+```
+
+- H.R.2822-114th **prohibits** funds from being used to incorporate the **social cost of carbon** into any rule-making or guidance document until a new Interagency Working Group makes specified revisions to the estimates.  
+
+---
+# Climate-unfriendly Bills
+
+### <p style="color:#00449E">Climate-unfriendly legislation</p>
+
+```{r, echo=FALSE, out.width = '67%', fig.align='center', fig.cap="Bills that include sections, which are unfavorable to the action on climate change, 115th US Congress (2017-2018)"}
+
+knitr::include_graphics("../lec_figs/bills_115_1.png")
+```
+
+- H.CON.RES.119-115th expresses the sense of Congress that a **carbon tax** would be detrimental to American families and businesses and is not in the best interest of the United States.
+  
+---
+# Climate-unfriendly Bills
+
+### <p style="color:#00449E">Climate-unfriendly legislation</p>
+
+```{r, echo=FALSE, out.width = '67%', fig.align='center', fig.cap="Bills that include sections, which are unfavorable to the action on climate change, 115th US Congress (2017-2018)"}
+
+knitr::include_graphics("../lec_figs/bills_115_2.png")
+```
+
+
+---
+# Social Media Campaigns vs. Lobbying on Legislation
+
+### <p style="color:#00449E">Why Does It Matter?</p>
+
+- I provide empirical evidence on ...
+  - competition between NGO activism and industry lobbying for political influences.
+  - the effects of social media campaigns on legislation.
