@@ -1,0 +1,704 @@
+---
+title: "Lecture 2"
+subtitle: "DANL 200: Introduction to Data Analytics"
+author: "Byeong-Hak Choe"
+institute: "SUNY Geneseo"
+date: "Septermber 1, 2022"
+output:
+  xaringan::moon_reader:
+    css: 
+      - default
+      - css/nhsr.css
+      - css/nhsr-fonts.css
+    lib_dir: libs
+    seal: false
+    nature:
+      highlightStyle: googlecode
+      highlightLines: true
+      highlightLanguage: ["r"]
+      countIncrementalSlides: false
+      ratio: "16:9"
+    includes:
+      after_body: [css/insert-logo.html]
+---
+
+```{r setup, include = FALSE}
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(NHSRtheme)
+# set default options
+opts_chunk$set(echo = FALSE,
+               fig.width = 7.252,
+               fig.height = 4,
+               comment = "#",
+               dpi = 300)
+
+knitr::knit_engines$set("markdown")
+
+xaringanExtra::use_tile_view()
+xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard()
+xaringanExtra::use_webcam()
+xaringanExtra::use_broadcast()
+xaringanExtra::use_share_again()
+xaringanExtra::style_share_again(
+  share_buttons = c("twitter", "linkedin", "pocket")
+)
+
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+
+# uncomment the following lines if you want to use the NHS-R theme colours by default
+# scale_fill_continuous <- partial(scale_fill_nhs, discrete = FALSE)
+# scale_fill_discrete <- partial(scale_fill_nhs, discrete = TRUE)
+# scale_colour_continuous <- partial(scale_colour_nhs, discrete = FALSE)
+# scale_colour_discrete <- partial(scale_colour_nhs, discrete = TRUE)
+```
+
+class: title-slide, left, bottom
+
+# `r rmarkdown::metadata$title`
+----
+## **`r rmarkdown::metadata$subtitle`**
+### `r rmarkdown::metadata$author`
+### `r rmarkdown::metadata$date`
+
+
+---
+# Announcement
+
+### <p style="color:#00449E">Changes in Office Hours</p>
+
+- Office: South Hall 117B.
+- Office Hours: 
+  - Mondays 3:30 PM-5:30 PM 
+  - Wednesdays 1:30 PM-3:30 PM.
+
+---
+class: inverse, center, middle
+
+# Installing the Tools
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+
+---
+# Installing the Tools
+### <p style="color:#00449E"> R programming </p>
+
+The R language is available as a free download from the R Project website at:
+
+- Windows: [https://cran.r-project.org/bin/windows/base/](https://cran.r-project.org/bin/windows/base/)
+- Mac: [https://cran.r-project.org/bin/macosx/](https://cran.r-project.org/bin/macosx/)
+  -  Download the file of R that corresponds to your Mac OS (Big Sur, Apple silicon arm64, High Sierra, El Capitan, Mavericks, etc.)
+
+---
+# Installing the Tools
+### <p style="color:#00449E"> RStudio </p>
+
+- **RStudio** offers a graphical interface to assist in creating R code:
+
+  - The RStudio Desktop is available as a free download from the following webpage:
+    - [https://www.rstudio.com/products/rstudio/download/#download](https://www.rstudio.com/products/rstudio/download/#download)
+
+
+
+
+---
+# Installing the Tools
+### <p style="color:#00449E"> RStudio Environment </p>
+.pull-left[
+```{r, echo=FALSE, out.width = '100%', fig.align='center'}
+knitr::include_graphics("../lec_figs/rstudio_env.png")
+```
+]
+
+.pull-right[
+- **Script Pane** is where you write R commands in a script file that you can save. 
+  - An R script is simply a text file containing R commands. 
+  - RStudio will color-code different elements of your code to make it easier to read.
+
+]
+---
+# Installing the Tools
+### <p style="color:#00449E"> RStudio Environment </p>
+.pull-left[
+```{r, echo=FALSE, out.width = '100%', fig.align='center'}
+knitr::include_graphics("../lec_figs/rstudio_env.png")
+```
+]
+
+.pull-right[
+- **Console Pane** allows you to interact directly with the R interpreter and type commands where R will immediately execute them.
+
+]
+---
+# Installing the Tools
+### <p style="color:#00449E"> RStudio Environment </p>
+.pull-left[
+```{r, echo=FALSE, out.width = '100%', fig.align='center'}
+knitr::include_graphics("../lec_figs/rstudio_env.png")
+```
+]
+
+.pull-right[
+- **Environment Pane** is where you can see the values of variables, data frames, and other objects that are currently stored in memory.
+
+]
+---
+# Installing the Tools
+### <p style="color:#00449E"> RStudio Environment </p>
+.pull-left[
+```{r, echo=FALSE, out.width = '100%', fig.align='center'}
+knitr::include_graphics("../lec_figs/rstudio_env.png")
+```
+]
+
+.pull-right[
+- **Plots Pane** contains any graphics that you generate from your R code.
+
+]
+
+
+---
+# Installing the Tools
+### <p style="color:#00449E"> RStudio Environment </p>
+
+
+```r
+# Answer "no" to:
+# Do you want to install from sources the packages which need compilation?
+
+update.packages(ask = FALSE, checkBuilt = TRUE)
+
+pkgs <- c("tidyverse", "nycflights13", "gapminder", "skimr")
+install.packages(pkgs,
+	dependencies = c("Depends", "Imports", "LinkingTo"))
+
+```
+
+
+
+
+---
+class: inverse, center, middle
+
+# Management of Files, Directories, and Scripts
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+
+
+
+---
+# Management of Files, Directories, and Scripts
+### <p style="color:#00449E"> Materials for the book, Practical Data Science with R </p>
+
+- Click the green "Code" button and download the ZIP file from the following GitHub page: [https://github.com/WinVector/PDSwR2](https://github.com/WinVector/PDSwR2).
+
+.panelset[
+
+.panel[.panel-name[Windows]
+
+- **Step 1.** Go to your Download folder (or the folder where the downloaded file is saved) using the File Explorer.
+- **Step 2.** Click the ZIP file one time.
+- **Step 3.** Cut the file by using the shortcut (**Ctrl+X**).  
+- **Step 4.** Go to your working folder for the course using the File Explorer.
+- **Step 5.** Paste the file to your working folder by using **Ctrl+V**.
+- **Step 6.** Right-click the ZIP file and click "Extract ..."
+]
+
+ <!---->
+
+.panel[.panel-name[Mac]
+
+- **Step 1.** Go to your Download folder (or the folder where the downloaded file is saved) using the Finder.
+- **Step 2.** Click the ZIP file (or the folder if the ZIP file is extracted) one time.
+- **Step 3.** Copy the file (or the folder) by using the shortcut (**command+C**).  
+- **Step 4.** Go to your working folder for the course using the Finder.
+- **Step 5.** Paste the file to your working folder by using **command+option+V**.
+- **Step 6.** Right-click the ZIP file and click "Extract ..."
+] <!---->
+
+] <!--end of panelset-->
+
+
+
+---
+# Management of Files and Directories
+### <p style="color:#00449E"> Finding the path name of the file </p>
+
+.panelset[
+
+.panel[.panel-name[Windows 11]
+
+- **Step 1.** Go to your folder using the File Explorer.
+- **Step 2.** Right-click the file.
+- **Step 3.** Click "Copy as path".
+- **Step 4.** Paste the path name of the file to the R script (Ctrl+V).
+- **Step 5.** 
+  - *Option 1.* Replace backslash(`\`) with double-backslash(`\\`) in the path name.
+  - *Option 2.* Add `r ` at the beginning of the path name:
+  - 'r PATH\_FOR\_YOUR\_FILE'.
+]
+
+ <!---->
+
+
+.panel[.panel-name[Windows 10]
+
+- **Step 1.** Go to your folder using the File Explorer.
+- **Step 2.** Keep pressing the "Shift" key
+- **Step 3.** Right-click the file.
+- **Step 4.** Click "Copy as path".
+- **Step 5.** Paste the path name of the file to the R script (Ctrl+V).
+- **Step 6.** 
+  - *Option 1.* Replace backslash(`\`) with double-backslash(`\\`) in the path name.
+  - *Option 2.* Add `r ` at the beginning of the path name:
+  - 'r PATH\_FOR\_YOUR\_FILE'.
+]
+
+ <!---->
+
+.panel[.panel-name[Mac]
+
+- **Step 1.** Go to your folder using the Finder.
+- **Step 2.** Right-click the file in the folder
+- **Step 3.** Keep pressing "option"
+- **Step 4.** Click "Copy 'PATH\_FOR\_YOUR\_FILE' as Pathname" from the menu.
+- **Step 5.** Paste it to the R script (command+V).
+
+] <!---->
+
+] <!--end of panelset-->
+
+
+---
+# Management of Files, Directories, and Scripts
+### <p style="color:#00449E"> Code and comment style </p>
+- The two main principles for coding and managing data are:
+  - Make things easier for your future self.
+  - Don't trust your future self.
+
+- The `#` mark is R's comment character.
+  - `#` indicates that the rest of the line is to be ignored.
+  - Write comments before the line that you want the comment to apply to.
+
+- Consider using block commenting for separating code sections.
+  - `####` defines a coding block.
+
+- Break down long lines and long algebraic expressions.
+
+
+---
+class: inverse, center, middle
+
+# Starting with R
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+
+---
+# Starting with R
+### <p style="color:#00449E"> RStudio Options Setting </p>
+.pull-left[
+```{r, echo=FALSE, out.width = '100%', fig.align='center'}
+knitr::include_graphics("../lec_figs/RStudio_options.png")
+```
+]
+
+.pull-right[
+- This option menu is found by menus as follows:
+  - *Mac*: RStudio $>$ Preferences 
+  - *Windows*: Tools $>$ Global Options
+]
+
+
+
+
+---
+# Starting with R
+- Let's try a few commands to help you become familiar with R and its basic data types.
+
+.pull-left[
+```r
+1
+1/2
+'Joe'
+"Joe"
+"Joe"=='Joe'
+
+c()
+is.null(c())
+is.null(5)
+```
+]
+.pull-right[
+
+- In R, **vectors** are arrays of same-typed values.
+  - They can be built with the `c()` notation.
+  
+```r
+c(1)
+c(1, 2)
+c("Apple", 'Orange')
+length(c(1, 2))
+vec <- c(1, 2)
+vec
+```
+]
+
+
+
+---
+# Starting with R
+### <p style="color:#00449E"> Code and comment style </p>
+- R has many assignment operators (e.g., `<-`, `=`, `->` ).
+- The preferred one is `<-`.
+
+```r
+x <- 2
+x < - 3
+print(x)
+
+x <- 5
+x = 5
+5 -> x
+```
+
+
+---
+# Starting with R
+### <p style="color:#00449E"> Shortcuts </p>
+.pull-left[
+### <p style="color:#00449E"> Mac </p>
+- **command + return** runs a current line (where the blinking cursor is) or selected lines.
+- **command + shift + C** is the shortcut for #.
+- **option + -** is the shortcut for `<-`.
+]
+
+.pull-right[
+### <p style="color:#00449E"> Windows </p>
+- **Ctrl + Enter** runs a current line (where the blinking cursor is) or selected lines.
+- **Ctrl + Shift + C** is the shortcut for #.
+- **Alt + -** is the shortcut for `<-`.
+]
+
+---
+# Starting with R
+### <p style="color:#00449E"> R data types </p>
+
+- Primary data types in R are as follows:
+  - **Logical**: A simple binary variable that may have only two values---TRUE or FALSE.
+  - **Numeric**: Decimal numbers
+  - **Integer**: Integers
+  - **Character**: Text strings
+  - **Factor**: Categorical values. Each possible value of a factor is known as a *level*.
+  - **Ordered Factor**: A special factor data type where the order of the levels is significant. E.g., Low, Medium, and High
+
+
+
+---
+# Starting with R
+### <p style="color:#00449E"> R data types </p>
+
+- Test the data types.
+```r
+x <- TRUE
+y <- 1
+z <- 'Data Analytics'
+productCategory <- c('fruit', 'vegetable', 'dry goods', 'fruit',
+                     'vegetable', 'dry goods')
+productCategoryFactor <- factor(productCategory)
+```
+- The `class()` function returns the data type of an object.
+  - What are classes for `x`, `y`, `z`, `productCategory`, and `productCategoryFactor`?
+
+
+
+---
+# Starting with R
+### <p style="color:#00449E"> R data types </p>
+
+
+- Most R data types are *mutable*, in that we're allowed to change them.
+
+```r
+a <- c(1, 2)
+b <- a
+
+print(b)
+
+# Alters a
+a[[1]] <- 5
+
+print(a)
+print(b)
+```
+
+
+---
+# Starting with R
+### <p style="color:#00449E"> Lists </p>
+
+
+- **Lists**, unlike *vectors*, can store more than one type of object.
+  - The ways to access items in lists are the `$` operator and the `[[]]` operator.
+  
+```r
+x <- list('a' = 6, b = 'fred')
+names(x)
+
+x$a
+x$b
+
+x[['a']]
+
+x[c('a', 'a', 'b', 'b')]
+```
+
+
+
+---
+# Starting with R
+### <p style="color:#00449E"> R data types </p>
+
+
+- Here are examples of a vector and a list.
+
+```r
+example_vector <- c(10, 20, 30)
+example_list <- list(a = 10, b = 20, c = 30)
+
+example_vector[1]
+example_list[1]
+
+example_vector[[2]]
+example_list[[2]]
+
+example_vector[c(FALSE, TRUE, TRUE)]
+example_list[c(FALSE, TRUE, TRUE)]
+
+example_list$b
+example_list[["b"]]
+```
+
+
+
+---
+# Starting with R
+### <p style="color:#00449E"> Errors </p>
+
+
+- Errors are just R's way of saying it safely refused to complete an ill-formed operation 
+
+- Fear of errors should not limit experiments.
+
+```r
+x <- 1:5
+print(x)
+
+x <- meanMISSPELLED(x)  
+print(x)                                 
+
+x <- mean(x)                      
+print(x)
+```
+
+
+
+---
+# Starting with R
+### <p style="color:#00449E"> Data Frames </p>
+
+- R’s central data structure is the data frame. 
+- A data frame is organized into rows and columns. 
+- Data frames are essentially lists of columns.
+- Data frames can have columns of different types.
+
+.pull-left[
+```r
+d <- data.frame(x=c(1,2),
+              y=c('a','b'))
+
+d[['x']]
+d$x
+d[[1]]
+```
+]
+
+.pull-right[
+```r
+d
+d[1,]
+d[,1]
+
+d[1,1]
+d[1, 'x']
+```
+
+]
+
+
+
+---
+# Starting with R
+### <p style="color:#00449E"> Data Frames </p>
+
+- The R **data.frame** class is designed to store data in a very good "ready for analysis" format.
+
+```r
+d <- data.frame(col1 = c(1, 2, 3), col2 = c(-1, 0, 1))
+print(d)
+d$col3 <- d$col1 + d$col2
+print(d)
+```
+
+---
+# Starting with R
+### <p style="color:#00449E"> NULL and NA values </p>
+
+- `NULL` is just an alias for `c()`, the empty vector.
+- `NA` indicates missing or unavailable data.
+
+```r
+c(c(), 1, NULL)
+c("a", NA, "c")
+```
+
+
+---
+# Starting with R
+### <p style="color:#00449E"> NULL and NA values </p>
+
+- `NULL` is just an alias for `c()`, the empty vector.
+- `NA` indicates missing or unavailable data.
+
+```r
+c(c(), 1, NULL)
+c("a", NA, "c")
+```
+
+
+
+---
+# Starting with R
+### <p style="color:#00449E"> NULL and NA values </p>
+
+- Most R data types are *mutable*, in that we're allowed to change them.
+
+```r
+d <- data.frame(x = 1, y = 2)
+d2 <- d
+d$x <- 5
+
+print(d)
+print(d2)
+```
+
+
+---
+class: inverse, center, middle
+
+# Working with Data from Files
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+
+---
+# Working with Data from Files
+
+- Step 1. Find the path name for the file, `car.data.csv`, from the sub-folder, 'UCICar' in the folder, 'PDSwR2-main'.
+
+- Step 2. In the code below, replace 'PATH_NAME_FOR_THE_FILE_car.data.csv' with the path name for the file, `car.data.csv`.
+
+- Step 3. Run the following R code:
+
+```r
+uciCar <- read.table(
+		'PATH_NAME_FOR_THE_FILE_car.data.csv',
+		sep = ',',
+		header = TRUE,
+		stringsAsFactor = TRUE )
+View(uciCar)
+```
+
+
+
+
+---
+# Working with Data from Files
+### <p style="color:#00449E"> Examining data frame </p>
+
+- `class()` tells you what kind of R object you have. 
+- `dim()` shows how many rows and columns are in the data for `data.frame`.
+- `head()` shows the top few rows of the data.
+- `help()` provides the documentation for a class. 
+  - Try `help(class(uciCar))`.
+- `str()` gives us the structure for an object.
+
+
+
+---
+# Working with Data from Files
+### <p style="color:#00449E"> Examining data frame </p>
+
+- `summary()` provides a summary of almost any R object. 
+- `skimr::skim()` provides a more detailed summary.
+- `print()` prints all the data. 
+  - Note: for large datasets, this can take a very long time and is something you want to avoid.
+- `View()` displays the data in a simple spreadsheet-like grid viewer.
+- `dplyr::glimpse()` displays brief information about the data.
+
+
+---
+# Working with Data from Files
+### <p style="color:#00449E"> Examining data frame </p>
+
+```r
+print(uciCar)
+class(uciCar)
+dim(uciCar)
+head(uciCar)
+help(class(uciCar))
+str(uciCar)
+summary(uciCar)
+
+library(skimr)
+skim(uciCar)
+library(tidyverse)
+glimpse(uciCar)
+```
+
+
+---
+# Working with Data from Files
+### <p style="color:#00449E"> Reading from an URL </p>
+
+- We can import the data file from the web.
+
+```r
+tvshows <- read.table(
+		'https://bcdanl.github.io/data/tvshows.csv',
+		sep = ',',
+		header = TRUE,
+		stringsAsFactor = TRUE)
+```
+
+
+
+---
+# Working with Data from Files
+### <p style="color:#00449E"> ggplot </p>
+
+- Let's try some data visualization using `ggplot()`:
+
+```r
+ggplot(tvshows) + 
+  geom_point(aes(x=GRP, y=PE, color=Genre))
+  
+ggplot(tvshows) + 
+  geom_point(aes(x=GRP, y=PE)) + 
+  facet_wrap(~Genre)
+```
+-  What is the nature of the the relationship between audience size (GRP) and audience engagement (PE)?

@@ -114,7 +114,7 @@ class: inverse, center, middle
 
 # Syllabus
 
-### <p style="color:#00449E">Email, Class & Office Hours Code</p>
+### <p style="color:#00449E">Email, Class & Office Hours</p>
 
 - Email: [bchoe@geneseo.edu](bchoe@geneseo.edu)
 
@@ -123,7 +123,9 @@ class: inverse, center, middle
   - [https://bcdanl.github.io](https://bcdanl.github.io)
   
 - Office: South Hall 117B.
-- Office Hours: Tuesdays and Wednesdays 3:45 PM-5:45 PM.
+- Office Hours: 
+  - Mondays 3:30 PM-5:30 PM.
+  - Wednesdays 1:30 PM-3:30 PM.
 
 ---
 
@@ -131,7 +133,7 @@ class: inverse, center, middle
 
 ### <p style="color:#00449E">Course Prerequisites</p>
 
-- Business \& Economics Statistics or Equivalent:
+- Business & Economics Statistics or Equivalent:
   - Economics 205, Geography 278, Mathematics 242, Mathematics 262, Political Science 251, Psychology 250, or Sociology 211.
   
 - Programming for Data Analytics:
@@ -173,7 +175,6 @@ class: inverse, center, middle
   - The final exam is comprehensive.
 
 ---
-
 # Syllabus
 
 ### <p style="color:#00449E">Course Contents</p>
@@ -184,14 +185,39 @@ class: inverse, center, middle
 
 ```{r, out.width='100%', fig.align='center'}
 text_tbl <- data.frame(
-  Lecture = c("1", "2", "3-4", "5-7", "8-9", "10-11"),
+  Lecture = c("1", "2"),
   Contents = c("ZM Ch.1 The data science process",
-"ZM Ch.2 Starting with R and data",
-"r4s Ch.3 Data visualization",
+"ZM Ch.2 Starting with R and data"),
+  HW = c("",  "")
+  )
+
+
+kable(text_tbl, format = "html") %>%
+  kable_paper(full_width = T) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  kable_styling(html_font = 'sans-serif, helvetica, arial',
+                bootstrap_options = c("hover", "condensed") ) 
+
+```
+
+
+---
+# Syllabus
+
+### <p style="color:#00449E">Course Contents</p>
+
+- There will be tentatively 28 class sessions:
+  - 27 lectures;
+  - 1 midterm exam.
+
+```{r, out.width='100%', fig.align='center'}
+text_tbl <- data.frame(
+  Lecture = c("3-4", "5-7", "8-9", "10-11"),
+  Contents = c("r4s Ch.3 Data visualization",
 "r4s Ch.5 Data transformation",
 "r4s Ch.7 Exploratory data analysis",
 "ZM Ch.3 Exploring data"),
-  HW = c("",  "", "1", "2", "2", "2")
+  HW = c("1", "2", "2", "2")
   )
 
 
@@ -200,7 +226,7 @@ kable(text_tbl, format = "html") %>%
   column_spec(1, bold = T, border_right = T) %>%
   kable_styling(html_font = 'sans-serif, helvetica, arial',
                 bootstrap_options = c("hover", "condensed") ) %>% 
-  pack_rows("Data Exploration", 3, 6)
+  pack_rows("Data Exploration", 1, 4)
 
 ```
 
