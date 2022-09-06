@@ -13,7 +13,7 @@
 
 <title>Data Analytics School of Business, SUNY Geneseo</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
@@ -142,11 +142,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -242,7 +246,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">SUNY Geneseo DANL</a>
+      <a class="navbar-brand" href="index.html">suny geneseo danl</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -253,112 +257,43 @@ $(document).ready(function () {
   <a href="index.html">home</a>
 </li>
 <li>
-  <a href="resume.html">résumé</a>
+  <a href="Resume.html">résumé</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    lectures 100
+    danl 100 - lectures
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="lec/DANL100_Lec01_20220830.html">Lecture 01</a>
+      <a href="lec/DANL100_Lec01_20220830.html">lecture 01</a>
     </li>
     <li>
-      <a href="lec/DANL100_Lec02_20220901.html">Lecture 02</a>
+      <a href="lec/DANL100_Lec02_20220901.html">lecture 02</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec03_20220906.html">lecture 03</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    lectures 200
+    danl 200 - lectures
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="lec/DANL200_Lec01_20220830.html">Lecture 01</a>
+      <a href="lec/DANL200_Lec01_20220830.html">lecture 01</a>
     </li>
     <li>
-      <a href="lec/DANL200_Lec02_20220901.html">Lecture 02</a>
+      <a href="lec/DANL200_Lec02_20220901.html">lecture 02</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec03_20220906.html">lecture 03</a>
     </li>
   </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    lectures 310
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="lec/DANL310_Lec05_20220210.html">Lecture 05</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec06_20220215.html">Lecture 06</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec07_20220217.html">Lecture 07</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec08_20220222.html">Lecture 08</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec09_20220224.html">Lecture 09</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec10_20220301.html">Lecture 10</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec11_20220303.html">Lecture 11</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec12_20220324.html">Lecture 12</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec13_20220331.html">Lecture 13</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec14_20220405.html">Lecture 14</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec15_20220407.html">Lecture 15</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec16_20220414.html">Lecture 16</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_default.html">Summary Table</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    hw &amp; exams 310
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="DANL310_hw1_a.html">hw 1 anwers</a>
-    </li>
-    <li>
-      <a href="DANL310_hw2_a.html">hw 2 anwers</a>
-    </li>
-    <li>
-      <a href="DANL310_hw4a.html">hw 4 anwers</a>
-    </li>
-    <li>
-      <a href="DANL310_midterm_a.html">midterm anwers</a>
-    </li>
-    <li>
-      <a href="DANL310_midterm_v2_a.html">midterm 2 anwers</a>
-    </li>
-  </ul>
-</li>
-<li>
-  <a href="list_github.html">students 310</a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
@@ -376,15 +311,15 @@ Geneseo</h1>
 
 
 <p><br></p>
-<div id="the-website-for-data-analytics-at-suny-geneseo"
-class="section level3">
-<h3>the website for data analytics at suny geneseo</h3>
+<div id="data-analytics-at-suny-geneseo" class="section level3">
+<h3>data analytics at suny geneseo</h3>
 <ul>
 <li><em>data visualization</em> and <em>machine learning</em> for
-<em>business</em> and <em>economics</em> with <em>python</em>,
-<em>r</em>, <em>sql</em> and <em>git</em></li>
-<li>managed by <em>r markdown</em></li>
-<li>hosted in <em>github</em></li>
+<em>business</em> and <em>economics</em> with <em>python</em> and
+<em>r</em></li>
+<li><em>database</em> with <em>sql</em></li>
+<li><em>version control</em> with <em>git</em> and <em>github</em></li>
+<li><em>scientific document</em> with <em>r markdown</em></li>
 </ul>
 <p><br></p>
 <div style="width:600px; height:450px">

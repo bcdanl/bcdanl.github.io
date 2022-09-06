@@ -13,7 +13,7 @@
 
 <title>Résumé</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
@@ -149,11 +149,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -322,7 +326,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">SUNY Geneseo DANL</a>
+      <a class="navbar-brand" href="index.html">suny geneseo danl</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -333,106 +337,43 @@ div.tocify {
   <a href="index.html">home</a>
 </li>
 <li>
-  <a href="resume.html">résumé</a>
+  <a href="Resume.html">résumé</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    lectures 100
+    danl 100 - lectures
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="lec/DANL100_Lec01_20220830.html">Lecture 01</a>
+      <a href="lec/DANL100_Lec01_20220830.html">lecture 01</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec02_20220901.html">lecture 02</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec03_20220906.html">lecture 03</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    lectures 200
+    danl 200 - lectures
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="lec/DANL200_Lec01_20220830.html">Lecture 01</a>
+      <a href="lec/DANL200_Lec01_20220830.html">lecture 01</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec02_20220901.html">lecture 02</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec03_20220906.html">lecture 03</a>
     </li>
   </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    lectures 310
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="lec/DANL310_Lec05_20220210.html">Lecture 05</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec06_20220215.html">Lecture 06</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec07_20220217.html">Lecture 07</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec08_20220222.html">Lecture 08</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec09_20220224.html">Lecture 09</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec10_20220301.html">Lecture 10</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec11_20220303.html">Lecture 11</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec12_20220324.html">Lecture 12</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec13_20220331.html">Lecture 13</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec14_20220405.html">Lecture 14</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec15_20220407.html">Lecture 15</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec16_20220414.html">Lecture 16</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_default.html">Summary Table</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    hw &amp; exams 310
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="DANL310_hw1_a.html">hw 1 anwers</a>
-    </li>
-    <li>
-      <a href="DANL310_hw2_a.html">hw 2 anwers</a>
-    </li>
-    <li>
-      <a href="DANL310_hw4a.html">hw 4 anwers</a>
-    </li>
-    <li>
-      <a href="DANL310_midterm_a.html">midterm anwers</a>
-    </li>
-    <li>
-      <a href="DANL310_midterm_v2_a.html">midterm 2 anwers</a>
-    </li>
-  </ul>
-</li>
-<li>
-  <a href="list_github.html">students 310</a>
 </li>
       </ul>
     </div><!--/.nav-collapse -->
@@ -472,10 +413,10 @@ business and real-world socioeconomic issues</strong>. As an instructor,
 I let students use those tools to deal with important <strong>business
 strategies, social issues, and individual decision-making</strong>.</p>
 <p>Here is my <a href="choe_cv.pdf" target="_blank">curriculum vitae
-<svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#003896;overflow:visible;position:relative;"><path d="M181.9 256.1c-5-16-4.9-46.9-2-46.9 8.4 0 7.6 36.9 2 46.9zm-1.7 47.2c-7.7 20.2-17.3 43.3-28.4 62.7 18.3-7 39-17.2 62.9-21.9-12.7-9.6-24.9-23.4-34.5-40.8zM86.1 428.1c0 .8 13.2-5.4 34.9-40.2-6.7 6.3-29.1 24.5-34.9 40.2zM248 160h136v328c0 13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24V24C0 10.7 10.7 0 24 0h200v136c0 13.2 10.8 24 24 24zm-8 171.8c-20-12.2-33.3-29-42.7-53.8 4.5-18.5 11.6-46.6 6.2-64.2-4.7-29.4-42.4-26.5-47.8-6.8-5 18.3-.4 44.1 8.1 77-11.6 27.6-28.7 64.6-40.8 85.8-.1 0-.1.1-.2.1-27.1 13.9-73.6 44.5-54.5 68 5.6 6.9 16 10 21.5 10 17.9 0 35.7-18 61.1-61.8 25.8-8.5 54.1-19.1 79-23.2 21.7 11.8 47.1 19.5 64 19.5 29.2 0 31.2-32 19.7-43.4-13.9-13.6-54.3-9.7-73.6-7.2zM377 105L279 7c-4.5-4.5-10.6-7-17-7h-6v128h128v-6.1c0-6.3-2.5-12.4-7-16.9zm-74.1 255.3c4.1-2.7-2.5-11.9-42.8-9 37.1 15.8 42.8 9 42.8 9z"/></svg></a>.</p>
-<p>Here is my <a href="https://bcdanl.github.io"
-target="_blank">teaching website
-<i class="fa fa-external-link" aria-hidden="true"></i></a>.</p>
+<svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#003896;overflow:visible;position:relative;"><path d="M88 304H80V256H88C101.3 256 112 266.7 112 280C112 293.3 101.3 304 88 304zM192 256H200C208.8 256 216 263.2 216 272V336C216 344.8 208.8 352 200 352H192V256zM224 0V128C224 145.7 238.3 160 256 160H384V448C384 483.3 355.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H224zM64 224C55.16 224 48 231.2 48 240V368C48 376.8 55.16 384 64 384C72.84 384 80 376.8 80 368V336H88C118.9 336 144 310.9 144 280C144 249.1 118.9 224 88 224H64zM160 368C160 376.8 167.2 384 176 384H200C226.5 384 248 362.5 248 336V272C248 245.5 226.5 224 200 224H176C167.2 224 160 231.2 160 240V368zM288 224C279.2 224 272 231.2 272 240V368C272 376.8 279.2 384 288 384C296.8 384 304 376.8 304 368V320H336C344.8 320 352 312.8 352 304C352 295.2 344.8 288 336 288H304V256H336C344.8 256 352 248.8 352 240C352 231.2 344.8 224 336 224H288zM256 0L384 128H256V0z"/></svg></a>.</p>
+<p>Here is my <a href="https://bcecon.github.io"
+target="_blank">academic website
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#003896;overflow:visible;position:relative;"><path d="M384 320c-17.67 0-32 14.33-32 32v96H64V160h96c17.67 0 32-14.32 32-32s-14.33-32-32-32L64 96c-35.35 0-64 28.65-64 64V448c0 35.34 28.65 64 64 64h288c35.35 0 64-28.66 64-64v-96C416 334.3 401.7 320 384 320zM488 0H352c-12.94 0-24.62 7.797-29.56 19.75c-4.969 11.97-2.219 25.72 6.938 34.88L370.8 96L169.4 297.4c-12.5 12.5-12.5 32.75 0 45.25C175.6 348.9 183.8 352 192 352s16.38-3.125 22.62-9.375L416 141.3l41.38 41.38c9.156 9.141 22.88 11.84 34.88 6.938C504.2 184.6 512 172.9 512 160V24C512 10.74 501.3 0 488 0z"/></svg></a>.</p>
 </div>
 <div>
 <p><img src="bchoe20201027.jpg" style="width:75.0%" /></p>
