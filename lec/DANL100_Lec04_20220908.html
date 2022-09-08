@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Lecture 3</title>
+    <title>Lecture 4</title>
     <meta charset="utf-8" />
     <meta name="author" content="Byeong-Hak Choe" />
-    <meta name="date" content="2022-09-06" />
+    <meta name="date" content="2022-09-08" />
     <script src="libs/header-attrs-2.16/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
@@ -38,24 +38,45 @@
 
 class: title-slide, left, bottom
 
-# Lecture 3
+# Lecture 4
 ----
 ## **DANL 100: Programming for Data Analytics**
 ### Byeong-Hak Choe
-### September 6, 2022
+### September 8, 2022
 
 
 ---
 # Announcement
 
-### &lt;p style="color:#00449E"&gt;Changes in Office Hours&lt;/p&gt;
+### &lt;p style="color:#00449E"&gt;Office Hours&lt;/p&gt;
 
 - Office: South Hall 117B.
-
 
 - Office Hours: 
   - Mondays 3:30 PM-5:30 PM 
   - Wednesdays 1:30 PM-3:30 PM.
+
+
+
+---
+# Announcement
+
+### &lt;p style="color:#00449E"&gt;TA and Tutors&lt;/p&gt;
+
+- Teaching Assistant (TA): Emine Morris 
+  - Major in Accounting
+  - Minor in Data Analytics and Mathematics 
+
+
+- TA Hours: 
+  - Mondays and Wednesdays: 5:00 PM-6:30 PM 
+  - Tuesdays and Thursdays: 3:00 PM-4:45 PM
+
+
+- Where: Data Analytics Lab (South Hall, 3rd Floor)
+
+
+- Tutoring schedules are coming soon.
 
 
 ---
@@ -72,74 +93,6 @@ class: title-slide, left, bottom
 
 
 
----
-class: inverse, center, middle
-
-# Installing the Tools
-&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
-
-
----
-# Installing the Tools
-### &lt;p style="color:#00449E"&gt; R programming &lt;/p&gt;
-
-The R language is available as a free download from the R Project website at:
-
-- Windows: [https://cran.r-project.org/bin/windows/base/](https://cran.r-project.org/bin/windows/base/)
-
-- Mac: [https://cran.r-project.org/bin/macosx/](https://cran.r-project.org/bin/macosx/)
-  -  Download the file of R that corresponds to your Mac OS (Big Sur, Apple silicon arm64, High Sierra, El Capitan, Mavericks, etc.)
-
-
----
-# Installing the Tools
-### &lt;p style="color:#00449E"&gt; RStudio &lt;/p&gt;
-
-- **RStudio** offers a graphical interface to assist in creating R code:
-
-  - The RStudio Desktop is available as a free download from the following webpage:
-    - [https://www.rstudio.com/products/rstudio/download/#download](https://www.rstudio.com/products/rstudio/download/#download)
-
-
-
----
-# Installing the Tools
-### &lt;p style="color:#00449E"&gt; Excel &lt;/p&gt;
-
-- If you have not installed Microsoft Office on your computer, visit [software.geneseo.edu](https://wiki.geneseo.edu/display/cit/Software+at+Geneseo#SoftwareatGeneseo-MicrosoftOffice).
-
-  - Download and install Microsoft Office from the software.geneseo.edu.
-
-
-
----
-# Installing the Tools
-### &lt;p style="color:#00449E"&gt; Anaconda &lt;/p&gt;
-
-- Anaconda is an all-in-one Python distribution.
-  - Anaconda includes Python 3.x and its standard modules such as pip, pandas, matplotlib, etc.
-  - Anaconda also includes several software applications of integrated development environment (IDE), which is a software for editing codes.
-  - For the Python code, we will use **Spyder** IDE.  
-    - Do not use RStudio from Anaconda, because RStudio from Anaconda is out-dated.
-
-  
-- To install Anaconda, go to the following download page:
-  - [https://www.anaconda.com/products/distribution](https://www.anaconda.com/products/distribution).
-  - Click the "Download" button.
-
-
----
-# Installing the Tools
-### &lt;p style="color:#00449E"&gt; Spyder Environment &lt;/p&gt;
-.pull-left[
-&lt;img src="../lec_figs/spyder_env.png" width="100%" style="display: block; margin: auto;" /&gt;
-]
-
-.pull-right[
-- Red box is **Script Editor** where we can create, open and edit files.
-
-
-]
 ---
 # Installing the Tools
 ### &lt;p style="color:#00449E"&gt; Spyder Environment &lt;/p&gt;
@@ -168,33 +121,6 @@ The R language is available as a free download from the R Project website at:
 
 
 ---
-# Starting with Python
-- Let's try a few commands to help you become familiar with Python and its basic data types.
-
-.pull-left[
-
-```python
-1   # integer
-1/2   # floats
-'Joe'
-"Joe"   # string
-"Joe"=='Joe'   # boolean
-```
-]
-.pull-right[
-
-
-```python
-(1, 2)    # tuple
-("Apple", 'Orange')
-len((1, 2))
-vec = [1, 2]   # list
-vec
-```
-]
-
-
----
 class: inverse, center, middle
 
 # Workflow
@@ -207,7 +133,8 @@ class: inverse, center, middle
 ### &lt;p style="color:#00449E"&gt; Shortcuts &lt;/p&gt;
 - **F9** runs a current line (where the blinking cursor bar is) or selected lines.
 
-- **Home/End** moves the blinking cursor bar to the beginning/End of the line.
+- **Home/End** moves the blinking cursor bar to the beginning/end of the line.
+  - **Fn + ** <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M447.1 256C447.1 273.7 433.7 288 416 288H109.3l105.4 105.4c12.5 12.5 12.5 32.75 0 45.25C208.4 444.9 200.2 448 192 448s-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L109.3 224H416C433.7 224 447.1 238.3 447.1 256z"/></svg> / <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M438.6 278.6l-160 160C272.4 444.9 264.2 448 256 448s-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L338.8 288H32C14.33 288 .0016 273.7 .0016 256S14.33 224 32 224h306.8l-105.4-105.4c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160C451.1 245.9 451.1 266.1 438.6 278.6z"/></svg> works too.
 
 .pull-left[
 ### &lt;p style="color:#00449E"&gt; Mac &lt;/p&gt;
@@ -226,6 +153,7 @@ class: inverse, center, middle
 
 ---
 # Workflow
+### &lt;p style="color:#00449E"&gt; More Shortcuts &lt;/p&gt;
 
 
 - **Ctrl** (**command** for Mac Users) **+ Z** undoes the previous action.
@@ -236,18 +164,7 @@ class: inverse, center, middle
 - **Ctrl** (**command** for Mac Users) **+ R** is useful when replacing a specific phrase with something in the script.
 
 
-- Auto-completion of command is sometimes useful.
-  - Type `len` in the script in Spyder and wait for a second.
-  
-.pull-left[
-```r
-len
-```
-]
-.pull-right[
-&lt;img src="../lec_figs/auto-completionSpyder.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-]
+- **Ctrl** (**command** for Mac Users) **+ D** deletes a current line.
 
 
 
@@ -258,10 +175,12 @@ len
   - Make things easier for your future self.
   - Don't trust your future self.
 
+
 - The `#` mark is Spyder's comment character.
   - The `#` character has many names: `hash`, `sharp`, `pound`, or `octothorpe`.
   - `#` indicates that the rest of the line is to be ignored.
   - Write comments before the line that you want the comment to apply to.
+
 
 - Consider using block commenting for separating code sections.
   - `#%%` defines a coding block in Spyder.
@@ -269,145 +188,19 @@ len
 &lt;!-- - Break down long lines and long algebraic expressions with backslash `\`. --&gt;
 
 
----
-# Workflow
-### &lt;p style="color:#00449E"&gt; Parentheses, brackets and `...` &lt;/p&gt;
-
-
-- Parentheses/brackets must always come in a pair.
-- If not, Console Pane will show you the continuation characters `...:`:
-
-
-```python
-x = [1, 2
-```
-
-- The `...:` tells you that Python is waiting for more input; it doesn’t think you’re done yet. 
-
-
----
-class: inverse, center, middle
-
-# Management of Files, Directories, and Scripts
-&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
-
-
----
-# Management of Files, Directories, and Scripts
-### &lt;p style="color:#00449E"&gt; Some materials for data &lt;/p&gt;
-
-- The following page has some materials of data files and R codes: [https://github.com/WinVector/PDSwR2](https://github.com/WinVector/PDSwR2).
-
-.panelset[
-
-.panel[.panel-name[Windows]
-
-- **Step 1.** Go to your Download folder (or the folder where the downloaded file is saved) using the File Explorer.
-- **Step 2.** Click the ZIP file.
-- **Step 3.** Cut the file by using the shortcut (**Ctrl+X**).  
-- **Step 4.** Go to your working directory (e.g., `DANL100` Folder  on Desktop) for the course using the File Explorer.
-- **Step 5.** Paste the file to your working directory by using the shortcut (**Ctrl+V**).
-- **Step 6.** Right-click the ZIP file and click "Extract ..."
-]
-
- &lt;!----&gt;
-
-.panel[.panel-name[Mac]
-
-- **Step 1.** Go to your Download directory (or the directory where the downloaded file is saved) using the File Explorer.
-- **Step 2.** Click the ZIP file (or the directory if the ZIP file is extracted).
-- **Step 3.** Copy the file (or the directory) by using the shortcut (**command+C**).  
-- **Step 4.** Go to your working directory (e.g., `DANL100` Folder  on Desktop) for the course using the Finder.
-- **Step 5.** Paste the file (or the directory) to your working directory by using the shortcut (**command+option+V**).
-- **Step 6.** Right-click the ZIP file and click "Extract ..."
-] &lt;!----&gt;
-
-] &lt;!--end of panelset--&gt;
-
-
-
----
-# Management of Files and Directories
-### &lt;p style="color:#00449E"&gt; Finding the path name of the file &lt;/p&gt;
-
-.panelset[
-
-.panel[.panel-name[Windows 11]
-
-- **Step 1.** Go to your folder using the File Explorer.
-- **Step 2.** Right-click the file.
-- **Step 3.** Click "Copy as path".
-- **Step 4.** Paste the path name of the file to the R script (Ctrl+V).
-- **Step 5.** 
-  - *Option 1.* Replace backslash(`\`) with slash(`/`) in the path name.
-  - *Option 2.* Replace backslash(`\`) with double-backslash(`\\`) in the path name.
-]
-
- &lt;!----&gt;
-
-
-.panel[.panel-name[Windows 10]
-
-- **Step 1.** Go to your folder using the File Explorer.
-- **Step 2.** Keep pressing the "Shift" key
-- **Step 3.** Right-click the file.
-- **Step 4.** Click "Copy as path".
-- **Step 5.** Paste the path name of the file to the Python script in Spyder (Ctrl+V).
-- **Step 6.** 
-  - *Option 1.* Replace backslash(`\`) with slash(`/`) in the path name.
-  - *Option 2.* Replace backslash(`\`) with double-backslash(`\\`) in the path name.
-]
-
- &lt;!----&gt;
-
-.panel[.panel-name[Mac]
-
-- **Step 1.** Go to your folder using the Finder.
-- **Step 2.** Right-click the file in the folder
-- **Step 3.** Keep pressing "option"
-- **Step 4.** Click "Copy 'PATH\_FOR\_YOUR\_FILE' as Pathname" from the menu.
-- **Step 5.** Paste it to the the Python script in Spyder (command+V).
-
-] &lt;!----&gt;
-
-] &lt;!--end of panelset--&gt;
-
-
-
----
-# Working with Data from Files
-
-- Step 1. Find the path name for the file, `car.data.csv`, from the sub-folder, 'UCICar', in the folder, 'PDSwR2-main'.
-
-- Step 2. In the code below, replace 'PATH_NAME_FOR_THE_FILE_car.data.csv' with the path name for the file, `car.data.csv`.
-
-- Step 3. Run the following Python code:
-
-
-```python
-# importing the module 'pandas' using an alias 'pd'
-import pandas as pd
-
-# assigning 'path' to ...
-path = 'PATH_NAME_FOR_THE_FILE_car.data.csv'
-
-uciCar = pd.read_csv(path)    # reading data file
-```
-
-
 
 
 
 ---
 class: inverse, center, middle
 
-# Data Types, Values, Variables, and Names
+# Data: Types, Values, Variables, and Names
 &lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
 
 
 
 ---
-# Data Types, Values, Variables, and Names
+# Data: Types, Values, Variables, and Names
 ### &lt;p style="color:#00449E"&gt; Python Data Are Objects &lt;/p&gt;
 
 - Python keeps track of where data are, and what (data type) they are.
@@ -420,52 +213,68 @@ class: inverse, center, middle
 
 
 ---
-# Data Types, Values, Variables, and Names
+# Data: Types, Values, Variables, and Names
 ### &lt;p style="color:#00449E"&gt; Python Data Are Objects &lt;/p&gt;
 
 - In Python, an object is a chunk of data that contains at least the following:
 
   - A **type** that defines what it can do, like a factory stamp on the box saying what it can do.
-    - If a Python object is an integer, it has the type `int`,
-and could be added to another `int`.
-  - A **value** consistent with its type.
-  - A **unique id** to distinguish it from other objects, like its location on the shelf.
-  - A **reference count** that tracks how often this object is used.
+  
+  - A **value** that is consistent with its type.
+  
+  - A *unique id* to distinguish it from other objects, like its location on the memory shelf.
+  
+  - A *reference count* that tracks how often this object is used.
 
 
 
 ---
-# Data Types, Values, Variables, and Names
-### &lt;p style="color:#00449E"&gt; Types &lt;/p&gt;
+# Data: Types, Values, Variables, and Names
+### &lt;p style="color:#00449E"&gt; Python’s basic data types &lt;/p&gt;
 
-.pull-left[
-&lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="../lec_figs/int-py-tab2-1.png" alt="Python’s basic data types" width="100%" /&gt;
-&lt;p class="caption"&gt;Python’s basic data types&lt;/p&gt;
-&lt;/div&gt;
-]
 
-.pull-right[
-- The second column (Type) contains the Python name of that type. 
+&lt;img src="../lec_figs/int-py-tab2-1.png" width="57%" style="display: block; margin: auto;" /&gt;
 
-- The third column (Mutable?) indicates whether the value can be changed after creation.
-]
+
+- **Type** contains the Python name of that type. 
+- **Mutable?** indicates whether the value can be changed after creation.
+
 
 
 
 ---
-# Data Types, Values, Variables, and Names
+# Data: Types, Values, Variables, and Names
 ### &lt;p style="color:#00449E"&gt; Mutability &lt;/p&gt;
 
 - The type determines whether the data value contained by the box can be changed (mutable) or is constant (immutable).
 
   - A mutable object is like a box with a lid: not only can we see the value inside, we can also change it; 
   - However, we can’t change the type of an object.
-  
-  
+
+.pull-left[
+
+```python
+a = (1, 2, 3)     # tuple
+a[0]
+a[0] = 5
+a
+```
+]
+.pull-right[
+
+```python
+b = [1, 2, 3]     # list
+b[0]
+b[0] = 5
+b
+```
+]
+
+
+
 
 ---
-# Data Types, Values, Variables, and Names
+# Data: Types, Values, Variables, and Names
 ### &lt;p style="color:#00449E"&gt; Variables &lt;/p&gt;
 
 - Python lets you define **variables**---names for *values* in
@@ -483,7 +292,7 @@ your computer’s memory that you want to use in a program.
 
 
 ---
-# Data Types, Values, Variables, and Names
+# Data: Types, Values, Variables, and Names
 ### &lt;p style="color:#00449E"&gt; Variables &lt;/p&gt;
 
 - Variable names cannot be one of Python’s reserved words (also known as *keywords*):
@@ -499,7 +308,7 @@ help("keywords")
 
 
 ---
-# Data Types, Values, Variables, and Names
+# Data: Types, Values, Variables, and Names
 ### &lt;p style="color:#00449E"&gt; Variables &lt;/p&gt;
 .pull-left[
 - Which names are valid?
@@ -534,7 +343,7 @@ another-name
 
 
 ---
-# Data Types, Values, Variables, and Names
+# Data: Types, Values, Variables, and Names
 ### &lt;p style="color:#00449E"&gt; Assignment &lt;/p&gt;
 
 - In Python, we use `=` to assign a value to a variable.
@@ -554,7 +363,7 @@ y
 
 
 ---
-# Data Types, Values, Variables, and Names
+# Data: Types, Values, Variables, and Names
 ### &lt;p style="color:#00449E"&gt; Assignment &lt;/p&gt;
 
 
@@ -573,19 +382,19 @@ y
 
 
 ---
-# Data Types, Values, Variables, and Names
+# Data: Types, Values, Variables, and Names
 ### &lt;p style="color:#00449E"&gt; Variables Are Names, Not Places &lt;/p&gt;
 
 - In Python, *variables* are just names.
 
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="../lec_figs/int-py-fig2-3.png" alt="Names point to objects (variable `a` points to an integer object with value `7`)" width="30%" /&gt;
+&lt;img src="../lec_figs/int-py-fig2-3.png" alt="Names point to objects (variable `a` points to an integer object with value `7`)" width="29%" /&gt;
 &lt;p class="caption"&gt;Names point to objects (variable `a` points to an integer object with value `7`)&lt;/p&gt;
 &lt;/div&gt;
 
 ---
-# Data Types, Values, Variables, and Names
+# Data: Types, Values, Variables, and Names
 ### &lt;p style="color:#00449E"&gt; Variables Are Names, Not Places &lt;/p&gt;
 
 - If we want to print the value of anything (a variable (e.g., `x`, `y`) or a literal value (e.g., `5`, `12`, `abcd`)), we can use `print(thing)` or type `thing`. 
@@ -620,7 +429,7 @@ type('abcd')
 
 
 ---
-# Data Types, Values, Variables, and Names
+# Data: Types, Values, Variables, and Names
 ### &lt;p style="color:#00449E"&gt; Copying &lt;/p&gt;
 
 - Assignment does not copy a value; 
@@ -643,7 +452,7 @@ x = 8
 
 
 ---
-# Data Types, Values, Variables, and Names
+# Data: Types, Values, Variables, and Names
 ### &lt;p style="color:#00449E"&gt; Copying &lt;/p&gt;
 
 - Assigning an existing variable `a` to a new variable named `b`
@@ -657,7 +466,7 @@ just makes `b` point to the same object that `a` does.
 
 
 ---
-# Data Types, Values, Variables, and Names
+# Data: Types, Values, Variables, and Names
 ### &lt;p style="color:#00449E"&gt; Copying &lt;/p&gt;
 
 - What value is *assigned* to variable `y` at the end of the following code?
@@ -672,7 +481,7 @@ x = 29
 
 
 ---
-# Data Types, Values, Variables, and Names
+# Data: Types, Values, Variables, and Names
 ### &lt;p style="color:#00449E"&gt; Copying &lt;/p&gt;
 
 - A **list** is a *mutable* array of values.
@@ -692,22 +501,22 @@ a[1] = 0
 
 
 ---
-# Data Types, Values, Variables, and Names
+# Data: Types, Values, Variables, and Names
 ### &lt;p style="color:#00449E"&gt; Choose Good Variable Names &lt;/p&gt;
 
 - It’s surprising how important it is to choose good names for your variables. 
 
-- In many of the code examples so far, I’ve been using throwaway names like a and x. 
+- In many of the code examples so far, I’ve been using throwaway names like `a` and `x`. 
 
 - In real programs, you’ll have many more variables to keep track of at once, and you’ll need to balance *brevity* and *clarity*. 
 
-  - For example, it’s faster to type `num_loons` rather than `number_of_loons` or `gaviidae_inventory`, but it’s more explanatory than `n`.
+  - For example, it’s faster to type `num_loons` rather than `number_of_loons` or `blueberry_inventory`, but it’s more explanatory than `n`.
 
 
 
 ---
-# Data Types, Values, Variables, and Names
-### &lt;p style="color:#00449E"&gt; Things to Do &lt;/p&gt;
+# Data: Types, Values, Variables, and Names
+### &lt;p style="color:#00449E"&gt; Class Exercises &lt;/p&gt;
 1. Assign the integer value 33 to the variable `queen`, and print it.
 
 2. What type is the value `3`?
@@ -715,6 +524,16 @@ a[1] = 0
 3. What type is the value `3.0`?
 
 4. What type is the expression `8 + 3.0`?
+
+5. Modify the following line of code, so that a variable of string type data (`&lt;class 'str'&gt;`) is created.
+
+
+```python
+var_created = 1.5
+print( "The data type of var_created is: ", type(var_created) )
+```
+
+
 
 
 ---
@@ -730,7 +549,9 @@ class: inverse, center, middle
 - Let's look at the following Python’s simplest built-in data types in detail:
 
   - **Booleans** (which have the value `True` or `False`)
+  
   - **Integers** (whole numbers such as `10` and `28`)
+  
   - **Floats** (numbers with decimal points such as `3.141592`, or sometimes exponents like `1.0e8`, which means one times ten to the eighth power, or `100000000.0`)
 
 
@@ -805,7 +626,7 @@ billion
 
 - Here is a table of the math operators:
 
-&lt;img src="../lec_figs/int-py-ch3-operation.png" width="29%" style="display: block; margin: auto;" /&gt;
+&lt;img src="../lec_figs/int-py-ch3-operation.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 .pull-right[
@@ -816,7 +637,8 @@ billion
 12 + 8
 12 - 8
 13 * 1.2
-(12.3895 * 1.05) * 1.2
+2 + 3 * 4
+2 ** 3
 2 / 0
 2 // 0
 ```
@@ -991,8 +813,8 @@ float('89')
 
 ---
 # Numbers
-### &lt;p style="color:#00449E"&gt; Things to Do &lt;/p&gt;
-1. Multiply the number of seconds in a minute (`60`) by the number of minutes in an hour (also `60`) using Python as a calculator.
+### &lt;p style="color:#00449E"&gt; Class Exercises &lt;/p&gt;
+1. Multiply the number of seconds in a minute (`60`) by the number of minutes in an hour (also `60`) using Python.
 
 2. Assign the result from the previous task (seconds in an hour) to a variable called `seconds_per_hour`.
 
