@@ -1,9 +1,9 @@
 ---
-title: "Lecture 5"
+title: "Lecture 6"
 subtitle: "DANL 200: Introduction to Data Analytics"
 author: "Byeong-Hak Choe"
 institute: "SUNY Geneseo"
-date: "September 13, 2022"
+date: "September 15, 2022"
 output:
   xaringan::moon_reader:
     css: 
@@ -87,72 +87,57 @@ class: title-slide, left, bottom
 
 - Dress code? Business Casual
 
-
-- Practice, prep or questions? In-person drop-ins!
-  - South 110 (or 112) on September 13, 9:00 AM-Noon
-  - South 110 (or 112) on September 14, 9:00 AM-4:00 PM
   
+
 ---
 class: inverse, center, middle
 
 # Workflow
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
 
+---
+# Workflow
+### <p style="color:#00449E"> Shortcuts for RStudio and RScript </p>
+
+.pull-left[
+**Mac**
+
+- **command + shift + N** opens a new RScript.
+- **command + return** runs a current line or selected lines.
+- **command + shift + C** is the shortcut for # (commenting).
+- **option + - ** is the shortcut for `<-`.
+]
+
+.pull-right[
+**Windows**
+
+- **Ctrl + Shift + N** opens a new RS-cript.
+- **Ctrl + return** runs a current line or selected lines.
+- **Ctrl + Shift + C** is the shortcut for # (commenting).
+- **Alt + - ** is the shortcut for `<-`.
+]
+
 
 
 ---
 # Workflow
-### <p style="color:#00449E"> Paths, Directories, and RStudio Projects </p>
+
+- **Home/End** moves the blinking cursor bar to the beginning/End of the line.
+  - **Ctrl** (**command/fn** for Mac Users) **+** `r fa("arrow-left")` / `r fa("arrow-right")` works too.
 
 
-
-- **Absolute paths** are paths that point to the same place regardless of your working directory.
-  - Mac: `/Users/byeong-hakchoe/Desktop/DANL/tvshows.csv`
-  - Windows: `C:\Users\bchoe\Desktop\DANL\tvshows.csv`
+- **PgUp/PgDn** moves the blinking cursor bar to the top/bottom line of the script on the screen. 
+  - **Fn + ** `r fa("arrow-up")` / `r fa("arrow-down")` works too.
 
 
-- In the path, Mac and uses slashes (e.g. `plots/diamonds.csv`) and Windows uses backslashes (e.g. `plots\diamonds.csv`).
-  - When using absolute paths, I recommend Windows users to replace backslashes (`\`) with slashes (`/`).
-  -  Backslashes mean something special to R, and to get a single backslash in the path, you need to type two backslashes.
+- **Ctrl** (**command** for Mac Users) **+ Z** undoes the previous action.
+- **Ctrl** (**command** for Mac Users) **+ Shift + Z** redoes when undo is executed.
 
 
----
-# Workflow
-### <p style="color:#00449E"> Paths, Directories, and RStudio Projects </p>
-
-- I keep all the files associated with a project together — input data, R scripts, analytical results, figures. 
-
-  - This is such a wise and common practice that RStudio has built-in support for this via **projects**.
-
-  - Let's make a **project** in RStudio.
-  
----
-# Making RStudio Projects - Windows 11
+- **Ctrl** (**command** for Mac Users) **+ F** is useful when finding a phrase (and replace the phrase) in the RScript.
 
 
-```{r, echo=FALSE, out.width = '90%', fig.align='center'}
-knitr::include_graphics("../lec_figs/rstudio-project_windows.gif")
-```
-
-
-
----
-# Making RStudio Projects - Windows 10
-
-
-```{r, echo=FALSE, out.width = '90%', fig.align='center'}
-knitr::include_graphics("../lec_figs/rstudio-project_windows10.gif")
-```
-
-
-
----
-# Making RStudio Projects - Mac
-
-
-```{r, echo=FALSE, out.width = '90%', fig.align='center'}
-knitr::include_graphics("../lec_figs/rstudio-project_mac.gif")
-```
+- **Ctrl** (**command** for Mac Users) **+ D** deletes a current line.
 
 
 
@@ -162,52 +147,6 @@ class: inverse, center, middle
 
 # Data Visualization with `ggplot()`
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
-
-
-
----
-# Exploratory Data Analysis
-
-```{r, echo=FALSE, out.width = '40%', fig.align='center'}
-knitr::include_graphics("../lec_figs/data-science-explore.png")
-```
-
-- In data visualization, you'll learn the basic structure of a `ggplot` plot. It turns data into plots.
-  
-- In data transformation, you'll learn the key verbs that allow you to select important variables, filter out key observations, create new variables, and compute summaries.
-
-- In **exploratory data analysis**, you'll combine visualization and transformation with your curiosity and skepticism to ask and answer interesting questions about data.
-
-
-
----
-# Data Visualization - First Steps
-
-```r
-library(tidyverse)   # library(ggplot2) if tidyverse is not available
-mpg
-?mpg
-```
-
-- The `mpg` data frame, provided by `ggplot2`, contains observations collected by the US Environmental Protection Agency on 38 models of car.
-
-- Q. Do cars with big engines use more fuel than cars with small engines?
-  - `displ`: a car's engine size, in liters.
-  - `hwy`: a car's fuel efficiency on the highway, in miles per gallon (mpg). 
-
-
----
-# Data Visualization - First Steps
-### <p style="color:#00449E"> Creating a `ggplot` </p>
-
--  What does the relationship between engine size and fuel efficiency look like?
-
-  - To plot `mpg`, run the following code to put `displ` on the `x`-axis and `hwy` on the `y`-axis:
-
-```r
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
-```
 
 
 
@@ -222,85 +161,18 @@ ggplot(data = <DATA>) +
 ```
 
 
-
-
----
-class: inverse, center, middle
-
-# Aesthetic Mappings
-<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
-
 ---
 # Aesthetic Mappings
-
-- In the plot below, one group of points (highlighted in red) seems to fall outside of the linear trend. 
-
-```{r, echo=FALSE, out.width = '50%', fig.align='center'}
-knitr::include_graphics("../lec_figs/r4s_330_1.png")
-```
-
-  - How can you explain these cars? Are those hybrids?
-
-
----
-# Aesthetic Mappings
-
-- An aesthetic is a visual property (e.g., `size`, `shape`, `color`) of the objects (e.g., `class`) in your plot.
-
-- You can display a point in different ways by changing the values of its aesthetic properties. 
-
-
-```{r, echo=FALSE, out.width = '50%', fig.align='center'}
-knitr::include_graphics("../lec_figs/r4s_330_2.png")
-```
-
-
----
-# Aesthetic Mappings
-### <p style="color:#00449E"> Adding a `color` to the plot </p>
-
-
-```{r, echo = T, eval = F}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, 
-*                          color = class) )
-```
-
-
---
-### <p style="color:#00449E"> Adding a `shape` to the plot </p>
-
-```{r, echo = T, eval = F}
-
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, 
-*                          shape = class) )
-```
-
-
-
----
-# Aesthetic Mappings
-### <p style="color:#00449E"> Adding a `size` to the plot </p>
-
-
-```{r, echo = T, eval = F}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, 
-*                          size = class) )
-```
-
-
---
 ### <p style="color:#00449E"> Adding an `alpha` (transparency) to the plot </p>
 
 
 ```{r, echo = T, eval = F}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, 
-*                          alpha = class) )
+  geom_point(mapping = aes(x = displ, y = hwy),
+*            alpha = .25 )
 ```
 
+- Why is specifying a level of `alpha` $\in[0, 1]$ in a scatter plot often a good option?
 
 
 ---
@@ -324,6 +196,16 @@ ggplot(data = mpg) +
   - Distance traveled between classes
 
 
+
+
+---
+# Aesthetic Mappings
+### <p style="color:#00449E"> Exercises </p>
+
+- Which variables in `mpg` are categorical? Which variables are continuous? (Hint: type `?mpg` to read the documentation for the dataset). How can you see this information when you run `mpg`?
+
+
+
 ---
 # Aesthetic Mappings
 ### <p style="color:#00449E"> Specifying a `color` to the plot </p>
@@ -335,27 +217,7 @@ ggplot(data = mpg) +
 ```
 
 
-
----
-# Aesthetic Mappings
-
-- To set an aesthetic manually, set the aesthetic by name as an argument of your `geom_*()` function; i.e. it goes outside of `aes()`. 
-
-  - You'll need to pick a level that makes sense for that aesthetic:
-
-    - The name of a `color` as a *character string*.
-  
-    - The `size` of a point in *mm*.
-  
-    - The `shape` of a point as a *number*, as shown below.
-```{r, echo=FALSE, out.width = '60%', fig.align='center'}
-knitr::include_graphics("../lec_figs/r4s_330_3.png")
-```
-
-
-
----
-# Aesthetic Mappings
+--
 ### <p style="color:#00449E"> Specifying a `color` to the plot? </p>
 
 ```{r, echo = T, eval = F}
@@ -363,40 +225,6 @@ ggplot(data = mpg) +
   geom_point( mapping = aes(x = displ, y = hwy, 
 *                           color = "blue") )
 ```
-
-
-
-
----
-# Common problems in ggplot()
-
-- One common problem when creating `ggplot2` graphics is to put the `+` in the wrong place.
-
-```{r, echo = T, eval = F}
-ggplot(data = mpg) 
-*+ geom_point( mapping = aes(x = displ, y = hwy) )
-```
-
-
-
-
----
-# Aesthetic Mappings
-### <p style="color:#00449E"> Exercises </p>
-
-- Which variables in mpg are categorical? Which variables are continuous? (Hint: type `?mpg` to read the documentation for the dataset). How can you see this information when you run `mpg`?
-
-- Map a continuous variable to `color`, `size`, and `shape.` How do these aesthetics behave differently for categorical vs. continuous variables?
-
----
-# Aesthetic Mappings
-### <p style="color:#00449E"> Exercises </p>
-
-- What happens if you map the same variable to multiple aesthetics?
-
-- What does the stroke aesthetic do? What shapes does it work with? (Hint: use `?geom_point`)
-
-- What happens if you map an aesthetic to something other than a variable name, like `aes(color = displ < 5)`? (Note, you'll also need to specify `x` and `y`).
 
 
 
@@ -447,35 +275,6 @@ ggplot(data = mpg) +
 
 - What happens if you facet on a continuous variable?
 
-- What do the empty cells in plot with `facet_grid(drv ~ cyl)` mean? How do they relate to this plot?
-```{r, echo = T, eval = F}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = drv, y = cyl))
-```
-
-
-- What plots does the following code make? What does `.` do?
-```{r, echo = T, eval = F}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) +
-* facet_grid(drv ~ .)
-
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) +
-* facet_grid(drv ~ .)
-
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) +
-* facet_grid(. ~ cyl)
-```
-
-
-
-
-
----
-# Facets
-### <p style="color:#00449E"> Exercises </p>
 
 - Take the first faceted plot in this section:
 ```{r, echo = T, eval = F}
@@ -486,14 +285,6 @@ ggplot(data = mpg) +
 ```
   - What are the advantages to using faceting instead of the color aesthetic? What are the disadvantages? How might the balance change if you had a larger dataset?
 
-
----
-# Facets
-### <p style="color:#00449E"> Exercises </p>
-
-- Read `?facet_wrap`. What does `nrow` do? What does `ncol` do? What other options control the layout of the individual panels? Why doesn’t `facet_grid()` have `nrow` and `ncol` arguments?
-
-- When using `facet_grid`, you should usually put the variable with more unique levels in the columns. Why?
 
 
 
@@ -611,13 +402,14 @@ ggplot(data = mpg) +
 
 ---
 # Geometric Objects
+### <p style="color:#00449E"> `geom_*()` Functions and Aesthetic mappings </p>
 
 
-- Every geom function in `ggplot2` takes a mapping argument.
+- Every `geom_*()` function  takes specific mapping arguments.
 
-- However, not every aesthetic works with every `geom`. 
-  - You could set the `shape` of a point, but you couldn't set the `shape` of a line;
-  - You could set the `linetype` of a line.
+  - Not every aesthetic property works with every `geom_*()` function. 
+  - For example, you can set the `shape` of a `geom_point()`, but you cannot set the `shape` of a `geom_smooth()`;
+  - You could set the `linetype` of a `geom_smooth()`.
 
 
 ```{r, echo = T, eval = F}
@@ -629,6 +421,8 @@ ggplot( data = mpg ) +
 
 ---
 # Geometric Objects
+### <p style="color:#00449E"> `geom_*()` functions and `group` aesthetic </p>
+
 - You can set the `group` aesthetic to a *categorical variable* to draw multiple objects. 
 
 - `ggplot2` will draw a separate object for each unique value of the grouping variable. 
@@ -645,7 +439,9 @@ ggplot(data = mpg) +
 
 ---
 # Geometric Objects
-- In practice, `ggplot2` will automatically group the data for these `geoms` whenever you map an aesthetic to a discrete variable (as in the `linetype` example). 
+### <p style="color:#00449E"> `geom_*()` functions and `group` aesthetic </p>
+
+- In practice, `ggplot2` will automatically *group* the data for these `geoms` whenever you map an aesthetic to a discrete variable (as in the `linetype` example). 
 
 ```{r, echo = T, eval = F}
 ggplot(data = mpg) +
@@ -662,6 +458,7 @@ ggplot(data = mpg) +
 
 ---
 # Geometric Objects
+### <p style="color:#00449E"> Multiple `geom_*()` functions </p>
 
 - To display multiple geometric objects in the same plot, add multiple `geom_*()` functions to `ggplot()`:
 
@@ -675,8 +472,9 @@ ggplot(data = mpg) +
 
 ---
 # Geometric Objects
+### <p style="color:#00449E"> Multiple `geom_*()` functions </p>
 
-- If you place mappings in a geom function, `ggplot2` will treat them as local mappings for the layer. 
+- If you place mappings in a `geom_*()` function, `ggplot2` will treat them as local mappings for the layer. 
 
 ```{r, echo = T, eval = F}
 ggplot(data = mpg, 
@@ -688,6 +486,7 @@ ggplot(data = mpg,
 
 ---
 # Geometric Objects
+### <p style="color:#00449E"> Multiple `geom_*()` functions </p>
 
 - You can use the same idea to specify different data for each layer. 
 - Here, our smooth line displays just a subset of the `mpg` dataset, the `subcompact` cars. 
@@ -766,7 +565,7 @@ knitr::include_graphics("../lec_figs/r4s_370_1.png")
 ### <p style="color:#00449E"> Observed Value vs. Number of Observations
 - There are three reasons you might need to use a `stat` explicitly:
 
-  -  *1*. You might want to override the default stat. 
+  -  *1*. You might want to override the default `stat`. 
 
 ```{r, echo = T, eval = F}
 demo <- tribble(         # for a simple data.frame
@@ -797,7 +596,8 @@ ggplot(data = demo) +
 
 ```{r, echo = T, eval = F}
 ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, y = stat(prop), 
+  geom_bar(mapping = aes(x = cut, 
+*                        y = stat(prop), 
 *                        group = 1))
 ```
 
@@ -824,11 +624,6 @@ ggplot(data = diamonds) +
 
 
 
-
-
-
-
-
 ---
 # Statistical Transformations
 ### <p style="color:#00449E"> Exercises
@@ -840,10 +635,6 @@ ggplot(data = diamonds) +
 - Most `geoms` and `stats` come in pairs that are almost always used in concert. Read through the documentation and make a list of all the pairs. What do they have in common?
 
 - What variables does `stat_smooth()` compute? What parameters control its behavior?
-
-
-
-
 
 
 ---
@@ -864,8 +655,6 @@ ggplot(data = diamonds) +
 
 
 
-
-
 ---
 class: inverse, center, middle
 
@@ -876,6 +665,7 @@ class: inverse, center, middle
 
 ---
 # Position Adjustments
+### <p style="color:#00449E"> `color` and `fill` aesthetic
 
 
 - You can color a bar chart using either the `color` aesthetic, or, more usefully, `fill`:
@@ -922,6 +712,7 @@ ggplot(data = diamonds) +
 
 ---
 # Position Adjustments
+### <p style="color:#00449E"> Stacked bar charts with `fill` aesthetic
 
 
 - Note that the bars are automatically stacked if you map the `fill` aesthetic to another variable.
@@ -945,6 +736,7 @@ ggplot(data = diamonds) +
 
 ---
 # Position Adjustments
+### <p style="color:#00449E"> Stacked bar charts with `fill` aesthetic
 
 - The `stack`ing is performed automatically by the **position adjustment** specified by the `position` argument. 
 
@@ -971,6 +763,7 @@ ggplot(data = diamonds) +
 
 ---
 # Position Adjustments
+### <p style="color:#00449E">  `position = "fill"` and `position = "dodge"`  
 
 - If you don't want a stacked bar chart with counts, you can use one of two other `position` options: `fill` or `dodge`.
 
@@ -1010,7 +803,7 @@ ggplot(data = diamonds) +
 
 ---
 # Position Adjustments
-### <p style="color:#00449E"> Overplotting
+### <p style="color:#00449E"> Overplotting and `position = "jitter"`
 
 - The values of `hwy` and `displ` are rounded so the points appear on a grid and many points overlap each other. 
   - This problem is known as **overplotting**. 
@@ -1071,6 +864,7 @@ class: inverse, center, middle
 
 ---
 # Coordinate Systems
+### <p style="color:#00449E"> `coord_flip()`
 
 - `coord_flip()` switches the `x` and `y` axes. 
 
@@ -1094,56 +888,27 @@ ggplot(data = mpg, mapping = aes(x = class, y = hwy)) +
 
 ---
 # Coordinate Systems
+### <p style="color:#00449E"> `coord_quickmap()`
 
 - `coord_quickmap()` sets the aspect ratio correctly for maps. 
 
 ```{r, echo = T, eval = F}
-nz <- map_data("nz")   # New Zealand map
+county <- map_data("county")   # Map data for US Counties
+ny <- filter(county,      # We will discuss 'filter()' in the next chapter
+             region == "new york")
 
-ggplot(nz, aes(long, lat, group = group)) +
+ggplot(ny, aes(long, lat, group = group)) +
   geom_polygon(fill = "white", color = "black")
 
-ggplot(nz, aes(long, lat, group = group)) +
+ggplot(ny, aes(long, lat, group = group)) +
   geom_polygon(fill = "white", color = "black") +
   coord_quickmap()
 ```
 
 
-
-
-
-
----
-# Coordinate Systems
-
-- `coord_polar()` uses polar coordinates. 
-- Polar coordinates reveal an interesting connection between a bar chart and a Coxcomb chart. 
-
-```{r, echo = T, eval = F}
-bar <- ggplot(data = diamonds) + 
-  geom_bar(
-    mapping = aes(x = cut, fill = cut), 
-    show.legend = FALSE,
-    width = 1
-  ) + 
-  theme(aspect.ratio = 1) +
-  labs(x = NULL, y = NULL)
-
-bar + coord_flip()
-bar + coord_polar()
-```
-
-
-
-
-
-
-
 ---
 # Coordinate Systems
 ### <p style="color:#00449E"> Exercises
-
-- Turn a stacked bar chart into a pie chart using `coord_polar()`.
 
 - What does `labs()` do? Read the documentation.
 
@@ -1182,7 +947,7 @@ ggplot(data = <DATA>) +
   <FACET_FUNCTION>
 ```
 
-- The seven parameters---(1) a dataset, (2) a geom, (3) a set of mappings, (4) a stat, (5) a position adjustment, (6) a coordinate system, and (7) a faceting scheme---in the template compose the grammar of graphics, a formal system for building plots. 
+- The seven parameters---(1) a dataset, (2) a geom, (3) a set of mappings, (4) a stat, (5) a position adjustment, (6) a coordinate system, and (7) a faceting scheme---in the template compose the **grammar of graphics**, a formal system for building plots. 
 
 
 

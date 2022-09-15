@@ -1,0 +1,764 @@
+---
+title: "Lecture 6"
+subtitle: "DANL 100: Programming for Data Analytics"
+author: "Byeong-Hak Choe"
+institute: "SUNY Geneseo"
+date: "September 15, 2022"
+output:
+  xaringan::moon_reader:
+    css: 
+      - default
+      - css/nhsr.css
+      - css/nhsr-fonts.css
+    lib_dir: libs
+    seal: false
+    nature:
+      highlightStyle: googlecode
+      highlightLines: true
+      highlightLanguage: ["r"]
+      countIncrementalSlides: false
+      ratio: "16:9"
+    includes:
+      after_body: [css/insert-logo.html]
+---
+
+```{r setup, include = FALSE}
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(NHSRtheme)
+library(fontawesome)
+# set default options
+opts_chunk$set(echo = FALSE,
+               fig.width = 7.252,
+               fig.height = 4,
+               comment = "#",
+               dpi = 300)
+
+knitr::knit_engines$set("markdown")
+
+xaringanExtra::use_tile_view()
+xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard()
+xaringanExtra::use_webcam()
+xaringanExtra::use_broadcast()
+xaringanExtra::use_share_again()
+xaringanExtra::style_share_again(
+  share_buttons = c("twitter", "linkedin", "pocket")
+)
+
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = F  #<<
+)
+
+# uncomment the following lines if you want to use the NHS-R theme colours by default
+# scale_fill_continuous <- partial(scale_fill_nhs, discrete = FALSE)
+# scale_fill_discrete <- partial(scale_fill_nhs, discrete = TRUE)
+# scale_colour_continuous <- partial(scale_colour_nhs, discrete = FALSE)
+# scale_colour_discrete <- partial(scale_colour_nhs, discrete = TRUE)
+```
+
+class: title-slide, left, bottom
+
+# `r rmarkdown::metadata$title`
+----
+## **`r rmarkdown::metadata$subtitle`**
+### `r rmarkdown::metadata$author`
+### `r rmarkdown::metadata$date`
+
+---
+# Announcement
+
+### <p style="color:#00449E">Accounting Expo</p>
+
+- Are you interested in learning about Accounting, Consulting, Audit or Tax?
+  - Stop in for pizza and meet 20+ Firms (alumni and employers) from the Big 4, National Players and Regional firms!
+
+
+- When? September 15th, 5:00 PM-7:00 PM
+
+
+- Where? Ballroom
+
+
+- Dress code? Business Casual
+  
+
+---
+class: inverse, center, middle
+
+# Workflow
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+
+
+---
+# Workflow
+### <p style="color:#00449E"> Shortcuts </p>
+- **F9** runs a current line (where the blinking cursor bar is) or selected lines.
+
+- **Home/End** moves the blinking cursor bar to the beginning/end of the line.
+  - **Fn + ** `r fa("arrow-left")` / `r fa("arrow-right")` works too.
+
+- **PgUp/PgDn** moves the blinking cursor bar to the top/bottom line of the script on the screen. 
+  - **Fn + ** `r fa("arrow-up")` / `r fa("arrow-down")` works too.
+
+
+
+
+---
+# Workflow
+### <p style="color:#00449E"> Shortcuts </p>
+
+.pull-left[
+### <p style="color:#00449E"> Mac </p>
+- **command + N** opens a new script.
+- **command + 1** is the shortcut for #.
+- **command + 4** is the shortcut for block comment.
+]
+
+.pull-right[
+### <p style="color:#00449E"> Windows </p>
+- **Ctrl + N** opens a new script.
+- **Ctrl + 1** is the shortcut for #.
+- **Ctrl + 4** is the shortcut for block comment.
+]
+
+
+
+---
+# Workflow
+### <p style="color:#00449E"> More Shortcuts </p>
+
+
+- **Ctrl** (**command** for Mac Users) **+ Z** undoes the previous action.
+- **Ctrl** (**command** for Mac Users) **+ Shift + Z** redoes when undo is executed.
+
+
+- **Ctrl** (**command** for Mac Users) **+ F** is useful when finding a phrase in the script.
+- **Ctrl** (**command** for Mac Users) **+ R** is useful when replacing a specific phrase with something in the script.
+
+
+- **Ctrl** (**command** for Mac Users) **+ D** deletes a current line.
+
+
+
+---
+# Workflow
+### <p style="color:#00449E"> Code and comment style </p>
+- The two main principles for coding and managing data are:
+  - Make things easier for your future self.
+  - Don't trust your future self.
+
+
+- The `#` mark is Spyder's comment character.
+  - The `#` character has many names: `hash`, `sharp`, `pound`, or `octothorpe`.
+  - `#` indicates that the rest of the line is to be ignored.
+  - Write comments before the line that you want the comment to apply to.
+
+
+- Consider using block commenting for separating code sections.
+  - `# %%` defines a coding block in Spyder.
+
+<!-- - Break down long lines and long algebraic expressions with backslash `\`. -->
+
+
+
+
+---
+class: inverse, center, middle
+
+# Numbers
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+
+---
+# Numbers
+
+- Let's look at the following Python’s simplest built-in data types in detail:
+
+  - **Booleans** (which have the value `True` or `False`)
+  
+  - **Integers** (whole numbers such as `10` and `28`)
+  
+  - **Floats** (numbers with decimal points such as `3.141592`, or sometimes exponents like `1.0e8`, which means one times ten to the eighth power, or `100000000.0`)
+
+
+
+---
+# Numbers
+### <p style="color:#00449E"> Integer Operations </p>
+
+.pull-left[
+- Python can be a simple calculator.
+
+- Here is a table of the math operators:
+
+```{r, echo=FALSE, out.width = '95%', fig.align='center'}
+knitr::include_graphics("../lec_figs/int-py-ch3-operation.png")
+```
+
+]
+.pull-right[
+- Dividing by zero with either kind of division causes a Python exception
+
+```{python, eval = F, echo = T}
+12 + 8
+12 - 8
+13 * 1.2
+2 + 3 * 4
+2 ** 3
+2 / 0
+2 // 0
+```
+]
+
+
+
+---
+# Numbers
+### <p style="color:#00449E"> Integers and Variables </p>
+
+- We can combine the arithmetic operators with assignment by putting the operator before the `=`.
+
+
+.pull-left[
+```{python, eval = F, echo = T}
+a = 72
+a -= 2   # This is like a = a - 2
+```
+
+]
+
+.pull-right[
+```{python, eval = F, echo = T}
+b = 62
+b += 2    # This is like b = b + 2
+```
+]
+
+.pull-left[
+```{python, eval = F, echo = T}
+c = 72
+c *= 2   # This is like c = c * 2
+```
+
+]
+
+.pull-right[
+```{python, eval = F, echo = T}
+d = 62
+d /= 2    # This is like d = d / 2
+```
+
+]
+
+
+
+---
+# Numbers
+### <p style="color:#00449E"> Type Conversions </p>
+
+- To change other Python data types to an integer, use the `int()` function.
+  - `int()` keeps the whole number and discard any fractional part.
+
+- `True` and `False` are converted to integer values `1` and `0`.
+
+.pull-left[
+```{python, eval = F, echo = T}
+int(True)
+int(False)
+```
+
+]
+
+.pull-right[
+```{python, eval = F, echo = T}
+bool(1)
+bool(0)
+```
+]
+
+.pull-left[
+```{python, eval = F, echo = T}
+int(72.3)
+int(1.0e4)
+```
+
+]
+
+.pull-right[
+```{python, eval = F, echo = T}
+bool(1.0)
+bool(0.0)
+```
+
+]
+
+
+
+
+---
+# Numbers
+### <p style="color:#00449E"> Floats </p>
+
+- To convert other types to floats, we use the `float()` function.
+
+.pull-left[
+```{python, eval = F, echo = T}
+float(True)
+float(False)
+```
+
+]
+
+.pull-right[
+```{python, eval = F, echo = T}
+float(88)
+float('89')
+```
+]
+
+
+---
+# Workflow
+### <p style="color:#00449E"> Continue Lines with `\` </p>
+
+.panelset[
+
+.panel[.panel-name[With `\`]
+```{python, eval = F, echo = T}
+sum = 1 + \
+      2 + \
+      3 + \
+      4
+sum
+```
+]
+
+.panel[.panel-name[Without `\`]
+```{python, eval = F, echo = T}
+sum = 1 + 
+```
+]
+
+
+.panel[.panel-name[With `()`]
+- If you’re in the middle of paired parentheses (or square or curly brackets), Python doesn’t squawk about line endings:
+
+```{python, eval = F, echo = T}
+sum = ( 1 +  
+        2 +  
+        3 +
+        4 )
+sum
+```
+]
+
+
+]
+
+
+---
+# Numbers
+### <p style="color:#00449E"> Class Exercises </p>
+1. Multiply the number of seconds in a minute (`60`) by the number of minutes in an hour (also `60`) using Python.
+
+2. Assign the result from the previous task (seconds in an hour) to a variable called `seconds_per_hour`.
+
+3. How many seconds are in a day? Use your `seconds_per_hour` variable.
+
+4. Calculate seconds per day again, but this time save the result in a variable called `seconds_per_day`
+
+5. Divide `seconds_per_day` by `seconds_per_hour`. Use floating-point (`/`) division.
+
+
+
+
+---
+class: inverse, center, middle
+
+# Choose with `if`
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+
+---
+# Choose with `if`
+### <p style="color:#00449E"> Compare with `if`, `elif`, and `else` </p>
+
+- Now, we finally take our first step into the *code structures* that weave data into programs.
+
+- The following Python program checks the value of the boolean variable `disaster` and prints an appropriate comment:
+
+```{python, eval = F, echo = T}
+disaster = True
+if disaster:
+    print("Woe!")
+else:
+    print("Whee!")
+```
+
+
+---
+# Choose with `if`
+### <p style="color:#00449E"> Compare with `if`, `elif`, and `else` </p>
+
+- The `if` and `else` lines are Python *statements* that check whether a condition is a boolean `True` value, or can be evaluated as `True`.
+
+```{python, eval = F, echo = T}
+disaster = True
+if disaster:
+    print("Woe!")
+else:
+    print("Whee!")
+```
+
+
+---
+# Choose with `if`
+### <p style="color:#00449E"> Compare with `if`, `elif`, and `else` </p>
+
+- Python expects you to be consistent with code within a section—the lines need to be indented the same amount, lined up on the left.
+
+  - The recommended style is to use *four* spaces.
+  - When changing a line by hitting the key *enter/return*, Spyder takes care of indention pretty well.
+  
+```{python, eval = F, echo = T}
+disaster = True
+if disaster:
+    print("Woe!")
+else:
+    print("Whee!")
+```
+
+
+
+---
+# Choose with `if`
+### <p style="color:#00449E"> Compare with `if`, `elif`, and `else` </p>
+
+- We did a number of things here:
+```{python, eval = F, echo = T}
+disaster = True
+if disaster:
+    print("Woe!")
+else:
+    print("Whee!")
+```
+
+  - Assigned the boolean value `True` to the variable named `disaster`.
+  - Performed a conditional comparison by using `if` and `else`, executing different code depending on the value of `disaster`.
+  - Called the `print()` function to print some text.
+
+
+
+---
+# Choose with `if`
+### <p style="color:#00449E"> Compare with `if`, `elif`, and `else` </p>
+
+- We can have tests within tests, as many levels deep as needed:
+```{python, eval = F, echo = T}
+furry = True
+large = True
+if furry:
+    if large:
+        print("It's a yeti.")
+    else:
+        print("It's a cat!")
+else:
+    if large:
+        print("It's a whale!")
+    else:
+        print("It's a human. Or a hairless cat.")
+```
+
+
+
+
+---
+# Choose with `if`
+### <p style="color:#00449E"> Compare with `if`, `elif`, and `else` </p>
+
+- Indentation determines how the `if` and `else` sections are paired.
+```{python, eval = F, echo = T}
+furry = True
+large = True
+if furry:
+    if large:
+        print("It's a yeti.")
+    else:
+        print("It's a cat!")
+else:
+    if large:
+        print("It's a whale!")
+    else:
+        print("It's a human. Or a hairless cat.")
+```
+
+
+
+
+---
+# Choose with `if`
+### <p style="color:#00449E"> Compare with `if`, `elif`, and `else` </p>
+
+If there are more than two possibilities to test, use `if` for the first, `elif` (meaning *else if*) for the middle ones, and `else` for the last:
+```{python, eval = F, echo = T}
+color = "mauve"
+if color == "red":
+    print("It's a rasberry")
+elif color == "green":
+    print("It's a green chili")
+elif color == "bee purple":
+    print("I don't know what it is, but only bees can see it")
+else:
+    print("I've never heard of the color", color)
+```
+
+
+
+---
+# Choose with `if`
+### <p style="color:#00449E"> Comparison Operators </p>
+
+- Here are Python's comparison operators:
+
+```{r, echo=FALSE, out.width = '24%', fig.align='center'}
+knitr::include_graphics("../lec_figs/int-py-ch4-comparison.png")
+```
+
+
+
+---
+# Choose with `if`
+### <p style="color:#00449E"> Comparison Operators </p>
+
+- Here are Python's comparison operators:
+
+```{python, eval = F, echo = T}
+# Assign x to 7
+x = 7
+
+x == 5    # Test equality
+x == 7
+5 < x
+x < 10
+```
+
+
+
+
+---
+# Choose with `if`
+### <p style="color:#00449E"> Comparison Operators </p>
+
+- Logical operators have lower *precedence* than the chunks of code that they’re comparing.
+
+  -  This means that the chunks are calculated first, and then compared.
+
+
+```{python, eval = F, echo = T}
+5 < x and x < 10
+```
+
+- The easiest way to avoid confusion about *precedence* is to add parentheses
+
+```{python, eval = F, echo = T}
+(5 < x) and (x < 10)
+```
+
+
+---
+# Choose with `if`
+### <p style="color:#00449E"> Comparison Operators </p>
+
+- Here are some other tests:
+```{python, eval = F, echo = T}
+5 < x or x < 10
+5 < x and x > 10
+5 < x and not x > 10
+```
+
+- If you’re `and`-ing multiple comparisons with one variable, Python lets you do this:
+```{python, eval = F, echo = T}
+5 < x < 10      # It’s the same as 5 < x and x < 10
+```
+
+
+
+
+---
+# Choose with `if`
+### <p style="color:#00449E"> What Is `True`? </p>
+
+- What does Python consider `True` and `False`?
+
+
+- A `False` value doesn’t necessarily need to explicitly be a boolean `False`. 
+  - The followings are all considered `False`:
+  
+.pull-left[
+```{r, echo=FALSE, out.width = '36%', fig.align='center'}
+knitr::include_graphics("../lec_figs/int-py-ch4-false1.png")
+```
+]
+.pull-right[
+```{r, echo=FALSE, out.width = '36%', fig.align='center'}
+knitr::include_graphics("../lec_figs/int-py-ch4-false2.png")
+```
+]
+
+
+
+- Anything else is considered `True`.
+
+
+---
+# Choose with `if`
+### <p style="color:#00449E"> What Is `True`? </p>
+- Python programs use these definitions of "truthiness" and "falsiness" to check for empty data structures as well as `False` conditions:
+
+```{python, eval = F, echo = T}
+some_list = []
+if some_list:
+    print("There's something in here")
+else:
+    print("Hey, it's empty!")
+```
+
+
+---
+# Choose with `if`
+### <p style="color:#00449E"> Do Multiple Comparisons with `in` </p>
+- Suppose that you have a letter and want to know whether it’s a vowel. 
+  - One way would be to write a long `if` statement:
+  
+```{python, eval = F, echo = T}
+letter = 'o'
+if letter == 'a' or letter == 'e' or letter == 'i' \
+    or letter == 'o' or letter == 'u':
+    print(letter, 'is a vowel')
+else:
+    print(letter, 'is not a vowel')
+```
+
+
+
+---
+# Choose with `if`
+### <p style="color:#00449E"> Do Multiple Comparisons with `in` </p>
+- Whenever you need to make a lot of comparisons like that, separated by or, use Python’s *membership operator* `in`, instead.
+  
+```{python, eval = F, echo = T}
+vowels = 'aeiou'
+letter = 'o'
+
+letter in vowels
+
+if letter in vowels:
+    print(letter, 'is a vowel')
+```
+
+
+---
+# Choose with `if`
+### <p style="color:#00449E"> Do Multiple Comparisons with `in` </p>
+- Here are some examples of how to use `in` with some data types:
+
+.panelset[
+
+.panel[.panel-name[Set]
+```{python, eval = F, echo = T}
+letter = 'o'
+vowel_set = {'a', 'e', 'i', 'o', 'u'}
+letter in vowel_set
+```
+]
+
+.panel[.panel-name[List]
+```{python, eval = F, echo = T}
+vowel_list = ['a', 'e', 'i', 'o', 'u']
+letter in vowel_list
+```
+]
+
+.panel[.panel-name[Tuple]
+```{python, eval = F, echo = T}
+vowel_tuple = ('a', 'e', 'i', 'o', 'u')
+letter in vowel_tuple
+```
+]
+
+.panel[.panel-name[Dictionary]
+```{python, eval = F, echo = T}
+vowel_dict = {'a': 'apple', 'e': 'elephant',
+              'i': 'impala', 'o': 'ocelot', 
+              'u': 'unicorn'}
+letter in vowel_dict
+```
+- For the dictionary, `in` looks at the keys (the left-hand side of the `:`) instead of their values.
+]
+
+.panel[.panel-name[String]
+```{python, eval = F, echo = T}
+vowel_string = "aeiou"
+letter in vowel_string
+```
+]
+
+]
+
+
+
+
+---
+# Choose with `if`
+### <p style="color:#00449E"> Walrus Operator </p>
+
+- The *walrus operator* looks like this:
+
+```{r, echo=FALSE, out.width = '24%', fig.align='center'}
+knitr::include_graphics("../lec_figs/int-py-ch5-walrus.png")
+```
+
+
+.panelset[
+
+.panel[.panel-name[Two-step assignments]
+```{python, eval = F, echo = T}
+tweet_limit = 280
+tweet_string = "Blah" * 50
+diff = tweet_limit - len(tweet_string)
+if diff >= 0:
+    print("A fitting tweet")
+else:
+    print("Went over by", abs(diff))
+```
+]
+
+.panel[.panel-name[Walrus]
+```{python, eval = F, echo = T}
+tweet_limit = 280
+tweet_string = "Blah" * 50
+if ( diff := tweet_limit - len(tweet_string) ) >= 0:
+    print("A fitting tweet")
+else:
+    print("Went over by", abs(diff))
+```
+]
+
+
+]
+
+
+
+
+---
+# Choose with `if`
+### <p style="color:#00449E"> Class Exercises </p>
+1. Choose a number between 1 and 10 and assign it to the variable `secret`. Then, select another number between 1 and 10 and assign it to the variable `guess`. Next, write the conditional tests (`if`, `else`, and `elif`) to print the string '`too low`' if `guess` is less than `secret`, '`too high`' if greater than `secret`, and '`just right`' if equal to `secret`.
+
+2. Assign `True` or `False` to the variables `small` and `green`. Write some `if`/`else` statements to print which of these matches those choices: `cherry`, `pea`, `watermelon`, `pumpkin`.
+
