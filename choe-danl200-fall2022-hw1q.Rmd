@@ -1,0 +1,49 @@
+---
+title: "DANL 200, Homework Assignment 1"
+subtitle: "Data Visualization with `ggplot`<br><br>" 
+author: 
+  - "Byeong-Hak Choe<br>"
+date: "September 17, 2022"
+output: 
+  html_document:
+    df_print: paged
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    number_sections: false
+    highlight: espresso
+---
+
+
+```{r, include = F}
+# install.packages("ggridges")
+# install.packages("colorspace")
+# install.packages("ggthemes")
+library(tidyverse)
+library(lubridate)
+library(ggridges)
+library(ggthemes)
+theme_set(theme_bw())
+library(colorspace)
+```
+
+# Instruction
+The starting R script for Homework Assignment 1 is provided in the Assignment section in our Canvas.
+ 
+Submit your R script with the following file name with no spaces---`DANL210_hw1_LASTNAME_FIRSTNAME.R`---to Homework Assignment 1 in the Assignment section in our Canvas.
+
+The due for the Homework Assignment 1 is September 26, 2022, 11:59 PM Eastern Time.
+
+
+# Question 1
+
+## (a)
+
+Download the data file, `bikeshare_dc.csv`, from the Files section in our Canvas web-page. Read the data file, `bikeshare_dc.csv`, as the *data.frame* object with the name, `bikeshare`, using (1) the `read_csv()` function and (2) the *absolute path* name of the file `titanic_all.csv` from your local hard disk drive in your laptop.
+
+```{r, echo = T, warning=F, message=F}
+library(tidyverse)
+bikeshare <- read_csv('/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/bikeshare_dc.csv')
+
+```
+
