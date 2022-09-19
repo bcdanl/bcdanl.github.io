@@ -181,12 +181,9 @@ else:
 # Choose with `if`
 ### <p style="color:#00449E"> Compare with `if`, `elif`, and `else` </p>
 
-- Python expects you to be consistent with code within a section—the lines need to be indented the same amount, lined up on the left.
-
-  - Indentation determines how the `if` and `else` sections are paired.
+- Indentation determines how the `if` and `else` sections are paired.
   - The recommended style is to use *four* spaces.
-  - When changing a line by hitting the key *enter/return*, Spyder takes care of indention pretty well.
-  
+
 ```{python, eval = F, echo = T}
 furry = True
 large = True
@@ -252,12 +249,30 @@ x < 10
 
 ---
 # Choose with `if`
-### <p style="color:#00449E"> Boolean Operators </p>
+### <p style="color:#00449E"> Boolean Operator </p>
 
-```{r, echo=FALSE, out.width = '36%', fig.align='center'}
-knitr::include_graphics("../lec_figs/Diagram_Explaining_Boolean_Operators.png")
+- The shaded regions show which parts each Boolean operator (*and, or, not*) selects.
+
+.left-column[
+```{r, echo=FALSE, out.width = '75%', fig.align='center'}
+knitr::include_graphics("../lec_figs/boolean_venn_diagram.png")
 ```
+]
 
+.right-column[
+
+
+- `A` **and** `B`:
+  - Both `A` and `B` statements are `True`.
+
+
+- `A` **or** `B`:
+  - Either `A` or `B` statement is `True`.
+
+
+- `A` **and not** `B`:
+  - `A` statement is `True` and `B` statement is `False`.
+]
 
 ---
 # Choose with `if`
@@ -272,7 +287,7 @@ knitr::include_graphics("../lec_figs/Diagram_Explaining_Boolean_Operators.png")
 5 < x and x < 10
 ```
 
-- The easiest way to avoid confusion about *precedence* is to add parentheses
+- The easiest way to avoid confusion about *precedence* is to add parentheses:
 
 ```{python, eval = F, echo = T}
 (5 < x) and (x < 10)
