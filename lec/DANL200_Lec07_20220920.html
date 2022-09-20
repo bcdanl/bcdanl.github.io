@@ -27,6 +27,8 @@
     <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
     <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
     <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
   </head>
@@ -113,6 +115,44 @@ class: title-slide, left, bottom
 
 
 ---
+# About the dataset for Question 3 in Homework Assignment 1
+
+- The geographic and time units of observation (row) in the dataset, `NY_school_enrollment_socioecon.csv`, are New York county and year.
+
+&lt;table class=" lightable-paper lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto; font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; FIPS &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; year &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; county_name &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pincp &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; c01_001 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; c02_002 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 36001 &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 2015 &lt;/td&gt;
+   &lt;td style="text-align:left;font-weight: bold;"&gt; Albany &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: yellow !important;"&gt; 55793 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: yellow !important;"&gt; 84463 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: yellow !important;"&gt; 4.7 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+For example, the observation above means that in Albany county in year 2015 ...
+  - Personal income of people is $55,793.
+  - Population 3 years and over enrolled in school is 84,463.
+  - Percent of population 3 years and over enrolled in nursery school and preschool is 4.7%.
+  
+
+
+
+---
 # Data Visualization - First Steps
 ### &lt;p style="color:#00449E"&gt; Graphing Template &lt;/p&gt;
 - To make a ggplot plot, replace the bracketed sections in the code below with a `data.frame`, a `geom` function, or a collection of mappings such as `x = VAR_1` and `y = VAR_2`.
@@ -196,7 +236,7 @@ ggplot(data = mpg) +
 ```
 ]
 .pull-right[
-![](DANL200_Lec07_20220920_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+![](DANL200_Lec07_20220920_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
 ]
 
 ] &lt;!----&gt;
@@ -213,7 +253,7 @@ ggplot(data = mpg) +
 ```
 ]
 .pull-right[
-![](DANL200_Lec07_20220920_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+![](DANL200_Lec07_20220920_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
 ]
 
 ] &lt;!----&gt;
@@ -517,7 +557,7 @@ ggplot(data = diamonds) +
 ```
 ]
 .pull-right[
-![](DANL200_Lec07_20220920_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+![](DANL200_Lec07_20220920_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
 ]
 
 ]
@@ -532,7 +572,7 @@ ggplot(data = diamonds) +
 ```
 ]
 .pull-right[
-![](DANL200_Lec07_20220920_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+![](DANL200_Lec07_20220920_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 ]
 ]
 
@@ -555,7 +595,7 @@ ggplot(data = diamonds) +
 ```
 ]
 .pull-right[
-![](DANL200_Lec07_20220920_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](DANL200_Lec07_20220920_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
 ]
 
 
@@ -576,7 +616,7 @@ ggplot(data = diamonds) +
 ```
 ]
 .pull-right[
-![](DANL200_Lec07_20220920_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+![](DANL200_Lec07_20220920_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
 ]
 
 

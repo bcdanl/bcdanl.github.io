@@ -138,6 +138,43 @@ class: title-slide, left, bottom
 
 
 ---
+# About the dataset for Question 3 in Homework Assignment 1
+
+- The geographic and time units of observation (row) in the dataset, `NY_school_enrollment_socioecon.csv`, are New York county and year.
+
+```{r, echo=F, eval=T}
+text_tbl <- data.frame(
+  FIPS = c(36001),
+  year = c(2015),
+  county_name = c("Albany"),
+  pincp = c(55793),
+  c01_001 = c(84463),
+  c02_002 = c(4.7)
+  )
+
+kbl(text_tbl) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T) %>%
+  column_spec(2, bold = T) %>%
+  column_spec(3, bold = T) %>%
+  column_spec(4, background = "yellow") %>% 
+  column_spec(5, background = "yellow") %>% 
+  column_spec(6, background = "yellow") %>% 
+  kable_paper("hover", full_width = F)
+
+```
+
+
+
+For example, the observation above means that in Albany county in year 2015 ...
+  - Personal income of people is $55,793.
+  - Population 3 years and over enrolled in school is 84,463.
+  - Percent of population 3 years and over enrolled in nursery school and preschool is 4.7%.
+  
+
+
+
+---
 # Data Visualization - First Steps
 ### <p style="color:#00449E"> Graphing Template </p>
 - To make a ggplot plot, replace the bracketed sections in the code below with a `data.frame`, a `geom` function, or a collection of mappings such as `x = VAR_1` and `y = VAR_2`.
