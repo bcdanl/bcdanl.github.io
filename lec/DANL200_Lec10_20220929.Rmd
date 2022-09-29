@@ -366,10 +366,10 @@ skim(customer_data)
   - Invalid values and outliers
   - Data ranges that are too wide or too narrow
   - The units of the data
+  
 
-- Generally, the goal of modeling is to make good predictions on typical cases, or to identify causal relationships.
-
-- A model that is highly skewed to predict a rare case correctly may not always be the best model overall.
+- In general, the goal of EDA/modeling is to make good predictions on *typical* cases, or to identify causal relationships.
+  - A model that is highly skewed to predict a rare case correctly may not always be the best model overall.
 
 
 
@@ -535,12 +535,8 @@ knitr::include_graphics("../lec_figs/pds_tab_3_1.png")
 
 
 ```{r, echo = T, eval = F}
-# install.packages("scales")    # install the "scales" package if you need
-library(scales)   # to denote the dollar sign in axes
-
-ggplot(customer_data, aes(x=income)) + 
-	geom_density() +
-	scale_x_continuous(labels=dollar)
+ggplot(customer_data, aes( x = income ) ) +
+  geom_density() 
 ```
 
 
@@ -601,10 +597,14 @@ $$\Delta \log(x) \,= \, \log(x_{1}) \,-\, \log(x_{0})
 - The log transformation makes the skewed distribution of income more normal.
 
 ```{r, echo = T, eval = F}
-ggplot(customer_data, aes(x=income)) +
-  geom_density() +
-  scale_x_log10(breaks = c(10, 100, 1000, 10000, 100000, 1000000),
-                labels=dollar) 
+ggplot(customer_data, aes( x = income ) ) +
+  geom_density() 
+
+ggplot(customer_data, aes( x = log(income) ) ) +
+  geom_density() 
+
+ggplot(customer_data, aes( x = log10(income) ) ) +
+  geom_density() 
 ```
 
 
@@ -622,7 +622,7 @@ ggplot(customer_data, aes(x=income)) +
 ```{r, echo = T, eval = F}
 ggplot( data = customer_data, 
 		    mapping =  aes( x = marital_status )  ) + 
-  geom_bar( fill="gray" )
+  geom_bar( fill = "gray" )
 ```
 
 
@@ -635,8 +635,8 @@ ggplot( data = customer_data,
 
 
 ```{r, echo = T, eval = F}
-ggplot(customer_data, aes(x=state_of_res)) +
-  geom_bar(fill="gray") +
+ggplot(customer_data, aes(x = state_of_res)) +
+  geom_bar(fill = "gray") +
   coord_flip()
 ```
 
@@ -683,8 +683,8 @@ ClevelandDotPlot(customer_data, "state_of_res",
 
 ```{r, echo = T, eval = F}
 customer_data2 <- filter(customer_data,
-                         0 < age & age < 100 &
-                         0 < income & income < 200000)
+                         0 < age & age < 100 &  # 0 < age < 100
+                         0 < income & income < 200000)   # 0 < income < 200000
                            
 cor(customer_data$age, customer_data$income)
 ```
@@ -699,16 +699,14 @@ cor(customer_data$age, customer_data$income)
 ggplot( data = customer_data2 ) +
   geom_smooth( mapping = aes(x = age, y = income) )
   
-ggplot(customer_data2, aes(x=age, y=income)) +
+ggplot(customer_data2, aes(x = age, y = income)) +
   geom_point() +
   geom_smooth() +
-  ggtitle("Income as a function of age")
 
 library(hexbin)    # install.packages("hexbin") if you have not.
 ggplot(customer_data2, aes(x=age, y=income)) +
   geom_hex() +
   geom_smooth(color = "red", se = F) +
-  ggtitle("Income as a function of age")
 ```
 
 
@@ -721,15 +719,15 @@ ggplot(customer_data2, aes(x=age, y=income)) +
 
 
 ```{r, echo = T, eval = F}
-ggplot(customer_data, aes(x=marital_status, fill=health_ins)) +
+ggplot(customer_data, aes(x = marital_status, fill = health_ins)) +
   geom_bar()
 
 # side-by-side bar chart
-ggplot(customer_data, aes(x=marital_status, fill=health_ins)) +
+ggplot(customer_data, aes(x = marital_status, fill = health_ins)) +
   geom_bar([?])
   
 # stacked bar chart
-ggplot(customer_data, aes(x=marital_status, fill=health_ins)) +
+ggplot(customer_data, aes(x = marital_status, fill = health_ins)) +
   geom_bar([?])
 ```
 
@@ -742,14 +740,13 @@ ggplot(customer_data, aes(x=marital_status, fill=health_ins)) +
 ```{r, echo = T, eval = F}
 cdata <- filter(customer_data, !is.na(housing_type))
 
-ggplot(cdata, aes(x=housing_type, fill=marital_status)) +
+ggplot(cdata, aes(x = housing_type, fill = marital_status)) +
   geom_bar(position = "dodge") +
-  scale_fill_brewer(palette = "Dark2") +
   coord_flip()
 
 ggplot(cdata, aes(x=marital_status)) +
   geom_bar(fill="darkgray") +
-  facet_wrap(~housing_type, scale="free_x") +
+  facet_wrap(~housing_type, scale="free_x") +  # try without scale="free_x"
   coord_flip()
 ```
 
@@ -759,16 +756,35 @@ ggplot(cdata, aes(x=marital_status)) +
 # Visualization
 ### <p style="color:#00449E"> Visually checking relationships between two variables
 
-- Overlaying, faceting, and several aesthetics should always be considered with the following geometric objects:
+- **Overlaying**, **faceting**, and **several aesthetics** should always be considered with the following geometric objects:
 
-  - Scatter plot
-  - Smoothing curve
-  - Bar chart 
-    - Stacked bar chart 
-    - Side-by-side bar chart 
-  - Density plot 
-  - Histogram 
-  - Frequency ploygon 
-  - Hexbin plot 
+.pull-left[
+
+- Scatter plot
+- Hexbin plot
+- Smoothing curve
 
 
+- Histogram 
+- Frequency ploygon
+- Density plot 
+- Boxplot
+]
+
+.pull-right[
+
+- Bar chart
+- Stacked bar chart 
+- Stacked proportion bar chart 
+- Side-by-side bar chart 
+- Side-by-side proportion bar chart 
+
+
+- Dot plot
+
+
+- Line plot
+]
+  
+    
+  
