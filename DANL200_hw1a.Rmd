@@ -291,6 +291,7 @@ ggplot(bikeshare) +
   geom_boxplot( aes(x = cnt, y = month, 
                     fill = month),
                 show.legend = F)+
+  facet_grid(.~year) +
   scale_y_discrete(limits=rev) +
   labs(x = "Count of total bikes rented out",
        y = "Month") +
@@ -324,9 +325,10 @@ ggplot(bikeshare) +
                   binwidth = .1,
                   color = NA,
                   show.legend = F)+
+  geom_vline(xintercept = 0, color = 'red') + 
   facet_grid(month~year, switch = "y") +
   labs(x = "Temperature, deviation from the average",
-       y = "Density") +
+       y = "Number of observations") +
   theme(strip.text.y.left = element_text(angle = 0),
         axis.text = element_text(size = 12),
         axis.title = element_text(face = "bold",
@@ -399,7 +401,7 @@ ggplot(bikeshare) +
   geom_vline(xintercept = 0, color = 'red') + 
   facet_grid(month~year, switch = "y") +
   labs(x = "Wind speed, measured in standard deviations from average",
-       y = "Number of observations") +
+       y = "Density") +
   theme(strip.text.y.left = element_text(angle = 0),
         axis.text.x = 
           element_text(angle = 90, 
@@ -436,7 +438,7 @@ ggplot(bikeshare, aes(x = temp, y = cnt )) +
     geom_smooth(aes(color = "Nonlinear"),
                 fill = "orchid")  +
     scale_fill_gradient2(
-      name = "Count of bikes rented out",
+      name = "Number of observations",
       low = 'purple',  
       high = 'purple4',  
       na.value = "grey80") +
@@ -551,7 +553,7 @@ ggplot(bikeshare) +
                show.legend = F) + 
   facet_grid(hr ~ weather_cond, scale = "free_y", switch = "y") +
   labs(x = "Count of bikes rented out",
-       y = "Number of observations")   +
+       y = "Density")   +
   theme(strip.text.y.left = element_text(angle = 0),
         axis.text.x = 
           element_text(angle = 90, 
@@ -618,7 +620,7 @@ ggplot(bikeshare) +
                show.legend = F) + 
   facet_grid(. ~ wkday, switch = "y") + 
   labs(x = "Count of bikes rented out",
-       y = "Density")  +
+       y = "Number of observations")  +
   theme(axis.text = element_text(size = 12),
         axis.title = element_text(face = "bold",
                                   size = 18),
