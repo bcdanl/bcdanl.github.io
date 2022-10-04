@@ -42,6 +42,7 @@ ny_school_enrollment_socio <- read_csv(url2)
 
 ```{r, eval = F, echo = T}
 library(tidyverse)
+library(skimr)
 # install.packages("hexbin")   # if you do not have the "hexbin" package
 library(hexbin)
 ```
@@ -112,6 +113,16 @@ bikeshare <- read_csv(url)
 View(bikeshare)
 summary(bikeshare)
 skim(bikeshare)
+
+table(bikeshare$wkday)
+table(bikeshare$month)
+table(bikeshare$seasons)
+table(bikeshare$weather_cond)
+
+prop.table( table( bikeshare$wkday ) )
+prop.table( table( bikeshare$month ) )
+prop.table( table( bikeshare$seasons ) )
+prop.table( table( bikeshare$weather_cond ) )
 ```
 
 <br>
@@ -149,13 +160,10 @@ bikeshare$seasons <- factor(bikeshare$seasons, levels = seasons_levels)
 
 kable(papeR::summarize(bikeshare, type = "numeric", test = FALSE)) %>%
   kable_styling(full_width = F)
-kable(papeR::summarize(bikeshare, type = "factor", variables = "month",
-                       test = FALSE)) %>%
-  kable_styling(full_width = F)
-kable(papeR::summarize(bikeshare, type = "factor", variables = "date",
-                       test = FALSE)) %>%
-  kable_styling(full_width = F)
 kable(papeR::summarize(bikeshare, type = "factor", variables = "wkday",
+                       test = FALSE)) %>%
+  kable_styling(full_width = F)
+kable(papeR::summarize(bikeshare, type = "factor", variables = "month",
                        test = FALSE)) %>%
   kable_styling(full_width = F)
 kable(papeR::summarize(bikeshare, type = "factor", variables = "seasons",
@@ -800,14 +808,16 @@ knitr::include_graphics("lec_figs/danl200-hw1-sample-data.png")
   - `c02_010`:  *Percent!!Population enrolled in college or graduate school*
   - So, `c02_010` is a *percent* of total population enrolled in college or graduate school;
   
-  -  A county's college enrollment level can be represented by an *overall* tendency of that county's residents to be enrolled in college.
-
-  - Which county does have a higher level of college enrollment? 
+  - In which county is more likely for a person to be enrolled in a college or graduate school? 
+  
 <br><br>
+
+-  A county's college enrollment level can be represented by an *overall* tendency of that county's residents to be enrolled in college (as long as we are interested in analyzing how human behaves overall).
+
 
 - The size of a county's population enrolled in college or graduate school (`c01_010`) may *not* be appropriate to represent a county's college enrollment level. 
 
-    - A county's larger size of population enrolled in college does not necessarily mean people in people in that county are likely to be enrolled in college.
+  - A county's larger size of population enrolled in college does not necessarily mean people in people in that county are likely to be enrolled in college.
 
 - Consider the following example:
 
