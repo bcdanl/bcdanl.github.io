@@ -1,9 +1,9 @@
 ---
-title: "Lecture 10"
+title: "Lecture 11"
 subtitle: "DANL 100: Programming for Data Analytics"
 author: "Byeong-Hak Choe"
 institute: "SUNY Geneseo"
-date: "September 29, 2022"
+date: "October 4, 2022"
 output:
   xaringan::moon_reader:
     css: 
@@ -146,6 +146,18 @@ class: title-slide, left, bottom
   - **Fn + ** `r fa("arrow-up")` / `r fa("arrow-down")` works too.
 
 
+---
+# Workflow
+### <p style="color:#00449E"> Shortcuts </p>
+- **Ctrl + Enter/Return** runs a current cell, defined by `# %%`.
+
+- Incidentally, **Ctrl + Enter/Return** is the keyboard shortcut for running the **selection** (or **current line**) in R Studio, not Spyder, which may be where I sometimes got confused.
+
+
+- If you prefer using **Ctrl** (or **command**) **+ Return**, you can go to Tools -> Preferences -> Keyboard shortcuts. Search for 'run selection', double click and set **Ctrl/command+Return** as the 'New shortcut'.
+
+
+- In my Spyder on Mac, I set **command + Return** for *running selection*, and **F9** for *running cell*.
 
 
 ---
@@ -188,334 +200,6 @@ class: title-slide, left, bottom
 ---
 class: inverse, center, middle
 
-# Loop with `while` and `for`
-<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
-
-
----
-# Loop with `while` and `for`
-
-- Sometimes, we need to do something more than once. 
-  - We need a loop, and Python gives us two choices: `while` and `for`.
-  
-### <p style="color:#00449E"> Repeat with `while` </p>
-
-<!-- - Try the following example: -->
-
-```{python, eval = F, echo = T}
-count = 1        
-while count <= 5:
-    print(count)
-    count += 1
-```
-
-.panelset[
-.panel[.panel-name[Step 1.]
-- We first assigned the value 1 to `count`.
-]
-
-.panel[.panel-name[Step 2.]
-- The `while` loop compared the value of `count` to 5 and continued if `count` was less than or equal to 5.
-]
-
-.panel[.panel-name[Step 3.]
-- Inside the loop, we printed the value of `count` and then *incremented* its value by one with the statement `count += 1`.
-]
-
-.panel[.panel-name[Step 4.]
-- Python goes back to the top of the loop, and again compares `count` with 5.
-]
-
-.panel[.panel-name[Step 5.]
-- The value of `count` is now 2, so the contents of the `while` loop are again executed, and `count` is incremented to 3.
-]
-
-.panel[.panel-name[Step 6.]
-- This continues until `count` is incremented from 5 to 6 at the bottom of the loop.
-]
-
-.panel[.panel-name[Step 7.]
-- On the next trip to the top, `count <= 5` is now `False`, and the `while` loop ends.
-]
-
-]
-
-
----
-# Repeat with `while`
-### <p style="color:#00449E"> Asking the user for input </p>
-
-- Sometimes we would like to take the value for a variable from the user via their keyboard. 
-  - The `input()` function gets *input* from the keyboard.
-  - When the `input()` is called, the program stops and waits for the user to type something on Console (interactive Python interpreter).
-  - When the user presses **Return** or **Enter** on Console, the program resumes and input returns what the user typed as a string.
-  
-```{python, eval = F, echo = T}
-stuff = input()
-# Type something and press Return/Enter on Console 
-# before running print(stuff)
-print(stuff)
-```
-
-
----
-# Repeat with `while`
-### <p style="color:#00449E"> Cancel with `break` </p>
-
-- `While` loop is used to execute a block of code repeatedly until given boolean condition evaluated to `False`. 
-  - `while True` loop will run forever unless we write it with a `break` statement.
-
-
-- If we want to loop until something occurs, but we’re not sure when that might happen, we can use an infinite loop with a `break` statement. 
-
-```{python, eval = F, echo = T}
-while True:
-    stuff = input("String to capitalize [type q to quit]: ")
-    if stuff == "q":
-        break
-    print(stuff.capitalize())
-```
-
-
----
-# Repeat with `while`
-### <p style="color:#00449E"> Skip Ahead with `continue` </p>
-
-- Sometimes, we don’t want to break out of a loop but just want to skip ahead to the
-next iteration for some reason. 
-
-- The `continue` statement is used to skip the rest of the code inside a loop for the *current iteration* only. 
-  <!-- - Loop does not terminate but *continues* on with the next iteration. -->
-
-<!-- - The `pass` statement in Python is used when a statement is required syntactically but you do not want any command or code to execute. -->
-
-
-```{python, eval = F, echo = T}
-while True:
-    value = input("Integer, please [q to quit]: ")
-    if value == 'q': # quit
-        break
-    number = int(value)
-    if number % 2 == 0: # an even number
-        continue
-    print(number, "squared is", number*number)
-```
-
-
-
----
-# Repeat with `while`
-### <p style="color:#00449E"> Check `break` Use with `else` </p>
-
-- We can consider using `while` with `else` when we’ve coded a `while` loop to check for something, and `break`ing as soon as it’s found. 
-  <!-- - The `else` would be run if the `while` loop completed but the object was not found. -->
-  
-```{python, eval = F, echo = T}
-numbers = [1, 3, 5]
-position = 0
-while position < len(numbers):
-    number = numbers[position]
-    if number % 2 == 0:
-        print('Found even number', number)
-        break
-    position += 1
-else: # break not called
-    print('No even number found')
-```
-- Consider it a break checker.
-
-
-
----
-# Loop with `while` and `for`
-### <p style="color:#00449E"> Iterate with `for` and `in` </p>
-
-- Sometimes we want to loop through a set of things such as a string of text, a list of words or a list of numbers.
-
-  - When we have a list of things to loop through, we can construct a `for` loop. 
-
-  - A `for` loop makes it possible for us to traverse data structures without knowing how large they are or how they are implemented. 
-  
-  <!-- - We can iterate over data that is created on the fly, allowing processing of data streams that would otherwise not fit in the computer’s memory all at once. -->
-
-
-<!-- - To do iteration, we need something like *strings*, *lists* and *tuples* or *dictionaries* to iterate over.  -->
-
-
-
----
-# Loop with `while` and `for`
-### <p style="color:#00449E"> Iterate with `for` and `in` </p>
-
-- Let's see two ways to walk through a string here:
-
-.pull-left[
-```{python, eval = F, echo = T}
-word = 'thud'
-offset = 0
-while offset < len(word):
-    print(word[offset])
-    offset += 1
-```
-]
-.pull-right[
-```{python, eval = F, echo = T}
-word = 'thud'
-for letter in word:
-    print(letter)
-```
-]
-
-- Which one do you prefer?
-
----
-# Iterate with `for` and `in`
-
-
-.pull-left[
-### <p style="color:#00449E"> Cancel with `break` </p>
-- A `break` in a `for` loop breaks out of the loop, as it does for a `while` loop:
-
-```{python, eval = F, echo = T}
-word = 'thud'
-for letter in word:
-    if letter == 'u':
-        break
-    print(letter)
-```
-]
-
-.pull-right[
-### <p style="color:#00449E"> Skip with `continue` </p>
-- Inserting a `continue` in a `for` loop jumps to the next iteration of the loop, as it does
-for a `while` loop.
-
-```{python, eval = F, echo = T}
-word = 'thud'
-for letter in word:
-    if letter == 'u':
-        continue
-    print(letter)
-```
-]
-
-
-
----
-# Iterate with `for` and `in`
-### <p style="color:#00449E"> Check `break` Use with `else` </p>
-- Similar to `while`, `for` has an optional `else` that checks whether the `for` completed
-normally. If `break` was not called, the `else` statement is run.
-
-  - This is useful when we want to verify that the previous `for` loop ran to completion instead of being stopped early with a `break`:
-
-```{python, eval = F, echo = T}
-word = 'thud'
-for letter in word:
-    if letter == 'x':
-        print("Eek! An 'x'!")
-        break
-    print(letter)
-else:
-    print("No 'x' in there.")
-```
-
-<!-- - It makes more sense if we think of the `for` as looking for something, and `else` being called if we didn’t find it.  -->
-<!--   - To get the same effect without `else`, we can use some variable to indicate whether we found what we wanted in the `for` loop. -->
-
-
----
-# Iterate with `for` and `in`
-### <p style="color:#00449E"> Generate Number Sequences with `range()` </p>
-
-.panelset[
-.panel[.panel-name[Why `range()`?]
-- The `range()` function returns a stream of numbers within a specified range, without
-first having to create and store a large data structure such as a *list* or *tuple*. 
-
-  - This lets us create huge ranges without using all the memory in our computers and crashing our program.
-  
-  - `range()` returns an iterable object, so we need to step through the values with `for` ... `in`, or convert the object to a sequence like a *list*. 
-
-
-]
-
-.panel[.panel-name[`for` ... `in` `range()`]
-- We use `range()` similar to how we use *slices*: `range( start, stop, step )`. 
-  - If we omit `start`, the `range` begins at 0. 
-  - The only required value is `stop`; as with *slices*, the last value created will be just before stop. 
-  - The default value of `step` is 1, but we can change it.
-
-```{python, eval = F, echo = T}
-for x in range(0, 3):
-    print(x)
-list( range(0, 3) )
-```
-
-]
-
-
-
-.panel[.panel-name[step < 0]
-- How can we make a range from 2 down to 0?
-
-```{python, eval = F, echo = T}
-for x in range(2, -1, -1):
-    print(x)
-    
-list( range(2, -1, -1) )
-```
-
-]
-
-
-
-.panel[.panel-name[step > 1]
-- How can we get only even numbers?
-
-```{python, eval = F, echo = T}
-for x in range(0, 11, 2):
-    print(x)
-    
-list( range(0, 11, 2) )
-```
-
-]
-
-]
-
-
-
-
----
-# Loop with `while` and `for`
-### <p style="color:#00449E"> Class Exercises </p>
-
-.panelset[
-.panel[.panel-name[`while` loop]
-
-1. Use a `while` loop to print the values of the list [3, 2, 1, 0].
-
-2. Assign the value 7 to the variable `guess_me`, and the value 1 to the variable `number`. Write a `while` loop that compares `number` with `guess_me.` Print 'too low' if `number` is less than guess me. If `number` equals `guess_me`, print 'found it!' and then exit the loop. If `number` is greater than `guess_me`, print 'oops' and then exit the loop. Increment `number` at the end of the loop.
-
-
-]
-
-
-.panel[.panel-name[`for` loop]
-
-1. Use a `for` loop to print the values of the list [3, 2, 1, 0].
-
-2. Assign the value 5 to the variable `guess_me.` Use a `for` loop to iterate a variable called `number` over `range(10)`. If `number` is less than `guess_me`, print 'too low'. If `number` equals `guess_me`, print 'found it!' and then `break` out of the `for` loop. If `number` is greater than `guess_me`, print 'oops' and then exit the loop.
-
-]
-]
-
-
-
----
-class: inverse, center, middle
-
 # Tuples and Lists
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
 
@@ -524,8 +208,7 @@ class: inverse, center, middle
 # Tuples and Lists
 ### <p style="color:#00449E">  </p>
 
-- In the previous classes, we started with some of Python’s basic data types: booleans,
-integers, floats, and strings. 
+- In the previous classes, we started with some of Python’s basic data types: booleans, integers, floats, and strings. 
   
   - If we think of those as atoms, the data structures in tuples and lists are like molecules.
   
@@ -1669,8 +1352,6 @@ type(number_thing)
 3. Make the cheesy element of `things` all uppercase and then print the list.
 
 4. Delete the disease element of `things`, and then print the list.
-
-
 
 
 

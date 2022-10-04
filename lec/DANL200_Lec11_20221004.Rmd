@@ -1,0 +1,678 @@
+---
+title: "Lecture 11"
+subtitle: "DANL 200: Introduction to Data Analytics"
+author: "Byeong-Hak Choe"
+institute: "SUNY Geneseo"
+date: "October 4, 2022"
+output:
+  xaringan::moon_reader:
+    css: 
+      - default
+      - css/nhsr.css
+      - css/nhsr-fonts.css
+    mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
+    lib_dir: libs
+    seal: false
+    nature:
+      highlightStyle: googlecode
+      highlightLines: true
+      highlightLanguage: ["r"]
+      countIncrementalSlides: false
+      ratio: "16:9"
+    includes:
+      after_body: [css/insert-logo.html]
+---
+
+```{r setup, include = FALSE}
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(NHSRtheme)
+library(fontawesome)
+
+# set default options
+opts_chunk$set(echo = FALSE,
+               fig.width = 7.252,
+               fig.height = 4,
+               comment = "#",
+               dpi = 300)
+
+knitr::knit_engines$set("markdown")
+
+xaringanExtra::use_tile_view()
+xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard()
+xaringanExtra::use_webcam()
+xaringanExtra::use_broadcast()
+xaringanExtra::use_share_again()
+xaringanExtra::style_share_again(
+  share_buttons = c("twitter", "linkedin", "pocket")
+)
+
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = F  #<<
+)
+
+# uncomment the following lines if you want to use the NHS-R theme colours by default
+# scale_fill_continuous <- partial(scale_fill_nhs, discrete = FALSE)
+# scale_fill_discrete <- partial(scale_fill_nhs, discrete = TRUE)
+# scale_colour_continuous <- partial(scale_colour_nhs, discrete = FALSE)
+# scale_colour_discrete <- partial(scale_colour_nhs, discrete = TRUE)
+```
+
+
+class: title-slide, left, bottom
+
+# `r rmarkdown::metadata$title`
+----
+## **`r rmarkdown::metadata$subtitle`**
+### `r rmarkdown::metadata$author`
+### `r rmarkdown::metadata$date`
+
+
+
+---
+# Announcement
+
+### <p style="color:#00449E"> Tutoring/TA-ing at Data Analytics Lab (South 321) </p>
+
+- Marcie Hogan (Tutor for Data Analytics 100):
+  1. Sunday, 2:00 PM--5:00 PM 
+  2. Wednesday, 12:30 PM--1:30 PM
+
+
+- Andrew Mosbo (Tutor for Data Analytics): 
+  1. Mondays, 4:00 PM--5:00 PM
+  2. Wednesdays, 11:00 A.M.--noon
+  3. Thursdays, 5:00 PM--6:00 PM
+
+
+- Jason Rappazzo (Tutor for Data Analytics; TA for Prof. Yazdani)
+  1. Tuesdays and Thursdays, 9:30 AM--10:45 AM
+  2. Friday, 9:00 AM--10:15 AM
+
+
+---
+# Announcement 
+
+### <p style="color:#00449E"> Tutoring/TA-ing at Data Analytics Lab (South 321) </p>
+
+- Emine Morris (TA for Byeong-Hak): 
+  1. Mondays and Wednesdays, 5:00 PM--6:30 PM
+  2. Tuesdays and Thursdays, 3:00 PM--4:45 PM
+
+
+
+
+---
+# Workflow
+### <p style="color:#00449E"> Shortcuts for RStudio and RScript </p>
+
+.pull-left[
+**Mac**
+
+- **command + shift + N** opens a new RScript.
+- **command + return** runs a current line or selected lines.
+- **command + shift + C** is the shortcut for # (commenting).
+- **option + - ** is the shortcut for `<-`.
+]
+
+.pull-right[
+**Windows**
+
+- **Ctrl + Shift + N** opens a new RS-cript.
+- **Ctrl + return** runs a current line or selected lines.
+- **Ctrl + Shift + C** is the shortcut for # (commenting).
+- **Alt + - ** is the shortcut for `<-`.
+]
+
+
+
+---
+# Workflow
+
+- **Home/End** moves the blinking cursor bar to the beginning/End of the line.
+  - **Ctrl** (**command/fn** for Mac Users) **+** `r fa("arrow-left")` / `r fa("arrow-right")` works too.
+
+
+- **PgUp/PgDn** moves the blinking cursor bar to the top/bottom line of the script on the screen. 
+  - **Fn + ** `r fa("arrow-up")` / `r fa("arrow-down")` works too.
+
+
+- **Ctrl** (**command** for Mac Users) **+ Z** undoes the previous action.
+- **Ctrl** (**command** for Mac Users) **+ Shift + Z** redoes when undo is executed.
+
+
+- **Ctrl** (**command** for Mac Users) **+ F** is useful when finding a phrase (and replace the phrase) in the RScript.
+
+
+- **Ctrl** (**command** for Mac Users) **+ D** deletes a current line.
+
+
+
+---
+class: inverse, center, middle
+
+# `ggplot` Grammar
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+
+---
+# The Layered Grammar of Graphics
+
+
+- Let's add position adjustments, stats, coordinate systems, and faceting to our code template.
+
+
+```{r, echo = T, eval = F}
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(
+     mapping = aes(<MAPPINGS>),
+     stat = <STAT>, 
+     position = <POSITION>) +
+  <COORDINATE_FUNCTION> +
+  <FACET_FUNCTION>
+```
+
+- The seven parameters---(1) a dataset, (2) a geom, (3) a set of mappings, (4) a stat, (5) a position adjustment, (6) a coordinate system, and (7) a faceting scheme---in the template compose the **grammar of graphics**, a formal system for building plots. 
+
+
+---
+class: inverse, center, middle
+
+# Exploraty Data Analysis
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+
+---
+# Exploraty Data Analysis
+### <p style="color:#00449E"> Get to know data before modeling
+
+- Through exploratory data analysis (EDA), ...
+  - We generate questions about our data.
+  - We search for answers by visualizing and transforming our data.
+  - We use what we learn to refine our questions and/or generate new questions.
+  
+  
+- EDA and statistical analysis are an iterative cycle to answer questions we identify from data.
+
+
+- EDA uses a combination of ...
+  - Summary statistics
+  - Visualization
+  - Data transformation
+
+
+---
+# Exploraty Data Analysis
+### <p style="color:#00449E"> Example
+
+- Suppose our goal is to identify what kind of characteristics of customers determine customers' health insurance status.
+
+- We've collected a dataset of customers whose health insurance status we know. 
+  
+- We've also identified some customer properties that we believe help predict the probability of insurance coverage: 
+  - age
+  - employment status
+  - income
+  - information about residence and vehicles, and so on
+
+
+
+
+---
+class: inverse, center, middle
+# Summary Statistics
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+
+---
+# Summary Statistics
+
+- Use the `summary()` or `skimr::skim()` command to take our first look at the data.
+  - They report a variety of summary statistics on the numerical variables of the data frame, and count statistics on any categorical variables.
+
+```{r, echo = T, eval = F}
+library(tidyverse)
+library(skimr)
+path_web <- "https://bcdanl.github.io/data/custdata.csv"
+customer_data <- read_csv(path_web)
+skim(customer_data)
+```
+
+
+
+
+
+---
+# Summary Statistics
+### <p style="color:#00449E"> Typical problems revealed by data summaries
+
+- At this stage, we're looking for several common issues:
+  - Missing values
+  - Invalid values and outliers
+  - Data ranges that are too wide or too narrow
+  - The units of the data
+  
+
+- In general, the goal of EDA/modeling is to make good predictions on *typical* cases, or to identify causal relationships.
+  - A model that is highly skewed to predict a rare case correctly may not always be the best model overall.
+
+
+
+---
+# Summary Statistics
+### <p style="color:#00449E"> Missing values
+
+- The variable `is_employed` is missing for more than a third of the data.
+
+  - Why?
+
+```{r, echo = T, eval = F}
+## is_employed
+## FALSE: 2321
+## TRUE :44887
+## NA's :24333
+```
+
+
+---
+# Summary Statistics
+### <p style="color:#00449E"> Data range and variation
+- We should pay attention to how much the values in the data vary. 
+
+  - Outliers are data points that fall well out of the range of where we expect the data to be.
+
+```{r, echo = T, eval = F}
+skim(customer_data$income)
+skim(customer_data$age)
+```
+
+
+
+---
+# Summary Statistics
+### <p style="color:#00449E"> Units
+
+- We may not know that variable `IncomeK` is defined as 
+
+$$IncomeK = \text{customer\_data}\$income/1000.$$ 
+
+- Looking only at the summary, the values could plausibly be interpreted to mean either "hourly wage" or "yearly income in units of $1,000."
+
+```{r, echo = T, eval = F}
+IncomeK <- customer_data$income/1000
+skim(IncomeK)
+```
+
+
+- This is actually something that we’ll catch by checking data definitions in *data dictionaries or documentation*, rather than in the summary statistics.
+
+
+
+---
+class: inverse, center, middle
+# Visualization
+
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+---
+
+# Key Points in Visualization
+
+1. A graphic should display as much information as it can, with the lowest possible cognitive strain to the viewer.
+
+2. Strive for clarity. Make the data stand out. Specific tips for increasing clarity include these:
+    - Avoid too many superimposed elements, such as too many curves in the
+      same graphing space.
+    - Find the right aspect ratio and scaling to properly bring out the details of the
+      data.
+    - Avoid having the data all skewed to one side or the other of our graph.
+
+3. Visualization is an iterative process. Its purpose is to answer questions about the data.
+
+
+
+---
+# Visualization
+### <p style="color:#00449E"> Visually checking distributions for a single variable
+
+- We will look at histograms, density plots, bar charts, and dot plots to see how varying a variable is.
+- The above visualizations help us answer questions like these:
+
+  - What is the peak value of the distribution?
+  
+  - How many peaks are there in the distribution (unimodality versus bimodality)?
+  
+  - How *normal* is the data? 
+  
+  - How much does the data vary? Is it concentrated in a certain interval or in a certain category?
+
+
+
+---
+# Visualization
+### <p style="color:#00449E"> Visually checking distributions for a single variable
+
+- One of the things that’s easy to grasp visually is the shape of the distribution of variable. 
+
+```{r, echo = T, eval = F}
+ggplot(data = customer_data) + 
+  geom_density( mapping = aes(x = age) ) 
+```
+
+- The graph here is somewhat flattish between the ages of about 25 and about 60, falling off slowly after 60. 
+- There seems to be a peak at around the late-20s to early 30s range, and another in the early 50s. 
+- This data has multiple peaks: it is not unimodal.
+  - Distribution peaks around mid/late 20s. Peaks again in early 50s.
+
+
+
+
+---
+# Visualization
+### <p style="color:#00449E"> Visually checking distributions for a single variable
+
+```{r, echo=FALSE, out.width = '66%', fig.align='center'}
+knitr::include_graphics("../lec_figs/pds_3_4.png")
+```
+
+
+
+---
+# Visualization
+### <p style="color:#00449E"> Histograms
+
+- A basic histogram bins a variable into fixed-width buckets and returns the number of data points that fall into each bucket as a height.
+
+- A histogram tells us where our data is concentrated. It also visually highlights outliers and anomalies.
+
+
+```{r, echo = T, eval = F}
+ggplot( data = customer_data, aes(x=gas_usage) ) +
+  geom_histogram( binwidth = 10, fill = "gray" )
+  
+skim(customer_data$gas_usage)
+```
+
+- When using `geom_histogram()/geom_freqpoly`, we should try several times with different values for `binwidth` or `bins`.
+
+---
+# Visualization
+### <p style="color:#00449E"> Data dictionary entry for `gas_usage`
+
+
+```{r, echo=FALSE, out.width = '50%', fig.align='center'}
+knitr::include_graphics("../lec_figs/pds_tab_3_1.png")
+```
+
+- Treat values `001`, `002`, and `003` as numerical values could potentially lead to incorrect conclusions in our analysis.
+
+
+---
+# Visualization
+### <p style="color:#00449E"> Density plots
+
+- We can think of a density plot as a continuous histogram of a variable.
+
+  - The area under the density plot is re-scaled to equal one.
+  - We can think of a density plot as a continuous histogram of a variable.
+
+
+```{r, echo = T, eval = F}
+ggplot(customer_data, aes( x = income ) ) +
+  geom_density() 
+```
+
+
+---
+# Visualization
+### <p style="color:#00449E"> A Little Bit of Math for Logarithm
+
+.panelset[
+
+.panel[.panel-name[log functions]
+
+- The logarithm function, $y = \log_{b}\,(\,x\,)$, looks like ....
+
+```{r, echo=FALSE, out.width = '42%', fig.align='center'}
+knitr::include_graphics("../lec_figs/logarithm_plots.png")
+```
+]
+
+.panel[.panel-name[log examples]
+- $\log_{10}\,(\,100\,)$: the base $10$ logarithm of $100$ is $2$, because $10^{2} = 100$
+
+- $\log_{e}\,(\,x\,)$: the base $e$ logarithm is called the natural log, where $e = 2.718\cdots$ is the mathematical constant,  the Euler's number.
+
+- $\log\,(\,x\,)$ or $\ln\,(\,x\,)$: the natural log of $x$ .
+
+- $\log_{e}\,(\,7.389\cdots\,)$: the natural log of $7.389\cdots$ is $2$, because $e^{2} = 7.389\cdots$.
+]
+
+]
+
+ 
+---
+# Visualization
+### <p style="color:#00449E"> Log Transformation
+
+- We should use a logarithmic scale when percent change, or change in orders of magnitude, is more important than changes in absolute units.
+
+  - For small changes in variable $x$ from $x_{0}$ to $x_{1}$, the following can be shown: 
+  
+$$\Delta \log(x) \,= \, \log(x_{1}) \,-\, \log(x_{0}) 
+\approx\, \frac{x_{1} \,-\, x_{0}}{x_{0}} 
+\,=\, \frac{\Delta\, x}{x_{0}}.$$
+
+- A difference in income of $5,000 means something very different across people with different income levels.
+
+<!-- - For small changes in $y$, the following can be shown that -->
+
+<!-- $$\Delta\,\\log(y)&\,=\, \\log(y_{1}) \,-\, \\log(y_{0}) \\ -->
+<!-- &\approx\, \frac{y_{1}} \,-\, y_{0}}{y_{0}} \\ -->
+<!-- &=\, \frac{\Delta\, y}{y_{0}}.$$ -->
+
+  - We should also consider using a log scale to reduce a variance of residuals when a variable is heavily skewed.
+
+---
+# Visualization
+### <p style="color:#00449E"> Log Transformation
+
+- The log transformation makes the skewed distribution of income more normal.
+
+```{r, echo = T, eval = F}
+ggplot(customer_data, aes( x = income ) ) +
+  geom_density() 
+
+ggplot(customer_data, aes( x = log(income) ) ) +
+  geom_density() 
+
+ggplot(customer_data, aes( x = log10(income) ) ) +
+  geom_density() 
+```
+
+
+
+
+
+---
+# Visualization
+### <p style="color:#00449E"> Bar Charts and Dotplots
+
+- A bar chart is a histogram for discrete data.
+  - It records the frequency of every value of a categorical variable.
+
+
+```{r, echo = T, eval = F}
+ggplot( data = customer_data, 
+		    mapping =  aes( x = marital_status )  ) + 
+  geom_bar( fill = "gray" )
+```
+
+
+
+---
+# Visualization
+### <p style="color:#00449E"> Bar Charts and Dotplots
+
+- Bar charts are most useful when the number of possible values is fairly large, like state of residents.
+
+
+```{r, echo = T, eval = F}
+ggplot(customer_data, aes( x = state_of_res ) ) +
+  geom_bar(fill = "gray") +
+  coord_flip()
+```
+
+- A horizontal bar chart can be easier to read when there are several categories with long names.
+
+
+
+---
+# Visualization
+### <p style="color:#00449E"> Bar Charts and Dotplots
+
+- Sometimes it is better to sort the data when plotting a bar chart or dot plot.
+
+
+```{r, echo = T, eval = F}
+library(WVPlots)    # install.package("WVPlots") if you have not
+ClevelandDotPlot(customer_data, "state_of_res",
+                 sort = 1, title="Customers by state") +
+  coord_flip()
+```
+
+
+- Sorted bar chart or dot plot can allow use to extract insight more efficiently from the data. 
+
+---
+# Visualization
+### <p style="color:#00449E"> Visually checking relationships between two variables
+
+- We'll often want to look at the relationship between two variables.
+
+  - Is there a relationship between the two inputs---age and income---in my data?
+  
+  - If so, what kind of relationship, and how strong?
+  
+  - Is there a relationship between the input, marital status, and the output, health insurance? How strong?
+
+
+---
+# Visualization
+### <p style="color:#00449E"> A relationship between age and income
+
+- Reasonable age and income values can be selected.
+  - We'll discuss the `filter()` function soon.
+
+```{r, echo = T, eval = F}
+customer_data2 <- filter(customer_data,
+                         0 < age & age < 100 &  # 0 < age < 100
+                         0 < income & income < 200000)   # 0 < income < 200000
+                           
+cor(customer_data$age, customer_data$income)
+```
+
+
+
+---
+# Visualization
+### <p style="color:#00449E"> A relationship between age and income
+
+```{r, echo = T, eval = F}
+ggplot( data = customer_data2 ) +
+  geom_smooth( mapping = aes(x = age, y = income) )
+  
+ggplot(customer_data2, aes(x = age, y = income)) +
+  geom_point() +
+  geom_smooth() +
+
+library(hexbin)    # install.packages("hexbin") if you have not.
+ggplot(customer_data2, aes(x=age, y=income)) +
+  geom_hex() +
+  geom_smooth(color = "red", se = F) +
+```
+
+
+
+---
+# Visualization
+### <p style="color:#00449E"> A relationship between marital status and health insurance
+
+- Bar charts can be used to describe a relationship between two categorical variables.
+
+
+```{r, echo = T, eval = F}
+ggplot(customer_data, aes(x = marital_status, fill = health_ins)) +
+  geom_bar()
+
+# side-by-side bar chart
+ggplot(customer_data, aes(x = marital_status, fill = health_ins)) +
+  geom_bar([?])
+  
+# stacked bar chart
+ggplot(customer_data, aes(x = marital_status, fill = health_ins)) +
+  geom_bar([?])
+```
+
+
+
+---
+# Visualization
+### <p style="color:#00449E"> The Distribution of Marriage Status across Housing Types
+
+```{r, echo = T, eval = F}
+cdata <- filter(customer_data, !is.na(housing_type))
+
+ggplot(cdata, aes(x = housing_type, fill = marital_status)) +
+  geom_bar(position = "dodge") +
+  coord_flip()
+
+ggplot(cdata, aes(x=marital_status)) +
+  geom_bar(fill="darkgray") +
+  facet_wrap(~housing_type, scale="free_x") +  # try without scale="free_x"
+  coord_flip()
+```
+
+
+
+---
+# Visualization
+### <p style="color:#00449E"> Visually checking relationships between two variables
+
+- **Overlaying**, **faceting**, and **several aesthetics** should always be considered with the following geometric objects:
+
+.pull-left[
+
+- Scatter plot
+- Hexbin plot
+- Smoothing curve
+
+
+- Histogram 
+- Frequency ploygon
+- Density plot 
+- Boxplot
+]
+
+.pull-right[
+
+- Bar chart
+- Stacked bar chart 
+- Stacked proportion bar chart 
+- Side-by-side bar chart 
+- Side-by-side proportion bar chart 
+
+
+- Dot plot
+
+
+- Line plot
+]
+  
+    
+  

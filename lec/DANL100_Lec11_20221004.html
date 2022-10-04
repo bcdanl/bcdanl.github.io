@@ -1,78 +1,53 @@
----
-title: "Lecture 10"
-subtitle: "DANL 100: Programming for Data Analytics"
-author: "Byeong-Hak Choe"
-institute: "SUNY Geneseo"
-date: "September 29, 2022"
-output:
-  xaringan::moon_reader:
-    css: 
-      - default
-      - css/nhsr.css
-      - css/nhsr-fonts.css
-    mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
-    lib_dir: libs
-    seal: false
-    nature:
-      highlightStyle: googlecode
-      highlightLines: true
-      highlightLanguage: ["r"]
-      countIncrementalSlides: false
-      ratio: "16:9"
-    includes:
-      after_body: [css/insert-logo.html]
----
-
-```{r setup, include = FALSE}
-library(knitr)
-library(kableExtra)
-library(tidyverse)
-library(NHSRtheme)
-library(fontawesome)
-# set default options
-opts_chunk$set(echo = FALSE,
-               fig.width = 7.252,
-               fig.height = 4,
-               comment = "#",
-               dpi = 300)
-
-knitr::knit_engines$set("markdown")
-
-xaringanExtra::use_tile_view()
-xaringanExtra::use_panelset()
-xaringanExtra::use_clipboard()
-xaringanExtra::use_webcam()
-xaringanExtra::use_broadcast()
-xaringanExtra::use_share_again()
-xaringanExtra::style_share_again(
-  share_buttons = c("twitter", "linkedin", "pocket")
-)
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 11</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Byeong-Hak Choe" />
+    <meta name="date" content="2022-10-04" />
+    <script src="libs/header-attrs-2.16/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <script src="libs/peerjs-1.3.1/peerjs.min.js"></script>
+    <script src="libs/tiny.toast-1.0.0/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast-0.2.6/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast-0.2.6/broadcast.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
+    <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
 
 
-xaringanExtra::use_extra_styles(
-  hover_code_line = TRUE,         #<<
-  mute_unhighlighted_code = F  #<<
-)
 
-# uncomment the following lines if you want to use the NHS-R theme colours by default
-# scale_fill_continuous <- partial(scale_fill_nhs, discrete = FALSE)
-# scale_fill_discrete <- partial(scale_fill_nhs, discrete = TRUE)
-# scale_colour_continuous <- partial(scale_colour_nhs, discrete = FALSE)
-# scale_colour_discrete <- partial(scale_colour_nhs, discrete = TRUE)
-```
 
 class: title-slide, left, bottom
 
-# `r rmarkdown::metadata$title`
+# Lecture 11
 ----
-## **`r rmarkdown::metadata$subtitle`**
-### `r rmarkdown::metadata$author`
-### `r rmarkdown::metadata$date`
+## **DANL 100: Programming for Data Analytics**
+### Byeong-Hak Choe
+### October 4, 2022
 
 ---
 # Announcement
 
-### <p style="color:#00449E"> Tutoring/TA-ing at Data Analytics Lab (South 321) </p>
+### &lt;p style="color:#00449E"&gt; Tutoring/TA-ing at Data Analytics Lab (South 321) &lt;/p&gt;
 
 - Marcie Hogan (Tutor for Data Analytics):
   1. Sunday, 2:00 PM--5:00 PM 
@@ -94,7 +69,7 @@ class: title-slide, left, bottom
 ---
 # Announcement 
 
-### <p style="color:#00449E"> Tutoring/TA-ing at Data Analytics Lab (South 321) </p>
+### &lt;p style="color:#00449E"&gt; Tutoring/TA-ing at Data Analytics Lab (South 321) &lt;/p&gt;
 
 - Emine Morris (TA for Byeong-Hak): 
   1. Mondays and Wednesdays, 5:00 PM--6:30 PM
@@ -106,7 +81,7 @@ class: title-slide, left, bottom
 ---
 # Announcement 
 
-### <p style="color:#00449E"> Student Ambassador Program </p>
+### &lt;p style="color:#00449E"&gt; Student Ambassador Program &lt;/p&gt;
 
 - "Geneseo Student Ambassador Awards provide up to $5,000 to support change-making, student-designed projects combining independent learning, innovative approaches to problem solving and community-based action."
 
@@ -136,31 +111,43 @@ class: title-slide, left, bottom
 
 ---
 # Workflow
-### <p style="color:#00449E"> Shortcuts </p>
+### &lt;p style="color:#00449E"&gt; Shortcuts &lt;/p&gt;
 - **F9** runs a current line (where the blinking cursor bar is) or selected lines.
 
 - **Home/End** moves the blinking cursor bar to the beginning/end of the line.
-  - **Fn + ** `r fa("arrow-left")` / `r fa("arrow-right")` works too.
+  - **Fn + ** <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M447.1 256C447.1 273.7 433.7 288 416 288H109.3l105.4 105.4c12.5 12.5 12.5 32.75 0 45.25C208.4 444.9 200.2 448 192 448s-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L109.3 224H416C433.7 224 447.1 238.3 447.1 256z"/></svg> / <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M438.6 278.6l-160 160C272.4 444.9 264.2 448 256 448s-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L338.8 288H32C14.33 288 .0016 273.7 .0016 256S14.33 224 32 224h306.8l-105.4-105.4c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160C451.1 245.9 451.1 266.1 438.6 278.6z"/></svg> works too.
 
 - **PgUp/PgDn** moves the blinking cursor bar to the top/bottom line of the script on the screen. 
-  - **Fn + ** `r fa("arrow-up")` / `r fa("arrow-down")` works too.
-
-
+  - **Fn + ** <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M374.6 246.6C368.4 252.9 360.2 256 352 256s-16.38-3.125-22.62-9.375L224 141.3V448c0 17.69-14.33 31.1-31.1 31.1S160 465.7 160 448V141.3L54.63 246.6c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0l160 160C387.1 213.9 387.1 234.1 374.6 246.6z"/></svg> / <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M374.6 310.6l-160 160C208.4 476.9 200.2 480 192 480s-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 370.8V64c0-17.69 14.33-31.1 31.1-31.1S224 46.31 224 64v306.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0S387.1 298.1 374.6 310.6z"/></svg> works too.
 
 
 ---
 # Workflow
-### <p style="color:#00449E"> Shortcuts </p>
+### &lt;p style="color:#00449E"&gt; Shortcuts &lt;/p&gt;
+- **Ctrl + Enter/Return** runs a current cell, defined by `# %%`.
+
+- Incidentally, **Ctrl + Enter/Return** is the keyboard shortcut for running the **selection** (or **current line**) in R Studio, not Spyder, which may be where I sometimes got confused.
+
+
+- If you prefer using **Ctrl** (or **command**) **+ Return**, you can go to Tools -&gt; Preferences -&gt; Keyboard shortcuts. Search for 'run selection', double click and set **Ctrl/command+Return** as the 'New shortcut'.
+
+
+- In my Spyder on Mac, I set **command + Return** for *running selection*, and **F9** for *running cell*.
+
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; Shortcuts &lt;/p&gt;
 
 .pull-left[
-### <p style="color:#00449E"> Mac </p>
+### &lt;p style="color:#00449E"&gt; Mac &lt;/p&gt;
 - **command + N** opens a new script.
 - **command + 1** is the shortcut for `#`.
 - **command + 4** is the shortcut for block comment.
 ]
 
 .pull-right[
-### <p style="color:#00449E"> Windows </p>
+### &lt;p style="color:#00449E"&gt; Windows &lt;/p&gt;
 - **Ctrl + N** opens a new script.
 - **Ctrl + 1** is the shortcut for `#`.
 - **Ctrl + 4** is the shortcut for block comment.
@@ -170,7 +157,7 @@ class: title-slide, left, bottom
 
 ---
 # Workflow
-### <p style="color:#00449E"> More Shortcuts </p>
+### &lt;p style="color:#00449E"&gt; More Shortcuts &lt;/p&gt;
 
 
 - **Ctrl** (**command** for Mac Users) **+ Z** undoes the previous action.
@@ -188,344 +175,15 @@ class: title-slide, left, bottom
 ---
 class: inverse, center, middle
 
-# Loop with `while` and `for`
-<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
-
-
----
-# Loop with `while` and `for`
-
-- Sometimes, we need to do something more than once. 
-  - We need a loop, and Python gives us two choices: `while` and `for`.
-  
-### <p style="color:#00449E"> Repeat with `while` </p>
-
-<!-- - Try the following example: -->
-
-```{python, eval = F, echo = T}
-count = 1        
-while count <= 5:
-    print(count)
-    count += 1
-```
-
-.panelset[
-.panel[.panel-name[Step 1.]
-- We first assigned the value 1 to `count`.
-]
-
-.panel[.panel-name[Step 2.]
-- The `while` loop compared the value of `count` to 5 and continued if `count` was less than or equal to 5.
-]
-
-.panel[.panel-name[Step 3.]
-- Inside the loop, we printed the value of `count` and then *incremented* its value by one with the statement `count += 1`.
-]
-
-.panel[.panel-name[Step 4.]
-- Python goes back to the top of the loop, and again compares `count` with 5.
-]
-
-.panel[.panel-name[Step 5.]
-- The value of `count` is now 2, so the contents of the `while` loop are again executed, and `count` is incremented to 3.
-]
-
-.panel[.panel-name[Step 6.]
-- This continues until `count` is incremented from 5 to 6 at the bottom of the loop.
-]
-
-.panel[.panel-name[Step 7.]
-- On the next trip to the top, `count <= 5` is now `False`, and the `while` loop ends.
-]
-
-]
-
-
----
-# Repeat with `while`
-### <p style="color:#00449E"> Asking the user for input </p>
-
-- Sometimes we would like to take the value for a variable from the user via their keyboard. 
-  - The `input()` function gets *input* from the keyboard.
-  - When the `input()` is called, the program stops and waits for the user to type something on Console (interactive Python interpreter).
-  - When the user presses **Return** or **Enter** on Console, the program resumes and input returns what the user typed as a string.
-  
-```{python, eval = F, echo = T}
-stuff = input()
-# Type something and press Return/Enter on Console 
-# before running print(stuff)
-print(stuff)
-```
-
-
----
-# Repeat with `while`
-### <p style="color:#00449E"> Cancel with `break` </p>
-
-- `While` loop is used to execute a block of code repeatedly until given boolean condition evaluated to `False`. 
-  - `while True` loop will run forever unless we write it with a `break` statement.
-
-
-- If we want to loop until something occurs, but we’re not sure when that might happen, we can use an infinite loop with a `break` statement. 
-
-```{python, eval = F, echo = T}
-while True:
-    stuff = input("String to capitalize [type q to quit]: ")
-    if stuff == "q":
-        break
-    print(stuff.capitalize())
-```
-
-
----
-# Repeat with `while`
-### <p style="color:#00449E"> Skip Ahead with `continue` </p>
-
-- Sometimes, we don’t want to break out of a loop but just want to skip ahead to the
-next iteration for some reason. 
-
-- The `continue` statement is used to skip the rest of the code inside a loop for the *current iteration* only. 
-  <!-- - Loop does not terminate but *continues* on with the next iteration. -->
-
-<!-- - The `pass` statement in Python is used when a statement is required syntactically but you do not want any command or code to execute. -->
-
-
-```{python, eval = F, echo = T}
-while True:
-    value = input("Integer, please [q to quit]: ")
-    if value == 'q': # quit
-        break
-    number = int(value)
-    if number % 2 == 0: # an even number
-        continue
-    print(number, "squared is", number*number)
-```
-
-
-
----
-# Repeat with `while`
-### <p style="color:#00449E"> Check `break` Use with `else` </p>
-
-- We can consider using `while` with `else` when we’ve coded a `while` loop to check for something, and `break`ing as soon as it’s found. 
-  <!-- - The `else` would be run if the `while` loop completed but the object was not found. -->
-  
-```{python, eval = F, echo = T}
-numbers = [1, 3, 5]
-position = 0
-while position < len(numbers):
-    number = numbers[position]
-    if number % 2 == 0:
-        print('Found even number', number)
-        break
-    position += 1
-else: # break not called
-    print('No even number found')
-```
-- Consider it a break checker.
-
-
-
----
-# Loop with `while` and `for`
-### <p style="color:#00449E"> Iterate with `for` and `in` </p>
-
-- Sometimes we want to loop through a set of things such as a string of text, a list of words or a list of numbers.
-
-  - When we have a list of things to loop through, we can construct a `for` loop. 
-
-  - A `for` loop makes it possible for us to traverse data structures without knowing how large they are or how they are implemented. 
-  
-  <!-- - We can iterate over data that is created on the fly, allowing processing of data streams that would otherwise not fit in the computer’s memory all at once. -->
-
-
-<!-- - To do iteration, we need something like *strings*, *lists* and *tuples* or *dictionaries* to iterate over.  -->
-
-
-
----
-# Loop with `while` and `for`
-### <p style="color:#00449E"> Iterate with `for` and `in` </p>
-
-- Let's see two ways to walk through a string here:
-
-.pull-left[
-```{python, eval = F, echo = T}
-word = 'thud'
-offset = 0
-while offset < len(word):
-    print(word[offset])
-    offset += 1
-```
-]
-.pull-right[
-```{python, eval = F, echo = T}
-word = 'thud'
-for letter in word:
-    print(letter)
-```
-]
-
-- Which one do you prefer?
-
----
-# Iterate with `for` and `in`
-
-
-.pull-left[
-### <p style="color:#00449E"> Cancel with `break` </p>
-- A `break` in a `for` loop breaks out of the loop, as it does for a `while` loop:
-
-```{python, eval = F, echo = T}
-word = 'thud'
-for letter in word:
-    if letter == 'u':
-        break
-    print(letter)
-```
-]
-
-.pull-right[
-### <p style="color:#00449E"> Skip with `continue` </p>
-- Inserting a `continue` in a `for` loop jumps to the next iteration of the loop, as it does
-for a `while` loop.
-
-```{python, eval = F, echo = T}
-word = 'thud'
-for letter in word:
-    if letter == 'u':
-        continue
-    print(letter)
-```
-]
-
-
-
----
-# Iterate with `for` and `in`
-### <p style="color:#00449E"> Check `break` Use with `else` </p>
-- Similar to `while`, `for` has an optional `else` that checks whether the `for` completed
-normally. If `break` was not called, the `else` statement is run.
-
-  - This is useful when we want to verify that the previous `for` loop ran to completion instead of being stopped early with a `break`:
-
-```{python, eval = F, echo = T}
-word = 'thud'
-for letter in word:
-    if letter == 'x':
-        print("Eek! An 'x'!")
-        break
-    print(letter)
-else:
-    print("No 'x' in there.")
-```
-
-<!-- - It makes more sense if we think of the `for` as looking for something, and `else` being called if we didn’t find it.  -->
-<!--   - To get the same effect without `else`, we can use some variable to indicate whether we found what we wanted in the `for` loop. -->
-
-
----
-# Iterate with `for` and `in`
-### <p style="color:#00449E"> Generate Number Sequences with `range()` </p>
-
-.panelset[
-.panel[.panel-name[Why `range()`?]
-- The `range()` function returns a stream of numbers within a specified range, without
-first having to create and store a large data structure such as a *list* or *tuple*. 
-
-  - This lets us create huge ranges without using all the memory in our computers and crashing our program.
-  
-  - `range()` returns an iterable object, so we need to step through the values with `for` ... `in`, or convert the object to a sequence like a *list*. 
-
-
-]
-
-.panel[.panel-name[`for` ... `in` `range()`]
-- We use `range()` similar to how we use *slices*: `range( start, stop, step )`. 
-  - If we omit `start`, the `range` begins at 0. 
-  - The only required value is `stop`; as with *slices*, the last value created will be just before stop. 
-  - The default value of `step` is 1, but we can change it.
-
-```{python, eval = F, echo = T}
-for x in range(0, 3):
-    print(x)
-list( range(0, 3) )
-```
-
-]
-
-
-
-.panel[.panel-name[step < 0]
-- How can we make a range from 2 down to 0?
-
-```{python, eval = F, echo = T}
-for x in range(2, -1, -1):
-    print(x)
-    
-list( range(2, -1, -1) )
-```
-
-]
-
-
-
-.panel[.panel-name[step > 1]
-- How can we get only even numbers?
-
-```{python, eval = F, echo = T}
-for x in range(0, 11, 2):
-    print(x)
-    
-list( range(0, 11, 2) )
-```
-
-]
-
-]
-
-
-
-
----
-# Loop with `while` and `for`
-### <p style="color:#00449E"> Class Exercises </p>
-
-.panelset[
-.panel[.panel-name[`while` loop]
-
-1. Use a `while` loop to print the values of the list [3, 2, 1, 0].
-
-2. Assign the value 7 to the variable `guess_me`, and the value 1 to the variable `number`. Write a `while` loop that compares `number` with `guess_me.` Print 'too low' if `number` is less than guess me. If `number` equals `guess_me`, print 'found it!' and then exit the loop. If `number` is greater than `guess_me`, print 'oops' and then exit the loop. Increment `number` at the end of the loop.
-
-
-]
-
-
-.panel[.panel-name[`for` loop]
-
-1. Use a `for` loop to print the values of the list [3, 2, 1, 0].
-
-2. Assign the value 5 to the variable `guess_me.` Use a `for` loop to iterate a variable called `number` over `range(10)`. If `number` is less than `guess_me`, print 'too low'. If `number` equals `guess_me`, print 'found it!' and then `break` out of the `for` loop. If `number` is greater than `guess_me`, print 'oops' and then exit the loop.
-
-]
-]
-
-
-
----
-class: inverse, center, middle
-
 # Tuples and Lists
-<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
 
 
 ---
 # Tuples and Lists
-### <p style="color:#00449E">  </p>
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
 
-- In the previous classes, we started with some of Python’s basic data types: booleans,
-integers, floats, and strings. 
+- In the previous classes, we started with some of Python’s basic data types: booleans, integers, floats, and strings. 
   
   - If we think of those as atoms, the data structures in tuples and lists are like molecules.
   
@@ -547,14 +205,15 @@ integers, floats, and strings.
 
 ---
 # Tuples
-### <p style="color:#00449E"> Create with Commas and () </p>
+### &lt;p style="color:#00449E"&gt; Create with Commas and () &lt;/p&gt;
 
 - The syntax to make tuples is a little inconsistent.
 
 .panelset[
 .panel[.panel-name[(1)]
 - Let's begin by making an empty tuple using ():
-```{python, eval = F, echo = T}
+
+```python
 empty_tuple = ()
 ```
 
@@ -563,7 +222,8 @@ empty_tuple = ()
 .panel[.panel-name[(2)]
 - To make a tuple with one or more elements, follow each element with a comma. 
   - This works for one-element tuples:
-```{python, eval = F, echo = T}
+
+```python
 one_geneseo = 'Geneseo',
 ```
 
@@ -571,28 +231,32 @@ one_geneseo = 'Geneseo',
 
 .panel[.panel-name[(3)]
 - We could enclose them in parentheses and still get the same tuple:
-```{python, eval = F, echo = T}
+
+```python
 one_geneseo = ('Geneseo',)
 ```
 ]
 
 .panel[.panel-name[(4)]
 - If we have a single thing in parentheses and omit that comma, we would not get a tuple, but just the thing.
-```{python, eval = F, echo = T}
+
+```python
 one_geneseo = ('Geneseo')
 ```
 ]
 
 .panel[.panel-name[(5)]
 - If we have more than one element, follow all but the last one with a comma:
-```{python, eval = F, echo = T}
+
+```python
 suny_tuple = 'Geneseo', 'Borckport', 'Oswego'
 ```
 ]
 
 .panel[.panel-name[(6)]
 - We often don’t need parentheses when we define a tuple, but using parentheses is a little safer, and it helps to make the tuple more visible:
-```{python, eval = F, echo = T}
+
+```python
 suny_tuple = ('Geneseo', 'Borckport', 'Oswego')
 ```
 ]
@@ -600,7 +264,8 @@ suny_tuple = ('Geneseo', 'Borckport', 'Oswego')
 
 .panel[.panel-name[(7)]
 - We do need the parentheses for cases in which commas might also have another use.
-```{python, eval = F, echo = T}
+
+```python
 one_geneseo = 'Geneseo',
 type(one_geneseo)
 
@@ -612,7 +277,8 @@ type(('Groucho',))
 
 .panel[.panel-name[(8)]
 - Tuples let us assign multiple variables at once:
-```{python, eval = F, echo = T}
+
+```python
 suny_tuple = ('Geneseo', 'Borckport', 'Oswego')
 a, b, c = suny_tuple
 a
@@ -627,7 +293,8 @@ c
 .panel[.panel-name[(9)]
 - We can use tuples to exchange values in one statement without using a temporary
 variable:
-```{python, eval = F, echo = T}
+
+```python
 password = 'swordfish'
 icecream = 'tuttifrutti'
 password, icecream = icecream, password
@@ -645,7 +312,7 @@ icecream
 
 ---
 # Tuples
-### <p style="color:#00449E">  </p>
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
 
 
 .panelset[
@@ -653,7 +320,8 @@ icecream
 ### Create with `tuple()`
 - The tuple() conversion function makes tuples from other things:
 
-```{python, eval = F, echo = T}
+
+```python
 suny_list = ['Geneseo', 'Borckport', 'Oswego']
 tuple = tuple(suny_list)
 ```
@@ -663,7 +331,8 @@ tuple = tuple(suny_list)
 ### Combine Tuples by Using `+`
 - This is similar to combining strings:
 
-```{python, eval = F, echo = T}
+
+```python
 ('Geneseo',) + ('Borckport', 'Oswego')
 ```
 
@@ -673,7 +342,8 @@ tuple = tuple(suny_list)
 ### Duplicate Items with `*`
 - This is like repeated use of `+`:
 
-```{python, eval = F, echo = T}
+
+```python
 ('yada',) * 3
 ```
 
@@ -683,12 +353,13 @@ tuple = tuple(suny_list)
 ### Compare Tuples
 - This works much like list comparisons:
 
-```{python, eval = F, echo = T}
+
+```python
 a = (7, 2)
 b = (7, 2, 9)
 a == b
-a <= b
-a < b
+a &lt;= b
+a &lt; b
 ```
 
 ]
@@ -697,7 +368,8 @@ a < b
 ### Iterate with `for` and `in`
 - Tuple iteration is like iteration of other types:
 
-```{python, eval = F, echo = T}
+
+```python
 words = ('fresh','out', 'of', 'ideas')
 for word in words:
     print(word)
@@ -711,7 +383,8 @@ for word in words:
   - Like strings, tuples are immutable, so we can’t change an existing one. 
   - As we saw just before, we can concatenate (combine) tuples to make a new one, as we can with strings:
 
-```{python, eval = F, echo = T}
+
+```python
 t1 = ('Fee', 'Fie', 'Foe')
 id(t1)
 t2 = ('Flop',)
@@ -744,11 +417,12 @@ id(t1)
 
 .panelset[
 .panel[.panel-name[with `[]`]
-### <p style="color:#00449E"> Create with [] </p>
+### &lt;p style="color:#00449E"&gt; Create with [] &lt;/p&gt;
 
 - A list is made from zero or more elements, separated by commas and surrounded by
 square brackets:
-```{python, eval = F, echo = T}
+
+```python
 empty_list = [ ]
 weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
 big_birds = ['emu', 'ostrich', 'cassowary']
@@ -766,7 +440,8 @@ leap_years = [2012, 2016, 2020]
 
 - `list()` function also converts other iterable data types (such as tuples, strings, sets, and dictionaries) to lists.
 
-```{python, eval = F, echo = T}
+
+```python
 another_empty_list = list()
 another_empty_list
 
@@ -782,7 +457,8 @@ list(a_tuple)
 ### Create from a String with `split()`
 - We can use `split()` to chop a string into a *list* by some separator:
 
-```{python, eval = F, echo = T}
+
+```python
 coffee_day = '10/1/2022'
 coffee_day.split('/')
 
@@ -802,12 +478,14 @@ splitme.split('//')
 .panel[.panel-name[`[offset]`]
 ### Get an Item by `[offset]`
 - As with strings, we can extract a single value from a list by specifying its offset:
-```{python, eval = F, echo = T}
+
+```python
 suny = ['Geneseo', 'Brockport', 'Oswego']
 ```
 
 .pull-left[
-```{python, eval = F, echo = T}
+
+```python
 suny[0]
 suny[1]
 suny[2]
@@ -815,7 +493,8 @@ suny[5]
 ```
 ]
 .pull-right[
-```{python, eval = F, echo = T}
+
+```python
 suny[-1]
 suny[-2]
 suny[-3]
@@ -830,21 +509,24 @@ suny[-5]
 .panel[.panel-name[slice]
 ### Get an Item with a Slice
 - We can extract a subsequence of a list by using a *slice*:
-```{python, eval = F, echo = T}
+
+```python
 suny = ['Geneseo', 'Brockport', 'Oswego']
 suny[0:2]    # A slice of a list is also a list.
 ```
 
 
 .pull-left[
-```{python, eval = F, echo = T}
+
+```python
 suny[::2]
 suny[::-2]
 suny[::-1]
 ```
 ]
 .pull-right[
-```{python, eval = F, echo = T}
+
+```python
 suny[4:]
 suny[-6:]
 suny[-6:-2]
@@ -860,7 +542,8 @@ suny[-6:-4]
 .panel[.panel-name[`reverse()`]
 ### Reverse a list with `reverse()`
 - To reverse a list in place, use `list.reverse()`:
-```{python, eval = F, echo = T}
+
+```python
 suny.reverse()
 suny
 ```
@@ -871,7 +554,8 @@ suny
 .panel[.panel-name[`append()`]
 ### Add an Item to the End with `append()`
 - The `append()` function adds items to the end of the list.
-```{python, eval = F, echo = T}
+
+```python
 suny = ['Geneseo', 'Brockport', 'Oswego']
 suny.append('Buffalo')
 suny
@@ -888,7 +572,8 @@ suny
 .panel[.panel-name[`insert()`]
 ### Add an Item by Offset with `insert()`
 - When we want to add an item before any offset in the list, we can use `insert()`.
-```{python, eval = F, echo = T}
+
+```python
 suny = ['Geneseo', 'Brockport', 'Oswego']
 suny.insert(2, 'Buffalo')
 suny
@@ -902,7 +587,8 @@ suny
 .panel[.panel-name[`*`]
 ### Duplicate All Items with *
 - We saw that we can duplicate a string’s characters with `*`. The same works for a list:
-```{python, eval = F, echo = T}
+
+```python
 ["blah"] * 3
 
 suny = ['Geneseo', 'Brockport', 'Oswego']
@@ -916,7 +602,8 @@ suny * 2
 .panel[.panel-name[`extend()`]
 ### Combine Lists by Using `extend()` or `+`
 - We can merge one list into another by using `extend()` or `+`.
-```{python, eval = F, echo = T}
+
+```python
 suny = ['Geneseo', 'Brockport', 'Oswego']
 others = ['Buffalo', 'Cortland']
 suny.extend(others)
@@ -937,14 +624,15 @@ suny
 
 ---
 # Change Items in a List
-### <p style="color:#00449E">  </p>
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
 
 .panelset[
 .panel[.panel-name[`[offset]`]
 ### Change an Item by `[offset]`
 - Just as we can get the value of a list item by its offset, we can change it:
 
-```{python, eval = F, echo = T}
+
+```python
 suny = ['Geneseo', 'Brockport', 'Oswego']
 suny[2] = 'Buffalo'
 suny
@@ -958,7 +646,8 @@ suny
 ### Change Items with a Slice
 .pull-left[
 - We can assign values to a sublist with a slice.
-```{python, eval = F, echo = T}
+
+```python
 numbers = [1, 2, 3, 4]
 numbers[1:3] = ['eight', 'nine']
 numbers
@@ -966,7 +655,8 @@ numbers
 ]
 .pull-right[
 - The right-hand thing that we’re assigning to the list doesn’t need to have the same number of elements as the slice on the left:
-```{python, eval = F, echo = T}
+
+```python
 numbers = [1, 2, 3, 4]
 numbers[1:3] = [7, 8, 9]
 numbers
@@ -980,7 +670,8 @@ numbers
 ### Delete an Item by Offset with `del`
 - We can use a `del` statement to delete an item by its position in a list.
 
-```{python, eval = F, echo = T}
+
+```python
 suny = ['Geneseo', 'Brockport', 'Oswego', 'Rochester']
 suny[-1]
 del suny[-1]    
@@ -994,7 +685,8 @@ suny
 ### Delete an Item by Value with `remove()`
 - If we're not sure or don’t care where the item is in the list, we can use `remove()` to delete it by value.
 
-```{python, eval = F, echo = T}
+
+```python
 suny = ['Geneseo', 'Brockport', 'Oswego', 'Rochester']
 suny.remove('Rochester')
 suny
@@ -1012,7 +704,8 @@ suny
 - We can get an item from a list and delete it from the list at the same time by using `pop()`.
   - If we call `pop()` with an offset, it will return the item at that offset; with no argument, it uses -1.
 
-```{python, eval = F, echo = T}
+
+```python
 suny = ['Geneseo', 'Brockport', 'Oswego', 'Rochester']
 suny.pop()
 suny
@@ -1027,7 +720,8 @@ suny
 ### Delete All Items with `clear()`
 - We can use `clear()` to clear a list of all its elements:
 
-```{python, eval = F, echo = T}
+
+```python
 suny_roc = ['Rochester', 'Rochester', 'Rochester', 'Rochester']
 suny.clear()
 suny
@@ -1043,14 +737,15 @@ suny
 
 ---
 # Lists
-### <p style="color:#00449E">  </p>
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
 
 .panelset[
 .panel[.panel-name[`index()`]
 ### Find an Item’s Offset by Value with `index()`
 - If we want to know the offset of an item in a list by its value, we use `index()`:
 
-```{python, eval = F, echo = T}
+
+```python
 suny = ['Geneseo', 'Brockport', 'Oswego', 'Buffalo']
 suny.index('Geneseo')
 
@@ -1065,7 +760,8 @@ suny.index('Geneseo')
 ### Test for a Value with `in`
 - The way to check for the existence of a value in a list is using `in`:
 
-```{python, eval = F, echo = T}
+
+```python
 suny = ['Geneseo', 'Brockport', 'Oswego', 'Buffalo']
 'Geneseo' in suny
 'Rochester' in suny
@@ -1081,7 +777,8 @@ words = ['a', 'deer', 'a' 'male', 'deer']
 ### Count Occurrences of a Value with `count()`
 - To count how many times a particular value occurs in a list, we can use `count()`:
 
-```{python, eval = F, echo = T}
+
+```python
 suny = ['Geneseo', 'Brockport', 'Oswego', 'Buffalo']
 suny.count('Geneseo')
 suny.count('Rochester')
@@ -1099,7 +796,8 @@ mcdonald.count('cheeseburger')
 ### Convert a List to a String with `join()`
 - `join()` is a string method, not a list method.
 
-```{python, eval = F, echo = T}
+
+```python
 suny = ['Geneseo', 'Brockport', 'Oswego', 'Buffalo']
 ', '.join(suny)
 ```
@@ -1118,7 +816,8 @@ suny = ['Geneseo', 'Brockport', 'Oswego', 'Buffalo']
   - The general function `sorted()` returns a sorted copy of the list.
 
 .pull-left[
-```{python, eval = F, echo = T}
+
+```python
 suny = ['Geneseo', 'Brockport', 
         'Oswego']
 sorted_suny = sorted(suny)
@@ -1128,7 +827,8 @@ suny
 
 ]
 .pull-right[
-```{python, eval = F, echo = T}
+
+```python
 suny.sort()
 suny
 ```
@@ -1142,7 +842,8 @@ suny
 - The default sort order is ascending, but we can add the argument `reverse=True` to set it to descending.
 
 .pull-left[
-```{python, eval = F, echo = T}
+
+```python
 numbers = [2, 1, 4.0, 3]
 numbers.sort()
 numbers
@@ -1153,7 +854,8 @@ numbers
 
 ]
 .pull-right[
-```{python, eval = F, echo = T}
+
+```python
 suny = ['Geneseo', 'Brockport', 
         'Oswego']
 sorted_suny = sorted(suny, 
@@ -1171,7 +873,8 @@ sorted_suny
 ### Get Length with `len()`
 - `len()` returns the number of items in a list:
 
-```{python, eval = F, echo = T}
+
+```python
 suny = ['Geneseo', 'Brockport', 'Oswego']
 len(suny)
 ```
@@ -1189,7 +892,7 @@ len(suny)
 
 ---
 # Lists
-### <p style="color:#00449E">  </p>
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
 
 .panelset[
 
@@ -1198,7 +901,8 @@ len(suny)
 - When we assign one list to more than one variable, changing the list in one place also changes it in the other:
 
 .pull-left[
-```{python, eval = F, echo = T}
+
+```python
 a = [1, 2, 3]
 b = a
 b
@@ -1209,7 +913,8 @@ a
 
 ]
 .pull-right[
-```{python, eval = F, echo = T}
+
+```python
 b[0] = 'I hate suprises'
 b
 ```
@@ -1224,7 +929,8 @@ b
 We can copy the values of a list to an independent, fresh list by using (1) the list `copy()` method, (2) the `list()` conversion function, or (3) the list slice `[:]`:
   
 .pull-left[
-```{python, eval = F, echo = T}
+
+```python
 a = [1, 2, 3]
 b = a.copy()
 c = list(a)
@@ -1248,7 +954,8 @@ a[0] = 'integer lists'
 - Using (1) the list `copy()` method, (2) the `list()` conversion function, or (3) the list slice `[:]` works well if the list values are all *immutable*.
   
 .pull-left[
-```{python, eval = F, echo = T}
+
+```python
 a = [1, 2, [8, 9]]
 b = a.copy()
 c = list(a)
@@ -1274,7 +981,8 @@ a[2][1] = 10
 - To fix these *shallow* copies, we need to use the `deepcopy()` function:
   
 .pull-left[
-```{python, eval = F, echo = T}
+
+```python
 import copy
 a = [1, 2, [8, 9]]
 b = copy.deepcopy(a)
@@ -1297,16 +1005,17 @@ b
 
 .panel[.panel-name[Comparison]
 ### Compare Lists
-- We can directly compare lists with the comparison operators like `==`, `<`, and so on.
+- We can directly compare lists with the comparison operators like `==`, `&lt;`, and so on.
 
 .pull-left[
-```{python, eval = F, echo = T}
+
+```python
 a = [7, 2]
 b = [7, 2, 9]
 
 a == b
-a <= b
-a < b
+a &lt;= b
+a &lt; b
 ```
 
 
@@ -1323,14 +1032,15 @@ a < b
 
 ---
 # Lists
-### <p style="color:#00449E"> Iterate with `for` and `in` </p>
+### &lt;p style="color:#00449E"&gt; Iterate with `for` and `in` &lt;/p&gt;
 
 
 .panelset[
 .panel[.panel-name[`for`]
 - `for` loop is quite common to iterate over lists.
 
-```{python, eval = F, echo = T}
+
+```python
 cheeses = ['brie', 'gjetost', 'havarti']
 for cheese in cheeses:
     print(cheese)
@@ -1340,7 +1050,8 @@ for cheese in cheeses:
 
 .panel[.panel-name[`break`]
 - `break` ends the for loop and `continue` steps to the next iteration:
-```{python, eval = F, echo = T}
+
+```python
 cheeses = ['brie', 'gjetost', 'havarti']
 for cheese in cheeses:
     if cheese.startswith('g'):
@@ -1354,7 +1065,8 @@ for cheese in cheeses:
 
 .panel[.panel-name[`else` (1)]
 - We can still use the optional `else` if the for completed without a `break`:
-```{python, eval = F, echo = T}
+
+```python
 cheeses = ['brie', 'gjetost', 'havarti']
 for cheese in cheeses:
     if cheese.startswith('x'):
@@ -1369,7 +1081,8 @@ else:
 
 .panel[.panel-name[`else` (2)]
 - If the initial `for` never ran, control goes to the `else`:
-```{python, eval = F, echo = T}
+
+```python
 cheeses = []
 for cheese in cheeses:
     print('This shop has some lovely', cheese)
@@ -1386,20 +1099,20 @@ else: # no break means no cheese
 
 ---
 # Lists
-### <p style="color:#00449E"> Iterate Multiple Sequences with `zip()` </p>
+### &lt;p style="color:#00449E"&gt; Iterate Multiple Sequences with `zip()` &lt;/p&gt;
 
 .panelset[
 .panel[.panel-name[`for` and `zip()`]
 - There’s one more nice iteration trick: iterating over multiple sequences in parallel by using the `zip()` function.
 
-```{python, echo = T, eval = F}
+
+```python
 days = ['Monday', 'Tuesday', 'Wednesday']
 fruits = ['banana', 'orange', 'peach']
 drinks = ['coffee', 'coffee', 'coffee']
 desserts = ['tiramisu', 'ice cream', 'pie', 'pudding']
 for day, fruit, drink, dessert in zip(days, fruits, drinks, desserts):
     print(day, ": drink", drink, "- eat", fruit, "- enjoy", dessert)
-
 ```
 
 ]
@@ -1407,7 +1120,8 @@ for day, fruit, drink, dessert in zip(days, fruits, drinks, desserts):
 .panel[.panel-name[`zip()`, `list()`, and `dict()`]
 - We can use `zip()` to walk through multiple sequences and make tuples from items at the same offsets.
 
-```{python, echo = T, eval = F}
+
+```python
 english = 'Monday', 'Tuesday', 'Wednesday'
 french = 'Lundi', 'Mardi', 'Mercredi'
 
@@ -1422,7 +1136,7 @@ dict( zip(english, french) )
 
 ---
 # Lists
-### <p style="color:#00449E"> Create a List with a Comprehension </p>
+### &lt;p style="color:#00449E"&gt; Create a List with a Comprehension &lt;/p&gt;
 
 - Here, we look at how to create a list with a list *comprehension*, which incorporates the `for`/`in` iteration that we just saw.
 
@@ -1430,7 +1144,8 @@ dict( zip(english, french) )
 
 .panelset[
 .panel[.panel-name[`append()`]
-```{python, echo = T, eval = F}
+
+```python
 number_list = []
 number_list.append(1)
 number_list.append(2)
@@ -1442,7 +1157,8 @@ number_list.append(5)
 
 
 .panel[.panel-name[`for`/`append()`]
-```{python, echo = T, eval = F}
+
+```python
 number_list = []
 for number in range(1, 6):
     number_list.append(number)
@@ -1453,7 +1169,8 @@ number_list
 
 
 .panel[.panel-name[`range()`]
-```{python, echo = T, eval = F}
+
+```python
 number_list = list(range(1, 6))
 number_list
 ```
@@ -1461,7 +1178,8 @@ number_list
 
 
 .panel[.panel-name[comprehession]
-```{python, echo = T, eval = F}
+
+```python
 number_list = [number for number in range(1,6)]
 number_list
 ```
@@ -1474,7 +1192,7 @@ number_list
 
 ---
 # Lists
-### <p style="color:#00449E"> Create a List with a Comprehension </p>
+### &lt;p style="color:#00449E"&gt; Create a List with a Comprehension &lt;/p&gt;
 
 
 .panelset[
@@ -1482,13 +1200,12 @@ number_list
 - *List comprehensions* are a convenient and widely used Python language feature. 
   - The simplest form of list comprehension looks like this:
 
-```{r, echo=FALSE, out.width = '66%', fig.align='center'}
-knitr::include_graphics("../lec_figs/int-py-list-comprehension.png")
-```
+&lt;img src="../lec_figs/int-py-list-comprehension.png" width="66%" style="display: block; margin: auto;" /&gt;
 ]
 
 .panel[.panel-name[example 1]
-```{python, echo = T, eval = F}
+
+```python
 number_list = [number for number in range(1,6)]
 number_list
 ```
@@ -1500,7 +1217,8 @@ number_list
 .panel[.panel-name[example 2]
 - To show that the first `number` in example 1 is an expression, try this variant:
 
-```{python, echo = T, eval = F}
+
+```python
 number_list = [number - 1 for number in range(1,6)]
 number_list
 ```
@@ -1511,20 +1229,20 @@ number_list
 .panel[.panel-name[with if]
 - A list comprehension can include a conditional expression, looking something like this:
 
-```{r, echo=FALSE, out.width = '50%', fig.align='center'}
-knitr::include_graphics("../lec_figs/int-py-list-comprehension-if.png")
-```
+&lt;img src="../lec_figs/int-py-list-comprehension-if.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 
 - Let’s make a new comprehension that builds a list of only the odd numbers between 1 and 5.
-```{python, echo = T, eval = F}
+
+```python
 a_list = [number for number in range(1,6) if number % 2 == 1]
 ```
 ]
 
 .panel[.panel-name[traditional `for`]
 - Now, the comprehension is a little more compact than its traditional counterpart:
-```{python, echo = T, eval = F}
+
+```python
 a_list = []
 for number in range(1,6):
     if number % 2 == 1:
@@ -1541,13 +1259,14 @@ for number in range(1,6):
 
 ---
 # Lists
-### <p style="color:#00449E"> Create a List with a Comprehension </p>
+### &lt;p style="color:#00449E"&gt; Create a List with a Comprehension &lt;/p&gt;
 
 .panelset[
 .panel[.panel-name[nested `for`]
 - Just as there can be nested loops, there can be more than one set of `for ...` clauses in the corresponding comprehension.
 
-```{python, echo = T, eval = F}
+
+```python
 rows = range(1,4)
 cols = range(1,3)
 for row in rows:
@@ -1560,7 +1279,8 @@ for row in rows:
 .panel[.panel-name[comprehension using nested `for`]
 - Let’s use a comprehension and assign it to the variable cells, making it a list of *(row, col)* tuples:
 
-```{python, echo = T, eval = F}
+
+```python
 rows = range(1,4)
 cols = range(1,3)
 cells = [(row, col) for row in rows for col in cols]
@@ -1574,7 +1294,8 @@ for cell in cells:
 .panel[.panel-name[tuple unpacking]
 - We can also use *tuple unpacking* to get the row and col values from each tuple as we iterate over the cells list.
 
-```{python, echo = T, eval = F}
+
+```python
 rows = range(1,4)
 cols = range(1,3)
 cells = [(row, col) for row in rows for col in cols]
@@ -1593,11 +1314,12 @@ for row, col in cells:
 
 ---
 # Lists
-### <p style="color:#00449E"> Lists of Lists </p>
+### &lt;p style="color:#00449E"&gt; Lists of Lists &lt;/p&gt;
 
 - Lists can contain elements of different types, including other lists:
 
-```{python, echo = T, eval = F}
+
+```python
 small_birds = ['hummingbird', 'finch']
 extinct_birds = ['dodo', 'passenger pigeon', 'Norwegian Blue']
 carol_birds = [3, 'French hens', 2, 'turtledoves']
@@ -1606,7 +1328,8 @@ all_birds = [small_birds, extinct_birds, 'macaw', carol_birds]
 
 - So what does `all_birds`, a list of lists, look like?
 
-```{python, echo = T, eval = F}
+
+```python
 all_birds
 all_birds[0]
 all_birds[1]
@@ -1617,7 +1340,7 @@ all_birds[1][0]  # [0] refers to the first item in that inner list.
 
 ---
 # Tuples and Lists
-### <p style="color:#00449E"> Tuples Versus Lists </p>
+### &lt;p style="color:#00449E"&gt; Tuples Versus Lists &lt;/p&gt;
 - We can often use tuples in place of lists, but tuples have many fewer functions—there is no `append()`, `insert()`, and so on—because they can’t be modified after creation.
 
 
@@ -1633,14 +1356,15 @@ all_birds[1][0]  # [0] refers to the first item in that inner list.
 
 ---
 # Tuples and Lists
-### <p style="color:#00449E"> There Are No Tuple Comprehensions </p>
+### &lt;p style="color:#00449E"&gt; There Are No Tuple Comprehensions &lt;/p&gt;
 - Mutable types (lists, dictionaries, and sets) have comprehensions. 
   
   
 - Would changing the square brackets of a list comprehension to
 parentheses create a tuple comprehension? 
 
-```{python, echo = T, eval = F}
+
+```python
 number_thing = (number for number in range(1, 6))
 type(number_thing)
 ```
@@ -1651,7 +1375,7 @@ type(number_thing)
 
 ---
 # Tuples and Lists
-### <p style="color:#00449E"> Class Exercises 1 </p>
+### &lt;p style="color:#00449E"&gt; Class Exercises 1 &lt;/p&gt;
 1. Create a list called `years_list`, starting with the year of your birth, and each year thereafter until the year of your fifth birthday. For example, if you were born in 2003, the list would be years_list = [2003, 2004, 2005, 2006, 2007, 2008].
 
 2. In which of these years was your third birthday? Remember, you were 0 years of age for your first year.
@@ -1661,7 +1385,7 @@ type(number_thing)
 
 ---
 # Tuples and Lists
-### <p style="color:#00449E"> Class Exercises 2 </p>
+### &lt;p style="color:#00449E"&gt; Class Exercises 2 &lt;/p&gt;
 1. Make a list called `things` with these three strings as elements: `"mozzarella"`, `"cinderella"`, `"salmonella"`.
 
 2. Capitalize the element in `things` that refers to a person and then print the list. Did it change the element in the list?
@@ -1672,11 +1396,9 @@ type(number_thing)
 
 
 
-
-
 ---
 # Tuples and Lists
-### <p style="color:#00449E"> Class Exercises 3 </p>
+### &lt;p style="color:#00449E"&gt; Class Exercises 3 &lt;/p&gt;
 1. Create a list called `surprise` with the elements `"Groucho"`, `"Chico"`, and `"Harpo"`.
 
 2. Lowercase the last element of the `surprise` list, reverse it, and then capitalize it.
@@ -1685,6 +1407,172 @@ type(number_thing)
 
 ---
 # Tuples and Lists
-### <p style="color:#00449E"> Class Exercises 4 </p>
+### &lt;p style="color:#00449E"&gt; Class Exercises 4 &lt;/p&gt;
 1. Use a list comprehension to make a list called `even` of the even numbers in `range(10)`.
 
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 66px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
