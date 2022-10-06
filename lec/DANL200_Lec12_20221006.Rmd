@@ -280,6 +280,9 @@ class: inverse, center, middle
 - One of the things that’s easy to grasp visually is the shape of the distribution of variable. 
 
 ```{r, echo = T, eval = F}
+library(tidyverse)
+path_web <- "https://bcdanl.github.io/data/custdata.csv"
+customer_data <- read_csv(path_web)
 ggplot(data = customer_data) + 
   geom_density( mapping = aes(x = age) ) 
 ```
