@@ -72,17 +72,6 @@ class: title-slide, left, bottom
 ### `r rmarkdown::metadata$date`
 
 
----
-# Announcement 
-
-### <p style="color:#00449E"> Tutoring/TA-ing at Data Analytics Lab (South 321) </p>
-
-- Emine Morris (TA for Byeong-Hak): 
-  1. Mondays and Wednesdays, 5:00 PM--6:30 PM
-  2. Tuesdays and Thursdays, 3:00 PM--4:45 PM
-
-
-
 
 ---
 # Workflow
@@ -128,6 +117,42 @@ class: title-slide, left, bottom
 
 - **Ctrl** (**command** for Mac Users) **+ D** deletes a current line.
 
+
+
+---
+# Workflow
+### <p style="color:#00449E"> `ggsave()` </p>
+- `ggsave()` allows for saving the ggplot figure as a picture (or PDF) file.
+```{r, echo = T, eval = F}
+library(tidyverse)
+url <- 'https://bcdanl.github.io/data/bikeshare_cleaned.csv'
+bikeshare <- read_csv(url)
+
+ggplot(bikeshare) +
+  geom_histogram( aes(x = cnt, fill = month),
+                  binwidth = 10,
+                  color = NA,
+                  show.legend = F) +
+  facet_grid(month~year) 
+ggsave(file="faceted_hist.png")  # the file will be in the R Project folder.
+```
+
+---
+# Workflow
+### <p style="color:#00449E"> `ggsave()` </p>
+- In `ggsave()`, we can set the `width`, `height`, and `dpi` (dots per inch) of the picture file.
+```{r, echo = T, eval = F}
+library(tidyverse)
+url <- 'https://bcdanl.github.io/data/bikeshare_cleaned.csv'
+bikeshare <- read_csv(url)
+ggplot(bikeshare) +
+  geom_histogram( aes(x = cnt, fill = month),
+                  binwidth = 10,
+                  color = NA,
+                  show.legend = F) +
+  facet_grid(month~year) 
+ggsave(file="/Users/byeong-hakchoe/Desktop/faceted_hist.png", width=8, height=16, dpi=300)  # using the absolute path to save the file
+```
 
 
 ---
