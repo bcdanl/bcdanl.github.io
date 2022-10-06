@@ -1,0 +1,2251 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 12</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Byeong-Hak Choe" />
+    <meta name="date" content="2022-10-06" />
+    <script src="libs/header-attrs-2.16/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <script src="libs/peerjs-1.3.1/peerjs.min.js"></script>
+    <script src="libs/tiny.toast-1.0.0/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast-0.2.6/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast-0.2.6/broadcast.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
+    <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, left, bottom
+
+# Lecture 12
+----
+## **DANL 100: Programming for Data Analytics**
+### Byeong-Hak Choe
+### October 6, 2022
+
+
+  
+
+---
+# Announcement 
+
+### &lt;p style="color:#00449E"&gt; Installing the Spyder IDE &lt;/p&gt;
+
+- If the `input()` function does not work well with your Spyder IDE from Anaconda Distribution, install the Spyder IDE in addition to Anaconda.
+  
+  
+- To install the Spyder IDE in addition to Anaconda, go to the following web-page:
+  - [https://www.spyder-ide.org](https://www.spyder-ide.org).
+  - Click the "DOWNLOAD" menu.
+
+
+- After downloading the installation file, double-click it from the Finder/File Explorer.
+  - After double-clicking the installation file, Mac users should click and drag the Spyder icon to the Applications folder.
+
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; Shortcuts &lt;/p&gt;
+- **F9** runs a current line (where the blinking cursor bar is) or selected lines.
+
+- **Home/End** moves the blinking cursor bar to the beginning/end of the line.
+  - **Fn + ** <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M447.1 256C447.1 273.7 433.7 288 416 288H109.3l105.4 105.4c12.5 12.5 12.5 32.75 0 45.25C208.4 444.9 200.2 448 192 448s-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L109.3 224H416C433.7 224 447.1 238.3 447.1 256z"/></svg> / <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M438.6 278.6l-160 160C272.4 444.9 264.2 448 256 448s-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L338.8 288H32C14.33 288 .0016 273.7 .0016 256S14.33 224 32 224h306.8l-105.4-105.4c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160C451.1 245.9 451.1 266.1 438.6 278.6z"/></svg> works too.
+
+- **PgUp/PgDn** moves the blinking cursor bar to the top/bottom line of the script on the screen. 
+  - **Fn + ** <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M374.6 246.6C368.4 252.9 360.2 256 352 256s-16.38-3.125-22.62-9.375L224 141.3V448c0 17.69-14.33 31.1-31.1 31.1S160 465.7 160 448V141.3L54.63 246.6c-12.5 12.5-32.75 12.5-45.25 0s-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0l160 160C387.1 213.9 387.1 234.1 374.6 246.6z"/></svg> / <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M374.6 310.6l-160 160C208.4 476.9 200.2 480 192 480s-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 370.8V64c0-17.69 14.33-31.1 31.1-31.1S224 46.31 224 64v306.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0S387.1 298.1 374.6 310.6z"/></svg> works too.
+
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; Shortcuts &lt;/p&gt;
+- **Ctrl + Enter/Return** runs a current cell, defined by `# %%`.
+
+- Incidentally, **Ctrl + Enter/Return** is the keyboard shortcut for running the **selection** (or **current line**) in R Studio, not Spyder, which may be where I sometimes got confused.
+
+
+- If you prefer using **Ctrl** (or **command**) **+ Return**, you can go to Tools -&gt; Preferences -&gt; Keyboard shortcuts. Search for 'run selection', double click and set **Ctrl/command+Return** as the 'New shortcut'.
+
+
+- In my Spyder on Mac, I set **command + Return** for *running selection*, and **F9** for *running cell*.
+
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; Shortcuts &lt;/p&gt;
+
+.pull-left[
+### &lt;p style="color:#00449E"&gt; Mac &lt;/p&gt;
+- **command + N** opens a new script.
+- **command + 1** is the shortcut for `#`.
+- **command + 4** is the shortcut for block comment.
+]
+
+.pull-right[
+### &lt;p style="color:#00449E"&gt; Windows &lt;/p&gt;
+- **Ctrl + N** opens a new script.
+- **Ctrl + 1** is the shortcut for `#`.
+- **Ctrl + 4** is the shortcut for block comment.
+]
+
+- `# %%` defines a coding block in Spyder IDE.
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; More Shortcuts &lt;/p&gt;
+
+
+- **Ctrl** (**command** for Mac Users) **+ Z** undoes the previous action.
+- **Ctrl** (**command** for Mac Users) **+ Shift + Z** redoes when undo is executed.
+
+
+- **Ctrl** (**command** for Mac Users) **+ F** is useful when finding a phrase in the script.
+- **Ctrl** (**command** for Mac Users) **+ R** is useful when replacing a specific phrase with something in the script.
+
+
+- **Ctrl** (**command** for Mac Users) **+ D** deletes a current line.
+
+
+
+---
+class: inverse, center, middle
+
+# Tuples and Lists
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+---
+# Tuples and Lists
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+- In the previous classes, we started with some of Python’s basic data types: booleans, integers, floats, and strings. 
+  
+  - If we think of those as atoms, the data structures in tuples and lists are like molecules.
+  
+
+- Like strings, tuples and lists have a sequence structures indexed by their integer position.
+  
+
+- Unlike strings, the elements in tuples and lists can be of different types.
+  
+
+- Why does Python contain both lists and tuples? 
+
+  - Tuples are immutable; when we assign elements (only once) to a tuple, they’re baked in the cake and can’t be changed.
+
+  - Lists are mutable, meaning we can insert and delete elements with great enthusiasm.
+
+
+
+
+---
+# Tuples
+### &lt;p style="color:#00449E"&gt; Create with Commas and () &lt;/p&gt;
+
+- The syntax to make tuples is a little inconsistent.
+
+.panelset[
+.panel[.panel-name[(1)]
+- Let's begin by making an empty tuple using ():
+
+```python
+empty_tuple = ()
+```
+
+]
+
+.panel[.panel-name[(2)]
+- To make a tuple with one or more elements, follow each element with a comma. 
+  - This works for one-element tuples:
+
+```python
+one_geneseo = 'Geneseo',
+```
+
+]
+
+.panel[.panel-name[(3)]
+- We could enclose them in parentheses and still get the same tuple:
+
+```python
+one_geneseo = ('Geneseo',)
+```
+]
+
+.panel[.panel-name[(4)]
+- If we have a single thing in parentheses and omit that comma, we would not get a tuple, but just the thing.
+
+```python
+one_geneseo = ('Geneseo')
+```
+]
+
+.panel[.panel-name[(5)]
+- If we have more than one element, follow all but the last one with a comma:
+
+```python
+suny_tuple = 'Geneseo', 'Borckport', 'Oswego'
+```
+]
+
+.panel[.panel-name[(6)]
+- We often don’t need parentheses when we define a tuple, but using parentheses is a little safer, and it helps to make the tuple more visible:
+
+```python
+suny_tuple = ('Geneseo', 'Borckport', 'Oswego')
+```
+]
+
+
+.panel[.panel-name[(7)]
+- We do need the parentheses for cases in which commas might also have another use.
+
+```python
+one_geneseo = 'Geneseo',
+type(one_geneseo)
+
+type('Groucho',)
+type(('Groucho',))
+```
+
+]
+
+.panel[.panel-name[(8)]
+- Tuples let us assign multiple variables at once:
+
+```python
+suny_tuple = ('Geneseo', 'Borckport', 'Oswego')
+a, b, c = suny_tuple
+a
+b
+c
+```
+
+  - This is sometimes called *tuple unpacking*.
+
+]
+
+.panel[.panel-name[(9)]
+- We can use tuples to exchange values in one statement without using a temporary
+variable:
+
+```python
+password = 'swordfish'
+icecream = 'tuttifrutti'
+password, icecream = icecream, password
+
+password
+icecream
+```
+
+]
+
+
+]
+
+
+
+---
+# Tuples
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+
+.panelset[
+.panel[.panel-name[`tuple()`]
+### Create with `tuple()`
+- The tuple() conversion function makes tuples from other things:
+
+
+```python
+suny_list = ['Geneseo', 'Borckport', 'Oswego']
+tuple = tuple(suny_list)
+```
+]
+
+.panel[.panel-name[with `+`]
+### Combine Tuples by Using `+`
+- This is similar to combining strings:
+
+
+```python
+('Geneseo',) + ('Borckport', 'Oswego')
+```
+
+]
+
+.panel[.panel-name[with `*`]
+### Duplicate Items with `*`
+- This is like repeated use of `+`:
+
+
+```python
+('yada',) * 3
+```
+
+]
+
+.panel[.panel-name[comparision]
+### Compare Tuples
+- This works much like list comparisons:
+
+
+```python
+a = (7, 2)
+b = (7, 2, 9)
+a == b
+a &lt;= b
+a &lt; b
+```
+
+]
+
+.panel[.panel-name[`for` loop]
+### Iterate with `for` and `in`
+- Tuple iteration is like iteration of other types:
+
+
+```python
+words = ('fresh','out', 'of', 'ideas')
+for word in words:
+    print(word)
+```
+
+]
+
+.panel[.panel-name[with `+=`]
+### Modify a Tuple
+- We can’t! 
+  - Like strings, tuples are immutable, so we can’t change an existing one. 
+  - As we saw just before, we can concatenate (combine) tuples to make a new one, as we can with strings:
+
+
+```python
+t1 = ('Fee', 'Fie', 'Foe')
+id(t1)
+t2 = ('Flop',)
+t1 + t2
+t1 += t2
+id(t1)
+```
+
+]
+
+
+]
+
+
+
+---
+# Lists
+
+- Lists are good for keeping track of things by their order, especially when the order and contents might change.
+
+  - Lists are *mutable*---we can change a list in place, add new elements, and delete or replace existing elements. 
+  
+  - The same value can occur more than once in a list.
+  
+
+
+
+---
+# Lists
+
+.panelset[
+.panel[.panel-name[with `[]`]
+### &lt;p style="color:#00449E"&gt; Create with [] &lt;/p&gt;
+
+- A list is made from zero or more elements, separated by commas and surrounded by
+square brackets:
+
+```python
+empty_list = [ ]
+weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+big_birds = ['emu', 'ostrich', 'cassowary']
+first_names = ['Mary', 'Susan', 'Nicholas', 'Nicholas', 'Michael']
+leap_years = [2012, 2016, 2020]
+```
+
+]
+
+
+
+.panel[.panel-name[`list()`]
+### Create or Convert with `list()`
+- We can also make an empty list with the `list()` function.
+
+- `list()` function also converts other iterable data types (such as tuples, strings, sets, and dictionaries) to lists.
+
+
+```python
+another_empty_list = list()
+another_empty_list
+
+list('cat')
+
+a_tuple = ('ready', 'fire', 'aim')
+list(a_tuple)
+```
+]
+
+
+.panel[.panel-name[`split()`]
+### Create from a String with `split()`
+- We can use `split()` to chop a string into a *list* by some separator:
+
+
+```python
+coffee_day = '10/1/2022'
+coffee_day.split('/')
+
+splitme = 'a/b//c/d///e'
+splitme.split('/')
+splitme.split('//')
+```
+]
+
+]
+
+
+---
+# Lists
+
+.panelset[
+.panel[.panel-name[`[offset]`]
+### Get an Item by `[offset]`
+- As with strings, we can extract a single value from a list by specifying its offset:
+
+```python
+suny = ['Geneseo', 'Brockport', 'Oswego']
+```
+
+.pull-left[
+
+```python
+suny[0]
+suny[1]
+suny[2]
+suny[5]
+```
+]
+.pull-right[
+
+```python
+suny[-1]
+suny[-2]
+suny[-3]
+suny[-5]
+```
+]
+
+]
+
+
+
+.panel[.panel-name[slice]
+### Get an Item with a Slice
+- We can extract a subsequence of a list by using a *slice*:
+
+```python
+suny = ['Geneseo', 'Brockport', 'Oswego']
+suny[0:2]    # A slice of a list is also a list.
+```
+
+
+.pull-left[
+
+```python
+suny[::2]
+suny[::-2]
+suny[::-1]
+```
+]
+.pull-right[
+
+```python
+suny[4:]
+suny[-6:]
+suny[-6:-2]
+suny[-6:-4]
+```
+]
+
+
+]
+
+
+
+.panel[.panel-name[`reverse()`]
+### Reverse a list with `reverse()`
+- To reverse a list in place, use `list.reverse()`:
+
+```python
+suny.reverse()
+suny
+```
+
+]
+
+
+.panel[.panel-name[`append()`]
+### Add an Item to the End with `append()`
+- The `append()` function adds items to the end of the list.
+
+```python
+suny = ['Geneseo', 'Brockport', 'Oswego']
+suny.append('Buffalo')
+suny
+
+suny = ['Geneseo', 'Brockport', 'Oswego']
+others = ['Buffalo', 'Cortland']
+suny.append(others)
+suny
+```
+
+]
+
+
+.panel[.panel-name[`insert()`]
+### Add an Item by Offset with `insert()`
+- When we want to add an item before any offset in the list, we can use `insert()`.
+
+```python
+suny = ['Geneseo', 'Brockport', 'Oswego']
+suny.insert(2, 'Buffalo')
+suny
+suny.insert(10, 'Cortland')
+suny
+```
+
+]
+
+
+.panel[.panel-name[`*`]
+### Duplicate All Items with *
+- We saw that we can duplicate a string’s characters with `*`. The same works for a list:
+
+```python
+["blah"] * 3
+
+suny = ['Geneseo', 'Brockport', 'Oswego']
+suny * 2
+```
+
+]
+
+
+
+.panel[.panel-name[`extend()`]
+### Combine Lists by Using `extend()` or `+`
+- We can merge one list into another by using `extend()` or `+`.
+
+```python
+suny = ['Geneseo', 'Brockport', 'Oswego']
+others = ['Buffalo', 'Cortland']
+suny.extend(others)
+suny
+
+suny = ['Geneseo', 'Brockport', 'Oswego']
+others = ['Buffalo', 'Cortland']
+suny += others
+suny
+```
+
+]
+
+
+]
+
+
+
+---
+# Change Items in a List
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+.panelset[
+.panel[.panel-name[`[offset]`]
+### Change an Item by `[offset]`
+- Just as we can get the value of a list item by its offset, we can change it:
+
+
+```python
+suny = ['Geneseo', 'Brockport', 'Oswego']
+suny[2] = 'Buffalo'
+suny
+```
+
+- We can change how many items a list contains as well as the items themselves.
+]
+
+
+.panel[.panel-name[Slice]
+### Change Items with a Slice
+.pull-left[
+- We can assign values to a sublist with a slice.
+
+```python
+numbers = [1, 2, 3, 4]
+numbers[1:3] = ['eight', 'nine']
+numbers
+```
+]
+.pull-right[
+- The right-hand thing that we’re assigning to the list doesn’t need to have the same number of elements as the slice on the left:
+
+```python
+numbers = [1, 2, 3, 4]
+numbers[1:3] = [7, 8, 9]
+numbers
+```
+]
+
+]
+
+
+.panel[.panel-name[`del`]
+### Delete an Item by Offset with `del`
+- We can use a `del` statement to delete an item by its position in a list.
+
+
+```python
+suny = ['Geneseo', 'Brockport', 'Oswego', 'Rochester']
+suny[-1]
+del suny[-1]    
+suny
+```
+
+]
+
+
+.panel[.panel-name[`remove()`]
+### Delete an Item by Value with `remove()`
+- If we're not sure or don’t care where the item is in the list, we can use `remove()` to delete it by value.
+
+
+```python
+suny = ['Geneseo', 'Brockport', 'Oswego', 'Rochester']
+suny.remove('Rochester')
+suny
+
+suny = ['Geneseo', 'Brockport', 'Oswego', 'Rochester', 'Rochester']
+suny.remove('Rochester')
+suny
+```
+
+]
+
+
+.panel[.panel-name[`pop()`]
+### Get an Item by Offset and Delete It with `pop()`
+- We can get an item from a list and delete it from the list at the same time by using `pop()`.
+  - If we call `pop()` with an offset, it will return the item at that offset; with no argument, it uses -1.
+
+
+```python
+suny = ['Geneseo', 'Brockport', 'Oswego', 'Rochester']
+suny.pop()
+suny
+suny.pop(1)
+suny
+```
+
+]
+
+
+.panel[.panel-name[`clear()`]
+### Delete All Items with `clear()`
+- We can use `clear()` to clear a list of all its elements:
+
+
+```python
+suny_roc = ['Rochester', 'Rochester', 'Rochester', 'Rochester']
+suny.clear()
+suny
+```
+
+]
+
+
+
+]
+
+
+
+---
+# Lists
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+.panelset[
+.panel[.panel-name[`index()`]
+### Find an Item’s Offset by Value with `index()`
+- If we want to know the offset of an item in a list by its value, we use `index()`:
+
+
+```python
+suny = ['Geneseo', 'Brockport', 'Oswego', 'Buffalo']
+suny.index('Geneseo')
+
+suny = ['Geneseo', 'Brockport', 'Oswego', 'Geneseo']
+suny.index('Geneseo')
+```
+
+]
+
+
+.panel[.panel-name[`in`]
+### Test for a Value with `in`
+- The way to check for the existence of a value in a list is using `in`:
+
+
+```python
+suny = ['Geneseo', 'Brockport', 'Oswego', 'Buffalo']
+'Geneseo' in suny
+'Rochester' in suny
+
+words = ['a', 'deer', 'a' 'male', 'deer']
+'deer' in words
+```
+
+]
+
+
+.panel[.panel-name[`count()`]
+### Count Occurrences of a Value with `count()`
+- To count how many times a particular value occurs in a list, we can use `count()`:
+
+
+```python
+suny = ['Geneseo', 'Brockport', 'Oswego', 'Buffalo']
+suny.count('Geneseo')
+suny.count('Rochester')
+
+mcdonald = ['cheeseburger', 'cheeseburger', 'cheeseburger']
+mcdonald.count('cheeseburger')
+```
+
+]
+
+
+
+
+.panel[.panel-name[`join()`]
+### Convert a List to a String with `join()`
+- `join()` is a string method, not a list method.
+
+
+```python
+suny = ['Geneseo', 'Brockport', 'Oswego', 'Buffalo']
+', '.join(suny)
+```
+  - We can’t say `suny.join(', ')`.
+
+- The argument to `join()` is a string or any iterable sequence of strings (including a list), and its output is a string.
+
+
+]
+
+
+.panel[.panel-name[`sort`]
+### Reorder Items with `sort()` or `sorted()`
+- We may often need to sort the items in a list by their values rather than their offsets.
+  - The list method `sort()` sorts the list itself, in place.
+  - The general function `sorted()` returns a sorted copy of the list.
+
+.pull-left[
+
+```python
+suny = ['Geneseo', 'Brockport', 
+        'Oswego']
+sorted_suny = sorted(suny)
+sorted_suny
+suny
+```
+
+]
+.pull-right[
+
+```python
+suny.sort()
+suny
+```
+
+]
+]
+
+
+.panel[.panel-name[`reverse=True`]
+### Reorder Items with `sort()` or `sorted()`
+- The default sort order is ascending, but we can add the argument `reverse=True` to set it to descending.
+
+.pull-left[
+
+```python
+numbers = [2, 1, 4.0, 3]
+numbers.sort()
+numbers
+numbers = [2, 1, 4.0, 3]
+numbers.sort(reverse=True)
+numbers
+```
+
+]
+.pull-right[
+
+```python
+suny = ['Geneseo', 'Brockport', 
+        'Oswego']
+sorted_suny = sorted(suny, 
+                     reverse=True)
+sorted_suny
+```
+
+]
+]
+
+
+
+
+.panel[.panel-name[`len()`]
+### Get Length with `len()`
+- `len()` returns the number of items in a list:
+
+
+```python
+suny = ['Geneseo', 'Brockport', 'Oswego']
+len(suny)
+```
+
+]
+
+
+
+
+]
+
+
+
+
+
+---
+# Lists
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+.panelset[
+
+.panel[.panel-name[`=`]
+### Assign with `=`
+- When we assign one list to more than one variable, changing the list in one place also changes it in the other:
+
+.pull-left[
+
+```python
+a = [1, 2, 3]
+b = a
+b
+a[0] = 'suprise'
+a
+```
+- So what’s in `b` now?
+
+]
+.pull-right[
+
+```python
+b[0] = 'I hate suprises'
+b
+```
+- So what’s in `a` now?
+]
+]
+
+
+
+.panel[.panel-name[copy]
+### Copy with copy(), list(), or a Slice
+We can copy the values of a list to an independent, fresh list by using (1) the list `copy()` method, (2) the `list()` conversion function, or (3) the list slice `[:]`:
+  
+.pull-left[
+
+```python
+a = [1, 2, 3]
+b = a.copy()
+c = list(a)
+d = a[:]
+a[0] = 'integer lists'
+```
+
+
+]
+.pull-right[
+- `b`, `c`, and `d` are copies of `a`: 
+  - They are new objects with their own values and no connection to the original list object [1, 2, 3] to which `a` refers.
+  - What are `b`, `c`, and `d` now?
+
+]
+]
+
+
+.panel[.panel-name[deepcopy]
+### Copy with copy(), list(), or a Slice
+- Using (1) the list `copy()` method, (2) the `list()` conversion function, or (3) the list slice `[:]` works well if the list values are all *immutable*.
+  
+.pull-left[
+
+```python
+a = [1, 2, [8, 9]]
+b = a.copy()
+c = list(a)
+d = a[:]
+a[2][1] = 10
+```
+
+
+]
+.pull-right[
+- `b`, `c`, and `d` are copies of `a`.
+- The value of `a[2]` is now a list, and its elements can be changed.
+
+  - What are `b`, `c`, and `d` now?
+]
+]
+
+
+
+
+.panel[.panel-name[`deepcopy()`]
+### Copy with copy(), list(), or a Slice
+- To fix these *shallow* copies, we need to use the `deepcopy()` function:
+  
+.pull-left[
+
+```python
+import copy
+a = [1, 2, [8, 9]]
+b = copy.deepcopy(a)
+a[2][1] = 10
+a
+b
+```
+
+
+]
+.pull-right[
+-  `deepcopy()` can handle deeply nested lists, dictionaries, and other objects.
+
+- We'll discuss more about `import` soon.
+]
+]
+
+
+
+
+.panel[.panel-name[comparison]
+### Compare Lists
+- We can directly compare lists with the comparison operators like `==`, `&lt;`, and so on.
+
+.pull-left[
+
+```python
+a = [7, 2]
+b = [7, 2, 9]
+
+a == b
+a &lt;= b
+a &lt; b
+```
+
+
+]
+.pull-right[
+- The operators walk through both lists, comparing elements at the same offsets. 
+- If list `a` is shorter than list `b`, and all of its elements are equal, `a` is less than `b`.
+]
+]
+
+]
+
+
+
+---
+# Lists
+### &lt;p style="color:#00449E"&gt; Iterate with `for` and `in` &lt;/p&gt;
+
+
+.panelset[
+.panel[.panel-name[`for`]
+- `for` loop is quite common to iterate over lists.
+
+
+```python
+cheeses = ['brie', 'gjetost', 'havarti']
+for cheese in cheeses:
+    print(cheese)
+```
+]
+
+
+.panel[.panel-name[`break`]
+- `break` ends the for loop and `continue` steps to the next iteration:
+
+```python
+cheeses = ['brie', 'gjetost', 'havarti']
+for cheese in cheeses:
+    if cheese.startswith('g'):
+        print("I won't eat anything that starts with 'g'")
+        break
+    else:
+        print(cheese)
+```
+]
+
+
+.panel[.panel-name[`else` (1)]
+- We can still use the optional `else` if the for completed without a `break`:
+
+```python
+cheeses = ['brie', 'gjetost', 'havarti']
+for cheese in cheeses:
+    if cheese.startswith('x'):
+        print("I won't eat anything that starts with 'x'")
+        break
+    else:
+        print(cheese)
+else:
+    print("Didn't find anything that started with 'x'")
+```
+]
+
+.panel[.panel-name[`else` (2)]
+- If the initial `for` never ran, control goes to the `else`:
+
+```python
+cheeses = []
+for cheese in cheeses:
+    print('This shop has some lovely', cheese)
+    break
+else: # no break means no cheese
+    print('This is not much of a cheese shop, is it?')
+```
+]
+
+]
+
+
+
+
+---
+# Lists
+### &lt;p style="color:#00449E"&gt; Iterate Multiple Sequences with `zip()` &lt;/p&gt;
+
+.panelset[
+.panel[.panel-name[`for` and `zip()`]
+- There’s one more nice iteration trick: iterating over multiple sequences in parallel by using the `zip()` function.
+
+
+```python
+days = ['Monday', 'Tuesday', 'Wednesday']
+fruits = ['banana', 'orange', 'peach']
+drinks = ['coffee', 'coffee', 'coffee']
+desserts = ['tiramisu', 'ice cream', 'pie', 'pudding']
+for day, fruit, drink, dessert in zip(days, fruits, drinks, desserts):
+    print(day, ": drink", drink, "- eat", fruit, "- enjoy", dessert)
+```
+
+]
+
+.panel[.panel-name[`zip()`, `list()`, and `dict()`]
+- We can use `zip()` to walk through multiple sequences and make tuples from items at the same offsets.
+
+
+```python
+english = 'Monday', 'Tuesday', 'Wednesday'
+french = 'Lundi', 'Mardi', 'Mercredi'
+
+list( zip(english, french) )
+dict( zip(english, french) )
+```
+- We will discuss soon how the `dict()` function can create dictionaries from two-item sequences like tuples, lists, or strings.
+
+]
+
+]
+
+---
+# Lists
+### &lt;p style="color:#00449E"&gt; Create a List with a Comprehension &lt;/p&gt;
+
+- Here, we look at how to create a list with a list *comprehension*, which incorporates the `for`/`in` iteration that we just saw.
+
+  - Let's make a list of integers from 1 to 5:
+
+.panelset[
+.panel[.panel-name[`append()`]
+
+```python
+number_list = []
+number_list.append(1)
+number_list.append(2)
+number_list.append(3)
+number_list.append(4)
+number_list.append(5)
+```
+]
+
+
+.panel[.panel-name[`for`/`append()`]
+
+```python
+number_list = []
+for number in range(1, 6):
+    number_list.append(number)
+
+number_list
+```
+]
+
+
+.panel[.panel-name[`range()`]
+
+```python
+number_list = list(range(1, 6))
+number_list
+```
+]
+
+
+.panel[.panel-name[comprehession]
+
+```python
+number_list = [number for number in range(1,6)]
+number_list
+```
+]
+
+
+]
+
+
+
+---
+# Lists
+### &lt;p style="color:#00449E"&gt; Create a List with a Comprehension &lt;/p&gt;
+
+
+.panelset[
+.panel[.panel-name[basic]
+- *List comprehensions* are a convenient and widely used Python language feature. 
+  - The simplest form of list comprehension looks like this:
+
+&lt;img src="../lec_figs/int-py-list-comprehension.png" width="66%" style="display: block; margin: auto;" /&gt;
+]
+
+.panel[.panel-name[example 1]
+
+```python
+number_list = [number for number in range(1,6)]
+number_list
+```
+- In the first line, we need the first `number` variable to produce values for the list: that is, to put a result of the loop into `number_list`. 
+
+- The second `number` is part of the for loop.
+]
+
+.panel[.panel-name[example 2]
+- To show that the first `number` in example 1 is an expression, try this variant:
+
+
+```python
+number_list = [number - 1 for number in range(1,6)]
+number_list
+```
+- The list comprehension moves the loop inside the square brackets.
+]
+
+
+.panel[.panel-name[with if]
+- A list comprehension can include a conditional expression, looking something like this:
+
+&lt;img src="../lec_figs/int-py-list-comprehension-if.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+- Let’s make a new comprehension that builds a list of only the odd numbers between 1 and 5.
+
+```python
+a_list = [number for number in range(1,6) if number % 2 == 1]
+```
+]
+
+.panel[.panel-name[traditional `for`]
+- Now, the comprehension is a little more compact than its traditional counterpart:
+
+```python
+a_list = []
+for number in range(1,6):
+    if number % 2 == 1:
+        a_list.append(number)
+```
+]
+
+
+]
+
+
+
+
+
+---
+# Lists
+### &lt;p style="color:#00449E"&gt; Create a List with a Comprehension &lt;/p&gt;
+
+.panelset[
+.panel[.panel-name[nested `for`]
+- Just as there can be nested loops, there can be more than one set of `for ...` clauses in the corresponding comprehension.
+
+
+```python
+rows = range(1,4)
+cols = range(1,3)
+for row in rows:
+    for col in cols:
+        print(row, col)
+```
+]
+
+
+.panel[.panel-name[comprehension using nested `for`]
+- Let’s use a comprehension and assign it to the variable cells, making it a list of *(row, col)* tuples:
+
+
+```python
+rows = range(1,4)
+cols = range(1,3)
+cells = [(row, col) for row in rows for col in cols]
+
+for cell in cells:
+    print(cell)
+```
+
+]
+
+.panel[.panel-name[tuple unpacking]
+- We can also use *tuple unpacking* to get the row and col values from each tuple as we iterate over the cells list.
+
+
+```python
+rows = range(1,4)
+cols = range(1,3)
+cells = [(row, col) for row in rows for col in cols]
+
+for row, col in cells:
+    print(row, col)
+```
+
+]
+
+
+]
+
+
+
+
+---
+# Lists
+### &lt;p style="color:#00449E"&gt; Lists of Lists &lt;/p&gt;
+
+- Lists can contain elements of different types, including other lists:
+
+
+```python
+small_birds = ['hummingbird', 'finch']
+extinct_birds = ['dodo', 'passenger pigeon', 'Norwegian Blue']
+carol_birds = [3, 'French hens', 2, 'turtledoves']
+all_birds = [small_birds, extinct_birds, 'macaw', carol_birds]
+```
+
+- So what does `all_birds`, a list of lists, look like?
+
+
+```python
+all_birds
+all_birds[0]
+all_birds[1]
+all_birds[1][0]  # [0] refers to the first item in that inner list.
+```
+
+
+
+---
+# Tuples and Lists
+### &lt;p style="color:#00449E"&gt; Tuples Versus Lists &lt;/p&gt;
+- We can often use tuples in place of lists, but tuples have many fewer functions—there is no `append()`, `insert()`, and so on—because they can’t be modified after creation.
+
+
+- Why not just use lists instead of tuples everywhere?
+  - Tuples use less space.
+  - We can’t clobber tuple items by mistake.
+  - We can use tuples as dictionary keys, which we will cover soon.
+
+
+- In everyday programming, we would use lists and dictionaries more.
+
+
+
+---
+# Tuples and Lists
+### &lt;p style="color:#00449E"&gt; There Are No Tuple Comprehensions &lt;/p&gt;
+- Mutable types (lists, dictionaries, and sets) have comprehensions. 
+  
+  
+- Would changing the square brackets of a list comprehension to
+parentheses create a tuple comprehension? 
+
+
+```python
+number_thing = (number for number in range(1, 6))
+type(number_thing)
+```
+
+- A *generator* is one way to provide data to an iterator.
+
+
+
+---
+# Tuples and Lists
+### &lt;p style="color:#00449E"&gt; Class Exercises 1 &lt;/p&gt;
+1. Create a list called `years_list`, starting with the year of your birth, and each year thereafter until the year of your fifth birthday. For example, if you were born in 2003, the list would be years_list = [2003, 2004, 2005, 2006, 2007, 2008].
+
+2. In which of these years was your third birthday? Remember, you were 0 years of age for your first year.
+
+3. In which year in `years_list` were you the oldest?
+
+
+---
+# Tuples and Lists
+### &lt;p style="color:#00449E"&gt; Class Exercises 2 &lt;/p&gt;
+1. Make a list called `things` with these three strings as elements: `"mozzarella"`, `"cinderella"`, `"salmonella"`.
+
+2. Capitalize the element in `things` that refers to a person and then print the list. Did it change the element in the list?
+
+3. Make the cheesy element of `things` all uppercase and then print the list.
+
+4. Delete the disease element of `things`, and then print the list.
+
+
+
+---
+# Tuples and Lists
+### &lt;p style="color:#00449E"&gt; Class Exercises 3 &lt;/p&gt;
+1. Create a list called `surprise` with the elements `"Groucho"`, `"Chico"`, and `"Harpo"`.
+
+2. Lowercase the last element of the `surprise` list, reverse it, and then capitalize it.
+
+
+
+---
+# Tuples and Lists
+### &lt;p style="color:#00449E"&gt; Class Exercises 4 &lt;/p&gt;
+1. Use a list comprehension to make a list called `even` of the even numbers in `range(10)`.
+
+
+
+
+---
+class: inverse, center, middle
+
+# Dictionaries and Sets
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+---
+# Dictionaries
+
+- A *dictionary* is similar to a list, but the order of items doesn’t matter, and they aren’t selected by an offset such as 0 or 1.
+
+  - Instead, we specify a unique *key* to associate with each value.
+
+  - This *key* is often a string, but it can actually be any of Python’s immutable types: boolean, integer, float, tuple, string, and others.
+
+- Dictionaries are mutable, so we can add, delete, and change their key-value elements.
+
+
+
+---
+# Dictionaries
+### &lt;p style="color:#00449E"&gt; Create with `{}` &lt;/p&gt;
+
+- To create a dictionary, we place curly brackets (`{}`) around comma-separated **key : value** pairs.
+
+
+```python
+empty_dict = {}
+
+empty_dict
+```
+
+Let’s make a small dictionary with quotes from Ambrose Bierce’s *The Devil’s Dictionary*:
+
+
+```python
+bierce = {"day": "A period of twenty-four hours, mostly misspent",
+          "positive": "Mistaken at the top of one's voice",
+          "misfortune": "The kind of fortune that never misses"}
+bierce
+```
+
+---
+# Dictionaries
+### &lt;p style="color:#00449E"&gt; Create with `dict()` &lt;/p&gt;
+
+- We can also create a dictionary by passing named arguments and values to the `dict()` function.
+
+
+```python
+acme_customer = {'first': 'Wile', 'middle': 'E', 'last': 'Coyote'}
+acme_customer
+
+acme_customer = dict(first = "Wile", middle = "E", last = "Coyote")
+acme_customer
+```
+
+- The argument names in `dict()` need to be legal variable names (no spaces, no reserved words):
+
+
+```python
+x = dict(name="Elmer", def="hunter")
+```
+
+---
+# Dictionaries
+### &lt;p style="color:#00449E"&gt; Convert with `dict()` &lt;/p&gt;
+
+- We can use `dict()` to convert two-value sequences into a dictionary.
+  - We might run into such key-value sequences at times, such as "Geneseo, 20, Brockport, 14." 
+  - The first item in each sequence is used as the key and the second as the value.
+
+
+.panelset[
+.panel[.panel-name[lol]
+- *lol* (a list of two-item lists):
+
+
+```python
+lol = [ ['a', 'b'], ['c', 'd'], ['e', 'f'] ]
+dict(lol)
+```
+]
+
+.panel[.panel-name[lot]
+- *lot* (a list of two-item tuples):
+
+
+```python
+lot = [ ('a', 'b'), ('c', 'd'), ('e', 'f') ]
+dict(lot)
+```
+]
+
+.panel[.panel-name[tol]
+- *tol* (a tuple of two-item lists):
+
+
+```python
+tol = ( ['a', 'b'], ['c', 'd'], ['e', 'f'] )
+dict(tol)
+```
+]
+
+.panel[.panel-name[los]
+- *los* (a list of two-character strings):
+
+
+```python
+los = [ 'ab', 'cd', 'ef' ]
+dict(los)
+```
+]
+
+.panel[.panel-name[tos]
+- *tos* (a tuple of two-character strings):
+
+
+```python
+tos = ( 'ab', 'cd', 'ef' )
+dict(tos)
+```
+]
+
+]
+
+
+
+
+---
+# Dictionaries
+### &lt;p style="color:#00449E"&gt; Add or Change an Item by `[ key ]` &lt;/p&gt;
+
+- Adding an item to a dictionary is not complicated. 
+
+  - Just refer to the item by its *key* and assign a *value*.
+  
+  - If the key was already present in the dictionary, the existing value is replaced by the new one. 
+  
+  - If the key is new, it’s added to the dictionary with its value.
+
+
+
+
+---
+# Dictionaries
+### &lt;p style="color:#00449E"&gt; Add or Change an Item by `[ key ]` &lt;/p&gt;
+
+
+.panelset[
+.panel[.panel-name[st_city]
+- Let's make a dictionary of some pairs of US cities and states, using their states as *keys* and city names as *values*:
+
+
+```python
+st_city = {
+  'MN': 'Rochester',
+  'WY': 'Laramie',
+  'CO': 'Denver'
+  }
+st_city
+```
+]
+
+.panel[.panel-name[Rocjester]
+- Here, we want to add Rochester, NY.
+  - Here’s an attempt to add it, but it spelled wrong:
+
+
+```python
+st_city['NY'] = 'Rocjester'
+st_city
+```
+]
+
+.panel[.panel-name[Rochester]
+- Here's some repair code:
+
+
+```python
+st_city['NY'] = 'Rochester'
+st_city
+```
+]
+
+.panel[.panel-name[city_st]
+-  Remember that dictionary keys must be unique. 
+  - That’s why we used state names for keys instead of city names.
+  - If we use a key more than once, the last value wins:
+
+```python
+city_st = {
+  'Rochester': 'MN',
+  'Laramie': 'WY',
+  'Denver': 'CO',
+  'Rochester': 'NY'
+  }
+city_st
+```
+]
+
+]
+
+
+
+
+---
+# Dictionaries
+### &lt;p style="color:#00449E"&gt; Get an Item by `[key]` or with `get()` &lt;/p&gt;
+
+.panelset[
+.panel[.panel-name[`[key]`]
+- We specify the dictionary and key to get the corresponding value: 
+
+```python
+city_st = {
+  'Rochester': 'MN',
+  'Laramie': 'WY',
+  'Denver': 'CO',
+  'Rochester': 'NY'
+  }
+city_st['Denver']
+```
+]
+
+.panel[.panel-name[`[key]`]
+- If the key is not present in the dictionary, we'll get an exception:
+
+```python
+city_st['Buffalo']
+```
+
+- There are two good ways to avoid this: `in` and `get()`
+]
+
+.panel[.panel-name[`in`]
+- Test for the key at the outset by using `in`:
+
+```python
+'Buffalo' in city_st
+```
+]
+.panel[.panel-name[`get()`]
+- Use the special dictionary `get()` function.
+  - If the key exists, we get its value:
+
+```python
+city_st.get('Denver')
+```
+]
+
+.panel[.panel-name[`get()`]
+- Use the special dictionary `get()` function.
+  - If the key does not exist and the optional value is provided, we get the optional value:
+
+```python
+city_st('Buffalo', 'Not in city_st')
+```
+]
+
+
+.panel[.panel-name[`get()`]
+- Use the special dictionary `get()` function.
+  - If the key does not exist and the optional value is not provided, we get `None`, which displays nothing in the console.
+
+```python
+city_st('Buffalo')
+```
+]
+
+]
+
+
+
+
+
+---
+# Dictionaries
+
+.panelset[
+.panel[.panel-name[`keys()`]
+### &lt;p style="color:#00449E"&gt; Get All Keys with `keys()` &lt;/p&gt;
+
+- We can use `keys()` to get all of the keys in a dictionary. 
+
+```python
+signals = {'green': 'go', 
+           'yellow': 'go faster', 
+           'red': 'smile for the camera'}
+signals.keys()
+list( signals.keys() )   # to turn the result into a list object.
+```
+]
+
+.panel[.panel-name[`values()`]
+### &lt;p style="color:#00449E"&gt; Get All Values with values() &lt;/p&gt;
+
+- To obtain all the values in a dictionary, use `values()`:
+
+```python
+signals = {'green': 'go', 
+           'yellow': 'go faster', 
+           'red': 'smile for the camera'}
+signals.values()
+list( signals.values() )   # to turn the result into a list object.
+```
+]
+
+.panel[.panel-name[`items()`]
+### &lt;p style="color:#00449E"&gt; Get All Key-Value Pairs with `items()` &lt;/p&gt;
+
+- When we want to get all the key-value pairs from a dictionary, use the `items()` function:
+
+```python
+signals = {'green': 'go', 
+           'yellow': 'go faster', 
+           'red': 'smile for the camera'}
+signals.items()
+list( signals.items() )   # to turn the result into a list object.
+```
+]
+
+
+.panel[.panel-name[`items()`]
+### &lt;p style="color:#00449E"&gt; Get Length with `len()` &lt;/p&gt;
+
+- Count your key-value pairs:
+
+```python
+signals = {'green': 'go', 
+           'yellow': 'go faster', 
+           'red': 'smile for the camera'}
+len(signals)
+```
+]
+
+
+
+.panel[.panel-name[{**a, **b}]
+### &lt;p style="color:#00449E"&gt; Combine Dictionaries with `{**a, **b}` &lt;/p&gt;
+
+- Starting with Python 3.5, there’s a new way to merge dictionaries, using the `**`:
+
+```python
+first = {'a': 'agony', 'b': 'bliss'}
+second = {'b': 'bagels', 'c': 'candy'}
+{**first, **second}
+
+third = {'d': 'donuts'}
+{**first, **third, **second}
+```
+]
+
+.panel[.panel-name[`update()`]
+### &lt;p style="color:#00449E"&gt; Combine Dictionaries with `update()` &lt;/p&gt;
+
+- We can use the `update()` function to copy the keys and values of one dictionary into another.
+  - Let's update `st_city` with `other_city`
+
+```python
+st_city = { 'MN': 'Rochester',
+            'WY': 'Laramie',
+            'CO': 'Denver',
+            'NY': 'Rochester' }
+  
+other_city = {'MA': 'Boston'}
+st_city.update(other_city)
+```
+]
+
+.panel[.panel-name[`update()`]
+### &lt;p style="color:#00449E"&gt; Combine Dictionaries with `update()` &lt;/p&gt;
+
+- What happens if the second dictionary has the same key as the dictionary into which it’s being merged?
+
+```python
+first = {'a': 1, 'b': 2}
+second = {'b': 'platypus'}
+first.update(second)
+first
+```
+]
+
+]
+
+
+
+
+---
+# Dictionaries
+
+
+.panelset[
+.panel[.panel-name[`del`]
+### &lt;p style="color:#00449E"&gt; Delete an Item by Key with `del` &lt;/p&gt;
+
+- We can delete an item in a dictionary with `del`:
+
+```python
+del st_city['NY']
+st_city
+```
+]
+
+.panel[.panel-name[`pop()`]
+### &lt;p style="color:#00449E"&gt; Get an Item by Key and Delete It with `pop()` &lt;/p&gt;
+
+- `pop()` combines get() and del. 
+  - If we give `pop()` a key and it exists in the dictionary, it returns the matching value and deletes the key-value pair. 
+  - If it doesn’t exist, it raises an exception:
+  - If the key doesn’t exist but we give `pop()` a second default argument, all is well and the dictionary is not changed:
+
+
+```python
+len(st_city)
+st_city.pop('MN')
+len(st_city)
+st_city.pop('MN')
+st_city.pop('MN', 'Not exist')
+```
+]
+
+.panel[.panel-name[`clear()`]
+### &lt;p style="color:#00449E"&gt; Delete All Items with `clear()` &lt;/p&gt;
+
+- To delete all keys and values from a dictionary, use `clear()` or just reassign an empty dictionary (`{}`) to the name:
+
+
+```python
+st_city.clear()
+st_city
+
+st_city = { 'MN': 'Rochester',
+            'WY': 'Laramie',
+            'CO': 'Denver',
+            'NY': 'Rochester' }
+st_city = {}
+st_city
+```
+]
+
+
+
+.panel[.panel-name[`in`]
+### &lt;p style="color:#00449E"&gt; Test for a Key with `in` &lt;/p&gt;
+
+- If we want to know whether a key exists in a dictionary, use `in`:
+
+
+```python
+st_city = { 'MN': 'Rochester',
+            'WY': 'Laramie',
+            'CO': 'Denver',
+            'NY': 'Rochester' }
+'NY' in st_city
+'WY' in st_city
+'CA' in st_city
+```
+]
+
+
+
+
+
+.panel[.panel-name[`=`]
+### &lt;p style="color:#00449E"&gt; Assign with `=` &lt;/p&gt;
+
+- If we make a change to a dictionary, it will be reflected in all the names that refer to it:
+
+
+```python
+signals = { 'green': 'go',
+            'yellow': 'go faster',
+            'red': 'smile for the camera' }
+save_signals = signals
+signals['blue'] = 'confuse everyone'
+signals
+```
+- What are in `save_signals` now?
+
+]
+
+
+
+
+.panel[.panel-name[`copy()`]
+### &lt;p style="color:#00449E"&gt; Assign with `=` &lt;/p&gt;
+
+- To actually copy keys and values from a dictionary to another dictionary and avoid this, we can use `copy()`:
+
+
+```python
+signals = { 'green': 'go',
+            'yellow': 'go faster',
+            'red': 'smile for the camera' }
+original_signals = signals.copy()
+signals['blue'] = 'confuse everyone'
+signals
+```
+- What are in `original_signals` now?
+
+]
+
+
+
+.panel[.panel-name[`(1)`]
+### &lt;p style="color:#00449E"&gt; Copy Everything with `deepcopy()` &lt;/p&gt;
+
+- Suppose that the value for *red* in `signals` was a list instead of a single string:
+
+
+```python
+signals = { 'green': 'go',
+            'yellow': 'go faster',
+            'red': ['stop', 'smile'] }
+signals_copy = signals.copy()
+signals
+```
+- What are in `signals_copy`?
+
+]
+
+
+.panel[.panel-name[`(2)`]
+### &lt;p style="color:#00449E"&gt; Copy Everything with `deepcopy()` &lt;/p&gt;
+
+- Let’s change one of the values in the *red* list:
+
+
+```python
+signals = { 'green': 'go',
+            'yellow': 'go faster',
+            'red': ['stop', 'smile'] }
+signals_copy = signals.copy()
+signals['red'][1] = 'sweat'
+signals
+```
+- What are in `signals_copy`?
+
+]
+
+.panel[.panel-name[`deepcopy()`]
+### &lt;p style="color:#00449E"&gt; Copy Everything with `deepcopy()` &lt;/p&gt;
+
+- To avoid this, we can use `deepcopy()`:
+
+```python
+import copy
+signals = { 'green': 'go',
+            'yellow': 'go faster',
+            'red': ['stop', 'smile'] }
+signals_deepcopy = copy.deepcopy(signals)
+signals
+signals_deepcopy
+signals['red'][1] = 'sweat'
+signals
+```
+- What are in `signals_deepcopy`?
+
+
+]
+
+]
+
+
+
+
+---
+# Dictionaries
+
+
+.panelset[
+.panel[.panel-name[comparison]
+### &lt;p style="color:#00449E"&gt; Compare Dictionaries &lt;/p&gt;
+
+- Much like lists and tuples, dictionaries can be compared with the simple comparison operators `==` and `!=`:
+
+```python
+a = {1:1, 2:2, 3:3}
+b = {3:3, 1:1, 2:2}
+a == b
+a != b
+a &lt;= b  # does it work?
+```
+
+]
+
+
+.panel[.panel-name[`for`]
+### &lt;p style="color:#00449E"&gt; Iterate with `for` and `in` &lt;/p&gt;
+- Iterating over a dictionary (or its `keys()` function) returns the keys. 
+
+
+```python
+accusation = {'room': 'ballroom', 
+              'weapon': 'lead pipe',
+              'person': 'Col. Mustard'}
+for card in accusation: # or, for card in accusation.keys():
+    print(card)
+```
+
+]
+
+
+
+
+.panel[.panel-name[`values()`]
+### &lt;p style="color:#00449E"&gt; Iterate with `for` and `in` &lt;/p&gt;
+- To iterate over the values rather than the keys, we use the dictionary’s `values()` function:
+
+
+
+```python
+accusation = {'room': 'ballroom', 
+              'weapon': 'lead pipe',
+              'person': 'Col. Mustard'}
+for value in accusation.values():
+    print(value)
+```
+
+]
+
+
+.panel[.panel-name[`items()`]
+### &lt;p style="color:#00449E"&gt; Iterate with `for` and `in` &lt;/p&gt;
+- To return both the key and value as a tuple, we can use the `items()` function:
+
+
+
+```python
+accusation = {'room': 'ballroom', 
+              'weapon': 'lead pipe',
+              'person': 'Col. Mustard'}
+for item in accusation.items():
+    print(item)
+```
+
+]
+.panel[.panel-name[`items()`]
+### &lt;p style="color:#00449E"&gt; Iterate with `for` and `in` &lt;/p&gt;
+- For each tuple returned by `items()`, let's assign the first value (the key) to *card*, and the second (the value) to *contents*:
+
+
+```python
+accusation = {'room': 'ballroom', 
+              'weapon': 'lead pipe',
+              'person': 'Col. Mustard'}
+for card, contents in accusation.items():
+    print('Card', card, 'has the contents', contents)
+```
+
+]
+
+
+.panel[.panel-name[comprehensions]
+### &lt;p style="color:#00449E"&gt; Dictionary Comprehensions &lt;/p&gt;
+- Dictionaries also have comprehensions.
+  - The simplest form of dictionary comprehension looks like this:
+
+&lt;img src="../lec_figs/int-py-dict-comprehension.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[comprehensions]
+### &lt;p style="color:#00449E"&gt; Dictionary Comprehensions &lt;/p&gt;
+
+- Let's run a loop over each of the seven letters in the string 'letters' and counting how many times that letter appears.
+
+
+```python
+word = 'letters'
+letter_counts = {letter: word.count(letter) for letter in word}
+letter_counts
+```
+
+- How many times do we count 't' here?
+]
+
+
+.panel[.panel-name[comprehensions w/ `set()`]
+### &lt;p style="color:#00449E"&gt; Dictionary Comprehensions &lt;/p&gt;
+
+- Let's run a loop over each of the seven letters in the string 'letters' and counting how many times that letter appears.
+
+
+```python
+word = 'letters'
+letter_counts = {letter: word.count(letter) for letter in set(word)}
+letter_counts
+```
+
+- How many times do we count 't' here?
+
+]
+
+
+.panel[.panel-name[comprehensions w/ if]
+### &lt;p style="color:#00449E"&gt; Dictionary Comprehensions &lt;/p&gt;
+- Dictionary comprehensions can also have *if* tests and multiple *for* clauses:
+
+&lt;img src="../lec_figs/int-py-dict-comprehension-if.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+```python
+vowels = 'aeiou'
+word = 'onomatopoeia'
+vowel_counts = {letter: word.count(letter) for letter in set(word) if letter in vowels}
+vowel_counts
+```
+
+]
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 66px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
