@@ -165,7 +165,6 @@ ggsave(file="faceted_hist.png")  # the file will be in the R Project folder.
 ### <p style="color:#00449E"> `ggsave()` </p>
 - In `ggsave()`, we can set the `width`, `height`, and `dpi` (dots per inch) of the picture file.
 ```{r, echo = T, eval = F}
-library(tidyverse)
 url <- 'https://bcdanl.github.io/data/bikeshare_cleaned.csv'
 bikeshare <- read_csv(url)
 ggplot(bikeshare) +
@@ -176,6 +175,26 @@ ggplot(bikeshare) +
   facet_grid(month~year) 
 ggsave(file="ABSOLUTE_PATH_NAME_OF_THE_FILE_faceted_hist.png", 
        width=8, height=16, dpi=300)  # using the absolute path to save the file
+```
+
+
+---
+# Workflow
+### <p style="color:#00449E"> `ggforce` </p>
+- The `ggforce` package allows us to see a part of faceted plots:
+
+  - Instead of `facet_grid()`, use `facet_grid_paginate()` in `ggplot`.
+  - Instead of `facet_wrap()`, use `facet_wrap_paginate()` in `ggplot`.
+  - Set values for `ncol`, `nrow`, and `page` in `facet_*_paginate()`.
+```{r, echo = T, eval = F}
+install.packages("ggforce")
+library(ggforce)
+
+ggplot(bikeshare) +
+  geom_histogram( aes(x = cnt, fill = month),
+                  binwidth = 10, color = NA,
+                  show.legend = F) +
+  facet_grid_paginate(month~year, nrow = 3, ncol = 2, page = 1) 
 ```
 
 
