@@ -1,0 +1,700 @@
+---
+title: "Lecture 13"
+subtitle: "DANL 200: Introduction to Data Analytics"
+author: "Byeong-Hak Choe"
+institute: "SUNY Geneseo"
+date: "October 13, 2022"
+output:
+  xaringan::moon_reader:
+    css: 
+      - default
+      - css/nhsr.css
+      - css/nhsr-fonts.css
+    mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
+    lib_dir: libs
+    seal: false
+    nature:
+      highlightStyle: googlecode
+      highlightLines: true
+      highlightLanguage: ["r"]
+      countIncrementalSlides: false
+      ratio: "16:9"
+    includes:
+      after_body: [css/insert-logo.html]
+---
+
+```{r setup, include = FALSE}
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(NHSRtheme)
+library(fontawesome)
+
+# set default options
+opts_chunk$set(echo = FALSE,
+               fig.width = 7.252,
+               fig.height = 4,
+               comment = "#",
+               dpi = 300)
+
+knitr::knit_engines$set("markdown")
+
+xaringanExtra::use_tile_view()
+xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard()
+xaringanExtra::use_webcam()
+xaringanExtra::use_broadcast()
+xaringanExtra::use_share_again()
+xaringanExtra::style_share_again(
+  share_buttons = c("twitter", "linkedin", "pocket")
+)
+
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = F  #<<
+)
+
+# uncomment the following lines if you want to use the NHS-R theme colours by default
+# scale_fill_continuous <- partial(scale_fill_nhs, discrete = FALSE)
+# scale_fill_discrete <- partial(scale_fill_nhs, discrete = TRUE)
+# scale_colour_continuous <- partial(scale_colour_nhs, discrete = FALSE)
+# scale_colour_discrete <- partial(scale_colour_nhs, discrete = TRUE)
+```
+
+
+class: title-slide, left, bottom
+
+# `r rmarkdown::metadata$title`
+----
+## **`r rmarkdown::metadata$subtitle`**
+### `r rmarkdown::metadata$author`
+### `r rmarkdown::metadata$date`
+
+
+
+
+---
+# Announcement
+### <p style="color:#00449E"> Schedules up to Midterm </p>
+
+.panelset[
+.panel[.panel-name[Online Class on Oct. 18]
+
+- On Tuesday, October 18, 2022, we will have an **asynchronous** online class.
+
+
+- On Canvas, I will leave the web-link for the class recording on Monday, October 17, 2022.
+
+
+- Feel free to email me if you have any questions from the online class on Tuesday, October 18, 2022.
+
+  - You can also ask me any questions in person on Thursday, October 20, 2022 during our class time.
+
+]
+
+.panel[.panel-name[Office Hours]
+
+- I will not have office hours on Monday and Wednesday, October 17 and 19, 2022.
+  
+  - Instead, I will have office hours on **Friday, October 21, 2022**, from 1:30 P.M. to 5:30 P.M at my office, South Hall 117B.
+
+]
+
+.panel[.panel-name[Homework 1 & 2]
+
+- Evaluation criteria for Homework Assignment 1 include ...
+  - Whether or not your R code works;
+  - Visualization quality---how much informative and clear it is; 
+  - Comments based on your visualization results.
+  
+
+- Do not leave your answer empty:
+  - There is always a plenty of partial credits for homeworks and exams!
+
+
+- Homework Assignment 2 will be posted during this weekend.
+  - Due is October 24, 11:59 P.M., Eastern Time.
+
+]
+
+.panel[.panel-name[Midterm]
+- The Midterm Exam will be on Thursday, October 27, 2022, class time.
+
+  - Please email me as soon as possible if you need to re-schedule the midterm exam.
+  
+]
+
+]
+
+---
+# Workflow
+### <p style="color:#00449E"> Shortcuts for Switching Apps</p>
+
+.pull-left[
+**Mac**
+- **command + Tab** allows us to switch between apps quickly.
+
+- If we use the full-screen mode of an app, the trackpad gesture of "three finger drag" switches across the screens.
+
+]
+
+.pull-right[
+**Windows**
+
+- **Alt + Tab** allows us to switch between apps quickly.
+
+- Trackpad gestures might be supported depending on laptops or versions of Windows.
+
+]
+
+
+
+
+---
+# Workflow
+### <p style="color:#00449E"> Shortcuts for RStudio and RScript </p>
+
+.pull-left[
+**Mac**
+
+- **command + shift + N** opens a new RScript.
+- **command + return** runs a current line or selected lines.
+- **command + shift + C** is the shortcut for # (commenting).
+- **option + - ** is the shortcut for `<-`.
+]
+
+.pull-right[
+**Windows**
+
+- **Ctrl + Shift + N** opens a new RScript.
+- **Ctrl + return** runs a current line or selected lines.
+- **Ctrl + Shift + C** is the shortcut for # (commenting).
+- **Alt + - ** is the shortcut for `<-`.
+]
+
+
+
+---
+# Workflow
+
+- **Home/End** moves the blinking cursor bar to the beginning/End of the line.
+  - **Ctrl** (**command/fn** for Mac Users) **+** `r fa("arrow-left")` / `r fa("arrow-right")` works too.
+
+
+- **PgUp/PgDn** moves the blinking cursor bar to the top/bottom line of the script on the screen. 
+  - **Fn + ** `r fa("arrow-up")` / `r fa("arrow-down")` works too.
+
+
+- **Ctrl** (**command** for Mac Users) **+ Z** undoes the previous action.
+- **Ctrl** (**command** for Mac Users) **+ Shift + Z** redoes when undo is executed.
+
+
+- **Ctrl** (**command** for Mac Users) **+ F** is useful when finding a phrase (and replace the phrase) in the RScript.
+
+
+- **Ctrl** (**command** for Mac Users) **+ D** deletes a current line.
+
+
+---
+class: inverse, center, middle
+
+# Data Transformation
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+  
+
+
+---
+# Data Transformation
+
+- It is rare that we get the data in exactly the right form we need.
+
+- We'll need to create some new variables, summaries, rename the variables or reorder the observations in order to make the data a little easier to work with.
+
+- We'll discuss how to transform data using the `dplyr` package and a dataset on flights departing New York City in 2013.
+
+
+```{r, echo = T, eval = F}
+library(tidyverse)
+library(nycflights13)
+head(flights)
+View(flights) 
+?flights
+```
+
+
+
+---
+# Data Transformation
+### <p style="color:#00449E"> `dplyr` basics </p>
+
+- We are going to discuss the five key `dplyr` functions to solve various data manipulation challenges:
+  - Pick observations by their values (`filter()`).
+  - Reorder the rows (`arrange()`).
+  - Pick variables by their names (`select()`).
+  - Create new variables with functions of existing variables (`mutate()`).
+  - Collapse many values down to a single summary (`summarise()`).
+
+
+
+---
+# Data Transformation
+### <p style="color:#00449E"> `dplyr` basics </p>
+
+- `filter(<DATA.FRAME>, LOGICAL_STATEMENT)`
+- `arrange(<DATA.FRAME>, ...)`
+- `select(<DATA.FRAME>, ...)`
+- `mutate(<DATA.FRAME>, ...)`
+- `summarise(<DATA.FRAME>, ...)`
+
+
+- The first argument is a data frame.
+- The subsequent arguments describe what to do with the data frame, using the variable names.
+- The result is a new data frame.
+
+
+
+---
+class: inverse, center, middle
+
+# `filter()`
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+  
+
+
+---
+# Filter rows with `filter()`
+
+- `filter()` allows us to subset observations based on their values. 
+
+```{r, echo = T, eval = F}
+filter(flights, month == 1, day == 1)
+
+jan1 <- filter(flights, month == 1, day == 1)
+
+(dec25 <- filter(flights, month == 12, day == 25))
+```
+
+
+
+---
+# Filter rows with `filter()`
+### <p style="color:#00449E"> Comparisons
+
+
+- R provides the standard comparison operators: `>`, `>=`, `<`, `<=`, `!=` (not equal), and `==` (equal).
+
+
+```{r, echo = T, eval = F}
+filter(flights, month = 1)
+
+sqrt(2) ^ 2 == 2
+1 / 49 * 49 == 1
+
+near(sqrt(2) ^ 2,  2)
+near(1 / 49 * 49, 1)
+```
+
+
+---
+# Filter rows with `filter()`
+### <p style="color:#00449E"> Logical Operators
+
+
+- Multiple arguments to `filter()` are often combined with logical operators.
+
+
+```{r, echo=FALSE, out.width = '66%', fig.align='center', fig.cap="Complete set of boolean operations in `R`"}
+knitr::include_graphics("../lec_figs/transform-logical.png")
+```
+
+
+
+
+---
+# Filter rows with `filter()`
+### <p style="color:#00449E"> Logical Operators
+
+
+- De Morgan’s law: 
+
+- `!(x \& y)` is the same as `!x | !y`. 
+- `!(x | y)` is the same as `!x & !y`.
+
+- For example, comparison and logical operators can be used with `filter()` as follows:
+
+
+```{r, echo = T, eval = F}
+filter(flights, month == 11 | month == 12)
+nov_dec <- filter(flights, month %in% c(11, 12))
+
+filter(flights, !(arr_delay > 120 | dep_delay > 120))
+filter(flights, arr_delay <= 120, dep_delay <= 120)
+```
+
+
+
+---
+# Filter rows with `filter()`
+### <p style="color:#00449E"> Missing values
+
+
+- Almost any operation involving an unknown value will also be unknown.
+
+
+```{r, echo = T, eval = F}
+NA > 5
+10 == NA
+NA + 10
+NA / 2
+
+NA == NA
+```
+
+
+
+
+---
+# Filter rows with `filter()`
+### <p style="color:#00449E"> Missing values
+
+
+- Let x be Mary's age. We don't know how old she is.
+- Let y be John's age. We don't know how old he is.
+- Are John and Mary the same age?
+
+
+```{r, echo = T, eval = F}
+x <- NA
+y <- NA
+x == y
+```
+
+
+
+
+---
+# Filter rows with `filter()`
+### <p style="color:#00449E"> Missing values
+
+
+- If we want to determine if a value is missing, use `is.na()`.
+- If we want to preserve missing values, ask `filter()` for them explicitly.
+
+
+```{r, echo = T, eval = F}
+x <- NA
+is.na(x)
+
+df <- tibble(y = c(1, NA, 3))
+filter(df, y > 1)
+filter(df, is.na(y) | y > 1)
+```
+
+
+
+
+---
+# Filter rows with `filter()`
+### <p style="color:#00449E"> Exercises
+
+- Find all flights that
+  - Had an arrival delay of two or more hours
+  - Flew to Houston (`IAH` or `HOU`)
+  - Were operated by United, American, or Delta
+  - Departed in summer (July, August, and September)
+  - Arrived more than two hours late, but didn’t leave late
+  - Were delayed by at least an hour, but made up over 30 minutes in flight
+  - Departed between midnight and 6am (inclusive)
+
+
+---
+# Filter rows with `filter()`
+### <p style="color:#00449E"> Exercises
+
+- Another useful `dplyr` filtering helper is `between()`. What does it do? Can you use it to simplify the code needed to answer the previous challenges?
+
+- How many flights have a missing `dep_time`? What other variables are missing? What might these rows represent?
+
+- Why is `NA^0` not missing? Why is `NA | TRUE` not missing? Why is `FALSE & NA` not missing? Can you figure out the general rule? (`NA * 0` is a tricky counterexample!)
+
+
+---
+class: inverse, center, middle
+
+# `arrange()`
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+
+---
+# Arrange rows with `arrange()`
+
+- `arrange()` changes their order.
+
+- If we provide more than one column name, each additional column will be used to break ties in the values of preceding columns.
+
+- Use `desc()` to re-order by a column in descending order.
+
+
+```{r, echo = T, eval = F}
+arrange(flights, year, month, day)
+
+# re-order observations by dep_delay in descending order.
+arrange(flights, [?])
+```
+
+
+---
+# Arrange rows with `arrange()`
+### <p style="color:#00449E"> Exercises
+
+- How could you use `arrange()` to sort all missing values to the start? (Hint: use `is.na()`).
+
+- Sort flights to find the most delayed flights. Find the flights that left earliest.
+
+- Sort flights to find the fastest (highest speed) flights.
+
+- Which flights traveled the farthest? Which traveled the shortest?
+
+
+
+---
+class: inverse, center, middle
+
+# `select()`
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+
+---
+# Select columns with `select()`
+
+- It’s not uncommon to get datasets with hundreds or even thousands of variables.
+- `select()` allows us to narrow in on the variables we're actually interested in. 
+
+
+
+```{r, echo = T, eval = F}
+select(flights, year, month, day)
+
+select(flights, year:day)
+
+select(flights, -(year:day))
+```
+
+
+
+---
+# Select columns with `select()`
+
+- There are a number of helper functions we can use within `select()`:
+
+- `starts_with("abc")`: matches names that begin with "abc".
+
+- `ends_with("xyz")`: matches names that end with "xyz".
+
+- `contains("ijk")`: matches names that contain "ijk".
+
+- `num_range("x", 1:3)`: matches x1, x2 and x3.
+
+
+---
+# Select columns with `select()`
+### <p style="color:#00449E"> Rename variables with `rename()`
+
+
+- `rename()` can be used to rename variables:
+
+  - `rename(<DATA>, <NEW_VARIABLE> = <EXISTING_VARIABLE>)`
+
+
+```{r, echo = T, eval = F}
+rename(flights, tail_num = tailnum)
+```
+
+
+---
+# Select columns with `select()`
+### <p style="color:#00449E"> Change the order of variables
+
+
+- The function, `everything()`, can be used to move variables to the start of the data frame:
+
+
+```{r, echo = T, eval = F}
+select(flights, time_hour, air_time, [?])
+```
+
+
+
+---
+# Select columns with `select()`
+### <p style="color:#00449E"> Exercises
+
+- Brainstorm as many ways as possible to select `dep_time`, `dep_delay`, `arr_time`, and `arr_delay` from flights.
+
+- What happens if we include the name of a variable multiple times in a `select()` call?
+
+- What does the `any_of()` function do? Why might it be helpful in conjunction with this vector?
+
+```{r, echo = T, eval = F}
+vars <- c("year", "month", "day", "dep_delay", "arr_delay")
+```
+
+
+
+---
+# Select columns with `select()`
+### <p style="color:#00449E"> Exercises
+
+- Does the result of running the following code surprise us? How do the select helpers deal with case by default? How can we change that default?
+
+```{r, echo = T, eval = F}
+select(flights, contains("TIME"))
+```
+
+
+
+---
+class: inverse, center, middle
+
+# `mutate()`
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+---
+# Add new variables with `mutate()`
+
+
+- `mutate()` is useful to add new columns that are functions of existing columns.
+
+
+```{r, echo = T, eval = F}
+flights_sml <- select(flights, 
+                      year:day, 
+                      ends_with("delay"), 
+                      distance, 
+                      air_time )
+
+mutate(flights_sml,
+  gain = dep_delay - arr_delay,
+  speed = distance / air_time * 60 )
+
+mutate(flights_sml,
+  gain = dep_delay - arr_delay,
+  hours = air_time / 60,
+  gain_per_hour = gain / hours )
+```
+
+
+
+---
+# Add new variables with `mutate()`
+- If we only want to keep the new variables, use `transmute()`.
+
+
+```{r, echo = T, eval = F}
+transmute(flights,
+  gain = dep_delay - arr_delay,
+  hours = air_time / 60,
+  gain_per_hour = gain / hours
+)
+```
+
+
+
+---
+# Add new variables with `mutate()`
+### <p style="color:#00449E"> Useful creation functions
+
+- There are many functions for creating new variables that we can use with `mutate()`.
+
+- Arithmetic operators: `+`, `-`, `*`, `/`, `^`.
+- Modular arithmetic: `%/%` (integer division) and `%%` (remainder).
+
+
+```{r, echo = T, eval = F}
+transmute(flights,
+  dep_time,
+  hour = dep_time %/% 100,
+  minute = dep_time %% 100
+)
+```
+
+
+---
+# Add new variables with `mutate()`
+### <p style="color:#00449E"> Useful creation functions
+
+- There are many functions for creating new variables that we can use with `mutate()`.
+
+- Offsets: `lead()` and `lag()` allow us to refer to leading or lagging values. 
+
+- Cumulative and rolling aggregates: R provides functions for running sums, products, mins and maxes: `cumsum()`, `cumprod()`, `cummin()`, `cummax()`, and `cummean()`
+
+
+```{r, echo = T, eval = F}
+(x <- 1:10)
+lag(x)
+lead(x)
+cumsum(x)
+cummean(x)
+```
+
+
+
+
+---
+# Add new variables with `mutate()`
+### <p style="color:#00449E"> Useful creation functions
+
+- There are many functions for creating new variables that we can use with `mutate()`.
+
+
+- Ranking: `min_rank()`, `dense_rank()`, `row_number()`, , `percent_rank()`, and `cume_dist()`.
+
+
+
+```{r, echo = T, eval = F}
+rank_me <- tibble( x = c(10, 5, 1, 5, 5, NA) )
+rank_me <- mutate(rank_me,
+                  id_x = row_number(x),
+                  x_min_rank = min_rank(x),
+                  x_dense_rank = dense_rank(x) )
+```
+
+
+
+
+
+---
+# Add new variables with `mutate()`
+### <p style="color:#00449E"> Useful creation functions
+
+- To create new variables based on a condition, we can use the `if_else()` and `ifelse()` functions. 
+  - `if_else(<condition>, <if TRUE>, <else>)`
+  - `ifelse(<condition>, <if TRUE>, <else>)`
+
+
+```{r, echo = T, eval = F}
+flight_season <-mutate(flights,
+    summer_month = if_else(month %in% c(6, 7, 8), TRUE, FALSE))
+
+flight_season <-mutate(flights,
+    summer_month = if_else(month %in% c(6, 7, 8), TRUE, 0))
+
+flight_season <-mutate(flights,   # ifelse() is less restrictive
+    summer_month = ifelse(month %in% c(6, 7, 8), TRUE, 0))
+```
+
+
+
+---
+# Add new variables with `mutate()`
+### <p style="color:#00449E"> Exercises
+ 
+- Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to compute with because they’re not really continuous numbers. Convert them to a more convenient representation of number of minutes since midnight.
+
+- Compare `air_time` with `arr_time - dep_time`. What do you expect to see? What do you see? What do you need to do to fix it?
+
+- Compare `dep_time`, `sched_dep_time`, and `dep_delay.` How would you expect those three numbers to be related?
+
+- Find the 10 most delayed flights using a ranking function. How do you want to handle ties? 
