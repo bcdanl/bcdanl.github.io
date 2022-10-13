@@ -747,18 +747,18 @@ Read the data file, `NY_school_enrollment_socioecon.csv`, as the data.frame obje
 
 ```{r, echo = T, eval = F}
 url2 <- 'https://bcdanl.github.io/data/NY_school_enrollment_socioecon.csv'
-ny_school_enrollment_socio <- read_csv(url2)
+NY_school_enrollment_socioecon <- read_csv(url2)
 View(ny_school_enrollment_socio)
 ```
 
 
-- We can view the data.frame `ny_school_enrollment_socio`:
+- We can view the data.frame `NY_school_enrollment_socioecon`:
 <br>
 
 ```{r, result = 'asis', echo = F, message = F, warning = F}
 url2 <- 'https://bcdanl.github.io/data/NY_school_enrollment_socioecon.csv'
-ny_school_enrollment_socio <- read_csv(url2)
-rmarkdown::paged_table(ny_school_enrollment_socio)
+NY_school_enrollment_socioecon <- read_csv(url2)
+rmarkdown::paged_table(NY_school_enrollment_socioecon)
 ```
 
 <br><br>
@@ -766,9 +766,9 @@ rmarkdown::paged_table(ny_school_enrollment_socio)
 For description of variables in `NY_school_enrollment_socioecon`, refer to the file, `ny_school_enrollment_socioecon_description.zip`, which is in the Files section in our Canvas web-page. (I recommend you to extract the zip file, and then read the file, **ny_school_enrollment_socioecon_description.csv**, using Excel or Numbers.)
 
 
-- Here are some details about the data.frame, `ny_school_enrollment_socio`:
+- Here are some details about the data.frame, `NY_school_enrollment_socioecon`:
 
-- The geographic and time units of observation (row) in the data.frame, `ny_school_enrollment_socio`, are *New York county* and *year*.
+- The geographic and time units of observation (row) in the data.frame, `NY_school_enrollment_socioecon`, are *New York county* and *year*.
 
 ```{r, echo=F, eval=T}
 text_tbl <- data.frame(
@@ -858,15 +858,15 @@ Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the re
 
 - To represent a level of college enrollment of population in a county, I choose variable, `c02_010`, a **percent** of population enrolled in college or graduate school.
 
-- To represent a level of college enrollment of population in a county, I choose variable, `c04_010`, a **percent** of population enrolled in **public** college or graduate school.
+- To represent a level of **public** college's enrollment of population in a county, I choose variable, `c04_010`, a **percent** of population enrolled in **public** college or graduate school.
 
-- To represent a level of college enrollment of population in a county, I choose variable, `c06_010`, a **percent** of population enrolled in **private** college or graduate school.
+- To represent a level of **private** college's enrollment of population in a county, I choose variable, `c06_010`, a **percent** of population enrolled in **private** college or graduate school.
 
 
 - The following ggplot describes the relationship between college enrollment and educational attainment of population 45 to 64 years:
 
 ```{r, echo = T, eval = F, message = F, warning = F}
-ggplot(ny_school_enrollment_socio,
+ggplot(NY_school_enrollment_socioecon,
        aes(x = 100 - d01_024, y = c02_010)) +
   geom_hex()  +
   geom_smooth(method = lm)  +
@@ -876,7 +876,7 @@ ggplot(ny_school_enrollment_socio,
 
 
 ```{r, echo = F, eval = T, warning= F, message= F}
-ggplot(ny_school_enrollment_socio, aes(x = 100-d01_024, 
+ggplot(NY_school_enrollment_socioecon, aes(x = 100-d01_024, 
                                        y = c02_010 )) +
     geom_hex()  +
     geom_smooth(aes(color = "Linear"),
@@ -913,7 +913,7 @@ ggplot(ny_school_enrollment_socio, aes(x = 100-d01_024,
 
 
 ```{r, echo = T, eval = F, message = F, warning = F}
-ggplot(ny_school_enrollment_socio,
+ggplot(NY_school_enrollment_socioecon,
        aes(x = 100 - d01_024, y = c04_010)) +
   geom_hex()  +
   geom_smooth(method = lm)  +
@@ -923,7 +923,7 @@ ggplot(ny_school_enrollment_socio,
 
 
 ```{r, echo = F, eval = T, warning= F, message= F}
-ggplot(ny_school_enrollment_socio, aes(x = 100 - d01_024, 
+ggplot(NY_school_enrollment_socioecon, aes(x = 100 - d01_024, 
                                        y = c04_010 )) +
     geom_hex()  +
     geom_smooth(aes(color = "Linear"),
@@ -957,7 +957,7 @@ ggplot(ny_school_enrollment_socio, aes(x = 100 - d01_024,
 - The following ggplot describes the relationship between college enrollment in **private** schools and educational attainment of population 45 to 64 years:
 
 ```{r, echo = T, eval = F, message = F, warning = F}
-ggplot(ny_school_enrollment_socio,
+ggplot(NY_school_enrollment_socioecon,
        aes(x = 100 - d01_024, y = c06_010)) +
   geom_hex()  +
   geom_smooth(method = lm)  +
@@ -967,7 +967,7 @@ ggplot(ny_school_enrollment_socio,
 
 
 ```{r, echo = F, eval = T, warning= F, message= F}
-ggplot(ny_school_enrollment_socio, aes(x = 100 - d01_024, 
+ggplot(NY_school_enrollment_socioecon, aes(x = 100 - d01_024, 
                                        y = c06_010 )) +
     geom_hex()  +
     geom_smooth(aes(color = "Linear"),
@@ -1017,7 +1017,7 @@ Provide both (1) `ggplot` codes and  (2) a couple of sentences to describe how t
 - The following ggplot describes the relationship between college enrollment and educational attainment of **male**/**female** populations 45 to 64 years:
 
 ```{r, echo = T, eval = F, message = F, warning = F}
-ggplot(ny_school_enrollment_socio) +
+ggplot(NY_school_enrollment_socioecon) +
   geom_point(aes(x = 100 - d03_024, y = c02_010),
              color = 'blue')  +
   geom_point(aes(x = 100 - d05_024, y = c02_010),
@@ -1035,7 +1035,7 @@ ggplot(ny_school_enrollment_socio) +
 colors <- c("Male" = "royalblue",
             "Female" = "red3")
 
-ggplot(ny_school_enrollment_socio) +
+ggplot(NY_school_enrollment_socioecon) +
   geom_smooth(aes(x = 100 - d03_024, y = c02_010,
                   color = "Male"),
               method = lm)  +
@@ -1074,7 +1074,7 @@ ggplot(ny_school_enrollment_socio) +
 - The following ggplot describes the relationship between **public** college enrollment and educational attainment of **male**/**female** populations 45 to 64 years:
 
 ```{r, echo = T, eval = F, message = F, warning = F}
-ggplot(ny_school_enrollment_socio) +
+ggplot(NY_school_enrollment_socioecon) +
   geom_point(aes(x = 100 - d03_024, y = c04_010),
              color = 'blue')  +
   geom_point(aes(x = 100 - d05_024, y = c04_010),
@@ -1092,7 +1092,7 @@ ggplot(ny_school_enrollment_socio) +
 colors <- c("Male" = "royalblue",
             "Female" = "red3")
 
-ggplot(ny_school_enrollment_socio) +
+ggplot(NY_school_enrollment_socioecon) +
   geom_smooth(aes(x = 100 - d03_024, y = c04_010,
                   color = "Male"),
               method = lm)  +
@@ -1135,7 +1135,7 @@ ggplot(ny_school_enrollment_socio) +
 - The following ggplot describes the relationship between **private** college enrollment and educational attainment of **male**/**female** populations 45 to 64 years:
 
 ```{r, echo = T, eval = F, message = F, warning = F}
-ggplot(ny_school_enrollment_socio) +
+ggplot(NY_school_enrollment_socioecon) +
   geom_point(aes(x = 100 - d03_024, y = c06_010),
              color = 'blue')  +
   geom_point(aes(x = 100 - d05_024, y = c06_010),
@@ -1153,7 +1153,7 @@ ggplot(ny_school_enrollment_socio) +
 colors <- c("Male" = "royalblue",
             "Female" = "red3")
 
-ggplot(ny_school_enrollment_socio) +
+ggplot(NY_school_enrollment_socioecon) +
   geom_smooth(aes(x = 100 - d03_024, y = c06_010,
                   color = "Male"),
               method = lm)  +
@@ -1201,7 +1201,7 @@ Provide both (1) `ggplot` codes and  (2) a couple of sentences to describe how t
 - The following ggplot describes the relationship between **male**/**female** college enrollment and educational attainment of populations 45 to 64 years:
 
 ```{r, echo = T, eval = F, message = F, warning = F}
-ggplot(ny_school_enrollment_socio) +
+ggplot(NY_school_enrollment_socioecon) +
   geom_point(aes(x = 100-d01_024, y = c02_011), 
              color = 'blue')  +
   geom_point(aes(x = 100-d01_024, y = c02_012), 
@@ -1219,7 +1219,7 @@ ggplot(ny_school_enrollment_socio) +
 colors <- c("Male" = "royalblue",
             "Female" = "red3")
 
-ggplot(ny_school_enrollment_socio) +
+ggplot(NY_school_enrollment_socioecon) +
   geom_smooth(aes(x = 100 - d01_024, y = c02_011,
                   color = "Male"),
               method = lm)  +
@@ -1268,7 +1268,7 @@ ggplot(ny_school_enrollment_socio) +
 - The following ggplot describes the relationship between **male**/**female** **public** college enrollment and educational attainment of populations 45 to 64 years:
 
 ```{r, echo = T, eval = F, message = F, warning = F}
-ggplot(ny_school_enrollment_socio) +
+ggplot(NY_school_enrollment_socioecon) +
   geom_point(aes(x = 100-d01_024, y = c04_011), 
              color = 'blue')  +
   geom_point(aes(x = 100-d01_024, y = c04_012), 
@@ -1286,7 +1286,7 @@ ggplot(ny_school_enrollment_socio) +
 colors <- c("Male" = "royalblue",
             "Female" = "red3")
 
-ggplot(ny_school_enrollment_socio) +
+ggplot(NY_school_enrollment_socioecon) +
   geom_smooth(aes(x = 100 - d01_024, y = c04_011,
                   color = "Male"),
               method = lm)  +
@@ -1324,7 +1324,7 @@ ggplot(ny_school_enrollment_socio) +
 - The following ggplot describes the relationship between **male**/**female** **public** college enrollment and educational attainment of populations 45 to 64 years:
 
 ```{r, echo = T, eval = F, message = F, warning = F}
-ggplot(ny_school_enrollment_socio) +
+ggplot(NY_school_enrollment_socioecon) +
   geom_point(aes(x = 100-d01_024, y = c06_011), 
              color = 'blue')  +
   geom_point(aes(x = 100-d01_024, y = c06_012), 
@@ -1342,7 +1342,7 @@ ggplot(ny_school_enrollment_socio) +
 colors <- c("Male" = "royalblue",
             "Female" = "red3")
 
-ggplot(ny_school_enrollment_socio) +
+ggplot(NY_school_enrollment_socioecon) +
   geom_smooth(aes(x = 100 - d01_024, y = c06_011,
                   color = "Male"),
               method = lm)  +
