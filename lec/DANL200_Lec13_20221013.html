@@ -296,7 +296,7 @@ near(1 / 49 * 49, 1)
 
 - De Morgan’s law: 
 
-- `!(x \&amp; y)` is the same as `!x | !y`. 
+- `!(x &amp; y)` is the same as `!x | !y`. 
 - `!(x | y)` is the same as `!x &amp; !y`.
 
 - For example, comparison and logical operators can be used with `filter()` as follows:
@@ -308,7 +308,7 @@ filter(flights, month == 11 | month == 12)
 nov_dec &lt;- filter(flights, month %in% c(11, 12))
 
 filter(flights, !(arr_delay &gt; 120 | dep_delay &gt; 120))
-filter(flights, arr_delay &lt;= 120, dep_delay &lt;= 120)
+filter(flights, arr_delay &lt;= 120 &amp; dep_delay &lt;= 120)
 ```
 
 
@@ -597,7 +597,7 @@ transmute(flights,
 
 - There are many functions for creating new variables that we can use with `mutate()`.
 
-- Arithmetic operators: `+`, `-`, `*`, `/`, `^`.
+- Arithmetic operators: `+`, `-`, `*`, `/`, `^`
 - Modular arithmetic: `%/%` (integer division) and `%%` (remainder).
 
 
@@ -613,7 +613,6 @@ transmute(flights,
 
 ---
 # Add new variables with `mutate()`
-### &lt;p style="color:#00449E"&gt; Useful creation functions
 
 - There are many functions for creating new variables that we can use with `mutate()`.
 
@@ -762,14 +761,11 @@ ggplot(data = delay, mapping = aes(x = dist, y = delay)) +
 ```r
 delays &lt;- flights %&gt;% 
   group_by(dest) %&gt;% 
-  summarize(
-    count = n(),
-    dist = mean(distance, na.rm = TRUE),
-    delay = mean(arr_delay, na.rm = TRUE)
-  ) %&gt;% 
+  summarize( count = n(),
+             dist = mean(distance, na.rm = TRUE),
+             delay = mean(arr_delay, na.rm = TRUE) ) %&gt;% 
   filter(count &gt; 20, dest != "HNL")
 ```
-
 
 - A good way to pronounce %&gt;% when reading code is “then.”
 - A shortcut for %&gt;%  is Ctrl+Shift+M  (Command+Shift+M for Mac).
@@ -967,6 +963,23 @@ not_cancelled %&gt;%
   count(tailnum, wt = distance)
 ```
 
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Useful summary functions
+
+- We can compute the height of bars in a histogram by combining `dplyr::count()` and `ggplot2::cut_width()`:
+
+
+```r
+ggplot(data = diamonds) +
+  geom_histogram(mapping = aes(x = carat), binwidth = 0.5)
+
+diamonds %&gt;% 
+  count(cut_width(carat, 0.5))
+```
 
 
 
