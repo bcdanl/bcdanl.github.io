@@ -692,6 +692,495 @@ flight_season &lt;-mutate(flights,   # ifelse() is less restrictive
 - Compare `dep_time`, `sched_dep_time`, and `dep_delay.` How would you expect those three numbers to be related?
 
 - Find the 10 most delayed flights using a ranking function. How do you want to handle ties? 
+
+
+
+---
+class: inverse, center, middle
+
+# `summarize()`
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+  
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; 
+
+- `summarize()` collapses a data frame to a single row.
+- `na.rm` argument removes the missing values prior to computation when using `summarize()` or other aggregate functions.
+- `summarize()` is not terribly useful unless we pair it with `group_by()`.
+
+
+
+```r
+summarize(flights, delay = mean(dep_delay, na.rm = TRUE))
+
+by_day &lt;- group_by(flights, year, month, day)
+summarize(by_day, delay = mean(dep_delay, na.rm = TRUE))
+```
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Example
+
+- Explore the relationship between the mean level `distance` and the mean level `arr_delay` for each value of `dest`.
+
+
+
+```r
+by_dest &lt;- group_by(flights, dest)
+delay &lt;- summarize(by_dest,
+  count = n(),
+  dist = mean(distance, na.rm = TRUE),
+  delay = mean(arr_delay, na.rm = TRUE)
+)
+
+delay &lt;- filter(delay, count &gt; 20, dest != "HNL")
+
+ggplot(data = delay, mapping = aes(x = dist, y = delay)) +
+  geom_point(aes(size = count), alpha = 1/3) +
+  geom_smooth(se = FALSE)
+```
+
+
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Combining multiple operations with the pipe (`%&gt;%`)
+
+- Explore the relationship between the distance and average delay for each location using the pipe (`%&gt;%`).
+
+
+
+```r
+delays &lt;- flights %&gt;% 
+  group_by(dest) %&gt;% 
+  summarize(
+    count = n(),
+    dist = mean(distance, na.rm = TRUE),
+    delay = mean(arr_delay, na.rm = TRUE)
+  ) %&gt;% 
+  filter(count &gt; 20, dest != "HNL")
+```
+
+
+- A good way to pronounce %&gt;% when reading code is “then.”
+- A shortcut for %&gt;%  is Ctrl+Shift+M  (Command+Shift+M for Mac).
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Missing values
+
+- What happens if we don’t set `na.rm`?
+
+
+
+```r
+flights %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize(mean = mean(dep_delay))
+  
+flights %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize(mean = mean(dep_delay, na.rm = TRUE))
+```
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Missing values
+
+- Suppose missing values represent cancelled flights.
+
+
+
+```r
+not_cancelled &lt;- flights %&gt;% 
+  filter(!is.na(dep_delay), !is.na(arr_delay))
+
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize(mean = mean(dep_delay))
+```
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Counts
+
+- Let’s look at the planes (identified by their tail number (`tailnum`)) that have the highest average delays
+
+
+
+```r
+delays &lt;- not_cancelled %&gt;% 
+  group_by(tailnum) %&gt;% 
+  summarize(
+    delay = mean(arr_delay)
+  )
+
+ggplot(data = delays, mapping = aes(x = delay)) + 
+  geom_freqpoly(binwidth = 10)
+```
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Counts
+
+- When doing any aggregation, it’s always a good idea to include either a count (`n()`), or a count of non-missing values (`sum(!is.na(x))`).
+
+
+
+```r
+delays &lt;- not_cancelled %&gt;% 
+  group_by(tailnum) %&gt;% 
+  summarize( delay = mean(arr_delay, na.rm = TRUE),
+             n = n() )
+
+ggplot(data = delays, mapping = aes(x = n, y = delay)) + 
+  geom_point(alpha = 1/10)
+
+delays %&gt;% 
+  filter(n &gt; 25) %&gt;% 
+  ggplot(mapping = aes(x = n, y = delay)) + 
+    geom_point(alpha = 1/10)
+```
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Useful summary functions
+
+- Measures of location: `mean(x)` and `median(x)`. 
+
+- Measures of spread: `sd(x)`, `IQR(x)`. 
+
+
+
+
+```r
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize( avg_delay1 = mean(arr_delay),
+             avg_delay2 = mean(arr_delay[arr_delay &gt; 0]) ) # the average positive delay
+
+# Why is distance to some destinations more variable than to others?
+not_cancelled %&gt;% 
+  group_by(dest) %&gt;% 
+  summarize(distance_sd = sd(distance)) %&gt;% 
+  arrange(desc(distance_sd))
+```
+
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Useful summary functions
+
+
+- Measures of rank: `min(x)`, `quantile(x, 0.25)`, `max(x)`, `range(x)`.
+- Measures of position: `first(x)`, `nth(x, 2)`, `last(x)`.
+
+
+- When do the first and last flights leave each day?
+
+.panelset[
+
+.panel[.panel-name[(1)]
+
+
+```r
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize(first = min(dep_time), 
+            last = max(dep_time) )
+```
+]
+
+
+.panel[.panel-name[(2)]
+
+```r
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize(first_dep = first(dep_time),last_dep = last(dep_time) )
+```
+]
+
+.panel[.panel-name[(3)]
+
+
+```r
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  mutate(r = min_rank(desc(dep_time))) %&gt;% 
+  filter(r %in% range(r) )
+```
+]
+
+]
+
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Useful summary functions
+
+- Measures of count: `sum(!is.na(x))`, `n_distinct(x)`,  `count(x)`, and `count(x, wt = VARIABLE)`.
+
+
+```r
+# Which destinations have the most carriers?
+not_cancelled %&gt;% 
+  group_by(dest) %&gt;% 
+  summarise(carriers = n_distinct(carrier)) %&gt;% 
+  arrange(desc(carriers))
+  
+  
+not_cancelled %&gt;% 
+  count(dest)
+
+not_cancelled %&gt;% 
+  count(tailnum, wt = distance)
+```
+
+
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Useful summary functions
+
+
+- Counts and proportions of logical values: `sum(x &gt; 10)`, `mean(y == 0)`.
+
+
+
+
+
+```r
+# How many flights left before 5am? 
+# (these usually indicate delayed flights from the previous day)
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize(n_early = sum(dep_time &lt; 500))
+
+# What proportion of flights are delayed by more than an hour?
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize(hour_prop = mean(arr_delay &gt; 60))
+```
+
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Grouping by multiple variables
+
+
+- When you group by multiple variables, each summary peels off one level of the grouping.
+
+
+
+
+
+```r
+daily &lt;- group_by(flights, year, month, day)
+
+(per_day   &lt;- summarize(daily, flights = n()))
+
+(per_month &lt;- summarize(per_day, flights = sum(flights)))
+
+(per_year  &lt;- summarize(per_month, flights = sum(flights)))
+```
+
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Ungrouping
+
+
+- If you need to remove grouping, and return to operations on ungrouped data, use `ungroup()`.
+
+
+
+
+```r
+daily %&gt;% 
+  ungroup() %&gt;%             # no longer grouped by date
+  summarize(flights = n())  # all flights
+```
+
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Exercises
+
+
+- Brainstorm at least 5 different ways to assess the typical delay characteristics of a group of flights. Consider the following scenarios:
+
+  - A flight is 15 minutes early 50% of the time, and 15 minutes late 50% of the time.
+
+  - A flight is always 10 minutes late.
+
+  - A flight is 30 minutes early 50% of the time, and 30 minutes late 50% of the time.
+
+  - 99% of the time a flight is on time. 1% of the time it’s 2 hours late.
+
+Q. Which is more important: arrival delay or departure delay?
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Exercises
+
+- Come up with another approach that will give you the same output as `not_cancelled` `%&gt;%` `count(dest)` and `not_cancelled %&gt;% count(tailnum, wt = distance)` (without using `count()`).
+
+- Our definition of cancelled flights (`is.na(dep_delay) | is.na(arr_delay)` ) is slightly suboptimal. Why? Which is the most important column?
+
+- Look at the number of cancelled flights per day. Is there a pattern? Is the proportion of cancelled flights related to the average delay?
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Exercises
+
+- Which carrier has the worst delays? Challenge: can you disentangle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about `flights %&gt;% group_by(carrier, dest) %&gt;% summarize(n())`)
+
+- What does the sort argument to `count()` do. When might you use it?
+
+
+
+
+---
+class: inverse, center, middle
+
+# Grouped mutates
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+  
+
+---
+# Grouped mutates (and filters)
+### &lt;p style="color:#00449E"&gt; 
+
+- Grouping is most useful in conjunction with `summarize()`, but you can also do convenient operations with `mutate()` and `filter()`.
+
+.panelset[
+
+.panel[.panel-name[worst]
+- Find the worst members of each group:
+
+
+```r
+flights %&gt;% 
+  group_by(year, month, day) %&gt;%
+  filter(rank(desc(arr_delay)) &lt; 10)
+```
+]
+
+
+.panel[.panel-name[threshold]
+- Find all groups bigger than a threshold:
+
+
+```r
+popular_dests &lt;- flights %&gt;% 
+  group_by(dest) %&gt;% 
+  filter(n() &gt; 17250)
+popular_dests
+```
+]
+
+.panel[.panel-name[standardization]
+- Standardize to compute per group metrics:
+
+
+```r
+popular_dests %&gt;% 
+  filter(arr_delay &gt; 0) %&gt;% 
+  mutate(prop_delay = arr_delay / sum(arr_delay)) %&gt;% 
+  select(year:day, dest, arr_delay, prop_delay)
+```
+]
+
+]
+
+---
+# Grouped mutates (and filters)
+### &lt;p style="color:#00449E"&gt; Exercises
+
+- Refer back to the lists of useful mutate and filtering functions. Describe how each operation changes when you combine it with grouping.
+
+- Which plane (`tailnum`) has the worst on-time record?
+
+- What time of day should you fly if you want to avoid delays as much as possible?
+
+- For each destination, compute the total minutes of delay. For each flight, compute the proportion of the total delay for its destination.
+
+
+
+
+
+
+
+
+---
+# Grouped mutates (and filters)
+### &lt;p style="color:#00449E"&gt; Exercises
+
+- Delays are typically temporally correlated: even once the problem that caused the initial delay has been resolved, later flights are delayed to allow earlier flights to leave. Using `lag()`, explore how the delay of a flight is related to the delay of the immediately preceding flight.
+
+- Look at each destination. Can you find flights that are suspiciously fast? (i.e. flights that represent a potential data entry error). Compute the air time of a flight relative to the shortest flight to that destination. Which flights were most delayed in the air?
+
+
+
+---
+# Grouped mutates (and filters)
+### &lt;p style="color:#00449E"&gt; Exercises
+
+- Find all destinations that are flown by at least two carriers. Use that information to rank the carriers.
+
+- For each plane, count the number of flights before the first delay of greater than 1 hour.
+
+
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
