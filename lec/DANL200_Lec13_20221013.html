@@ -878,7 +878,7 @@ not_cancelled %&gt;%
   group_by(year, month, day) %&gt;% 
   summarize( avg_delay1 = mean(arr_delay),
              avg_delay2 = mean(arr_delay[arr_delay &gt; 0]) ) # the average positive delay
-
+# Brackets[] lets us filter (or subset) data from a column
 # Why is distance to some destinations more variable than to others?
 not_cancelled %&gt;% 
   group_by(dest) %&gt;% 
