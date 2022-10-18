@@ -1,0 +1,777 @@
+---
+title: "Lecture 14"
+subtitle: "DANL 200: Introduction to Data Analytics"
+author: "Byeong-Hak Choe"
+institute: "SUNY Geneseo"
+date: "October 18, 2022"
+output:
+  xaringan::moon_reader:
+    css: 
+      - default
+      - css/nhsr.css
+      - css/nhsr-fonts.css
+    mathjax: "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML"
+    lib_dir: libs
+    seal: false
+    nature:
+      highlightStyle: googlecode
+      highlightLines: true
+      highlightLanguage: ["r"]
+      countIncrementalSlides: false
+      ratio: "16:9"
+    includes:
+      after_body: [css/insert-logo.html]
+---
+
+```{r setup, include = FALSE}
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(NHSRtheme)
+library(fontawesome)
+
+# set default options
+opts_chunk$set(echo = FALSE,
+               fig.width = 7.252,
+               fig.height = 4,
+               comment = "#",
+               dpi = 300)
+
+knitr::knit_engines$set("markdown")
+
+xaringanExtra::use_tile_view()
+xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard()
+xaringanExtra::use_webcam()
+xaringanExtra::use_broadcast()
+xaringanExtra::use_share_again()
+xaringanExtra::style_share_again(
+  share_buttons = c("twitter", "linkedin", "pocket")
+)
+
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = F  #<<
+)
+
+# uncomment the following lines if you want to use the NHS-R theme colours by default
+# scale_fill_continuous <- partial(scale_fill_nhs, discrete = FALSE)
+# scale_fill_discrete <- partial(scale_fill_nhs, discrete = TRUE)
+# scale_colour_continuous <- partial(scale_colour_nhs, discrete = FALSE)
+# scale_colour_discrete <- partial(scale_colour_nhs, discrete = TRUE)
+```
+
+
+class: title-slide, left, bottom
+
+# `r rmarkdown::metadata$title`
+----
+## **`r rmarkdown::metadata$subtitle`**
+### `r rmarkdown::metadata$author`
+### `r rmarkdown::metadata$date`
+
+
+
+---
+class: inverse, center, middle
+
+# Data Transformation
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+  
+
+
+---
+# Data Transformation
+
+- It is rare that we get the data in exactly the right form we need.
+
+- We'll need to create some new variables, summaries, rename the variables or reorder the observations in order to make the data a little easier to work with.
+
+- We'll discuss how to transform data using the `dplyr` package and a dataset on flights departing New York City in 2013.
+
+
+```{r, echo = T, eval = F}
+library(tidyverse)
+library(nycflights13)
+head(flights)
+View(flights) 
+?flights
+```
+
+
+
+---
+# Data Transformation
+### <p style="color:#00449E"> `dplyr` basics </p>
+
+- We are going to discuss the five key `dplyr` functions to solve various data manipulation challenges:
+  - Pick observations by their values (`filter()`).
+  - Reorder the rows (`arrange()`).
+  - Pick variables by their names (`select()`).
+  - Create new variables with functions of existing variables (`mutate()`).
+  - Collapse many values down to a single summary (`summarise()`).
+
+
+
+---
+# Data Transformation
+### <p style="color:#00449E"> `dplyr` basics </p>
+
+- `filter(<DATA.FRAME>, LOGICAL_STATEMENT, !is.na(VARIABLE))`
+- `arrange(<DATA.FRAME>, VARIABLE1, desc(VARIABLE2), -VARIABLE3)`
+- `select(<DATA.FRAME>, VARIABLE, -VARIABLE2, starts_with("abc"), contains("time"), A:Z)`
+- `mutate(<DATA.FRAME>, ...)`
+- `summarise(<DATA.FRAME>, ...)`
+
+
+- The first argument is a data frame.
+- The subsequent arguments describe what to do with the data frame, using the variable names.
+- The result is a new data frame.
+
+
+
+
+---
+class: inverse, center, middle
+
+# `mutate()`
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+---
+# Add new variables with `mutate()`
+
+
+- `mutate()` is useful to add new columns that are functions of existing columns.
+
+
+```{r, echo = T, eval = F}
+flights_sml <- select(flights, 
+                      year:day, 
+                      ends_with("delay"), 
+                      distance, 
+                      air_time )
+
+mutate(flights_sml,
+  gain = dep_delay - arr_delay,
+  speed = distance / air_time * 60 )
+
+mutate(flights_sml,
+  gain = dep_delay - arr_delay,
+  hours = air_time / 60,
+  gain_per_hour = gain / hours )
+```
+
+
+
+---
+# Add new variables with `mutate()`
+- If we only want to keep the new variables, use `transmute()`.
+
+
+```{r, echo = T, eval = F}
+transmute(flights,
+  gain = dep_delay - arr_delay,
+  hours = air_time / 60,
+  gain_per_hour = gain / hours
+)
+```
+
+
+
+---
+# Add new variables with `mutate()`
+### <p style="color:#00449E"> Useful creation functions
+
+- There are many functions for creating new variables that we can use with `mutate()`.
+
+- Arithmetic operators: `+`, `-`, `*`, `/`, `^`
+- Modular arithmetic: `%/%` (integer division) and `%%` (remainder).
+
+
+```{r, echo = T, eval = F}
+transmute(flights,
+  dep_time,
+  hour = dep_time %/% 100,
+  minute = dep_time %% 100
+)
+```
+
+
+---
+# Add new variables with `mutate()`
+
+- There are many functions for creating new variables that we can use with `mutate()`.
+
+- Offsets: `lead()` and `lag()` allow us to refer to leading or lagging values. 
+
+- Cumulative and rolling aggregates: R provides functions for running sums, products, mins and maxes: `cumsum()`, `cumprod()`, `cummin()`, `cummax()`, and `cummean()`
+
+
+```{r, echo = T, eval = F}
+(x <- 1:10)
+lag(x)
+lead(x)
+cumsum(x)
+cummean(x)
+```
+
+
+
+
+---
+# Add new variables with `mutate()`
+### <p style="color:#00449E"> Useful creation functions
+
+
+.panelset[
+.panel[.panel-name[rank functions]
+
+- There are many functions for creating new variables that we can use with `mutate()`.
+
+
+- Ranking: `min_rank()`, `dense_rank()`, `row_number()`, , `percent_rank()`, and `cume_dist()`.
+
+
+
+```{r, echo = T, eval = F}
+rank_me <- tibble( x = c(10, 5, 1, 5, 5, NA) )
+rank_me <- mutate(rank_me,
+                  id_x = row_number(x),
+                  x_min_rank = min_rank(x),
+                  x_dense_rank = dense_rank(x) )
+```
+]
+
+
+.panel[.panel-name[definitions of rank functions]
+
+- `row_number()` assigns each element a unique value.
+
+- `min_rank()` and `dense_rank()` assign tied values the same rank.
+
+  - `min_rank()` function assigns a rank equal to the number of values less than that tied value plus one.
+
+  - `dense_rank()` function assigns a rank equal to the number of distinct values less than that tied value plus one. 
+
+]
+
+]
+
+---
+# Add new variables with `mutate()`
+### <p style="color:#00449E"> Useful creation functions
+
+- To create new variables based on a condition, we can use the `if_else()` and `ifelse()` functions. 
+  - `if_else(<condition>, <if TRUE>, <else>)`
+  - `ifelse(<condition>, <if TRUE>, <else>)`
+
+
+```{r, echo = T, eval = F}
+flight_season <-mutate(flights,
+    summer_month = if_else(month %in% c(6, 7, 8), TRUE, FALSE))
+
+flight_season <-mutate(flights,
+    summer_month = if_else(month %in% c(6, 7, 8), TRUE, 0))
+
+flight_season <-mutate(flights,   # ifelse() is less restrictive
+    summer_month = ifelse(month %in% c(6, 7, 8), TRUE, 0))
+```
+
+
+
+---
+# Add new variables with `mutate()`
+### <p style="color:#00449E"> Exercises
+ 
+- Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to compute with because they’re not really continuous numbers. Convert them to a more convenient representation of number of minutes since midnight.
+
+- Compare `air_time` with `arr_time - dep_time`. What do you expect to see? What do you see? What do you need to do to fix it?
+
+- Compare `dep_time`, `sched_dep_time`, and `dep_delay.` How would you expect those three numbers to be related?
+
+- Find the 10 most delayed flights using a ranking function. How do you want to handle ties? 
+
+
+
+---
+class: inverse, center, middle
+
+# `summarize()`
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+  
+
+
+---
+# Grouped summaries with `summarize()`
+### <p style="color:#00449E"> 
+
+- `summarize()` collapses a data frame to a single row.
+- `na.rm` argument removes the missing values prior to computation when using `summarize()` or other aggregate functions.
+- `summarize()` is not terribly useful unless we pair it with `group_by()`.
+
+
+```{r, echo = T, eval = F}
+summarize(flights, delay = mean(dep_delay, na.rm = TRUE))
+
+by_day <- group_by(flights, year, month, day)
+summarize(by_day, delay = mean(dep_delay, na.rm = TRUE))
+```
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### <p style="color:#00449E"> Example
+
+- Explore the relationship between the mean level `distance` and the mean level `arr_delay` for each value of `dest`.
+
+
+```{r, echo = T, eval = F}
+by_dest <- group_by(flights, dest)
+delay <- summarize(by_dest,
+  count = n(),
+  dist = mean(distance, na.rm = TRUE),
+  delay = mean(arr_delay, na.rm = TRUE)
+)
+
+delay <- filter(delay, count > 20, dest != "HNL")
+
+ggplot(data = delay, mapping = aes(x = dist, y = delay)) +
+  geom_point(aes(size = count), alpha = 1/3) +
+  geom_smooth(se = FALSE)
+```
+
+
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### <p style="color:#00449E"> Combining multiple operations with the pipe (`%>%`)
+
+- Explore the relationship between the distance and average delay for each location using the pipe (`%>%`).
+
+
+```{r, echo = T, eval = F}
+delays <- flights %>% 
+  group_by(dest) %>% 
+  summarize( count = n(),
+             dist = mean(distance, na.rm = TRUE),
+             delay = mean(arr_delay, na.rm = TRUE) ) %>% 
+  filter(count > 20, dest != "HNL")
+```
+
+- A good way to pronounce %>% when reading code is “then.”
+- A shortcut for %>%  is Ctrl+Shift+M  (Command+Shift+M for Mac).
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### <p style="color:#00449E"> Missing values
+
+- What happens if we don’t set `na.rm`?
+
+
+```{r, echo = T, eval = F}
+flights %>% 
+  group_by(year, month, day) %>% 
+  summarize(mean = mean(dep_delay))
+  
+flights %>% 
+  group_by(year, month, day) %>% 
+  summarize(mean = mean(dep_delay, na.rm = TRUE))
+```
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### <p style="color:#00449E"> Missing values
+
+- Suppose missing values represent cancelled flights.
+
+
+```{r, echo = T, eval = F}
+not_cancelled <- flights %>% 
+  filter(!is.na(dep_delay), !is.na(arr_delay))
+
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarize(mean = mean(dep_delay))
+```
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### <p style="color:#00449E"> Counts
+
+- Let’s look at the planes (identified by their tail number (`tailnum`)) that have the highest average delays
+
+
+```{r, echo = T, eval = F}
+delays <- not_cancelled %>% 
+  group_by(tailnum) %>% 
+  summarize(
+    delay = mean(arr_delay)
+  )
+
+ggplot(data = delays, mapping = aes(x = delay)) + 
+  geom_freqpoly(binwidth = 10)
+```
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### <p style="color:#00449E"> Counts
+
+- When doing any aggregation, it’s always a good idea to include either a count (`n()`), or a count of non-missing values (`sum(!is.na(x))`).
+
+
+```{r, echo = T, eval = F}
+delays <- not_cancelled %>% 
+  group_by(tailnum) %>% 
+  summarize( delay = mean(arr_delay, na.rm = TRUE),
+             n = n() )
+
+ggplot(data = delays, mapping = aes(x = n, y = delay)) + 
+  geom_point(alpha = 1/10)
+
+delays %>% 
+  filter(n > 25) %>% 
+  ggplot(mapping = aes(x = n, y = delay)) + 
+    geom_point(alpha = 1/10)
+```
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### <p style="color:#00449E"> Useful summary functions
+
+- Measures of location: `mean(x)` and `median(x)`. 
+
+- Measures of spread: `sd(x)`, `IQR(x)`. 
+
+
+
+```{r, echo = T, eval = F}
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarize( avg_delay1 = mean(arr_delay),
+             avg_delay2 = mean(arr_delay[arr_delay > 0]) ) # the average positive delay
+# Brackets[] lets us filter (or subset) data from a column
+# Why is distance to some destinations more variable than to others?
+not_cancelled %>% 
+  group_by(dest) %>% 
+  summarize(distance_sd = sd(distance)) %>% 
+  arrange(desc(distance_sd))
+```
+
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### <p style="color:#00449E"> Useful summary functions
+
+
+- Measures of rank: `min(x)`, `quantile(x, 0.25)`, `max(x)`, `range(x)`.
+- Measures of position: `first(x)`, `nth(x, 2)`, `last(x)`.
+
+
+- When do the first and last flights leave each day?
+
+.panelset[
+
+.panel[.panel-name[(1)]
+
+```{r, echo = T, eval = F}
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarize(first = min(dep_time), 
+            last = max(dep_time) )
+```
+]
+
+
+.panel[.panel-name[(2)]
+```{r, echo = T, eval = F}
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarize(first_dep = first(dep_time),last_dep = last(dep_time) )
+```
+]
+
+.panel[.panel-name[(3)]
+
+```{r, echo = T, eval = F}
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  mutate(r = min_rank(desc(dep_time))) %>% 
+  filter(r %in% range(r) )
+```
+]
+
+]
+
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### <p style="color:#00449E"> Useful summary functions
+
+- Measures of count: `sum(!is.na(x))`, `n_distinct(x)`,  `count(x)`, and `count(x, wt = VARIABLE)`.
+
+```{r, echo = T, eval = F}
+# Which destinations have the most carriers?
+not_cancelled %>% 
+  group_by(dest) %>% 
+  summarise(carriers = n_distinct(carrier)) %>% 
+  arrange(desc(carriers))
+  
+  
+not_cancelled %>% 
+  count(dest)
+
+not_cancelled %>% 
+  count(tailnum, wt = distance)
+```
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### <p style="color:#00449E"> Useful summary functions
+
+- We can compute the height of bars in a histogram by combining `dplyr::count()` and `ggplot2::cut_width()`:
+
+```{r, echo = T, eval = F}
+ggplot(data = diamonds) +
+  geom_histogram(mapping = aes(x = carat), binwidth = 0.5)
+
+diamonds %>% 
+  count(cut_width(carat, 0.5))
+```
+
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### <p style="color:#00449E"> Useful summary functions
+
+
+- Counts and proportions of logical values: `sum(x > 10)`, `mean(y == 0)`.
+
+
+
+
+```{r, echo = T, eval = F}
+# How many flights left before 5am? 
+# (these usually indicate delayed flights from the previous day)
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarize(n_early = sum(dep_time < 500))
+
+# What proportion of flights are delayed by more than an hour?
+not_cancelled %>% 
+  group_by(year, month, day) %>% 
+  summarize(hour_prop = mean(arr_delay > 60))
+```
+
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### <p style="color:#00449E"> Grouping by multiple variables
+
+
+- When you group by multiple variables, each summary peels off one level of the grouping.
+
+
+
+
+```{r, echo = T, eval = F}
+daily <- group_by(flights, year, month, day)
+
+(per_day   <- summarize(daily, flights = n()))
+
+(per_month <- summarize(per_day, flights = sum(flights)))
+
+(per_year  <- summarize(per_month, flights = sum(flights)))
+```
+
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### <p style="color:#00449E"> Ungrouping
+
+
+- If you need to remove grouping, and return to operations on ungrouped data, use `ungroup()`.
+
+
+
+```{r, echo = T, eval = F}
+daily %>% 
+  ungroup() %>%             # no longer grouped by date
+  summarize(flights = n())  # all flights
+```
+
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### <p style="color:#00449E"> Exercises
+
+
+- Brainstorm at least 5 different ways to assess the typical delay characteristics of a group of flights. Consider the following scenarios:
+
+  - A flight is 15 minutes early 50% of the time, and 15 minutes late 50% of the time.
+
+  - A flight is always 10 minutes late.
+
+  - A flight is 30 minutes early 50% of the time, and 30 minutes late 50% of the time.
+
+  - 99% of the time a flight is on time. 1% of the time it’s 2 hours late.
+
+Q. Which is more important: arrival delay or departure delay?
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### <p style="color:#00449E"> Exercises
+
+- Come up with another approach that will give you the same output as `not_cancelled` `%>%` `count(dest)` and `not_cancelled %>% count(tailnum, wt = distance)` (without using `count()`).
+
+- Our definition of cancelled flights (`is.na(dep_delay) | is.na(arr_delay)` ) is slightly suboptimal. Why? Which is the most important column?
+
+- Look at the number of cancelled flights per day. Is there a pattern? Is the proportion of cancelled flights related to the average delay?
+
+
+
+---
+# Grouped summaries with `summarize()`
+### <p style="color:#00449E"> Exercises
+
+- Which carrier has the worst delays? Challenge: can you disentangle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about `flights %>% group_by(carrier, dest) %>% summarize(n())`)
+
+- What does the sort argument to `count()` do. When might you use it?
+
+
+
+
+---
+class: inverse, center, middle
+
+# Grouped mutates
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+  
+
+---
+# Grouped mutates (and filters)
+### <p style="color:#00449E"> 
+
+- Grouping is most useful in conjunction with `summarize()`, but you can also do convenient operations with `mutate()` and `filter()`.
+
+.panelset[
+
+.panel[.panel-name[worst]
+- Find the worst members of each group:
+
+```{r, echo = T, eval = F}
+flights %>% 
+  group_by(year, month, day) %>%
+  filter(rank(desc(arr_delay)) < 10)
+```
+]
+
+
+.panel[.panel-name[threshold]
+- Find all groups bigger than a threshold:
+
+```{r, echo = T, eval = F}
+popular_dests <- flights %>% 
+  group_by(dest) %>% 
+  filter(n() > 17250)
+popular_dests
+```
+]
+
+.panel[.panel-name[standardization]
+- Standardize to compute per group metrics:
+
+```{r, echo = T, eval = F}
+popular_dests %>% 
+  filter(arr_delay > 0) %>% 
+  mutate(prop_delay = arr_delay / sum(arr_delay)) %>% 
+  select(year:day, dest, arr_delay, prop_delay)
+```
+]
+
+]
+
+---
+# Grouped mutates (and filters)
+### <p style="color:#00449E"> Exercises
+
+- Refer back to the lists of useful mutate and filtering functions. Describe how each operation changes when you combine it with grouping.
+
+- Which plane (`tailnum`) has the worst on-time record?
+
+- What time of day should you fly if you want to avoid delays as much as possible?
+
+- For each destination, compute the total minutes of delay. For each flight, compute the proportion of the total delay for its destination.
+
+
+
+
+
+
+
+
+---
+# Grouped mutates (and filters)
+### <p style="color:#00449E"> Exercises
+
+- Delays are typically temporally correlated: even once the problem that caused the initial delay has been resolved, later flights are delayed to allow earlier flights to leave. Using `lag()`, explore how the delay of a flight is related to the delay of the immediately preceding flight.
+
+- Look at each destination. Can you find flights that are suspiciously fast? (i.e. flights that represent a potential data entry error). Compute the air time of a flight relative to the shortest flight to that destination. Which flights were most delayed in the air?
+
+
+
+---
+# Grouped mutates (and filters)
+### <p style="color:#00449E"> Exercises
+
+- Find all destinations that are flown by at least two carriers. Use that information to rank the carriers.
+
+- For each plane, count the number of flights before the first delay of greater than 1 hour.
+
+
+
+
