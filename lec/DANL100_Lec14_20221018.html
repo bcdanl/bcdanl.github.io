@@ -530,7 +530,7 @@ signals
 
 
 .panel[.panel-name[`copy()`]
-### &lt;p style="color:#00449E"&gt; Assign with `=` &lt;/p&gt;
+### &lt;p style="color:#00449E"&gt; Copy with `copy()` &lt;/p&gt;
 
 - To actually copy keys and values from a dictionary to another dictionary and avoid this, we can use `copy()`:
 
@@ -1495,7 +1495,6 @@ else:
 ]
 
 .panel[.panel-name[`is` `None`]
-
 - To distinguish `None` from a boolean `False` value, use Python's `is` operator:
 
 ```python
@@ -1505,10 +1504,8 @@ if thing is None:
 else:
     print("It's no thing")
 ```
-
 - We'll need `None` to distinguish a *missing* value from an *empty* value.
-
-- Remember that zero-valued integers or floats, empty strings (`''`), lists (`[]`), tuples (`(,)`), dictionaries (`{}`), and sets (`set()`) are all `False`, but are not the same as `None`.
+- Zero-valued numbers, empty strings (`''`), lists (`[]`), tuples (`(,)`), dictionaries (`{}`), and sets (`set()`) are all `False`, but are not the same as `None`.
 ]
 
 .panel[.panel-name[`whatis(thing)`]
@@ -1601,12 +1598,10 @@ menu('beef', 'bagel', 'bordeaux')
 
 ### &lt;p style="color:#00449E"&gt; Keyword Arguments &lt;/p&gt;
 - To avoid positional argument confusion, we can specify arguments by the names of their corresponding parameters, even in a different order from their definition in the function:
-  - We can also mix positional and keyword arguments.
 
 ```python
 menu(entree='beef', dessert='bagel', wine='bordeaux')
-
-# specify the wine first, but use keyword arguments for the entree and dessert:
+# Specify the wine first, but use keyword arguments for the entree and dessert:
 menu('frontenac', dessert='flan', entree='fish') 
 ```
 
@@ -1644,7 +1639,7 @@ menu('chardonnay', 'chicken')
 def menu(wine, entree, dessert='pudding'):
     return {'wine': wine, 'entree': entree, 'dessert': dessert}
 
-menu('dunkelfelder', 'duck', 'doughnut')   # 
+menu('dunkelfelder', 'duck', 'doughnut')
 ```
 
 ]
@@ -1810,10 +1805,14 @@ print_kwargs(wine='merlot', entree='mutton', dessert='macaroon')
 
 .panel[.panel-name[summary]
 
-- We can pass keyword arguments to a function, which will match them inside to
-keyword parameters. 
+- We can pass keyword arguments to a function, which will match them inside to keyword parameters. 
 
 - We can pass a dictionary argument to a function, and inside it will be dictionary parameters. 
+
+]
+
+
+.panel[.panel-name[summary]
 
 - We can pass one or more keyword arguments (*name=value*) to a function, and gather them inside as `**kwargs`, which resolves to the dictionary parameter called `kwargs`. 
 
@@ -1821,7 +1820,6 @@ keyword parameters.
 
 - Inside a function, `**kwargs` gathers *name=value* arguments into the single dictionary parameter `kwargs`.
 ]
-
 ]
 
 
