@@ -13,7 +13,7 @@
 
 <meta name="date" content="2022-10-19" />
 
-<title>DANL 100: Programming for Data Analytics</title>
+<title>DANL 200: Introduction to Data Analytics</title>
 
 <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -584,176 +584,157 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">DANL 100: Programming for Data
+<h1 class="title toc-ignore">DANL 200: Introduction to Data
 Analytics</h1>
-<h3 class="subtitle">DANL 100 - Homework Assignment 1<br><br></h3>
+<h3 class="subtitle">DANL 200 - Lecture 15 Class Exercises -
+Answers<br><br></h3>
 <h4 class="author">Byeong-Hak Choe<br></h4>
 <h4 class="date">2022-10-19<br><br></h4>
 
 </div>
 
 
-<div id="question-1" class="section level1">
-<h1>Question 1</h1>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>list_variable <span class="op">=</span> [<span class="dv">100</span>, <span class="dv">144</span>, <span class="dv">169</span>, <span class="dv">1000</span>, <span class="dv">8</span>]</span></code></pre></div>
-<p>Write a Python code that uses <code>print()</code> and
-<code>max()</code> functions to print out the largest value in the list,
-<code>list_variable</code>, as follows:</p>
-<div style="font-family:courier">
-The largest value in the list is: 1000
+<div id="loading-r-packages-for-class-exercises" class="section level3">
+<h3>Loading R packages for Class Exercises</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<p><br><br></p>
 </div>
-<div style="font-family:courier">
-The smallest value in the list is: 8
-</div>
-<pre><code># The largest value in the list is: 1000 ,
-# The smallest value in the list is: 8 .</code></pre>
-<p><br><br><br></p>
-</div>
-<div id="question-2" class="section level1">
-<h1>Question 2</h1>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fare <span class="op">=</span> <span class="st">&quot;$10.00&quot;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>tip <span class="op">=</span> <span class="st">&quot;2.00$&quot;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>tax <span class="op">=</span> <span class="st">&quot;$ 0.80&quot;</span></span></code></pre></div>
-<p>Write a Python code that uses <em>slicing</em> and the
-<code>print()</code> function to print out the following message:</p>
-<div style="font-family:courier">
-The total trip cost is: $12.80
-</div>
-<pre><code># The total trip cost is: $12.8</code></pre>
-<p><br><br><br></p>
-</div>
-<div id="question-3" class="section level1">
-<h1>Question 3</h1>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">4.0</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="fl">.5</span></span></code></pre></div>
-<p>For each expression below, what is the value of the expression?
-Explain thoroughly.</p>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span> <span class="op">==</span> <span class="st">&#39;20&#39;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">bool</span>(<span class="dv">0</span>) <span class="op">!=</span> <span class="bu">bool</span>(<span class="st">&#39;&#39;</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">&lt;</span> y <span class="kw">or</span> <span class="dv">3</span><span class="op">*</span>y <span class="op">&lt;</span> x</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> (<span class="dv">100</span> <span class="op">==</span> <span class="st">&#39;100&#39;</span> <span class="kw">and</span> <span class="dv">25</span> <span class="op">&lt;</span> <span class="dv">36</span>)</span></code></pre></div>
-<ol style="list-style-type: lower-alpha">
-<li>The statement <code>20 == '20'</code> is <code>False</code>.</li>
-</ol>
+<div id="tweets-with-climatechange" class="section level1">
+<h1>Tweets with #climatechange</h1>
+<p>The following data is for Class Exercises:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>NY_CC_tweets <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;https://bcdanl.github.io/data/NY_tweets_cc_no_contents.csv&#39;</span>)</span></code></pre></div>
+<div id="variable-description" class="section level2">
+<h2>Variable Description</h2>
 <ul>
-<li>The left-hand side <code>20</code> is integer and the right-hand
-side <code>'20'</code> is string.</li>
+<li><code>id_user</code>: a unique identification number for a Twitter
+user whom retweeted to a tweet with <em>#climatechange</em> or
+<em>#globalwarming</em>.</li>
+<li><code>id_city</code>: a unique identification number for a
+city.</li>
+<li><code>FIPS</code>: a unique identification number for a county.</li>
 </ul>
-<p><br></p>
-<ol start="2" style="list-style-type: lower-alpha">
-<li>The statement <code>bool(0) != bool('')</code> is
-<code>False</code>.</li>
-</ol>
-<ul>
-<li>The left-hand side <code>bool(0)</code> is <code>False</code>.</li>
-<li>The right-hand side <code>bool('')</code> is
-<code>False</code>.</li>
-<li>The statement <code>False != False</code> is
-<code>False</code>.</li>
-</ul>
-<p><br></p>
-<ol start="3" style="list-style-type: lower-alpha">
-<li>The statement <code>x &lt; y or 3*y &lt; x</code> is
-<code>True</code>.</li>
-</ol>
-<ul>
-<li>Let <code>x &lt; y</code> be the statement A. The statement A is
-<code>False</code>.</li>
-<li>Let <code>3*y &lt; x</code> be the statement B. The statement B is
-<code>True</code>.</li>
-<li>The statement <code>A or B</code> is <code>True</code>, because
-either <code>A</code> or <code>B</code> is <code>True</code>.</li>
-</ul>
-<p><br></p>
-<ol start="4" style="list-style-type: lower-alpha">
-<li>The statement <code>not (100 == '100' and 25 &lt; 36)</code> is
-<code>True</code>.</li>
-</ol>
-<ul>
-<li>Let <code>100 == '100'</code> be the statement C.</li>
-<li>The statement C is <code>False</code>, because the left-hand side
-100 is integer and the right-hand side ‘100’ is string.</li>
-<li>Let <code>25 &lt; 36</code> be the statement D. The statement D is
-<code>True</code>.</li>
-<li>The statement <code>C and D</code> is <code>False</code>, because
-either <code>C</code> or <code>D</code> is <code>False</code>.</li>
-<li>The statement <code>not (C and D)</code> is <code>True</code>,
-because <code>not (False)</code> is <code>not False</code>, which is
-<code>True</code>.</li>
-</ul>
-<p><br><br><br></p>
+<p>Each row represents an observation of a retweet to a tweet with
+<em>#climatechange</em> or <em>#globalwarming</em>.</p>
+<p>Each row includes a Twitter user’s geographic information at city or
+county levels (variables <code>FIPS</code>, <code>county</code>,
+<code>city</code>) as well as information about timing when a Twitter
+user retweeted (variables <code>year</code>, <code>month</code>,
+<code>day</code>, <code>hour</code>, <code>minute</code>,
+<code>second</code>).</p>
 </div>
-<div id="question-4" class="section level1">
-<h1>Question 4</h1>
-<p>This Python code creates a tuple with seven different ages:</p>
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>respondent_ages <span class="op">=</span> (<span class="dv">65</span>, <span class="dv">29</span>, <span class="dv">25</span>, <span class="dv">35</span>, <span class="dv">58</span>, <span class="dv">23</span>, <span class="dv">19</span>)</span></code></pre></div>
-<p>Write a Python code that uses a <em>for-loop</em> statement and a
-<em>if-else</em> statement to assign the list,
-<code>under40_list</code>, to <code>[29, 25, 35, 23, 19]</code> and the
-list, <code>over40_list</code>, to <code>[65, 58]</code>.</p>
-<pre><code># [29, 25, 35, 23, 19]</code></pre>
-<pre><code># [65, 58]</code></pre>
-<p><br><br><br></p>
+<div id="q1a" class="section level2">
+<h2>Q1a</h2>
+<p>How many Twitter users retweeted on the date, January 1, 2017?</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Q1a <span class="ot">&lt;-</span> NY_CC_tweets <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2017</span>, month <span class="sc">==</span> <span class="dv">1</span>, day <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id_user) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>Q1a <span class="ot">&lt;-</span> NY_CC_tweets <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2017</span>, month <span class="sc">==</span> <span class="dv">1</span>, day <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id_user, year, month, day) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">n_users =</span> <span class="fu">n</span>() ) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>( year, month, day, n_users ) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span></code></pre></div>
+<p><br><br></p>
 </div>
-<div id="question-5" class="section level1">
-<h1>Question 5</h1>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tuple_var <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> <span class="dv">0</span></span></code></pre></div>
-<p>Write a Python code that uses the following two lines (1) a
-<em>for-loop</em> statement to process each element of
-<code>tuple_var</code> and (2) the following line.</p>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;The total of the values in the tuple is: &quot;</span>, total)</span></code></pre></div>
-<pre><code># The total of the values in the tuple is:  55</code></pre>
+<div id="q1b" class="section level2">
+<h2>Q1b</h2>
+<p>Which city is with the third highest number of retweets on the date,
+December 1, 2017?</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Q1b <span class="ot">&lt;-</span> NY_CC_tweets <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2017</span>, month <span class="sc">==</span> <span class="dv">12</span>, day <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id_city, city, year, month, day) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(city) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">n_rt_cities =</span> <span class="fu">n</span>() ) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>( city, year, month, day, n_rt_cities ) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n_rt_cities, city)</span></code></pre></div>
+<p><br><br></p>
+</div>
+<div id="q1c" class="section level2">
+<h2>Q1c</h2>
+<p>For each year, find the top 5 Twitter users in NY state in terms of
+the number of retweets they made in NY state. In which city and county
+do these users live in?</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>Q1c <span class="ot">&lt;-</span> NY_CC_tweets <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>( id_user, year ) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">n_rt =</span> <span class="fu">n</span>() ) <span class="sc">%&gt;%</span> <span class="co"># the number of retweets for each user for each year</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>( year ) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">n_rt_rank =</span> <span class="fu">dense_rank</span>(<span class="fu">desc</span>(n_rt)) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>( year, n_rt_rank) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>( n_rt_rank <span class="sc">&lt;=</span> <span class="dv">5</span> ) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>(month<span class="sc">:</span>second)) <span class="sc">%&gt;%</span> <span class="co"># Need to remove from &#39;month&#39; to &#39;second&#39; to use distinct().</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(year)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>top_users_yr <span class="ot">&lt;-</span> <span class="cf">function</span>(yr){</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  NY_CC_tweets <span class="sc">%&gt;%</span> </span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>( id_user, year ) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>( <span class="at">n_rt =</span> <span class="fu">n</span>() ) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>( year <span class="sc">==</span> yr) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(year, id_user, n_rt, city) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unique</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(<span class="sc">-</span>n_rt)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2012</span><span class="sc">:</span><span class="dv">2017</span>){</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">head</span>(<span class="fu">top_users_yr</span>(i), <span class="at">n =</span> <span class="dv">5</span>))</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p><br><br></p>
+</div>
+<div id="q1d" class="section level2">
+<h2>Q1d</h2>
+<p>Summarize the data set into the data frame with county and month
+levels of retweets with the following variables:</p>
 <ul>
-<li>When we have a list of things to loop through, we can construct a
-<code>for</code> loop.
-<ul>
-<li>The above for-loop is equivalent to the following Python code
-without for-loop.</li>
-</ul></li>
+<li><code>FIPS</code>, <code>county</code>, <code>year</code>,
+<code>month</code>;</li>
+<li><code>n_retweets</code>: the number of retweets in <code>year</code>
+<em>YYYY</em> and <code>month</code> <em>MM</em> from
+<code>county</code> <code>C</code>.</li>
 </ul>
-<pre><code># The total of the values in the tuple is:  55</code></pre>
-<p><br><br><br></p>
+<p>The <code>unique()</code> or <code>distinct()</code> functions can be
+used to keep only unique/distinct rows from a data frame.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>Q1d1 <span class="ot">&lt;-</span> NY_CC_tweets <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(FIPS, county, year, month) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_retweets =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(FIPS, county, year, month, n_retweets) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(FIPS, county, year, month) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>Q1d2 <span class="ot">&lt;-</span> NY_CC_tweets <span class="sc">%&gt;%</span> </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dum =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(FIPS, county, year, month) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_retweets =</span> <span class="fu">sum</span>(dum)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(FIPS, county, year, month, n_retweets) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(FIPS, county, year, month) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>Q1d3 <span class="ot">&lt;-</span> NY_CC_tweets <span class="sc">%&gt;%</span> </span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(FIPS, county) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_retweets =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(FIPS, county, n_retweets) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(FIPS, county) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span></code></pre></div>
+<p><br><br></p>
 </div>
-<div id="question-6" class="section level1">
-<h1>Question 6</h1>
-<p>Write a Python code that uses a <em>while-loop</em> and the
-<code>print()</code> function to print out the following message 5
-times:</p>
-<div style="font-family:courier">
-Programming for Data Analytics is so fun!
+<div id="q1e" class="section level2">
+<h2>Q1e</h2>
+<p>Describe the relationship between the number of retweets and
+<code>county</code> using ggplot. Make a simple comment on your
+plot.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> Q1d1) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x =</span> n_retweets, <span class="at">y =</span> county))</span></code></pre></div>
 </div>
-<pre><code># Programming for Data Analytics is so fun!
-# Programming for Data Analytics is so fun!
-# Programming for Data Analytics is so fun!
-# Programming for Data Analytics is so fun!
-# Programming for Data Analytics is so fun!</code></pre>
-<ul>
-<li><p>Step 1. We first assigned the value 0 to <code>i</code>.</p></li>
-<li><p>Step 2. The <code>while</code> loop compared the value of
-<code>i</code> to 5 and continued if <code>i</code> was less than
-5.</p></li>
-<li><p>Step 3. Inside the <code>while</code> loop, we printed
-<code>Programming for Data Analytics is so fun!</code> and then
-incremented <code>i</code> by 1 with the statement
-<code>i += 1</code>.</p></li>
-<li><p>Step 4. Python goes back to the top of the loop, and again
-compares <code>i</code> with 5.</p></li>
-<li><p>Step 5. The value of <code>i</code> is now 1, so the contents of
-the <code>while</code> loop are again executed, and <code>i</code> is
-incremented to 2.</p></li>
-<li><p>Step 6. This continues until <code>i</code> is incremented from 4
-to 5 at the bottom of the loop.</p></li>
-<li><p>Step 7. On the next trip to the top, <code>i &lt; 5</code> is now
-<code>False</code>, and the <code>while</code> loop ends.</p></li>
-</ul>
 </div>
 
 

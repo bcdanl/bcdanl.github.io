@@ -13,7 +13,7 @@
 
 <meta name="date" content="2022-10-19" />
 
-<title>DANL 100: Programming for Data Analytics</title>
+<title>DANL 200: Introduction to Data Analytics</title>
 
 <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -584,176 +584,200 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">DANL 100: Programming for Data
+<h1 class="title toc-ignore">DANL 200: Introduction to Data
 Analytics</h1>
-<h3 class="subtitle">DANL 100 - Homework Assignment 1<br><br></h3>
+<h3 class="subtitle">DANL 200 - Homework Assignment 2<br><br></h3>
 <h4 class="author">Byeong-Hak Choe<br></h4>
 <h4 class="date">2022-10-19<br><br></h4>
 
 </div>
 
 
+<div id="loading-r-packages-for-homework-assignment-2"
+class="section level3">
+<h3>Loading R packages for Homework Assignment 2</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<p><br><br></p>
+</div>
 <div id="question-1" class="section level1">
 <h1>Question 1</h1>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>list_variable <span class="op">=</span> [<span class="dv">100</span>, <span class="dv">144</span>, <span class="dv">169</span>, <span class="dv">1000</span>, <span class="dv">8</span>]</span></code></pre></div>
-<p>Write a Python code that uses <code>print()</code> and
-<code>max()</code> functions to print out the largest value in the list,
-<code>list_variable</code>, as follows:</p>
-<div style="font-family:courier">
-The largest value in the list is: 1000
+<p>Read the data file, <code>NY_school_enrollment_socioecon.csv</code>,
+as the data.frame object with the name,
+<code>NY_school_enrollment_socioecon</code>, using (1) the
+<code>read_csv()</code> function and (2) its URL,
+<code>https://bcdanl.github.io/data/NY_school_enrollment_socioecon.csv</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">&#39;https://bcdanl.github.io/data/NY_school_enrollment_socioecon.csv&#39;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>NY_school_enrollment_socioecon <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url)</span></code></pre></div>
+<p><br><br></p>
+<p>For description of variables in
+<code>NY_school_enrollment_socioecon</code>, refer to the file,
+<code>ny_school_enrollment_socioecon_description.zip</code>, which is in
+the Files section in our Canvas web-page. (I recommend you to extract
+the zip file, and then read the file,
+ny_school_enrollment_socioecon_description.csv, using Excel or
+Numbers.)</p>
+<p><br><br></p>
+<div id="q1a" class="section level2">
+<h2>Q1a</h2>
+<p>Look up the meaning of variables <code>d01_018</code>,
+<code>d01_021</code>, <code>d01_024</code>, and <code>d01_027</code>,
+from the file,
+<em>ny_school_enrollment_socioecon_description.csv</em>.</p>
+<ul>
+<li><p>Find the top 5 counties in terms of the value of variable
+<code>d01_018</code> for each year.</p></li>
+<li><p>Find the top 5 counties in terms of the value of variable
+<code>d01_021</code> for each year.</p></li>
+<li><p>Find the top 5 counties in terms of the value of variable
+<code>d01_024</code> for each year.</p></li>
+<li><p>Find the top 5 counties in terms of the value of variable
+<code>d01_027</code> for each year.</p></li>
+<li><p>Make a comment on the result.</p></li>
+</ul>
+<p><br><br></p>
 </div>
-<div style="font-family:courier">
-The smallest value in the list is: 8
+<div id="q1b" class="section level2">
+<h2>Q1b</h2>
+<p>Look up the meaning of variables <code>c02_010</code>,
+<code>c04_010</code>, and <code>c06_010</code> from the file,
+<em>ny_school_enrollment_socioecon_description.csv</em>.</p>
+<ul>
+<li><p>Find the top 5 counties in terms of the value of variable
+<code>c02_010</code> for each year.</p></li>
+<li><p>Find the top 5 counties in terms of the value of variable
+<code>c04_010</code> for each year.</p></li>
+<li><p>Find the top 5 counties in terms of the value of variable
+<code>c06_010</code> for each year.</p></li>
+<li><p>Make a comment on the result.</p></li>
+</ul>
+<p><br><br></p>
 </div>
-<pre><code># The largest value in the list is: 1000 ,
-# The smallest value in the list is: 8 .</code></pre>
+<div id="q1c" class="section level2">
+<h2>Q1c</h2>
+<p>Look up the meaning of variable <code>pincp</code> from the file,
+<em>ny_school_enrollment_socioecon_description.csv</em>.</p>
+<p>Provide both (1) one ggplot code with <code>geom_line()</code> and
+(2) a couple of sentences to describe the yearly trend of
+<code>pincp</code> for Livingston county and top 4 counties in terms of
+the mean value of <code>pincp</code> over the years,
+<code>2015</code>-<code>2020</code>.</p>
+<p><br><br></p>
+</div>
+<div id="q1d" class="section level2">
+<h2>Q1d</h2>
+<p>Create the variable of the growth rate of <code>pincp</code>, where
+the growth rate of <code>pincp</code> is defined as:</p>
+<p><span class="math display">\[ (\text{Growth rate of } \texttt{pincp}
+\text{ in year } \texttt{Y})
+= \frac{( \texttt{pincp} \text{ in year } \texttt{Y} ) - (
+\texttt{pincp} \text{ in year } \texttt{Y-1} )}{(\texttt{pincp} \text{
+in year } \texttt{Y} )} \]</span> Provide both (1) one ggplot code with
+<code>geom_line()</code> and (2) a couple of sentences to describe the
+yearly trend of the growth rate of <code>pincp</code> for Livingston
+county and top 5 counties in terms of the mean value of the growth rate
+of <code>pincp</code> over the years,
+<code>2016</code>-<code>2020</code>.</p>
+<p><br><br></p>
+</div>
+<div id="q1e" class="section level2">
+<h2>Q1e</h2>
+<p>Look up the meaning of variable <code>poverty_hs</code> and
+<code>poverty_bachelor_or_higher</code> from the file,
+<em>ny_school_enrollment_socioecon_description.csv</em>.</p>
+<ul>
+<li><p>Summarize the mean value of <code>poverty_hs</code> and
+<code>poverty_bachelor_or_higher</code> from years <code>2015</code> to
+<code>2020</code> for each county.</p></li>
+<li><p>Provide both (1) a ggplot code with <code>geom_point()</code> and
+(2) a couple of sentences to describe the mean value of
+<code>poverty_hs</code>.</p></li>
+<li><p>Provide both (1) a ggplot code with <code>geom_point()</code> and
+(2) a couple of sentences to describe the mean value of
+<code>poverty_bachelor_or_higher</code>.</p></li>
+</ul>
 <p><br><br><br></p>
+</div>
 </div>
 <div id="question-2" class="section level1">
 <h1>Question 2</h1>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fare <span class="op">=</span> <span class="st">&quot;$10.00&quot;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>tip <span class="op">=</span> <span class="st">&quot;2.00$&quot;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>tax <span class="op">=</span> <span class="st">&quot;$ 0.80&quot;</span></span></code></pre></div>
-<p>Write a Python code that uses <em>slicing</em> and the
-<code>print()</code> function to print out the following message:</p>
-<div style="font-family:courier">
-The total trip cost is: $12.80
-</div>
-<pre><code># The total trip cost is: $12.8</code></pre>
-<p><br><br><br></p>
-</div>
-<div id="question-3" class="section level1">
-<h1>Question 3</h1>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">4.0</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="fl">.5</span></span></code></pre></div>
-<p>For each expression below, what is the value of the expression?
-Explain thoroughly.</p>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span> <span class="op">==</span> <span class="st">&#39;20&#39;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">bool</span>(<span class="dv">0</span>) <span class="op">!=</span> <span class="bu">bool</span>(<span class="st">&#39;&#39;</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">&lt;</span> y <span class="kw">or</span> <span class="dv">3</span><span class="op">*</span>y <span class="op">&lt;</span> x</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> (<span class="dv">100</span> <span class="op">==</span> <span class="st">&#39;100&#39;</span> <span class="kw">and</span> <span class="dv">25</span> <span class="op">&lt;</span> <span class="dv">36</span>)</span></code></pre></div>
-<ol style="list-style-type: lower-alpha">
-<li>The statement <code>20 == '20'</code> is <code>False</code>.</li>
-</ol>
-<ul>
-<li>The left-hand side <code>20</code> is integer and the right-hand
-side <code>'20'</code> is string.</li>
-</ul>
+<p>Read the data file, <code>beer_markets.csv</code>, as the data.frame
+object with the name, <code>beer_markets</code>, using (1) the
+<code>read_csv()</code> function and (2) its URL,
+<code>https://bcdanl.github.io/data/beer_markets.csv</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>beer_markets <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;https://bcdanl.github.io/data/beer_markets.csv&#39;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><br><br></p>
+<div id="description-of-variables-in-the-data-file-beer_markets.csv"
+class="section level3">
+<h3>Description of variables in the data file,
+<code>beer_markets.csv</code></h3>
+<p>Each observation in <code>beer_markets.csv</code> is a
+household-level record for one transaction of beer.</p>
 <p><br></p>
-<ol start="2" style="list-style-type: lower-alpha">
-<li>The statement <code>bool(0) != bool('')</code> is
-<code>False</code>.</li>
-</ol>
 <ul>
-<li>The left-hand side <code>bool(0)</code> is <code>False</code>.</li>
-<li>The right-hand side <code>bool('')</code> is
-<code>False</code>.</li>
-<li>The statement <code>False != False</code> is
-<code>False</code>.</li>
+<li><code>hh</code>: an identifier of the household;</li>
+<li><code>X_purchase_desc</code>: details on the purchased item;</li>
+<li><code>quantity</code>: the number of items purchased;</li>
+<li><code>brand</code>: Bud Light, Busch Light, Coors Light, Miller
+Lite, or Natural Light;</li>
+<li><code>spent</code>: total dollar value of purchase;</li>
+<li><code>beer_floz</code>: total volume of beer, in fluid ounces;</li>
+<li><code>price_per_floz</code>: price per fl.oz. (i.e., beer spent/beer
+floz);</li>
+<li><code>container</code>: the type of container;</li>
+<li><code>promo</code>: Whether the item was promoted (coupon or
+otherwise);</li>
+<li><code>market</code>: Scan-track market (or state if rural);</li>
+<li>demographic data, including gender, marital status, household
+income, class of work, race, education, age, the size of household, and
+whether or not the household has a microwave or a dishwasher.</li>
 </ul>
-<p><br></p>
-<ol start="3" style="list-style-type: lower-alpha">
-<li>The statement <code>x &lt; y or 3*y &lt; x</code> is
-<code>True</code>.</li>
-</ol>
-<ul>
-<li>Let <code>x &lt; y</code> be the statement A. The statement A is
-<code>False</code>.</li>
-<li>Let <code>3*y &lt; x</code> be the statement B. The statement B is
-<code>True</code>.</li>
-<li>The statement <code>A or B</code> is <code>True</code>, because
-either <code>A</code> or <code>B</code> is <code>True</code>.</li>
-</ul>
-<p><br></p>
-<ol start="4" style="list-style-type: lower-alpha">
-<li>The statement <code>not (100 == '100' and 25 &lt; 36)</code> is
-<code>True</code>.</li>
-</ol>
-<ul>
-<li>Let <code>100 == '100'</code> be the statement C.</li>
-<li>The statement C is <code>False</code>, because the left-hand side
-100 is integer and the right-hand side ‘100’ is string.</li>
-<li>Let <code>25 &lt; 36</code> be the statement D. The statement D is
-<code>True</code>.</li>
-<li>The statement <code>C and D</code> is <code>False</code>, because
-either <code>C</code> or <code>D</code> is <code>False</code>.</li>
-<li>The statement <code>not (C and D)</code> is <code>True</code>,
-because <code>not (False)</code> is <code>not False</code>, which is
-<code>True</code>.</li>
-</ul>
-<p><br><br><br></p>
+<p><br><br></p>
 </div>
-<div id="question-4" class="section level1">
-<h1>Question 4</h1>
-<p>This Python code creates a tuple with seven different ages:</p>
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>respondent_ages <span class="op">=</span> (<span class="dv">65</span>, <span class="dv">29</span>, <span class="dv">25</span>, <span class="dv">35</span>, <span class="dv">58</span>, <span class="dv">23</span>, <span class="dv">19</span>)</span></code></pre></div>
-<p>Write a Python code that uses a <em>for-loop</em> statement and a
-<em>if-else</em> statement to assign the list,
-<code>under40_list</code>, to <code>[29, 25, 35, 23, 19]</code> and the
-list, <code>over40_list</code>, to <code>[65, 58]</code>.</p>
-<pre><code># [29, 25, 35, 23, 19]</code></pre>
-<pre><code># [65, 58]</code></pre>
-<p><br><br><br></p>
-</div>
-<div id="question-5" class="section level1">
-<h1>Question 5</h1>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tuple_var <span class="op">=</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> <span class="dv">0</span></span></code></pre></div>
-<p>Write a Python code that uses the following two lines (1) a
-<em>for-loop</em> statement to process each element of
-<code>tuple_var</code> and (2) the following line.</p>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;The total of the values in the tuple is: &quot;</span>, total)</span></code></pre></div>
-<pre><code># The total of the values in the tuple is:  55</code></pre>
+<div id="q2a" class="section level2">
+<h2>Q2a</h2>
 <ul>
-<li>When we have a list of things to loop through, we can construct a
-<code>for</code> loop.
-<ul>
-<li>The above for-loop is equivalent to the following Python code
-without for-loop.</li>
-</ul></li>
+<li>Find the top 5 markets in terms of the total volume of beer.</li>
+<li>Find the top 5 markets in terms of the total volume of <em>BUD
+LIGHT</em>.</li>
+<li>Find the top 5 markets in terms of the total volume of <em>BUSCH
+LIGHT</em>.</li>
+<li>Find the top 5 markets in terms of the total volume of <em>COORS
+LIGHT</em>.</li>
+<li>Find the top 5 markets in terms of the total volume of <em>MILLER
+LITE</em>.</li>
+<li>Find the top 5 markets in terms of the total volume of <em>NATURAL
+LIGHT</em>.</li>
 </ul>
-<pre><code># The total of the values in the tuple is:  55</code></pre>
-<p><br><br><br></p>
+<p><br><br></p>
 </div>
-<div id="question-6" class="section level1">
-<h1>Question 6</h1>
-<p>Write a Python code that uses a <em>while-loop</em> and the
-<code>print()</code> function to print out the following message 5
-times:</p>
-<div style="font-family:courier">
-Programming for Data Analytics is so fun!
-</div>
-<pre><code># Programming for Data Analytics is so fun!
-# Programming for Data Analytics is so fun!
-# Programming for Data Analytics is so fun!
-# Programming for Data Analytics is so fun!
-# Programming for Data Analytics is so fun!</code></pre>
+<div id="q2b" class="section level2">
+<h2>Q2b</h2>
 <ul>
-<li><p>Step 1. We first assigned the value 0 to <code>i</code>.</p></li>
-<li><p>Step 2. The <code>while</code> loop compared the value of
-<code>i</code> to 5 and continued if <code>i</code> was less than
-5.</p></li>
-<li><p>Step 3. Inside the <code>while</code> loop, we printed
-<code>Programming for Data Analytics is so fun!</code> and then
-incremented <code>i</code> by 1 with the statement
-<code>i += 1</code>.</p></li>
-<li><p>Step 4. Python goes back to the top of the loop, and again
-compares <code>i</code> with 5.</p></li>
-<li><p>Step 5. The value of <code>i</code> is now 1, so the contents of
-the <code>while</code> loop are again executed, and <code>i</code> is
-incremented to 2.</p></li>
-<li><p>Step 6. This continues until <code>i</code> is incremented from 4
-to 5 at the bottom of the loop.</p></li>
-<li><p>Step 7. On the next trip to the top, <code>i &lt; 5</code> is now
-<code>False</code>, and the <code>while</code> loop ends.</p></li>
+<li><p>For households that purchased <em>BUD LIGHT</em>, what fraction
+of households did purchase only <em>BUD LIGHT</em>?</p></li>
+<li><p>For households that purchased <em>BUSCH LIGHT</em>, what fraction
+of households did purchase only <em>BUSCH LIGHT</em>?</p></li>
+<li><p>For households that purchased <em>COORS LIGHT</em>, what fraction
+of households did purchase only <em>COORS LIGHT</em>?</p></li>
+<li><p>For households that purchased <em>MILLER LITE</em>, what fraction
+of households did purchase only <em>MILLER LITE</em>?</p></li>
+<li><p>For households that purchased <em>NATURAL LIGHT</em>, what
+fraction of households did purchase only <em>NATURAL
+LIGHT</em>?</p></li>
+<li><p>Which beer brand does have the largest base of loyal
+consumers?</p></li>
 </ul>
+<p><br><br></p>
+</div>
+<div id="q2c" class="section level2">
+<h2>Q2c</h2>
+<ul>
+<li>Calculate the number of beer transactions for each household.</li>
+<li>Calculate the fraction of each beer brand for each household.</li>
+</ul>
+</div>
 </div>
 
 

@@ -1,0 +1,161 @@
+---
+title: "DANL 200: Introduction to Data Analytics"
+subtitle: "DANL 200 - Lecture 15 Class Exercises - Answers<br><br>" 
+author: 
+  - "Byeong-Hak Choe<br>"
+date: "`r Sys.Date()`<br><br>"
+output: 
+  html_document:
+    df_print: paged
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    number_sections: false
+    highlight: espresso
+---
+
+
+### Loading R packages for Class Exercises
+
+```{r, eval = F, echo = T}
+library(tidyverse)
+```
+
+<br><br>
+
+
+# Tweets with #climatechange
+The following data is for Class Exercises:
+
+```{r, echo = T, eval = F}
+NY_CC_tweets <- read_csv(
+  'https://bcdanl.github.io/data/NY_tweets_cc_no_contents.csv')
+```
+
+## Variable Description
+
+- `id_user`: a unique identification number for a Twitter user whom retweeted to a tweet with *#climatechange* or *#globalwarming*.
+- `id_city`: a unique identification number for a city.
+- `FIPS`: a unique identification number for a county.
+
+Each row represents an observation of a retweet to a tweet with *#climatechange* or *#globalwarming*.
+
+Each row includes a Twitter user's geographic information at city or county levels (variables `FIPS`, `county`, `city`) as well as information about timing when a Twitter user retweeted (variables `year`, `month`, `day`, `hour`, `minute`, `second`). 
+
+
+## Q1a
+How many Twitter users retweeted on the date, January 1, 2017?
+
+```{r, echo = T, eval = F}
+Q1a <- NY_CC_tweets %>% 
+  filter(year == 2017, month == 1, day == 1) %>% 
+  select(id_user) %>% 
+  distinct() 
+
+Q1a <- NY_CC_tweets %>% 
+  filter(year == 2017, month == 1, day == 1) %>% 
+  select(id_user, year, month, day) %>% 
+  distinct() %>% 
+  mutate( n_users = n() ) %>% 
+  select( year, month, day, n_users ) %>% 
+  distinct()
+```
+
+<br><br>
+
+## Q1b
+Which city is with the third highest number of retweets on the date, December 1, 2017?
+
+```{r, echo = T, eval = F}
+Q1b <- NY_CC_tweets %>% 
+  filter(year == 2017, month == 12, day == 1) %>% 
+  select(id_city, city, year, month, day) %>% 
+  group_by(city) %>% 
+  mutate( n_rt_cities = n() ) %>% 
+  select( city, year, month, day, n_rt_cities ) %>% 
+  distinct() %>% 
+  arrange(-n_rt_cities, city)
+```
+
+<br><br>
+
+## Q1c
+For each year, find the top 5 Twitter users in NY state in terms of the number of retweets they made in NY state. In which city and county do these users live in?
+
+```{r, echo = T, eval = F}
+# 1.
+Q1c <- NY_CC_tweets %>% 
+  group_by( id_user, year ) %>% 
+  mutate( n_rt = n() ) %>% # the number of retweets for each user for each year
+  group_by( year ) %>% 
+  mutate( n_rt_rank = dense_rank(desc(n_rt)) ) %>% 
+  arrange( year, n_rt_rank) %>% 
+  filter( n_rt_rank <= 5 ) %>% 
+  select(-(month:second)) %>% # Need to remove from 'month' to 'second' to use distinct().
+  distinct() %>% 
+  arrange(year)
+
+# 2.
+top_users_yr <- function(yr){
+  NY_CC_tweets %>% 
+    group_by( id_user, year ) %>% 
+    mutate( n_rt = n() ) %>% 
+    filter( year == yr) %>% 
+    select(year, id_user, n_rt, city) %>% 
+    unique() %>% 
+    arrange(-n_rt)
+}
+
+for (i in 2012:2017){
+  print(head(top_users_yr(i), n = 5))
+}
+```
+
+<br><br>
+
+## Q1d
+Summarize the data set into the data frame with county and month levels of retweets with the following variables:
+
+- `FIPS`, `county`, `year`, `month`;
+- `n_retweets`: the number of retweets in `year` *YYYY* and `month` *MM* from `county` `C`.
+
+The `unique()` or `distinct()` functions can be used to keep only unique/distinct rows from a data frame.
+
+```{r, echo = T, eval = F}
+# 1.
+Q1d1 <- NY_CC_tweets %>% 
+  group_by(FIPS, county, year, month) %>% 
+  mutate(n_retweets = n()) %>% 
+  select(FIPS, county, year, month, n_retweets) %>% 
+  arrange(FIPS, county, year, month) %>% 
+  distinct()
+
+
+# 2.
+Q1d2 <- NY_CC_tweets %>% 
+  mutate(dum = 1) %>% 
+  group_by(FIPS, county, year, month) %>% 
+  mutate(n_retweets = sum(dum)) %>% 
+  select(FIPS, county, year, month, n_retweets) %>% 
+  arrange(FIPS, county, year, month) %>% 
+  distinct()
+
+
+Q1d3 <- NY_CC_tweets %>% 
+  group_by(FIPS, county) %>% 
+  mutate(n_retweets = n()) %>% 
+  select(FIPS, county, n_retweets) %>% 
+  arrange(FIPS, county) %>% 
+  distinct()
+```
+
+<br><br>
+
+
+## Q1e
+Describe the relationship between the number of retweets and `county` using ggplot. Make a simple comment on your plot.
+
+```{r, echo = T, eval = F}
+ggplot(data = Q1d1) +
+  geom_col(aes(x = n_retweets, y = county))
+```
