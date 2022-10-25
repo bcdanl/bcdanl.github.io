@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 16</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Byeong-Hak Choe" />
+    <meta name="date" content="2022-10-25" />
+    <script src="libs/header-attrs-2.16/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <script src="libs/peerjs-1.3.1/peerjs.min.js"></script>
+    <script src="libs/tiny.toast-1.0.0/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast-0.2.6/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast-0.2.6/broadcast.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
+    <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, left, bottom
+
+# Lecture 16
+----
+## **DANL 100: Programming for Data Analytics**
+### Byeong-Hak Choe
+### October 25, 2022
+
+
+---
+# Exam Policies
+During the exam, ...
+- Students can read any books, paper sheets, PDF files on PDF reader apps, Python Scripts or text files on Spyder.
+  - Students are not allowed to use other apps, for example, Google Docs, Google Sheets, Microsoft Word, Microsoft Excel, Microsoft PowerPoint, Numbers, Pages, Keynotes, Notes.
+- Students can visit (1) the class website (https://bcdanl.github.io) and (2) the Canvas website for the course.
+  - Students are not allowed to visit any other websites, such as Google, Stack Overflow, and Gmail.
+- Students can communicate with Byeong-Hak Choe.
+  - Students are not allowed to communicate with other students.
+
+
+
+
+---
+class: inverse, center, middle
+
+# Functions
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+---
+# Functions
+
+
+- So far, all of our Python code examples have been little fragments. 
+  - These are good for small tasks, but no one wants to retype fragments all the time. 
+  - We need some way of organizing larger code into manageable pieces.
+  
+  
+- The first step to code reuse is the *function*: a named piece of code, separate from all others. 
+
+
+- A function can take any number and type of input *parameters* and return any
+number and type of output *results*.
+
+
+- We can do two things with a function:
+  - *Define* it, with zero or more parameters
+  - *Call* it, and get zero or more results
+
+
+---
+# Functions
+### &lt;p style="color:#00449E"&gt; Define a Function with `def` &lt;/p&gt;
+
+
+.panelset[
+.panel[.panel-name[`def`]
+- To define a Python function, we type `def`, the function name, parentheses enclosing any input *parameters* to the function, and then finally, a colon (:). 
+
+- Function names have the same rules as variable names (they must start with a letter or `_` and contain only letters, numbers, or `_`).
+]
+
+.panel[.panel-name[(1) def]
+- Let's define a very simple function that has no parameters.
+
+```python
+def do_nothing():
+    pass      # indention is needed here
+```
+
+- We use the `pass` statement when we want Python to do nothing.
+  - It's the equivalent of *This page intentionally left blank.*
+
+]
+
+.panel[.panel-name[(1) call]
+- We call the `do_nothing()` function just by typing its name and parentheses. 
+
+```python
+do_nothing()
+```
+]
+
+]
+
+---
+# Functions
+### &lt;p style="color:#00449E"&gt; Call a Function with Parentheses &lt;/p&gt;
+
+
+.panelset[
+.panel[.panel-name[(2)]
+- Let's define and call another function that has no parameters but prints a single word:
+
+
+```python
+def make_a_sound():
+    print('quack')  
+
+make_a_sound()
+```
+
+- When we called this function, Python ran the code inside its definition.
+  - In this case, it printed a single word and returned to the main program.
+
+]  
+
+.panel[.panel-name[(3) `def` with `return`]
+- Let's try a function that has no parameters but *returns* a value:
+
+```python
+def agree():
+    return True
+```
+]
+
+
+.panel[.panel-name[(3) call]
+- We can call the `agree()` function and test its returned value by using `if`:
+
+```python
+if agree():
+    print('Splendid!')
+else:
+    print('That was unexpected.')
+```
+
+]
+
+]
+
+
+---
+# Functions
+### &lt;p style="color:#00449E"&gt; Arguments and Parameters &lt;/p&gt;
+- Let's define the function `echo()` with one parameter called `anything`.
+  - It uses the `return` statement to send the value of anything back to its caller twice, with a space between:
+
+
+```python
+def echo(anything):
+    return anything + ' ' + anything
+  
+echo('Geneseo')
+```
+
+- The values we pass into the function when we call it are known as *arguments*. 
+
+- When we call a function with arguments, the values of those arguments are copied to their corresponding *parameters* inside the function.
+
+
+
+---
+# Functions
+### &lt;p style="color:#00449E"&gt; Arguments and Parameters &lt;/p&gt;
+
+
+```python
+def echo(anything):
+    return anything + ' ' + anything
+  
+echo('Geneseo')
+```
+
+- The function `echo()` was called with the argument string `'Geneseo'`. 
+
+  - The value `'Geneseo'` was copied within `echo()` to the parameter `anything`, and then returned (in this case doubled, with a space) to the caller.
+  
+  
+
+---
+# Functions
+### &lt;p style="color:#00449E"&gt; Arguments and Parameters &lt;/p&gt;
+
+- Let's write a function that takes an input argument and actually does something with it. 
+  - Call it `commentary`, have it take an input string parameter
+called `color`, and make it *return* the string description to its caller:
+
+
+```python
+def commentary(color):   
+    if color == 'red':
+        return "It's a tomato."
+    elif color == "green":
+        return "It's a green pepper."
+    elif color == 'bee purple':
+        return "I don't know what it is, but only bees can see it."
+    else:
+        return "I've never heard of the color " + color + "."
+```
+
+  
+
+---
+# Functions
+### &lt;p style="color:#00449E"&gt; Arguments and Parameters &lt;/p&gt;
+
+.panelset[
+.panel[.panel-name[call commentary('blue')]
+- Call the function `commentary()` with the string argument `'blue'`.
+
+```python
+comment = commentary('blue')
+```
+- The function does the following:
+  - Assigns the value `'blue'` to the function's internal color parameter
+  - Runs through the `if-elif-else` logic chain
+  - Returns a string
+- The caller then assigns the string to the variable `comment`.
+]
+
+.panel[.panel-name[print(comment)]
+- What did we get back?
+
+```python
+print(comment)
+```
+
+- A function can take any number of input arguments (including zero) of any type. 
+
+- It can return any number of output results (also including zero) of any type. 
+]
+
+.panel[.panel-name[print(do_nothing())]
+- If a function doesn't call `return` explicitly, the caller gets the result `None`.
+
+```python
+def do_nothing():
+    pass
+  
+print(do_nothing())
+```
+
+]
+
+]
+
+---
+# Functions
+### &lt;p style="color:#00449E"&gt; `None` Is Useful &lt;/p&gt;
+
+
+.panelset[
+.panel[.panel-name[`None`]
+- `None` is a special Python value that holds a place when there is nothing to say. 
+
+  - It is not the same as the boolean value `False`, although it looks false when evaluated as a boolean. 
+  
+
+```python
+thing = None
+if thing:
+    print("It's some thing")
+else:
+    print("It's no thing")
+```
+]
+
+.panel[.panel-name[`is` `None`]
+- To distinguish `None` from a boolean `False` value, use Python's `is` operator:
+
+```python
+thing = None
+if thing is None:
+    print("It's some thing")
+else:
+    print("It's no thing")
+```
+- Zero-valued numbers, empty strings (`''`), lists (`[]`), tuples (`(,)`), dictionaries (`{}`), and sets (`set()`) are all `False`, but are not the same as `None`.
+]
+
+
+.panel[.panel-name[`==` vs. `is`]
+- `==` is for value equality. It tests if two objects have the same value.
+
+- `is` is for reference equality. It tests if two objects refer to the same object, i.e if they're identical.
+
+.pull-left[
+
+```python
+a = [1, 2]
+b = a
+c = a[:]
+```
+]
+
+.pull-right[
+
+```python
+a == b  # True or False?
+a == c  # True or False?
+a is b  # True or False?
+a is c  # True or False?
+```
+]
+
+]
+
+.panel[.panel-name[`whatis(thing)`]
+- Let's write a quick function that prints whether its argument is `None`, `True`, or `False`:
+
+```python
+def whatis(thing):
+    if thing is None:
+        print(thing, "is None")
+    elif thing:
+        print(thing, "is True")
+    else:
+        print(thing, "is False")
+```
+]
+
+.panel[.panel-name[`whatis()`]
+- Let's run some sanity tests:
+
+```python
+whatis(None)
+whatis(True)
+whatis(False)
+```
+
+]
+
+.panel[.panel-name[`whatis()`]
+
+.pull-left[
+- How about some real values?
+
+```python
+whatis(0)
+whatis(0.0)
+whatis('')
+whatis("")
+whatis('''''')
+whatis(())
+whatis([])
+whatis({})
+whatis(set())
+```
+]
+
+.pull-right[
+
+- How about some real values?
+
+```python
+whatis(0.00001)
+whatis([0])
+whatis([''])
+whatis(' ')
+```
+
+]
+
+]
+
+
+
+]
+
+
+---
+# Functions
+.panelset[
+.panel[.panel-name[Positional Arguments]
+### &lt;p style="color:#00449E"&gt; Positional Arguments &lt;/p&gt;
+
+- The most familiar types of arguments are positional arguments, whose values are copied to their corresponding parameters in order.
+
+- This function builds a dictionary from its positional input arguments and returns it:
+
+```python
+def menu(wine, entree, dessert):
+    return {'wine': wine, 'entree': entree, 'dessert': dessert}
+  
+menu('chardonnay', 'chicken', 'cake')
+```
+]
+
+.panel[.panel-name[Positional Arguments]
+### &lt;p style="color:#00449E"&gt; Positional Arguments &lt;/p&gt;
+
+- A downside of positional arguments is that we need to remember the meaning of each position.
+
+```python
+menu('beef', 'bagel', 'bordeaux')
+```
+]
+
+
+.panel[.panel-name[Keyword Arguments]
+
+### &lt;p style="color:#00449E"&gt; Keyword Arguments &lt;/p&gt;
+- To avoid positional argument confusion, we can specify arguments by the names of their corresponding parameters, even in a different order from their definition in the function:
+
+```python
+menu(entree='beef', dessert='bagel', wine='bordeaux')
+# Specify the wine first, but use keyword arguments for the entree and dessert:
+menu('frontenac', dessert='flan', entree='fish') 
+```
+
+- If we call a function with both positional and keyword arguments, the positional arguments need to come first.
+]
+
+]
+
+
+---
+# Functions
+### &lt;p style="color:#00449E"&gt; Specify Default Parameter Values &lt;/p&gt;
+.panelset[
+.panel[.panel-name[default value for parameter]
+- We can specify default values for parameters. 
+  - The default is used if the caller does not provide a corresponding argument. 
+  - Try calling `menu()` without the `dessert` argument:
+  
+
+```python
+def menu(wine, entree, dessert='pudding'):
+    return {'wine': wine, 'entree': entree, 'dessert': dessert}
+
+menu('chardonnay', 'chicken') 
+```
+
+]
+
+.panel[.panel-name[argument]
+- We can specify default values for parameters. 
+  - If we provide an argument, it's used instead of the default:
+  
+
+```python
+def menu(wine, entree, dessert='pudding'):
+    return {'wine': wine, 'entree': entree, 'dessert': dessert}
+
+menu('dunkelfelder', 'duck', 'doughnut')
+```
+
+]
+
+]
+
+
+
+---
+# Functions
+### &lt;p style="color:#00449E"&gt; Specify Default Parameter Values &lt;/p&gt;
+.panelset[
+.panel[.panel-name[buggy(arg, result=[])]
+- The `buggy()` function is expected to run each time with a fresh empty result list, add the arg argument to it, and then print a single-item list.
+
+```python
+def buggy(arg, result=[]):
+    result.append(arg)
+    print(result)
+buggy('a')
+buggy('b') # expect ['b']
+```
+- There's a bug: it's empty only the first time it's called. 
+  - The second time, result still has one item from the previous call.
+]
+
+
+.panel[.panel-name[works(arg)]
+- It would have worked if it had been written like this:
+
+```python
+def works(arg):
+    result = []
+    result.append(arg)
+    return result
+    
+works('a')
+works('b')
+```
+]
+
+.panel[.panel-name[nonbuggy(arg, result=None)]
+- The fix is to pass in something else to indicate the first call:
+
+```python
+def nonbuggy(arg, result=None):
+    if result is None:
+        result = []
+    result.append(arg)
+    print(result)
+    
+nonbuggy('a')
+nonbuggy('b')
+```
+]
+
+]
+
+
+
+---
+# Functions
+### &lt;p style="color:#00449E"&gt; Explode/Gather Positional Arguments with `*` &lt;/p&gt;
+
+.panelset[
+.panel[.panel-name[(1)]
+- When an asterisk (`*`) is used inside the function with a parameter, it groups a variable number of positional arguments into a single tuple of parameter values. 
+
+```python
+def print_args(*args):
+    print('Positional tuple:', args)
+
+print_args()
+print_args(3, 2, 1, 'wait!', 'uh...')
+```
+
+&lt;!-- - In the following example, `args` is the parameter tuple that resulted from zero or more arguments that were passed to the function `print_args()`. --&gt;
+&lt;!--   - Whatever we give, it will be printed as the `args` tuple: --&gt;
+]
+
+
+.panel[.panel-name[(2)]
+- If our function has *required* positional arguments, as well, put them first; `*args` goes at the end and grabs all the rest:
+
+```python
+def print_more(required1, required2, *args):
+    print('Need this one:', required1)
+    print('Need this one too:', required2)
+    print('All the rest:', args)
+
+print_more('cap', 'gloves', 'scarf', 'monocle', 'mustache wax')
+```
+
+]
+
+.panel[.panel-name[summary]
+- We can pass positional argument to a function, which will match them inside to positional parameters. 
+
+- We can pass a tuple argument to a function, and inside it will be a tuple parameter.
+
+- We can pass positional arguments to a function, and gather them inside as the parameter `*args`, which resolves to the tuple args.
+]
+
+.panel[.panel-name[summary]
+- We can also "explode" a tuple argument called `args` to positional parameters `*args` inside the function, which will be regathered inside into the tuple parameter `args`:
+
+```python
+def print_args(*args):
+    print('Positional tuple:', args)
+print_args(2, 5, 7, 'x')
+
+args = (2,5,7,'x')
+print_args(args)
+print_args(*args)
+```
+
+
+]
+
+
+
+.panel[.panel-name[summary]
+- We can only use the `*` syntax in a function call or definition.
+
+- Outside the function, `*args` explodes the tuple `args` into comma-separated positional parameters.
+
+- Inside the function, `*args` gathers all of the positional arguments into a single args tuple.
+
+]
+
+
+]
+
+
+
+---
+# Functions
+### &lt;p style="color:#00449E"&gt; Explode/Gather Positional Arguments with `**` &lt;/p&gt;
+
+.panelset[
+.panel[.panel-name[(1)]
+
+- We can use two asterisks (`**`) to group keyword arguments into a dictionary, where the argument names are the keys, and their values are the corresponding dictionary values.
+
+
+```python
+def print_kwargs(**kwargs):
+    print('Keyword arguments:', kwargs)
+
+print_kwargs()
+print_kwargs(wine='merlot', entree='mutton', dessert='macaroon')
+```
+
+- Inside the function, `kwargs` is a dictionary parameter.
+
+]
+
+.panel[.panel-name[summary]
+
+- We can pass keyword arguments to a function, which will match them inside to keyword parameters. 
+
+- We can pass a dictionary argument to a function, and inside it will be dictionary parameters. 
+
+]
+
+
+.panel[.panel-name[summary]
+
+- We can pass one or more keyword arguments (*name=value*) to a function, and gather them inside as `**kwargs`, which resolves to the dictionary parameter called `kwargs`. 
+
+- Outside a function, `**kwargs` explodes a dictionary `kwargs` into *name=value* arguments.
+
+- Inside a function, `**kwargs` gathers *name=value* arguments into the single dictionary parameter `kwargs`.
+]
+]
+
+
+
+
+---
+# Functions
+### &lt;p style="color:#00449E"&gt; Keyword-Only Arguments &lt;/p&gt;
+
+
+.panelset[
+.panel[.panel-name[keyword-only argument]
+
+- *a keyword-only argument* is an argument that can only be provided as a keyword argument when a function is called.
+  - It is recommended to be provided as *name=value*. 
+
+
+```python
+def print_data(data, *, start=0, end=100):
+    for value in (data[start:end]):
+        print(value)
+```
+- The single `*` in the definition above means that the parameters `start` and `end` must be provided as named arguments if we don’t want their default values.
+  
+]
+
+.panel[.panel-name[call with keyword-only argument]
+
+```python
+data = ['a', 'b', 'c', 'd', 'e', 'f']
+print_data(data)
+print_data(data, start=4)
+print_data(data, end=2)
+```
+]
+
+.panel[.panel-name[name only]
+
+
+
+```python
+def print_data2(data, *, start, end):
+    for value in data[start:end]:
+        print(value)
+print_data2(data)
+print_data2(data, start=4)
+print_data2(data, end=2)
+print_data2(data, start = 2, end = 4)
+```
+- `start` and `end` are required arguments, because they doesn't have a default value and they must be specified as a keyword argument when we call the `print_data2()` function.
+
+]
+
+
+]
+
+
+---
+# Functions
+### &lt;p style="color:#00449E"&gt; Mutable and Immutable Arguments &lt;/p&gt;
+
+- Remember that if we assigned the same list to two variables, we could change it by using either one? And that we could not if the variables both referred to something like an integer or a string? 
+  &lt;!-- - We need to watch for the same behavior when passing arguments to functions.  --&gt;
+  
+- If an argument is mutable, its value can be changed *from inside the function* via its corresponding parameter.
+
+
+```python
+outside = ['one', 'fine', 'day']
+def mangle(arg):
+    arg[1] = 'terrible!'
+outside
+mangle(outside)
+outside
+```
+
+
+
+---
+# Exceptions
+
+.panelset[
+.panel[.panel-name[Exception handlers]
+
+- In some languages, errors are indicated by special function return values. 
+  - Python uses *exceptions*: code that is executed when an associated error occurs.
+
+- When we run code that might fail under some circumstances, we also need appropriate *exception handlers* to intercept any potential errors.
+
+  - Accessing a list or tuple with an out-of-range position, or a dictionary with a nonexistent key.
+  
+]
+
+.panel[.panel-name[Errors]
+
+- If we don’t provide your own exception handler, Python prints an error message and some information about where the error occurred and then terminates the program:
+
+
+```python
+short_list = [1, 2, 3]
+position = 5
+short_list[position]
+```
+
+]
+
+]
+
+
+---
+# Handle Errors with `try` and `except`
+
+.panelset[
+.panel[.panel-name[`try`-`except`]
+
+- Rather than leaving things to chance, use `try` to wrap your code, and `except` to provide the error handling:
+
+
+```python
+short_list = [1, 2, 3]
+position = 5
+
+try:
+    short_list[position]
+except:
+    print('Need a position between 0 and', len(short_list)-1, ' but got',
+    position)
+```
+
+]
+
+.panel[.panel-name[`try`-`except`]
+
+
+```python
+short_list = [1, 2, 3]
+position = 5
+try:
+    short_list[position]
+except:
+    print('Need a position between 0 and', len(short_list)-1, ' but got',
+    position)
+```
+
+- The code inside the `try` block is run. 
+  - If there is an error, an exception is raised and the code inside the `except` block runs. 
+- If there are no errors, the `except` block is skipped.
+
+]
+
+.panel[.panel-name[`except` type]
+- Specifying a plain `except` with no arguments, as we did here, is a catchall for any exception type.
+
+- If more than one type of exception could occur, it’s best to provide a
+separate exception handler for each.
+
+- We get the full exception object in the variable name if we use the form:
+
+&lt;img src="../lec_figs/int-py-ch9-exception.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+.panel[.panel-name[`except` type]
+
+```python
+short_list = [1, 2, 3]
+while True:
+    value = input('Position [q to quit]? ')
+    if value == 'q':
+        break
+    try:
+        position = int(value)
+        print(short_list[position])
+    except IndexError as err:
+        print('Bad index:', position)
+    except Exception as other:
+        print('Something else broke:', other)
+```
+
+]
+
+.panel[.panel-name[`except` type]
+
+- The example looks for an `IndexError` first, because that’s the exception type raised when we provide an illegal position to a sequence. 
+- It saves an `IndexError` exception in the variable `err`, and any other exception in the variable `other`. 
+
+- The example prints everything stored in `other` to show what you get in that object.
+
+  - Inputting position `3` raised an `IndexError` as expected. 
+  - Entering `two` annoyed the `int()` function, which we handled in our second, catchall `except` code.
+
+
+
+
+]
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 66px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
