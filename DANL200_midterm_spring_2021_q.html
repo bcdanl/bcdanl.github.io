@@ -564,9 +564,6 @@ div.tocify {
     <li>
       <a href="DANL200_ny_tweets_a.html">lecture 15 practice - answers</a>
     </li>
-    <li>
-      <a href="DANL200_midterm_spring_2022_q.html">lecture 16 - midterm, spring 2022</a>
-    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -598,199 +595,181 @@ div.tocify {
 
 <h1 class="title toc-ignore">DANL 200: Introduction to Data
 Analytics</h1>
-<h3 class="subtitle">DANL 200 - Homework Assignment 1<br><br></h3>
+<h3 class="subtitle">DANL 200 - Midterm Exam, Spring 2022<br><br></h3>
 <h4 class="author">Byeong-Hak Choe<br></h4>
 <h4 class="date">2022-10-25<br><br></h4>
 
 </div>
 
 
-<div id="loading-r-packages-for-homework-assignment-1"
+<div id="loading-r-packages-for-the-midterm-exam"
 class="section level3">
-<h3>Loading R packages for Homework Assignment 1</h3>
+<h3>Loading R packages for the Midterm Exam</h3>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p><br><br></p>
 </div>
 <div id="question-1" class="section level1">
 <h1>Question 1</h1>
-<div id="q1a" class="section level2">
-<h2>Q1a</h2>
-<p>Download the compressed file, <code>bikeshare-2011-01-01.zip</code>,
-from the Files section in our Canvas web-site. Extract the file,
-<code>bikeshare-2011-01-01.zip</code>, so that you can use the file,
-<code>bikeshare-2011-01-01.csv</code>. Read the data file,
-<code>bikeshare-2011-01-01.csv</code>, as the data.frame object with the
-name, <code>bikeshare2011_01_01</code>, using (1) the
-<code>read_csv()</code> function and (2) the <em>absolute path</em> name
-of the file <code>bikeshare_2011_01_01.csv</code> from your local hard
-disk drive in your laptop.</p>
+<div id="q1a." class="section level2">
+<h2>Q1a.</h2>
+<p>Download <code>dominick_oj_q1a.csv</code> from the Midterm Exam in
+the Assignments or the Files sections in our Canvas.</p>
+<p>Then import the <code>dominick_oj_q1a.csv</code> using the following
+lines:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>oj_q1a <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;ABSOLUTE_PATH_NAME_FOR_THE_FILE_dominick_oj_q1a.csv&#39;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(oj_q1a<span class="sc">$</span>brand)</span></code></pre></div>
+<p><br></p>
+<p>You need to provide the absolute path name for the file,
+<code>dominick_oj_q1a.csv</code> to the above <code>read_csv()</code>
+function to read the file.</p>
+<div id="variable-description" class="section level3">
+<h3>Variable Description</h3>
+<ul>
+<li><p><code>sales</code>: the number of orange juice (OJ) cartons sold
+in a week</p></li>
+<li><p><code>price</code>: price of OJ carton</p></li>
+<li><p><code>brand</code>: OJ brand</p></li>
+<li><p><code>feat</code>: Advertisement status— 1 if advertised; 0 if
+not advertised.</p></li>
+<li><p>Report (1) minimum, (2) median, (3) maximum, (4) mean, and (5)
+standard deviation of variable <code>price</code> for the
+<code>brand</code>, Dominick’s OJ.</p></li>
+</ul>
 <p><br><br></p>
+</div>
 </div>
 <div id="q1b" class="section level2">
 <h2>Q1b</h2>
-<p>Report the mean, median, minimum, maximum, and standard deviation for
-each numeric variable in the data.frame
-<code>bikeshare2011_01_01</code>.</p>
+<p>For Question 1b, run the following function to read the
+<code>dominick_oj.csv</code> file:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>oj_q1b <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;https://bcdanl.github.io/data/dominick_oj.csv&#39;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><br></p>
+<p>The description of variables in <code>oj_q1b</code> is the same as
+<code>oj_q1a</code>.</p>
+<ul>
+<li>Describe the relationship between the log of <code>price</code> and
+the log of <code>sales</code> by brand using ggplot. Make a simple
+comment on your ggplot figure.</li>
+</ul>
 <p><br><br><br></p>
 </div>
 </div>
 <div id="question-2" class="section level1">
 <h1>Question 2</h1>
+<p>For Question 2, run the following R command to read the
+<code>nyc_dogs.csv</code> file.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>nyc_dogs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;https://bcdanl.github.io/data/nyc_dogs.csv&#39;</span>)</span></code></pre></div>
+<p><br></p>
 <div id="q2a" class="section level2">
 <h2>Q2a</h2>
-<p>Read the data file, <code>bikeshare_cleaned.csv</code>, as the
-data.frame object with the name, <code>bikeshare</code>, using (1) the
-<code>read_csv()</code> function and (2) its URL,
-<code>https://bcdanl.github.io/data/bikeshare_cleaned.csv</code>.</p>
+<p>Describe the distribution of animal_gender using ggplot. Make a
+simple comment on your ggplot figure.</p>
 <p><br><br></p>
-<p>Use the data.frame <code>bikeshare</code> for the rest of questions
-in Question 2.</p>
-<div
-id="description-of-variables-in-the-data-file-bikeshare_cleaned.csv"
-class="section level3">
-<h3>Description of variables in the data file,
-<code>bikeshare_cleaned.csv</code></h3>
-<p>The data set, <code>bikeshare_cleaned.csv</code>, includes 17376
-observations of hourly counts from 2011 to 2012 for bike rides (rentals)
-in Washington D.C.</p>
-<p><br></p>
-<ul>
-<li><code>cnt</code>: count of total bikes rented out</li>
-<li><code>year</code>: year</li>
-<li><code>month</code>: month</li>
-<li><code>date</code>: date</li>
-<li><code>hr</code>: hours</li>
-<li><code>wkday</code>: week day</li>
-<li><code>holiday</code>: holiday if holiday == 1; non-holiday
-otherwise</li>
-<li><code>seasons</code>: season</li>
-<li><code>weather_cond</code>: weather condition</li>
-<li><code>temp</code>: temperature, measured in standard deviations from
-average.</li>
-<li><code>hum</code>: humidity, measured in standard deviations from
-average.</li>
-<li><code>windspeed</code>: wind speed, measured in standard deviations
-from average.</li>
-</ul>
-<p><br><br></p>
-</div>
 </div>
 <div id="q2b" class="section level2">
 <h2>Q2b</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of
-sentences to describe the distribution of <code>cnt</code>.</p>
+<p>Find the five most popular breeds in NYC.</p>
 <p><br><br></p>
 </div>
 <div id="q2c" class="section level2">
 <h2>Q2c</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of
-sentences to describe the distribution of <code>cnt</code> by
-<code>year</code> and <code>month</code>.</p>
+<p>Describe the relationship between the five popular breeds and borough
+using ggplot. Make a simple comment on your ggplot figure.</p>
 <p><br><br></p>
 </div>
 <div id="q2d" class="section level2">
 <h2>Q2d</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of
-sentences to describe the distribution of <code>temp</code> by
-<code>year</code> and <code>month</code>.</p>
+<p>Find the five most popular breeds for each borough in NYC.</p>
 <p><br><br></p>
 </div>
 <div id="q2e" class="section level2">
 <h2>Q2e</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of
-sentences to describe the distribution of <code>hum</code> by
-<code>year</code> and <code>month</code>.</p>
+<p>Find the five most popular dog names for each gender in NYC.</p>
 <p><br><br></p>
 </div>
 <div id="q2f" class="section level2">
 <h2>Q2f</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of
-sentences to describe the distribution of <code>windspeed</code> by
-<code>year</code> and <code>month</code>.</p>
+<p>Find the five most popular dog names for each gender for each borough
+in NYC.</p>
 <p><br><br></p>
 </div>
 <div id="q2g" class="section level2">
 <h2>Q2g</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of
-sentences to describe the relationship between <code>temp</code> and
-<code>cnt</code>.</p>
-<p><br><br></p>
-</div>
-<div id="q2h" class="section level2">
-<h2>Q2h</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of
-sentences to describe the relationship between <code>temp</code> and
-<code>cnt</code> by <code>year</code> and <code>month</code>.</p>
-<p><br><br></p>
-</div>
-<div id="q2i" class="section level2">
-<h2>Q2i</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of
-sentences to describe the relationship between <code>weather_cond</code>
-and <code>cnt</code>.</p>
-<p><br><br></p>
-</div>
-<div id="q2j" class="section level2">
-<h2>Q2j</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of
-sentences to describe the relationship between <code>weather_cond</code>
-and <code>cnt</code> by <code>hr</code>.</p>
-<p><br><br></p>
-</div>
-<div id="q2k" class="section level2">
-<h2>Q2k</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of
-sentences to describe the relationship between <code>wkday</code> and
-<code>cnt</code>.</p>
-<p><br><br></p>
-</div>
-<div id="q2l" class="section level2">
-<h2>Q2l</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of
-sentences to describe the relationship between <code>wkday</code> and
-<code>cnt</code> by <code>hr</code>.</p>
+<p>Assume that all dogs in the <code>nyc_dogs</code> data frame are
+alive as of today.</p>
+<p>Describe the distribution of age for each borough using ggplot. Make
+a simple comment on your ggplot.</p>
 <p><br><br><br></p>
 </div>
 </div>
 <div id="question-3" class="section level1">
 <h1>Question 3</h1>
-<div id="q3a" class="section level2">
-<h2>Q3a</h2>
-<p>Read the data file, <code>NY_school_enrollment_socioecon.csv</code>,
-as the data.frame object with the name,
-<code>NY_school_enrollment_socioecon</code>, using (1) the
-<code>read_csv()</code> function and (2) its URL,
-<code>https://bcdanl.github.io/data/NY_school_enrollment_socioecon.csv</code>.</p>
-<p><br><br></p>
-<p>For description of variables in
-<code>NY_school_enrollment_socioecon</code>, refer to the file,
-<code>ny_school_enrollment_socioecon_description.zip</code>, which is in
-the Files section in our Canvas web-page. (I recommend you to extract
-the zip file, and then read the file,
-ny_school_enrollment_socioecon_description.csv, using Excel or
-Numbers.)</p>
-<p><br><br></p>
-</div>
-<div id="q3b" class="section level2">
-<h2>Q3b</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of
-sentences to describe the relationship between college enrollment and
-educational attainment of population 45 to 64 years, and how such
-relationship varies by the type (public or private) of colleges.</p>
+<p>For Question 3, run the following function to read the NYC’s Citywide
+Payroll Data.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nyc_payroll <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;https://bcdanl.github.io/data/nyc_payroll.csv&#39;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><br></p>
+<p>Description of variables in the nyc_payroll dataset is provided at
+the end of the R script.</p>
+<p><br></p>
+<div id="q3a." class="section level2">
+<h2>Q3a.</h2>
+<p>Create a variable, <code>payroll</code>, which is defined as:</p>
+<p><span class="math display">\[ \texttt{payroll} =
+\texttt{regular_gross_paid} + \texttt{total_ot_paid}\]</span> where
+<code>regular_gross_paid</code> and <code>total_ot_paid</code> are
+variables in the <code>nyc_payroll</code> data frame.</p>
 <p><br><br></p>
 </div>
-<div id="q3c" class="section level2">
-<h2>Q3c</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of
-sentences to describe how the relationships described in Q3b vary by
-gender of population 45 to 64 years.</p>
+<div id="q3b." class="section level2">
+<h2>Q3b.</h2>
+<p>Calculate the mean of <code>payroll</code> by
+<code>title_description</code>.</p>
 <p><br><br></p>
 </div>
-<div id="q3d" class="section level2">
-<h2>Q3d</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of
-sentences to describe how the relationships described in Q3b vary by
-gender of college enrollment.</p>
+<div id="q3c." class="section level2">
+<h2>Q3c.</h2>
+<p>Calculate the mean of <code>payroll</code> by
+<code>work_location_borough</code>.</p>
+<p><br><br></p>
+</div>
+<div id="variable-description-1" class="section level2">
+<h2>Variable Description</h2>
+<ol style="list-style-type: decimal">
+<li><p>Fiscal Year: Fiscal Year</p></li>
+<li><p>Payroll Number: Payroll Number</p></li>
+<li><p>Agency Name: The Payroll agency that the employee works
+for</p></li>
+<li><p>Last Name: Last name of employee</p></li>
+<li><p>First Name: First name of employee</p></li>
+<li><p>Mid Init: Middle initial of employee</p></li>
+<li><p>Agency Start Date: Date which employee began working for their
+current agency Date &amp; Time</p></li>
+<li><p>Work Location Borough: Borough of employee’s primary work
+location</p></li>
+<li><p>Title Description: Civil service title description of the
+employee</p></li>
+<li><p>Leave Status as of June 30: Status of employee as of the close of
+the relevant fiscal year: Active, Ceased, or On Leave</p></li>
+<li><p>Base Salary: Base Salary assigned to the employee</p></li>
+<li><p>Pay Basis: Lists whether the employee is paid on an hourly, per
+diem or annual basis</p></li>
+<li><p>Regular Hours: Number of regular hours employee worked in the
+fiscal year</p></li>
+<li><p>Regular Gross Paid: The amount paid to the employee for base
+salary during the fiscal year</p></li>
+<li><p>OT Hours: Overtime Hours worked by employee in the fiscal
+year</p></li>
+<li><p>Total OT Paid: Total overtime pay paid to the employee in the
+fiscal year</p></li>
+<li><p>Total Other Pay: Includes any compensation in addition to gross
+salary and overtime pay, ie Differentials, lump sums, uniform allowance,
+meal allowance, retroactive pay increases, settlement amounts, and bonus
+pay, if applicable.</p></li>
+</ol>
 </div>
 </div>
 
