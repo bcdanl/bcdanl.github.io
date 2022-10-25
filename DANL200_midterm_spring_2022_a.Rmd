@@ -78,7 +78,7 @@ oj_q1b <- read_csv(
 
 The description of variables in `oj_q1b` is the same as `oj_q1a`.
 
-- Describe the relationship between the log of `price` and the log of `sales` by brand using ggplot. Make a simple comment on your ggplot figure.
+- Describe the relationship between the log of `price` and the log of `sales` by `brand` using ggplot. Make a simple comment on your ggplot figure.
 
 
 ```{r, echo = T, eval = T, warning= F, message= F}
@@ -263,11 +263,12 @@ ggplot(q2c) +
 ```
 
 
-```{r, echo = T, eval = T, warning= F, message= F, fig.width= 8, fig.height= 32}
+```{r, echo = T, eval = T, warning= F, message= F, fig.width= 8, fig.height= 60}
 # What if the filtered data could not be obtained ... 
 ggplot(data = nyc_dogs)+
   geom_bar(mapping = aes(x=borough))+
-  facet_wrap(~breed_rc, ncol = 6)
+  facet_wrap(~breed_rc, ncol = 4) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))  # optional
 ```
 
 <br><br>

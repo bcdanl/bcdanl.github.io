@@ -1,6 +1,6 @@
 ---
 title: "DANL 100: Programming for Data Analytics"
-subtitle: "DANL 100 - Lecture 16 Class Exercises<br><br>" 
+subtitle: "DANL 100 - Lecture 16 Class Exercises - Answers<br><br>" 
 author: 
   - "Byeong-Hak Choe<br>"
 date: "`r Sys.Date()`<br><br>"
@@ -38,6 +38,13 @@ After modifying the above line, write a Python code that uses (1) the `print()` 
 
 <div style="font-family:courier">The average of 4 and 8 is 6.0</div>
 
+<br>
+
+**Answers**:
+```{python, echo = T, eval = F}
+average = (first_number + second_number) / 2
+print("The average of", first_number, "and", second_number, "is", average)
+```
 
 <br><br>
 
@@ -49,6 +56,13 @@ string_length = "length of string"
 ```
 
 Write a Python code to count the length of `string_length`.
+
+<br>
+
+**Answers**:
+```{python, echo = T, eval = F}
+len(string_length)
+```
 
 <br><br><br>
 
@@ -63,6 +77,13 @@ list_variable = [7, True, 3, "Hello", 1.5]
 
 Write a Python code to change the value `True` to value `False` in `list_variable`.
 
+<br>
+
+**Answers**:
+```{python, echo = T, eval = F}
+list_variable[1] = False
+```
+
 <br><br>
 
 
@@ -73,6 +94,13 @@ Write a Python code to change the value `True` to value `False` in `list_variabl
 
 - How can the value of `alpha` be retrieved from the dictionary?
 
+<br>
+
+**Answers**:
+```{python, echo = T, eval = F}
+abc = dict(alpha = 1.0, beta = 3.141592, gamma = -100)
+abc['alpha']
+```
 
 
 
@@ -94,8 +122,24 @@ Write a Python code that determines a person’s stage of life. Set a value for 
   - If the person is at least 20 years old but less than 65, print a message that <div style="font-family:courier">The person is an adult!</div>
   - If the person is age 65 or older, print a message that <div style="font-family:courier">The person is an elder!</div>
 
-```{python, echo = T, eval = F}
+<br>
 
+**Answers**:
+```{python, echo = T, eval = F}
+age = 36
+
+if age < 2:
+    print("The person is a baby!")
+elif age < 4:
+    print("The person is a toddler!")
+elif age < 13:
+    print("The person is a kid!")
+elif age < 20:
+    print("The person is a teenager!")
+elif age < 65:
+    print("The person is an adult!")
+else:
+    print("The person is an elder!")
 ```
 
 <br><br><br>
@@ -114,8 +158,23 @@ Write a Python code that determines a person’s stage of life. Set a value for 
   - If `number` is greater than `guess_me`, print 'oops' and then exit the loop.
   - Increment `number` at the end of the loop.
 
-```{python, echo = T, eval = F}
+<br>
 
+**Answers**:
+```{python, echo = T, eval = F}
+guess_me = 7
+number = 1
+
+while True:
+    if number < guess_me:
+        print('too low')
+    elif number == guess_me:
+        print('found it!')
+        break
+    elif number > guess_me:
+        print('oops')
+        break
+    number += 1
 ```
 
 <br><br>
@@ -132,7 +191,21 @@ Write a Python code that determines a person’s stage of life. Set a value for 
 
 - The output should read "1st 2nd 3rd 4th 5th 6th 7th 8th 9th", and each result should be on a separate line.
 
+<br>
+
+**Answers**:
 ```{python, echo = T, eval = F}
+numbers = list(range(1,10))
+
+for number in numbers:
+    if number == 1:
+        print(str(number) + "st")
+    elif number == 2:
+        print(str(number) + "nd")
+    elif number == 3:
+        print(str(number) + "rd")
+    else:
+        print(str(number) + "th")
 
 ```
 
@@ -163,8 +236,15 @@ if the number entered, NUMBER_ENTERED, in the Console is a number and
 if the number entered is not a number.
 
 
-```{python, echo = T, eval = F}
+<br>
 
+**Answers**:
+```{python, echo = T, eval = F}
+try:
+    value_entered = int(input("Please enter a number: "))
+    print("The number you entered is:", str(value_entered))
+except ValueError:
+    print("The value you entered is not a number.")
 ```
 
 <br><br><br>
@@ -179,8 +259,14 @@ if the number entered is not a number.
 
 Define a function called `harrypotter()` that returns the following list: `['Harry', 'Ron', 'Hermione']`.
 
-```{python, echo = T, eval = F}
+<br>
 
+**Answers**:
+```{python, echo = T, eval = F}
+def harrypotter():
+    return ['Harry', 'Ron', 'Hermione']
+
+harrypotter()
 ```
 
 

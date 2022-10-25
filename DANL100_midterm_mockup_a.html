@@ -13,7 +13,7 @@
 
 <meta name="date" content="2022-10-25" />
 
-<title>DANL 200: Introduction to Data Analytics</title>
+<title>DANL 100: Programming for Data Analytics</title>
 
 <script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -484,7 +484,10 @@ div.tocify {
       <a href="lec/DANL100_Lec16_20221025.html">lecture 16</a>
     </li>
     <li>
-      <a href="DANL100_midterm_mockup.html">lecture 16 practice</a>
+      <a href="DANL100_midterm_mockup_q.html">lecture 16 practice</a>
+    </li>
+    <li>
+      <a href="DANL100_midterm_mockup_a.html">lecture 16 practice - answers</a>
     </li>
   </ul>
 </li>
@@ -599,183 +602,259 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">DANL 200: Introduction to Data
+<h1 class="title toc-ignore">DANL 100: Programming for Data
 Analytics</h1>
-<h3 class="subtitle">DANL 200 - Midterm Exam, Spring 2022<br><br></h3>
+<h3 class="subtitle">DANL 100 - Lecture 16 Class Exercises -
+Answers<br><br></h3>
 <h4 class="author">Byeong-Hak Choe<br></h4>
 <h4 class="date">2022-10-25<br><br></h4>
 
 </div>
 
 
-<div id="loading-r-packages-for-the-midterm-exam"
-class="section level3">
-<h3>Loading R packages for the Midterm Exam</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div id="data-types" class="section level1">
+<h1>Data Types</h1>
+<div id="question-1." class="section level2">
+<h2>Question 1.</h2>
+<p>The two variables, <code>first_number</code> and
+<code>second_number</code>, are given as follows:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>first_number <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>second_number <span class="op">=</span> <span class="dv">8</span></span></code></pre></div>
+<p>Modify the following line by putting parenthesis around the two
+variables added:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>average <span class="op">=</span> first_number <span class="op">+</span> second_number <span class="op">/</span> <span class="dv">2</span></span></code></pre></div>
+<p>After modifying the above line, write a Python code that uses (1) the
+<code>print()</code> function and (2) the variables,
+<code>first_number</code>, <code>second_number</code>, and
+<code>average</code> to print out the following in the Spyder
+Console:</p>
+<div style="font-family:courier">
+The average of 4 and 8 is 6.0
+</div>
+<p><br></p>
+<p><strong>Answers</strong>:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>average <span class="op">=</span> (first_number <span class="op">+</span> second_number) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;The average of&quot;</span>, first_number, <span class="st">&quot;and&quot;</span>, second_number, <span class="st">&quot;is&quot;</span>, average)</span></code></pre></div>
 <p><br><br></p>
 </div>
-<div id="question-1" class="section level1">
-<h1>Question 1</h1>
-<div id="q1a." class="section level2">
-<h2>Q1a.</h2>
-<p>Download <code>dominick_oj_q1a.csv</code> from the Midterm Exam in
-the Assignments or the Files sections in our Canvas.</p>
-<p>Then import the <code>dominick_oj_q1a.csv</code> using the following
-lines:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>oj_q1a <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;ABSOLUTE_PATH_NAME_FOR_THE_FILE_dominick_oj_q1a.csv&#39;</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(oj_q1a<span class="sc">$</span>brand)</span></code></pre></div>
+<div id="question-2." class="section level2">
+<h2>Question 2.</h2>
+<p>The variables, <code>string</code> and <code>second_number</code>,
+are given as follows:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>string_length <span class="op">=</span> <span class="st">&quot;length of string&quot;</span></span></code></pre></div>
+<p>Write a Python code to count the length of
+<code>string_length</code>.</p>
 <p><br></p>
-<p>You need to provide the absolute path name for the file,
-<code>dominick_oj_q1a.csv</code> to the above <code>read_csv()</code>
-function to read the file.</p>
-<div id="variable-description" class="section level3">
-<h3>Variable Description</h3>
-<ul>
-<li><p><code>sales</code>: the number of orange juice (OJ) cartons sold
-in a week</p></li>
-<li><p><code>price</code>: price of OJ carton</p></li>
-<li><p><code>brand</code>: OJ brand</p></li>
-<li><p><code>feat</code>: Advertisement status— 1 if advertised; 0 if
-not advertised.</p></li>
-<li><p>Report (1) minimum, (2) median, (3) maximum, (4) mean, and (5)
-standard deviation of variable <code>price</code> for the
-<code>brand</code>, Dominick’s OJ.</p></li>
-</ul>
-<p><br><br></p>
-</div>
-</div>
-<div id="q1b" class="section level2">
-<h2>Q1b</h2>
-<p>For Question 1b, run the following function to read the
-<code>dominick_oj.csv</code> file:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>oj_q1b <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;https://bcdanl.github.io/data/dominick_oj.csv&#39;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><br></p>
-<p>The description of variables in <code>oj_q1b</code> is the same as
-<code>oj_q1a</code>.</p>
-<ul>
-<li>Describe the relationship between the log of <code>price</code> and
-the log of <code>sales</code> by <code>brand</code> using ggplot. Make a
-simple comment on your ggplot figure.</li>
-</ul>
+<p><strong>Answers</strong>:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(string_length)</span></code></pre></div>
 <p><br><br><br></p>
 </div>
 </div>
-<div id="question-2" class="section level1">
-<h1>Question 2</h1>
-<p>For Question 2, run the following R command to read the
-<code>nyc_dogs.csv</code> file.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>nyc_dogs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;https://bcdanl.github.io/data/nyc_dogs.csv&#39;</span>)</span></code></pre></div>
+<div id="data-structures" class="section level1">
+<h1>Data Structures</h1>
+<div id="question-3." class="section level2">
+<h2>Question 3.</h2>
+<p>The variable <code>list_variable</code> is given:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>list_variable <span class="op">=</span> [<span class="dv">7</span>, <span class="va">True</span>, <span class="dv">3</span>, <span class="st">&quot;Hello&quot;</span>, <span class="fl">1.5</span>]</span></code></pre></div>
+<p>Write a Python code to change the value <code>True</code> to value
+<code>False</code> in <code>list_variable</code>.</p>
 <p><br></p>
-<div id="q2a" class="section level2">
-<h2>Q2a</h2>
-<p>Describe the distribution of animal_gender using ggplot. Make a
-simple comment on your ggplot figure.</p>
+<p><strong>Answers</strong>:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>list_variable[<span class="dv">1</span>] <span class="op">=</span> <span class="va">False</span></span></code></pre></div>
 <p><br><br></p>
 </div>
-<div id="q2b" class="section level2">
-<h2>Q2b</h2>
-<p>Find the five most popular breeds in NYC.</p>
-<p><br><br></p>
-</div>
-<div id="q2c" class="section level2">
-<h2>Q2c</h2>
-<p>Describe the relationship between the five popular breeds and borough
-using ggplot. Make a simple comment on your ggplot figure.</p>
-<p><br><br></p>
-</div>
-<div id="q2d" class="section level2">
-<h2>Q2d</h2>
-<p>Find the five most popular breeds for each borough in NYC.</p>
-<p><br><br></p>
-</div>
-<div id="q2e" class="section level2">
-<h2>Q2e</h2>
-<p>Find the five most popular dog names for each gender in NYC.</p>
-<p><br><br></p>
-</div>
-<div id="q2f" class="section level2">
-<h2>Q2f</h2>
-<p>Find the five most popular dog names for each gender for each borough
-in NYC.</p>
-<p><br><br></p>
-</div>
-<div id="q2g" class="section level2">
-<h2>Q2g</h2>
-<p>Assume that all dogs in the <code>nyc_dogs</code> data frame are
-alive as of today.</p>
-<p>Describe the distribution of age for each borough using ggplot. Make
-a simple comment on your ggplot.</p>
+<div id="question-4." class="section level2">
+<h2>Question 4.</h2>
+<ul>
+<li><p>Construct a dictionary with the keyword-value pairs:
+<code>alpha</code> and 1.0, <code>beta</code> and 3.141592,
+<code>gamma</code> and -100.</p></li>
+<li><p>How can the value of <code>alpha</code> be retrieved from the
+dictionary?</p></li>
+</ul>
+<p><br></p>
+<p><strong>Answers</strong>:</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>abc <span class="op">=</span> <span class="bu">dict</span>(alpha <span class="op">=</span> <span class="fl">1.0</span>, beta <span class="op">=</span> <span class="fl">3.141592</span>, gamma <span class="op">=</span> <span class="op">-</span><span class="dv">100</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>abc[<span class="st">&#39;alpha&#39;</span>]</span></code></pre></div>
 <p><br><br><br></p>
 </div>
 </div>
-<div id="question-3" class="section level1">
-<h1>Question 3</h1>
-<p>For Question 3, run the following function to read the NYC’s Citywide
-Payroll Data.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nyc_payroll <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;https://bcdanl.github.io/data/nyc_payroll.csv&#39;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div id="if-conditionals" class="section level1">
+<h1><code>if</code>-conditionals</h1>
+<div id="question-5." class="section level2">
+<h2>Question 5.</h2>
+<p>Write a Python code that determines a person’s stage of life. Set a
+value for the variable <code>age</code>, and then:</p>
+<ul>
+<li>If the person is less than 2 years old, print a message that
+<div style="font-family:courier">
+The person is a baby!
+</div></li>
+<li>If the person is at least 2 years old but less than 4, print a
+message that
+<div style="font-family:courier">
+The person is a toddler!
+</div></li>
+<li>If the person is at least 4 years old but less than 13, print a
+message that
+<div style="font-family:courier">
+The person is an kid!
+</div></li>
+<li>If the person is at least 13 years old but less than 20, print a
+message that
+<div style="font-family:courier">
+The person is a teenager!
+</div></li>
+<li>If the person is at least 20 years old but less than 65, print a
+message that
+<div style="font-family:courier">
+The person is an adult!
+</div></li>
+<li>If the person is age 65 or older, print a message that
+<div style="font-family:courier">
+The person is an elder!
+</div></li>
+</ul>
 <p><br></p>
-<p>Description of variables in the nyc_payroll dataset is provided at
-the end of the R script.</p>
+<p><strong>Answers</strong>:</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> <span class="dv">36</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> age <span class="op">&lt;</span> <span class="dv">2</span>:</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;The person is a baby!&quot;</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> age <span class="op">&lt;</span> <span class="dv">4</span>:</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;The person is a toddler!&quot;</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> age <span class="op">&lt;</span> <span class="dv">13</span>:</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;The person is a kid!&quot;</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> age <span class="op">&lt;</span> <span class="dv">20</span>:</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;The person is a teenager!&quot;</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> age <span class="op">&lt;</span> <span class="dv">65</span>:</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;The person is an adult!&quot;</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;The person is an elder!&quot;</span>)</span></code></pre></div>
+<p><br><br><br></p>
+</div>
+</div>
+<div id="while-loops" class="section level1">
+<h1><code>while</code>-loops</h1>
+<div id="question-6." class="section level2">
+<h2>Question 6.</h2>
+<ul>
+<li><p>Assign the value 7 to the variable <code>guess_me</code>, and the
+value 1 to the variable <code>number</code>.</p></li>
+<li><p>Write a <code>while</code>-loop that compares <code>number</code>
+with <code>guess_me</code>.</p>
+<ul>
+<li>Print ‘too low’ if <code>number</code> is less than
+<code>guess_me</code>.</li>
+<li>If <code>number</code> equals <code>guess_me</code>, print ‘found
+it!’ and then exit the loop.</li>
+<li>If <code>number</code> is greater than <code>guess_me</code>, print
+‘oops’ and then exit the loop.</li>
+<li>Increment <code>number</code> at the end of the loop.</li>
+</ul></li>
+</ul>
 <p><br></p>
-<div id="q3a." class="section level2">
-<h2>Q3a.</h2>
-<p>Create a variable, <code>payroll</code>, which is defined as:</p>
-<p><span class="math display">\[ \texttt{payroll} =
-\texttt{regular_gross_paid} + \texttt{total_ot_paid}\]</span> where
-<code>regular_gross_paid</code> and <code>total_ot_paid</code> are
-variables in the <code>nyc_payroll</code> data frame.</p>
+<p><strong>Answers</strong>:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>guess_me <span class="op">=</span> <span class="dv">7</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>number <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> number <span class="op">&lt;</span> guess_me:</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&#39;too low&#39;</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> number <span class="op">==</span> guess_me:</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&#39;found it!&#39;</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> number <span class="op">&gt;</span> guess_me:</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&#39;oops&#39;</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    number <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div>
 <p><br><br></p>
 </div>
-<div id="q3b." class="section level2">
-<h2>Q3b.</h2>
-<p>Calculate the mean of <code>payroll</code> by
-<code>title_description</code>.</p>
-<p><br><br></p>
 </div>
-<div id="q3c." class="section level2">
-<h2>Q3c.</h2>
-<p>Calculate the mean of <code>payroll</code> by
-<code>work_location_borough</code>.</p>
-<p><br><br></p>
+<div id="for-loops" class="section level1">
+<h1><code>for</code>-loops</h1>
+<div id="question-7." class="section level2">
+<h2>Question 7.</h2>
+<ul>
+<li><p>Assign a list of the integer numbers from 1 to 9 in
+<code>numbers</code></p></li>
+<li><p>After creating the list <code>numbers</code>, write a Python code
+that uses (1) for loop that processes each element in the list
+<code>numbers</code> and (2)
+<code>if</code>-<code>elif</code>-<code>else</code> statement inside the
+loop to print the proper ordinal ending for each number.</p></li>
+<li><p>The output should read “1st 2nd 3rd 4th 5th 6th 7th 8th 9th”, and
+each result should be on a separate line.</p></li>
+</ul>
+<p><br></p>
+<p><strong>Answers</strong>:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">10</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> number <span class="kw">in</span> numbers:</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> number <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="bu">str</span>(number) <span class="op">+</span> <span class="st">&quot;st&quot;</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> number <span class="op">==</span> <span class="dv">2</span>:</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="bu">str</span>(number) <span class="op">+</span> <span class="st">&quot;nd&quot;</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> number <span class="op">==</span> <span class="dv">3</span>:</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="bu">str</span>(number) <span class="op">+</span> <span class="st">&quot;rd&quot;</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="bu">str</span>(number) <span class="op">+</span> <span class="st">&quot;th&quot;</span>)</span></code></pre></div>
+<p><br><br><br></p>
 </div>
-<div id="variable-description-1" class="section level2">
-<h2>Variable Description</h2>
-<ol style="list-style-type: decimal">
-<li><p>Fiscal Year: Fiscal Year</p></li>
-<li><p>Payroll Number: Payroll Number</p></li>
-<li><p>Agency Name: The Payroll agency that the employee works
-for</p></li>
-<li><p>Last Name: Last name of employee</p></li>
-<li><p>First Name: First name of employee</p></li>
-<li><p>Mid Init: Middle initial of employee</p></li>
-<li><p>Agency Start Date: Date which employee began working for their
-current agency Date &amp; Time</p></li>
-<li><p>Work Location Borough: Borough of employee’s primary work
-location</p></li>
-<li><p>Title Description: Civil service title description of the
-employee</p></li>
-<li><p>Leave Status as of June 30: Status of employee as of the close of
-the relevant fiscal year: Active, Ceased, or On Leave</p></li>
-<li><p>Base Salary: Base Salary assigned to the employee</p></li>
-<li><p>Pay Basis: Lists whether the employee is paid on an hourly, per
-diem or annual basis</p></li>
-<li><p>Regular Hours: Number of regular hours employee worked in the
-fiscal year</p></li>
-<li><p>Regular Gross Paid: The amount paid to the employee for base
-salary during the fiscal year</p></li>
-<li><p>OT Hours: Overtime Hours worked by employee in the fiscal
-year</p></li>
-<li><p>Total OT Paid: Total overtime pay paid to the employee in the
-fiscal year</p></li>
-<li><p>Total Other Pay: Includes any compensation in addition to gross
-salary and overtime pay, ie Differentials, lump sums, uniform allowance,
-meal allowance, retroactive pay increases, settlement amounts, and bonus
-pay, if applicable.</p></li>
-</ol>
+</div>
+<div id="try-except-statement" class="section level1">
+<h1><code>try</code>-<code>except</code> statement</h1>
+<div id="question-8." class="section level2">
+<h2>Question 8.</h2>
+<p>Write a Python code that uses the <code>input()</code> function with
+a message in the Console “Please enter a number:” to print out</p>
+<div style="font-family:courier">
+The number you entered is: NUMBER_ENTERED
+</div>
+<p><br></p>
+<p>if the number entered, NUMBER_ENTERED, in the Console is a number
+and</p>
+<p><br></p>
+<div style="font-family:courier">
+The value you entered is not a number.
+</div>
+<p><br></p>
+<p>if the number entered is not a number.</p>
+<p><br></p>
+<p><strong>Answers</strong>:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    value_entered <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">&quot;Please enter a number: &quot;</span>))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;The number you entered is:&quot;</span>, <span class="bu">str</span>(value_entered))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ValueError</span>:</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;The value you entered is not a number.&quot;</span>)</span></code></pre></div>
+<p><br><br><br></p>
+</div>
+</div>
+<div id="functions" class="section level1">
+<h1>Functions</h1>
+<div id="question-9." class="section level2">
+<h2>Question 9.</h2>
+<p>Define a function called <code>harrypotter()</code> that returns the
+following list: <code>['Harry', 'Ron', 'Hermione']</code>.</p>
+<p><br></p>
+<p><strong>Answers</strong>:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> harrypotter():</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [<span class="st">&#39;Harry&#39;</span>, <span class="st">&#39;Ron&#39;</span>, <span class="st">&#39;Hermione&#39;</span>]</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>harrypotter()</span></code></pre></div>
 </div>
 </div>
 
