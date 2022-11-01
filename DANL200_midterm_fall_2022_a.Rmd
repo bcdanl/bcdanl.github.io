@@ -98,7 +98,7 @@ in US counties.
 
 <br><br>
 
-# Q1c 
+## Q1c 
 Provide both (1) ggplot codes and (2) a simple comment to describe how the probability distribution of `african_american` varies by `census_region`.
 ```{r, echo = T, eval = T, message = F, warning= F}
 ggplot(county_data) + 
@@ -108,7 +108,7 @@ ggplot(county_data) +
 - The variable `african_american` are likely to be higher in `South` and `Northeast` of `census_region` than `Midwest` and `West` of `census_region`.
 
 
-# Q1d
+## Q1d
 Provide both (1) ggplot codes and (2) a simple comment to describe the relationship between `travel_time` and `hh_income`.
 
 ```{r, echo = T, eval = T, warning = F, message= F}
@@ -123,7 +123,7 @@ ggplot(county_data,
   - They are negatively associated initially, and the relationship switches to be negative around the 22 minute of `travel_time`.
 
 
-# Q1e
+## Q1e
 Provide both (1) ggplot codes and (2) a simple comment to describe how the relationship between `travel_time` and `hh_income` varies by `pop_dens`.
 ```{r, echo = T, eval = T, warning = F, message= F}
 ggplot(county_data,
@@ -140,528 +140,174 @@ ggplot(county_data,
 - The relationship between `travel_time` and `hh_income` seems to become more positive as `pop_dens` increases.
 
 
-# Q1f
+## Q1f
 Provide both (1) ggplot codes and (2) a simple comment to describe how the relationship between `travel_time` and `hh_income` varies by `pop_dens` and `census_region`.
-```{r, echo = T, eval = T, warning = F, message= F}
+```{r, echo = T, eval = T, warning = F, message= F, fig.width=8, fig.height=12}
 ggplot(county_data,
        aes(x = travel_time, y = hh_income)) +
-  geom_point(alpha = .1) + 
+  geom_point(alpha = .25) + 
   geom_smooth() + geom_smooth(method = lm, color = 'red')  +
-  facet_grid(.~pop_dens)
+  facet_grid(census_region~pop_dens)
 ```
 
 
+- Overall, the relationship described in Q1e holds across `census_region`.
+
+
+<br><br><br>
+
 # Question 2
 
-For Question 2, run the following R command to read the `nyc_dogs.csv` file.
+For Question 2, run the following R command to read the music data file.
 
 ```{r, echo = T, eval = T, warning= F, message= F}
-nyc_dogs <- read_csv('https://bcdanl.github.io/data/nyc_dogs.csv')
+spotify_all <- read_csv('https://bcdanl.github.io/data/spotify_all.csv')
+spotify_all
 ```
 
 <br>
 
 ## Q2a 
-Describe the distribution of `animal_gender` using ggplot. Make a simple comment on your ggplot figure.
+Find the ten most popular song. Who are artists for those ten most popular song?
 
 ```{r, echo = T, eval = T, warning= F, message= F}
-ggplot(nyc_dogs) +
-  geom_bar(aes(x = animal_gender))
+q2a <- spotify_all %>% 
+  count(artist_name, track_name) %>% 
+  arrange(-n) %>% 
+  head(10)
 
-ggplot(nyc_dogs) +
-  geom_density(aes(x = animal_gender))
-
-ggplot(nyc_dogs) +
-  geom_boxplot(aes(x = animal_gender))
-
-ggplot(nyc_dogs) +
-  geom_bar(aes(x = animal_gender)) +
-  facet_wrap(~borough)
-
+q2a
 ```
 
-- There are more male dogs than female dogs.
+- This example assumes that the most popular song is the song---a combination of `artist_name` and `track_name`---that most frequently appears in the data.frame `spotify_all`. 
 
-- There are more male dogs than female dogs in each borough.
+
 
 <br><br>
 
 ## Q2b
-Find the five most popular breeds in NYC.
+- Find the five most popular artist. 
+- What is the most popular song for each of the five most popular artist?
 
 ```{r, echo = T, eval = T, warning= F, message= F}
-# 0.
-table(nyc_dogs$breed_rc)
+q2b <- spotify_all %>% 
+  group_by(artist_name) %>% 
+  mutate(n_popular_artist = n()) %>% 
+  ungroup() %>% 
+  mutate( artist_ranking = dense_rank( desc(n_popular_artist) ) ) %>% 
+  filter( artist_ranking <= 5) %>% 
+  group_by(artist_name, track_name) %>% 
+  mutate(n_popular_track = n()) %>% 
+  group_by(artist_name) %>% 
+  mutate(track_ranking = dense_rank( desc(n_popular_track) ) ) %>% 
+  filter( track_ranking <= 2) %>%   # I just wanted to see the top two tracks for each artist
+  select(artist_name, artist_ranking, n_popular_artist, track_name, track_ranking, n_popular_track) %>% 
+  distinct() %>% 
+  arrange(artist_ranking, track_ranking)
 
-
-# 1.
-q2b <- group_by(nyc_dogs, 
-                breed_rc)
-
-q2b <- summarise(q2b,
-                 n = n())
-
-q2b <- arrange(q2b,
-               -n)  # or desc(n)
-q2b
-
-# 2.
-q2b <- group_by(nyc_dogs, 
-                breed_rc)
-
-q2b <- mutate(q2b,
-              n = n())
-
-q2b <- arrange(q2b,
-               desc(n))
-
-q2b <- select(q2b, 
-              breed_rc, n)
-
-q2b <- distinct(q2b)
 q2b
 ```
 
-1 Unknown                  54586
-2 Yorkshire Terrier        30379
-3 Labrador (or Crossbreed) 28399
-4 Shih Tzu                 27407
-5 Pit Bull (or Mix)        24393
-6 Chihuahua                21211
+- This example assumes that the most popular artist is the artist---the value of `artist_name`---that most frequently appears in the data.frame `spotify_all`. 
 
+- This example assumes that the most popular song is the song---a combination of `artist_name` and `track_name`---that most frequently appears in the data.frame `spotify_all`. 
 
 <br><br>
 
 ## Q2c
-Describe the relationship between the five popular breeds and borough using ggplot. Make a simple comment on your ggplot figure.
+Provide both (1) ggplot codes and (2) a couple of sentences to describe the relationship between `pos` and the ten most popular artists.
 
-```{r, echo = T, eval = T, warning= F, message= F}
-q2c <- filter(nyc_dogs,
-              breed_rc %in% c("Yorkshire Terrier", 
-                              "Labrador (or Crossbreed)",
-                              "Shih Tzu", 
-                              "Pit Bull (or Mix)",
-                              "Chihuahua"),
-              !is.na(borough)
-                         )
+```{r, echo = T, eval = T, warning= F, message= F, fig.height= 10}
+q2c <- spotify_all %>% 
+  group_by(artist_name) %>% 
+  mutate(n_popular_artist = n()) %>% 
+  ungroup() %>% 
+  mutate( artist_ranking = dense_rank( desc(n_popular_artist) ) ) %>% 
+  filter( artist_ranking <= 10) 
+  
+# boxplot
+ggplot(q2c,
+       aes(x = pos, y = fct_reorder(artist_name, -artist_ranking)) ) +
+  geom_boxplot() +
+  stat_summary(
+    fun = mean,
+    color = 'red'
+  )
 
-q2c <- filter(nyc_dogs,
-              breed_rc == "Yorkshire Terrier" | 
-              breed_rc == "Labrador (or Crossbreed)" | 
-              breed_rc == "Shih Tzu" | 
-              breed_rc == "Pit Bull (or Mix)" | 
-              breed_rc == "Chihuahua",
-              !is.na(borough)
-)
-
-# 1. stacked bar charts
-# distribution of `breed_rc` by `borough` 
+# density
 ggplot(q2c) +
-  geom_bar(aes(x = breed_rc, fill = borough)) +
-  coord_flip()
+  geom_density(aes(x = pos)) + 
+  facet_grid(fct_reorder(artist_name, artist_ranking) ~ .  , switch = "y") +
+  theme(strip.text.y.left = element_text(angle = 0))
 
-# distribution of `borough` by `breed_rc` 
+# histogram
 ggplot(q2c) +
-  geom_bar(aes(fill = breed_rc, x = borough)) +
-  coord_flip()
-
-
-# 2. stacked bar charts of relative frequencies
-# distribution of `breed_rc` by `borough` 
-ggplot(q2c) +
-  geom_bar(aes(x = breed_rc, fill = borough), 
-           position = "fill") +
-  coord_flip()
-
-# distribution of `borough` by `breed_rc` 
-ggplot(q2c) +
-  geom_bar(aes(fill = breed_rc, x = borough), 
-           position = "fill") +
-  coord_flip()
-
-
-# 3. side-by-side bar charts 
-# distribution of `breed_rc` by `borough` 
-ggplot(q2c) +
-  geom_bar(aes(x = breed_rc, fill = borough), 
-           position = "dodge2") +
-  coord_flip()
-
-# distribution of `borough` by `breed_rc` 
-ggplot(q2c) +
-  geom_bar(aes(fill = breed_rc, x = borough), 
-           position = "dodge2") +
-  coord_flip()
-
-
-# 4. side-by-side bar charts of relative frequencies
-# distribution of `breed_rc` by `borough` 
-ggplot(q2c) +
-  geom_bar(aes(x = breed_rc, fill = borough, 
-               y = ..prop.., group = borough), 
-           position = "dodge2") +
-  coord_flip()
-
-# distribution of `borough` by `breed_rc` 
-ggplot(q2c) +
-  geom_bar(aes(x = borough, fill = breed_rc, 
-               y = ..prop.., group = breed_rc), 
-           position = "dodge2") +
-  coord_flip()
-
+  geom_histogram(aes(x = pos), binwidth = 1) + 
+  facet_grid(fct_reorder(artist_name, artist_ranking) ~ .  , switch = "y") +
+  theme(strip.text.y.left = element_text(angle = 0))
 ```
 
 
-```{r, echo = T, eval = T, warning= F, message= F, fig.width= 8, fig.height= 60}
-# What if the filtered data could not be obtained ... 
-ggplot(data = nyc_dogs)+
-  geom_bar(mapping = aes(x=borough))+
-  facet_wrap(~breed_rc, ncol = 4) +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))  # optional
-```
+- The relationship between `pos` and the ten most popular artists can be described by how the distribution of `pos` varies across the ten most popular artists.
+
+  - The distribution of `pos` does not seem to vary a lot across the ten most popular artists.
+  
+  - Anything noticeable can be mentioned.
 
 <br><br>
 
 ## Q2d
-Find the five most popular breeds for each borough in NYC.
+Create the data frame with `pid`-`artist` level of observations with the following four variables:
+
+- `pid`: playlist id
+- `playlist_name`: the name of the playlist
+- `artist`: the name of the track's primary artist, which appears only once within a playlist
+- `n_artist`: the number of occurrences of artist within a playlist
 
 ```{r, echo = T, eval = T, warning= F, message= F}
-# 1. 
-q2d <- group_by(nyc_dogs,
-                breed_rc, borough)
-q2d <- summarize(q2d,
-                 n = n())
-q2d <- arrange(q2d,
-               borough, -n)
-  
-# 2.
-q2d <- group_by(nyc_dogs,
-                breed_rc, borough)
-q2d <- mutate(q2d,
-              n = n())
-q2d <- arrange(q2d,
-               -n)
-q2d <- select(q2d,
-              breed_rc, n, borough)
-q2d <- distinct(q2d)
+q2d <- spotify_all %>% 
+  count(pid, playlist_name, artist_name) %>% 
+  rename(n_artist = n) %>% 
+  arrange(pid, -n_artist, artist_name)
 
-
-# filter by borough
-q2d_bronx <- filter(q2d, borough == "Bronx")
-q2d_bronx
-
-q2d_brooklyn <- filter(q2d, borough == "Brooklyn")
-q2d_brooklyn
-
-q2d_manhattan <- filter(q2d, borough == "Manhattan")
-q2d_manhattan
-
-q2d_queens <- filter(q2d, borough == "Queens")
-q2d_queens
-
-q2d_staten_island <- filter(q2d, borough == "Staten Island")
-q2d_staten_island
-
-
-
-# 3.
-q2d <- group_by(nyc_dogs,
-                breed_rc, borough)
-
-q2d <- mutate(q2d,
-              n = n())
-
-q2d <- group_by(q2d,
-                borough)
-
-q2d <- mutate(q2d,
-              rank = dense_rank(desc(n)) )
-
-q2d <- filter(q2d, rank <= 10 )
-
-q2d <- select(q2d,
-              breed_rc, n, rank, borough)
-
-q2d <- distinct(q2d)
-
-q2d <- arrange(q2d,
-               borough,-n)
-
-print(q2d, n = Inf)
-
+q2d
 ```
-
-<br><br>
-
-## Q2e 
-Find the five most popular dog names for each gender in NYC.
-
-```{r, echo = T, eval = T, warning= F, message= F}
-# 1.
-q2e <- group_by(nyc_dogs,
-                animal_name, animal_gender)
-q2e <- summarise(q2e,
-                 n = n())
-q2e <- arrange(q2e,
-               animal_gender, -n)
-
-
-# 2. 
-q2e <- group_by(nyc_dogs,
-                animal_name, animal_gender)
-q2e <- mutate(q2e,
-              n = n())
-q2e <- arrange(q2e,
-               -n)
-q2e <- select(q2e,
-              animal_name, animal_gender, n)
-q2e <- distinct(q2e)
-
-
-
-# filter by animal_gender
-q2e_F <- filter(q2e, animal_gender == "F")
-q2e_F
-
-q2e_M <- filter(q2e, animal_gender == "M")
-q2e_M
-
-```
-
-<br><br>
-
-## Q2f
-Find the five most popular dog names for each gender for each borough in NYC.
-
-```{r, echo = T, eval = T, warning= F, message= F}
-popular_name <- nyc_dogs %>% 
-  group_by(animal_name, animal_gender, borough) %>% 
-  mutate(n = n()) %>% 
-  arrange(borough, animal_gender, -n) %>% 
-  select(animal_gender, animal_name, n) %>% 
-  distinct()
-
-
-# 1.
-q2f <- group_by(nyc_dogs,
-                animal_name, animal_gender, borough)
-q2f <- summarise(q2f,
-                 n = n())
-q2f <- arrange(q2f,
-               animal_gender, -n)
-
-
-# 2. 
-q2f <- group_by(nyc_dogs,
-                animal_name, animal_gender, borough)
-q2f <- mutate(q2f,
-              n = n())
-q2f <- arrange(q2f,
-               -n)
-q2f <- select(q2f,
-              animal_name, animal_gender, borough, n)
-q2f <- distinct(q2f)
-
-
-
-# filter by animal_gender
-q2f_F <- filter(q2f, animal_gender == "F")
-q2f_M <- filter(q2f, animal_gender == "M")
-
-
-# filter `q2f_F` by borough
-q2f_F_bronx <- filter(q2f_F, borough == "Bronx")
-q2f_F_bronx
-
-q2f_F_brooklyn <- filter(q2f_F, borough == "Brooklyn")
-q2f_F_brooklyn
-
-q2f_F_manhattan <- filter(q2f_F, borough == "Manhattan")
-q2f_F_manhattan
-
-q2f_F_queens <- filter(q2f_F, borough == "Queens")
-q2f_F_queens
-
-q2f_F_staten_island <- filter(q2f_F, borough == "Staten Island")
-q2f_F_staten_island
-
-
-# filter `q2f_M` by borough
-q2f_M_bronx <- filter(q2f_M, borough == "Bronx")
-q2f_M_bronx
-
-q2f_M_brooklyn <- filter(q2f_M, borough == "Brooklyn")
-q2f_M_brooklyn
-
-q2f_M_manhattan <- filter(q2f_M, borough == "Manhattan")
-q2f_M_manhattan
-
-q2f_M_queens <- filter(q2f_M, borough == "Queens")
-q2f_M_queens
-
-q2f_M_staten_island <- filter(q2f_M, borough == "Staten Island")
-q2f_M_staten_island
-
-
-
-# 3.
-q2f <- group_by(nyc_dogs,
-                animal_name, animal_gender, borough)
-
-q2f <- mutate(q2f,
-              n = n())
-
-q2f <- group_by(q2f,
-                animal_gender, borough)
-
-q2f <- mutate(q2f,
-              rank = dense_rank(desc(n)) )
-
-q2f <- filter(q2f, 
-              rank <= 10 )
-
-q2f <- select(q2f,
-              animal_name, animal_gender, n, rank, borough)
-
-q2f <- distinct(q2f)
-
-q2f <- arrange(q2f,
-               borough, animal_gender, -n)
-
-print(q2f, n = Inf)
-
-```
-
-<br><br>
-
-## Q2g
-Assume that all dogs in the `nyc_dogs` data frame are alive as of today.
-
-Describe the distribution of age for each borough using ggplot. Make a simple comment on your ggplot.
-
-```{r, echo = T, eval = T, warning= F, message= F}
-nyc_dogs_age <- nyc_dogs %>% 
-  mutate( age = 2022 - animal_birth_year )
-
-nyc_dogs_age <- mutate(nyc_dogs, 
-                       age = 2022 - animal_birth_year )
-
-ggplot( nyc_dogs_age ) +
-  geom_density(aes(x = age)) + 
-  facet_wrap(~borough)
-
-ggplot( filter(nyc_dogs_age, 
-               age <= 25, !is.na(borough)) ) +
-  geom_density(aes(x = age)) + 
-  facet_wrap(~borough)
-
-
-ggplot( filter(nyc_dogs_age, age <= 25, !is.na(borough)) ) +
-  geom_histogram(aes(x = age), 
-                 binwidth = 1) + 
-  facet_wrap(~borough)
-
-```
-
-Add some comments here ....
 
 <br><br><br>
 
+
 # Question 3
 
-For Question 3, run the following function to read the NYC's Citywide Payroll Data.
+## Q3a
+- Download the compressed file, `ca_housing.zip`, from the Files section in our Canvas web-site. 
+
+- Extract the file, `ca_housing.zip`, so that you can use the file, `california_housing.csv`. 
+
+- Read the data file, `california_housing.csv`, as the data.frame object with the name, `ca_housing`, using (1) the `read_csv()` function and (2) the absolute path name of the file, `california_housing.csv`, from your local hard disk drive in your laptop.
 
 ```{r, echo = T, eval = T, warning= F, message= F}
-nyc_payroll <- read_csv(
-  'https://bcdanl.github.io/data/nyc_payroll.csv'
+ca_housing <- read_csv(
+  '/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/california_housing.csv'
 )
+
+ca_housing
 ```
-
-<br>
-
-Description of variables in the nyc_payroll dataset is provided at the end of the R script.
-
-<br>
-
-## Q3a. 
-Create a variable, `payroll`, which is defined as:
-
-$$ \texttt{payroll} = \texttt{regular_gross_paid} + \texttt{total_ot_paid}$$
-where `regular_gross_paid` and `total_ot_paid` are variables in the `nyc_payroll` data frame.
-
-```{r, echo = T, eval = T, warning= F, message= F}
-q3a <-  mutate(nyc_payroll,
-               payroll = regular_gross_paid + total_ot_paid)
-```
-
 
 <br><br>
 
 ## Q3b. 
-Calculate the mean of `payroll` by `title_description`.
+Report the mean, median, minimum, maximum, and standard deviation for the variable, `medianHouseValue`, in the data.frame, ca_housing.
 
 
 ```{r, echo = T, eval = T, warning= F, message= F}
-q3b <- group_by(q3a, 
-                title_description)
-q3b <-  summarise(q3b, 
-                  avg_payroll = mean(payroll, na.rm = T))
-q3b <- arrange(q3b, 
-               -avg_payroll)
+skim(ca_housing$medianHouseValue)
 ```
 
-<br><br>
 
+<br><br>
 
 ## Q3c. 
-Calculate the mean of `payroll` by `work_location_borough`.
-
+Calculate the correlation between `housingMedianAge` and `medianHouseValue`.
 ```{r, echo = T, eval = T, warning= F, message= F}
-q3c <- group_by(q3a, 
-                work_location_borough)
-q3c <-  summarise(q3c, 
-                  avg_payroll = mean(payroll, na.rm = T))
-q3c <- arrange(q3c, 
-               -avg_payroll)
+cor(ca_housing$housingMedianAge, ca_housing$medianHouseValue)
 ```
-
-<br><br>
-
-## Variable Description
-
-1. Fiscal Year: Fiscal Year
-
-2. Payroll Number: Payroll Number
-
-3. Agency Name: The Payroll agency that the employee works for
-
-4. Last Name: Last name of employee
-
-5. First Name: First name of employee
-
-6. Mid Init: Middle initial of employee
-
-7. Agency Start Date: Date which employee began working for their current agency Date & Time
-
-8. Work Location Borough: Borough of employee's primary work location
-
-9. Title Description: Civil service title description of the employee
-
-10. Leave Status as of June 30: Status of employee as of the close of the relevant fiscal year: Active, Ceased, or On Leave
-
-11. Base Salary: Base Salary assigned to the employee
-
-12. Pay Basis: Lists whether the employee is paid on an hourly, per diem or annual basis
-
-13. Regular Hours: Number of regular hours employee worked in the fiscal year
-
-14. Regular Gross Paid: The amount paid to the employee for base salary during the fiscal year
-
-15. OT Hours: Overtime Hours worked by employee in the fiscal year
-
-16. Total OT Paid: Total overtime pay paid to the employee in the fiscal year
-
-17. Total Other Pay: Includes any compensation in addition to gross salary and overtime pay, ie Differentials, lump sums, uniform allowance, meal allowance, retroactive pay increases, settlement amounts, and bonus pay, if applicable.
-
-
-

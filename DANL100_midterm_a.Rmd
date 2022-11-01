@@ -1,0 +1,349 @@
+---
+title: "DANL 100: Programming for Data Analytics"
+subtitle: "DANL 100 - Midterm Exam - Example Answers<br><br>" 
+author: 
+  - "Byeong-Hak Choe<br>"
+date: "`r Sys.Date()`<br><br>"
+output: 
+  html_document:
+    df_print: paged
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    number_sections: false
+    highlight: espresso
+---
+
+# Question 1
+
+Geographic coordinates of SUNY Geneseo is:
+  - Latitude: 42.7957
+  - Longitude: -77.8195
+  
+## Q1a
+
+Write a Python code to create a variable of tuple, `suny_geneseo_coordinates` whose first and second elements are a latitude and a longitude for SUNY Geneseo.
+
+<br>
+
+*Answer*
+```{python, eval = F, echo = T}
+suny_geneseo_coordinates = (42.7957, -77.8195)
+```
+
+<br><br>
+
+## Q1b
+Write a Python code that unpacks the tuple, `suny_geneseo_coordinates`, to assign the variables, `lat` and `lon`, to the first and the second item of the tuple, `suny_geneseo_coordinates`, respectively.
+
+<br>
+
+*Answer*
+```{python, eval = F, echo = T}
+lat, lon = suny_geneseo_coordinates     # unpacking
+```
+
+
+
+<br><br><br>
+
+
+# Question 2
+
+The following is the string-type variable, `sentence`:
+```{python, eval = F, echo = T}
+sentence = 'Python and R are the best languages for data analytics!'
+```
+
+Using slice methods, extract the text strings below from the variable `sentence`. 
+
+- `Python`
+
+- `!`
+
+- `analytics`
+
+- `!scitylana atad rof segaugnal tseb eht era R dna nohtyP`
+
+- `nohtyP`
+
+(Note: There are multiple answers for all of the problems.)
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+
+# Python
+sentence[0:6]
+
+# !
+sentence[-1:]
+
+# analytics
+sentence[-10:-1]
+
+# !scitylana atad rof segaugnal tseb eht era R dna nohtyP   
+ # (Note: this is a reversed sentence)
+sentence[::-1]
+
+# nohtyP
+sentence[0:6][::-1]
+
+sentence[ -len(sentence) + len('Python') -1 : -len(sentence) -1 : -1]
+```
+    
+<br><br><br>
+
+# Question 3
+
+The following is the lists, `suny`:
+
+```{python, eval = F, echo = T}
+sunys = ["Albany",
+		"Binghamton",
+		"Brockport",
+		"Buffalo",
+		"Canton",
+		"Cobleskill",
+		"Cortland",
+		"Delhi",
+		"Farmingdale",
+		"Fredonia",
+		"Geneseo",
+		"Maritime",
+		"New Paltz",
+		"Old Westbury",
+		"Oneonta",
+		"Oswego",
+		"Plattsburgh",
+		"Potsdam",
+		"Purchase",
+		"Stony Brook"]
+```
+
+## Q3a 
+Write a Python code that uses (1) string `"Geneseo"` and list '`sunys`', (2) membership operator `in`, (3) `if` statement, and (4) `print()` function to print the following sentence
+
+<div style="font-family:courier">Yes, Geneseo is one of the best schools in the world!</div>
+
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+if "Geneseo" in sunys:
+    print("Yes,", "Geneseo is one of the best SUNY schools!")
+```
+    
+
+<br><br>
+
+## Q3b
+The following is the list, `ny_schools`:
+```{python, echo = T, eval = F}
+ny_schools = ["Geneseo", "Cornell", "Rochester"]
+```
+
+Write a Python code that uses (1) the lists, `sunys` and `ny_schools`, (2) `for`-loops, (3) membership operator `in`, (4) `if`-`else` statement, and (5) `print()` function to print the following sentences:
+
+
+
+<div style="font-family:courier">Yes, Geneseo is one of the best SUNY schools!</div>
+
+<div style="font-family:courier">No, Cornell is not SUNY :-/</div>
+
+<div style="font-family:courier">No, Rochester is not SUNY :-/</div>
+
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+for i in ny_schools:
+    if i in sunys:
+        print("Yes,", i, "is one of the best SUNY schools!")
+    else:
+        print("No,", i, "is not SUNY :-/")
+```
+    
+
+
+# Question 4
+
+The following is the list, num_list:
+
+```{python, eval = F, echo = T}
+num_list = [1,  -2,  -3,  4,  5]
+```
+
+## Q4a
+
+Write a Python code that uses (1) a `for`-loop and (2) `if`-`else` statement to calculate, `sum_nums`, the sum of all the positive numbers in the list, `num_list`.
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+sum_nums = 0
+for i in num_list:
+    if i <= 0:
+        continue
+    else:
+        sum_nums += i
+        
+sum_nums
+```
+    
+<br><br>
+
+
+## Q4b
+
+Write a Python code that uses (1) a `while`-loop and (2) `if`-`else` statement to calculate, `sum_nums`, the sum of all the positive numbers in the list, `num_list`.
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+j = 0
+sum_nums = 0
+while j < len(num_list):   
+    if num_list[j] > 0:
+        sum_nums += num_list[j]
+    j += 1
+
+sum_nums
+```
+
+
+<br><br><br>
+
+# Question 5
+
+## Q5a
+
+Write a Python code that defines the function, `twice`, which returns the `x` parameter `* 2`   (`x * 2`). 
+
+<br>
+
+*Answer*
+
+```{python, eval = F, echo = T}
+def twice(x):
+    return x * 2
+```
+
+
+<br><br>
+
+
+## Q5b
+
+Write a Python code that calls the function, `twice`, with any numeric-type argument in the function, `twice`. 
+
+<br>
+
+*Answer*
+
+```{python, eval = F, echo = T}
+twice(2)
+```
+
+    
+
+<br><br><br>
+  
+# Question 6
+
+The followings are the lists, `key_list` and `value_list`:
+
+```{python, eval = F, echo = T}
+key_list = ['s', 'b', 'c', 'a']
+value_list = [ 'aideu', 'crane', 'storm', 'bagle' ]
+```
+
+## Q6a
+Write a Python code that uses (1) `key_list` and `value_list`, (2) `for`-loop, and (3) `zip()`  to create the dictionary, `dict_wordle`, which is the same as the dictionary, `dic_answer`.
+
+```{python, echo = T, eval = F}
+dic_answer = {'a': 'aideu', 'b': 'bagle', 'c': 'crane', 's': 'storm'}
+```
+
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+dict_wordle = {}
+key_list.sort()
+value_list.sort()
+
+for key, value in zip(key_list, value_list):
+    dict_wordle[key] = value
+
+dict_wordle
+```
+
+
+<br><br>
+
+## Q6b
+Write a Python code that does not use `for`-loop but `zip()` and the lists, `key_list` and `value_list`, to create the same dictionary, `dict_wordle`, as in Q6a.
+
+<br>
+
+
+*Answer*
+
+```{python, echo = T, eval = F}
+dict( zip(key_list, value_list) )
+```
+
+<br><br>
+
+## Q6c
+
+The following is the list, `value_list2`:
+```{python, echo = T, eval = F}
+value_list2 = [ 'apple', 'choir', 'stomp', 'basic', 'pasty' ]
+```
+
+Write a Python code that adds the words in the dictionary, `dict_wordle`, which is the same as the dictionary, `dic_answer2`,
+
+```{python, echo = T, eval = F}
+dic_answer2 = {'a': ['aideu', 'apple'],
+ 'b': ['bagle', 'basic'],
+ 'c': ['choir', 'crane'],
+ 's': ['storm', 'stomp'],
+ 'p': ['pasty']}
+```
+
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+value_list += value_list2
+
+dict_wordle = {}
+
+for word in value_list:
+    letter = word[0]
+    if letter not in dict_wordle:
+        dict_wordle[letter] = [word]
+    else:
+        dict_wordle[letter].append(word)
+        dict_wordle[letter].sort()
+
+dict_wordle
+```
+    
+    
