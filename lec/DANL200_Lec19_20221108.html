@@ -858,7 +858,7 @@ where `e[i]` is a statistical error term.
 - Linear regression assumes that ...
   - The outcome `PINCP[i]` is linearly related to each of the inputs `AGEP[i]` and `SEX[i]`:
 
-`$$\texttt{PINCP[i]} \;=\quad \texttt{f(AGEP[i], SEX[i])} \qquad\qquad\qquad\qquad\qquad\quad\\
+`$$\texttt{PINCP[i]} \;=\quad \texttt{f(AGEP[i], SEX[i])} \,+\, \texttt{e[i]} \qquad\qquad\qquad\qquad\\
 \;=\quad \texttt{b0} \,+\, \texttt{b1*AGEP[i]} \,+\, \texttt{b2*SEX[i]}\,+\, \texttt{e[i]}$$`
 - A variable on the left-hand side is called an outcome variable.
 - Variables on the right-hand side are called explanatory variables or input variables.
@@ -878,6 +878,7 @@ where `e[i]` is a statistical error term.
 
 `$$\widehat{\texttt{PINCP}}\texttt{[i]} \;=\quad \hat{\texttt{b0}} \,+\, \hat{\texttt{b1}}\texttt{*AGEP[i]} \,+\, \hat{\texttt{b2}}\texttt{*SEX[i]}$$`
 
+- We will use the hat notation `\((\,\hat{\texttt{ }}\,)\)`  to distinguish *estimated* beta coefficients and *predicted* outcomes from *true* values of beta coefficients and *true* values of outcome variables, respectively.
 
 ---
 # Linear Regression 
@@ -904,7 +905,7 @@ where `e[i]` is a statistical error term.
 
 - In other words, the estimator for the beta coefficients is chosen to minimize the sum of squares of the *residual errors* (SSR):
 
-  -  `\(\texttt{Residual_Error[i] = y[i] - }\hat{\texttt{y}}\texttt{[i]}\)`.
+  -  `\(\texttt{Residual_Error[i] = y[i] - } \hat{\texttt{y}}\,\texttt{[i]}\)`.
   
   -  `\(\texttt{SSR} = \texttt{Residual_Error[1]}^{2} + \cdots + \texttt{Residual_Error[N]}^{2}\)`.
 
