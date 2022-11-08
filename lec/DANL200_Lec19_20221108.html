@@ -959,9 +959,74 @@ where `e[i]` is a statistical error term.
 - We need to ensure that our model will perform well in the real world.
 
 &lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="../lec_figs/pds_fig6_6.png" alt="Schematic of model construction and evaluation" width="60%" /&gt;
+&lt;img src="../lec_figs/pds_fig6_6.png" alt="Schematic of model construction and evaluation" width="52%" /&gt;
 &lt;p class="caption"&gt;Schematic of model construction and evaluation&lt;/p&gt;
 &lt;/div&gt;
+
+
+
+---
+# Linear Regression 
+### &lt;p style="color:#00449E"&gt; A Little Bit of Statistics for the Uniform Distribution
+
+.pull-left[
+
+- The probability density function for the uniform distribution looks like:
+
+
+- With the uniform distribution, any values of `\(x\)` between 0 and 1 is equally likely drawn.
+
+]
+
+.pull-right[
+
+&lt;img src="../lec_figs/unifpdf.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+]
+- We will use the uniform distribution when splitting data into training and testing data sets.
+
+
+---
+class: inverse, center, middle
+
+# Linear Regression using **R**
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+---
+# Linear Regression 
+### &lt;p style="color:#00449E"&gt; Example of Linear Regression using **R**
+
+- We will use the 2016 US Census PUMS dataset.
+  - Full-time employees between 20 and 50 years of age with income between \$1,000 and \$250,000;
+
+- Personal data recorded includes personal income and demographic variables:
+  - `PINCP`: personal income
+  - `AGEP`: age 
+  - `SEX`: sex
+
+- Use summary statistics and visualization to explore the data.
+
+
+---
+# Linear Regression 
+### &lt;p style="color:#00449E"&gt; Example of Linear Regression using **R**
+
+```r
+# Importing the cleaned small sample of data
+psub &lt;- readRDS('YOUR_PATH_NAME_OF_FOLDER/PDSwR2-main/PUMS/psub.RDS')
+
+# Making the random sampling reproducible by setting the random seed.
+set.seed(3454351)
+
+# Makes an uniform random variable to group and partition the data, `psub` 
+gp &lt;- [?]()
+
+# Splits 50-50 into training and test sets 
+# using filter() and gp
+dtrain &lt;- [?](psub, [?])
+dtest &lt;- [?](psub, [?])
+```
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

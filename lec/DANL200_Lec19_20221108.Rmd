@@ -974,7 +974,73 @@ knitr::include_graphics("../lec_figs/pds_fig4_12.png")
 ### <p style="color:#00449E"> Evaluating Models
 - We need to ensure that our model will perform well in the real world.
 
-```{r, echo=FALSE, out.width = '60%', fig.align='center', fig.cap="Schematic of model construction and evaluation"}
+```{r, echo=FALSE, out.width = '52%', fig.align='center', fig.cap="Schematic of model construction and evaluation"}
 knitr::include_graphics("../lec_figs/pds_fig6_6.png")
+```
+
+
+
+---
+# Linear Regression 
+### <p style="color:#00449E"> A Little Bit of Statistics for the Uniform Distribution
+
+.pull-left[
+
+- The probability density function for the uniform distribution looks like:
+
+
+- With the uniform distribution, any values of $x$ between 0 and 1 is equally likely drawn.
+
+]
+
+.pull-right[
+
+```{r, echo=FALSE, out.width = '75%', fig.align='center'}
+knitr::include_graphics("../lec_figs/unifpdf.png")
+```
+
+]
+- We will use the uniform distribution when splitting data into training and testing data sets.
+
+
+---
+class: inverse, center, middle
+
+# Linear Regression using **R**
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+
+---
+# Linear Regression 
+### <p style="color:#00449E"> Example of Linear Regression using **R**
+
+- We will use the 2016 US Census PUMS dataset.
+  - Full-time employees between 20 and 50 years of age with income between \$1,000 and \$250,000;
+
+- Personal data recorded includes personal income and demographic variables:
+  - `PINCP`: personal income
+  - `AGEP`: age 
+  - `SEX`: sex
+
+- Use summary statistics and visualization to explore the data.
+
+
+---
+# Linear Regression 
+### <p style="color:#00449E"> Example of Linear Regression using **R**
+```{r, echo = T, eval= F}
+# Importing the cleaned small sample of data
+psub <- readRDS('YOUR_PATH_NAME_OF_FOLDER/PDSwR2-main/PUMS/psub.RDS')
+
+# Making the random sampling reproducible by setting the random seed.
+set.seed(3454351)
+
+# Makes an uniform random variable to group and partition the data, `psub` 
+gp <- [?]()
+
+# Splits 50-50 into training and test sets 
+# using filter() and gp
+dtrain <- [?](psub, [?])
+dtest <- [?](psub, [?])
 ```
 
