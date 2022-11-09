@@ -416,9 +416,9 @@ class: inverse, center, middle
   
 - Issues related to the linear regression methods include ...
   
-  - Omitted variable bias: bias in the model because of omitting important explanatory variables that are related with the existing explanatory variables;
+  - **Omitted variable bias**: bias in the model because of omitting important explanatory variables that are related with the existing explanatory variables;
   
-  - Colinearity: too high correlation between the explanatory variables.
+  - **Colinearity**: too high correlation between the explanatory variables.
   
 
 
@@ -609,7 +609,6 @@ class: inverse, center, middle
   - `AGEP`: age 
   - `SEX`: sex
 
-- Use summary statistics and visualization to explore the data.
 
 
 ---
@@ -618,10 +617,17 @@ class: inverse, center, middle
 
 ```r
 # Importing the cleaned small sample of data
-psub &lt;- readRDS(url('https://bcdanl.github.io/data/psub.RDS'))
+psub &lt;- readRDS( url('https://bcdanl.github.io/data/psub.RDS') )
 
 # Making the random sampling reproducible by setting the random seed.
-set.seed(3454351)
+set.seed(3454351) # 3454351 is just any number.
+# The set.seed() function sets the starting number 
+# used to generate a sequence of random numbers.
+
+# The set.seed() ensures that we get the same result 
+# if we start with that same seed each time 
+# we run the same random process, 
+# so that we can replicate the same random numbers.
 
 # Makes a random variable to group and partition the data 
 # using  runif(),
@@ -631,9 +637,341 @@ gp &lt;- [?]
 
 # Splits 50-50 into training and test sets 
 # using filter() and gp
-dtrain &lt;- [?](psub, [?])
-dtest &lt;- [?](psub, [?])
+dtrain &lt;- [?](psub, gp &gt;= .5)
+dtest &lt;- [?](psub,  gp &lt; .5)
 ```
+
+
+---
+# Linear Regression 
+### &lt;p style="color:#00449E"&gt; Exploratory Data Analysis
+
+- Use summary statistics and visualization to explore the data, particularly for the following variables:
+  - `PINCP`: personal income
+  - `AGEP`: age 
+  - `SEX`: sex
+
+
+
+
+---
+# Linear Regression 
+### &lt;p style="color:#00449E"&gt; Building a linear regression model using `lm()`
+
+
+```r
+model &lt;- lm(formula = PINCP ~ AGEP + SEX, 
+            data = dtrain)
+
+model &lt;- lm(PINCP ~ AGEP + SEX, 
+            data = dtrain)  # we can skip 'formula' parameter in the lm() function.
+```
+
+In the above line of R commands, ...
+- `model`: R object to save the estimation result of linear regression
+-  `lm()`: Linear regression modeling function
+- `PINCP `\(\sim\)` AGEP + SEX`:  Formula for linear regression
+
+- `PINCP`: Outcome/Dependent variable
+- `AGEP, SEX`: Input/Independent/Explanatory variables
+
+- `dtrain`: Data frame to use for training
+
+
+
+---
+# Linear Regression using **R**
+### &lt;p style="color:#00449E"&gt; Making predictions with a linear regression model using `predict()`
+
+
+```r
+dtest$pred &lt;-  predict(model, 
+                       newdata = dtest)
+```
+
+In the above line of R commands, ...
+
+- `dtest$pred`: Store the prediction as a new column `pred` in the `dtest` data frame
+- `predict()`: Prediction function
+- `model`: R object to save the estimation result of linear regression
+- `dtest`: Data frame to use in prediction
+
+- We can also make prediction using `dtrain` data frame instead.
+
+
+
+
+
+---
+# Linear Regression using **R**
+### &lt;p style="color:#00449E"&gt; Interpreting the Result of Linear Regression using `R`
+
+
+```r
+summary(model)   # This produces the output.
+```
+
+
+&lt;img src="../lec_figs/pds_fig7_10a.png" width="67%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Linear Regression using **R**
+### &lt;p style="color:#00449E"&gt; Indicator variables
+
+- Linear regression handles a string-valued categorical variable with `m` possible levels
+by converting it to `m-1` indicator variables, and the rest **1** category becomes a reference level.
+
+
+- E.g., an observation `i` of the indicator variable, `SEXFemale`, is follows: 
+
+
+$$
+&amp;\qquad\texttt{SEXFemale[i] }\notag\\
+&amp;= \left\{\begin{matrix}
+\texttt{1} &amp; \text{if a person \texttt{i} is \texttt{female}};\\ 
+\texttt{0} &amp; \text{otherwise}.\qquad\qquad\qquad\,
+\end{matrix}\right.\notag
+$$
+
+- The level `male` becomes a reference level.
+
+- The reference level of a variable is the baseline that other values of the variable are compared to.
+
+
+
+
+
+---
+# Linear Regression using **R**
+### &lt;p style="color:#00449E"&gt; Running Linear Regression using **R**
+
+- If the independent variable includes categorical/factor variables, you can set a reference level for each categorical/factor variable using `relevel(VARIABLE, ref = "LEVEL")`.
+
+
+
+```r
+dtrain$SEX, &lt;- relevel(dtrain$SEX, ref = "Male") 
+
+model &lt;- lm(log(PINCP) ~ AGEP + SEX, 
+            data = dtrain)
+            
+summary(model)
+```
+
+
+- E.g., an observation `i` of the indicator variable, `SEXMale`, is follows: 
+
+$$
+&amp;\qquad\texttt{SEXMale[i] }\notag\\
+&amp;= \left\{\begin{matrix}
+\texttt{1} &amp; \text{if a person \texttt{i} is \texttt{male}};\\ 
+\texttt{0} &amp; \text{otherwise}.\qquad\qquad\quad
+\end{matrix}\right.\notag
+$$
+
+- The level `female` now becomes a reference level.
+
+
+
+
+
+---
+# Linear Regression using **R**
+### &lt;p style="color:#00449E"&gt; Interpreting Estimated Coefficients
+The model is ...
+$$
+\texttt{PINCP[i]} \;=\quad &amp;\texttt{b0} \,+\, \texttt{b1*AGEP[i]} \,+\, \texttt{b2*SEX.Male[i]}\,+\, \texttt{e[i]}.\notag
+$$
+
+All else being equal, ...
+
+- The model gives an estimated bonus of `b1` to the income for being one year older than the equivalent person (same sex but one year younger).
+
+- All else being equal, if `AGEP` increases by one unit, `PINCP` increases by `b1`.
+
+
+- The model gives an estimated bonus of `b2` to the income for being a male relative to the equivalent female person (same age but different gender).
+
+- All else being equal, if `SEX.Male` increases by one unit, `PINCP` increases by `b2`.
+
+
+
+
+
+
+---
+# Linear Regression using **R**
+### &lt;p style="color:#00449E"&gt; Interpreting Estimated Coefficients
+Consider the predicted incomes of the two male persons, `Ben` and `Bob`, whose ages are 51 and 50 respectively.
+
+$$
+\widehat{\texttt{PINCP[Ben]}} \;=\quad &amp;\hat{\texttt{b0}} \,+\, \hat{\texttt{b1}}\texttt{*AGEP[Ben]} \,+\, \hat{\texttt{b2}}\texttt{*SEX.Male[Ben]}\notag\\
+\widehat{\texttt{PINCP[Bob]}} \;=\quad &amp;\hat{\texttt{b0}} \,+\, \hat{\texttt{b1}}\texttt{*AGEP[Bob]} \,+\, \hat{\texttt{b2}}\texttt{*SEX.Male[Bob]}\notag
+$$
+
+$$
+&amp;\widehat{\texttt{PINCP[Ben]}} \,-\, \widehat{\texttt{PINCP[Bob]}}  \notag\\
+\;=\quad &amp;\hat{\texttt{b1}}\texttt{*}\texttt{(\texttt{AGEP[Ben]} - \texttt{AGEP[Bob]})}\notag\\
+\;=\quad &amp;\hat{\texttt{b1}}\texttt{*}\texttt{(51 - 50)}\notag\\
+\;=\quad &amp;\hat{\texttt{b1}}\notag
+$$
+
+
+
+
+
+---
+# Linear Regression using **R**
+### &lt;p style="color:#00449E"&gt; Interpreting Estimated Coefficients
+Consider the predicted incomes of the two persons, `Ben` and `Linda`, whose ages are the same as 50. `Ben` is `male` and `Linda` is `female`.
+
+$$
+\widehat{\texttt{PINCP[Ben]}} \;=\quad &amp;\hat{\texttt{b0}} \,+\, \hat{\texttt{b1}}\texttt{*AGEP[Ben]} \,+\, \hat{\texttt{b2}}\texttt{*SEX.Male[Ben]}\notag\\
+\widehat{\texttt{PINCP[Linda]}} \;=\quad &amp;\hat{\texttt{b0}} \,+\, \hat{\texttt{b1}}\texttt{*AGEP[Linda]} \,+\, \hat{\texttt{b2}}\texttt{*SEX.Male[Linda]}\notag
+$$
+
+$$
+&amp;\widehat{\texttt{PINCP[Ben]}} \,-\, \widehat{\texttt{PINCP[Linda]}}  \notag\\
+\;=\quad &amp;\hat{\texttt{b2}}\texttt{*}\texttt{(\texttt{SEX.Male[Ben]} - \texttt{SEX.Male[Linda]})}\notag\\
+\;=\quad &amp;\hat{\texttt{b2}}\texttt{*}\texttt{(1 - 0)}\notag\\
+\;=\quad &amp;\hat{\texttt{b2}}\notag
+$$
+
+
+
+
+
+
+---
+# Linear Regression using **R**
+### &lt;p style="color:#00449E"&gt; R-squared
+
+- R-squared is a measure of how well the model “fits” the data, or its “goodness of fit.”
+- R-squared can be thought of as what fraction of the `y`'s variation is explained by the
+independent variables.
+- You want R-squared to be fairly large (1.0 is the largest you can achieve) and R-squareds that are similar on test and training.
+- R-squared will be higher for models with more input parameters, independent of whether the additional variables actually improve the model or not.
+
+- The adjusted R-squared is the multiple R-squared penalized for the number of input variables.
+
+
+
+
+---
+# Linear Regression using **R**
+### &lt;p style="color:#00449E"&gt; Running Linear Regression using **R**
+
+- The following two types of visualization from the linear regression are useful to determine the quality of linear regression:
+
+1. Actual vs. predicted outcome plot;
+2. Residual plot.
+
+
+
+
+
+
+
+---
+# Linear Regression using **R**
+### &lt;p style="color:#00449E"&gt; Actual vs. Predicted Outcomes
+
+- The following is a plot of actual income as a function of predicted income.
+
+
+
+```r
+ggplot( data = dtest, 
+        aes(x = pred, y = PINCP) ) +
+  geom_point( alpha = 0.2, color = "darkgray" ) +
+  geom_smooth( color = "darkblue" ) +  
+  geom_abline( color = "red", linetype = 2 )  # Plotting the line, y = x, perfect prediction line
+```
+
+
+
+
+---
+# Linear Regression using **R**
+### &lt;p style="color:#00449E"&gt; Residual Plot
+
+- The following is the plot of residual errors.
+
+- `Residual[i] = y[i] -  Predicted_y[i]`.
+
+
+
+
+```r
+ggplot(data = dtest, aes(x = pred,
+                         y = PINCP - pred)) +
+  geom_point(alpha = 0.2, color = "darkgray") +
+  geom_smooth( color = "darkblue" ) +   
+  geom_hline( aes( yintercept = 0 ),  # perfect prediction 
+              color = "red", linetype = 2) + 
+  xlab('Predicted PINCP') +
+  ylab("Residual error")
+```
+
+
+
+
+
+---
+# Linear Regression using **R**
+### &lt;p style="color:#00449E"&gt; Running Linear Regression using **R**
+
+
+- From the plot of actual vs. predicted outcomes and the plot of residuals, ask the following the two questions yourself:
+
+- On average, are the predictions correct?
+- Are there systematic errors?
+
+
+
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="../lec_figs/pds_fig7_8.png" alt="An example of systematic errors in model predictions" width="67%" /&gt;
+&lt;p class="caption"&gt;An example of systematic errors in model predictions&lt;/p&gt;
+&lt;/div&gt;
+
+
+
+---
+# Linear Regression using **R**
+### &lt;p style="color:#00449E"&gt; Example of Linear Regression using **R**
+
+
+- In the 2016 US Census PUMS dataset, personal data recorded includes occupation, level of education, personal income, and many other demographic variables.
+
+- `COW`: class of worker
+- `SCHL`: level of education
+
+
+
+
+
+
+---
+# Linear Regression using **R**
+### &lt;p style="color:#00449E"&gt; Example of Linear Regression using **R**
+
+- Suppose we also want to assess how the mean of personal income varies with (1) a bachelor's degree, (2) a class of work on personal income, (3) age, and (4) gender.
+
+1. Conduct the exploratory data analysis.
+2. Based on the visualization, set a hypothesis regarding the relationship between having bachelor's degree and `PINCP`.
+3. Train the linear regression model.
+4. Interpret the beta coefficients from the linear regression result.
+5. Calculate the predicted `PINCP` using the testing data.
+6. Draw the actual vs. predicted outcome plot and the residual plot.
+
+
+
+
+
+
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
