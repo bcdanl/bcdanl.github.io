@@ -305,22 +305,6 @@ obj4.notna()
 - `DataFrame` can be thought of as a dictionary of `Series` sharing the same index.
 
 
----
-# Getting started with `pandas`
-### <p style="color:#00449E"> What is *tidy* `DataFrame`? </p>
-
-- There are three rules which make a dataset tidy:
-
-  1. Each **variable** has its own *column*.
-  2. Each **observation** has its own *row*.
-  3. Each **value** has its own *cell*.
-
-
-```{r, echo=FALSE, out.width = '75%', fig.align='center'}
-knitr::include_graphics("../lec_figs/tidy-1.png")
-```
-
-
 
 ---
 # Getting started with `pandas`
@@ -860,6 +844,250 @@ Use the `nbc_show_na.csv` file to answer the following questions:
 2. Find the top show in terms of the value of `GRP` for each Network.
 
 3. Which genre does have the largest `GRP` on average?
+
+
+
+
+---
+class: inverse, center, middle
+
+# Data Visualization with `seaborn`
+
+---
+#  `seaborn`
+
+```{r, echo=FALSE, out.width = '20%', fig.align='center'}
+knitr::include_graphics("../lec_figs/seaborn-logo.png")
+```
+
+- `seaborn` is a Python data visualization library based on `matplotlib`. 
+  - It allows us to easily create beautiful but complex graphics using a simple interface.
+  - It also provides a general improvement in the default appearance of `matplotlib`-produced plots, and so I recommend using it by default.
+
+```{python, echo = T, eval = F}
+import seaborn as sns
+```
+
+
+
+---
+# Exploratory Data Analysis (EDA)
+
+- We use visualization and summary statistics (e.g., mean, standard deviation, minimum, maximum, median) to explore our data in a systematic way.
+
+- EDA is an iterative cycle. We:
+
+  - Generate questions about our data.
+
+  - Search for answers by visualizing, transforming, and modelling our data.
+
+  - Use what we learn to refine our questions and/or generate new questions.
+
+
+
+
+---
+# Data Visualization with `seaborn`
+### <p style="color:#00449E"> Types of plots
+
+- We will consider the following types of visualization:
+
+  - Bar chart
+
+  - Histogram
+
+  - Scatter plot
+
+  - Line chart
+
+
+
+---
+# Getting started with `pandas`
+### <p style="color:#00449E"> What is *tidy* `DataFrame`? </p>
+
+- There are three rules which make a dataset tidy:
+
+  1. Each **variable** has its own *column*.
+  2. Each **observation** has its own *row*.
+  3. Each **value** has its own *cell*.
+
+
+```{r, echo=FALSE, out.width = '75%', fig.align='center'}
+knitr::include_graphics("../lec_figs/tidy-1.png")
+```
+
+
+---
+# Data Visualization with `seaborn`
+### <p style="color:#00449E"> Getting started with `seaborn`
+
+- Let's get the names of `DataFrame`s provided by the `seaborn` library:
+
+```{python, echo = T, eval = F}
+import seaborn as sns
+print( sns.get_dataset_names() )
+```
+
+
+- Let's us the `titanic` DataFrame:
+
+```{python, echo = T, eval = F}
+df = sns.load_dataset('titanic')
+df.head()
+```
+
+
+
+
+---
+# Data Visualization with `seaborn`
+### <p style="color:#00449E"> Bar Chart 
+
+- A bar chart is used to plot the frequency of the different categories.
+  - It is useful to visualize how values of a **categorical variable** are distributed.
+  - A variable is **categorical** if it can only take one of a small set of values.
+  
+  
+- We use `sns.countplot()` function to plot a bar chart:
+
+
+.pull-left[
+```{python, echo = T, eval = F}
+sns.countplot(x = 'sex', 
+              data = df)
+```
+]
+
+.pull-right[
+
+- Mapping
+  - `data`: DataFrame.
+  - `x`:  Name of a categorical variable (column) in DataFrame
+
+]
+
+
+
+
+
+
+
+
+---
+# Data Visualization with `seaborn`
+### <p style="color:#00449E"> Bar Chart 
+
+- We can further break up the bars in the bar chart based on another categorical variable. 
+
+  - This is useful to visualize the relationship between the two categorical variables.
+
+
+.pull-left[
+```{python, echo = T, eval = F}
+sns.countplot(x='sex', 
+              hue = 'survived', 
+              data = df)
+```
+]
+
+.pull-right[
+
+- Mapping
+  - `hue`:  Name of a categorical variable
+
+]
+
+
+
+
+
+---
+# Data Visualization with `seaborn`
+### <p style="color:#00449E"> Histogram 
+
+- A histogram is a **continuous** version of a bar chart.
+  - It is used to plot the frequency of the different values.
+  - It is useful to visualize how values of a **continuous variable** are distributed.
+  - A variable is **continuous** if it can take any of an infinite set of ordered values.
+  
+  
+- We use `sns.displot()` function to plot a histogram:
+.pull-left[
+```{python, echo = T, eval = F}
+sns.displot(x = 'age', 
+            bins = 5 ,
+            data = df)
+```
+]
+
+.pull-right[
+- Mapping
+  - `bins`:  Number of bins
+
+]
+
+
+
+
+
+
+
+---
+# Data Visualization with `seaborn`
+### <p style="color:#00449E"> Scatter plot 
+
+- A scatter plot is used to display the relationship between the two continuous variables.
+
+  -  We can see co-variation as a pattern in the scattered points.
+
+- We use `sns.scatterplot()` function to plot a scatter plot:
+
+.pull-left[
+```{python, echo = T, eval = F}
+df = sns.load_dataset('tips')
+
+sns.scatterplot(x='total_bill', 
+                y ='tip',
+                data = df)
+```
+]
+
+.pull-right[
+- Mapping
+  - `x`:  Name of a continuous variable on the horizontal axis
+  - `y`:  Name of a continuous variable on the vertical axis
+]
+
+
+
+
+  
+  
+
+
+---
+# Data Visualization with `seaborn`
+### <p style="color:#00449E"> Line cahrt 
+
+- A line chart is used to display the trend in a continuous variable or the change in a continuous variable over other variable.
+  - It draws a line by connecting the scattered points in order of the variable on the x-axis, so that it highlights exactly when changes occur.
+- We use `sns.lineplot()` function to plot a line plot:
+.pull-left[
+```{python, echo = T, eval = F}
+path_csv = '/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/dji.csv'
+dow = pd.read_csv(path_csv, index_col=0, parse_dates=True)
+sns.lineplot(x = 'Date', 
+             y = 'Close', 
+             data = dow)
+```
+]
+
+.pull-right[
+- Mapping
+  - `x`:  Name of a continuous variable (often time variable) on the horizontal axis 
+  - `y`:  Name of a continuous variable on the vertical axis
+]
 
 
 
