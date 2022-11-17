@@ -1,9 +1,9 @@
 ---
-title: "Lecture 21"
+title: "Lecture 22"
 subtitle: "DANL 200: Introduction to Data Analytics"
 author: "Byeong-Hak Choe"
 institute: "SUNY Geneseo"
-date: "November 15, 2022"
+date: "November 17, 2022"
 output:
   xaringan::moon_reader:
     css: 
@@ -73,125 +73,66 @@ class: title-slide, left, bottom
 
 
 
-
-
 ---
 # Announcement
-### <p style="color:#00449E"> Changes in Syllabus
- 
+### <p style="color:#00449E"> Office Hours
 
-- The main change in the syllabus is that we will have class pop-up quizzes. 
+- On November 21, Monday, I will have Zoom office hours from 3:30 PM to 5:30 PM.
 
-- The scores from the quizzes will be added to the total percentage grade as a bonus credit.
 
 
 ---
-# Announcement
-### <p style="color:#00449E"> Grading
+# For Your Information
+### <p style="color:#00449E"> Google Data Analytics Certificate
  
+Course programs for [Google Data Analytics Certificate](https://grow.google/certificates/data-analytics/#?modal_active=none) are hosted on [Coursera](https://www.coursera.org/professional-certificates/google-data-analytics?utm_source=google&utm_medium=institutions&utm_campaign=gwgsite&_ga=2.19327484.536055472.1668546492-1708405686.1662938381).
 
-- My apologies for the grading delay.
 
-  - I will finish grading during the Thanksgiving break.
+- Foundations: Data, Data, Everywhere
+- Ask Questions to Make Data-Driven Decisions
+- Prepare Data For Exploration
+- Process Data from Dirty to Clean
+- Analyze Data to Answer Questions
+- Share Data Through the Art of Visualization
+- Data Analysis with R Programming
+- Data Analytics Capstone Project: Complete a Case Study
 
 
 ---
-# Summary Statistics
-### <p style="color:#00449E"> Percentage Grades in Choe's DANLs, Fall 2021 & Spring 2022
+# For Your Information
+### <p style="color:#00449E"> Google Data Analytics Certificate
+
+- Google Data Analytics Certificate program uses *R*. 
+
+  - R is a great starting point for foundational data analysis, and offers helpful packages for beginners to apply to their projects. 
+  
+
+- The data analysis tools and platforms included in the certificate curriculum are spreadsheets (Google Sheets or Microsoft Excel), SQL, presentation tools (Powerpoint or Google Slides), Tableau, RStudio, and Kaggle.
 
 
-```{r, eval = T, echo = F}
-text_tbl <- data.frame(
-  Statistics = c("Average", "Standard Deviation", "Minimum", "Maximum", "Number of Students"),
-  Values = c(
-    "83.00 - 87.50",
-    7.37,
-    63.12,
-    99.07,
-    97
-  )
-)
 
-kbl(text_tbl) %>%
-  kable_paper(full_width = F) %>%
-  column_spec(1, bold = T, border_right = T) %>%
-  column_spec(2, width = "10em")
+---
+# For Your Information
+### <p style="color:#00449E"> Why Python, R, and SQL?
+
+```{r, echo=FALSE, out.width = '75%', fig.align='center'}
+knitr::include_graphics("../lec_figs/jobs_stat_languages.png")
 ```
 
-$$ \begin{cases}
-100  \;\geq\; A \;\geq\; 93 \;>\; A- \;\geq\; 90 \\\\
-90  \;>\; B+ \;\geq\; 87 \;>\; B \;\geq\; 83 > B- \;\geq\; 80\\\\
-80  \;>\; C+ \;\geq\; 77 \;>\; C \;\geq\; 73 > C- \;\geq\; 70\\\\
-70 \;>\; D \;\geq\; 60 \;>\; E
-\end{cases} $$
-
 
 ---
-# Announcement
-### <p style="color:#00449E"> Asynchronous Online Class
-- We will have an asynchronous online class on November 22, 2022.
+# For Your Information
+### <p style="color:#00449E">  Stack Overflow Trends
 
-  - I will leave the web-link for the class video on Canvas.
+- We can see the trends of programming based on tags on the website, [Stack Overflow](https://insights.stackoverflow.com/trends?tags=r%2Cpython%2Csql)
+
+
 
 ---
 class: inverse, center, middle
 
 # Modeling Methods - Linear Regression
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
-
-
-
----
-# Linear Regression 
-### <p style="color:#00449E"> 
-
-- Linear regression is the fundamental method we should always try for our empirical analysis.
-
-  - The predicted outcome;
-  
-  - The relationship between the explanatory variables and the outcome variable.
-  
-  
-
-
----
-# Linear Regression 
-### <p style="color:#00449E">  Example
-
-- Suppose we want to predict personal income based on how many years a person lives. 
-
-  - In other words, for every person `i`, we want to predict `PINCP[i]` based on `AGEP[i]`.
-  
-- We also want to estimate how an increase in `AGEP[i]` is associated with `PINCP[i]`.
-
----
-# Linear Regression 
-### <p style="color:#00449E">  Linear Relationship
-
-- Linear regression assumes that ...
-
-  - The outcome `PINCP[i]` is linearly related to the input `AGEP[i]`:
-
-$$\texttt{PINCP[i]} \;=\quad \texttt{b0} \,+\, \texttt{b1*AGEP[i]} \,+\, \texttt{e[i]}$$
-where `e[i]` is a statistical error term.
-
-
-- Linear regression assumes that ...
-
-  - The mean value of `e[i]` across the observations `i` is zero.
-
-
-
-
-
----
-# Linear Regression 
-### <p style="color:#00449E">  The Linear Relationship between `PINCP` and `AGEP`
-
-
-```{r, echo=FALSE, out.width = '67%', fig.align='center'}
-knitr::include_graphics("../lec_figs/reg_pincp_age.png")
-```
 
 
 
@@ -418,7 +359,7 @@ dtest <- filter(psub,  gp < [?])
 - It's often a better idea to get some sense of how the data behaves through EDA before doing any statistical analysis.
 
 ```{r, echo = T, eval = F}
-install.packages("GGally")  # to use GGally::ggpairs()
+# install.packages("GGally")  # to use GGally::ggpairs()
 ggpairs( select(dtrain, PINCP, AGEP, SEX) )  # for correlogram or correlation matrix
 ```
 
@@ -430,8 +371,6 @@ ggpairs( select(dtrain, PINCP, AGEP, SEX) )  # for correlogram or correlation ma
 ```{r, echo = T, eval= F}
 model <- lm(formula = PINCP ~ AGEP + SEX, 
             data = dtrain)
-model <- lm(PINCP ~ AGEP + SEX, 
-            data = dtrain)  
 ```
 In the above line of R commands, ...
 - `model`: R object to save the estimation result of linear regression
