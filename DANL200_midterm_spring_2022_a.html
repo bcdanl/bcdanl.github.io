@@ -11,7 +11,7 @@
 
 <meta name="author" content="Byeong-Hak Choe " />
 
-<meta name="date" content="2022-11-17" />
+<meta name="date" content="2022-11-22" />
 
 <title>DANL 200: Introduction to Data Analytics</title>
 
@@ -513,6 +513,9 @@ div.tocify {
     <li>
       <a href="lec/DANL100_Lec22_20221117.html">lecture 22</a>
     </li>
+    <li>
+      <a href="lec/DANL100_Lec23_20221122.html">lecture 23</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -618,6 +621,9 @@ div.tocify {
     <li>
       <a href="lec/DANL200_Lec22_20221117.html">lecture 22</a>
     </li>
+    <li>
+      <a href="lec/DANL200_Lec23_20221122.html">lecture 23</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -654,7 +660,7 @@ div.tocify {
 Analytics</h1>
 <h3 class="subtitle">DANL 200 - Midterm Exam, Spring 2022<br><br></h3>
 <h4 class="author">Byeong-Hak Choe<br></h4>
-<h4 class="date">2022-11-17<br><br></h4>
+<h4 class="date">2022-11-22<br><br></h4>
 
 </div>
 
@@ -701,86 +707,148 @@ standard deviation of variable <code>price</code> for the
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>oj_q1a_d <span class="ot">&lt;-</span> <span class="fu">filter</span>(oj_q1a, brand <span class="sc">==</span> <span class="st">&#39;dominicks&#39;</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(oj_q1a_d<span class="sc">$</span>price)</span></code></pre></div>
-<table>
-<caption>Data summary</caption>
+<table style="width: auto;" class="table table-condensed">
+<caption>
+Data summary
+</caption>
 <tbody>
-<tr class="odd">
-<td align="left">Name</td>
-<td align="left">oj_q1a_d$price</td>
+<tr>
+<td style="text-align:left;">
+Name
+</td>
+<td style="text-align:left;">
+oj_q1a_d$price
+</td>
 </tr>
-<tr class="even">
-<td align="left">Number of rows</td>
-<td align="left">9602</td>
+<tr>
+<td style="text-align:left;">
+Number of rows
+</td>
+<td style="text-align:left;">
+9602
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Number of columns</td>
-<td align="left">1</td>
+<tr>
+<td style="text-align:left;">
+Number of columns
+</td>
+<td style="text-align:left;">
+1
+</td>
 </tr>
-<tr class="even">
-<td align="left">_______________________</td>
-<td align="left"></td>
+<tr>
+<td style="text-align:left;">
+_______________________
+</td>
+<td style="text-align:left;">
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Column type frequency:</td>
-<td align="left"></td>
+<tr>
+<td style="text-align:left;">
+Column type frequency:
+</td>
+<td style="text-align:left;">
+</td>
 </tr>
-<tr class="even">
-<td align="left">numeric</td>
-<td align="left">1</td>
+<tr>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">________________________</td>
-<td align="left"></td>
+<tr>
+<td style="text-align:left;">
+________________________
+</td>
+<td style="text-align:left;">
+</td>
 </tr>
-<tr class="even">
-<td align="left">Group variables</td>
-<td align="left">None</td>
+<tr>
+<td style="text-align:left;">
+Group variables
+</td>
+<td style="text-align:left;">
+None
+</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Variable type: numeric</strong></p>
 <table>
-<colgroup>
-<col width="17%" />
-<col width="12%" />
-<col width="17%" />
-<col width="6%" />
-<col width="6%" />
-<col width="6%" />
-<col width="6%" />
-<col width="6%" />
-<col width="6%" />
-<col width="6%" />
-<col width="7%" />
-</colgroup>
 <thead>
-<tr class="header">
-<th align="left">skim_variable</th>
-<th align="right">n_missing</th>
-<th align="right">complete_rate</th>
-<th align="right">mean</th>
-<th align="right">sd</th>
-<th align="right">p0</th>
-<th align="right">p25</th>
-<th align="right">p50</th>
-<th align="right">p75</th>
-<th align="right">p100</th>
-<th align="left">hist</th>
+<tr>
+<th style="text-align:left;">
+skim_variable
+</th>
+<th style="text-align:right;">
+n_missing
+</th>
+<th style="text-align:right;">
+complete_rate
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+p0
+</th>
+<th style="text-align:right;">
+p25
+</th>
+<th style="text-align:right;">
+p50
+</th>
+<th style="text-align:right;">
+p75
+</th>
+<th style="text-align:right;">
+p100
+</th>
+<th style="text-align:left;">
+hist
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">data</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">1.74</td>
-<td align="right">0.39</td>
-<td align="right">0.52</td>
-<td align="right">1.58</td>
-<td align="right">1.59</td>
-<td align="right">1.99</td>
-<td align="right">2.69</td>
-<td align="left">▁▂▇▃▂</td>
+<tr>
+<td style="text-align:left;">
+data
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.74
+</td>
+<td style="text-align:right;">
+0.39
+</td>
+<td style="text-align:right;">
+0.52
+</td>
+<td style="text-align:right;">
+1.58
+</td>
+<td style="text-align:right;">
+1.59
+</td>
+<td style="text-align:right;">
+1.99
+</td>
+<td style="text-align:right;">
+2.69
+</td>
+<td style="text-align:left;">
+▁▂▇▃▂
+</td>
 </tr>
 </tbody>
 </table>
@@ -808,13 +876,13 @@ the log of <code>sales</code> by <code>brand</code> using ggplot. Make a
 simple comment on your ggplot figure.</li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oj_q1b)</span></code></pre></div>
-<pre><code>##      sales            price          brand                feat       
-##  Min.   :    64   Min.   :0.520   Length:28947       Min.   :0.0000  
-##  1st Qu.:  4864   1st Qu.:1.790   Class :character   1st Qu.:0.0000  
-##  Median :  8384   Median :2.170   Mode  :character   Median :0.0000  
-##  Mean   : 17312   Mean   :2.282                      Mean   :0.2373  
-##  3rd Qu.: 17408   3rd Qu.:2.730                      3rd Qu.:0.0000  
-##  Max.   :716416   Max.   :3.870                      Max.   :1.0000</code></pre>
+<pre><code>##      sales            price         brand                feat      
+##  Min.   :    64   Min.   :0.52   Length:28947       Min.   :0.000  
+##  1st Qu.:  4864   1st Qu.:1.79   Class :character   1st Qu.:0.000  
+##  Median :  8384   Median :2.17   Mode  :character   Median :0.000  
+##  Mean   : 17312   Mean   :2.28                      Mean   :0.237  
+##  3rd Qu.: 17408   3rd Qu.:2.73                      3rd Qu.:0.000  
+##  Max.   :716416   Max.   :3.87                      Max.   :1.000</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> oj_q1b, </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(price), <span class="at">y =</span> <span class="fu">log</span>(sales),</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">color =</span> brand)) <span class="sc">+</span></span>
