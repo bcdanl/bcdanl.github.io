@@ -48,6 +48,41 @@ class: title-slide, left, bottom
 
 
 ---
+# Announcement
+### &lt;p style="color:#00449E"&gt; Geneseo Alumni's Talk on Data Analytics Career
+
+- Name: Lauren Kopac (Class of 2015)
+
+- When: December 1, 2022, Thursday 11:00 A.M.
+
+- Where: Zoom (I will leave the Zoom link on Canvas soon.)
+
+- We will watch her Zoom recording on next Tuesday.
+
+- She will give us a talk on the data analytics career with her experiences.
+
+  - As a data analyst, she has worked at (1) Columbia University, New York, NY and (2) Neuberger Berman, New York, NY.
+  
+
+
+---
+# Tips for using Presentation Slides
+
+&lt;!-- ### &lt;p style="color:#00449E"&gt;&lt;/p&gt; --&gt;
+
+- To go to a previous/next page, use keyboard arrows, <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M447.1 256C447.1 273.7 433.7 288 416 288H109.3l105.4 105.4c12.5 12.5 12.5 32.75 0 45.25C208.4 444.9 200.2 448 192 448s-16.38-3.125-22.62-9.375l-160-160c-12.5-12.5-12.5-32.75 0-45.25l160-160c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25L109.3 224H416C433.7 224 447.1 238.3 447.1 256z"/></svg> and <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M438.6 278.6l-160 160C272.4 444.9 264.2 448 256 448s-16.38-3.125-22.62-9.375c-12.5-12.5-12.5-32.75 0-45.25L338.8 288H32C14.33 288 .0016 273.7 .0016 256S14.33 224 32 224h306.8l-105.4-105.4c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l160 160C451.1 245.9 451.1 266.1 438.6 278.6z"/></svg>.
+
+- To see a tile view of the lecture slides, use the alphabet key, `o`.
+
+- If you hover a mouse cursor on the code block in the lecture slide, you can see and click the *"Copy Code"* from the top-right corner of the code block.
+  - If you click the *"Copy Code"*, the codes in the block are copied, so that you can paste them to RScript.
+
+- If the presentation slides does not respond, refresh the web-page of the slides by the shortcut, **Ctrl** (or **command** for Mac users) ** + R**.
+
+
+
+
+---
 class: inverse, center, middle
 
 # Modeling Methods - Linear Regression
@@ -558,7 +593,6 @@ ggplot(data = dtest,
 
 - In the 2016 US Census PUMS dataset, personal data recorded includes occupation, level of education, personal income, and many other demographic variables:
 
-  - `COW`: class of worker
   - `SCHL`: level of education
 
 
@@ -578,6 +612,139 @@ ggplot(data = dtest,
 
 
 
+
+---
+# Linear Regression in R
+### &lt;p style="color:#00449E"&gt; R commands to do EDA and linear regression analysis
+
+.panelset[
+.panel[.panel-name[Data]
+
+```r
+library(tidyverse)
+psub &lt;- readRDS( url('https://bcdanl.github.io/data/psub.RDS') )
+set.seed(54321)
+gp &lt;- runif( nrow(psub) )
+# Set up factor variables if needed.
+dtrain &lt;- filter(psub, gp &gt;= .5)
+dtest &lt;- filter(psub, gp &lt; .5)
+```
+]
+
+.panel[.panel-name[EDA]
+
+```r
+library(skimr)
+sum_dtrain &lt;- skim( select(dtrain,
+                           PINCP, AGEP, SEX, SCHL) )
+library(GGally)
+ggpairs( select(dtrain,
+                PINCP, AGEP, SEX, SCHL) )
+# MORE VISUALIZATIONS ARE RECOMMENDED
+```
+]
+
+
+.panel[.panel-name[Training]
+
+```r
+model_1 &lt;- lm( PINCP ~ AGEP + SEX,
+               data = dtrain )
+model_2 &lt;- lm( PINCP ~ AGEP + SEX + SCHL,
+               data = dtrain )
+```
+]
+
+
+.panel[.panel-name[Summary 1]
+- Summary with base-R:
+
+```r
+summary(model_1)
+summary(model_2)
+coef(model_1)
+coef(model_2)
+# Using the model.matrix() function on our linear model object, 
+# we can get the data matrix that underlies our regression. 
+df_model_1 &lt;- as_tibble( model.matrix(model_1) )
+df_model_2 &lt;- as_tibble( model.matrix(model_2) )
+```
+
+]
+
+
+
+.panel[.panel-name[Summary 2]
+
+- Summary with R packages:
+
+```r
+# install.packages(c("stargazer", "broom"))
+library(stargazer)
+library(broom)
+stargazer(model_1, model_2, 
+          type = 'text')  # from the stargazer package
+sum_model &lt;- tidy(model)  # from the broom package
+# Consider filter() to keep statistically significant beta estimates
+```
+
+
+]
+
+
+.panel[.panel-name[Betas in plot]
+
+```r
+ggplot(sum_model) +
+  geom_pointrange( aes(x = term, 
+                       y = estimate,
+                       ymin = estimate - 2*std.error,
+                       ymax = estimate + 2*std.error ) ) +
+  coord_flip()
+```
+
+]
+
+.panel[.panel-name[Prediction]
+
+```r
+dtest &lt;- dtest %&gt;% 
+  mutate( pred_1 = predict(model_1, newdata = dtest),
+          pred_2 = predict(model_2, newdata = dtest) )
+```
+]
+
+.panel[.panel-name[Actual vs. Prediction Plot]
+
+```r
+ggplot( data = dtest, 
+        aes(x = pred, y = PINCP) ) +
+  geom_point( alpha = 0.2, color = "darkgray" ) +
+  geom_smooth( color = "darkblue" ) +  
+  geom_abline( color = "red", linetype = 2 )  # y = x, perfect prediction line
+```
+
+
+]
+
+
+.panel[.panel-name[Residual Plot]
+
+
+```r
+ggplot(data = dtest, 
+       aes(x = pred, y = PINCP - pred)) +
+  geom_point(alpha = 0.2, color = "darkgray") +
+  geom_smooth( color = "darkblue" ) +   
+  geom_hline( aes( yintercept = 0 ),  # perfect prediction 
+              color = "red", linetype = 2) 
+```
+
+]
+
+
+
+]
 
 ---
 # Linear Regression in R
@@ -633,7 +800,7 @@ class: inverse, center, middle
 
 - We should use a logarithmic scale when percent change, or change in orders of magnitude, is more important than changes in absolute units.
 
-  - For small changes in variable `\(x\)` from `\(x_{0}\)` to `\(x_{1}\)`, the following can be shown: 
+  - For small changes in variable `\(x\)` from `\(x_{0}\)` to `\(x_{1}\)`, the following equation holds: 
   
 `$$\Delta \log(x) \,= \, \log(x_{1}) \,-\, \log(x_{0}) 
 \approx\, \frac{x_{1} \,-\, x_{0}}{x_{0}} 
