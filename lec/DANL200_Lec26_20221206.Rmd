@@ -74,6 +74,35 @@ class: title-slide, left, bottom
 
 
 ---
+# Announcement
+### <p style="color:#00449E"> Student Course Experience (SCE) Survey
+
+- Effective Fall 2022, the Student Course Experience (SCE) survey replaces the Student Observation of Faculty Instruction (SOFI) survey.
+
+- In a web browser, students should visit their [myGeneseo](https://my.geneseo.edu/dashboard) portal, then select KnightWeb, Surveys, then SCE (formerly SOFI) Surveys.
+
+
+
+---
+# Announcement
+### <p style="color:#00449E"> Final Exam
+
+- Final Exam Schedule is mentioned in page 2 in our syllabus.
+
+
+- School's Final Exam Schedule is available [here](https://www.geneseo.edu/sites/default/files/sites/registrar/2022.03.30%20202209%20Exam%20Schedule.pdf).
+
+
+- Final Exam covers the following topics:
+  - Loading CSV files
+  - Summary Statistics
+  - Data Visualization
+  - Data Transformation
+  - Pivoting/Separating/Uniting/Joining
+  - String/Factors/Date-Time Data
+  - Linear Regression
+
+---
 class: inverse, center, middle
 
 # Linear Regression using **R**
@@ -441,7 +470,7 @@ class: inverse, center, middle
 
 - The linear regression with an interaction between explanatory variables $X_{1}$ and $X_{2}$ are:
 
-$$Y_{\texttt{i}} \,=\, b_{0} \,+\, b_{1}\,X_{1,\texttt{i}} \,+\, b_{2}\,X_{2,\texttt{i}} \,+\, b_{3}\,X_{1,\texttt{i}}\times X_{2,\texttt{i}} \,+\, e_{\texttt{i}},$$
+$$Y_{\texttt{i}} \,=\, b_{0} \,+\, b_{1}\,X_{1,\texttt{i}} \,+\, b_{2}\,X_{2,\texttt{i}} \,+\, b_{3}\,X_{1,\texttt{i}}\times \color{Red}{X_{2,\texttt{i}}} \,+\, e_{\texttt{i}},$$
 
 - where
   - $\texttt{i}\;$: $\;\;\texttt{i}$-th observation in the training data.frame, $i = 1, 2, 3, \cdots$.
@@ -457,7 +486,7 @@ $$Y_{\texttt{i}} \,=\, b_{0} \,+\, b_{1}\,X_{1,\texttt{i}} \,+\, b_{2}\,X_{2,\te
 
 - The linear regression with an interaction between explanatory variables $X_{1}$ and $X_{2}$ are:
 
-$$Y_{\texttt{i}} \,=\, b_{0} \,+\, b_{1}\,X_{1,\texttt{i}} \,+\, b_{2}\,X_{2,\texttt{i}} \,+\, b_{3}\,X_{1,\texttt{i}}\times X_{2,\texttt{i}} \,+\, e_{\texttt{i}}$$.
+$$Y_{\texttt{i}} \,=\, b_{0} \,+\, b_{1}\,X_{1,\texttt{i}} \,+\, b_{2}\,X_{2,\texttt{i}} \,+\, b_{3}\,X_{1,\texttt{i}}\times \color{Red}{X_{2,\texttt{i}}} \,+\, e_{\texttt{i}}$$.
 
 .panelset[
 
@@ -492,11 +521,12 @@ model <- lm( log(PINCP) ~ AGEP + SCHL + SEX,
 - Does the relationship between education and income vary by gender?
 
 ```{r, echo = T, eval = F}
-model_int <- lm( log(PINCP) ~ AGEP + SCHL + SEX + SCHL * SEX,
+model_int <- lm( log(PINCP) ~ AGEP + SCHL + SEX + 
+                              SCHL * SEX,
                  data = dtrain )
-
 # Equivalently,
-model_int <- lm( log(PINCP) ~ AGEP + SCHL * SEX,  # Use this one
+model_int <- lm( log(PINCP) ~ AGEP + 
+                              SCHL * SEX,  # Use this one!
                  data = dtrain )
 ```
 
@@ -513,20 +543,20 @@ model_int <- lm( log(PINCP) ~ AGEP + SCHL * SEX,  # Use this one
 summary(model_int)
 b_int <- coef(model_int)
 # the male's relationship between `Professional degree` and
-# `PINCP` relative to having no high school diploma
+# `PINCP` relative to male with no high school diploma
 exp( b_int['SCHLProfessional degree'] ) - 1
 
 # the female's relationship between `Professional degree` and
-# `PINCP` relative to having no high school diploma
+# `PINCP` relative to female with no high school diploma
 exp( b_int['SCHLProfessional degree'] 
      + b_int['SCHLProfessional degree:SEXFemale'] ) - 1
 ```
 ]
 
 .panel[.panel-name[Interpretation]
-- All else being equal, female's professional degree is associated with an increase in personal income by 259% relative to having no high school diploma.
+- All else being equal, female's professional degree is associated with an increase in personal income by 259% relative to female with no high school diploma.
 
-- All else being equal, male's professional degree is associated with an increase in personal income by 199% relative to having no high school diploma.
+- All else being equal, male's professional degree is associated with an increase in personal income by 199% relative to male with no high school diploma.
 ]
 
 ]
