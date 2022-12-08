@@ -686,12 +686,24 @@ q2
 
 - How does advertisement play a role in the relationship between sales and prices in the OJ market?
 
-  <!-- - Let's train the second model, `model_3`, that addresses the above question: -->
+  - The ads can increase sales at all prices.
 
-$$\log(\texttt{sales}_{\texttt{i}}) \,=\, \quad b_{\texttt{intercept}} \,+\, b_{\,\texttt{mm}}\,\texttt{brand}_{\,\texttt{mm}, \texttt{i}} \,+\, b_{\,\texttt{tr}}\,\texttt{brand}_{\,\texttt{tr}, \texttt{i}} \,+\, \\
- \quad\,+\; b_{\,\texttt{feat}}\,\texttt{feat}_{\, \texttt{i}} \,+\, b_{\texttt{price}}\,\log(\texttt{price}_{\texttt{i}})  \\
- b_{\texttt{mm*feat}}\,\color{Green} {\texttt{brand}_{\,\texttt{mm}, \texttt{i}}}\,\times\, \color{Violet}{\texttt{feat}_{\,\texttt{i}}}\,+\, b_{\texttt{tr*feat}}\,\color{Blue} {\texttt{brand}_{\,\texttt{tr}, \texttt{i}}}\,\times\, \color{Violet}{\texttt{feat}_{\,\texttt{i}}}\,+\, \\
-b_{\texttt{price*mm}}\,\log(\texttt{price}_{\texttt{i}})\,\times\,\color{Green} {\texttt{brand}_{\,\texttt{mm}, \texttt{i}}}\qquad\qquad\qquad\;\, \\
+  - They can change price sensitivity.
+
+  - They can do both of these things in a brand-specific manner.
+
+- What would be the formula that address the question above?
+
+
+---
+# Log-Log Linear Regression
+- Let's train the second model, `model_3`, that addresses the question in the previous page:
+
+$$\log(\texttt{sales}_{\texttt{i}}) \,=\, \quad b_{\texttt{intercept}} \,+\, b_{\,\texttt{mm}}\,\texttt{brand}_{\,\texttt{mm}, \texttt{i}} \,+\, b_{\,\texttt{tr}}\,\texttt{brand}_{\,\texttt{tr}, \texttt{i}}  \\
+ \quad\,+\; b_{\,\texttt{feat}}\,\texttt{feat}_{\, \texttt{i}} \qquad\qquad\qquad\qquad\quad   \\
+\,+\, b_{\texttt{mm*feat}}\,\color{Green} {\texttt{brand}_{\,\texttt{mm}, \texttt{i}}}\,\times\, \color{Violet}{\texttt{feat}_{\,\texttt{i}}}\,+\, b_{\texttt{tr*feat}}\,\color{Blue} {\texttt{brand}_{\,\texttt{tr}, \texttt{i}}}\,\times\, \color{Violet}{\texttt{feat}_{\,\texttt{i}}} \\
+ \quad\,+\;  b_{\texttt{price}}\,\log(\texttt{price}_{\texttt{i}}) \qquad\qquad\qquad\;\;\;\;  \\
+ \qquad\qquad\qquad\,+\, b_{\texttt{price*mm}}\,\log(\texttt{price}_{\texttt{i}})\,\times\,\color{Green} {\texttt{brand}_{\,\texttt{mm}, \texttt{i}}}\qquad\qquad\qquad\;\, \\
  \qquad\qquad\qquad\,+\, b_{\texttt{price*tr}}\,\log(\texttt{price}_{\texttt{i}})\,\times\,\color{Blue} {\texttt{brand}_{\,\texttt{tr}, \texttt{i}}}\qquad\qquad\qquad\;\, \\
 \qquad\qquad\quad +\, b_{\texttt{price*feat}}\,\log(\texttt{price}_{\texttt{i}})\,\times\,\color{Violet}{\texttt{feat}_{\,\texttt{i}}}\qquad\qquad\qquad\;\, \\
  \qquad\qquad\quad +\, b_{\texttt{price*mm*feat}}\,\log(\texttt{price}_{\texttt{i}}) \,\times\,\,\color{Green} {\texttt{brand}_{\,\texttt{mm}, \texttt{i}}}\,\times\, \color{Violet}{\texttt{feat}_{\,\texttt{i}}} \\
