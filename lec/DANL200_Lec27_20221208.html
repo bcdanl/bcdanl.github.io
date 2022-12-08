@@ -136,7 +136,6 @@ coef(model_1)
 coef(model_2)
 # Using the model.matrix() function on our linear model object, 
 # we can get the data matrix that underlies our regression. 
-df_model_1 &lt;- as_tibble( model.matrix(model_1) )
 df_model_2 &lt;- as_tibble( model.matrix(model_2) )
 ```
 
@@ -212,184 +211,7 @@ ggplot(data = dtest,
 
 ]
 
-
-
 ]
-
----
-# Linear Regression in R
-### &lt;p style="color:#00449E"&gt; The model equation
-
-`$$\texttt{PINCP[i]}\qquad\qquad\qquad\qquad\qquad\notag\\ 
-\;=\;\; \texttt{b0} \,+\, \texttt{b1*AGEP[i]} \,+\, \texttt{b2*SEX.Male[i]}\\
-\qquad\qquad\texttt{b3*SCHL.no high school diploma[i]}\,+\, \\
-\qquad\qquad\qquad\quad\;\texttt{b4*SCHL.GED or alternative credential[i]}\,+\, \\
-\qquad\qquad\qquad\quad\;\;\texttt{b5*SCHL.some college credit, no degree[i]}\,+\, \\ 
-\qquad\texttt{b6*SCHL.Associate's degree[i]}\,+\, \\
-\quad\;\;\texttt{b7*SCHL.Bachelor's degree[i]}\,+\, \\
-\;\;\,\texttt{b8*SCHL.Master's degree[i]}\,+\, \\
-\qquad\;\;\;\texttt{b9*SCHL.Professional degree[i]}\,+\, \\
-\qquad\texttt{b10*SCHL.Doctorate degree[i]}\,+\, \\
-\,\texttt{e[i]}.\qquad\qquad\qquad\qquad\qquad$$`
-
----
-class: inverse, center, middle
-
-# Linear Regression with Log-transformed Variables
-&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
-
-
-
----
-# Linear Regression with Log-transformtion
-### &lt;p style="color:#00449E"&gt; A Little Bit of Math for Logarithm and Exponential Functions
-
-
-.pull-left[
-![](DANL200_Lec27_20221208_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
-
-]
-
-.pull-right[
-
-- `\(\log_{e}\,(\,x\,)\)`: the base `\(e\)` logarithm is called **the natural log**, where `\(e = 2.718\cdots\)` is the mathematical constant,  the Euler's number.
-
-- `\(\log\,(\,x\,)\)` or `\(\ln\,(\,x\,)\)`: the natural log of `\(x\)`.
-
-- `\(e^x\)` or `\(exp(x)\)`: the base `\(e\)` exponential function of `\(x\)`.
-]
-
-
- 
----
-# Linear Regression with Log-transformtion
-
-- We should use a logarithmic scale when **percent change**, or change in orders of magnitude, is more important than changes in absolute units.
-
-  - For small changes in variable `\(x\)` from `\(x_{0}\)` to `\(x_{1}\)`, the following equation holds: 
-  
-`$$\Delta \log(x) \,= \, \log(x_{1}) \,-\, \log(x_{0}) 
-\approx\, \frac{x_{1} \,-\, x_{0}}{x_{0}} 
-\,=\, \frac{\Delta\, x}{x_{0}}.$$`
-
-
-- A change in income of $5,000 means something very different across people with different income levels.
-  - A percentage change in income, e.g., 5% of income, may mean somewhat more similar across people with different income levels.
-
-
-- We can also consider using a log scale to reduce a variance of residuals when a variable is heavily skewed.
-
----
-# Linear Regression with Log-transformtion
-
-- The log transformation makes the skewed distribution of income more normal.
-
-
-```r
-ggplot(dtrain, aes( x = PINCP ) ) +
-  geom_density() 
-
-ggplot(dtrain, aes( x = log(PINCP) ) ) +
-  geom_density() 
-```
-
-
-
----
-# Linear Regression with Log-transformtion
-### &lt;p style="color:#00449E"&gt; A Few Algebras for Logarithm and Exponential Functions
-
-- Rule 1: 
-$$\texttt{y} \,=\, \texttt{log(x)}\qquad\Leftrightarrow\qquad \texttt{exp(y)} \,=\, \texttt{x}. $$
-- Rule 2: 
-
-`$$\texttt{log(x)} \,-\, \texttt{log(z)} \,=\, \texttt{log}\,\left(\,\frac{\texttt{x}}{\texttt{z}}\,\right).$$`
-
-- By the rules above,
-$$
-\texttt{log(x)} \,-\, \texttt{log(z)} \,=\, \texttt{b}\qquad\Leftrightarrow\qquad \frac{\texttt{x}}{\texttt{z}} \,=\,\texttt{exp(b)}.
-$$
-
-
-
----
-# Linear Regression with Log-transformtion
-- Let's consider the following linear regression model:
-`$$\qquad\log(\texttt{PINCP[i]})\qquad\qquad\qquad\qquad\\ 
-\;=\;\; \texttt{b0} \,+\, \texttt{b1*AGEP[i]} \,+\, \texttt{b2*SEX.Male[i]}\\
-\qquad\qquad\texttt{b3*SCHL.no high school diploma[i]}\,+\, \\
-\qquad\qquad\qquad\quad\;\texttt{b4*SCHL.GED or alternative credential[i]}\,+\, \\
-\qquad\qquad\qquad\quad\;\;\texttt{b5*SCHL.some college credit, no degree[i]}\,+\, \\ 
-\qquad\texttt{b6*SCHL.Associate's degree[i]}\,+\, \\
-\quad\;\;\texttt{b7*SCHL.Bachelor's degree[i]}\,+\, \\
-\;\;\,\texttt{b8*SCHL.Master's degree[i]}\,+\, \\
-\qquad\;\;\;\texttt{b9*SCHL.Professional degree[i]}\,+\, \\
-\qquad\texttt{b10*SCHL.Doctorate degree[i]}\,+\, \\
-\,\texttt{e[i]}.\qquad\qquad\qquad\qquad\qquad$$`
-
-
----
-# Linear Regression with Log-transformtion
-### &lt;p style="color:#00449E"&gt; Interpreting Beta Estimates
-
-- Consider `\(\texttt{Bob}\)` and `\(\texttt{Ben}\)`: 
-  - `\(\texttt{AGEP[Bob]} = 51\)` and `\(\texttt{AGEP[Ben]} = 50\)`
-  - `\(\texttt{SEX[Bob]} = \texttt{SEX[Ben]} = \texttt{"Male"}\)`
-  - `\(\texttt{SCHL[Bob]} = \texttt{SCHL[Ben]} = \texttt{"Bachelor's degree"}\)`
-
-
-- Consider `\(\texttt{Linda}\)` and `\(\texttt{Ben}\)`: 
-  - `\(\texttt{SEX[Linda]} = \texttt{"Female"}\)` and `\(\texttt{SEX[Ben]} = \texttt{"Male"}\)`
-  - `\(\texttt{SCHL[Linda]} = \texttt{SCHL[Ben]} = \texttt{"Bachelor's degree"}\)`
-  - `\(\texttt{AGEP[Linda]} = \texttt{AGEP[Ben]} = 50\)`
-
-
-
----
-# Linear Regression with Log-transformtion
-### &lt;p style="color:#00449E"&gt; Interpreting Beta Estimates
-
-- If we apply the rule above for `\(\texttt{Bob}\)` and `\(\texttt{Ben}\)`'s predicted incomes,
-
-`$$\widehat{\texttt{log(PINCP[Ben]})} \,-\, \widehat{\texttt{log(PINCP[Bob])}}\qquad  \\
-\;=\quad \hat{\texttt{b1}}\texttt{ * }(\texttt{AGEP[Ben]} - \texttt{AGEP[Bob]})\qquad\\
-\;=\quad \hat{\texttt{b1}}\texttt{ * }\texttt{(51 - 50)}\qquad\qquad\qquad\qquad\;\\
-\;=\quad \hat{\texttt{b1}}\qquad\qquad\qquad\qquad\qquad\qquad\;\;\;\,$$`
-
-So we can have the following:
-`$$\frac{\widehat{\texttt{PINCP[Ben]}}}{ \widehat{\texttt{PINCP[Bob]}}} \;=\; \texttt{exp(}\hat{\texttt{b1}}\texttt{)} \quad\Leftrightarrow\quad\widehat{\texttt{PINCP[Ben]}} \;=\; \widehat{\texttt{PINCP[Bob]}} * \texttt{exp(}\hat{\texttt{b1}}\texttt{)}$$`
-
-
-
----
-# Linear Regression with Log-transformtion
-### &lt;p style="color:#00449E"&gt; Interpreting Beta Estimates
-
-
-- If we apply the rule above for `\(\texttt{Ben}\)` and `\(\texttt{Linda}\)`'s predicted incomes,
-
-`$$\frac{\widehat{\texttt{PINCP[Ben]}}}{ \widehat{\texttt{PINCP[Linda]}}} \;=\; \texttt{exp(}\hat{\texttt{b2}}\texttt{)} \quad\Leftrightarrow\quad\widehat{\texttt{PINCP[Ben]}} \;=\; \widehat{\texttt{PINCP[Linda]}} * \texttt{exp(}\hat{\texttt{b2}}\texttt{)}$$`
-
-
-- Suppose `\(\texttt{exp(}\hat{\texttt{b2}}\texttt{)} = 1.18\)`. 
-
-  - Then `\(\widehat{\texttt{PINCP[Ben]}}\)` is 1.18 times `\(\widehat{\texttt{PINCP[Linda]}}\)`.
-  
-  - It means that being a male is associated with an increase in income by 18% relative to being a female.
-  
----
-# Linear Regression with Log-transformtion
-### &lt;p style="color:#00449E"&gt; Interpreting Beta Estimates
-
-- All else being equal, an increase in `AGEP` by one unit is associated with an increase in `log(PINCP)` by `\(\hat{\texttt{b1}}\)`.
-  
-  - All else being equal, an increase in `AGEP` by one unit is associated with an increase in `PINCP` by `\((\texttt{exp(}\hat{\texttt{b1}}\texttt{)} - 1)\)`%.
-
-- All else being equal, being a male is associated with an increase in `log(PINCP)` by `\(\hat{\texttt{b2}}\)` relative to being a female.
-  
-  - All else being equal, being a male is associated with an increase in `PINCP` by `\((\texttt{exp(}\hat{\texttt{b2}}\texttt{)} - 1)\)`% relative to being a female.
-
-
 
 ---
 class: inverse, center, middle
@@ -694,7 +516,7 @@ model_1 &lt;- lm([?], data = dtrain)
 - Here is the inverse demand curve for each brand OJ: 
 
 .pull-left[
-![](DANL200_Lec27_20221208_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+![](DANL200_Lec27_20221208_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
 ]
 
 .pull-left[
@@ -738,12 +560,12 @@ model_2 &lt;- lm([?], data = dtrain)
 
 - For `\(\texttt{i}\)` such that `\(\color{Green}{\texttt{brand}_{\,\texttt{mm}, \texttt{i}}} = 1\)`, the model equation is:
 `$$\log(\texttt{sales}_{\texttt{i}}) \,=\, \; (\,b_{\texttt{intercept}} \,+\, b_{\,\texttt{mm}}\,)\qquad\qquad\qquad\qquad\qquad\qquad\qquad\\
-\!\,+\,(\, b_{\texttt{price}} \,+\, b_{\texttt{price*mm}}\,)\,\log(\texttt{price}_{\texttt{i}}) \,+\, e_{\texttt{i}}\,.$$`
+\!\,+\,(\, b_{\texttt{price}} \,+\, \color{Green}{b_{\texttt{price*mm}}}\,)\,\log(\texttt{price}_{\texttt{i}}) \,+\, e_{\texttt{i}}\,.$$`
 
 
 - For `\(\texttt{i}\)` such that `\(\color{Blue}{\texttt{brand}_{\,\texttt{tr}, \texttt{i}}} = 1\)`, the model equation is:
 `$$\log(\texttt{sales}_{\texttt{i}}) \,=\, \; (\,b_{\texttt{intercept}} \,+\, b_{\,\texttt{tr}}\,)\qquad\qquad\qquad\qquad\qquad\qquad\qquad\\
-\!\,+\,(\, b_{\texttt{price}} \,+\, b_{\texttt{price*tr}}\,)\,\log(\texttt{price}_{\texttt{i}}) \,+\, e_{\texttt{i}}\,.$$`
+\!\,+\,(\, b_{\texttt{price}} \,+\, \color{Blue}{b_{\texttt{price*tr}}}\,)\,\log(\texttt{price}_{\texttt{i}}) \,+\, e_{\texttt{i}}\,.$$`
 
 
 
@@ -754,12 +576,12 @@ model_2 &lt;- lm([?], data = dtrain)
 - Here are the inverse demand curves from `model_1` and `model_2`: 
 
 .pull-left[
-![](DANL200_Lec27_20221208_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+![](DANL200_Lec27_20221208_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
 
 ]
 
 .pull-right[
-![](DANL200_Lec27_20221208_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+![](DANL200_Lec27_20221208_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -798,12 +620,12 @@ model_3 &lt;- lm([?], data = dtrain)
 - Here are the inverse demand curves from `model_3`:
 
 .pull-left[
-![](DANL200_Lec27_20221208_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](DANL200_Lec27_20221208_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
 
 ]
 
 .pull-right[
-![](DANL200_Lec27_20221208_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+![](DANL200_Lec27_20221208_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -816,12 +638,12 @@ model_3 &lt;- lm([?], data = dtrain)
 
 
 .pull-left[
-![](DANL200_Lec27_20221208_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+![](DANL200_Lec27_20221208_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
 
 ]
 
 .pull-right[
-![](DANL200_Lec27_20221208_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+![](DANL200_Lec27_20221208_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
 
 ]
 

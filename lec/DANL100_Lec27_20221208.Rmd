@@ -313,25 +313,6 @@ knitr::include_graphics("../lec_figs/console-running.png")
 
 - The `+` tells you that R is waiting for more input; it doesn’t think you’re done yet. 
 
----
-# Workflow
-### <p style="color:#00449E"> RStudio Options Setting </p>
-.pull-left[
-```{r, echo=FALSE, out.width = '100%', fig.align='center'}
-knitr::include_graphics("../lec_figs/RStudio_options.png")
-```
-]
-
-.pull-right[
-- This option menu is found by menus as follows:
-  - *Mac*: RStudio $>$ Preferences 
-  - *Windows*: Tools $>$ Global Options
-  
-- Check `r fa("check")` as in the picture.
-- Choose "Never" on "Save workplace to .RData on exit:".
-]
-
-
 
 
 ---
@@ -339,40 +320,6 @@ class: inverse, center, middle
 
 # Starting with R
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
-
-
-
----
-# Starting with R
-- Let's try a few commands to help you become familiar with R and its basic data types.
-
-- In R, **vectors** are arrays of same-typed values.
-  - They can be built with the `c()` notation.
-  
-.pull-left[
-```{r, echo = T, eval = F}
-1
-1/2
-'Joe'
-"Joe"
-"Joe"=='Joe'
-c()
-is.null(c())
-is.null(5)
-```
-]
-.pull-right[
-
-```{r, echo = T, eval = F}
-c(1)
-c(1, 2)
-c("Apple", 'Orange')
-length(c(1, 2))
-vec <- c(1, 2)
-vec
-```
-]
-
 
 
 ---
@@ -391,25 +338,6 @@ x = 5
 5 -> x
 ```
 
-
-
----
-# Starting with R
-### <p style="color:#00449E"> Class Exercise 1 </p>
-
-1. Create a new R script.
-
-2. Enter the following code into your script.
-```{r, eval = F, echo = T}
-variable2 <- c(12, 1, 10, 2, 18, 3)
-variable2
-mean(variable2)
-variable2 + 2
-```
-
-3. Run your code (*Ctrl + Enter* for Windows users; *cmd + Return* for mac users).
-
-4. Save your code.
 
 
 ---
@@ -509,7 +437,7 @@ pvalue.threshold <- 0.05
 ]
 
 
-.panel[.panel-name[Logical (True/False)]
+.panel[.panel-name[Logical (TRUE/FALSE)]
 - We use the `==` to test for equality in R
 
 ```{r, echo = T, eval = F}
@@ -585,84 +513,6 @@ c("a", NA, "c")
 c(c(), 1, NULL)
 c("a", NA, "c")
 ```
-
-
----
-class: inverse, center, middle
-
-# Management of Files, Directories, and Scripts
-<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
-
-
----
-# Management of Files, Directories, and Scripts
-### <p style="color:#00449E"> Code and comment style </p>
-- The two main principles for coding and managing data are:
-  - Make things easier for your future self.
-  - Don't trust your future self.
-
-- So we do make comments on codes.
-
-
----
-# Management of Files, Directories, and Scripts
-### <p style="color:#00449E"> Code and comment style </p>
-
-- The `#` mark is R's comment character.
-  - `#` indicates that the rest of the line is to be ignored.
-  - Write comments before the line that you want the comment to apply to.
-
-- Consider using block commenting for separating code sections.
-  - `#####` defines a coding block.
-
-- Break down long lines and long algebraic expressions.
-
----
-# Management of Files and Directories
-### <p style="color:#00449E"> Finding the path name of the file </p>
-
-.panelset[
-
-.panel[.panel-name[Windows 11]
-
-- **Step 1.** Go to your folder using the File Explorer.
-- **Step 2.** Right-click the file.
-- **Step 3.** Click "Copy as path".
-- **Step 4.** Paste the path name of the file to the R script (Ctrl+V).
-- **Step 5.** 
-  - *Option 1.* Replace backslash(`\`) with double-backslash(`\\`) in the path name.
-  - *Option 2.* Replace backslash(`\`) with slash(`/`) in the path name.
-]
-
- <!---->
-
-
-.panel[.panel-name[Windows 10]
-
-- **Step 1.** Go to your folder using the File Explorer.
-- **Step 2.** Keep pressing the "Shift" key
-- **Step 3.** Right-click the file.
-- **Step 4.** Click "Copy as path".
-- **Step 5.** Paste the path name of the file to the R script (Ctrl+V).
-- **Step 6.** 
-  - *Option 1.* Replace backslash(`\`) with double-backslash(`\\`) in the path name.
-  - *Option 2.* Replace backslash(`\`) with slash(`/`) in the path name.
-]
-
- <!---->
-
-.panel[.panel-name[Mac]
-
-- **Step 1.** Go to your folder using the Finder.
-- **Step 2.** Right-click the file in the folder
-- **Step 3.** Keep pressing "option"
-- **Step 4.** Click "Copy 'PATH\_FOR\_YOUR\_FILE' as Pathname" from the menu.
-- **Step 5.** Paste it to the R script (command+V).
-
-] <!---->
-
-] <!--end of panelset-->
-
 
 
 ---
@@ -864,40 +714,12 @@ tvshows[ reality, ]
 2. Return the data.frame with only three variables---`Show`, `PE`, and `GRP`---for which `PE` values are greater than the mean value of `PE`.
 
 
----
-# Working with Data from Files
-### <p style="color:#00449E"> Data visualization </p>
-
-- Let's try some data visualization using `ggplot()`:
-
-```{r, eval = F, echo = T}
-# install.packages("ggplot2")
-library(ggplot2)
-
-ggplot( data = tvshows ) + 
-  geom_point( aes( x = GRP, y = PE, 
-                   color = Genre ) )
-
-ggplot( data = tvshows ) + 
-  geom_point( aes( x = GRP, y = PE, 
-                   color = Genre ) ) + 
-  geom_smooth( aes( x = GRP, y = PE, 
-                   color = Genre ),
-               method = lm )
-```
--  How is the the relationship between audience size (`GRP`) and audience engagement (`PE`)?
-
-
-
 
 ---
 class: inverse, center, middle
 
 # Data Visualization with `ggplot2`
 <html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
-
----
-
 
 ---
 #  `ggplot2`
@@ -908,7 +730,7 @@ knitr::include_graphics("../lec_figs/ggplot2-logo.png")
 
 - `ggplot2` is a R data visualization package based on [The Grammar of Graphics](http://vita.had.co.nz/papers/layered-grammar.pdf). 
   - `ggplot2` is the most elegant and most versatile visualization tools in R.
-  - `ggplot2` implements the grammar of graphics, a coherent system for describing and building graphs.
+  - We provide the data, tell `ggplot2` how to map variables to `aes`thetics, what graphical primitives to use, and it takes care of the details.
 
 ```{r, echo = T, eval = F}
 library(ggplot2)
@@ -941,10 +763,9 @@ library(ggplot2)
 - Let's use the `titanic` and `tips` data.frames:
 
 ```{r, echo = T, eval = F}
-df_titanic <- read.csv('titanic')
-df_tips <- sns.load_dataset('tips')
+df_titanic <- read_csv('https://bcdanl.github.io/data/titanic_cleaned.csv')
+df_tips <- read_csv('https://bcdanl.github.io/data/tips_seaborn.csv')
 ```
-
 
 
 
@@ -957,21 +778,21 @@ df_tips <- sns.load_dataset('tips')
   - A variable is **categorical** if it can only take one of a small set of values.
   
   
-- We use `sns.countplot()` function to plot a bar chart:
+- We use `geom_bar()` function to plot a bar chart:
 
 
 .pull-left[
 ```{r, echo = T, eval = F}
-sns.countplot(x =  'sex', 
-              data = df_titanic)
+ggplot( data = df_titanic ) +
+  geom_bar( aes(x = sex) )
 ```
 ]
 
 .pull-right[
 
 - Mapping
-  - `data`: DataFrame.
-  - `x`:  Name of a categorical variable (column) in DataFrame
+  - `data`: data.frame
+  - `x`:  Name of a categorical variable (column) in data.frame
 
 ]
 
@@ -993,16 +814,16 @@ sns.countplot(x =  'sex',
 
 .pull-left[
 ```{r, echo = T, eval = F}
-sns.countplot(x = 'sex', 
-              hue = 'survived', 
-              data = df_titanic)
+ggplot( data = df_titanic ) +
+  geom_bar( aes( x = sex,
+                 fill = survived ) )
 ```
 ]
 
 .pull-right[
 
 - Mapping
-  - `hue`:  Name of a categorical variable
+  - `fill`:  Name of a categorical variable
 
 ]
 
@@ -1020,12 +841,12 @@ sns.countplot(x = 'sex',
   - A variable is **continuous** if it can take any of an infinite set of ordered values.
   
   
-- We use `sns.displot()` function to plot a histogram:
+- We use `geom_histogram()` function to plot a histogram:
 .pull-left[
 ```{r, echo = T, eval = F}
-sns.displot(x =  'age', 
-            bins = 5 ,
-            data = df_titanic)
+ggplot(data = df_titanic) +
+  geom_histogram( aes( x = age ), 
+                    bins = 5 )
 ```
 ]
 
@@ -1046,13 +867,13 @@ sns.displot(x =  'age',
 
   -  We can see co-variation as a pattern in the scattered points.
 
-- We use `sns.scatterplot()` function to plot a scatter plot:
+- We use `geom_point()` function to plot a scatter plot:
 
 .pull-left[
 ```{r, echo = T, eval = F}
-sns.scatterplot(x = 'total_bill', 
-                y = 'tip',
-                data = df_tips)
+ggplot( data = df_tips ) +
+  geom_point( aes( x = total_bill, 
+                   y = tip ) )
 ```
 ]
 
@@ -1067,16 +888,15 @@ sns.scatterplot(x = 'total_bill',
 # Data Visualization with `ggplot2`
 ### <p style="color:#00449E"> Scatter plot 
 
-- To the scatter plot, we can add a `hue`-`VARIABLE` mapping to display how the relationship between two continuous variables varies by `VARIABLE`.
+- To the scatter plot, we can add a `color`-`VARIABLE` mapping to display how the relationship between two continuous variables varies by `VARIABLE`.
 
 - Suppose we are interested in the following question:
   - **Q**. Does a smoker and a non-smoker have a difference in tipping behavior?
 
 ```{r, echo = T, eval = F}
-sns.scatterplot(x = 'total_bill', 
-                y = 'tip',
-                hue = 'smoker',
-                data = df)
+ggplot( data = df_tips ) +
+  geom_point( aes( x = total_bill, y = tip,
+                   color = smoker ) )
 ```
 
 
@@ -1086,40 +906,19 @@ sns.scatterplot(x = 'total_bill',
 ### <p style="color:#00449E"> Fitted line 
 
 - From the scatter plot, it is often difficult to clearly see the relationship between two continuous variables.
-
-  - `sns.lmplot()` adds a line that fits well into the scattered points.
-  
+  - `geom_smooth( method = lm )` adds a line that fits well into the scattered points.
   - On average, the fitted line describes the relationship between two continuous variables.
   
 
-```{r, echo = T, eval = F}
-sns.lmplot(x = 'total_bill', 
-           y = 'tip',
-           data = df_tips)
+```{r, echo = T, eval = F, message= F, warning= F}
+ggplot( data = df_tips ) +
+  geom_point( aes( x = total_bill, y = tip,
+                   color = smoker ) ) +
+  geom_smooth( aes( x = total_bill, y = tip,
+                    color = smoker ),
+               method = lm )
 ```
 
-
-
-
-
-
----
-# Data Visualization with `ggplot2`
-### <p style="color:#00449E"> Scatter plot 
-
-- To the scatter plot, we can add a `hue`-`VARIABLE` mapping to display how the relationship between two continuous variables varies by `VARIABLE`.
-
-- Using the fitted lines, let's answer the following question:
-  - **Q**. Does a smoker and a non-smoker have a difference in tipping behavior?
-
-```{r, echo = T, eval = F}
-sns.scatterplot(x = 'total_bill', 
-                y = 'tip',
-                hue = 'smoker',
-                data = df_tips)
-```
-
-  
 
 
 ---
@@ -1127,22 +926,18 @@ sns.scatterplot(x = 'total_bill',
 ### <p style="color:#00449E"> Line cahrt 
 
 - A line chart is used to display the trend in a continuous variable or the change in a continuous variable over other variable.
-  - It draws a line by connecting the scattered points in order of the variable on the x-axis, so that it highlights exactly when changes occur.
-- We use `sns.lineplot()` function to plot a line plot:
-.pull-left[
-```{r, echo = T, eval = F}
-path_csv = '/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/dji.csv'
-dow = read_csv(path_csv, index_col=0, parse_dates=True)
-sns.lineplot(x =  'Date', 
-             y =  'Close', 
-             data = dow)
-```
-]
 
-.pull-right[
-- Mapping
-  - `x`:  Name of a continuous variable (often time variable) on the horizontal axis 
-  - `y`:  Name of a continuous variable on the vertical axis
-]
+  - It draws a line by connecting the scattered points in order of the variable on the x-axis, so that it highlights exactly when changes occur.
+  
+  - We use `geom_line()` function to plot a line plot:
+
+```{r, echo = T, eval = F}
+path_csv <- 'THE_PATHNAME_FOR_THE_FILE__dji.csv'
+dow <- read_csv(path_csv)
+
+ggplot( data = dow ) +
+  geom_line( aes( x = Date, y = Close ) )
+```
+
 
 
