@@ -209,8 +209,9 @@ ggplot(data = NY_pincp_geo) +
 # Question 2
 Read the data file, `tech_stock.csv`, as the data.frame object with the name, `tech_stock`, using (1) the `read_csv()` function and (2) its URL, `https://bcdanl.github.io/data/tech_stock`.
 
-```{r, echo = T, eval = F}
+```{r, eval = T, echo = T, warning = F, message = F}
 tech_stock <- read_csv("https://bcdanl.github.io/data/tech_stock.csv")
+tech_stock
 ```
 
 <br><br>
@@ -219,21 +220,19 @@ tech_stock <- read_csv("https://bcdanl.github.io/data/tech_stock.csv")
 ## Q2a
 Describe the daily trend of `Close` for each company since 2010 in one ggplot.
 
-```{r, eval = T, echo = F, warning = F, message = F}
-tech_stock <- read_csv("https://bcdanl.github.io/data/tech_stock.csv")
-```
-
 
 ```{r, eval = T, echo = T, warning = F, message = F}
 ggplot(filter(tech_stock, Date > ymd("2010-01-01")),
        aes(x = Date, y= Close,
            color = company)) +
-  geom_line()
+  geom_line() +
+  hrbrthemes::theme_ipsum()
 
 ggplot(filter(tech_stock, Date > ymd("2010-01-01")),
        aes(x = Date, y= Close,
            color = fct_reorder2(company, Date, Close))) +
-  geom_line()
+  geom_line() + 
+  hrbrthemes::theme_ipsum()
 ```
 
 
