@@ -1,0 +1,474 @@
+---
+title: "DANL 100: Programming for Data Analytics"
+subtitle: "DANL 100 - Homework Assignment 4 - Example Answers<br><br>" 
+author: 
+  - "Byeong-Hak Choe<br>"
+date: "`r Sys.Date()`<br><br>"
+output: 
+  html_document:
+    df_print: paged
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    number_sections: false
+    highlight: espresso
+---
+```{r klippy, echo=FALSE, include=TRUE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+
+```
+
+
+- The following is the Python libraries we need for this homework.
+```{python, echo = T, eval = F}
+import pandas as pd
+import numpy as np
+```
+
+
+# Question 1
+
+- The following is the list, `a`:
+```{python, eval = F, echo = T}
+a = [0.1, 1.2, 2.3, 3.4, 4.5]
+```
+
+## Q1a
+
+Write a Python code that uses the list, `a`, to create the following Numpy Array:
+
+<div style="font-family:courier">array([0.1, 1.2, 2.3, 3.4, 4.5])</div>
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+arr_a = np.array(a)
+```
+
+
+## Q1b
+
+Write a Python code that uses the list, `a`, to create the following pandas Series:
+
+```{python, echo = T, eval = F}
+########################
+# Index      0
+
+# 0         0.1
+# 1         1.2
+# 2         2.3
+# 3         3.4
+# 4         4.5
+
+# dtype: float64    
+########################
+```
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+s = pd.Series(a)
+s
+```
+
+
+## Q1c
+
+Write a Python code that uses the list, `a`, to create the following pandas Series:
+
+```{python, echo = T, eval = F}
+########################
+# Index      0
+
+# a         0.1
+# b         1.2
+# c         2.3
+# d         3.4
+# e         4.5
+
+# dtype: float64    
+########################
+```
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+s = pd.Series(a, 
+              index = ['a','b','c','d','e'])
+s
+```
+
+
+## Q1d
+
+Write a Python code that uses (1) the Series created in Q1c and (2) Boolean indexing to get the following Series:
+
+```{python, echo = T, eval = F}
+########################
+# Index      0
+
+# c         2.3
+# d         3.4
+# e         4.5
+
+# dtype: float64    
+########################  
+```
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+s[ s > 2 ]
+```
+
+
+
+<br><br><br> 
+
+# Question 2
+
+The next line creates a list of tuples that are percentiles and Household Incomes at the specified percentiles
+
+```{python, echo = T, eval = F}
+hh_income = [ (10, 14629), (20, 25600), (30, 37002),
+              (40, 50000), (50, 63179), (60, 79542),
+              (70, 100162), (80, 130000), (90, 184292) ]
+```
+
+<br>
+
+## Q2a
+
+Write a Python code that uses the list, hh_income, to assign the object, `hh_income_array`, to the following Numpy array:
+
+```{python, echo = T, eval = F}
+############################
+
+# array([[    10,  14629],
+#        [    20,  25600],
+#        [    30,  37002],
+#        [    40,  50000],
+#        [    50,  63179],
+#        [    60,  79542],
+#        [    70, 100162],
+#        [    80, 130000],
+#        [    90, 184292]])
+
+############################
+```
+
+*Answer*
+
+```{python, echo = T, eval = F}
+hh_income_array = np.array(hh_income)
+```
+    
+<br>
+
+## Q2b
+
+Write a Python code that uses the `print()` function to report the dimensions of the ndarray and the number of elements in `hh_income_array` as follows:
+
+<div style="font-family:courier">Dimensions of the NumPy array, hh_income_array, is:  (9, 2)</div>
+<div style="font-family:courier">Number of elements in the NumPy array, hh_income_array, is:  18</div>
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+print("Dimensions of the NumPy array, hh_income_array, is: ", hh_income_array.shape)
+print("Number of elements in the NumPy array, hh_income_array, is: ", hh_income_array.size)
+```
+    
+    
+    
+<br><br><br>
+
+# Question 3
+
+- The following is the NumPy array, `c`:
+
+```{python, eval = F, echo = T}
+c = np.array([ [1.0, 2], [3, 4] ])
+```
+
+## Q3a.
+
+Write a Python code that uses the NumPy array, `c`, to create the following DataFrame:
+
+```{python, eval = F, echo = T}
+############################
+
+# index     0    1
+# 0         1.0  2.0
+# 1         3.0  4.0
+
+############################
+```
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+df = pd.DataFrame(c)
+df
+```
+    
+
+<br>
+
+## Q3b.
+
+Write a Python code that uses the NumPy array, `c`, to create the following DataFrame:
+
+```{python, eval = F, echo = T}
+############################
+
+# index     dogs    cats
+# 0         1.0     2.0
+# 1         3.0     4.0
+
+############################
+```
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+df = pd.DataFrame(c, columns=['dogs','cats'])
+df
+```
+
+
+
+<br>
+
+## Q3c.
+
+Write a Python code that uses the NumPy array, `c`, to create the following DataFrame:
+
+```{python, eval = F, echo = T}
+############################
+
+# index             dogs    cats
+# byeong-hak        1.0     2.0
+# your_first_name   3.0     4.0
+
+############################
+```
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+df = pd.DataFrame(c, 
+                  columns=['dogs','cats'],
+                  index = ['byeong-hak', 'your_first_name'])
+df
+```
+
+
+
+<br><br><br>
+
+# Question 4
+
+Download the file, US_state_GDP.zip, from the Files section in our Canvas. Extract the zip file, US_state_GDP.zip, to use the CSV file, `US_state_GDP.csv`.
+
+Assign path_csv to the string of the absolute pathname of the file, `US_state_GDP.csv`.
+
+```{python, eval = F, echo = T}
+####################################################################################################################################
+# For example
+
+# path_csv = '/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/US_state_GDP.csv'
+# path_csv = 'C:/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/US_state_GDP.csv'
+
+####################################################################################################################################
+```
+
+
+
+
+## Q4a
+
+Read the data file, US_state_GDP.csv, as the object name, `state_gdp`, using (1) `path_csv` and (2) `pd.read_csv()` function.
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+# This is an example of the absolute path of the CSV file
+path_csv = '/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/US_state_GDP.csv'
+state_gdp = pd.read_csv(path_csv)
+```
+    
+<br>
+    
+
+
+## Q4b
+
+Write a Python code that uses the DataFrame, `state_gdp`, to create the DataFrame, whose first five rows are as follows:
+
+```{python, echo = T, eval = F}
+############################################
+
+# index    state_code           state
+
+# 0          AK                Alaska
+# 1          AL               Alabama
+# 2          AR              Arkansas
+# 3          AZ               Arizona
+# 4          CA            California
+
+############################################
+```
+    
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+state_gdp[ [ 'state_code', 'state' ] ]
+```
+    
+<br>
+
+## Q4c
+
+Write a Python code that uses (1) the DataFrame, `state_gdp`, and (2) `state_gdp.columns` to create the DataFrame, whose first five rows are as follows:
+
+```{python, echo = T, eval = F}
+############################################
+
+#                    state  gdp_2009
+
+# 0                 Alaska     44215
+# 1                Alabama    149843
+# 2               Arkansas     89776
+# 3                Arizona    221405
+# 4             California   1667152
+
+############################################
+```
+    
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+cols = state_gdp.columns
+state_gdp[ cols[1:3] ]
+```
+    
+<br>
+    
+
+## Q4d
+
+Write a Python code to get the first three rows of the DataFrame, `state_gdp`:
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+state_gdp[ 1:3 ]
+```
+    
+<br>
+    
+
+## Q4e
+
+Write a Python code to get all the rows of the DataFrame, `state_gdp`, for which the value of `gdp_growth_2010` is less than 0
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+state_long_recession = state_gdp['gdp_growth_2010'] < 0
+state_gdp[ state_long_recession ]
+```
+    
+<br>
+    
+
+## Q4f
+
+Write a Python code that uses `state_gdp.loc[]` to get the following DataFrame:
+
+<br>
+
+```{python, echo = T, eval = F}
+############################################
+
+#       state  gdp_growth_2010
+
+# 0    Alaska             -1.7
+# 3   Arizona             -0.2
+# 33   Nevada             -0.4
+# 50  Wyoming             -1.3
+
+############################################
+```
+
+
+*Answer*
+
+```{python, echo = T, eval = F}
+state_gdp.loc[ state_long_recession,['state', 'gdp_growth_2010'] ]
+```
+    
+<br>
+
+## Q4g
+
+Write a Python code that uses `state_gdp.iloc[]` to get the following DataFrame:
+
+<br>
+
+```{python, echo = T, eval = F}
+############################################
+
+#    state_code     state
+
+# 10         GA   Georgia
+# 11         HI    Hawaii
+# 12         IA      Iowa
+# 13         ID     Idaho
+# 14         IL  Illinois
+
+############################################
+```
+
+
+*Answer*
+
+```{python, echo = T, eval = F}
+state_gdp.iloc[ 10:15, :2 ]
+```
+    

@@ -11,7 +11,7 @@
 
 <meta name="author" content="Byeong-Hak Choe " />
 
-<meta name="date" content="2022-12-08" />
+<meta name="date" content="2022-12-09" />
 
 <title>DANL 200: Introduction to Data Analytics</title>
 
@@ -549,6 +549,9 @@ div.tocify {
     <li>
       <a href="DANL100_hw2a.html">hw 2 answers</a>
     </li>
+    <li>
+      <a href="DANL100_hw4a.html">hw 4 answers</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -669,6 +672,12 @@ div.tocify {
     <li>
       <a href="DANL200_hw2a.html">hw 2 answers</a>
     </li>
+    <li>
+      <a href="DANL200_hw3a.html">hw 3 answers</a>
+    </li>
+    <li>
+      <a href="DANL200_hw4a.html">hw 4 answers</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -684,7 +693,7 @@ div.tocify {
 Analytics</h1>
 <h3 class="subtitle">DANL 200 - Midterm Exam, Spring 2022<br><br></h3>
 <h4 class="author">Byeong-Hak Choe<br></h4>
-<h4 class="date">2022-12-08<br><br></h4>
+<h4 class="date">2022-12-09<br><br></h4>
 
 </div>
 
@@ -725,9 +734,9 @@ standard deviation of variable <code>price</code> for the
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>oj_q1a <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&#39;/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/dominick_oj_q1a.csv&#39;</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(oj_q1a<span class="sc">$</span>brand)</span></code></pre></div>
-<pre><code># 
-#   dominicks minute.maid   tropicana 
-#        9602        9649        9649</code></pre>
+<pre><code>## 
+##   dominicks minute.maid   tropicana 
+##        9602        9649        9649</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>oj_q1a_d <span class="ot">&lt;-</span> <span class="fu">filter</span>(oj_q1a, brand <span class="sc">==</span> <span class="st">&#39;dominicks&#39;</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(oj_q1a_d<span class="sc">$</span>price)</span></code></pre></div>
@@ -900,13 +909,13 @@ the log of <code>sales</code> by <code>brand</code> using ggplot. Make a
 simple comment on your ggplot figure.</li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oj_q1b)</span></code></pre></div>
-<pre><code>#      sales            price          brand                feat       
-#  Min.   :    64   Min.   :0.520   Length:28947       Min.   :0.0000  
-#  1st Qu.:  4864   1st Qu.:1.790   Class :character   1st Qu.:0.0000  
-#  Median :  8384   Median :2.170   Mode  :character   Median :0.0000  
-#  Mean   : 17312   Mean   :2.282                      Mean   :0.2373  
-#  3rd Qu.: 17408   3rd Qu.:2.730                      3rd Qu.:0.0000  
-#  Max.   :716416   Max.   :3.870                      Max.   :1.0000</code></pre>
+<pre><code>##      sales            price          brand                feat       
+##  Min.   :    64   Min.   :0.520   Length:28947       Min.   :0.0000  
+##  1st Qu.:  4864   1st Qu.:1.790   Class :character   1st Qu.:0.0000  
+##  Median :  8384   Median :2.170   Mode  :character   Median :0.0000  
+##  Mean   : 17312   Mean   :2.282                      Mean   :0.2373  
+##  3rd Qu.: 17408   3rd Qu.:2.730                      3rd Qu.:0.0000  
+##  Max.   :716416   Max.   :3.870                      Max.   :1.0000</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> oj_q1b, </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(price), <span class="at">y =</span> <span class="fu">log</span>(sales),</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">color =</span> brand)) <span class="sc">+</span></span>
@@ -961,335 +970,335 @@ borough.</p></li>
 <p>Find the five most popular breeds in NYC.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 0.</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(nyc_dogs<span class="sc">$</span>breed_rc)</span></code></pre></div>
-<pre><code># 
-#                       Affenpinscher                        Afghan Hound 
-#                                 136                                  89 
-#             Afghan Hound Crossbreed                    Airedale Terrier 
-#                                  19                                 227 
-#                               Akita                    Akita Crossbreed 
-#                                 491                                 151 
-#                    Alaskan Klee Kai                    Alaskan Malamute 
-#                                 113                                 287 
-#                      American Bully          American English Coonhound 
-#                                1100                                 103 
-#                 American Eskimo Dog                   American Foxhound 
-#                                1145                                 265 
-#           American Hairless Terrier              American Leopard Hound 
-#                                  15                                  11 
-#      American Staffordshire Terrier              American Water Spaniel 
-#                                3052                                  15 
-#              Anatolian Shepherd Dog               Australian Cattle Dog 
-#                                 305                                 730 
-#                Australian Cattledog                   Australian Kelpie 
-#                                1324                                 126 
-#                 Australian Shepherd            Australian Silky Terrier 
-#                                4212                                 149 
-#                  Australian Terrier                             Azawakh 
-#                                 107                                   3 
-#                              Baladi                              Barbet 
-#                                   8                                  15 
-#                             Basenji                        Basset Hound 
-#                                 595                                 526 
-#             Basset Hound Crossbreed                       Bassett Hound 
-#                                 102                                 571 
-#                              Beagle                   Beagle Crossbreed 
-#                                7822                                4224 
-#                      Bearded Collie                           Beauceron 
-#                                  80                                  11 
-#                  Bedlington Terrier                     Belgian Griffon 
-#                                  92                                  24 
-#                   Belgian Laekenois                    Belgian Malinois 
-#                                   4                                 407 
-#                    Belgian Sheepdog                    Belgian Tervuren 
-#                                  78                                  17 
-#                       Berger Picard                Bernese Mountain Dog 
-#                                  23                                 923 
-#                        Bichon Frise             Bichon Frise Crossbreed 
-#                                4310                                1620 
-#                      Biewer Terrier             Black And Tan Coonhound 
-#                                  50                                 162 
-#               Black Russian Terrier                          Bloodhound 
-#                                  33                                 108 
-#               Bloodhound Crossbreed                  Bluetick Coonhound 
-#                                  58                                 134 
-#                            Boerboel                           Bolognese 
-#                                  56                                  43 
-#                       Border Collie            Border Collie Crossbreed 
-#                                1485                                 725 
-#                      Border Terrier                              Borzoi 
-#                                 800                                  64 
-#                      Boston Terrier                Bouvier Des Flandres 
-#                                4670                                  71 
-#                               Boxer                    Boxer Crossbreed 
-#                                3713                                 776 
-#                      Boykin Spaniel                     Bracco Italiano 
-#                                  29                                   7 
-#                              Briard                            Brittany 
-#                                  61                                  93 
-#                    Brittany Spaniel                    Brussels Griffon 
-#                                 358                                1137 
-#         Brussels Griffon Crossbreed                  Bull Dog, American 
-#                                  35                                 327 
-#                   Bull Dog, English                    Bull Dog, French 
-#                                3294                                2538 
-#                        Bull Terrier                             Bulldog 
-#                                 817                                 973 
-#                         Bullmastiff                       Cairn Terrier 
-#                                 100                                1764 
-#                          Canaan Dog                          Cane Corso 
-#                                  83                                 854 
-#                Cardigan Welsh Corgi               Catahoula Leopard Dog 
-#                                 213                                 542 
-#       Cavalier King Charles Spaniel                       Cesky Terrier 
-#                                5747                                   4 
-#            Chesapeake Bay Retriever                           Chihuahua 
-#                                 100                               21211 
-#                Chihuahua Crossbreed                     Chinese Crested 
-#                                7149                                 188 
-#                    Chinese Shar-Pei                             Chinook 
-#                                 187                                  20 
-#                           Chow Chow                        Cirneco Dell 
-#                                 891                                  12 
-#                     Clumber Spaniel                            Cockapoo 
-#                                  46                                 778 
-#                      Cocker Spaniel           Cocker Spaniel Crossbreed 
-#                                5676                                1046 
-#                              Collie                   Collie Crossbreed 
-#                                 277                                 869 
-#                     Collie, Bearded                      Collie, Border 
-#                                  86                                 841 
-#                  Collie, Rough Coat                 Collie, Smooth Coat 
-#                                 146                                 141 
-#            Coonhound, Black And Tan                Coonhound, Blue Tick 
-#                                 389                                 107 
-#                  Coonhound, Redbone           Coonhound, Treeing Walker 
-#                                  18                                 290 
-#                     Coton De Tulear                    Cotton De Tulear 
-#                                 537                                 706 
-#              Curly-Coated Retriever                           Dachshund 
-#                                  13                                3104 
-#                Dachshund Crossbreed               Dachshund Smooth Coat 
-#                                1345                                2496 
-#     Dachshund Smooth Coat Miniature              Dachshund, Long Haired 
-#                                1888                                 714 
-#    Dachshund, Long Haired Miniature               Dachshund, Wirehaired 
-#                                1131                                 249 
-#    Dachshund, Wirehaired, Miniature                           Dalmatian 
-#                                 267                                 369 
-#                       Dalmatian Mix              Dandie Dinmont Terrier 
-#                                  15                                  20 
-#                   Doberman Pinscher                      Dogo Argentino 
-#                                1021                                 111 
-#                   Dogue De Bordeaux                      Dutch Shepherd 
-#                                  56                                 164 
-#              English Cocker Spaniel                    English Foxhound 
-#                                 456                                  68 
-#                      English Setter           English Setter Crossbreed 
-#                                  91                                   9 
-#            English Springer Spaniel                 English Toy Spaniel 
-#                                 317                                  33 
-#            Entlebucher Mountain Dog                Estrela Mountain Dog 
-#                                  34                                   4 
-#                            Eurasier                       Field Spaniel 
-#                                  11                                  41 
-#                     Fila Brasileiro                    Finnish Lapphund 
-#                                  11                                   3 
-#                       Finnish Spitz               Flat-Coated Retriever 
-#                                  44                                 144 
-#                      French Bulldog                      French Spaniel 
-#                                6364                                  17 
-#           German Longhaired Pointer                     German Pinscher 
-#                                  21                                  49 
-#          German Shepherd Crossbreed                 German Shepherd Dog 
-#                                5683                                7129 
-#          German Shorthaired Pointer                        German Spitz 
-#                                 364                                  51 
-#           German Wirehaired Pointer                     Giant Schnauzer 
-#                                  41                                  58 
-#               Glen Of Imaal Terrier                    Golden Retriever 
-#                                  47                                7325 
-#                        Goldendoodle                       Gordon Setter 
-#                                3849                                  32 
-#        Grand Basset Griffon Vendeen                          Great Dane 
-#                                   4                                 546 
-#                      Great Pyrenees          Greater Swiss Mountain Dog 
-#                                 496                                  49 
-#                      Greek Shephard                           Greyhound 
-#                                   2                                 860 
-#                     Hamiltonstovare                             Harrier 
-#                                   3                                  44 
-#                            Havanese                            Hovawart 
-#                                8606                                  15 
-#                        Ibizan Hound                  Icelandic Sheepdog 
-#                                  47                                  11 
-#          Irish Red And White Setter                        Irish Setter 
-#                                  14                                 150 
-#                       Irish Terrier                 Irish Water Spaniel 
-#                                 200                                   2 
-#                     Irish Wolfhound                   Italian Greyhound 
-#                                  60                                1096 
-#                Jack Russell Terrier     Jack Russell Terrier Crossbreed 
-#                                6880                                 697 
-#                         Jagdterrier                       Japanese Chin 
-#                                   3                                 203 
-#               Japanese Chin/Spaniel                      Japanese Spitz 
-#                                 248                                  83 
-#                               Jindo                    Jindo Dog, Korea 
-#                                 299                                 937 
-#                             Kai Ken                   Karelian Bear Dog 
-#                                  10                                   2 
-#                            Keeshond                  Kerry Blue Terrier 
-#                                 123                                  65 
-#                           Kishu Ken                       Kooikerhondje 
-#                                   1                                  25 
-#                      Kromfohrlander                              Kuvasz 
-#                                   8                                  18 
-#                         Labradoodle            Labrador (or Crossbreed) 
-#                                3685                               28399 
-#                   Lagotto Romagnolo                    Lakeland Terrier 
-#                                 194                                  38 
-#                   Lancashire Heeler                          Leonberger 
-#                                  10                                  26 
-#                          Lhasa Apso                             Lowchen 
-#                                2486                                  31 
-#                             Maltese                  Maltese Crossbreed 
-#                               15701                                4498 
-#                            Maltipoo                  Manchester Terrier 
-#                                2358                                 158 
-#                             Mastiff                       Mastiff, Bull 
-#                                 294                                 192 
-# Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan 
-#                                  51                                  40 
-#                Mastiff, Old English                    Mastiff, Tibetan 
-#                                 125                                  22 
-#         Miniature American Shepherd       Miniature Australian Shepherd 
-#                                 449                                 829 
-#              Miniature Bull Terrier               Miniature Fox Terrier 
-#                                  53                                  15 
-#                  Miniature Pinscher                 Miniature Schnauzer 
-#                                3242                                2298 
-#                              Morkie                      Mountain Feist 
-#                                3049                                  13 
-#                                Mudi                  Neapolitan Mastiff 
-#                                  11                                  12 
-#                        Newfoundland                     Norfolk Terrier 
-#                                 263                                 328 
-#                    Norwegian Buhund                  Norwegian Elkhound 
-#                                   7                                 110 
-#                     Norwich Terrier  Nova Scotia Duck Tolling Retriever 
-#                                 399                                 101 
-#                Old English Sheepdog              Olde English Bulldogge 
-#                                 294                                  11 
-#                          Otterhound                            Papillon 
-#                                   4                                1430 
-#              Parson Russell Terrier                  Patterdale Terrier 
-#                                 208                                   8 
-#                           Pekingese                Pembroke Welsh Corgi 
-#                                2043                                1113 
-#     Pembroke Welsh Corgi Crossbreed              Perro De Presa Canario 
-#                                 130                                  24 
-#                Peruvian Inca Orchid        Petit Basset Griffon Vendeen 
-#                                   5                                  99 
-#                       Pharaoh Hound                        Pharoh Hound 
-#                                 102                                  51 
-#                   Pit Bull (or Mix)                               Plott 
-#                               24393                                 491 
-#                             Pointer         Pointer, German Shorthaired 
-#                                 861                                 227 
-#          Pointer, German Wirehaired                        Polish Hound 
-#                                  59                                  19 
-#             Polish Lowland Sheepdog                          Pomeranian 
-#                                  17                                9287 
-#               Pomeranian Crossbreed                              Pomsky 
-#                                1355                                 381 
-#                              Poodle                   Poodle Crossbreed 
-#                                4723                                6178 
-#                   Poodle, Miniature                    Poodle, Standard 
-#                                4567                                3105 
-#                         Poodle, Toy          Portuguese Podengo Pequeno 
-#                                4923                                  58 
-#                 Portuguese Sheepdog                Portuguese Water Dog 
-#                                   1                                 557 
-#                                 Pug                      Pug Crossbreed 
-#                                5203                                 534 
-#                              Puggle                                Puli 
-#                                2889                                  72 
-#                                Pumi                   Pyrenean Shepherd 
-#                                  10                                  13 
-#                         Rat Terrier              Rat Terrier Crossbreed 
-#                                1181                                 240 
-#                   Redbone Coonhound                 Rhodesian Ridgeback 
-#                                 175                                 935 
-#                          Rottweiler               Rottweiler Crossbreed 
-#                                2126                                 339 
-#                     Russell Terrier                         Russian Toy 
-#                                  89                                  26 
-#                   Russian Wolfhound                       Saint Bernard 
-#                                   2                                 118 
-#                              Saluki                             Samoyed 
-#                                  48                                 437 
-#                          Schipperke                         Schipperkee 
-#                                  83                                 135 
-#                Schnauzer Crossbreed                    Schnauzer, Giant 
-#                                 624                                 107 
-#                Schnauzer, Miniature     Schnauzer, Miniature Crossbreed 
-#                                3398                                 310 
-#                 Schnauzer, Standard                  Scottish Deerhound 
-#                                 659                                  12 
-#                    Scottish Terrier                    Sealyham Terrier 
-#                                 561                                  31 
-#                   Shar-Pei, Chinese                  Shepard Crossbreed 
-#                                 704                                 771 
-#                   Shetland Sheepdog                           Shiba Inu 
-#                                1070                                6109 
-#                Shiba Inu Crossbreed                            Shih Tzu 
-#                                 288                               27407 
-#                 Shih Tzu Crossbreed                      Siberian Husky 
-#                                8098                                4999 
-#           Siberian Husky Crossbreed                       Silky Terrier 
-#                                 770                                 943 
-#                        Skye Terrier         Small Munsterlander Pointer 
-#                                  31                                   5 
-#                  Smooth Fox Terrier         Soft Coated Wheaten Terrier 
-#                                  71                                 363 
-#                   Spanish Water Dog                    Spinone Italiano 
-#                                  27                                  66 
-#                         St. Bernard                           Stabyhoun 
-#                                  74                                   1 
-#          Staffordshire Bull Terrier                  Standard Schnauzer 
-#                                1230                                  31 
-#                      Sussex Spaniel                    Swedish Lapphund 
-#                                  20                                   1 
-#                    Swedish Vallhund                  Terrier Crossbreed 
-#                                  11                                2369 
-#                         Terrier Mix                      Thai Ridgeback 
-#                                5293                                  45 
-#                     Tibetan Mastiff                     Tibetan Spaniel 
-#                                  26                                 253 
-#                     Tibetan Terrier                             Tornjak 
-#                                 781                                   1 
-#                                Tosa                     Toy Fox Terrier 
-#                                   3                                 194 
-#           Treeing Tennessee Brindle            Treeing Walker Coonhound 
-#                                  34                                 200 
-#                             Unknown                              Vizsla 
-#                               54586                                 877 
-#                          Weimaraner               Welsh Corgi, Cardigan 
-#                                 559                                 310 
-#               Welsh Corgi, Pembroke              Welsh Springer Spaniel 
-#                                1123                                  75 
-#                       Welsh Terrier             West High White Terrier 
-#                                 118                                1619 
-#         West Highland White Terrier                     Wheaton Terrier 
-#                                 835                                1539 
-#                             Whippet                    Wire Fox Terrier 
-#                                 600                                 583 
-#         Wirehaired Pointing Griffon                   Wirehaired Vizsla 
-#                                  78                                   8 
-#                      Xoloitzcuintli                   Yorkshire Terrier 
-#                                  44                               30379 
-#        Yorkshire Terrier Crossbreed 
-#                                4554</code></pre>
+<pre><code>## 
+##                       Affenpinscher                        Afghan Hound 
+##                                 136                                  89 
+##             Afghan Hound Crossbreed                    Airedale Terrier 
+##                                  19                                 227 
+##                               Akita                    Akita Crossbreed 
+##                                 491                                 151 
+##                    Alaskan Klee Kai                    Alaskan Malamute 
+##                                 113                                 287 
+##                      American Bully          American English Coonhound 
+##                                1100                                 103 
+##                 American Eskimo Dog                   American Foxhound 
+##                                1145                                 265 
+##           American Hairless Terrier              American Leopard Hound 
+##                                  15                                  11 
+##      American Staffordshire Terrier              American Water Spaniel 
+##                                3052                                  15 
+##              Anatolian Shepherd Dog               Australian Cattle Dog 
+##                                 305                                 730 
+##                Australian Cattledog                   Australian Kelpie 
+##                                1324                                 126 
+##                 Australian Shepherd            Australian Silky Terrier 
+##                                4212                                 149 
+##                  Australian Terrier                             Azawakh 
+##                                 107                                   3 
+##                              Baladi                              Barbet 
+##                                   8                                  15 
+##                             Basenji                        Basset Hound 
+##                                 595                                 526 
+##             Basset Hound Crossbreed                       Bassett Hound 
+##                                 102                                 571 
+##                              Beagle                   Beagle Crossbreed 
+##                                7822                                4224 
+##                      Bearded Collie                           Beauceron 
+##                                  80                                  11 
+##                  Bedlington Terrier                     Belgian Griffon 
+##                                  92                                  24 
+##                   Belgian Laekenois                    Belgian Malinois 
+##                                   4                                 407 
+##                    Belgian Sheepdog                    Belgian Tervuren 
+##                                  78                                  17 
+##                       Berger Picard                Bernese Mountain Dog 
+##                                  23                                 923 
+##                        Bichon Frise             Bichon Frise Crossbreed 
+##                                4310                                1620 
+##                      Biewer Terrier             Black And Tan Coonhound 
+##                                  50                                 162 
+##               Black Russian Terrier                          Bloodhound 
+##                                  33                                 108 
+##               Bloodhound Crossbreed                  Bluetick Coonhound 
+##                                  58                                 134 
+##                            Boerboel                           Bolognese 
+##                                  56                                  43 
+##                       Border Collie            Border Collie Crossbreed 
+##                                1485                                 725 
+##                      Border Terrier                              Borzoi 
+##                                 800                                  64 
+##                      Boston Terrier                Bouvier Des Flandres 
+##                                4670                                  71 
+##                               Boxer                    Boxer Crossbreed 
+##                                3713                                 776 
+##                      Boykin Spaniel                     Bracco Italiano 
+##                                  29                                   7 
+##                              Briard                            Brittany 
+##                                  61                                  93 
+##                    Brittany Spaniel                    Brussels Griffon 
+##                                 358                                1137 
+##         Brussels Griffon Crossbreed                  Bull Dog, American 
+##                                  35                                 327 
+##                   Bull Dog, English                    Bull Dog, French 
+##                                3294                                2538 
+##                        Bull Terrier                             Bulldog 
+##                                 817                                 973 
+##                         Bullmastiff                       Cairn Terrier 
+##                                 100                                1764 
+##                          Canaan Dog                          Cane Corso 
+##                                  83                                 854 
+##                Cardigan Welsh Corgi               Catahoula Leopard Dog 
+##                                 213                                 542 
+##       Cavalier King Charles Spaniel                       Cesky Terrier 
+##                                5747                                   4 
+##            Chesapeake Bay Retriever                           Chihuahua 
+##                                 100                               21211 
+##                Chihuahua Crossbreed                     Chinese Crested 
+##                                7149                                 188 
+##                    Chinese Shar-Pei                             Chinook 
+##                                 187                                  20 
+##                           Chow Chow                        Cirneco Dell 
+##                                 891                                  12 
+##                     Clumber Spaniel                            Cockapoo 
+##                                  46                                 778 
+##                      Cocker Spaniel           Cocker Spaniel Crossbreed 
+##                                5676                                1046 
+##                              Collie                   Collie Crossbreed 
+##                                 277                                 869 
+##                     Collie, Bearded                      Collie, Border 
+##                                  86                                 841 
+##                  Collie, Rough Coat                 Collie, Smooth Coat 
+##                                 146                                 141 
+##            Coonhound, Black And Tan                Coonhound, Blue Tick 
+##                                 389                                 107 
+##                  Coonhound, Redbone           Coonhound, Treeing Walker 
+##                                  18                                 290 
+##                     Coton De Tulear                    Cotton De Tulear 
+##                                 537                                 706 
+##              Curly-Coated Retriever                           Dachshund 
+##                                  13                                3104 
+##                Dachshund Crossbreed               Dachshund Smooth Coat 
+##                                1345                                2496 
+##     Dachshund Smooth Coat Miniature              Dachshund, Long Haired 
+##                                1888                                 714 
+##    Dachshund, Long Haired Miniature               Dachshund, Wirehaired 
+##                                1131                                 249 
+##    Dachshund, Wirehaired, Miniature                           Dalmatian 
+##                                 267                                 369 
+##                       Dalmatian Mix              Dandie Dinmont Terrier 
+##                                  15                                  20 
+##                   Doberman Pinscher                      Dogo Argentino 
+##                                1021                                 111 
+##                   Dogue De Bordeaux                      Dutch Shepherd 
+##                                  56                                 164 
+##              English Cocker Spaniel                    English Foxhound 
+##                                 456                                  68 
+##                      English Setter           English Setter Crossbreed 
+##                                  91                                   9 
+##            English Springer Spaniel                 English Toy Spaniel 
+##                                 317                                  33 
+##            Entlebucher Mountain Dog                Estrela Mountain Dog 
+##                                  34                                   4 
+##                            Eurasier                       Field Spaniel 
+##                                  11                                  41 
+##                     Fila Brasileiro                    Finnish Lapphund 
+##                                  11                                   3 
+##                       Finnish Spitz               Flat-Coated Retriever 
+##                                  44                                 144 
+##                      French Bulldog                      French Spaniel 
+##                                6364                                  17 
+##           German Longhaired Pointer                     German Pinscher 
+##                                  21                                  49 
+##          German Shepherd Crossbreed                 German Shepherd Dog 
+##                                5683                                7129 
+##          German Shorthaired Pointer                        German Spitz 
+##                                 364                                  51 
+##           German Wirehaired Pointer                     Giant Schnauzer 
+##                                  41                                  58 
+##               Glen Of Imaal Terrier                    Golden Retriever 
+##                                  47                                7325 
+##                        Goldendoodle                       Gordon Setter 
+##                                3849                                  32 
+##        Grand Basset Griffon Vendeen                          Great Dane 
+##                                   4                                 546 
+##                      Great Pyrenees          Greater Swiss Mountain Dog 
+##                                 496                                  49 
+##                      Greek Shephard                           Greyhound 
+##                                   2                                 860 
+##                     Hamiltonstovare                             Harrier 
+##                                   3                                  44 
+##                            Havanese                            Hovawart 
+##                                8606                                  15 
+##                        Ibizan Hound                  Icelandic Sheepdog 
+##                                  47                                  11 
+##          Irish Red And White Setter                        Irish Setter 
+##                                  14                                 150 
+##                       Irish Terrier                 Irish Water Spaniel 
+##                                 200                                   2 
+##                     Irish Wolfhound                   Italian Greyhound 
+##                                  60                                1096 
+##                Jack Russell Terrier     Jack Russell Terrier Crossbreed 
+##                                6880                                 697 
+##                         Jagdterrier                       Japanese Chin 
+##                                   3                                 203 
+##               Japanese Chin/Spaniel                      Japanese Spitz 
+##                                 248                                  83 
+##                               Jindo                    Jindo Dog, Korea 
+##                                 299                                 937 
+##                             Kai Ken                   Karelian Bear Dog 
+##                                  10                                   2 
+##                            Keeshond                  Kerry Blue Terrier 
+##                                 123                                  65 
+##                           Kishu Ken                       Kooikerhondje 
+##                                   1                                  25 
+##                      Kromfohrlander                              Kuvasz 
+##                                   8                                  18 
+##                         Labradoodle            Labrador (or Crossbreed) 
+##                                3685                               28399 
+##                   Lagotto Romagnolo                    Lakeland Terrier 
+##                                 194                                  38 
+##                   Lancashire Heeler                          Leonberger 
+##                                  10                                  26 
+##                          Lhasa Apso                             Lowchen 
+##                                2486                                  31 
+##                             Maltese                  Maltese Crossbreed 
+##                               15701                                4498 
+##                            Maltipoo                  Manchester Terrier 
+##                                2358                                 158 
+##                             Mastiff                       Mastiff, Bull 
+##                                 294                                 192 
+## Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan 
+##                                  51                                  40 
+##                Mastiff, Old English                    Mastiff, Tibetan 
+##                                 125                                  22 
+##         Miniature American Shepherd       Miniature Australian Shepherd 
+##                                 449                                 829 
+##              Miniature Bull Terrier               Miniature Fox Terrier 
+##                                  53                                  15 
+##                  Miniature Pinscher                 Miniature Schnauzer 
+##                                3242                                2298 
+##                              Morkie                      Mountain Feist 
+##                                3049                                  13 
+##                                Mudi                  Neapolitan Mastiff 
+##                                  11                                  12 
+##                        Newfoundland                     Norfolk Terrier 
+##                                 263                                 328 
+##                    Norwegian Buhund                  Norwegian Elkhound 
+##                                   7                                 110 
+##                     Norwich Terrier  Nova Scotia Duck Tolling Retriever 
+##                                 399                                 101 
+##                Old English Sheepdog              Olde English Bulldogge 
+##                                 294                                  11 
+##                          Otterhound                            Papillon 
+##                                   4                                1430 
+##              Parson Russell Terrier                  Patterdale Terrier 
+##                                 208                                   8 
+##                           Pekingese                Pembroke Welsh Corgi 
+##                                2043                                1113 
+##     Pembroke Welsh Corgi Crossbreed              Perro De Presa Canario 
+##                                 130                                  24 
+##                Peruvian Inca Orchid        Petit Basset Griffon Vendeen 
+##                                   5                                  99 
+##                       Pharaoh Hound                        Pharoh Hound 
+##                                 102                                  51 
+##                   Pit Bull (or Mix)                               Plott 
+##                               24393                                 491 
+##                             Pointer         Pointer, German Shorthaired 
+##                                 861                                 227 
+##          Pointer, German Wirehaired                        Polish Hound 
+##                                  59                                  19 
+##             Polish Lowland Sheepdog                          Pomeranian 
+##                                  17                                9287 
+##               Pomeranian Crossbreed                              Pomsky 
+##                                1355                                 381 
+##                              Poodle                   Poodle Crossbreed 
+##                                4723                                6178 
+##                   Poodle, Miniature                    Poodle, Standard 
+##                                4567                                3105 
+##                         Poodle, Toy          Portuguese Podengo Pequeno 
+##                                4923                                  58 
+##                 Portuguese Sheepdog                Portuguese Water Dog 
+##                                   1                                 557 
+##                                 Pug                      Pug Crossbreed 
+##                                5203                                 534 
+##                              Puggle                                Puli 
+##                                2889                                  72 
+##                                Pumi                   Pyrenean Shepherd 
+##                                  10                                  13 
+##                         Rat Terrier              Rat Terrier Crossbreed 
+##                                1181                                 240 
+##                   Redbone Coonhound                 Rhodesian Ridgeback 
+##                                 175                                 935 
+##                          Rottweiler               Rottweiler Crossbreed 
+##                                2126                                 339 
+##                     Russell Terrier                         Russian Toy 
+##                                  89                                  26 
+##                   Russian Wolfhound                       Saint Bernard 
+##                                   2                                 118 
+##                              Saluki                             Samoyed 
+##                                  48                                 437 
+##                          Schipperke                         Schipperkee 
+##                                  83                                 135 
+##                Schnauzer Crossbreed                    Schnauzer, Giant 
+##                                 624                                 107 
+##                Schnauzer, Miniature     Schnauzer, Miniature Crossbreed 
+##                                3398                                 310 
+##                 Schnauzer, Standard                  Scottish Deerhound 
+##                                 659                                  12 
+##                    Scottish Terrier                    Sealyham Terrier 
+##                                 561                                  31 
+##                   Shar-Pei, Chinese                  Shepard Crossbreed 
+##                                 704                                 771 
+##                   Shetland Sheepdog                           Shiba Inu 
+##                                1070                                6109 
+##                Shiba Inu Crossbreed                            Shih Tzu 
+##                                 288                               27407 
+##                 Shih Tzu Crossbreed                      Siberian Husky 
+##                                8098                                4999 
+##           Siberian Husky Crossbreed                       Silky Terrier 
+##                                 770                                 943 
+##                        Skye Terrier         Small Munsterlander Pointer 
+##                                  31                                   5 
+##                  Smooth Fox Terrier         Soft Coated Wheaten Terrier 
+##                                  71                                 363 
+##                   Spanish Water Dog                    Spinone Italiano 
+##                                  27                                  66 
+##                         St. Bernard                           Stabyhoun 
+##                                  74                                   1 
+##          Staffordshire Bull Terrier                  Standard Schnauzer 
+##                                1230                                  31 
+##                      Sussex Spaniel                    Swedish Lapphund 
+##                                  20                                   1 
+##                    Swedish Vallhund                  Terrier Crossbreed 
+##                                  11                                2369 
+##                         Terrier Mix                      Thai Ridgeback 
+##                                5293                                  45 
+##                     Tibetan Mastiff                     Tibetan Spaniel 
+##                                  26                                 253 
+##                     Tibetan Terrier                             Tornjak 
+##                                 781                                   1 
+##                                Tosa                     Toy Fox Terrier 
+##                                   3                                 194 
+##           Treeing Tennessee Brindle            Treeing Walker Coonhound 
+##                                  34                                 200 
+##                             Unknown                              Vizsla 
+##                               54586                                 877 
+##                          Weimaraner               Welsh Corgi, Cardigan 
+##                                 559                                 310 
+##               Welsh Corgi, Pembroke              Welsh Springer Spaniel 
+##                                1123                                  75 
+##                       Welsh Terrier             West High White Terrier 
+##                                 118                                1619 
+##         West Highland White Terrier                     Wheaton Terrier 
+##                                 835                                1539 
+##                             Whippet                    Wire Fox Terrier 
+##                                 600                                 583 
+##         Wirehaired Pointing Griffon                   Wirehaired Vizsla 
+##                                  78                                   8 
+##                      Xoloitzcuintli                   Yorkshire Terrier 
+##                                  44                               30379 
+##        Yorkshire Terrier Crossbreed 
+##                                4554</code></pre>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>q2b <span class="ot">&lt;-</span> <span class="fu">group_by</span>(nyc_dogs, </span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                breed_rc)</span>
@@ -1494,70 +1503,70 @@ using ggplot. Make a simple comment on your ggplot figure.</p>
 <span id="cb33-22"><a href="#cb33-22" aria-hidden="true" tabindex="-1"></a>               borough,<span class="sc">-</span>n)</span>
 <span id="cb33-23"><a href="#cb33-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-24"><a href="#cb33-24" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(q2d, <span class="at">n =</span> <span class="cn">Inf</span>)</span></code></pre></div>
-<pre><code># # A tibble: 60 × 4
-# # Groups:   borough [6]
-#    breed_rc                     n  rank borough      
-#    &lt;chr&gt;                    &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
-#  1 Unknown                   5071     1 Bronx        
-#  2 Yorkshire Terrier         4956     2 Bronx        
-#  3 Pit Bull (or Mix)         4612     3 Bronx        
-#  4 Shih Tzu                  4153     4 Bronx        
-#  5 Chihuahua                 2934     5 Bronx        
-#  6 Labrador (or Crossbreed)  1913     6 Bronx        
-#  7 Maltese                   1889     7 Bronx        
-#  8 Shih Tzu Crossbreed       1301     8 Bronx        
-#  9 Pomeranian                1031     9 Bronx        
-# 10 Chihuahua Crossbreed       958    10 Bronx        
-# 11 Unknown                  14007     1 Brooklyn     
-# 12 Yorkshire Terrier         7928     2 Brooklyn     
-# 13 Labrador (or Crossbreed)  7660     3 Brooklyn     
-# 14 Shih Tzu                  7463     4 Brooklyn     
-# 15 Pit Bull (or Mix)         7305     5 Brooklyn     
-# 16 Chihuahua                 5439     6 Brooklyn     
-# 17 Maltese                   3550     7 Brooklyn     
-# 18 Pomeranian                2440     8 Brooklyn     
-# 19 Shih Tzu Crossbreed       2129     9 Brooklyn     
-# 20 Chihuahua Crossbreed      2108    10 Brooklyn     
-# 21 Unknown                  17421     1 Manhattan    
-# 22 Labrador (or Crossbreed) 10387     2 Manhattan    
-# 23 Yorkshire Terrier         7517     3 Manhattan    
-# 24 Chihuahua                 7118     4 Manhattan    
-# 25 Shih Tzu                  6482     5 Manhattan    
-# 26 Pit Bull (or Mix)         4919     6 Manhattan    
-# 27 Havanese                  4727     7 Manhattan    
-# 28 Maltese                   4269     8 Manhattan    
-# 29 French Bulldog            3565     9 Manhattan    
-# 30 Golden Retriever          3280    10 Manhattan    
-# 31 Unknown                  11807     1 Queens       
-# 32 Yorkshire Terrier         6713     2 Queens       
-# 33 Shih Tzu                  6039     3 Queens       
-# 34 Pit Bull (or Mix)         5108     4 Queens       
-# 35 Labrador (or Crossbreed)  4974     5 Queens       
-# 36 Maltese                   4297     6 Queens       
-# 37 Chihuahua                 4183     7 Queens       
-# 38 Pomeranian                2255     8 Queens       
-# 39 German Shepherd Dog       2111     9 Queens       
-# 40 Beagle                    2080    10 Queens       
-# 41 Unknown                   5894     1 Staten Island
-# 42 Labrador (or Crossbreed)  3202     2 Staten Island
-# 43 Shih Tzu                  3058     3 Staten Island
-# 44 Yorkshire Terrier         2987     4 Staten Island
-# 45 Pit Bull (or Mix)         2289     5 Staten Island
-# 46 Maltese                   1588     6 Staten Island
-# 47 Chihuahua                 1375     7 Staten Island
-# 48 German Shepherd Dog       1127     8 Staten Island
-# 49 Beagle                     799     9 Staten Island
-# 50 Golden Retriever           739    10 Staten Island
-# 51 Unknown                    386     1 &lt;NA&gt;         
-# 52 Yorkshire Terrier          278     2 &lt;NA&gt;         
-# 53 Labrador (or Crossbreed)   263     3 &lt;NA&gt;         
-# 54 Shih Tzu                   212     4 &lt;NA&gt;         
-# 55 Chihuahua                  162     5 &lt;NA&gt;         
-# 56 Pit Bull (or Mix)          160     6 &lt;NA&gt;         
-# 57 French Bulldog             114     7 &lt;NA&gt;         
-# 58 Maltese                    108     8 &lt;NA&gt;         
-# 59 Pomeranian                 106     9 &lt;NA&gt;         
-# 60 Chihuahua Crossbreed        98    10 &lt;NA&gt;</code></pre>
+<pre><code>## # A tibble: 60 × 4
+## # Groups:   borough [6]
+##    breed_rc                     n  rank borough      
+##    &lt;chr&gt;                    &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
+##  1 Unknown                   5071     1 Bronx        
+##  2 Yorkshire Terrier         4956     2 Bronx        
+##  3 Pit Bull (or Mix)         4612     3 Bronx        
+##  4 Shih Tzu                  4153     4 Bronx        
+##  5 Chihuahua                 2934     5 Bronx        
+##  6 Labrador (or Crossbreed)  1913     6 Bronx        
+##  7 Maltese                   1889     7 Bronx        
+##  8 Shih Tzu Crossbreed       1301     8 Bronx        
+##  9 Pomeranian                1031     9 Bronx        
+## 10 Chihuahua Crossbreed       958    10 Bronx        
+## 11 Unknown                  14007     1 Brooklyn     
+## 12 Yorkshire Terrier         7928     2 Brooklyn     
+## 13 Labrador (or Crossbreed)  7660     3 Brooklyn     
+## 14 Shih Tzu                  7463     4 Brooklyn     
+## 15 Pit Bull (or Mix)         7305     5 Brooklyn     
+## 16 Chihuahua                 5439     6 Brooklyn     
+## 17 Maltese                   3550     7 Brooklyn     
+## 18 Pomeranian                2440     8 Brooklyn     
+## 19 Shih Tzu Crossbreed       2129     9 Brooklyn     
+## 20 Chihuahua Crossbreed      2108    10 Brooklyn     
+## 21 Unknown                  17421     1 Manhattan    
+## 22 Labrador (or Crossbreed) 10387     2 Manhattan    
+## 23 Yorkshire Terrier         7517     3 Manhattan    
+## 24 Chihuahua                 7118     4 Manhattan    
+## 25 Shih Tzu                  6482     5 Manhattan    
+## 26 Pit Bull (or Mix)         4919     6 Manhattan    
+## 27 Havanese                  4727     7 Manhattan    
+## 28 Maltese                   4269     8 Manhattan    
+## 29 French Bulldog            3565     9 Manhattan    
+## 30 Golden Retriever          3280    10 Manhattan    
+## 31 Unknown                  11807     1 Queens       
+## 32 Yorkshire Terrier         6713     2 Queens       
+## 33 Shih Tzu                  6039     3 Queens       
+## 34 Pit Bull (or Mix)         5108     4 Queens       
+## 35 Labrador (or Crossbreed)  4974     5 Queens       
+## 36 Maltese                   4297     6 Queens       
+## 37 Chihuahua                 4183     7 Queens       
+## 38 Pomeranian                2255     8 Queens       
+## 39 German Shepherd Dog       2111     9 Queens       
+## 40 Beagle                    2080    10 Queens       
+## 41 Unknown                   5894     1 Staten Island
+## 42 Labrador (or Crossbreed)  3202     2 Staten Island
+## 43 Shih Tzu                  3058     3 Staten Island
+## 44 Yorkshire Terrier         2987     4 Staten Island
+## 45 Pit Bull (or Mix)         2289     5 Staten Island
+## 46 Maltese                   1588     6 Staten Island
+## 47 Chihuahua                 1375     7 Staten Island
+## 48 German Shepherd Dog       1127     8 Staten Island
+## 49 Beagle                     799     9 Staten Island
+## 50 Golden Retriever           739    10 Staten Island
+## 51 Unknown                    386     1 &lt;NA&gt;         
+## 52 Yorkshire Terrier          278     2 &lt;NA&gt;         
+## 53 Labrador (or Crossbreed)   263     3 &lt;NA&gt;         
+## 54 Shih Tzu                   212     4 &lt;NA&gt;         
+## 55 Chihuahua                  162     5 &lt;NA&gt;         
+## 56 Pit Bull (or Mix)          160     6 &lt;NA&gt;         
+## 57 French Bulldog             114     7 &lt;NA&gt;         
+## 58 Maltese                    108     8 &lt;NA&gt;         
+## 59 Pomeranian                 106     9 &lt;NA&gt;         
+## 60 Chihuahua Crossbreed        98    10 &lt;NA&gt;</code></pre>
 <p><br><br></p>
 </div>
 <div id="q2e" class="section level2">
@@ -1738,142 +1747,142 @@ in NYC.</p>
 <span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a>               borough, animal_gender, <span class="sc">-</span>n)</span>
 <span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(q2f, <span class="at">n =</span> <span class="cn">Inf</span>)</span></code></pre></div>
-<pre><code># # A tibble: 132 × 5
-# # Groups:   animal_gender, borough [15]
-#     animal_name       animal_gender     n  rank borough      
-#     &lt;chr&gt;             &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
-#   1 Bella             F               774     1 Bronx        
-#   2 Princess          F               490     2 Bronx        
-#   3 Luna              F               436     3 Bronx        
-#   4 Lola              F               375     4 Bronx        
-#   5 Coco              F               322     5 Bronx        
-#   6 Mia               F               295     6 Bronx        
-#   7 Daisy             F               248     7 Bronx        
-#   8 Chloe             F               228     8 Bronx        
-#   9 Lady              F               201     9 Bronx        
-#  10 Name Not Provided F               179    10 Bronx        
-#  11 Max               M               683     1 Bronx        
-#  12 Rocky             M               495     2 Bronx        
-#  13 Lucky             M               372     3 Bronx        
-#  14 Toby              M               316     4 Bronx        
-#  15 Teddy             M               312     5 Bronx        
-#  16 Prince            M               295     6 Bronx        
-#  17 Name Not Provided M               289     7 Bronx        
-#  18 Charlie           M               288     8 Bronx        
-#  19 Buddy             M               282     9 Bronx        
-#  20 Milo              M               249    10 Bronx        
-#  21 Unknown           F              1480     1 Brooklyn     
-#  22 Bella             F              1331     2 Brooklyn     
-#  23 Lola              F               836     3 Brooklyn     
-#  24 Luna              F               792     4 Brooklyn     
-#  25 Lucy              F               733     5 Brooklyn     
-#  26 Daisy             F               636     6 Brooklyn     
-#  27 Name              F               635     7 Brooklyn     
-#  28 Princess          F               567     8 Brooklyn     
-#  29 Chloe             F               551     9 Brooklyn     
-#  30 Coco              F               531    10 Brooklyn     
-#  31 Unknown           M              1937     1 Brooklyn     
-#  32 Max               M              1179     2 Brooklyn     
-#  33 Rocky             M               881     3 Brooklyn     
-#  34 Name              M               859     4 Brooklyn     
-#  35 Charlie           M               835     5 Brooklyn     
-#  36 Name Not Provided M               668     6 Brooklyn     
-#  37 Lucky             M               660     7 Brooklyn     
-#  38 Buddy             M               627     8 Brooklyn     
-#  39 Teddy             M               533     9 Brooklyn     
-#  40 Milo              M               533     9 Brooklyn     
-#  41 Prince            M               489    10 Brooklyn     
-#  42 Cherry            &lt;NA&gt;              5     1 Brooklyn     
-#  43 Shebah            &lt;NA&gt;              4     2 Brooklyn     
-#  44 Sparkey           &lt;NA&gt;              3     3 Brooklyn     
-#  45 Unknown           F              1555     1 Manhattan    
-#  46 Lucy              F              1358     2 Manhattan    
-#  47 Lola              F              1317     3 Manhattan    
-#  48 Bella             F              1262     4 Manhattan    
-#  49 Luna              F              1025     5 Manhattan    
-#  50 Daisy             F               884     6 Manhattan    
-#  51 Coco              F               783     7 Manhattan    
-#  52 Stella            F               698     8 Manhattan    
-#  53 Penny             F               685     9 Manhattan    
-#  54 Sophie            F               678    10 Manhattan    
-#  55 Unknown           M              1888     1 Manhattan    
-#  56 Charlie           M              1290     2 Manhattan    
-#  57 Max               M              1186     3 Manhattan    
-#  58 Oliver            M               836     4 Manhattan    
-#  59 Teddy             M               798     5 Manhattan    
-#  60 Cooper            M               768     6 Manhattan    
-#  61 Buddy             M               729     7 Manhattan    
-#  62 Leo               M               665     8 Manhattan    
-#  63 Rocky             M               650     9 Manhattan    
-#  64 Jack              M               629    10 Manhattan    
-#  65 Milo              M               629    10 Manhattan    
-#  66 Bella             F              1338     1 Queens       
-#  67 Name Not Provided F               780     2 Queens       
-#  68 Luna              F               678     3 Queens       
-#  69 Coco              F               605     4 Queens       
-#  70 Lola              F               580     5 Queens       
-#  71 Daisy             F               569     6 Queens       
-#  72 Princess          F               549     7 Queens       
-#  73 Molly             F               465     8 Queens       
-#  74 Lucy              F               455     9 Queens       
-#  75 Unknown           F               429    10 Queens       
-#  76 Name Not Provided M              1595     1 Queens       
-#  77 Max               M              1258     2 Queens       
-#  78 Unknown           M              1012     3 Queens       
-#  79 Rocky             M               875     4 Queens       
-#  80 Charlie           M               733     5 Queens       
-#  81 Buddy             M               668     6 Queens       
-#  82 Lucky             M               649     7 Queens       
-#  83 Toby              M               562     8 Queens       
-#  84 Milo              M               541     9 Queens       
-#  85 Teddy             M               536    10 Queens       
-#  86 Nanuk             &lt;NA&gt;              3     1 Queens       
-#  87 Sidney            &lt;NA&gt;              3     1 Queens       
-#  88 Bella             F               742     1 Staten Island
-#  89 Molly             F               352     2 Staten Island
-#  90 Coco              F               328     3 Staten Island
-#  91 Daisy             F               328     3 Staten Island
-#  92 Lola              F               315     4 Staten Island
-#  93 Lucy              F               247     5 Staten Island
-#  94 Luna              F               238     6 Staten Island
-#  95 Chloe             F               234     7 Staten Island
-#  96 Mia               F               221     8 Staten Island
-#  97 Unknown           F               207     9 Staten Island
-#  98 Zoey              F               206    10 Staten Island
-#  99 Max               M               523     1 Staten Island
-# 100 Rocky             M               451     2 Staten Island
-# 101 Buddy             M               421     3 Staten Island
-# 102 Charlie           M               311     4 Staten Island
-# 103 Unknown           M               262     5 Staten Island
-# 104 Teddy             M               256     6 Staten Island
-# 105 Name Not Provided M               230     7 Staten Island
-# 106 Bailey            M               205     8 Staten Island
-# 107 Cody              M               188     9 Staten Island
-# 108 Toby              M               185    10 Staten Island
-# 109 Buddy             &lt;NA&gt;              4     1 Staten Island
-# 110 Unknown           F                80     1 &lt;NA&gt;         
-# 111 Lola              F                55     2 &lt;NA&gt;         
-# 112 Bella             F                46     3 &lt;NA&gt;         
-# 113 Luna              F                35     4 &lt;NA&gt;         
-# 114 Lucy              F                33     5 &lt;NA&gt;         
-# 115 Penny             F                32     6 &lt;NA&gt;         
-# 116 Coco              F                27     7 &lt;NA&gt;         
-# 117 Name Not Provided F                20     8 &lt;NA&gt;         
-# 118 Lady              F                19     9 &lt;NA&gt;         
-# 119 Mia               F                17    10 &lt;NA&gt;         
-# 120 Unknown           M               113     1 &lt;NA&gt;         
-# 121 Name Not Provided M                33     2 &lt;NA&gt;         
-# 122 Max               M                31     3 &lt;NA&gt;         
-# 123 Charlie           M                28     4 &lt;NA&gt;         
-# 124 Name              M                24     5 &lt;NA&gt;         
-# 125 Henry             M                21     6 &lt;NA&gt;         
-# 126 Toby              M                20     7 &lt;NA&gt;         
-# 127 Teddy             M                18     8 &lt;NA&gt;         
-# 128 Oliver            M                17     9 &lt;NA&gt;         
-# 129 Cooper            M                15    10 &lt;NA&gt;         
-# 130 Rocky             M                15    10 &lt;NA&gt;         
-# 131 Dexter            M                15    10 &lt;NA&gt;         
-# 132 Milo              M                15    10 &lt;NA&gt;</code></pre>
+<pre><code>## # A tibble: 132 × 5
+## # Groups:   animal_gender, borough [15]
+##     animal_name       animal_gender     n  rank borough      
+##     &lt;chr&gt;             &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
+##   1 Bella             F               774     1 Bronx        
+##   2 Princess          F               490     2 Bronx        
+##   3 Luna              F               436     3 Bronx        
+##   4 Lola              F               375     4 Bronx        
+##   5 Coco              F               322     5 Bronx        
+##   6 Mia               F               295     6 Bronx        
+##   7 Daisy             F               248     7 Bronx        
+##   8 Chloe             F               228     8 Bronx        
+##   9 Lady              F               201     9 Bronx        
+##  10 Name Not Provided F               179    10 Bronx        
+##  11 Max               M               683     1 Bronx        
+##  12 Rocky             M               495     2 Bronx        
+##  13 Lucky             M               372     3 Bronx        
+##  14 Toby              M               316     4 Bronx        
+##  15 Teddy             M               312     5 Bronx        
+##  16 Prince            M               295     6 Bronx        
+##  17 Name Not Provided M               289     7 Bronx        
+##  18 Charlie           M               288     8 Bronx        
+##  19 Buddy             M               282     9 Bronx        
+##  20 Milo              M               249    10 Bronx        
+##  21 Unknown           F              1480     1 Brooklyn     
+##  22 Bella             F              1331     2 Brooklyn     
+##  23 Lola              F               836     3 Brooklyn     
+##  24 Luna              F               792     4 Brooklyn     
+##  25 Lucy              F               733     5 Brooklyn     
+##  26 Daisy             F               636     6 Brooklyn     
+##  27 Name              F               635     7 Brooklyn     
+##  28 Princess          F               567     8 Brooklyn     
+##  29 Chloe             F               551     9 Brooklyn     
+##  30 Coco              F               531    10 Brooklyn     
+##  31 Unknown           M              1937     1 Brooklyn     
+##  32 Max               M              1179     2 Brooklyn     
+##  33 Rocky             M               881     3 Brooklyn     
+##  34 Name              M               859     4 Brooklyn     
+##  35 Charlie           M               835     5 Brooklyn     
+##  36 Name Not Provided M               668     6 Brooklyn     
+##  37 Lucky             M               660     7 Brooklyn     
+##  38 Buddy             M               627     8 Brooklyn     
+##  39 Teddy             M               533     9 Brooklyn     
+##  40 Milo              M               533     9 Brooklyn     
+##  41 Prince            M               489    10 Brooklyn     
+##  42 Cherry            &lt;NA&gt;              5     1 Brooklyn     
+##  43 Shebah            &lt;NA&gt;              4     2 Brooklyn     
+##  44 Sparkey           &lt;NA&gt;              3     3 Brooklyn     
+##  45 Unknown           F              1555     1 Manhattan    
+##  46 Lucy              F              1358     2 Manhattan    
+##  47 Lola              F              1317     3 Manhattan    
+##  48 Bella             F              1262     4 Manhattan    
+##  49 Luna              F              1025     5 Manhattan    
+##  50 Daisy             F               884     6 Manhattan    
+##  51 Coco              F               783     7 Manhattan    
+##  52 Stella            F               698     8 Manhattan    
+##  53 Penny             F               685     9 Manhattan    
+##  54 Sophie            F               678    10 Manhattan    
+##  55 Unknown           M              1888     1 Manhattan    
+##  56 Charlie           M              1290     2 Manhattan    
+##  57 Max               M              1186     3 Manhattan    
+##  58 Oliver            M               836     4 Manhattan    
+##  59 Teddy             M               798     5 Manhattan    
+##  60 Cooper            M               768     6 Manhattan    
+##  61 Buddy             M               729     7 Manhattan    
+##  62 Leo               M               665     8 Manhattan    
+##  63 Rocky             M               650     9 Manhattan    
+##  64 Jack              M               629    10 Manhattan    
+##  65 Milo              M               629    10 Manhattan    
+##  66 Bella             F              1338     1 Queens       
+##  67 Name Not Provided F               780     2 Queens       
+##  68 Luna              F               678     3 Queens       
+##  69 Coco              F               605     4 Queens       
+##  70 Lola              F               580     5 Queens       
+##  71 Daisy             F               569     6 Queens       
+##  72 Princess          F               549     7 Queens       
+##  73 Molly             F               465     8 Queens       
+##  74 Lucy              F               455     9 Queens       
+##  75 Unknown           F               429    10 Queens       
+##  76 Name Not Provided M              1595     1 Queens       
+##  77 Max               M              1258     2 Queens       
+##  78 Unknown           M              1012     3 Queens       
+##  79 Rocky             M               875     4 Queens       
+##  80 Charlie           M               733     5 Queens       
+##  81 Buddy             M               668     6 Queens       
+##  82 Lucky             M               649     7 Queens       
+##  83 Toby              M               562     8 Queens       
+##  84 Milo              M               541     9 Queens       
+##  85 Teddy             M               536    10 Queens       
+##  86 Nanuk             &lt;NA&gt;              3     1 Queens       
+##  87 Sidney            &lt;NA&gt;              3     1 Queens       
+##  88 Bella             F               742     1 Staten Island
+##  89 Molly             F               352     2 Staten Island
+##  90 Coco              F               328     3 Staten Island
+##  91 Daisy             F               328     3 Staten Island
+##  92 Lola              F               315     4 Staten Island
+##  93 Lucy              F               247     5 Staten Island
+##  94 Luna              F               238     6 Staten Island
+##  95 Chloe             F               234     7 Staten Island
+##  96 Mia               F               221     8 Staten Island
+##  97 Unknown           F               207     9 Staten Island
+##  98 Zoey              F               206    10 Staten Island
+##  99 Max               M               523     1 Staten Island
+## 100 Rocky             M               451     2 Staten Island
+## 101 Buddy             M               421     3 Staten Island
+## 102 Charlie           M               311     4 Staten Island
+## 103 Unknown           M               262     5 Staten Island
+## 104 Teddy             M               256     6 Staten Island
+## 105 Name Not Provided M               230     7 Staten Island
+## 106 Bailey            M               205     8 Staten Island
+## 107 Cody              M               188     9 Staten Island
+## 108 Toby              M               185    10 Staten Island
+## 109 Buddy             &lt;NA&gt;              4     1 Staten Island
+## 110 Unknown           F                80     1 &lt;NA&gt;         
+## 111 Lola              F                55     2 &lt;NA&gt;         
+## 112 Bella             F                46     3 &lt;NA&gt;         
+## 113 Luna              F                35     4 &lt;NA&gt;         
+## 114 Lucy              F                33     5 &lt;NA&gt;         
+## 115 Penny             F                32     6 &lt;NA&gt;         
+## 116 Coco              F                27     7 &lt;NA&gt;         
+## 117 Name Not Provided F                20     8 &lt;NA&gt;         
+## 118 Lady              F                19     9 &lt;NA&gt;         
+## 119 Mia               F                17    10 &lt;NA&gt;         
+## 120 Unknown           M               113     1 &lt;NA&gt;         
+## 121 Name Not Provided M                33     2 &lt;NA&gt;         
+## 122 Max               M                31     3 &lt;NA&gt;         
+## 123 Charlie           M                28     4 &lt;NA&gt;         
+## 124 Name              M                24     5 &lt;NA&gt;         
+## 125 Henry             M                21     6 &lt;NA&gt;         
+## 126 Toby              M                20     7 &lt;NA&gt;         
+## 127 Teddy             M                18     8 &lt;NA&gt;         
+## 128 Oliver            M                17     9 &lt;NA&gt;         
+## 129 Cooper            M                15    10 &lt;NA&gt;         
+## 130 Rocky             M                15    10 &lt;NA&gt;         
+## 131 Dexter            M                15    10 &lt;NA&gt;         
+## 132 Milo              M                15    10 &lt;NA&gt;</code></pre>
 <p><br><br></p>
 </div>
 <div id="q2g" class="section level2">
