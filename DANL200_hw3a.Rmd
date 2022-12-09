@@ -113,6 +113,7 @@ Use the data.frame `NY_pincp_wide` from Q1b to create the data frame, NY_pincp_l
 
 
 ```{r, eval = T, echo = T, warning = F, message = F}
+# (1) using separate()
 NY_pincp_long <- NY_pincp_wide %>% 
   pivot_longer( cols = pincp2015:pincp2020,
                 names_to = "year",
@@ -120,6 +121,14 @@ NY_pincp_long <- NY_pincp_wide %>%
   separate(year, into = c("dum", "year"), 
            sep = "pincp", convert = T) %>% 
   select(-dum)
+
+# () using str_replace()
+NY_pincp_long <- NY_pincp_wide %>% 
+  pivot_longer( cols = pincp2015:pincp2020,
+                names_to = "year",
+                values_to = "pincp") %>% 
+  mutate( year = str_replace(year, "pincp", ""),
+          year = as.integer(year) )
 ```
 
 

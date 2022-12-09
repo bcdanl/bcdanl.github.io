@@ -781,13 +781,22 @@ values of <code>year</code> are 2015, 2016, 2017, 2018, 2019, and
 <li><code>county_name</code>: County Name</li>
 <li><code>pincp</code>: Annual personal income</li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>NY_pincp_long <span class="ot">&lt;-</span> NY_pincp_wide <span class="sc">%&gt;%</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>( <span class="at">cols =</span> pincp2015<span class="sc">:</span>pincp2020,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">values_to =</span> <span class="st">&quot;pincp&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(year, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;dum&quot;</span>, <span class="st">&quot;year&quot;</span>), </span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">sep =</span> <span class="st">&quot;pincp&quot;</span>, <span class="at">convert =</span> T) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>dum)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (1) using separate()</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>NY_pincp_long <span class="ot">&lt;-</span> NY_pincp_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>( <span class="at">cols =</span> pincp2015<span class="sc">:</span>pincp2020,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">values_to =</span> <span class="st">&quot;pincp&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(year, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;dum&quot;</span>, <span class="st">&quot;year&quot;</span>), </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">sep =</span> <span class="st">&quot;pincp&quot;</span>, <span class="at">convert =</span> T) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>dum)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># () using str_replace()</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>NY_pincp_long <span class="ot">&lt;-</span> NY_pincp_wide <span class="sc">%&gt;%</span> </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>( <span class="at">cols =</span> pincp2015<span class="sc">:</span>pincp2020,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">names_to =</span> <span class="st">&quot;year&quot;</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">values_to =</span> <span class="st">&quot;pincp&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">year =</span> <span class="fu">str_replace</span>(year, <span class="st">&quot;pincp&quot;</span>, <span class="st">&quot;&quot;</span>),</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>          <span class="at">year =</span> <span class="fu">as.integer</span>(year) )</span></code></pre></div>
 <p><br><br></p>
 </div>
 <div id="q1d" class="section level2">
