@@ -770,12 +770,14 @@ etc.</li>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(bikeshare<span class="sc">$</span>month)</span></code></pre></div>
 <pre><code>##  [1] &quot;01&quot; &quot;02&quot; &quot;03&quot; &quot;04&quot; &quot;05&quot; &quot;06&quot; &quot;07&quot; &quot;08&quot; &quot;09&quot; &quot;10&quot; &quot;11&quot; &quot;12&quot;</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(bikeshare<span class="sc">$</span>hr)</span></code></pre></div>
-<pre><code>##  [1] &quot;0&quot;  &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot; &quot;11&quot; &quot;12&quot; &quot;13&quot; &quot;14&quot; &quot;15&quot; &quot;16&quot; &quot;17&quot;
-## [19] &quot;18&quot; &quot;19&quot; &quot;20&quot; &quot;21&quot; &quot;22&quot; &quot;23&quot;</code></pre>
+<pre><code>##  [1] &quot;0&quot;  &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot; &quot;11&quot; &quot;12&quot; &quot;13&quot; &quot;14&quot;
+## [16] &quot;15&quot; &quot;16&quot; &quot;17&quot; &quot;18&quot; &quot;19&quot; &quot;20&quot; &quot;21&quot; &quot;22&quot; &quot;23&quot;</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(bikeshare<span class="sc">$</span>weather_cond)</span></code></pre></div>
-<pre><code>## [1] &quot;Clear or Few Cloudy&quot;      &quot;Light Snow or Light Rain&quot; &quot;Mist or Cloudy&quot;</code></pre>
+<pre><code>## [1] &quot;Clear or Few Cloudy&quot;      &quot;Light Snow or Light Rain&quot;
+## [3] &quot;Mist or Cloudy&quot;</code></pre>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(bikeshare<span class="sc">$</span>wkday)</span></code></pre></div>
-<pre><code>## [1] &quot;sunday&quot;    &quot;monday&quot;    &quot;tuesday&quot;   &quot;wednesday&quot; &quot;thursday&quot;  &quot;friday&quot;    &quot;saturday&quot;</code></pre>
+<pre><code>## [1] &quot;sunday&quot;    &quot;monday&quot;    &quot;tuesday&quot;   &quot;wednesday&quot; &quot;thursday&quot;  &quot;friday&quot;   
+## [7] &quot;saturday&quot;</code></pre>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(bikeshare<span class="sc">$</span>seasons)</span></code></pre></div>
 <pre><code>## [1] &quot;spring&quot; &quot;summer&quot; &quot;fall&quot;   &quot;winter&quot;</code></pre>
 <p><br><br></p>
@@ -1766,9 +1768,15 @@ F Statistic
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(term, <span class="st">&quot;hr&quot;</span>)) <span class="sc">%&gt;%</span> </span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>estimate) <span class="sc">%&gt;%</span> </span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>)</span></code></pre></div>
-<p>All else being equal, an <code>hour</code> 17 relative to an
+<ul>
+<li><p>All else being equal, an <code>hour</code> 17 relative to an
 <code>hour</code> 0 is associated with an increase in <code>cnt</code>
-by 373.85.</p>
+by <span class="math inline">\(373.85\)</span>.</p></li>
+<li><p>All else being equal, an <code>hour</code> 17 relative to an
+<code>hour</code> 0 is associated with an increase in <code>cnt</code>
+by <span class="math inline">\((373.85 - 2\times 7.62,\; 373.85 +
+2\times 7.62)\)</span>.</p></li>
+</ul>
 <p><br><br></p>
 </div>
 <div id="q1e" class="section level2">
