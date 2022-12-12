@@ -837,7 +837,10 @@ eBay’s sales revenue.</li>
 <p>For the rest of questions in Question 1, use the following
 data.frame:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>paid_search <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;https://bcdanl.github.io/data/paid_search.csv&#39;</span>)</span></code></pre></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;https://bcdanl.github.io/data/paid_search.csv&#39;</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>paid_search<span class="sc">$</span>DM <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(paid_search<span class="sc">$</span>DM)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>paid_search <span class="ot">&lt;-</span> <span class="fu">arrange</span>(paid_search, DM, no_paid_search)</span></code></pre></div>
 <ul>
 <li>Variable description</li>
 <li><code>DM</code>: an identification number of a designated market i
@@ -949,7 +952,7 @@ no_paid_search
 0.014
 </td>
 <td>
-0.014
+-0.227<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -959,7 +962,7 @@ no_paid_search
 (0.177)
 </td>
 <td>
-(0.174)
+(0.027)
 </td>
 </tr>
 <tr>
@@ -978,7 +981,7 @@ May22_2012
 -0.039
 </td>
 <td>
--0.039
+-0.039<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -988,7 +991,7 @@ May22_2012
 (0.142)
 </td>
 <td>
-(0.140)
+(0.003)
 </td>
 </tr>
 <tr>
@@ -1017,7 +1020,7 @@ no_paid_search:May22_2012
 (0.250)
 </td>
 <td>
-(0.246)
+(0.006)
 </td>
 </tr>
 <tr>
@@ -1036,7 +1039,7 @@ Constant
 10.949<sup>***</sup>
 </td>
 <td>
-12.365<sup>***</sup>
+11.453<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1046,7 +1049,7 @@ Constant
 (0.100)
 </td>
 <td>
-(0.381)
+(0.019)
 </td>
 </tr>
 <tr>
@@ -1080,7 +1083,7 @@ R<sup>2</sup>
 0.0003
 </td>
 <td>
-0.035
+1.000
 </td>
 </tr>
 <tr>
@@ -1091,7 +1094,7 @@ Adjusted R<sup>2</sup>
 -0.007
 </td>
 <td>
-0.025
+0.999
 </td>
 </tr>
 <tr>
@@ -1102,7 +1105,7 @@ Residual Std. Error
 1.198 (df = 416)
 </td>
 <td>
-1.178 (df = 415)
+0.027 (df = 208)
 </td>
 </tr>
 <tr>
@@ -1113,7 +1116,7 @@ F Statistic
 0.045 (df = 3; 416)
 </td>
 <td>
-3.739<sup>***</sup> (df = 4; 415)
+3,961.530<sup>***</sup> (df = 211; 208)
 </td>
 </tr>
 <tr>

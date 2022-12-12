@@ -162,6 +162,9 @@ For the rest of questions in Question 1, use the following data.frame:
 ```{r, echo = T, eval = T, warning = F, message = F}
 paid_search <- read_csv(
   'https://bcdanl.github.io/data/paid_search.csv')
+
+paid_search$DM <- as.factor(paid_search$DM)
+paid_search <- arrange(paid_search, DM, no_paid_search)
 ```
 
 - Variable description
