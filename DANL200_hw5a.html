@@ -1,0 +1,6473 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Byeong-Hak Choe " />
+
+<meta name="date" content="2022-12-11" />
+
+<title>DANL 200: Introduction to Data Analytics</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="site_libs/clipboard-2.0.6/clipboard.min.js"></script>
+<link href="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+<script src="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+<script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #2a211c;
+    color: #bdae9d;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #bdae9d;  padding-left: 4px; }
+div.sourceCode
+  { color: #bdae9d; background-color: #2a211c; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffff00; } /* Alert */
+code span.an { color: #0066ff; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #44aa43; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #43a8ed; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #049b0a; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #0066ff; font-weight: bold; font-style: italic; } /* Comment */
+code span.do { color: #0066ff; font-style: italic; } /* Documentation */
+code span.dt { text-decoration: underline; } /* DataType */
+code span.dv { color: #44aa43; } /* DecVal */
+code span.er { color: #ffff00; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #44aa43; } /* Float */
+code span.fu { color: #ff9358; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #0066ff; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #43a8ed; font-weight: bold; } /* Keyword */
+code span.op { } /* Operator */
+code span.pp { font-weight: bold; } /* Preprocessor */
+code span.sc { color: #049b0a; } /* SpecialChar */
+code span.ss { color: #049b0a; } /* SpecialString */
+code span.st { color: #049b0a; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #049b0a; } /* VerbatimString */
+code span.wa { color: #ffff00; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">suny geneseo danl</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">home</a>
+</li>
+<li>
+  <a href="resume.html">résumé</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    danl 100 lectures
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lec/DANL100_Lec01_20220830.html">lecture 01</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec02_20220901.html">lecture 02</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec03_20220906.html">lecture 03</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec04_20220908.html">lecture 04</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec05_20220913.html">lecture 05</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec06_20220915.html">lecture 06</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec07_20220920.html">lecture 07</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec08_20220922.html">lecture 08</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec09_20220927.html">lecture 09</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec10_20220929.html">lecture 10</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec11_20221004.html">lecture 11</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec12_20221006.html">lecture 12</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec13_20221013.html">lecture 13</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec14_20221018.html">lecture 14</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec15_20221020.html">lecture 15</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec16_20221025.html">lecture 16</a>
+    </li>
+    <li>
+      <a href="DANL100_midterm_mockup_q.html">lecture 16 practice</a>
+    </li>
+    <li>
+      <a href="DANL100_midterm_mockup_a.html">lecture 16 practice - answers</a>
+    </li>
+    <li>
+      <a href="DANL100_midterm_fall_2022_a.html">lecture 17 - midterm, fall 2022 - answers</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec18_20221103.html">lecture 18</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec19_20221108.html">lecture 19</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec20_20221110.html">lecture 20</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec21_20221115.html">lecture 21</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec22_20221117.html">lecture 22</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec23_20221122.html">lecture 23</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec24_20221129.html">lecture 24</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec25_20221201.html">lecture 25</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec26_20221206.html">lecture 26</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec27_20221208.html">lecture 27</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    danl 100 homework
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="DANL100_hw1q.html">hw 1 questions</a>
+    </li>
+    <li>
+      <a href="DANL100_hw1a.html">hw 1 answers</a>
+    </li>
+    <li>
+      <a href="DANL100_hw2q.html">hw 2 questions</a>
+    </li>
+    <li>
+      <a href="DANL100_hw2a.html">hw 2 answers</a>
+    </li>
+    <li>
+      <a href="DANL100_hw4a.html">hw 4 answers</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    danl 200 lectures
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lec/DANL200_Lec01_20220830.html">lecture 01</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec02_20220901.html">lecture 02</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec03_20220906.html">lecture 03</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec04_20220908.html">lecture 04</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec05_20220913.html">lecture 05</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec06_20220915.html">lecture 06</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec07_20220920.html">lecture 07</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec08_20220922.html">lecture 08</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec09_20220927.html">lecture 09</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec10_20220929.html">lecture 10</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec11_20221004.html">lecture 11</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec12_20221006.html">lecture 12</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec13_20221013.html">lecture 13</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec14_20221018.html">lecture 14</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec15_20221020.html">lecture 15</a>
+    </li>
+    <li>
+      <a href="DANL200_ny_tweets_q.html">lecture 15 practice</a>
+    </li>
+    <li>
+      <a href="DANL200_ny_tweets_a.html">lecture 15 practice - answers</a>
+    </li>
+    <li>
+      <a href="DANL200_midterm_spring_2022_q.html">lecture 16 - midterm, spring 2022</a>
+    </li>
+    <li>
+      <a href="DANL200_midterm_spring_2022_a.html">lecture 16 - midterm, spring 2022 - answers</a>
+    </li>
+    <li>
+      <a href="DANL200_midterm_fall_2022_a.html">lecture 17 - midterm, fall 2022 - answers</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec18_20221103.html">lecture 18</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec19_20221108.html">lecture 19</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec20_20221110.html">lecture 20</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec21_20221115.html">lecture 21</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec22_20221117.html">lecture 22</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec23_20221122.html">lecture 23</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec24_20221129.html">lecture 24</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec25_20221201.html">lecture 25</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec26_20221206.html">lecture 26</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec27_20221208.html">lecture 27</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    danl 200 homework
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="DANL200_hw1q.html">hw 1 questions</a>
+    </li>
+    <li>
+      <a href="DANL200_hw1a.html">hw 1 answers</a>
+    </li>
+    <li>
+      <a href="DANL200_hw2q.html">hw 2 questions</a>
+    </li>
+    <li>
+      <a href="DANL200_hw2a.html">hw 2 answers</a>
+    </li>
+    <li>
+      <a href="DANL200_hw3a.html">hw 3 answers</a>
+    </li>
+    <li>
+      <a href="DANL200_hw4a.html">hw 4 answers</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">DANL 200: Introduction to Data
+Analytics</h1>
+<h3 class="subtitle">DANL 200 - Homework Assignment 5 - Example
+Answers<br><br></h3>
+<h4 class="author">Byeong-Hak Choe<br></h4>
+<h4 class="date">2022-12-11<br><br></h4>
+
+</div>
+
+
+<div id="loading-r-packages-for-homework-assignment-4"
+class="section level3">
+<h3>Loading R packages for Homework Assignment 4</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code></pre></div>
+<p><br><br></p>
+</div>
+<div id="question-1" class="section level1">
+<h1>Question 1</h1>
+<p>The following data is for Question 1.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>beer_markets <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;https://bcdanl.github.io/data/beer_markets.csv&#39;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><br></p>
+<ul>
+<li>Variable description
+<ul>
+<li><code>hh</code>: an identifier of the purchasing household;</li>
+<li><code>_purchase_desc</code>: details on the purchased item;</li>
+<li><code>quantity</code>: the number of items purchased;</li>
+<li><code>brand</code>: Bud Light, Busch Light, Coors Light, Miller
+Lite, or Natural Light;</li>
+<li><code>spent</code>: total dollar value of purchase;</li>
+<li><code>beer_floz</code>: total volume of beer, in fluid ounces;</li>
+<li><code>price_per_floz</code>: price per fl.oz. (i.e., beer spent/beer
+floz);</li>
+<li><code>container</code>: the type of container;</li>
+<li><code>promo</code>: Whether the item was promoted (coupon or
+otherwise);</li>
+<li><code>market</code>: Scan-track market (or state if rural);</li>
+<li>demographic data, including gender, marital status, household
+income, class of work, race, education, age, the size of household, and
+whether or not the household has a microwave or a dishwasher.</li>
+</ul></li>
+</ul>
+<p><br><br></p>
+<div id="q1a" class="section level2">
+<h2>Q1a</h2>
+<p>Create the data.frame that keeps all the observations whose value of
+<code>container</code> is either ‘CAN’ or ‘NON REFILLABLE BOTTLE’ in the
+given data.frame, <code>beer_markets</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(beer_markets<span class="sc">$</span>container)</span></code></pre></div>
+<pre><code>## 
+##                            CAN                            KEG 
+##                          53015                            118 
+##                       KEG BALL          NON REFILLABLE BOTTLE 
+##                              2                          19095 
+## NON REFILLABLE BOTTLE ALUMINUM  NON REFILLABLE BOTTLE PLASTIC 
+##                            186                            543 
+##              REFILLABLE BOTTLE 
+##                            156</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>beer_markets <span class="ot">&lt;-</span> <span class="fu">filter</span>(beer_markets, </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                       container <span class="sc">==</span> <span class="st">&#39;CAN&#39;</span> <span class="sc">|</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                       container <span class="sc">==</span><span class="st">&#39;NON REFILLABLE BOTTLE&#39;</span>)</span></code></pre></div>
+<p><br><br></p>
+</div>
+<div id="q1b" class="section level2">
+<h2>Q1b</h2>
+<p>Create the data.frame that has factor-type variables of
+<code>container</code> and <code>market</code> using the resulting
+data.frame from Q1a.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>beer_markets <span class="ot">&lt;-</span> beer_markets <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">container =</span> <span class="fu">factor</span>(container),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">market =</span> <span class="fu">factor</span>(market))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(beer_markets<span class="sc">$</span>container)</span></code></pre></div>
+<pre><code>## [1] &quot;CAN&quot;                   &quot;NON REFILLABLE BOTTLE&quot;</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(beer_markets<span class="sc">$</span>market)</span></code></pre></div>
+<pre><code>##  [1] &quot;ALBANY&quot;               &quot;ATLANTA&quot;              &quot;BALTIMORE&quot;           
+##  [4] &quot;BIRMINGHAM&quot;           &quot;BOSTON&quot;               &quot;BUFFALO-ROCHESTER&quot;   
+##  [7] &quot;CHARLOTTE&quot;            &quot;CHICAGO&quot;              &quot;CINCINNATI&quot;          
+## [10] &quot;CLEVELAND&quot;            &quot;COLUMBUS&quot;             &quot;DALLAS&quot;              
+## [13] &quot;DENVER&quot;               &quot;DES MOINES&quot;           &quot;DETROIT&quot;             
+## [16] &quot;EXURBAN NY&quot;           &quot;GRAND RAPIDS&quot;         &quot;HARTFORD-NEW HAVEN&quot;  
+## [19] &quot;HOUSTON&quot;              &quot;INDIANAPOLIS&quot;         &quot;JACKSONVILLE&quot;        
+## [22] &quot;KANSAS CITY&quot;          &quot;LITTLE ROCK&quot;          &quot;LOS ANGELES&quot;         
+## [25] &quot;LOUISVILLE&quot;           &quot;MEMPHIS&quot;              &quot;MIAMI&quot;               
+## [28] &quot;MILWAUKEE&quot;            &quot;MINNEAPOLIS&quot;          &quot;NASHVILLE&quot;           
+## [31] &quot;NEW ORLEANS-MOBILE&quot;   &quot;OKLAHOMA CITY-TULSA&quot;  &quot;OMAHA&quot;               
+## [34] &quot;ORLANDO&quot;              &quot;PHILADELPHIA&quot;         &quot;PHOENIX&quot;             
+## [37] &quot;PITTSBURGH&quot;           &quot;PORTLAND, OR&quot;         &quot;RALEIGH-DURHAM&quot;      
+## [40] &quot;RICHMOND&quot;             &quot;RURAL ALABAMA&quot;        &quot;RURAL ARKANSAS&quot;      
+## [43] &quot;RURAL CALIFORNIA&quot;     &quot;RURAL COLORADO&quot;       &quot;RURAL FLORIDA&quot;       
+## [46] &quot;RURAL GEORGIA&quot;        &quot;RURAL IDAHO&quot;          &quot;RURAL ILLINOIS&quot;      
+## [49] &quot;RURAL INDIANA&quot;        &quot;RURAL IOWA&quot;           &quot;RURAL KANSAS&quot;        
+## [52] &quot;RURAL KENTUCKY&quot;       &quot;RURAL LOUISIANA&quot;      &quot;RURAL MAINE&quot;         
+## [55] &quot;RURAL MICHIGAN&quot;       &quot;RURAL MINNESOTA&quot;      &quot;RURAL MISSISSIPPI&quot;   
+## [58] &quot;RURAL MISSOURI&quot;       &quot;RURAL MONTANA&quot;        &quot;RURAL NEBRASKA&quot;      
+## [61] &quot;RURAL NEVADA&quot;         &quot;RURAL NEW HAMPSHIRE&quot;  &quot;RURAL NEW MEXICO&quot;    
+## [64] &quot;RURAL NEW YORK&quot;       &quot;RURAL NORTH CAROLINA&quot; &quot;RURAL NORTH DAKOTA&quot;  
+## [67] &quot;RURAL OHIO&quot;           &quot;RURAL OKLAHOMA&quot;       &quot;RURAL OREGON&quot;        
+## [70] &quot;RURAL PENNSYLVANIA&quot;   &quot;RURAL SOUTH CAROLINA&quot; &quot;RURAL SOUTH DAKOTA&quot;  
+## [73] &quot;RURAL TENNESSEE&quot;      &quot;RURAL TEXAS&quot;          &quot;RURAL VERMONT&quot;       
+## [76] &quot;RURAL VIRGINIA&quot;       &quot;RURAL WASHINGTON&quot;     &quot;RURAL WEST VIRGINIA&quot; 
+## [79] &quot;RURAL WISCONSIN&quot;      &quot;RURAL WYOMING&quot;        &quot;SACRAMENTO&quot;          
+## [82] &quot;SALT LAKE CITY&quot;       &quot;SAN ANTONIO&quot;          &quot;SAN DIEGO&quot;           
+## [85] &quot;SAN FRANCISCO&quot;        &quot;SEATTLE&quot;              &quot;ST. LOUIS&quot;           
+## [88] &quot;SURBURBAN NY&quot;         &quot;SYRACUSE&quot;             &quot;TAMPA&quot;               
+## [91] &quot;URBAN NY&quot;             &quot;WASHINGTON DC&quot;</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(beer_markets<span class="sc">$</span>container)</span></code></pre></div>
+<pre><code>## 
+##                   CAN NON REFILLABLE BOTTLE 
+##                 53015                 19095</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(beer_markets<span class="sc">$</span>market)</span></code></pre></div>
+<pre><code>## 
+##               ALBANY              ATLANTA            BALTIMORE 
+##                  487                 1279                  374 
+##           BIRMINGHAM               BOSTON    BUFFALO-ROCHESTER 
+##                 1137                  872                  607 
+##            CHARLOTTE              CHICAGO           CINCINNATI 
+##                 1246                 1879                 1270 
+##            CLEVELAND             COLUMBUS               DALLAS 
+##                 1226                 1862                 2098 
+##               DENVER           DES MOINES              DETROIT 
+##                  796                  716                 1731 
+##           EXURBAN NY         GRAND RAPIDS   HARTFORD-NEW HAVEN 
+##                  321                  739                  370 
+##              HOUSTON         INDIANAPOLIS         JACKSONVILLE 
+##                 1673                 1213                  501 
+##          KANSAS CITY          LITTLE ROCK          LOS ANGELES 
+##                  663                  452                 1564 
+##           LOUISVILLE              MEMPHIS                MIAMI 
+##                  833                  530                 2616 
+##            MILWAUKEE          MINNEAPOLIS            NASHVILLE 
+##                  728                  801                  989 
+##   NEW ORLEANS-MOBILE  OKLAHOMA CITY-TULSA                OMAHA 
+##                  852                  800                 1017 
+##              ORLANDO         PHILADELPHIA              PHOENIX 
+##                 1135                  433                 2263 
+##           PITTSBURGH         PORTLAND, OR       RALEIGH-DURHAM 
+##                  352                  552                 1126 
+##             RICHMOND        RURAL ALABAMA       RURAL ARKANSAS 
+##                 1063                  305                  160 
+##     RURAL CALIFORNIA       RURAL COLORADO        RURAL FLORIDA 
+##                  848                   21                  522 
+##        RURAL GEORGIA          RURAL IDAHO       RURAL ILLINOIS 
+##                  460                  154                 1195 
+##        RURAL INDIANA           RURAL IOWA         RURAL KANSAS 
+##                  481                 1060                  179 
+##       RURAL KENTUCKY      RURAL LOUISIANA          RURAL MAINE 
+##                  225                  381                  353 
+##       RURAL MICHIGAN      RURAL MINNESOTA    RURAL MISSISSIPPI 
+##                  754                  138                  354 
+##       RURAL MISSOURI        RURAL MONTANA       RURAL NEBRASKA 
+##                  640                  354                  110 
+##         RURAL NEVADA  RURAL NEW HAMPSHIRE     RURAL NEW MEXICO 
+##                  557                   25                  427 
+##       RURAL NEW YORK RURAL NORTH CAROLINA   RURAL NORTH DAKOTA 
+##                   13                  909                  129 
+##           RURAL OHIO       RURAL OKLAHOMA         RURAL OREGON 
+##                  257                   54                   38 
+##   RURAL PENNSYLVANIA RURAL SOUTH CAROLINA   RURAL SOUTH DAKOTA 
+##                  298                 1295                  153 
+##      RURAL TENNESSEE          RURAL TEXAS        RURAL VERMONT 
+##                  423                 1771                  139 
+##       RURAL VIRGINIA     RURAL WASHINGTON  RURAL WEST VIRGINIA 
+##                  185                  330                  265 
+##      RURAL WISCONSIN        RURAL WYOMING           SACRAMENTO 
+##                 1306                   39                  981 
+##       SALT LAKE CITY          SAN ANTONIO            SAN DIEGO 
+##                  320                 2615                  656 
+##        SAN FRANCISCO              SEATTLE            ST. LOUIS 
+##                  871                  903                 1347 
+##         SURBURBAN NY             SYRACUSE                TAMPA 
+##                  872                  294                 3180 
+##             URBAN NY        WASHINGTON DC 
+##                  735                  863</code></pre>
+<p><br><br></p>
+</div>
+<div id="q1c" class="section level2">
+<h2>Q1c</h2>
+<p>Create the data.frame that has a factor-type variable of
+<code>market</code> whose reference level is “BUFFALO-ROCHESTER” using
+the resulting data.frame from Q1b.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>beer_markets<span class="sc">$</span>market <span class="ot">&lt;-</span> <span class="fu">relevel</span>(beer_markets<span class="sc">$</span>market, </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                               <span class="st">&quot;BUFFALO-ROCHESTER&quot;</span>)</span></code></pre></div>
+<p><br><br></p>
+</div>
+<div id="q1d" class="section level2">
+<h2>Q1d</h2>
+<p>Split the resulting data.frame of Q1c into training and testing
+data.frames such that approximately 67% of observations in the resulting
+data.frame of Q1c belong to the training data.frame and the rest
+observations belong to the testing data.frame.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>gp <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="fu">nrow</span>(beer_markets))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="fu">filter</span>(beer_markets, gp <span class="sc">&gt;</span> .<span class="dv">33</span>)  <span class="co"># training data</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">filter</span>(beer_markets, gp <span class="sc">&lt;=</span> .<span class="dv">33</span>)  <span class="co"># test data</span></span></code></pre></div>
+<p><br><br></p>
+</div>
+<div id="q1e" class="section level2">
+<h2>Q1e</h2>
+<p>Consider the three linear regression models with the following three
+different formulas:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>formula_1 <span class="ot">&lt;-</span> <span class="fu">log</span>(price_per_floz) <span class="sc">~</span> market <span class="sc">+</span> container <span class="sc">+</span> brand <span class="sc">+</span> <span class="fu">log</span>(beer_floz)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>formula_2 <span class="ot">&lt;-</span> <span class="fu">log</span>(price_per_floz) <span class="sc">~</span> market <span class="sc">+</span> container <span class="sc">+</span> brand <span class="sc">*</span> <span class="fu">log</span>(beer_floz)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>formula_3 <span class="ot">&lt;-</span> <span class="fu">log</span>(price_per_floz) <span class="sc">~</span> market <span class="sc">+</span> container <span class="sc">+</span> brand <span class="sc">*</span> promo <span class="sc">*</span> <span class="fu">log</span>(beer_floz)</span></code></pre></div>
+<p>Conduct exploratory data analysis regarding the model with
+<code>formula_3</code>.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sum_train <span class="ot">&lt;-</span> skimr<span class="sc">::</span><span class="fu">skim</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(train,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>         price_per_floz, beer_floz, </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>         container, brand, promo, market)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>( <span class="fu">select</span>(train,</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>                price_per_floz, beer_floz, </span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>                container, brand, promo)  )</span></code></pre></div>
+<p><img src="DANL200_hw5a_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+- More visualization should be considered.</p>
+<p><br><br></p>
+</div>
+<div id="q1f" class="section level2">
+<h2>Q1f</h2>
+<ul>
+<li><p>Train the three linear regression models using the training
+data.frame from Q1d with the three different formulas,
+<code>formula_1</code>, <code>formula_2</code>, and
+<code>formula_3</code>, provided in Q1e.</p></li>
+<li><p>What are the main goals of these linear regression models?
+Provide the summary of the result for each linear regression
+model.</p></li>
+<li><p>Create the data.frame of all the beta estimates for all variables
+and their t-statistics and p-values from each model.</p></li>
+</ul>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>model_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(formula_1, <span class="at">data =</span> train)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>model_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(formula_2, <span class="at">data =</span> train)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>model_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(formula_3, <span class="at">data =</span> train)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(model_1)</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(model_2)</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(model_3)</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(model_1, model_2, model_3, <span class="at">type =</span> <span class="st">&#39;html&#39;</span>)</span></code></pre></div>
+<table style="text-align:center">
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+log(price_per_floz)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketALBANY
+</td>
+<td>
+0.039<sup>***</sup>
+</td>
+<td>
+0.041<sup>***</sup>
+</td>
+<td>
+0.036<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.013)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketATLANTA
+</td>
+<td>
+0.091<sup>***</sup>
+</td>
+<td>
+0.090<sup>***</sup>
+</td>
+<td>
+0.088<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketBALTIMORE
+</td>
+<td>
+0.104<sup>***</sup>
+</td>
+<td>
+0.107<sup>***</sup>
+</td>
+<td>
+0.099<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.014)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketBIRMINGHAM
+</td>
+<td>
+0.129<sup>***</sup>
+</td>
+<td>
+0.136<sup>***</sup>
+</td>
+<td>
+0.134<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketBOSTON
+</td>
+<td>
+0.125<sup>***</sup>
+</td>
+<td>
+0.125<sup>***</sup>
+</td>
+<td>
+0.123<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketCHARLOTTE
+</td>
+<td>
+0.032<sup>***</sup>
+</td>
+<td>
+0.028<sup>***</sup>
+</td>
+<td>
+0.041<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketCHICAGO
+</td>
+<td>
+0.003
+</td>
+<td>
+-0.003
+</td>
+<td>
+0.006
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketCINCINNATI
+</td>
+<td>
+0.092<sup>***</sup>
+</td>
+<td>
+0.087<sup>***</sup>
+</td>
+<td>
+0.086<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketCLEVELAND
+</td>
+<td>
+0.059<sup>***</sup>
+</td>
+<td>
+0.054<sup>***</sup>
+</td>
+<td>
+0.052<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketCOLUMBUS
+</td>
+<td>
+0.082<sup>***</sup>
+</td>
+<td>
+0.079<sup>***</sup>
+</td>
+<td>
+0.081<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketDALLAS
+</td>
+<td>
+0.214<sup>***</sup>
+</td>
+<td>
+0.225<sup>***</sup>
+</td>
+<td>
+0.230<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketDENVER
+</td>
+<td>
+0.134<sup>***</sup>
+</td>
+<td>
+0.132<sup>***</sup>
+</td>
+<td>
+0.144<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketDES MOINES
+</td>
+<td>
+0.143<sup>***</sup>
+</td>
+<td>
+0.140<sup>***</sup>
+</td>
+<td>
+0.135<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.012)
+</td>
+<td>
+(0.012)
+</td>
+<td>
+(0.012)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketDETROIT
+</td>
+<td>
+0.094<sup>***</sup>
+</td>
+<td>
+0.090<sup>***</sup>
+</td>
+<td>
+0.095<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketEXURBAN NY
+</td>
+<td>
+0.190<sup>***</sup>
+</td>
+<td>
+0.186<sup>***</sup>
+</td>
+<td>
+0.181<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.014)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketGRAND RAPIDS
+</td>
+<td>
+0.092<sup>***</sup>
+</td>
+<td>
+0.087<sup>***</sup>
+</td>
+<td>
+0.088<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.012)
+</td>
+<td>
+(0.012)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketHARTFORD-NEW HAVEN
+</td>
+<td>
+0.149<sup>***</sup>
+</td>
+<td>
+0.147<sup>***</sup>
+</td>
+<td>
+0.146<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.014)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketHOUSTON
+</td>
+<td>
+0.122<sup>***</sup>
+</td>
+<td>
+0.119<sup>***</sup>
+</td>
+<td>
+0.124<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketINDIANAPOLIS
+</td>
+<td>
+0.051<sup>***</sup>
+</td>
+<td>
+0.051<sup>***</sup>
+</td>
+<td>
+0.054<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketJACKSONVILLE
+</td>
+<td>
+0.125<sup>***</sup>
+</td>
+<td>
+0.120<sup>***</sup>
+</td>
+<td>
+0.124<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.012)
+</td>
+<td>
+(0.012)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketKANSAS CITY
+</td>
+<td>
+0.080<sup>***</sup>
+</td>
+<td>
+0.076<sup>***</sup>
+</td>
+<td>
+0.072<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.012)
+</td>
+<td>
+(0.012)
+</td>
+<td>
+(0.012)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketLITTLE ROCK
+</td>
+<td>
+0.105<sup>***</sup>
+</td>
+<td>
+0.102<sup>***</sup>
+</td>
+<td>
+0.100<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.013)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketLOS ANGELES
+</td>
+<td>
+0.037<sup>***</sup>
+</td>
+<td>
+0.030<sup>***</sup>
+</td>
+<td>
+0.041<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketLOUISVILLE
+</td>
+<td>
+0.071<sup>***</sup>
+</td>
+<td>
+0.066<sup>***</sup>
+</td>
+<td>
+0.071<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketMEMPHIS
+</td>
+<td>
+0.127<sup>***</sup>
+</td>
+<td>
+0.125<sup>***</sup>
+</td>
+<td>
+0.121<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.012)
+</td>
+<td>
+(0.012)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketMIAMI
+</td>
+<td>
+0.117<sup>***</sup>
+</td>
+<td>
+0.115<sup>***</sup>
+</td>
+<td>
+0.119<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.009)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketMILWAUKEE
+</td>
+<td>
+0.037<sup>***</sup>
+</td>
+<td>
+0.036<sup>***</sup>
+</td>
+<td>
+0.040<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.012)
+</td>
+<td>
+(0.012)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketMINNEAPOLIS
+</td>
+<td>
+0.136<sup>***</sup>
+</td>
+<td>
+0.138<sup>***</sup>
+</td>
+<td>
+0.136<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketNASHVILLE
+</td>
+<td>
+0.147<sup>***</sup>
+</td>
+<td>
+0.146<sup>***</sup>
+</td>
+<td>
+0.147<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketNEW ORLEANS-MOBILE
+</td>
+<td>
+0.139<sup>***</sup>
+</td>
+<td>
+0.128<sup>***</sup>
+</td>
+<td>
+0.124<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketOKLAHOMA CITY-TULSA
+</td>
+<td>
+0.152<sup>***</sup>
+</td>
+<td>
+0.148<sup>***</sup>
+</td>
+<td>
+0.142<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketOMAHA
+</td>
+<td>
+0.125<sup>***</sup>
+</td>
+<td>
+0.123<sup>***</sup>
+</td>
+<td>
+0.127<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketORLANDO
+</td>
+<td>
+0.105<sup>***</sup>
+</td>
+<td>
+0.103<sup>***</sup>
+</td>
+<td>
+0.108<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketPHILADELPHIA
+</td>
+<td>
+0.117<sup>***</sup>
+</td>
+<td>
+0.117<sup>***</sup>
+</td>
+<td>
+0.106<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.013)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketPHOENIX
+</td>
+<td>
+0.150<sup>***</sup>
+</td>
+<td>
+0.152<sup>***</sup>
+</td>
+<td>
+0.164<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketPITTSBURGH
+</td>
+<td>
+0.099<sup>***</sup>
+</td>
+<td>
+0.096<sup>***</sup>
+</td>
+<td>
+0.091<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.014)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketPORTLAND, OR
+</td>
+<td>
+0.122<sup>***</sup>
+</td>
+<td>
+0.120<sup>***</sup>
+</td>
+<td>
+0.124<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.012)
+</td>
+<td>
+(0.012)
+</td>
+<td>
+(0.012)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRALEIGH-DURHAM
+</td>
+<td>
+0.090<sup>***</sup>
+</td>
+<td>
+0.091<sup>***</sup>
+</td>
+<td>
+0.088<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRICHMOND
+</td>
+<td>
+0.048<sup>***</sup>
+</td>
+<td>
+0.045<sup>***</sup>
+</td>
+<td>
+0.041<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL ALABAMA
+</td>
+<td>
+0.161<sup>***</sup>
+</td>
+<td>
+0.160<sup>***</sup>
+</td>
+<td>
+0.159<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.014)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL ARKANSAS
+</td>
+<td>
+0.179<sup>***</sup>
+</td>
+<td>
+0.181<sup>***</sup>
+</td>
+<td>
+0.174<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.019)
+</td>
+<td>
+(0.019)
+</td>
+<td>
+(0.018)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL CALIFORNIA
+</td>
+<td>
+0.049<sup>***</sup>
+</td>
+<td>
+0.045<sup>***</sup>
+</td>
+<td>
+0.049<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL COLORADO
+</td>
+<td>
+0.197<sup>***</sup>
+</td>
+<td>
+0.195<sup>***</sup>
+</td>
+<td>
+0.204<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.040)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL FLORIDA
+</td>
+<td>
+0.075<sup>***</sup>
+</td>
+<td>
+0.065<sup>***</sup>
+</td>
+<td>
+0.065<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.012)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL GEORGIA
+</td>
+<td>
+0.144<sup>***</sup>
+</td>
+<td>
+0.140<sup>***</sup>
+</td>
+<td>
+0.136<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.013)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL IDAHO
+</td>
+<td>
+0.156<sup>***</sup>
+</td>
+<td>
+0.150<sup>***</sup>
+</td>
+<td>
+0.152<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.019)
+</td>
+<td>
+(0.019)
+</td>
+<td>
+(0.019)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL ILLINOIS
+</td>
+<td>
+0.020<sup>*</sup>
+</td>
+<td>
+0.019<sup>*</sup>
+</td>
+<td>
+0.019<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL INDIANA
+</td>
+<td>
+0.068<sup>***</sup>
+</td>
+<td>
+0.070<sup>***</sup>
+</td>
+<td>
+0.073<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.012)
+</td>
+<td>
+(0.012)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL IOWA
+</td>
+<td>
+0.072<sup>***</sup>
+</td>
+<td>
+0.068<sup>***</sup>
+</td>
+<td>
+0.066<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL KANSAS
+</td>
+<td>
+0.136<sup>***</sup>
+</td>
+<td>
+0.136<sup>***</sup>
+</td>
+<td>
+0.130<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.018)
+</td>
+<td>
+(0.018)
+</td>
+<td>
+(0.018)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL KENTUCKY
+</td>
+<td>
+0.164<sup>***</sup>
+</td>
+<td>
+0.165<sup>***</sup>
+</td>
+<td>
+0.162<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.016)
+</td>
+<td>
+(0.016)
+</td>
+<td>
+(0.016)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL LOUISIANA
+</td>
+<td>
+0.082<sup>***</sup>
+</td>
+<td>
+0.077<sup>***</sup>
+</td>
+<td>
+0.069<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.013)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL MAINE
+</td>
+<td>
+0.087<sup>***</sup>
+</td>
+<td>
+0.085<sup>***</sup>
+</td>
+<td>
+0.085<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.014)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL MICHIGAN
+</td>
+<td>
+0.093<sup>***</sup>
+</td>
+<td>
+0.091<sup>***</sup>
+</td>
+<td>
+0.088<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.012)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL MINNESOTA
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+<td>
+0.187<sup>***</sup>
+</td>
+<td>
+0.181<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.019)
+</td>
+<td>
+(0.019)
+</td>
+<td>
+(0.019)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL MISSISSIPPI
+</td>
+<td>
+0.065<sup>***</sup>
+</td>
+<td>
+0.060<sup>***</sup>
+</td>
+<td>
+0.061<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.014)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL MISSOURI
+</td>
+<td>
+0.119<sup>***</sup>
+</td>
+<td>
+0.118<sup>***</sup>
+</td>
+<td>
+0.113<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.012)
+</td>
+<td>
+(0.012)
+</td>
+<td>
+(0.012)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL MONTANA
+</td>
+<td>
+0.132<sup>***</sup>
+</td>
+<td>
+0.128<sup>***</sup>
+</td>
+<td>
+0.138<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.014)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL NEBRASKA
+</td>
+<td>
+0.137<sup>***</sup>
+</td>
+<td>
+0.137<sup>***</sup>
+</td>
+<td>
+0.136<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.022)
+</td>
+<td>
+(0.022)
+</td>
+<td>
+(0.021)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL NEVADA
+</td>
+<td>
+0.058<sup>***</sup>
+</td>
+<td>
+0.058<sup>***</sup>
+</td>
+<td>
+0.059<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.012)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL NEW HAMPSHIRE
+</td>
+<td>
+0.051
+</td>
+<td>
+0.042
+</td>
+<td>
+0.036
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.041)
+</td>
+<td>
+(0.040)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL NEW MEXICO
+</td>
+<td>
+0.166<sup>***</sup>
+</td>
+<td>
+0.161<sup>***</sup>
+</td>
+<td>
+0.159<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.013)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL NEW YORK
+</td>
+<td>
+-0.009
+</td>
+<td>
+-0.008
+</td>
+<td>
+-0.020
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.057)
+</td>
+<td>
+(0.057)
+</td>
+<td>
+(0.057)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL NORTH CAROLINA
+</td>
+<td>
+0.021<sup>*</sup>
+</td>
+<td>
+0.051<sup>***</sup>
+</td>
+<td>
+0.043<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL NORTH DAKOTA
+</td>
+<td>
+0.216<sup>***</sup>
+</td>
+<td>
+0.216<sup>***</sup>
+</td>
+<td>
+0.216<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.021)
+</td>
+<td>
+(0.021)
+</td>
+<td>
+(0.020)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL OHIO
+</td>
+<td>
+0.101<sup>***</sup>
+</td>
+<td>
+0.099<sup>***</sup>
+</td>
+<td>
+0.097<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.016)
+</td>
+<td>
+(0.016)
+</td>
+<td>
+(0.016)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL OKLAHOMA
+</td>
+<td>
+0.157<sup>***</sup>
+</td>
+<td>
+0.158<sup>***</sup>
+</td>
+<td>
+0.148<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.029)
+</td>
+<td>
+(0.029)
+</td>
+<td>
+(0.029)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL OREGON
+</td>
+<td>
+0.055
+</td>
+<td>
+0.053
+</td>
+<td>
+0.055
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.034)
+</td>
+<td>
+(0.034)
+</td>
+<td>
+(0.033)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL PENNSYLVANIA
+</td>
+<td>
+0.140<sup>***</sup>
+</td>
+<td>
+0.140<sup>***</sup>
+</td>
+<td>
+0.131<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.015)
+</td>
+<td>
+(0.015)
+</td>
+<td>
+(0.015)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL SOUTH CAROLINA
+</td>
+<td>
+0.061<sup>***</sup>
+</td>
+<td>
+0.061<sup>***</sup>
+</td>
+<td>
+0.064<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL SOUTH DAKOTA
+</td>
+<td>
+0.093<sup>***</sup>
+</td>
+<td>
+0.090<sup>***</sup>
+</td>
+<td>
+0.086<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.018)
+</td>
+<td>
+(0.018)
+</td>
+<td>
+(0.018)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL TENNESSEE
+</td>
+<td>
+0.178<sup>***</sup>
+</td>
+<td>
+0.178<sup>***</sup>
+</td>
+<td>
+0.184<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.013)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL TEXAS
+</td>
+<td>
+0.180<sup>***</sup>
+</td>
+<td>
+0.179<sup>***</sup>
+</td>
+<td>
+0.177<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL VERMONT
+</td>
+<td>
+0.097<sup>***</sup>
+</td>
+<td>
+0.085<sup>***</sup>
+</td>
+<td>
+0.088<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.019)
+</td>
+<td>
+(0.019)
+</td>
+<td>
+(0.019)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL VIRGINIA
+</td>
+<td>
+0.034<sup>*</sup>
+</td>
+<td>
+0.031<sup>*</sup>
+</td>
+<td>
+0.030<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.018)
+</td>
+<td>
+(0.017)
+</td>
+<td>
+(0.017)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL WASHINGTON
+</td>
+<td>
+0.105<sup>***</sup>
+</td>
+<td>
+0.103<sup>***</sup>
+</td>
+<td>
+0.120<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.014)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL WEST VIRGINIA
+</td>
+<td>
+-0.019
+</td>
+<td>
+-0.021
+</td>
+<td>
+-0.028<sup>*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.015)
+</td>
+<td>
+(0.015)
+</td>
+<td>
+(0.015)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL WISCONSIN
+</td>
+<td>
+0.053<sup>***</sup>
+</td>
+<td>
+0.051<sup>***</sup>
+</td>
+<td>
+0.053<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketRURAL WYOMING
+</td>
+<td>
+0.115<sup>***</sup>
+</td>
+<td>
+0.113<sup>***</sup>
+</td>
+<td>
+0.111<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.035)
+</td>
+<td>
+(0.035)
+</td>
+<td>
+(0.035)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketSACRAMENTO
+</td>
+<td>
+0.034<sup>***</sup>
+</td>
+<td>
+0.034<sup>***</sup>
+</td>
+<td>
+0.043<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketSALT LAKE CITY
+</td>
+<td>
+0.122<sup>***</sup>
+</td>
+<td>
+0.114<sup>***</sup>
+</td>
+<td>
+0.112<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.015)
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.014)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketSAN ANTONIO
+</td>
+<td>
+0.147<sup>***</sup>
+</td>
+<td>
+0.142<sup>***</sup>
+</td>
+<td>
+0.140<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.009)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketSAN DIEGO
+</td>
+<td>
+0.029<sup>**</sup>
+</td>
+<td>
+0.028<sup>**</sup>
+</td>
+<td>
+0.034<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.012)
+</td>
+<td>
+(0.012)
+</td>
+<td>
+(0.012)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketSAN FRANCISCO
+</td>
+<td>
+0.078<sup>***</sup>
+</td>
+<td>
+0.075<sup>***</sup>
+</td>
+<td>
+0.084<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketSEATTLE
+</td>
+<td>
+0.117<sup>***</sup>
+</td>
+<td>
+0.108<sup>***</sup>
+</td>
+<td>
+0.121<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketST. LOUIS
+</td>
+<td>
+0.050<sup>***</sup>
+</td>
+<td>
+0.047<sup>***</sup>
+</td>
+<td>
+0.051<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+<td>
+(0.010)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketSURBURBAN NY
+</td>
+<td>
+0.063<sup>***</sup>
+</td>
+<td>
+0.060<sup>***</sup>
+</td>
+<td>
+0.056<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketSYRACUSE
+</td>
+<td>
+-0.035<sup>**</sup>
+</td>
+<td>
+-0.041<sup>***</sup>
+</td>
+<td>
+-0.047<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.015)
+</td>
+<td>
+(0.015)
+</td>
+<td>
+(0.015)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketTAMPA
+</td>
+<td>
+0.113<sup>***</sup>
+</td>
+<td>
+0.109<sup>***</sup>
+</td>
+<td>
+0.112<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.009)
+</td>
+<td>
+(0.009)
+</td>
+<td>
+(0.009)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketURBAN NY
+</td>
+<td>
+0.166<sup>***</sup>
+</td>
+<td>
+0.165<sup>***</sup>
+</td>
+<td>
+0.165<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+marketWASHINGTON DC
+</td>
+<td>
+0.104<sup>***</sup>
+</td>
+<td>
+0.099<sup>***</sup>
+</td>
+<td>
+0.095<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+containerNON REFILLABLE BOTTLE
+</td>
+<td>
+0.055<sup>***</sup>
+</td>
+<td>
+0.054<sup>***</sup>
+</td>
+<td>
+0.055<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.002)
+</td>
+<td>
+(0.002)
+</td>
+<td>
+(0.002)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandBUSCH LIGHT
+</td>
+<td>
+-0.259<sup>***</sup>
+</td>
+<td>
+-0.217<sup>***</sup>
+</td>
+<td>
+-0.180<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.003)
+</td>
+<td>
+(0.022)
+</td>
+<td>
+(0.023)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandCOORS LIGHT
+</td>
+<td>
+-0.002
+</td>
+<td>
+0.010
+</td>
+<td>
+0.024
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.002)
+</td>
+<td>
+(0.019)
+</td>
+<td>
+(0.020)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandMILLER LITE
+</td>
+<td>
+-0.014<sup>***</sup>
+</td>
+<td>
+0.101<sup>***</sup>
+</td>
+<td>
+0.118<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.002)
+</td>
+<td>
+(0.017)
+</td>
+<td>
+(0.018)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandNATURAL LIGHT
+</td>
+<td>
+-0.317<sup>***</sup>
+</td>
+<td>
+-0.607<sup>***</sup>
+</td>
+<td>
+-0.544<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.002)
+</td>
+<td>
+(0.018)
+</td>
+<td>
+(0.019)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+promo
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.056
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.037)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+log(beer_floz)
+</td>
+<td>
+-0.141<sup>***</sup>
+</td>
+<td>
+-0.146<sup>***</sup>
+</td>
+<td>
+-0.141<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.001)
+</td>
+<td>
+(0.002)
+</td>
+<td>
+(0.002)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandBUSCH LIGHT:promo
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.219<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.070)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandCOORS LIGHT:promo
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.154<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.059)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandMILLER LITE:promo
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.168<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.052)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandNATURAL LIGHT:promo
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.298<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.051)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandBUSCH LIGHT:log(beer_floz)
+</td>
+<td>
+</td>
+<td>
+-0.008<sup>*</sup>
+</td>
+<td>
+-0.015<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.004)
+</td>
+<td>
+(0.004)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandCOORS LIGHT:log(beer_floz)
+</td>
+<td>
+</td>
+<td>
+-0.003
+</td>
+<td>
+-0.004
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.003)
+</td>
+<td>
+(0.004)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandMILLER LITE:log(beer_floz)
+</td>
+<td>
+</td>
+<td>
+-0.022<sup>***</sup>
+</td>
+<td>
+-0.024<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.003)
+</td>
+<td>
+(0.003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandNATURAL LIGHT:log(beer_floz)
+</td>
+<td>
+</td>
+<td>
+0.054<sup>***</sup>
+</td>
+<td>
+0.042<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.003)
+</td>
+<td>
+(0.003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+promoTRUE:log(beer_floz)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandBUSCH LIGHT:promoTRUE:log(beer_floz)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.041<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.012)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandCOORS LIGHT:promoTRUE:log(beer_floz)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.024<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandMILLER LITE:promoTRUE:log(beer_floz)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.030<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.009)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandNATURAL LIGHT:promoTRUE:log(beer_floz)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.053<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.009)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-2.183<sup>***</sup>
+</td>
+<td>
+-2.155<sup>***</sup>
+</td>
+<td>
+-2.172<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.011)
+</td>
+<td>
+(0.014)
+</td>
+<td>
+(0.015)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+48,384
+</td>
+<td>
+48,384
+</td>
+<td>
+48,384
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.546
+</td>
+<td>
+0.551
+</td>
+<td>
+0.559
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.545
+</td>
+<td>
+0.550
+</td>
+<td>
+0.558
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+0.170 (df = 48286)
+</td>
+<td>
+0.169 (df = 48282)
+</td>
+<td>
+0.168 (df = 48272)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+598.350<sup>***</sup> (df = 97; 48286)
+</td>
+<td>
+586.770<sup>***</sup> (df = 101; 48282)
+</td>
+<td>
+550.383<sup>***</sup> (df = 111; 48272)
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="3" style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05;
+<sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(model_1, model_2, model_3, <span class="at">type =</span> <span class="st">&#39;html&#39;</span>, </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">omit =</span> <span class="fu">c</span>(<span class="st">&quot;market&quot;</span>, <span class="st">&quot;container&quot;</span>, <span class="st">&quot;Constant&quot;</span>))</span></code></pre></div>
+<table style="text-align:center">
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+log(price_per_floz)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandBUSCH LIGHT
+</td>
+<td>
+-0.259<sup>***</sup>
+</td>
+<td>
+-0.217<sup>***</sup>
+</td>
+<td>
+-0.180<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.003)
+</td>
+<td>
+(0.022)
+</td>
+<td>
+(0.023)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandCOORS LIGHT
+</td>
+<td>
+-0.002
+</td>
+<td>
+0.010
+</td>
+<td>
+0.024
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.002)
+</td>
+<td>
+(0.019)
+</td>
+<td>
+(0.020)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandMILLER LITE
+</td>
+<td>
+-0.014<sup>***</sup>
+</td>
+<td>
+0.101<sup>***</sup>
+</td>
+<td>
+0.118<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.002)
+</td>
+<td>
+(0.017)
+</td>
+<td>
+(0.018)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandNATURAL LIGHT
+</td>
+<td>
+-0.317<sup>***</sup>
+</td>
+<td>
+-0.607<sup>***</sup>
+</td>
+<td>
+-0.544<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.002)
+</td>
+<td>
+(0.018)
+</td>
+<td>
+(0.019)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+promo
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.056
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.037)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+log(beer_floz)
+</td>
+<td>
+-0.141<sup>***</sup>
+</td>
+<td>
+-0.146<sup>***</sup>
+</td>
+<td>
+-0.141<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.001)
+</td>
+<td>
+(0.002)
+</td>
+<td>
+(0.002)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandBUSCH LIGHT:promo
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.219<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.070)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandCOORS LIGHT:promo
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.154<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.059)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandMILLER LITE:promo
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.168<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.052)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandNATURAL LIGHT:promo
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.298<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.051)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandBUSCH LIGHT:log(beer_floz)
+</td>
+<td>
+</td>
+<td>
+-0.008<sup>*</sup>
+</td>
+<td>
+-0.015<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.004)
+</td>
+<td>
+(0.004)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandCOORS LIGHT:log(beer_floz)
+</td>
+<td>
+</td>
+<td>
+-0.003
+</td>
+<td>
+-0.004
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.003)
+</td>
+<td>
+(0.004)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandMILLER LITE:log(beer_floz)
+</td>
+<td>
+</td>
+<td>
+-0.022<sup>***</sup>
+</td>
+<td>
+-0.024<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.003)
+</td>
+<td>
+(0.003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandNATURAL LIGHT:log(beer_floz)
+</td>
+<td>
+</td>
+<td>
+0.054<sup>***</sup>
+</td>
+<td>
+0.042<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.003)
+</td>
+<td>
+(0.003)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+promoTRUE:log(beer_floz)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.007)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandBUSCH LIGHT:promoTRUE:log(beer_floz)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.041<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.012)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandCOORS LIGHT:promoTRUE:log(beer_floz)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.024<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.011)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandMILLER LITE:promoTRUE:log(beer_floz)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.030<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.009)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandNATURAL LIGHT:promoTRUE:log(beer_floz)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.053<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.009)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+48,384
+</td>
+<td>
+48,384
+</td>
+<td>
+48,384
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.546
+</td>
+<td>
+0.551
+</td>
+<td>
+0.559
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.545
+</td>
+<td>
+0.550
+</td>
+<td>
+0.558
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+0.170 (df = 48286)
+</td>
+<td>
+0.169 (df = 48282)
+</td>
+<td>
+0.168 (df = 48272)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic
+</td>
+<td>
+598.350<sup>***</sup> (df = 97; 48286)
+</td>
+<td>
+586.770<sup>***</sup> (df = 101; 48282)
+</td>
+<td>
+550.383<sup>***</sup> (df = 111; 48272)
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="3" style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05;
+<sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>b1 <span class="ot">&lt;-</span> <span class="fu">coef</span>(model_1)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>b2 <span class="ot">&lt;-</span> <span class="fu">coef</span>(model_2)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>b3 <span class="ot">&lt;-</span> <span class="fu">coef</span>(model_3)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>df_b1 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(model_1)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>df_b2 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(model_2)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>df_b3 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(model_3)</span></code></pre></div>
+<ul>
+<li>The goal of these linear regression is to answer the following
+questions:</li>
+<li><ol style="list-style-type: decimal">
+<li>How are the explanatory variables—sales volume, promotion, and brand
+characteristics (e.g, consumer loyalty, beer taste)—related with the
+beer price?</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>Given the linear relationship between the outcome and the
+explanatory variables, what are the predicted beer prices for unseen
+data?</li>
+</ol></li>
+<li>Intuition behind the model:
+<ul>
+<li>I choose the pricing model. The beer industry is close to oligopoly,
+which means that each beer company has enough market power to set the
+price level above its competitive level of price.</li>
+<li>Each beer company sets the price of a brand’s beer based on the
+degree of consumers’ loyalty, sales volume, promotion, container type,
+and market characteristics (as well as various consumer
+characteristics).</li>
+</ul></li>
+</ul>
+</div>
+<div id="q1g" class="section level2">
+<h2>Q1g</h2>
+<p>Interpret the beta estimates of the following variables from the
+model with formula_3. - (1) <code>marketALBANY</code> - (2)
+<code>marketEXURBAN NY</code> - (3) <code>marketRURAL NEW YORK</code> -
+(4) <code>marketSURBURBAN NY</code> - (5) <code>marketSYRACUSE</code> -
+(6) <code>marketURBAN NY</code></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>q1g_df_b3 <span class="ot">&lt;-</span> df_b3 <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(term, <span class="st">&quot;marketALBANY&quot;</span>) <span class="sc">|</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_detect</span>(term, <span class="st">&quot;marketEXURBAN NY&quot;</span>) <span class="sc">|</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_detect</span>(term, <span class="st">&quot;marketRURAL NEW YORK&quot;</span>) <span class="sc">|</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_detect</span>(term, <span class="st">&quot;marketSURBURBAN NY&quot;</span>) <span class="sc">|</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_detect</span>(term, <span class="st">&quot;marketSYRACUSE&quot;</span>) <span class="sc">|</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_detect</span>(term, <span class="st">&quot;marketURBAN NY&quot;</span>) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sinificance =</span> <span class="fu">ifelse</span>(p.value <span class="sc">&lt;=</span> .<span class="dv">1</span>, T, F)) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sinificance, <span class="fu">everything</span>())</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># beta for marketRURAL NEW YORK is not statistically significant</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>b3[<span class="st">&#39;marketALBANY&#39;</span>]  <span class="co"># ***</span></span></code></pre></div>
+<pre><code>## marketALBANY 
+##    0.0358602</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(b3[<span class="st">&#39;marketALBANY&#39;</span>])  <span class="co"># 1.036511 </span></span></code></pre></div>
+<pre><code>## marketALBANY 
+##     1.036511</code></pre>
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>All else being equal, being in <code>ALBANY</code> relative to being
+in <code>BUFFALO-ROCHESTER</code> is associated with an increase in
+<code>price_per_floz</code> by 3.65%.</li>
+</ol></li>
+</ul>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>b3[<span class="st">&#39;marketEXURBAN NY&#39;</span>]  <span class="co"># ***</span></span></code></pre></div>
+<pre><code>## marketEXURBAN NY 
+##        0.1808736</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(b3[<span class="st">&#39;marketEXURBAN NY&#39;</span>])</span></code></pre></div>
+<pre><code>## marketEXURBAN NY 
+##         1.198264</code></pre>
+<ul>
+<li><ol start="2" style="list-style-type: decimal">
+<li>All else being equal, being in <code>EXURBAN NY</code> relative to
+being in <code>BUFFALO-ROCHESTER</code> is associated with an increase
+in <code>price_per_floz</code> by 19.83%.</li>
+</ol></li>
+</ul>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>b3[<span class="st">&#39;marketRURAL NEW YORK&#39;</span>]  <span class="co"># there is no star</span></span></code></pre></div>
+<pre><code>## marketRURAL NEW YORK 
+##          -0.02045906</code></pre>
+<ul>
+<li><ol start="3" style="list-style-type: decimal">
+<li>We cannot reject the null hypothesis that
+<code>b3['marketRURAL NEW YORK'] == 0</code>.</li>
+</ol></li>
+</ul>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>b3[<span class="st">&#39;marketSURBURBAN NY&#39;</span>] <span class="co"># ***</span></span></code></pre></div>
+<pre><code>## marketSURBURBAN NY 
+##         0.05639214</code></pre>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(b3[<span class="st">&#39;marketSURBURBAN NY&#39;</span>])</span></code></pre></div>
+<pre><code>## marketSURBURBAN NY 
+##           1.058012</code></pre>
+<ul>
+<li><ol start="4" style="list-style-type: decimal">
+<li>All else being equal, being in <code>SURBURBAN NY</code> relative to
+being in <code>BUFFALO-ROCHESTER</code> is associated with an increase
+in <code>price_per_floz</code> by 5.80%</li>
+</ol></li>
+</ul>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>b3[<span class="st">&#39;marketSYRACUSE&#39;</span>] <span class="co"># ***</span></span></code></pre></div>
+<pre><code>## marketSYRACUSE 
+##    -0.04721861</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(b3[<span class="st">&#39;marketSYRACUSE&#39;</span>])</span></code></pre></div>
+<pre><code>## marketSYRACUSE 
+##      0.9538788</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(b3[<span class="st">&#39;marketSYRACUSE&#39;</span>])</span></code></pre></div>
+<pre><code>## marketSYRACUSE 
+##     0.04612116</code></pre>
+<ul>
+<li><ol start="5" style="list-style-type: decimal">
+<li>All else being equal, being in <code>SYRACUSE</code> relative to
+being in <code>BUFFALO-ROCHESTER</code> is associated with a decrease in
+<code>price_per_floz</code> by 4.61%.</li>
+</ol></li>
+</ul>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>b3[<span class="st">&#39;marketURBAN NY&#39;</span>] <span class="co"># ***</span></span></code></pre></div>
+<pre><code>## marketURBAN NY 
+##      0.1652982</code></pre>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(b3[<span class="st">&#39;marketURBAN NY&#39;</span>])</span></code></pre></div>
+<pre><code>## marketURBAN NY 
+##       1.179745</code></pre>
+<ul>
+<li><ol start="6" style="list-style-type: decimal">
+<li>All else being equal, being in <code>URBAN NY</code> relative to
+being in <code>BUFFALO-ROCHESTER</code> is associated with an increase
+in <code>price_per_floz</code> by 17.97%.</li>
+</ol></li>
+</ul>
+</div>
+<div id="q1h" class="section level2">
+<h2>Q1h</h2>
+<ul>
+<li><p>Across the three models in Q1f, how is the percentage change in
+the price of beer sensitive to the percentage change in the volume of
+beer purchases for each brand?</p></li>
+<li><p>In the model with <code>formula_3</code>, how does such
+sensitivity vary by <code>promo</code>?</p></li>
+</ul>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>q1h_df_b1 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(model_1) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>( <span class="sc">!</span><span class="fu">str_detect</span>(term, <span class="st">&quot;market&quot;</span>),</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>          <span class="sc">!</span><span class="fu">str_detect</span>(term, <span class="st">&quot;container&quot;</span>) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sinificance =</span> <span class="fu">ifelse</span>(p.value <span class="sc">&lt;=</span> .<span class="dv">1</span>, T, F)) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sinificance, <span class="fu">everything</span>())</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>q1h_df_b2 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(model_2) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>( <span class="sc">!</span><span class="fu">str_detect</span>(term, <span class="st">&quot;market&quot;</span>),</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>          <span class="sc">!</span><span class="fu">str_detect</span>(term, <span class="st">&quot;container&quot;</span>) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sinificance =</span> <span class="fu">ifelse</span>(p.value <span class="sc">&lt;=</span> .<span class="dv">1</span>, T, F)) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sinificance, <span class="fu">everything</span>()) </span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>q1h_df_b3 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(model_3) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>( <span class="sc">!</span><span class="fu">str_detect</span>(term, <span class="st">&quot;market&quot;</span>),</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>          <span class="sc">!</span><span class="fu">str_detect</span>(term, <span class="st">&quot;container&quot;</span>)  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sinificance =</span> <span class="fu">ifelse</span>(p.value <span class="sc">&lt;=</span> .<span class="dv">1</span>, T, F)) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sinificance, <span class="fu">everything</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 1</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>q1h_df_b1</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sinificance"],"name":[1],"type":["lgl"],"align":["right"]},{"label":["term"],"name":[2],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"TRUE","2":"(Intercept)","3":"-2.183064802","4":"0.010976341","5":"-198.8882125","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT","3":"-0.259468025","4":"0.002827814","5":"-91.7556824","6":"0.000000e+00"},{"1":"FALSE","2":"brandCOORS LIGHT","3":"-0.002350587","4":"0.002418288","5":"-0.9720043","6":"3.310533e-01"},{"1":"TRUE","2":"brandMILLER LITE","3":"-0.013929414","4":"0.002237716","5":"-6.2248358","6":"4.860134e-10"},{"1":"TRUE","2":"brandNATURAL LIGHT","3":"-0.316768792","4":"0.002498843","5":"-126.7661949","6":"0.000000e+00"},{"1":"TRUE","2":"log(beer_floz)","3":"-0.140895793","4":"0.001179720","5":"-119.4315968","6":"0.000000e+00"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>(sensitivity1_ALL <span class="ot">&lt;-</span> b1[<span class="st">&#39;log(beer_floz)&#39;</span>])</span></code></pre></div>
+<pre><code>## log(beer_floz) 
+##     -0.1408958</code></pre>
+<ul>
+<li>All else being equal, 1% increase in <code>beer_floz</code> is
+associated with a decrease in <code>price_per_floz</code> by
+0.141%.</li>
+</ul>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 2</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>q1h_df_b2</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sinificance"],"name":[1],"type":["lgl"],"align":["right"]},{"label":["term"],"name":[2],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"TRUE","2":"(Intercept)","3":"-2.154586555","4":"0.014455071","5":"-149.0540318","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT","3":"-0.216924466","4":"0.022128719","5":"-9.8028480","6":"1.149222e-22"},{"1":"FALSE","2":"brandCOORS LIGHT","3":"0.010419276","4":"0.018600442","5":"0.5601628","6":"5.753710e-01"},{"1":"TRUE","2":"brandMILLER LITE","3":"0.101462362","4":"0.016775190","5":"6.0483584","6":"1.474013e-09"},{"1":"TRUE","2":"brandNATURAL LIGHT","3":"-0.606670843","4":"0.017559934","5":"-34.5485825","6":"2.149963e-258"},{"1":"TRUE","2":"log(beer_floz)","3":"-0.145758400","4":"0.002145872","5":"-67.9250342","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT:log(beer_floz)","3":"-0.007589650","4":"0.004006932","5":"-1.8941302","6":"5.821369e-02"},{"1":"FALSE","2":"brandCOORS LIGHT:log(beer_floz)","3":"-0.002500272","4":"0.003459002","5":"-0.7228303","6":"4.697877e-01"},{"1":"TRUE","2":"brandMILLER LITE:log(beer_floz)","3":"-0.021553032","4":"0.003116647","5":"-6.9154539","6":"4.721514e-12"},{"1":"TRUE","2":"brandNATURAL LIGHT:log(beer_floz)","3":"0.053731615","4":"0.003238282","5":"16.5926292","6":"1.168242e-61"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="do">## BUD LIGHT</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>(sensitivity2_BUD <span class="ot">&lt;-</span> b2[<span class="st">&#39;log(beer_floz)&#39;</span>])</span></code></pre></div>
+<pre><code>## log(beer_floz) 
+##     -0.1457584</code></pre>
+<ul>
+<li>All else being equal, an increase in <code>BUD LIGHT</code>
+<code>beer_floz</code> by 1% is associated with a decrease in its
+<code>price_per_floz</code> by 0.146%.</li>
+</ul>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>q1h_df_b2</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sinificance"],"name":[1],"type":["lgl"],"align":["right"]},{"label":["term"],"name":[2],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"TRUE","2":"(Intercept)","3":"-2.154586555","4":"0.014455071","5":"-149.0540318","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT","3":"-0.216924466","4":"0.022128719","5":"-9.8028480","6":"1.149222e-22"},{"1":"FALSE","2":"brandCOORS LIGHT","3":"0.010419276","4":"0.018600442","5":"0.5601628","6":"5.753710e-01"},{"1":"TRUE","2":"brandMILLER LITE","3":"0.101462362","4":"0.016775190","5":"6.0483584","6":"1.474013e-09"},{"1":"TRUE","2":"brandNATURAL LIGHT","3":"-0.606670843","4":"0.017559934","5":"-34.5485825","6":"2.149963e-258"},{"1":"TRUE","2":"log(beer_floz)","3":"-0.145758400","4":"0.002145872","5":"-67.9250342","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT:log(beer_floz)","3":"-0.007589650","4":"0.004006932","5":"-1.8941302","6":"5.821369e-02"},{"1":"FALSE","2":"brandCOORS LIGHT:log(beer_floz)","3":"-0.002500272","4":"0.003459002","5":"-0.7228303","6":"4.697877e-01"},{"1":"TRUE","2":"brandMILLER LITE:log(beer_floz)","3":"-0.021553032","4":"0.003116647","5":"-6.9154539","6":"4.721514e-12"},{"1":"TRUE","2":"brandNATURAL LIGHT:log(beer_floz)","3":"0.053731615","4":"0.003238282","5":"16.5926292","6":"1.168242e-61"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="do">## BUSCH LIGHT</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>(sensitivity2_BUSCH <span class="ot">&lt;-</span> </span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    b2[<span class="st">&#39;log(beer_floz)&#39;</span>] <span class="sc">+</span> b2[<span class="st">&#39;brandBUSCH LIGHT:log(beer_floz)&#39;</span>])</span></code></pre></div>
+<pre><code>## log(beer_floz) 
+##     -0.1533481</code></pre>
+<ul>
+<li>All else being equal, an increase in <code>BUSCH LIGHT</code>
+<code>beer_floz</code> by 1% is associated with a decrease in its
+<code>price_per_floz</code> by 0.153%.</li>
+</ul>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>q1h_df_b2</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sinificance"],"name":[1],"type":["lgl"],"align":["right"]},{"label":["term"],"name":[2],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"TRUE","2":"(Intercept)","3":"-2.154586555","4":"0.014455071","5":"-149.0540318","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT","3":"-0.216924466","4":"0.022128719","5":"-9.8028480","6":"1.149222e-22"},{"1":"FALSE","2":"brandCOORS LIGHT","3":"0.010419276","4":"0.018600442","5":"0.5601628","6":"5.753710e-01"},{"1":"TRUE","2":"brandMILLER LITE","3":"0.101462362","4":"0.016775190","5":"6.0483584","6":"1.474013e-09"},{"1":"TRUE","2":"brandNATURAL LIGHT","3":"-0.606670843","4":"0.017559934","5":"-34.5485825","6":"2.149963e-258"},{"1":"TRUE","2":"log(beer_floz)","3":"-0.145758400","4":"0.002145872","5":"-67.9250342","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT:log(beer_floz)","3":"-0.007589650","4":"0.004006932","5":"-1.8941302","6":"5.821369e-02"},{"1":"FALSE","2":"brandCOORS LIGHT:log(beer_floz)","3":"-0.002500272","4":"0.003459002","5":"-0.7228303","6":"4.697877e-01"},{"1":"TRUE","2":"brandMILLER LITE:log(beer_floz)","3":"-0.021553032","4":"0.003116647","5":"-6.9154539","6":"4.721514e-12"},{"1":"TRUE","2":"brandNATURAL LIGHT:log(beer_floz)","3":"0.053731615","4":"0.003238282","5":"16.5926292","6":"1.168242e-61"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="do">## COORS LIGHT </span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>(sensitivity2_COORS <span class="ot">&lt;-</span> b2[<span class="st">&#39;log(beer_floz)&#39;</span>])</span></code></pre></div>
+<pre><code>## log(beer_floz) 
+##     -0.1457584</code></pre>
+<ul>
+<li><p>All else being equal, an increase in <code>COORS LIGHT</code>
+<code>beer_floz</code> by 1% is associated with a decrease in its
+<code>price_per_floz</code> by 0.146%.</p></li>
+<li><p>cf) There are no stars (or dots) next to
+<code>b2['brandCOORS LIGHT:log(beer_floz)']</code>, meaning that it is
+not statistically significant.</p></li>
+<li><p>So we cannot reject the null hypotheses that
+<code>b2['brandCOORS LIGHT:log(beer_floz)'] == 0</code>.</p></li>
+</ul>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>q1h_df_b2</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sinificance"],"name":[1],"type":["lgl"],"align":["right"]},{"label":["term"],"name":[2],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"TRUE","2":"(Intercept)","3":"-2.154586555","4":"0.014455071","5":"-149.0540318","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT","3":"-0.216924466","4":"0.022128719","5":"-9.8028480","6":"1.149222e-22"},{"1":"FALSE","2":"brandCOORS LIGHT","3":"0.010419276","4":"0.018600442","5":"0.5601628","6":"5.753710e-01"},{"1":"TRUE","2":"brandMILLER LITE","3":"0.101462362","4":"0.016775190","5":"6.0483584","6":"1.474013e-09"},{"1":"TRUE","2":"brandNATURAL LIGHT","3":"-0.606670843","4":"0.017559934","5":"-34.5485825","6":"2.149963e-258"},{"1":"TRUE","2":"log(beer_floz)","3":"-0.145758400","4":"0.002145872","5":"-67.9250342","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT:log(beer_floz)","3":"-0.007589650","4":"0.004006932","5":"-1.8941302","6":"5.821369e-02"},{"1":"FALSE","2":"brandCOORS LIGHT:log(beer_floz)","3":"-0.002500272","4":"0.003459002","5":"-0.7228303","6":"4.697877e-01"},{"1":"TRUE","2":"brandMILLER LITE:log(beer_floz)","3":"-0.021553032","4":"0.003116647","5":"-6.9154539","6":"4.721514e-12"},{"1":"TRUE","2":"brandNATURAL LIGHT:log(beer_floz)","3":"0.053731615","4":"0.003238282","5":"16.5926292","6":"1.168242e-61"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="do">## MILLER LITE</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>(sensitivity2_MILLER <span class="ot">&lt;-</span> </span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>    b2[<span class="st">&#39;log(beer_floz)&#39;</span>] <span class="sc">+</span> b2[<span class="st">&#39;brandMILLER LITE:log(beer_floz)&#39;</span>])</span></code></pre></div>
+<pre><code>## log(beer_floz) 
+##     -0.1673114</code></pre>
+<ul>
+<li>All else being equal, an increase in <code>MILLER LITE</code>
+<code>beer_floz</code> by 1% is associated with a decrease in its
+<code>price_per_floz</code> by 0.167%.</li>
+</ul>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>q1h_df_b2</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sinificance"],"name":[1],"type":["lgl"],"align":["right"]},{"label":["term"],"name":[2],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"TRUE","2":"(Intercept)","3":"-2.154586555","4":"0.014455071","5":"-149.0540318","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT","3":"-0.216924466","4":"0.022128719","5":"-9.8028480","6":"1.149222e-22"},{"1":"FALSE","2":"brandCOORS LIGHT","3":"0.010419276","4":"0.018600442","5":"0.5601628","6":"5.753710e-01"},{"1":"TRUE","2":"brandMILLER LITE","3":"0.101462362","4":"0.016775190","5":"6.0483584","6":"1.474013e-09"},{"1":"TRUE","2":"brandNATURAL LIGHT","3":"-0.606670843","4":"0.017559934","5":"-34.5485825","6":"2.149963e-258"},{"1":"TRUE","2":"log(beer_floz)","3":"-0.145758400","4":"0.002145872","5":"-67.9250342","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT:log(beer_floz)","3":"-0.007589650","4":"0.004006932","5":"-1.8941302","6":"5.821369e-02"},{"1":"FALSE","2":"brandCOORS LIGHT:log(beer_floz)","3":"-0.002500272","4":"0.003459002","5":"-0.7228303","6":"4.697877e-01"},{"1":"TRUE","2":"brandMILLER LITE:log(beer_floz)","3":"-0.021553032","4":"0.003116647","5":"-6.9154539","6":"4.721514e-12"},{"1":"TRUE","2":"brandNATURAL LIGHT:log(beer_floz)","3":"0.053731615","4":"0.003238282","5":"16.5926292","6":"1.168242e-61"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="do">## NATURAL LIGHT</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>(sensitivity2_NATURAL <span class="ot">&lt;-</span> </span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>    b2[<span class="st">&#39;log(beer_floz)&#39;</span>] <span class="sc">+</span> b2[<span class="st">&#39;brandNATURAL LIGHT:log(beer_floz)&#39;</span>])</span></code></pre></div>
+<pre><code>## log(beer_floz) 
+##    -0.09202679</code></pre>
+<ul>
+<li>All else being equal, an increase in <code>NATURAL LIGHT</code>
+<code>beer_floz</code> by 1% is associated with a decrease in its
+<code>price_per_floz</code> by 0.092%.</li>
+</ul>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 3 </span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>q1h_df_b3</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sinificance"],"name":[1],"type":["lgl"],"align":["right"]},{"label":["term"],"name":[2],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"TRUE","2":"(Intercept)","3":"-2.171652708","4":"0.014908434","5":"-145.6660538","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT","3":"-0.180401422","4":"0.023371464","5":"-7.7188756","6":"1.196094e-14"},{"1":"FALSE","2":"brandCOORS LIGHT","3":"0.024332791","4":"0.019728424","5":"1.2333874","6":"2.174373e-01"},{"1":"TRUE","2":"brandMILLER LITE","3":"0.117647580","4":"0.017986360","5":"6.5409332","6":"6.174518e-11"},{"1":"TRUE","2":"brandNATURAL LIGHT","3":"-0.544211671","4":"0.018754059","5":"-29.0183403","6":"1.469456e-183"},{"1":"FALSE","2":"promoTRUE","3":"-0.056354727","4":"0.037188785","5":"-1.5153689","6":"1.296856e-01"},{"1":"TRUE","2":"log(beer_floz)","3":"-0.141068187","4":"0.002280087","5":"-61.8696412","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT:promoTRUE","3":"-0.219213848","4":"0.070248572","5":"-3.1205452","6":"1.806229e-03"},{"1":"TRUE","2":"brandCOORS LIGHT:promoTRUE","3":"-0.154348835","4":"0.058508973","5":"-2.6380370","6":"8.341423e-03"},{"1":"TRUE","2":"brandMILLER LITE:promoTRUE","3":"-0.167569963","4":"0.052090002","5":"-3.2169314","6":"1.296550e-03"},{"1":"TRUE","2":"brandNATURAL LIGHT:promoTRUE","3":"-0.298267550","4":"0.051283429","5":"-5.8160609","6":"6.062942e-09"},{"1":"TRUE","2":"brandBUSCH LIGHT:log(beer_floz)","3":"-0.015036125","4":"0.004259276","5":"-3.5302064","6":"4.156220e-04"},{"1":"FALSE","2":"brandCOORS LIGHT:log(beer_floz)","3":"-0.004367260","4":"0.003703502","5":"-1.1792244","6":"2.383146e-01"},{"1":"TRUE","2":"brandMILLER LITE:log(beer_floz)","3":"-0.024426930","4":"0.003384192","5":"-7.2179501","6":"5.355232e-13"},{"1":"TRUE","2":"brandNATURAL LIGHT:log(beer_floz)","3":"0.041823932","4":"0.003486533","5":"11.9958514","6":"4.163731e-33"},{"1":"FALSE","2":"promoTRUE:log(beer_floz)","3":"0.001464334","4":"0.006737186","5":"0.2173511","6":"8.279357e-01"},{"1":"TRUE","2":"brandBUSCH LIGHT:promoTRUE:log(beer_floz)","3":"0.040877229","4":"0.012404851","5":"3.2952615","6":"9.840095e-04"},{"1":"TRUE","2":"brandCOORS LIGHT:promoTRUE:log(beer_floz)","3":"0.023734620","4":"0.010569256","5":"2.2456283","6":"2.473233e-02"},{"1":"TRUE","2":"brandMILLER LITE:promoTRUE:log(beer_floz)","3":"0.030206745","4":"0.009387716","5":"3.2176884","6":"1.293134e-03"},{"1":"TRUE","2":"brandNATURAL LIGHT:promoTRUE:log(beer_floz)","3":"0.052873044","4":"0.009260719","5":"5.7093885","6":"1.140462e-08"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="do">## BUD LIGHT</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>(sensitivity3_BUD_NOpromo <span class="ot">&lt;-</span> b3[<span class="st">&#39;log(beer_floz)&#39;</span>])</span></code></pre></div>
+<pre><code>## log(beer_floz) 
+##     -0.1410682</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>(sensitivity3_BUD_promo <span class="ot">&lt;-</span> b3[<span class="st">&#39;log(beer_floz)&#39;</span>])</span></code></pre></div>
+<pre><code>## log(beer_floz) 
+##     -0.1410682</code></pre>
+<ul>
+<li><p>All else being equal, an increase in <code>BUD LIGHT</code> sales
+by 1% with or without <code>promo</code> is associated with a decrease
+in its <code>price_per_floz</code> by 0.141%</p></li>
+<li><p>cf) <code>b3['promoTRUE:log(beer_floz)']</code> is not
+statistically significant.</p></li>
+</ul>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>q1h_df_b3</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sinificance"],"name":[1],"type":["lgl"],"align":["right"]},{"label":["term"],"name":[2],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"TRUE","2":"(Intercept)","3":"-2.171652708","4":"0.014908434","5":"-145.6660538","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT","3":"-0.180401422","4":"0.023371464","5":"-7.7188756","6":"1.196094e-14"},{"1":"FALSE","2":"brandCOORS LIGHT","3":"0.024332791","4":"0.019728424","5":"1.2333874","6":"2.174373e-01"},{"1":"TRUE","2":"brandMILLER LITE","3":"0.117647580","4":"0.017986360","5":"6.5409332","6":"6.174518e-11"},{"1":"TRUE","2":"brandNATURAL LIGHT","3":"-0.544211671","4":"0.018754059","5":"-29.0183403","6":"1.469456e-183"},{"1":"FALSE","2":"promoTRUE","3":"-0.056354727","4":"0.037188785","5":"-1.5153689","6":"1.296856e-01"},{"1":"TRUE","2":"log(beer_floz)","3":"-0.141068187","4":"0.002280087","5":"-61.8696412","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT:promoTRUE","3":"-0.219213848","4":"0.070248572","5":"-3.1205452","6":"1.806229e-03"},{"1":"TRUE","2":"brandCOORS LIGHT:promoTRUE","3":"-0.154348835","4":"0.058508973","5":"-2.6380370","6":"8.341423e-03"},{"1":"TRUE","2":"brandMILLER LITE:promoTRUE","3":"-0.167569963","4":"0.052090002","5":"-3.2169314","6":"1.296550e-03"},{"1":"TRUE","2":"brandNATURAL LIGHT:promoTRUE","3":"-0.298267550","4":"0.051283429","5":"-5.8160609","6":"6.062942e-09"},{"1":"TRUE","2":"brandBUSCH LIGHT:log(beer_floz)","3":"-0.015036125","4":"0.004259276","5":"-3.5302064","6":"4.156220e-04"},{"1":"FALSE","2":"brandCOORS LIGHT:log(beer_floz)","3":"-0.004367260","4":"0.003703502","5":"-1.1792244","6":"2.383146e-01"},{"1":"TRUE","2":"brandMILLER LITE:log(beer_floz)","3":"-0.024426930","4":"0.003384192","5":"-7.2179501","6":"5.355232e-13"},{"1":"TRUE","2":"brandNATURAL LIGHT:log(beer_floz)","3":"0.041823932","4":"0.003486533","5":"11.9958514","6":"4.163731e-33"},{"1":"FALSE","2":"promoTRUE:log(beer_floz)","3":"0.001464334","4":"0.006737186","5":"0.2173511","6":"8.279357e-01"},{"1":"TRUE","2":"brandBUSCH LIGHT:promoTRUE:log(beer_floz)","3":"0.040877229","4":"0.012404851","5":"3.2952615","6":"9.840095e-04"},{"1":"TRUE","2":"brandCOORS LIGHT:promoTRUE:log(beer_floz)","3":"0.023734620","4":"0.010569256","5":"2.2456283","6":"2.473233e-02"},{"1":"TRUE","2":"brandMILLER LITE:promoTRUE:log(beer_floz)","3":"0.030206745","4":"0.009387716","5":"3.2176884","6":"1.293134e-03"},{"1":"TRUE","2":"brandNATURAL LIGHT:promoTRUE:log(beer_floz)","3":"0.052873044","4":"0.009260719","5":"5.7093885","6":"1.140462e-08"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="do">## BUSCH LIGHT</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>(sensitivity3_BUSCH_NOpromo <span class="ot">&lt;-</span> </span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>    b3[<span class="st">&#39;log(beer_floz)&#39;</span>] <span class="sc">+</span> b3[<span class="st">&#39;brandBUSCH LIGHT:log(beer_floz)&#39;</span>])</span></code></pre></div>
+<pre><code>## log(beer_floz) 
+##     -0.1561043</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>(sensitivity3_BUSCH_promo <span class="ot">&lt;-</span> </span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>    b3[<span class="st">&#39;log(beer_floz)&#39;</span>] <span class="sc">+</span> b3[<span class="st">&#39;brandBUSCH LIGHT:log(beer_floz)&#39;</span>] <span class="sc">+</span> </span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  b3[<span class="st">&#39;brandBUSCH LIGHT:promoTRUE:log(beer_floz)&#39;</span>])</span></code></pre></div>
+<pre><code>## log(beer_floz) 
+##     -0.1152271</code></pre>
+<ul>
+<li><p>All else being equal, an increase in <code>BUSCH LIGHT</code>
+sales by 1% without <code>promo</code> is associated with a decrease in
+its <code>price_per_floz</code> by 0.156%.</p></li>
+<li><p>All else being equal, an increase in <code>BUSCH LIGHT</code>
+sales by 1% with <code>promo</code> is associated with a decrease in its
+<code>price_per_floz</code> by 0.115%.</p></li>
+</ul>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>q1h_df_b3</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sinificance"],"name":[1],"type":["lgl"],"align":["right"]},{"label":["term"],"name":[2],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"TRUE","2":"(Intercept)","3":"-2.171652708","4":"0.014908434","5":"-145.6660538","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT","3":"-0.180401422","4":"0.023371464","5":"-7.7188756","6":"1.196094e-14"},{"1":"FALSE","2":"brandCOORS LIGHT","3":"0.024332791","4":"0.019728424","5":"1.2333874","6":"2.174373e-01"},{"1":"TRUE","2":"brandMILLER LITE","3":"0.117647580","4":"0.017986360","5":"6.5409332","6":"6.174518e-11"},{"1":"TRUE","2":"brandNATURAL LIGHT","3":"-0.544211671","4":"0.018754059","5":"-29.0183403","6":"1.469456e-183"},{"1":"FALSE","2":"promoTRUE","3":"-0.056354727","4":"0.037188785","5":"-1.5153689","6":"1.296856e-01"},{"1":"TRUE","2":"log(beer_floz)","3":"-0.141068187","4":"0.002280087","5":"-61.8696412","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT:promoTRUE","3":"-0.219213848","4":"0.070248572","5":"-3.1205452","6":"1.806229e-03"},{"1":"TRUE","2":"brandCOORS LIGHT:promoTRUE","3":"-0.154348835","4":"0.058508973","5":"-2.6380370","6":"8.341423e-03"},{"1":"TRUE","2":"brandMILLER LITE:promoTRUE","3":"-0.167569963","4":"0.052090002","5":"-3.2169314","6":"1.296550e-03"},{"1":"TRUE","2":"brandNATURAL LIGHT:promoTRUE","3":"-0.298267550","4":"0.051283429","5":"-5.8160609","6":"6.062942e-09"},{"1":"TRUE","2":"brandBUSCH LIGHT:log(beer_floz)","3":"-0.015036125","4":"0.004259276","5":"-3.5302064","6":"4.156220e-04"},{"1":"FALSE","2":"brandCOORS LIGHT:log(beer_floz)","3":"-0.004367260","4":"0.003703502","5":"-1.1792244","6":"2.383146e-01"},{"1":"TRUE","2":"brandMILLER LITE:log(beer_floz)","3":"-0.024426930","4":"0.003384192","5":"-7.2179501","6":"5.355232e-13"},{"1":"TRUE","2":"brandNATURAL LIGHT:log(beer_floz)","3":"0.041823932","4":"0.003486533","5":"11.9958514","6":"4.163731e-33"},{"1":"FALSE","2":"promoTRUE:log(beer_floz)","3":"0.001464334","4":"0.006737186","5":"0.2173511","6":"8.279357e-01"},{"1":"TRUE","2":"brandBUSCH LIGHT:promoTRUE:log(beer_floz)","3":"0.040877229","4":"0.012404851","5":"3.2952615","6":"9.840095e-04"},{"1":"TRUE","2":"brandCOORS LIGHT:promoTRUE:log(beer_floz)","3":"0.023734620","4":"0.010569256","5":"2.2456283","6":"2.473233e-02"},{"1":"TRUE","2":"brandMILLER LITE:promoTRUE:log(beer_floz)","3":"0.030206745","4":"0.009387716","5":"3.2176884","6":"1.293134e-03"},{"1":"TRUE","2":"brandNATURAL LIGHT:promoTRUE:log(beer_floz)","3":"0.052873044","4":"0.009260719","5":"5.7093885","6":"1.140462e-08"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="do">## COORS LIGHT </span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>(sensitivity3_COORS_NOpromo <span class="ot">&lt;-</span> b3[<span class="st">&#39;log(beer_floz)&#39;</span>])</span></code></pre></div>
+<pre><code>## log(beer_floz) 
+##     -0.1410682</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>(sensitivity3_COORS_promo <span class="ot">&lt;-</span> </span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>    b3[<span class="st">&#39;log(beer_floz)&#39;</span>]<span class="sc">+</span> b3[<span class="st">&#39;brandCOORS LIGHT:promoTRUE:log(beer_floz)&#39;</span>])</span></code></pre></div>
+<pre><code>## log(beer_floz) 
+##     -0.1173336</code></pre>
+<ul>
+<li><p>All else being equal, an increase in <code>COORS LIGHT</code>
+sales by 1% without <code>promo</code> is associated with a decrease in
+its <code>price_per_floz</code> by 0.141%.</p></li>
+<li><p>All else being equal, an increase in <code>COORS LIGHT</code>
+sales by 1% with <code>promo</code> is associated with a decrease in its
+<code>price_per_floz</code> by 0.117%.</p></li>
+</ul>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>q1h_df_b3</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sinificance"],"name":[1],"type":["lgl"],"align":["right"]},{"label":["term"],"name":[2],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"TRUE","2":"(Intercept)","3":"-2.171652708","4":"0.014908434","5":"-145.6660538","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT","3":"-0.180401422","4":"0.023371464","5":"-7.7188756","6":"1.196094e-14"},{"1":"FALSE","2":"brandCOORS LIGHT","3":"0.024332791","4":"0.019728424","5":"1.2333874","6":"2.174373e-01"},{"1":"TRUE","2":"brandMILLER LITE","3":"0.117647580","4":"0.017986360","5":"6.5409332","6":"6.174518e-11"},{"1":"TRUE","2":"brandNATURAL LIGHT","3":"-0.544211671","4":"0.018754059","5":"-29.0183403","6":"1.469456e-183"},{"1":"FALSE","2":"promoTRUE","3":"-0.056354727","4":"0.037188785","5":"-1.5153689","6":"1.296856e-01"},{"1":"TRUE","2":"log(beer_floz)","3":"-0.141068187","4":"0.002280087","5":"-61.8696412","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT:promoTRUE","3":"-0.219213848","4":"0.070248572","5":"-3.1205452","6":"1.806229e-03"},{"1":"TRUE","2":"brandCOORS LIGHT:promoTRUE","3":"-0.154348835","4":"0.058508973","5":"-2.6380370","6":"8.341423e-03"},{"1":"TRUE","2":"brandMILLER LITE:promoTRUE","3":"-0.167569963","4":"0.052090002","5":"-3.2169314","6":"1.296550e-03"},{"1":"TRUE","2":"brandNATURAL LIGHT:promoTRUE","3":"-0.298267550","4":"0.051283429","5":"-5.8160609","6":"6.062942e-09"},{"1":"TRUE","2":"brandBUSCH LIGHT:log(beer_floz)","3":"-0.015036125","4":"0.004259276","5":"-3.5302064","6":"4.156220e-04"},{"1":"FALSE","2":"brandCOORS LIGHT:log(beer_floz)","3":"-0.004367260","4":"0.003703502","5":"-1.1792244","6":"2.383146e-01"},{"1":"TRUE","2":"brandMILLER LITE:log(beer_floz)","3":"-0.024426930","4":"0.003384192","5":"-7.2179501","6":"5.355232e-13"},{"1":"TRUE","2":"brandNATURAL LIGHT:log(beer_floz)","3":"0.041823932","4":"0.003486533","5":"11.9958514","6":"4.163731e-33"},{"1":"FALSE","2":"promoTRUE:log(beer_floz)","3":"0.001464334","4":"0.006737186","5":"0.2173511","6":"8.279357e-01"},{"1":"TRUE","2":"brandBUSCH LIGHT:promoTRUE:log(beer_floz)","3":"0.040877229","4":"0.012404851","5":"3.2952615","6":"9.840095e-04"},{"1":"TRUE","2":"brandCOORS LIGHT:promoTRUE:log(beer_floz)","3":"0.023734620","4":"0.010569256","5":"2.2456283","6":"2.473233e-02"},{"1":"TRUE","2":"brandMILLER LITE:promoTRUE:log(beer_floz)","3":"0.030206745","4":"0.009387716","5":"3.2176884","6":"1.293134e-03"},{"1":"TRUE","2":"brandNATURAL LIGHT:promoTRUE:log(beer_floz)","3":"0.052873044","4":"0.009260719","5":"5.7093885","6":"1.140462e-08"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="do">## MILLER LITE</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>(sensitivity3_MILLER_NOpromo <span class="ot">&lt;-</span> </span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>    b3[<span class="st">&#39;log(beer_floz)&#39;</span>] <span class="sc">+</span> b3[<span class="st">&#39;brandMILLER LITE:log(beer_floz)&#39;</span>])</span></code></pre></div>
+<pre><code>## log(beer_floz) 
+##     -0.1654951</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>(sensitivity3_MILLER_promo <span class="ot">&lt;-</span> </span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>    b3[<span class="st">&#39;log(beer_floz)&#39;</span>] <span class="sc">+</span> b3[<span class="st">&#39;brandMILLER LITE:log(beer_floz)&#39;</span>] <span class="sc">+</span> </span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>  b3[<span class="st">&#39;brandMILLER LITE:promoTRUE:log(beer_floz)&#39;</span>])</span></code></pre></div>
+<pre><code>## log(beer_floz) 
+##     -0.1352884</code></pre>
+<ul>
+<li><p>All else being equal, an increase in <code>MILLER LITE</code>
+sales by 1% without <code>promo</code> is associated with a decrease in
+its <code>price_per_floz</code> by 0.165%.</p></li>
+<li><p>All else being equal, an increase in <code>MILLER LITE</code>
+sales by 1% with <code>promo</code> is associated with a decrease in its
+<code>price_per_floz</code> by 0.135%.</p></li>
+</ul>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>q1h_df_b3</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sinificance"],"name":[1],"type":["lgl"],"align":["right"]},{"label":["term"],"name":[2],"type":["chr"],"align":["left"]},{"label":["estimate"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["std.error"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["statistic"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["p.value"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"TRUE","2":"(Intercept)","3":"-2.171652708","4":"0.014908434","5":"-145.6660538","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT","3":"-0.180401422","4":"0.023371464","5":"-7.7188756","6":"1.196094e-14"},{"1":"FALSE","2":"brandCOORS LIGHT","3":"0.024332791","4":"0.019728424","5":"1.2333874","6":"2.174373e-01"},{"1":"TRUE","2":"brandMILLER LITE","3":"0.117647580","4":"0.017986360","5":"6.5409332","6":"6.174518e-11"},{"1":"TRUE","2":"brandNATURAL LIGHT","3":"-0.544211671","4":"0.018754059","5":"-29.0183403","6":"1.469456e-183"},{"1":"FALSE","2":"promoTRUE","3":"-0.056354727","4":"0.037188785","5":"-1.5153689","6":"1.296856e-01"},{"1":"TRUE","2":"log(beer_floz)","3":"-0.141068187","4":"0.002280087","5":"-61.8696412","6":"0.000000e+00"},{"1":"TRUE","2":"brandBUSCH LIGHT:promoTRUE","3":"-0.219213848","4":"0.070248572","5":"-3.1205452","6":"1.806229e-03"},{"1":"TRUE","2":"brandCOORS LIGHT:promoTRUE","3":"-0.154348835","4":"0.058508973","5":"-2.6380370","6":"8.341423e-03"},{"1":"TRUE","2":"brandMILLER LITE:promoTRUE","3":"-0.167569963","4":"0.052090002","5":"-3.2169314","6":"1.296550e-03"},{"1":"TRUE","2":"brandNATURAL LIGHT:promoTRUE","3":"-0.298267550","4":"0.051283429","5":"-5.8160609","6":"6.062942e-09"},{"1":"TRUE","2":"brandBUSCH LIGHT:log(beer_floz)","3":"-0.015036125","4":"0.004259276","5":"-3.5302064","6":"4.156220e-04"},{"1":"FALSE","2":"brandCOORS LIGHT:log(beer_floz)","3":"-0.004367260","4":"0.003703502","5":"-1.1792244","6":"2.383146e-01"},{"1":"TRUE","2":"brandMILLER LITE:log(beer_floz)","3":"-0.024426930","4":"0.003384192","5":"-7.2179501","6":"5.355232e-13"},{"1":"TRUE","2":"brandNATURAL LIGHT:log(beer_floz)","3":"0.041823932","4":"0.003486533","5":"11.9958514","6":"4.163731e-33"},{"1":"FALSE","2":"promoTRUE:log(beer_floz)","3":"0.001464334","4":"0.006737186","5":"0.2173511","6":"8.279357e-01"},{"1":"TRUE","2":"brandBUSCH LIGHT:promoTRUE:log(beer_floz)","3":"0.040877229","4":"0.012404851","5":"3.2952615","6":"9.840095e-04"},{"1":"TRUE","2":"brandCOORS LIGHT:promoTRUE:log(beer_floz)","3":"0.023734620","4":"0.010569256","5":"2.2456283","6":"2.473233e-02"},{"1":"TRUE","2":"brandMILLER LITE:promoTRUE:log(beer_floz)","3":"0.030206745","4":"0.009387716","5":"3.2176884","6":"1.293134e-03"},{"1":"TRUE","2":"brandNATURAL LIGHT:promoTRUE:log(beer_floz)","3":"0.052873044","4":"0.009260719","5":"5.7093885","6":"1.140462e-08"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="do">## NATURAL LIGHT</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>(sensitivity3_NATURAL_NOpromo <span class="ot">&lt;-</span> </span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>    b3[<span class="st">&#39;log(beer_floz)&#39;</span>] <span class="sc">+</span> b3[<span class="st">&#39;brandNATURAL LIGHT:log(beer_floz)&#39;</span>])</span></code></pre></div>
+<pre><code>## log(beer_floz) 
+##    -0.09924425</code></pre>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>(sensitivity3_NATURAL_promo <span class="ot">&lt;-</span> </span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>    b3[<span class="st">&#39;log(beer_floz)&#39;</span>] <span class="sc">+</span> b3[<span class="st">&#39;brandNATURAL LIGHT:log(beer_floz)&#39;</span>] <span class="sc">+</span> </span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>  b3[<span class="st">&#39;brandNATURAL LIGHT:promoTRUE:log(beer_floz)&#39;</span>])</span></code></pre></div>
+<pre><code>## log(beer_floz) 
+##    -0.04637121</code></pre>
+<ul>
+<li><p>All else being equal, an increase in <code>NATURAL LIGHT</code>
+sales by 1% without <code>promo</code> is associated with a decrease in
+its <code>price_per_floz</code> by 0.099%.</p></li>
+<li><p>All else being equal, an increase in <code>NATURAL LIGHT</code>
+sales by 1% with <code>promo</code> is associated with a decrease in its
+<code>price_per_floz</code> by 0.046%.</p></li>
+</ul>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="co"># all elasticities in one data.frame:</span></span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>sensitivity <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">brand =</span> <span class="fu">c</span>(<span class="st">&#39;BUD LIGHT&#39;</span>, <span class="st">&#39;BUSCH LIGHT&#39;</span>, <span class="st">&#39;COORS LIGHT&#39;</span>, <span class="st">&#39;MILLER LITE&#39;</span>, <span class="st">&#39;NATURAL LIGHT&#39;</span>),</span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">model1 =</span> <span class="fu">round</span>(sensitivity1_ALL, <span class="at">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">model2 =</span> <span class="fu">round</span>(<span class="fu">c</span>(sensitivity2_BUD, sensitivity2_BUSCH, sensitivity2_COORS, sensitivity2_MILLER, sensitivity2_NATURAL), <span class="at">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">model3_NOpromo =</span> <span class="fu">round</span>(<span class="fu">c</span>(sensitivity3_BUD_NOpromo, sensitivity3_BUSCH_NOpromo, sensitivity3_COORS_NOpromo, sensitivity3_MILLER_NOpromo, sensitivity3_NATURAL_NOpromo), <span class="at">digits =</span> <span class="dv">4</span>),</span>
+<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">model3_promo =</span> <span class="fu">round</span>(<span class="fu">c</span>(sensitivity3_BUD_promo, sensitivity3_BUSCH_promo, sensitivity3_COORS_promo, sensitivity3_MILLER_promo, sensitivity3_NATURAL_promo), <span class="at">digits =</span> <span class="dv">4</span>)</span>
+<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a>sensitivity</span></code></pre></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["brand"],"name":[1],"type":["chr"],"align":["left"]},{"label":["model1"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["model2"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["model3_NOpromo"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["model3_promo"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"BUD LIGHT","2":"-0.1409","3":"-0.1458","4":"-0.1411","5":"-0.1411"},{"1":"BUSCH LIGHT","2":"-0.1409","3":"-0.1533","4":"-0.1561","5":"-0.1152"},{"1":"COORS LIGHT","2":"-0.1409","3":"-0.1458","4":"-0.1411","5":"-0.1173"},{"1":"MILLER LITE","2":"-0.1409","3":"-0.1673","4":"-0.1655","5":"-0.1353"},{"1":"NATURAL LIGHT","2":"-0.1409","3":"-0.0920","4":"-0.0992","5":"-0.0464"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div id="q1i" class="section level2">
+<h2>Q1i</h2>
+<ul>
+<li>For each model in Q1f, draw a residual plot.</li>
+<li>On average, are the prediction correct? Are there systematic
+errors?</li>
+<li>Which model do you prefer most and why?</li>
+</ul>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> test <span class="sc">%&gt;%</span> </span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">pred_1 =</span> <span class="fu">predict</span>(model_1, <span class="at">newdata =</span> test),</span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">pred_2 =</span> <span class="fu">predict</span>(model_2, <span class="at">newdata =</span> test),</span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">pred_3 =</span> <span class="fu">predict</span>(model_3, <span class="at">newdata =</span> test) )</span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-7"><a href="#cb91-7" aria-hidden="true" tabindex="-1"></a><span class="co"># residual plot</span></span>
+<span id="cb91-8"><a href="#cb91-8" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> test, <span class="fu">aes</span>(<span class="at">x =</span> pred_1, </span>
+<span id="cb91-9"><a href="#cb91-9" aria-hidden="true" tabindex="-1"></a>                        <span class="at">y =</span> <span class="fu">log</span>(price_per_floz) <span class="sc">-</span> pred_1 )) <span class="sc">+</span></span>
+<span id="cb91-10"><a href="#cb91-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&#39;grey60&#39;</span>, <span class="at">alpha =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb91-11"><a href="#cb91-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">color =</span> <span class="st">&#39;blue&#39;</span>) <span class="sc">+</span></span>
+<span id="cb91-12"><a href="#cb91-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">0</span>), <span class="at">color =</span> <span class="st">&#39;red&#39;</span>) <span class="sc">+</span>  <span class="co"># y = 0</span></span>
+<span id="cb91-13"><a href="#cb91-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb91-14"><a href="#cb91-14" aria-hidden="true" tabindex="-1"></a>p1</span></code></pre></div>
+<p><img src="DANL200_hw5a_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> test, <span class="fu">aes</span>(<span class="at">x =</span> pred_2, </span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">y =</span> <span class="fu">log</span>(price_per_floz) <span class="sc">-</span> pred_2 )) <span class="sc">+</span></span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&#39;grey60&#39;</span>, <span class="at">alpha =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">color =</span> <span class="st">&#39;blue&#39;</span>) <span class="sc">+</span></span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">0</span>), <span class="at">color =</span> <span class="st">&#39;red&#39;</span>) <span class="sc">+</span>  <span class="co"># y = 0</span></span>
+<span id="cb92-6"><a href="#cb92-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb92-7"><a href="#cb92-7" aria-hidden="true" tabindex="-1"></a>p2</span></code></pre></div>
+<p><img src="DANL200_hw5a_files/figure-html/unnamed-chunk-30-2.png" width="672" /></p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> test, <span class="fu">aes</span>(<span class="at">x =</span> pred_3, </span>
+<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">y =</span> <span class="fu">log</span>(price_per_floz) <span class="sc">-</span> pred_3 )) <span class="sc">+</span></span>
+<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&#39;grey60&#39;</span>, <span class="at">alpha =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">color =</span> <span class="st">&#39;blue&#39;</span>) <span class="sc">+</span></span>
+<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">0</span>), <span class="at">color =</span> <span class="st">&#39;red&#39;</span>) <span class="sc">+</span>  <span class="co"># y = 0</span></span>
+<span id="cb93-6"><a href="#cb93-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb93-7"><a href="#cb93-7" aria-hidden="true" tabindex="-1"></a>p3</span></code></pre></div>
+<p><img src="DANL200_hw5a_files/figure-html/unnamed-chunk-30-3.png" width="672" />
+- When answering the question—Which model do you prefer most and why?—,
+we can consider intuition behind formulas across models and the
+significance of beta estimates.</p>
+<ul>
+<li>Which model do you prefer most and why?
+<ul>
+<li>I prefer model 3.</li>
+<li>The beta estimates for promo-related interaction terms except for
+<code>BUD LIGHT</code> are statistically significant.</li>
+<li>Intuitively, promotion affects purchasing decision of consumers who
+are sufficiently sensitive to changes in beer volumes.</li>
+<li>So, <code>promo</code> is likely to be a relevant variable to
+explain the variation of the beer price.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
