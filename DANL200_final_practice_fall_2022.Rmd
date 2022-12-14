@@ -51,8 +51,6 @@ paidsearch <- read_csv(
 
 <br>
 
-- Do not divide the data.frame, `paid_search`, into training and testing data sets.
-
 - Variable description
 - `dma`: an identification number of a designated market `i` (e.g., Boston, Los Angeles)
 - `treatment_period`: 0 if date is before May 22, 2012 and 1 after. 
@@ -153,7 +151,7 @@ ggplot() +
               color = "red") 
 ```
 
-- There might be an effect of turning off seach engine marketing on eBay's sales revenue.
+- There might not be a significant effect of turning off search engine marketing on eBay's sales revenue.
 
 <br><br><br>
 
@@ -166,6 +164,11 @@ paid_search <- read_csv(
 paid_search$DM <- as.factor(paid_search$DM)
 paid_search <- arrange(paid_search, DM, no_paid_search)
 ```
+
+
+- For the questions here, do not divide the data.frame, `paid_search`, into training and testing data sets.
+
+<br>
 
 - Variable description
 - `DM`: an identification number of a designated market i (e.g., Boston, Los Angeles)
@@ -212,7 +215,9 @@ stargazer::stargazer(dm_reg1, dm_reg2,
                      omit = c("DM"))
 ```
 
-- Interpret the beta coefficients for variables:
+<br>
+
+- Interpret the beta estimates for the following variables:
   - `no_paid_search`
   
   - `May22_2012`

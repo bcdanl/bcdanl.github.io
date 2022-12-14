@@ -1,0 +1,397 @@
+---
+title: "DANL 100: Programming for Data Analytics"
+subtitle: "DANL 100 - Homework Assignment 5 - Example Answers<br><br>" 
+author: 
+  - "Byeong-Hak Choe<br>"
+date: "`r Sys.Date()`<br><br>"
+output: 
+  html_document:
+    df_print: paged
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    number_sections: false
+    highlight: espresso
+---
+```{r klippy, echo=FALSE, include=TRUE}
+htmltools::tagList(
+  xaringanExtra::use_clipboard(
+    button_text = "<i class=\"fa fa-clipboard\"></i>",
+    success_text = "<i class=\"fa fa-check\" style=\"color: #90BE6D\"></i>",
+  ),
+  rmarkdown::html_dependency_font_awesome()
+)
+
+```
+
+
+- The following is the Python libraries we need for this homework.
+```{python, echo = T, eval = F}
+import pandas as pd
+import seaborn as sns
+```
+
+
+
+# Question 1
+
+Load the CSV file, `beer_markets_cleaned.csv`, from the class website:
+```{python, echo = T, eval = F}
+beer_markets = pd.read_csv('https://bcdanl.github.io/data/beer_markets_cleaned.csv')
+```
+
+
+- Description of DataFrame `beer_markets` 
+  - One single observation (row) corresponds to information regarding one household and its beer purchase.
+  - DataFrame `beer_markets` does not have any missing values.
+
+<br>
+
+- Variable (column) description
+  - `hh`: an identifier of the household;
+  - `purchase_desc`: details on the purchased item;
+  - `quantity`: the number of items purchased;
+  - `brand`: Bud Light, Busch Light, Coors Light, Miller Lite, or Natural Light;
+  - `spent`: total dollar value of purchase;
+  - `beer_floz`: total volume of beer, in fluid ounces;
+  - `price_per_floz`: price per fl.oz. (i.e., beer spent/beer floz);
+  - `container`: the type of container;
+  - `promo`: Whether the item was promoted (coupon or otherwise);
+  - `market`: Scan-track market (or state if rural);
+  - demographic data, including gender, marital status, household income, class of work, race, education, age, the size of household, and whether or not the household has a microwave or a dishwasher.
+
+<br><br>
+
+## Q1a
+- Sort the DataFrame `beer_markets` by `hh` in ascending order.
+
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+beer_markets = beer_markets.sort_values('hh')
+```
+
+<br><br>
+
+## Q1b
+Count the number of households for each market.
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+# The below line counts the number of non-missing values
+# for each variable for each group of "market" and "hh".
+q1b = beer_markets.groupby(["market", "hh"]).count() 
+
+# In the resulting DataFrame q1b above, 
+# there is only one single observation for each group of
+# "market" and "hh".
+# So, the following line counts the number of households
+# for each market.
+q1b = q1b.groupby(["market"]).count()
+
+q1b = q1b.loc[ :, ["brand"] ]
+q1b.columns = ['n']   # rename `brand` with `n`
+
+# For renaming, the following also works:
+# q1b = q1b.rename({'brand':"n"}, axis = 'columns')
+```
+
+<br><br>
+
+## Q1c
+
+Find the top 5 beer markets in terms of the number of households that purchased beer.
+
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+q1c = q1b.sort_values('n', ascending = False)
+```
+
+```{r, echo = F, eval = T, warning=F, message=F}
+library(tidyverse)
+library(kableExtra)
+text_tbl <- data.frame(
+  market = c("TAMPA", "DETROIT", "COLUMBUS",
+             "MIAMI", "PHOENIX"),
+  n = c(280, 214, 184, 178, 168)
+)
+
+kbl(text_tbl) %>%
+  kable_paper("hover", full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "5em")
+```
+
+<br><br>
+
+## Q1d
+Sum of `beer_floz` for each `market`.
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+q1d = beer_markets.groupby(["market"]).sum()
+q1d = q1d.loc[ :, ["beer_floz"] ]
+
+# the following gives the Series, instead of the DataFrame
+# q1d = q1d['beer_floz'] 
+```
+
+<br><br>
+
+## Q1e
+Find the top 5 beer markets in terms of the amount of total beer consumption.
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+q1e = q1d.sort_values('beer_floz', ascending = False)
+```
+
+
+```{r, echo = F, eval = T, warning=F, message=F}
+text_tbl <- data.frame(
+  market = c("TAMPA", "PHOENIX", "DETROIT",
+             "MIAMI", "COLUMBUS"),
+  beer_floz = c(462904, 388824, 309588, 271870, 266896)
+)
+
+kbl(text_tbl) %>%
+  kable_paper("hover", full_width = F) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  column_spec(2, width = "5em")
+```
+
+<br><br>
+
+## Q1f
+- Variable `price_per_floz` is continuous.
+- Variable `brand` is categorical.
+
+Describe the distribution of `price_per_floz` for each `brand` using `seaborn`.
+
+Make a simple comment on comparison for the distribution of `price_per_floz` across brands.
+<br>
+
+*Answer*
+
+```{python, echo = T, eval = F}
+# distribution of price_per_floz for BUD LIGHT
+sns.displot( x = 'price_per_floz', bins = 200,
+             data = beer_markets[ beer_markets['brand'] == 'BUD LIGHT' ] )
+
+# distribution of price_per_floz for COORS LIGHT
+sns.displot( x = 'price_per_floz', bins = 200,
+             data = beer_markets[ beer_markets['brand'] == 'COORS LIGHT' ] )
+
+# distribution of price_per_floz for MILLER LITE
+sns.displot( x = 'price_per_floz', bins = 200,
+             data = beer_markets[ beer_markets['brand'] == 'MILLER LITE' ] )
+
+# distribution of price_per_floz for BUSCH LIGHT
+sns.displot( x = 'price_per_floz', bins = 200,
+             data = beer_markets[ beer_markets['brand'] == 'BUSCH LIGHT' ] )
+
+# distribution of price_per_floz for NATURAL LIGHT
+sns.displot( x = 'price_per_floz', bins = 200,
+             data = beer_markets[ beer_markets['brand'] == 'NATURAL LIGHT' ] )
+```
+
+```{r, echo = F, eval = T, warning=F, message=F}
+library(tidyverse)
+beer_markets <- read_csv('https://bcdanl.github.io/data/beer_markets_cleaned.csv')
+beer <- c('BUD LIGHT', 'COORS LIGHT', 'MILLER LITE',
+  'BUSCH LIGHT', 'NATURAL LIGHT')
+
+my_function <- function(bname) { 
+  ggplot(filter(beer_markets,
+              brand == bname)) +
+  geom_histogram(aes(x = price_per_floz), 
+                 bins = 200,
+                 fill = 'deepskyblue3',
+                 color = 'grey70') +
+  theme_minimal() +
+  ggtitle(bname)
+}
+
+ggplot(filter(beer_markets,
+              brand == 'BUD LIGHT')) +
+  geom_histogram(aes(x = price_per_floz), 
+                 bins = 200,
+                 fill = 'deepskyblue3',
+                 color = 'grey70') +
+  theme_minimal() +
+  ggtitle('BUD LIGHT')
+
+ggplot(filter(beer_markets,
+              brand == 'COORS LIGHT')) +
+  geom_histogram(aes(x = price_per_floz), 
+                 bins = 200,
+                 fill = 'deepskyblue3',
+                 color = 'grey70') +
+  theme_minimal() +
+  ggtitle('COORS LIGHT')
+
+ggplot(filter(beer_markets,
+              brand == 'MILLER LITE')) +
+  geom_histogram(aes(x = price_per_floz), 
+                 bins = 200,
+                 fill = 'deepskyblue3',
+                 color = 'grey70') +
+  theme_minimal() +
+  ggtitle('MILLER LITE')
+
+ggplot(filter(beer_markets,
+              brand == 'BUSCH LIGHT')) +
+  geom_histogram(aes(x = price_per_floz), 
+                 bins = 200,
+                 fill = 'deepskyblue3',
+                 color = 'grey70') +
+  theme_minimal() +
+  ggtitle('BUSCH LIGHT')
+
+ggplot(filter(beer_markets,
+              brand == 'NATURAL LIGHT')) +
+  geom_histogram(aes(x = price_per_floz), 
+                 bins = 200,
+                 fill = 'deepskyblue3',
+                 color = 'grey70') +
+  theme_minimal() +
+  ggtitle('NATURAL LIGHT')
+```
+
+<br>
+
+- `BUD LIGHT`, `COORS LIGHT`, and `MILLER LITE` have the similar distribution of `price_per_floz` with each other.
+
+- `BUSCH LIGHT` and `NATURAL LIGHT` have the similar distribution of `price_per_floz` with each other.
+
+- Overall, `BUD LIGHT`, `COORS LIGHT`, and `MILLER LITE` are more expensive than `BUSCH LIGHT` and `NATURAL LIGHT`.
+
+
+
+<br><br>
+
+## Q1g
+
+- Both variables `price_per_floz` and `beer_floz` are continuous.
+
+- Describe the relationship between `price_per_floz` and `beer_floz` by brand using `seaborn`.
+
+- Make a simple comment on the visualization result regarding how the relationship between `price_per_floz` and `beer_floz` varies by `brand`.
+
+<br>
+
+```{python, echo = T, eval = F}
+sns.lmplot(x = "beer_floz",
+           y = "price_per_floz",
+           scatter_kws = {'alpha' : 0.2},
+           data = beer_markets[ beer_markets['brand'] == 'BUD LIGHT' ] )
+
+
+sns.lmplot(x = "beer_floz",
+           y = "price_per_floz",
+           scatter_kws = {'alpha' : 0.2},
+           data = beer_markets[ beer_markets['brand'] == 'COORS LIGHT' ] )
+
+
+sns.lmplot(x = "beer_floz",
+           y = "price_per_floz",
+           scatter_kws = {'alpha' : 0.2},
+           data = beer_markets[ beer_markets['brand'] == 'MILLER LITE' ] )
+
+
+sns.lmplot(x = "beer_floz",
+           y = "price_per_floz",
+           scatter_kws = {'alpha' : 0.2},
+           data = beer_markets[ beer_markets['brand'] == 'BUSCH LIGHT' ] )
+
+
+sns.lmplot(x = "beer_floz",
+           y = "price_per_floz",
+           scatter_kws = {'alpha' : 0.2},
+           data = beer_markets[ beer_markets['brand'] == 'NATURAL LIGHT' ] )
+
+
+# all the plots in one plot:
+sns.lmplot(x = "beer_floz",
+           y = "price_per_floz",
+           hue = "brand",
+           scatter_kws = {'alpha' : 0.2},   
+           data = beer_markets)
+```
+
+```{r, echo = F, eval = T, warning = F, message= F}
+ggplot(filter(beer_markets,
+              brand == 'BUD LIGHT'),
+       aes(x = beer_floz, y = price_per_floz)) +
+  geom_point(color = 'deepskyblue4',
+             alpha = .2)+
+  geom_smooth(color = 'deepskyblue3',
+              method = lm) +
+  theme_minimal() +
+  ggtitle('BUD LIGHT')
+ggplot(filter(beer_markets,
+              brand == 'COORS LIGHT'),
+       aes(x = beer_floz, y = price_per_floz)) +
+  geom_point(color = 'deepskyblue4',
+             alpha = .2)+
+  geom_smooth(color = 'deepskyblue3',
+              method = lm) +
+  theme_minimal() +
+  ggtitle('COORS LIGHT')
+ggplot(filter(beer_markets,
+              brand == 'MILLER LITE'),
+       aes(x = beer_floz, y = price_per_floz)) +
+  geom_point(color = 'deepskyblue4',
+             alpha = .2)+
+  geom_smooth(color = 'deepskyblue3',
+              method = lm) +
+  theme_minimal() +
+  ggtitle('MILLER LITE')
+ggplot(filter(beer_markets,
+              brand == 'BUSCH LIGHT'),
+       aes(x = beer_floz, y = price_per_floz)) +
+  geom_point(color = 'deepskyblue4',
+             alpha = .2)+
+  geom_smooth(color = 'deepskyblue3',
+              method = lm) +
+  theme_minimal() +
+  ggtitle('BUSCH LIGHT')
+ggplot(filter(beer_markets,
+              brand == 'NATURAL LIGHT'),
+       aes(x = beer_floz, y = price_per_floz)) +
+  geom_point(color = 'deepskyblue4',
+             alpha = .2)+
+  geom_smooth(color = 'deepskyblue3',
+              method = lm) +
+  theme_minimal() +
+  ggtitle('NATURAL LIGHT')
+
+ggplot(beer_markets,
+       aes(x = beer_floz , y = price_per_floz, 
+           color = brand)) +
+  geom_point(alpha = .1)+
+  geom_smooth(method = lm) +
+  theme_minimal()
+```
+
+<br>
+
+- The law of demand holds in the beer market:
+  - From the fitted straight line, we see the downward-sloping demand curve for each beer brand.
+  
+- The demand curves for `BUD LIGHT`, `COORS LIGHT`, and `MILLER LITE` are steeper than those for `BUSCH LIGHT` and `NATURAL LIGHT`.
+
+- According to the demand curves, `BUD LIGHT`, `COORS LIGHT`, and `MILLER LITE` have larger demands than `BUSCH LIGHT` and `NATURAL LIGHT` given the same level of `price_per_floz` $\geq$ 0.0375.
+  

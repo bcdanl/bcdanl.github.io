@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Byeong-Hak Choe " />
+
+<meta name="date" content="2022-12-13" />
+
+<title>DANL 100: Programming for Data Analytics</title>
+
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="site_libs/clipboard-2.0.6/clipboard.min.js"></script>
+<link href="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+<script src="site_libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+<script>window.xaringanExtraClipboard(null, {"button":"<i class=\"fa fa-clipboard\"><\/i>","success":"<i class=\"fa fa-check\" style=\"color: #90BE6D\"><\/i>","error":"Press Ctrl+C to Copy"})</script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #2a211c;
+    color: #bdae9d;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #bdae9d;  padding-left: 4px; }
+div.sourceCode
+  { color: #bdae9d; background-color: #2a211c; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffff00; } /* Alert */
+code span.an { color: #0066ff; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #44aa43; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #43a8ed; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #049b0a; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #0066ff; font-weight: bold; font-style: italic; } /* Comment */
+code span.do { color: #0066ff; font-style: italic; } /* Documentation */
+code span.dt { text-decoration: underline; } /* DataType */
+code span.dv { color: #44aa43; } /* DecVal */
+code span.er { color: #ffff00; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #44aa43; } /* Float */
+code span.fu { color: #ff9358; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #0066ff; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #43a8ed; font-weight: bold; } /* Keyword */
+code span.op { } /* Operator */
+code span.pp { font-weight: bold; } /* Preprocessor */
+code span.sc { color: #049b0a; } /* SpecialChar */
+code span.ss { color: #049b0a; } /* SpecialString */
+code span.st { color: #049b0a; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #049b0a; } /* VerbatimString */
+code span.wa { color: #ffff00; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">suny geneseo danl</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">home</a>
+</li>
+<li>
+  <a href="resume.html">résumé</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    danl 100 lectures
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lec/DANL100_Lec01_20220830.html">lecture 01</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec02_20220901.html">lecture 02</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec03_20220906.html">lecture 03</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec04_20220908.html">lecture 04</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec05_20220913.html">lecture 05</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec06_20220915.html">lecture 06</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec07_20220920.html">lecture 07</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec08_20220922.html">lecture 08</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec09_20220927.html">lecture 09</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec10_20220929.html">lecture 10</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec11_20221004.html">lecture 11</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec12_20221006.html">lecture 12</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec13_20221013.html">lecture 13</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec14_20221018.html">lecture 14</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec15_20221020.html">lecture 15</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec16_20221025.html">lecture 16</a>
+    </li>
+    <li>
+      <a href="DANL100_midterm_mockup_q.html">lecture 16 practice</a>
+    </li>
+    <li>
+      <a href="DANL100_midterm_mockup_a.html">lecture 16 practice - answers</a>
+    </li>
+    <li>
+      <a href="DANL100_midterm_fall_2022_a.html">lecture 17 - midterm, fall 2022 - answers</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec18_20221103.html">lecture 18</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec19_20221108.html">lecture 19</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec20_20221110.html">lecture 20</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec21_20221115.html">lecture 21</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec22_20221117.html">lecture 22</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec23_20221122.html">lecture 23</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec24_20221129.html">lecture 24</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec25_20221201.html">lecture 25</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec26_20221206.html">lecture 26</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec27_20221208.html">lecture 27</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    danl 100 homework
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="DANL100_hw1q.html">hw 1 questions</a>
+    </li>
+    <li>
+      <a href="DANL100_hw1a.html">hw 1 answers</a>
+    </li>
+    <li>
+      <a href="DANL100_hw2q.html">hw 2 questions</a>
+    </li>
+    <li>
+      <a href="DANL100_hw2a.html">hw 2 answers</a>
+    </li>
+    <li>
+      <a href="DANL100_hw4a.html">hw 4 answers</a>
+    </li>
+    <li>
+      <a href="DANL100_hw5a.html">hw 5 answers</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    danl 200 lectures
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lec/DANL200_Lec01_20220830.html">lecture 01</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec02_20220901.html">lecture 02</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec03_20220906.html">lecture 03</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec04_20220908.html">lecture 04</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec05_20220913.html">lecture 05</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec06_20220915.html">lecture 06</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec07_20220920.html">lecture 07</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec08_20220922.html">lecture 08</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec09_20220927.html">lecture 09</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec10_20220929.html">lecture 10</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec11_20221004.html">lecture 11</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec12_20221006.html">lecture 12</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec13_20221013.html">lecture 13</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec14_20221018.html">lecture 14</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec15_20221020.html">lecture 15</a>
+    </li>
+    <li>
+      <a href="DANL200_ny_tweets_q.html">lecture 15 practice</a>
+    </li>
+    <li>
+      <a href="DANL200_ny_tweets_a.html">lecture 15 practice - answers</a>
+    </li>
+    <li>
+      <a href="DANL200_midterm_spring_2022_q.html">lecture 16 - midterm, spring 2022</a>
+    </li>
+    <li>
+      <a href="DANL200_midterm_spring_2022_a.html">lecture 16 - midterm, spring 2022 - answers</a>
+    </li>
+    <li>
+      <a href="DANL200_midterm_fall_2022_a.html">lecture 17 - midterm, fall 2022 - answers</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec18_20221103.html">lecture 18</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec19_20221108.html">lecture 19</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec20_20221110.html">lecture 20</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec21_20221115.html">lecture 21</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec22_20221117.html">lecture 22</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec23_20221122.html">lecture 23</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec24_20221129.html">lecture 24</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec25_20221201.html">lecture 25</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec26_20221206.html">lecture 26</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec27_20221208.html">lecture 27</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    danl 200 homework
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="DANL200_hw1q.html">hw 1 questions</a>
+    </li>
+    <li>
+      <a href="DANL200_hw1a.html">hw 1 answers</a>
+    </li>
+    <li>
+      <a href="DANL200_hw2q.html">hw 2 questions</a>
+    </li>
+    <li>
+      <a href="DANL200_hw2a.html">hw 2 answers</a>
+    </li>
+    <li>
+      <a href="DANL200_hw3a.html">hw 3 answers</a>
+    </li>
+    <li>
+      <a href="DANL200_hw4a.html">hw 4 answers</a>
+    </li>
+    <li>
+      <a href="DANL200_hw5a.html">hw 5 answers</a>
+    </li>
+    <li>
+      <a href="DANL200_final_practice_fall_2022.html">practice questions</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">DANL 100: Programming for Data
+Analytics</h1>
+<h3 class="subtitle">DANL 100 - Homework Assignment 5 - Example
+Answers<br><br></h3>
+<h4 class="author">Byeong-Hak Choe<br></h4>
+<h4 class="date">2022-12-13<br><br></h4>
+
+</div>
+
+
+<ul>
+<li>The following is the Python libraries we need for this
+homework.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code></pre></div>
+<div id="question-1" class="section level1">
+<h1>Question 1</h1>
+<p>Load the CSV file, <code>beer_markets_cleaned.csv</code>, from the
+class website:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>beer_markets <span class="op">=</span> pd.read_csv(<span class="st">&#39;https://bcdanl.github.io/data/beer_markets_cleaned.csv&#39;</span>)</span></code></pre></div>
+<ul>
+<li>Description of DataFrame <code>beer_markets</code>
+<ul>
+<li>One single observation (row) corresponds to information regarding
+one household and its beer purchase.</li>
+<li>DataFrame <code>beer_markets</code> does not have any missing
+values.</li>
+</ul></li>
+</ul>
+<p><br></p>
+<ul>
+<li>Variable (column) description
+<ul>
+<li><code>hh</code>: an identifier of the household;</li>
+<li><code>purchase_desc</code>: details on the purchased item;</li>
+<li><code>quantity</code>: the number of items purchased;</li>
+<li><code>brand</code>: Bud Light, Busch Light, Coors Light, Miller
+Lite, or Natural Light;</li>
+<li><code>spent</code>: total dollar value of purchase;</li>
+<li><code>beer_floz</code>: total volume of beer, in fluid ounces;</li>
+<li><code>price_per_floz</code>: price per fl.oz. (i.e., beer spent/beer
+floz);</li>
+<li><code>container</code>: the type of container;</li>
+<li><code>promo</code>: Whether the item was promoted (coupon or
+otherwise);</li>
+<li><code>market</code>: Scan-track market (or state if rural);</li>
+<li>demographic data, including gender, marital status, household
+income, class of work, race, education, age, the size of household, and
+whether or not the household has a microwave or a dishwasher.</li>
+</ul></li>
+</ul>
+<p><br><br></p>
+<div id="q1a" class="section level2">
+<h2>Q1a</h2>
+<ul>
+<li>Sort the DataFrame <code>beer_markets</code> by <code>hh</code> in
+ascending order.</li>
+</ul>
+<p><br></p>
+<p><em>Answer</em></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>beer_markets <span class="op">=</span> beer_markets.sort_values(<span class="st">&#39;hh&#39;</span>)</span></code></pre></div>
+<p><br><br></p>
+</div>
+<div id="q1b" class="section level2">
+<h2>Q1b</h2>
+<p>Count the number of households for each market. <br></p>
+<p><em>Answer</em></p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The below line counts the number of non-missing values</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for each variable for each group of &quot;market&quot; and &quot;hh&quot;.</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>q1b <span class="op">=</span> beer_markets.groupby([<span class="st">&quot;market&quot;</span>, <span class="st">&quot;hh&quot;</span>]).count() </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># In the resulting DataFrame q1b above, </span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># there is only one single observation for each group of</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># &quot;market&quot; and &quot;hh&quot;.</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># So, the following line counts the number of households</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># for each market.</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>q1b <span class="op">=</span> q1b.groupby([<span class="st">&quot;market&quot;</span>]).count()</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>q1b <span class="op">=</span> q1b.loc[ :, [<span class="st">&quot;brand&quot;</span>] ]</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>q1b.columns <span class="op">=</span> [<span class="st">&#39;n&#39;</span>]   <span class="co"># rename `brand` with `n`</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># For renaming, the following also works:</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># q1b = q1b.rename({&#39;brand&#39;:&quot;n&quot;}, axis = &#39;columns&#39;)</span></span></code></pre></div>
+<p><br><br></p>
+</div>
+<div id="q1c" class="section level2">
+<h2>Q1c</h2>
+<p>Find the top 5 beer markets in terms of the number of households that
+purchased beer.</p>
+<p><br></p>
+<p><em>Answer</em></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>q1c <span class="op">=</span> q1b.sort_values(<span class="st">&#39;n&#39;</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div>
+<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+market
+</th>
+<th style="text-align:right;">
+n
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;border-right:1px solid;">
+TAMPA
+</td>
+<td style="text-align:right;width: 5em; ">
+280
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-right:1px solid;">
+DETROIT
+</td>
+<td style="text-align:right;width: 5em; ">
+214
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-right:1px solid;">
+COLUMBUS
+</td>
+<td style="text-align:right;width: 5em; ">
+184
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-right:1px solid;">
+MIAMI
+</td>
+<td style="text-align:right;width: 5em; ">
+178
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-right:1px solid;">
+PHOENIX
+</td>
+<td style="text-align:right;width: 5em; ">
+168
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+</div>
+<div id="q1d" class="section level2">
+<h2>Q1d</h2>
+<p>Sum of <code>beer_floz</code> for each <code>market</code>. <br></p>
+<p><em>Answer</em></p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>q1d <span class="op">=</span> beer_markets.groupby([<span class="st">&quot;market&quot;</span>]).<span class="bu">sum</span>()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>q1d <span class="op">=</span> q1d.loc[ :, [<span class="st">&quot;beer_floz&quot;</span>] ]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># the following gives the Series, instead of the DataFrame</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># q1d = q1d[&#39;beer_floz&#39;] </span></span></code></pre></div>
+<p><br><br></p>
+</div>
+<div id="q1e" class="section level2">
+<h2>Q1e</h2>
+<p>Find the top 5 beer markets in terms of the amount of total beer
+consumption. <br></p>
+<p><em>Answer</em></p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>q1e <span class="op">=</span> q1d.sort_values(<span class="st">&#39;beer_floz&#39;</span>, ascending <span class="op">=</span> <span class="va">False</span>)</span></code></pre></div>
+<table class=" lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+market
+</th>
+<th style="text-align:right;">
+beer_floz
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;border-right:1px solid;">
+TAMPA
+</td>
+<td style="text-align:right;width: 5em; ">
+462904
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-right:1px solid;">
+PHOENIX
+</td>
+<td style="text-align:right;width: 5em; ">
+388824
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-right:1px solid;">
+DETROIT
+</td>
+<td style="text-align:right;width: 5em; ">
+309588
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-right:1px solid;">
+MIAMI
+</td>
+<td style="text-align:right;width: 5em; ">
+271870
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-right:1px solid;">
+COLUMBUS
+</td>
+<td style="text-align:right;width: 5em; ">
+266896
+</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+</div>
+<div id="q1f" class="section level2">
+<h2>Q1f</h2>
+<ul>
+<li>Variable <code>price_per_floz</code> is continuous.</li>
+<li>Variable <code>brand</code> is categorical.</li>
+</ul>
+<p>Describe the distribution of <code>price_per_floz</code> for each
+<code>brand</code> using <code>seaborn</code>.</p>
+<p>Make a simple comment on comparison for the distribution of
+<code>price_per_floz</code> across brands. <br></p>
+<p><em>Answer</em></p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of price_per_floz for BUD LIGHT</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sns.displot( x <span class="op">=</span> <span class="st">&#39;price_per_floz&#39;</span>, bins <span class="op">=</span> <span class="dv">200</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>             data <span class="op">=</span> beer_markets[ beer_markets[<span class="st">&#39;brand&#39;</span>] <span class="op">==</span> <span class="st">&#39;BUD LIGHT&#39;</span> ] )</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of price_per_floz for COORS LIGHT</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>sns.displot( x <span class="op">=</span> <span class="st">&#39;price_per_floz&#39;</span>, bins <span class="op">=</span> <span class="dv">200</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>             data <span class="op">=</span> beer_markets[ beer_markets[<span class="st">&#39;brand&#39;</span>] <span class="op">==</span> <span class="st">&#39;COORS LIGHT&#39;</span> ] )</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of price_per_floz for MILLER LITE</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>sns.displot( x <span class="op">=</span> <span class="st">&#39;price_per_floz&#39;</span>, bins <span class="op">=</span> <span class="dv">200</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>             data <span class="op">=</span> beer_markets[ beer_markets[<span class="st">&#39;brand&#39;</span>] <span class="op">==</span> <span class="st">&#39;MILLER LITE&#39;</span> ] )</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of price_per_floz for BUSCH LIGHT</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>sns.displot( x <span class="op">=</span> <span class="st">&#39;price_per_floz&#39;</span>, bins <span class="op">=</span> <span class="dv">200</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>             data <span class="op">=</span> beer_markets[ beer_markets[<span class="st">&#39;brand&#39;</span>] <span class="op">==</span> <span class="st">&#39;BUSCH LIGHT&#39;</span> ] )</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of price_per_floz for NATURAL LIGHT</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>sns.displot( x <span class="op">=</span> <span class="st">&#39;price_per_floz&#39;</span>, bins <span class="op">=</span> <span class="dv">200</span>,</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>             data <span class="op">=</span> beer_markets[ beer_markets[<span class="st">&#39;brand&#39;</span>] <span class="op">==</span> <span class="st">&#39;NATURAL LIGHT&#39;</span> ] )</span></code></pre></div>
+<p><img src="DANL100_hw5a_files/figure-html/unnamed-chunk-11-1.png" width="672" /><img src="DANL100_hw5a_files/figure-html/unnamed-chunk-11-2.png" width="672" /><img src="DANL100_hw5a_files/figure-html/unnamed-chunk-11-3.png" width="672" /><img src="DANL100_hw5a_files/figure-html/unnamed-chunk-11-4.png" width="672" /><img src="DANL100_hw5a_files/figure-html/unnamed-chunk-11-5.png" width="672" /></p>
+<p><br></p>
+<ul>
+<li><p><code>BUD LIGHT</code>, <code>COORS LIGHT</code>, and
+<code>MILLER LITE</code> have the similar distribution of
+<code>price_per_floz</code> with each other.</p></li>
+<li><p><code>BUSCH LIGHT</code> and <code>NATURAL LIGHT</code> have the
+similar distribution of <code>price_per_floz</code> with each
+other.</p></li>
+<li><p>Overall, <code>BUD LIGHT</code>, <code>COORS LIGHT</code>, and
+<code>MILLER LITE</code> are more expensive than
+<code>BUSCH LIGHT</code> and <code>NATURAL LIGHT</code>.</p></li>
+</ul>
+<p><br><br></p>
+</div>
+<div id="q1g" class="section level2">
+<h2>Q1g</h2>
+<ul>
+<li><p>Both variables <code>price_per_floz</code> and
+<code>beer_floz</code> are continuous.</p></li>
+<li><p>Describe the relationship between <code>price_per_floz</code> and
+<code>beer_floz</code> by brand using <code>seaborn</code>.</p></li>
+<li><p>Make a simple comment on the visualization result regarding how
+the relationship between <code>price_per_floz</code> and
+<code>beer_floz</code> varies by <code>brand</code>.</p></li>
+</ul>
+<p><br></p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sns.lmplot(x <span class="op">=</span> <span class="st">&quot;beer_floz&quot;</span>,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>           y <span class="op">=</span> <span class="st">&quot;price_per_floz&quot;</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>           scatter_kws <span class="op">=</span> {<span class="st">&#39;alpha&#39;</span> : <span class="fl">0.2</span>},</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>           data <span class="op">=</span> beer_markets[ beer_markets[<span class="st">&#39;brand&#39;</span>] <span class="op">==</span> <span class="st">&#39;BUD LIGHT&#39;</span> ] )</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>sns.lmplot(x <span class="op">=</span> <span class="st">&quot;beer_floz&quot;</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>           y <span class="op">=</span> <span class="st">&quot;price_per_floz&quot;</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>           scatter_kws <span class="op">=</span> {<span class="st">&#39;alpha&#39;</span> : <span class="fl">0.2</span>},</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>           data <span class="op">=</span> beer_markets[ beer_markets[<span class="st">&#39;brand&#39;</span>] <span class="op">==</span> <span class="st">&#39;COORS LIGHT&#39;</span> ] )</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>sns.lmplot(x <span class="op">=</span> <span class="st">&quot;beer_floz&quot;</span>,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>           y <span class="op">=</span> <span class="st">&quot;price_per_floz&quot;</span>,</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>           scatter_kws <span class="op">=</span> {<span class="st">&#39;alpha&#39;</span> : <span class="fl">0.2</span>},</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>           data <span class="op">=</span> beer_markets[ beer_markets[<span class="st">&#39;brand&#39;</span>] <span class="op">==</span> <span class="st">&#39;MILLER LITE&#39;</span> ] )</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>sns.lmplot(x <span class="op">=</span> <span class="st">&quot;beer_floz&quot;</span>,</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>           y <span class="op">=</span> <span class="st">&quot;price_per_floz&quot;</span>,</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>           scatter_kws <span class="op">=</span> {<span class="st">&#39;alpha&#39;</span> : <span class="fl">0.2</span>},</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>           data <span class="op">=</span> beer_markets[ beer_markets[<span class="st">&#39;brand&#39;</span>] <span class="op">==</span> <span class="st">&#39;BUSCH LIGHT&#39;</span> ] )</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>sns.lmplot(x <span class="op">=</span> <span class="st">&quot;beer_floz&quot;</span>,</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>           y <span class="op">=</span> <span class="st">&quot;price_per_floz&quot;</span>,</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>           scatter_kws <span class="op">=</span> {<span class="st">&#39;alpha&#39;</span> : <span class="fl">0.2</span>},</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>           data <span class="op">=</span> beer_markets[ beer_markets[<span class="st">&#39;brand&#39;</span>] <span class="op">==</span> <span class="st">&#39;NATURAL LIGHT&#39;</span> ] )</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="co"># all the plots in one plot:</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>sns.lmplot(x <span class="op">=</span> <span class="st">&quot;beer_floz&quot;</span>,</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>           y <span class="op">=</span> <span class="st">&quot;price_per_floz&quot;</span>,</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>           hue <span class="op">=</span> <span class="st">&quot;brand&quot;</span>,</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>           scatter_kws <span class="op">=</span> {<span class="st">&#39;alpha&#39;</span> : <span class="fl">0.2</span>},   </span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>           data <span class="op">=</span> beer_markets)</span></code></pre></div>
+<p><img src="DANL100_hw5a_files/figure-html/unnamed-chunk-13-1.png" width="672" /><img src="DANL100_hw5a_files/figure-html/unnamed-chunk-13-2.png" width="672" /><img src="DANL100_hw5a_files/figure-html/unnamed-chunk-13-3.png" width="672" /><img src="DANL100_hw5a_files/figure-html/unnamed-chunk-13-4.png" width="672" /><img src="DANL100_hw5a_files/figure-html/unnamed-chunk-13-5.png" width="672" /><img src="DANL100_hw5a_files/figure-html/unnamed-chunk-13-6.png" width="672" /></p>
+<p><br></p>
+<ul>
+<li><p>The law of demand holds in the beer market:</p>
+<ul>
+<li>From the fitted straight line, we see the downward-sloping demand
+curve for each beer brand.</li>
+</ul></li>
+<li><p>The demand curves for <code>BUD LIGHT</code>,
+<code>COORS LIGHT</code>, and <code>MILLER LITE</code> are steeper than
+those for <code>BUSCH LIGHT</code> and
+<code>NATURAL LIGHT</code>.</p></li>
+<li><p>According to the demand curves, <code>BUD LIGHT</code>,
+<code>COORS LIGHT</code>, and <code>MILLER LITE</code> have larger
+demands than <code>BUSCH LIGHT</code> and <code>NATURAL LIGHT</code>
+given the same level of <code>price_per_floz</code> <span
+class="math inline">\(\geq\)</span> 0.0375.</p></li>
+</ul>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

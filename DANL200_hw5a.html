@@ -11,7 +11,7 @@
 
 <meta name="author" content="Byeong-Hak Choe " />
 
-<meta name="date" content="2022-12-11" />
+<meta name="date" content="2022-12-13" />
 
 <title>DANL 200: Introduction to Data Analytics</title>
 
@@ -552,6 +552,9 @@ div.tocify {
     <li>
       <a href="DANL100_hw4a.html">hw 4 answers</a>
     </li>
+    <li>
+      <a href="DANL100_hw5a.html">hw 5 answers</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -678,6 +681,12 @@ div.tocify {
     <li>
       <a href="DANL200_hw4a.html">hw 4 answers</a>
     </li>
+    <li>
+      <a href="DANL200_hw5a.html">hw 5 answers</a>
+    </li>
+    <li>
+      <a href="DANL200_final_practice_fall_2022.html">practice questions</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -694,7 +703,7 @@ Analytics</h1>
 <h3 class="subtitle">DANL 200 - Homework Assignment 5 - Example
 Answers<br><br></h3>
 <h4 class="author">Byeong-Hak Choe<br></h4>
-<h4 class="date">2022-12-11<br><br></h4>
+<h4 class="date">2022-12-13<br><br></h4>
 
 </div>
 
@@ -769,36 +778,51 @@ data.frame from Q1a.</p>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(beer_markets<span class="sc">$</span>container)</span></code></pre></div>
 <pre><code>## [1] &quot;CAN&quot;                   &quot;NON REFILLABLE BOTTLE&quot;</code></pre>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(beer_markets<span class="sc">$</span>market)</span></code></pre></div>
-<pre><code>##  [1] &quot;ALBANY&quot;               &quot;ATLANTA&quot;              &quot;BALTIMORE&quot;           
-##  [4] &quot;BIRMINGHAM&quot;           &quot;BOSTON&quot;               &quot;BUFFALO-ROCHESTER&quot;   
-##  [7] &quot;CHARLOTTE&quot;            &quot;CHICAGO&quot;              &quot;CINCINNATI&quot;          
-## [10] &quot;CLEVELAND&quot;            &quot;COLUMBUS&quot;             &quot;DALLAS&quot;              
-## [13] &quot;DENVER&quot;               &quot;DES MOINES&quot;           &quot;DETROIT&quot;             
-## [16] &quot;EXURBAN NY&quot;           &quot;GRAND RAPIDS&quot;         &quot;HARTFORD-NEW HAVEN&quot;  
-## [19] &quot;HOUSTON&quot;              &quot;INDIANAPOLIS&quot;         &quot;JACKSONVILLE&quot;        
-## [22] &quot;KANSAS CITY&quot;          &quot;LITTLE ROCK&quot;          &quot;LOS ANGELES&quot;         
-## [25] &quot;LOUISVILLE&quot;           &quot;MEMPHIS&quot;              &quot;MIAMI&quot;               
-## [28] &quot;MILWAUKEE&quot;            &quot;MINNEAPOLIS&quot;          &quot;NASHVILLE&quot;           
-## [31] &quot;NEW ORLEANS-MOBILE&quot;   &quot;OKLAHOMA CITY-TULSA&quot;  &quot;OMAHA&quot;               
-## [34] &quot;ORLANDO&quot;              &quot;PHILADELPHIA&quot;         &quot;PHOENIX&quot;             
-## [37] &quot;PITTSBURGH&quot;           &quot;PORTLAND, OR&quot;         &quot;RALEIGH-DURHAM&quot;      
-## [40] &quot;RICHMOND&quot;             &quot;RURAL ALABAMA&quot;        &quot;RURAL ARKANSAS&quot;      
-## [43] &quot;RURAL CALIFORNIA&quot;     &quot;RURAL COLORADO&quot;       &quot;RURAL FLORIDA&quot;       
-## [46] &quot;RURAL GEORGIA&quot;        &quot;RURAL IDAHO&quot;          &quot;RURAL ILLINOIS&quot;      
-## [49] &quot;RURAL INDIANA&quot;        &quot;RURAL IOWA&quot;           &quot;RURAL KANSAS&quot;        
-## [52] &quot;RURAL KENTUCKY&quot;       &quot;RURAL LOUISIANA&quot;      &quot;RURAL MAINE&quot;         
-## [55] &quot;RURAL MICHIGAN&quot;       &quot;RURAL MINNESOTA&quot;      &quot;RURAL MISSISSIPPI&quot;   
-## [58] &quot;RURAL MISSOURI&quot;       &quot;RURAL MONTANA&quot;        &quot;RURAL NEBRASKA&quot;      
-## [61] &quot;RURAL NEVADA&quot;         &quot;RURAL NEW HAMPSHIRE&quot;  &quot;RURAL NEW MEXICO&quot;    
-## [64] &quot;RURAL NEW YORK&quot;       &quot;RURAL NORTH CAROLINA&quot; &quot;RURAL NORTH DAKOTA&quot;  
-## [67] &quot;RURAL OHIO&quot;           &quot;RURAL OKLAHOMA&quot;       &quot;RURAL OREGON&quot;        
-## [70] &quot;RURAL PENNSYLVANIA&quot;   &quot;RURAL SOUTH CAROLINA&quot; &quot;RURAL SOUTH DAKOTA&quot;  
-## [73] &quot;RURAL TENNESSEE&quot;      &quot;RURAL TEXAS&quot;          &quot;RURAL VERMONT&quot;       
-## [76] &quot;RURAL VIRGINIA&quot;       &quot;RURAL WASHINGTON&quot;     &quot;RURAL WEST VIRGINIA&quot; 
-## [79] &quot;RURAL WISCONSIN&quot;      &quot;RURAL WYOMING&quot;        &quot;SACRAMENTO&quot;          
-## [82] &quot;SALT LAKE CITY&quot;       &quot;SAN ANTONIO&quot;          &quot;SAN DIEGO&quot;           
-## [85] &quot;SAN FRANCISCO&quot;        &quot;SEATTLE&quot;              &quot;ST. LOUIS&quot;           
-## [88] &quot;SURBURBAN NY&quot;         &quot;SYRACUSE&quot;             &quot;TAMPA&quot;               
+<pre><code>##  [1] &quot;ALBANY&quot;               &quot;ATLANTA&quot;             
+##  [3] &quot;BALTIMORE&quot;            &quot;BIRMINGHAM&quot;          
+##  [5] &quot;BOSTON&quot;               &quot;BUFFALO-ROCHESTER&quot;   
+##  [7] &quot;CHARLOTTE&quot;            &quot;CHICAGO&quot;             
+##  [9] &quot;CINCINNATI&quot;           &quot;CLEVELAND&quot;           
+## [11] &quot;COLUMBUS&quot;             &quot;DALLAS&quot;              
+## [13] &quot;DENVER&quot;               &quot;DES MOINES&quot;          
+## [15] &quot;DETROIT&quot;              &quot;EXURBAN NY&quot;          
+## [17] &quot;GRAND RAPIDS&quot;         &quot;HARTFORD-NEW HAVEN&quot;  
+## [19] &quot;HOUSTON&quot;              &quot;INDIANAPOLIS&quot;        
+## [21] &quot;JACKSONVILLE&quot;         &quot;KANSAS CITY&quot;         
+## [23] &quot;LITTLE ROCK&quot;          &quot;LOS ANGELES&quot;         
+## [25] &quot;LOUISVILLE&quot;           &quot;MEMPHIS&quot;             
+## [27] &quot;MIAMI&quot;                &quot;MILWAUKEE&quot;           
+## [29] &quot;MINNEAPOLIS&quot;          &quot;NASHVILLE&quot;           
+## [31] &quot;NEW ORLEANS-MOBILE&quot;   &quot;OKLAHOMA CITY-TULSA&quot; 
+## [33] &quot;OMAHA&quot;                &quot;ORLANDO&quot;             
+## [35] &quot;PHILADELPHIA&quot;         &quot;PHOENIX&quot;             
+## [37] &quot;PITTSBURGH&quot;           &quot;PORTLAND, OR&quot;        
+## [39] &quot;RALEIGH-DURHAM&quot;       &quot;RICHMOND&quot;            
+## [41] &quot;RURAL ALABAMA&quot;        &quot;RURAL ARKANSAS&quot;      
+## [43] &quot;RURAL CALIFORNIA&quot;     &quot;RURAL COLORADO&quot;      
+## [45] &quot;RURAL FLORIDA&quot;        &quot;RURAL GEORGIA&quot;       
+## [47] &quot;RURAL IDAHO&quot;          &quot;RURAL ILLINOIS&quot;      
+## [49] &quot;RURAL INDIANA&quot;        &quot;RURAL IOWA&quot;          
+## [51] &quot;RURAL KANSAS&quot;         &quot;RURAL KENTUCKY&quot;      
+## [53] &quot;RURAL LOUISIANA&quot;      &quot;RURAL MAINE&quot;         
+## [55] &quot;RURAL MICHIGAN&quot;       &quot;RURAL MINNESOTA&quot;     
+## [57] &quot;RURAL MISSISSIPPI&quot;    &quot;RURAL MISSOURI&quot;      
+## [59] &quot;RURAL MONTANA&quot;        &quot;RURAL NEBRASKA&quot;      
+## [61] &quot;RURAL NEVADA&quot;         &quot;RURAL NEW HAMPSHIRE&quot; 
+## [63] &quot;RURAL NEW MEXICO&quot;     &quot;RURAL NEW YORK&quot;      
+## [65] &quot;RURAL NORTH CAROLINA&quot; &quot;RURAL NORTH DAKOTA&quot;  
+## [67] &quot;RURAL OHIO&quot;           &quot;RURAL OKLAHOMA&quot;      
+## [69] &quot;RURAL OREGON&quot;         &quot;RURAL PENNSYLVANIA&quot;  
+## [71] &quot;RURAL SOUTH CAROLINA&quot; &quot;RURAL SOUTH DAKOTA&quot;  
+## [73] &quot;RURAL TENNESSEE&quot;      &quot;RURAL TEXAS&quot;         
+## [75] &quot;RURAL VERMONT&quot;        &quot;RURAL VIRGINIA&quot;      
+## [77] &quot;RURAL WASHINGTON&quot;     &quot;RURAL WEST VIRGINIA&quot; 
+## [79] &quot;RURAL WISCONSIN&quot;      &quot;RURAL WYOMING&quot;       
+## [81] &quot;SACRAMENTO&quot;           &quot;SALT LAKE CITY&quot;      
+## [83] &quot;SAN ANTONIO&quot;          &quot;SAN DIEGO&quot;           
+## [85] &quot;SAN FRANCISCO&quot;        &quot;SEATTLE&quot;             
+## [87] &quot;ST. LOUIS&quot;            &quot;SURBURBAN NY&quot;        
+## [89] &quot;SYRACUSE&quot;             &quot;TAMPA&quot;               
 ## [91] &quot;URBAN NY&quot;             &quot;WASHINGTON DC&quot;</code></pre>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(beer_markets<span class="sc">$</span>container)</span></code></pre></div>
 <pre><code>## 
@@ -806,66 +830,96 @@ data.frame from Q1a.</p>
 ##                 53015                 19095</code></pre>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(beer_markets<span class="sc">$</span>market)</span></code></pre></div>
 <pre><code>## 
-##               ALBANY              ATLANTA            BALTIMORE 
-##                  487                 1279                  374 
-##           BIRMINGHAM               BOSTON    BUFFALO-ROCHESTER 
-##                 1137                  872                  607 
-##            CHARLOTTE              CHICAGO           CINCINNATI 
-##                 1246                 1879                 1270 
-##            CLEVELAND             COLUMBUS               DALLAS 
-##                 1226                 1862                 2098 
-##               DENVER           DES MOINES              DETROIT 
-##                  796                  716                 1731 
-##           EXURBAN NY         GRAND RAPIDS   HARTFORD-NEW HAVEN 
-##                  321                  739                  370 
-##              HOUSTON         INDIANAPOLIS         JACKSONVILLE 
-##                 1673                 1213                  501 
-##          KANSAS CITY          LITTLE ROCK          LOS ANGELES 
-##                  663                  452                 1564 
-##           LOUISVILLE              MEMPHIS                MIAMI 
-##                  833                  530                 2616 
-##            MILWAUKEE          MINNEAPOLIS            NASHVILLE 
-##                  728                  801                  989 
-##   NEW ORLEANS-MOBILE  OKLAHOMA CITY-TULSA                OMAHA 
-##                  852                  800                 1017 
-##              ORLANDO         PHILADELPHIA              PHOENIX 
-##                 1135                  433                 2263 
-##           PITTSBURGH         PORTLAND, OR       RALEIGH-DURHAM 
-##                  352                  552                 1126 
-##             RICHMOND        RURAL ALABAMA       RURAL ARKANSAS 
-##                 1063                  305                  160 
-##     RURAL CALIFORNIA       RURAL COLORADO        RURAL FLORIDA 
-##                  848                   21                  522 
-##        RURAL GEORGIA          RURAL IDAHO       RURAL ILLINOIS 
-##                  460                  154                 1195 
-##        RURAL INDIANA           RURAL IOWA         RURAL KANSAS 
-##                  481                 1060                  179 
-##       RURAL KENTUCKY      RURAL LOUISIANA          RURAL MAINE 
-##                  225                  381                  353 
-##       RURAL MICHIGAN      RURAL MINNESOTA    RURAL MISSISSIPPI 
-##                  754                  138                  354 
-##       RURAL MISSOURI        RURAL MONTANA       RURAL NEBRASKA 
-##                  640                  354                  110 
-##         RURAL NEVADA  RURAL NEW HAMPSHIRE     RURAL NEW MEXICO 
-##                  557                   25                  427 
-##       RURAL NEW YORK RURAL NORTH CAROLINA   RURAL NORTH DAKOTA 
-##                   13                  909                  129 
-##           RURAL OHIO       RURAL OKLAHOMA         RURAL OREGON 
-##                  257                   54                   38 
-##   RURAL PENNSYLVANIA RURAL SOUTH CAROLINA   RURAL SOUTH DAKOTA 
-##                  298                 1295                  153 
-##      RURAL TENNESSEE          RURAL TEXAS        RURAL VERMONT 
-##                  423                 1771                  139 
-##       RURAL VIRGINIA     RURAL WASHINGTON  RURAL WEST VIRGINIA 
-##                  185                  330                  265 
-##      RURAL WISCONSIN        RURAL WYOMING           SACRAMENTO 
-##                 1306                   39                  981 
-##       SALT LAKE CITY          SAN ANTONIO            SAN DIEGO 
-##                  320                 2615                  656 
-##        SAN FRANCISCO              SEATTLE            ST. LOUIS 
-##                  871                  903                 1347 
-##         SURBURBAN NY             SYRACUSE                TAMPA 
-##                  872                  294                 3180 
+##               ALBANY              ATLANTA 
+##                  487                 1279 
+##            BALTIMORE           BIRMINGHAM 
+##                  374                 1137 
+##               BOSTON    BUFFALO-ROCHESTER 
+##                  872                  607 
+##            CHARLOTTE              CHICAGO 
+##                 1246                 1879 
+##           CINCINNATI            CLEVELAND 
+##                 1270                 1226 
+##             COLUMBUS               DALLAS 
+##                 1862                 2098 
+##               DENVER           DES MOINES 
+##                  796                  716 
+##              DETROIT           EXURBAN NY 
+##                 1731                  321 
+##         GRAND RAPIDS   HARTFORD-NEW HAVEN 
+##                  739                  370 
+##              HOUSTON         INDIANAPOLIS 
+##                 1673                 1213 
+##         JACKSONVILLE          KANSAS CITY 
+##                  501                  663 
+##          LITTLE ROCK          LOS ANGELES 
+##                  452                 1564 
+##           LOUISVILLE              MEMPHIS 
+##                  833                  530 
+##                MIAMI            MILWAUKEE 
+##                 2616                  728 
+##          MINNEAPOLIS            NASHVILLE 
+##                  801                  989 
+##   NEW ORLEANS-MOBILE  OKLAHOMA CITY-TULSA 
+##                  852                  800 
+##                OMAHA              ORLANDO 
+##                 1017                 1135 
+##         PHILADELPHIA              PHOENIX 
+##                  433                 2263 
+##           PITTSBURGH         PORTLAND, OR 
+##                  352                  552 
+##       RALEIGH-DURHAM             RICHMOND 
+##                 1126                 1063 
+##        RURAL ALABAMA       RURAL ARKANSAS 
+##                  305                  160 
+##     RURAL CALIFORNIA       RURAL COLORADO 
+##                  848                   21 
+##        RURAL FLORIDA        RURAL GEORGIA 
+##                  522                  460 
+##          RURAL IDAHO       RURAL ILLINOIS 
+##                  154                 1195 
+##        RURAL INDIANA           RURAL IOWA 
+##                  481                 1060 
+##         RURAL KANSAS       RURAL KENTUCKY 
+##                  179                  225 
+##      RURAL LOUISIANA          RURAL MAINE 
+##                  381                  353 
+##       RURAL MICHIGAN      RURAL MINNESOTA 
+##                  754                  138 
+##    RURAL MISSISSIPPI       RURAL MISSOURI 
+##                  354                  640 
+##        RURAL MONTANA       RURAL NEBRASKA 
+##                  354                  110 
+##         RURAL NEVADA  RURAL NEW HAMPSHIRE 
+##                  557                   25 
+##     RURAL NEW MEXICO       RURAL NEW YORK 
+##                  427                   13 
+## RURAL NORTH CAROLINA   RURAL NORTH DAKOTA 
+##                  909                  129 
+##           RURAL OHIO       RURAL OKLAHOMA 
+##                  257                   54 
+##         RURAL OREGON   RURAL PENNSYLVANIA 
+##                   38                  298 
+## RURAL SOUTH CAROLINA   RURAL SOUTH DAKOTA 
+##                 1295                  153 
+##      RURAL TENNESSEE          RURAL TEXAS 
+##                  423                 1771 
+##        RURAL VERMONT       RURAL VIRGINIA 
+##                  139                  185 
+##     RURAL WASHINGTON  RURAL WEST VIRGINIA 
+##                  330                  265 
+##      RURAL WISCONSIN        RURAL WYOMING 
+##                 1306                   39 
+##           SACRAMENTO       SALT LAKE CITY 
+##                  981                  320 
+##          SAN ANTONIO            SAN DIEGO 
+##                 2615                  656 
+##        SAN FRANCISCO              SEATTLE 
+##                  871                  903 
+##            ST. LOUIS         SURBURBAN NY 
+##                 1347                  872 
+##             SYRACUSE                TAMPA 
+##                  294                 3180 
 ##             URBAN NY        WASHINGTON DC 
 ##                  735                  863</code></pre>
 <p><br><br></p>

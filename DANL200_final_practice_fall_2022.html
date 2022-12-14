@@ -11,7 +11,7 @@
 
 <meta name="author" content="Byeong-Hak Choe " />
 
-<meta name="date" content="2022-12-12" />
+<meta name="date" content="2022-12-13" />
 
 <title>DANL 200: Introduction to Data Analytics</title>
 
@@ -552,6 +552,9 @@ div.tocify {
     <li>
       <a href="DANL100_hw4a.html">hw 4 answers</a>
     </li>
+    <li>
+      <a href="DANL100_hw5a.html">hw 5 answers</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -679,6 +682,9 @@ div.tocify {
       <a href="DANL200_hw4a.html">hw 4 answers</a>
     </li>
     <li>
+      <a href="DANL200_hw5a.html">hw 5 answers</a>
+    </li>
+    <li>
       <a href="DANL200_final_practice_fall_2022.html">practice questions</a>
     </li>
   </ul>
@@ -696,7 +702,7 @@ div.tocify {
 Analytics</h1>
 <h3 class="subtitle">DANL 200 - Final Exam - Practice<br><br></h3>
 <h4 class="author">Byeong-Hak Choe<br></h4>
-<h4 class="date">2022-12-12<br><br></h4>
+<h4 class="date">2022-12-13<br><br></h4>
 
 </div>
 
@@ -726,17 +732,15 @@ function:</p>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&#39;https://bcdanl.github.io/data/paidsearch.csv&#39;</span>)</span></code></pre></div>
 <p><br></p>
 <ul>
-<li><p>Do not divide the data.frame, <code>paid_search</code>, into
-training and testing data sets.</p></li>
-<li><p>Variable description</p></li>
-<li><p><code>dma</code>: an identification number of a designated market
-<code>i</code> (e.g., Boston, Los Angeles)</p></li>
-<li><p><code>treatment_period</code>: 0 if date is before May 22, 2012
-and 1 after.</p></li>
-<li><p><code>search_stays_on</code>: 1 if the paid-search goes off in
-dma <code>i</code>, 0 otherwise.</p></li>
-<li><p><code>revenue</code>: eBay’s sales revenue for dma <code>i</code>
-and date <code>t</code></p></li>
+<li>Variable description</li>
+<li><code>dma</code>: an identification number of a designated market
+<code>i</code> (e.g., Boston, Los Angeles)</li>
+<li><code>treatment_period</code>: 0 if date is before May 22, 2012 and
+1 after.</li>
+<li><code>search_stays_on</code>: 1 if the paid-search goes off in dma
+<code>i</code>, 0 otherwise.</li>
+<li><code>revenue</code>: eBay’s sales revenue for dma <code>i</code>
+and date <code>t</code></li>
 </ul>
 <div id="q1a." class="section level2">
 <h2>Q1a.</h2>
@@ -830,8 +834,8 @@ and after May 22, 2012 using lubridate and ggplot2.</p></li>
 <span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) </span></code></pre></div>
 <p><img src="DANL200_final_practice_fall_2022_files/figure-html/unnamed-chunk-6-3.png" width="672" /></p>
 <ul>
-<li>There might be an effect of turning off seach engine marketing on
-eBay’s sales revenue.</li>
+<li>There might not be a significant effect of turning off search engine
+marketing on eBay’s sales revenue.</li>
 </ul>
 <p><br><br><br></p>
 <p>For the rest of questions in Question 1, use the following
@@ -841,6 +845,11 @@ data.frame:</p>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>paid_search<span class="sc">$</span>DM <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(paid_search<span class="sc">$</span>DM)</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>paid_search <span class="ot">&lt;-</span> <span class="fu">arrange</span>(paid_search, DM, no_paid_search)</span></code></pre></div>
+<ul>
+<li>For the questions here, do not divide the data.frame,
+<code>paid_search</code>, into training and testing data sets.</li>
+</ul>
+<p><br></p>
 <ul>
 <li>Variable description</li>
 <li><code>DM</code>: an identification number of a designated market i
@@ -871,11 +880,16 @@ and time t</li>
 ## -3.8518 -0.7061 -0.0447  0.7696  3.6521 
 ## 
 ## Coefficients:
-##                            Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)               10.948646   0.100495 108.948   &lt;2e-16 ***
-## no_paid_search             0.014081   0.176603   0.080    0.936    
-## May22_2012                -0.039400   0.142121  -0.277    0.782    
-## no_paid_search:May22_2012 -0.006587   0.249754  -0.026    0.979    
+##                            Estimate Std. Error t value
+## (Intercept)               10.948646   0.100495 108.948
+## no_paid_search             0.014081   0.176603   0.080
+## May22_2012                -0.039400   0.142121  -0.277
+## no_paid_search:May22_2012 -0.006587   0.249754  -0.026
+##                           Pr(&gt;|t|)    
+## (Intercept)                 &lt;2e-16 ***
+## no_paid_search               0.936    
+## May22_2012                   0.782    
+## no_paid_search:May22_2012    0.979    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -1133,8 +1147,9 @@ F Statistic
 </td>
 </tr>
 </table>
+<p><br></p>
 <ul>
-<li>Interpret the beta coefficients for variables:
+<li>Interpret the beta estimates for the following variables:
 <ul>
 <li><p><code>no_paid_search</code></p></li>
 <li><p><code>May22_2012</code></p></li>

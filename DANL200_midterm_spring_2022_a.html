@@ -11,7 +11,7 @@
 
 <meta name="author" content="Byeong-Hak Choe " />
 
-<meta name="date" content="2022-12-12" />
+<meta name="date" content="2022-12-13" />
 
 <title>DANL 200: Introduction to Data Analytics</title>
 
@@ -552,6 +552,9 @@ div.tocify {
     <li>
       <a href="DANL100_hw4a.html">hw 4 answers</a>
     </li>
+    <li>
+      <a href="DANL100_hw5a.html">hw 5 answers</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -679,6 +682,9 @@ div.tocify {
       <a href="DANL200_hw4a.html">hw 4 answers</a>
     </li>
     <li>
+      <a href="DANL200_hw5a.html">hw 5 answers</a>
+    </li>
+    <li>
       <a href="DANL200_final_practice_fall_2022.html">practice questions</a>
     </li>
   </ul>
@@ -696,7 +702,7 @@ div.tocify {
 Analytics</h1>
 <h3 class="subtitle">DANL 200 - Midterm Exam, Spring 2022<br><br></h3>
 <h4 class="author">Byeong-Hak Choe<br></h4>
-<h4 class="date">2022-12-12<br><br></h4>
+<h4 class="date">2022-12-13<br><br></h4>
 
 </div>
 
@@ -912,13 +918,20 @@ the log of <code>sales</code> by <code>brand</code> using ggplot. Make a
 simple comment on your ggplot figure.</li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(oj_q1b)</span></code></pre></div>
-<pre><code>##      sales            price          brand                feat       
-##  Min.   :    64   Min.   :0.520   Length:28947       Min.   :0.0000  
-##  1st Qu.:  4864   1st Qu.:1.790   Class :character   1st Qu.:0.0000  
-##  Median :  8384   Median :2.170   Mode  :character   Median :0.0000  
-##  Mean   : 17312   Mean   :2.282                      Mean   :0.2373  
-##  3rd Qu.: 17408   3rd Qu.:2.730                      3rd Qu.:0.0000  
-##  Max.   :716416   Max.   :3.870                      Max.   :1.0000</code></pre>
+<pre><code>##      sales            price          brand          
+##  Min.   :    64   Min.   :0.520   Length:28947      
+##  1st Qu.:  4864   1st Qu.:1.790   Class :character  
+##  Median :  8384   Median :2.170   Mode  :character  
+##  Mean   : 17312   Mean   :2.282                     
+##  3rd Qu.: 17408   3rd Qu.:2.730                     
+##  Max.   :716416   Max.   :3.870                     
+##       feat       
+##  Min.   :0.0000  
+##  1st Qu.:0.0000  
+##  Median :0.0000  
+##  Mean   :0.2373  
+##  3rd Qu.:0.0000  
+##  Max.   :1.0000</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> oj_q1b, </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">log</span>(price), <span class="at">y =</span> <span class="fu">log</span>(sales),</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">color =</span> brand)) <span class="sc">+</span></span>
@@ -974,332 +987,658 @@ borough.</p></li>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 0.</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(nyc_dogs<span class="sc">$</span>breed_rc)</span></code></pre></div>
 <pre><code>## 
-##                       Affenpinscher                        Afghan Hound 
-##                                 136                                  89 
-##             Afghan Hound Crossbreed                    Airedale Terrier 
-##                                  19                                 227 
-##                               Akita                    Akita Crossbreed 
-##                                 491                                 151 
-##                    Alaskan Klee Kai                    Alaskan Malamute 
-##                                 113                                 287 
-##                      American Bully          American English Coonhound 
-##                                1100                                 103 
-##                 American Eskimo Dog                   American Foxhound 
-##                                1145                                 265 
-##           American Hairless Terrier              American Leopard Hound 
-##                                  15                                  11 
-##      American Staffordshire Terrier              American Water Spaniel 
-##                                3052                                  15 
-##              Anatolian Shepherd Dog               Australian Cattle Dog 
-##                                 305                                 730 
-##                Australian Cattledog                   Australian Kelpie 
-##                                1324                                 126 
-##                 Australian Shepherd            Australian Silky Terrier 
-##                                4212                                 149 
-##                  Australian Terrier                             Azawakh 
-##                                 107                                   3 
-##                              Baladi                              Barbet 
-##                                   8                                  15 
-##                             Basenji                        Basset Hound 
-##                                 595                                 526 
-##             Basset Hound Crossbreed                       Bassett Hound 
-##                                 102                                 571 
-##                              Beagle                   Beagle Crossbreed 
-##                                7822                                4224 
-##                      Bearded Collie                           Beauceron 
-##                                  80                                  11 
-##                  Bedlington Terrier                     Belgian Griffon 
-##                                  92                                  24 
-##                   Belgian Laekenois                    Belgian Malinois 
-##                                   4                                 407 
-##                    Belgian Sheepdog                    Belgian Tervuren 
-##                                  78                                  17 
-##                       Berger Picard                Bernese Mountain Dog 
-##                                  23                                 923 
-##                        Bichon Frise             Bichon Frise Crossbreed 
-##                                4310                                1620 
-##                      Biewer Terrier             Black And Tan Coonhound 
-##                                  50                                 162 
-##               Black Russian Terrier                          Bloodhound 
-##                                  33                                 108 
-##               Bloodhound Crossbreed                  Bluetick Coonhound 
-##                                  58                                 134 
-##                            Boerboel                           Bolognese 
-##                                  56                                  43 
-##                       Border Collie            Border Collie Crossbreed 
-##                                1485                                 725 
-##                      Border Terrier                              Borzoi 
-##                                 800                                  64 
-##                      Boston Terrier                Bouvier Des Flandres 
-##                                4670                                  71 
-##                               Boxer                    Boxer Crossbreed 
-##                                3713                                 776 
-##                      Boykin Spaniel                     Bracco Italiano 
-##                                  29                                   7 
-##                              Briard                            Brittany 
-##                                  61                                  93 
-##                    Brittany Spaniel                    Brussels Griffon 
-##                                 358                                1137 
-##         Brussels Griffon Crossbreed                  Bull Dog, American 
-##                                  35                                 327 
-##                   Bull Dog, English                    Bull Dog, French 
-##                                3294                                2538 
-##                        Bull Terrier                             Bulldog 
-##                                 817                                 973 
-##                         Bullmastiff                       Cairn Terrier 
-##                                 100                                1764 
-##                          Canaan Dog                          Cane Corso 
-##                                  83                                 854 
-##                Cardigan Welsh Corgi               Catahoula Leopard Dog 
-##                                 213                                 542 
-##       Cavalier King Charles Spaniel                       Cesky Terrier 
-##                                5747                                   4 
-##            Chesapeake Bay Retriever                           Chihuahua 
-##                                 100                               21211 
-##                Chihuahua Crossbreed                     Chinese Crested 
-##                                7149                                 188 
-##                    Chinese Shar-Pei                             Chinook 
-##                                 187                                  20 
-##                           Chow Chow                        Cirneco Dell 
-##                                 891                                  12 
-##                     Clumber Spaniel                            Cockapoo 
-##                                  46                                 778 
-##                      Cocker Spaniel           Cocker Spaniel Crossbreed 
-##                                5676                                1046 
-##                              Collie                   Collie Crossbreed 
-##                                 277                                 869 
-##                     Collie, Bearded                      Collie, Border 
-##                                  86                                 841 
-##                  Collie, Rough Coat                 Collie, Smooth Coat 
-##                                 146                                 141 
-##            Coonhound, Black And Tan                Coonhound, Blue Tick 
-##                                 389                                 107 
-##                  Coonhound, Redbone           Coonhound, Treeing Walker 
-##                                  18                                 290 
-##                     Coton De Tulear                    Cotton De Tulear 
-##                                 537                                 706 
-##              Curly-Coated Retriever                           Dachshund 
-##                                  13                                3104 
-##                Dachshund Crossbreed               Dachshund Smooth Coat 
-##                                1345                                2496 
-##     Dachshund Smooth Coat Miniature              Dachshund, Long Haired 
-##                                1888                                 714 
-##    Dachshund, Long Haired Miniature               Dachshund, Wirehaired 
-##                                1131                                 249 
-##    Dachshund, Wirehaired, Miniature                           Dalmatian 
-##                                 267                                 369 
-##                       Dalmatian Mix              Dandie Dinmont Terrier 
-##                                  15                                  20 
-##                   Doberman Pinscher                      Dogo Argentino 
-##                                1021                                 111 
-##                   Dogue De Bordeaux                      Dutch Shepherd 
-##                                  56                                 164 
-##              English Cocker Spaniel                    English Foxhound 
-##                                 456                                  68 
-##                      English Setter           English Setter Crossbreed 
-##                                  91                                   9 
-##            English Springer Spaniel                 English Toy Spaniel 
-##                                 317                                  33 
-##            Entlebucher Mountain Dog                Estrela Mountain Dog 
-##                                  34                                   4 
-##                            Eurasier                       Field Spaniel 
-##                                  11                                  41 
-##                     Fila Brasileiro                    Finnish Lapphund 
-##                                  11                                   3 
-##                       Finnish Spitz               Flat-Coated Retriever 
-##                                  44                                 144 
-##                      French Bulldog                      French Spaniel 
-##                                6364                                  17 
-##           German Longhaired Pointer                     German Pinscher 
-##                                  21                                  49 
-##          German Shepherd Crossbreed                 German Shepherd Dog 
-##                                5683                                7129 
-##          German Shorthaired Pointer                        German Spitz 
-##                                 364                                  51 
-##           German Wirehaired Pointer                     Giant Schnauzer 
-##                                  41                                  58 
-##               Glen Of Imaal Terrier                    Golden Retriever 
-##                                  47                                7325 
-##                        Goldendoodle                       Gordon Setter 
-##                                3849                                  32 
-##        Grand Basset Griffon Vendeen                          Great Dane 
-##                                   4                                 546 
-##                      Great Pyrenees          Greater Swiss Mountain Dog 
-##                                 496                                  49 
-##                      Greek Shephard                           Greyhound 
-##                                   2                                 860 
-##                     Hamiltonstovare                             Harrier 
-##                                   3                                  44 
-##                            Havanese                            Hovawart 
-##                                8606                                  15 
-##                        Ibizan Hound                  Icelandic Sheepdog 
-##                                  47                                  11 
-##          Irish Red And White Setter                        Irish Setter 
-##                                  14                                 150 
-##                       Irish Terrier                 Irish Water Spaniel 
-##                                 200                                   2 
-##                     Irish Wolfhound                   Italian Greyhound 
-##                                  60                                1096 
-##                Jack Russell Terrier     Jack Russell Terrier Crossbreed 
-##                                6880                                 697 
-##                         Jagdterrier                       Japanese Chin 
-##                                   3                                 203 
-##               Japanese Chin/Spaniel                      Japanese Spitz 
-##                                 248                                  83 
-##                               Jindo                    Jindo Dog, Korea 
-##                                 299                                 937 
-##                             Kai Ken                   Karelian Bear Dog 
-##                                  10                                   2 
-##                            Keeshond                  Kerry Blue Terrier 
-##                                 123                                  65 
-##                           Kishu Ken                       Kooikerhondje 
-##                                   1                                  25 
-##                      Kromfohrlander                              Kuvasz 
-##                                   8                                  18 
-##                         Labradoodle            Labrador (or Crossbreed) 
-##                                3685                               28399 
-##                   Lagotto Romagnolo                    Lakeland Terrier 
-##                                 194                                  38 
-##                   Lancashire Heeler                          Leonberger 
-##                                  10                                  26 
-##                          Lhasa Apso                             Lowchen 
-##                                2486                                  31 
-##                             Maltese                  Maltese Crossbreed 
-##                               15701                                4498 
-##                            Maltipoo                  Manchester Terrier 
-##                                2358                                 158 
-##                             Mastiff                       Mastiff, Bull 
-##                                 294                                 192 
-## Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan 
-##                                  51                                  40 
-##                Mastiff, Old English                    Mastiff, Tibetan 
-##                                 125                                  22 
-##         Miniature American Shepherd       Miniature Australian Shepherd 
-##                                 449                                 829 
-##              Miniature Bull Terrier               Miniature Fox Terrier 
-##                                  53                                  15 
-##                  Miniature Pinscher                 Miniature Schnauzer 
-##                                3242                                2298 
-##                              Morkie                      Mountain Feist 
-##                                3049                                  13 
-##                                Mudi                  Neapolitan Mastiff 
-##                                  11                                  12 
-##                        Newfoundland                     Norfolk Terrier 
-##                                 263                                 328 
-##                    Norwegian Buhund                  Norwegian Elkhound 
-##                                   7                                 110 
-##                     Norwich Terrier  Nova Scotia Duck Tolling Retriever 
-##                                 399                                 101 
-##                Old English Sheepdog              Olde English Bulldogge 
-##                                 294                                  11 
-##                          Otterhound                            Papillon 
-##                                   4                                1430 
-##              Parson Russell Terrier                  Patterdale Terrier 
-##                                 208                                   8 
-##                           Pekingese                Pembroke Welsh Corgi 
-##                                2043                                1113 
-##     Pembroke Welsh Corgi Crossbreed              Perro De Presa Canario 
-##                                 130                                  24 
-##                Peruvian Inca Orchid        Petit Basset Griffon Vendeen 
-##                                   5                                  99 
-##                       Pharaoh Hound                        Pharoh Hound 
-##                                 102                                  51 
-##                   Pit Bull (or Mix)                               Plott 
-##                               24393                                 491 
-##                             Pointer         Pointer, German Shorthaired 
-##                                 861                                 227 
-##          Pointer, German Wirehaired                        Polish Hound 
-##                                  59                                  19 
-##             Polish Lowland Sheepdog                          Pomeranian 
-##                                  17                                9287 
-##               Pomeranian Crossbreed                              Pomsky 
-##                                1355                                 381 
-##                              Poodle                   Poodle Crossbreed 
-##                                4723                                6178 
-##                   Poodle, Miniature                    Poodle, Standard 
-##                                4567                                3105 
-##                         Poodle, Toy          Portuguese Podengo Pequeno 
-##                                4923                                  58 
-##                 Portuguese Sheepdog                Portuguese Water Dog 
-##                                   1                                 557 
-##                                 Pug                      Pug Crossbreed 
-##                                5203                                 534 
-##                              Puggle                                Puli 
-##                                2889                                  72 
-##                                Pumi                   Pyrenean Shepherd 
-##                                  10                                  13 
-##                         Rat Terrier              Rat Terrier Crossbreed 
-##                                1181                                 240 
-##                   Redbone Coonhound                 Rhodesian Ridgeback 
-##                                 175                                 935 
-##                          Rottweiler               Rottweiler Crossbreed 
-##                                2126                                 339 
-##                     Russell Terrier                         Russian Toy 
-##                                  89                                  26 
-##                   Russian Wolfhound                       Saint Bernard 
-##                                   2                                 118 
-##                              Saluki                             Samoyed 
-##                                  48                                 437 
-##                          Schipperke                         Schipperkee 
-##                                  83                                 135 
-##                Schnauzer Crossbreed                    Schnauzer, Giant 
-##                                 624                                 107 
-##                Schnauzer, Miniature     Schnauzer, Miniature Crossbreed 
-##                                3398                                 310 
-##                 Schnauzer, Standard                  Scottish Deerhound 
-##                                 659                                  12 
-##                    Scottish Terrier                    Sealyham Terrier 
-##                                 561                                  31 
-##                   Shar-Pei, Chinese                  Shepard Crossbreed 
-##                                 704                                 771 
-##                   Shetland Sheepdog                           Shiba Inu 
-##                                1070                                6109 
-##                Shiba Inu Crossbreed                            Shih Tzu 
-##                                 288                               27407 
-##                 Shih Tzu Crossbreed                      Siberian Husky 
-##                                8098                                4999 
-##           Siberian Husky Crossbreed                       Silky Terrier 
-##                                 770                                 943 
-##                        Skye Terrier         Small Munsterlander Pointer 
-##                                  31                                   5 
-##                  Smooth Fox Terrier         Soft Coated Wheaten Terrier 
-##                                  71                                 363 
-##                   Spanish Water Dog                    Spinone Italiano 
-##                                  27                                  66 
-##                         St. Bernard                           Stabyhoun 
-##                                  74                                   1 
-##          Staffordshire Bull Terrier                  Standard Schnauzer 
-##                                1230                                  31 
-##                      Sussex Spaniel                    Swedish Lapphund 
-##                                  20                                   1 
-##                    Swedish Vallhund                  Terrier Crossbreed 
-##                                  11                                2369 
-##                         Terrier Mix                      Thai Ridgeback 
-##                                5293                                  45 
-##                     Tibetan Mastiff                     Tibetan Spaniel 
-##                                  26                                 253 
-##                     Tibetan Terrier                             Tornjak 
-##                                 781                                   1 
-##                                Tosa                     Toy Fox Terrier 
-##                                   3                                 194 
-##           Treeing Tennessee Brindle            Treeing Walker Coonhound 
-##                                  34                                 200 
-##                             Unknown                              Vizsla 
-##                               54586                                 877 
-##                          Weimaraner               Welsh Corgi, Cardigan 
-##                                 559                                 310 
-##               Welsh Corgi, Pembroke              Welsh Springer Spaniel 
-##                                1123                                  75 
-##                       Welsh Terrier             West High White Terrier 
-##                                 118                                1619 
-##         West Highland White Terrier                     Wheaton Terrier 
-##                                 835                                1539 
-##                             Whippet                    Wire Fox Terrier 
-##                                 600                                 583 
-##         Wirehaired Pointing Griffon                   Wirehaired Vizsla 
-##                                  78                                   8 
-##                      Xoloitzcuintli                   Yorkshire Terrier 
-##                                  44                               30379 
+##                       Affenpinscher 
+##                                 136 
+##                        Afghan Hound 
+##                                  89 
+##             Afghan Hound Crossbreed 
+##                                  19 
+##                    Airedale Terrier 
+##                                 227 
+##                               Akita 
+##                                 491 
+##                    Akita Crossbreed 
+##                                 151 
+##                    Alaskan Klee Kai 
+##                                 113 
+##                    Alaskan Malamute 
+##                                 287 
+##                      American Bully 
+##                                1100 
+##          American English Coonhound 
+##                                 103 
+##                 American Eskimo Dog 
+##                                1145 
+##                   American Foxhound 
+##                                 265 
+##           American Hairless Terrier 
+##                                  15 
+##              American Leopard Hound 
+##                                  11 
+##      American Staffordshire Terrier 
+##                                3052 
+##              American Water Spaniel 
+##                                  15 
+##              Anatolian Shepherd Dog 
+##                                 305 
+##               Australian Cattle Dog 
+##                                 730 
+##                Australian Cattledog 
+##                                1324 
+##                   Australian Kelpie 
+##                                 126 
+##                 Australian Shepherd 
+##                                4212 
+##            Australian Silky Terrier 
+##                                 149 
+##                  Australian Terrier 
+##                                 107 
+##                             Azawakh 
+##                                   3 
+##                              Baladi 
+##                                   8 
+##                              Barbet 
+##                                  15 
+##                             Basenji 
+##                                 595 
+##                        Basset Hound 
+##                                 526 
+##             Basset Hound Crossbreed 
+##                                 102 
+##                       Bassett Hound 
+##                                 571 
+##                              Beagle 
+##                                7822 
+##                   Beagle Crossbreed 
+##                                4224 
+##                      Bearded Collie 
+##                                  80 
+##                           Beauceron 
+##                                  11 
+##                  Bedlington Terrier 
+##                                  92 
+##                     Belgian Griffon 
+##                                  24 
+##                   Belgian Laekenois 
+##                                   4 
+##                    Belgian Malinois 
+##                                 407 
+##                    Belgian Sheepdog 
+##                                  78 
+##                    Belgian Tervuren 
+##                                  17 
+##                       Berger Picard 
+##                                  23 
+##                Bernese Mountain Dog 
+##                                 923 
+##                        Bichon Frise 
+##                                4310 
+##             Bichon Frise Crossbreed 
+##                                1620 
+##                      Biewer Terrier 
+##                                  50 
+##             Black And Tan Coonhound 
+##                                 162 
+##               Black Russian Terrier 
+##                                  33 
+##                          Bloodhound 
+##                                 108 
+##               Bloodhound Crossbreed 
+##                                  58 
+##                  Bluetick Coonhound 
+##                                 134 
+##                            Boerboel 
+##                                  56 
+##                           Bolognese 
+##                                  43 
+##                       Border Collie 
+##                                1485 
+##            Border Collie Crossbreed 
+##                                 725 
+##                      Border Terrier 
+##                                 800 
+##                              Borzoi 
+##                                  64 
+##                      Boston Terrier 
+##                                4670 
+##                Bouvier Des Flandres 
+##                                  71 
+##                               Boxer 
+##                                3713 
+##                    Boxer Crossbreed 
+##                                 776 
+##                      Boykin Spaniel 
+##                                  29 
+##                     Bracco Italiano 
+##                                   7 
+##                              Briard 
+##                                  61 
+##                            Brittany 
+##                                  93 
+##                    Brittany Spaniel 
+##                                 358 
+##                    Brussels Griffon 
+##                                1137 
+##         Brussels Griffon Crossbreed 
+##                                  35 
+##                  Bull Dog, American 
+##                                 327 
+##                   Bull Dog, English 
+##                                3294 
+##                    Bull Dog, French 
+##                                2538 
+##                        Bull Terrier 
+##                                 817 
+##                             Bulldog 
+##                                 973 
+##                         Bullmastiff 
+##                                 100 
+##                       Cairn Terrier 
+##                                1764 
+##                          Canaan Dog 
+##                                  83 
+##                          Cane Corso 
+##                                 854 
+##                Cardigan Welsh Corgi 
+##                                 213 
+##               Catahoula Leopard Dog 
+##                                 542 
+##       Cavalier King Charles Spaniel 
+##                                5747 
+##                       Cesky Terrier 
+##                                   4 
+##            Chesapeake Bay Retriever 
+##                                 100 
+##                           Chihuahua 
+##                               21211 
+##                Chihuahua Crossbreed 
+##                                7149 
+##                     Chinese Crested 
+##                                 188 
+##                    Chinese Shar-Pei 
+##                                 187 
+##                             Chinook 
+##                                  20 
+##                           Chow Chow 
+##                                 891 
+##                        Cirneco Dell 
+##                                  12 
+##                     Clumber Spaniel 
+##                                  46 
+##                            Cockapoo 
+##                                 778 
+##                      Cocker Spaniel 
+##                                5676 
+##           Cocker Spaniel Crossbreed 
+##                                1046 
+##                              Collie 
+##                                 277 
+##                   Collie Crossbreed 
+##                                 869 
+##                     Collie, Bearded 
+##                                  86 
+##                      Collie, Border 
+##                                 841 
+##                  Collie, Rough Coat 
+##                                 146 
+##                 Collie, Smooth Coat 
+##                                 141 
+##            Coonhound, Black And Tan 
+##                                 389 
+##                Coonhound, Blue Tick 
+##                                 107 
+##                  Coonhound, Redbone 
+##                                  18 
+##           Coonhound, Treeing Walker 
+##                                 290 
+##                     Coton De Tulear 
+##                                 537 
+##                    Cotton De Tulear 
+##                                 706 
+##              Curly-Coated Retriever 
+##                                  13 
+##                           Dachshund 
+##                                3104 
+##                Dachshund Crossbreed 
+##                                1345 
+##               Dachshund Smooth Coat 
+##                                2496 
+##     Dachshund Smooth Coat Miniature 
+##                                1888 
+##              Dachshund, Long Haired 
+##                                 714 
+##    Dachshund, Long Haired Miniature 
+##                                1131 
+##               Dachshund, Wirehaired 
+##                                 249 
+##    Dachshund, Wirehaired, Miniature 
+##                                 267 
+##                           Dalmatian 
+##                                 369 
+##                       Dalmatian Mix 
+##                                  15 
+##              Dandie Dinmont Terrier 
+##                                  20 
+##                   Doberman Pinscher 
+##                                1021 
+##                      Dogo Argentino 
+##                                 111 
+##                   Dogue De Bordeaux 
+##                                  56 
+##                      Dutch Shepherd 
+##                                 164 
+##              English Cocker Spaniel 
+##                                 456 
+##                    English Foxhound 
+##                                  68 
+##                      English Setter 
+##                                  91 
+##           English Setter Crossbreed 
+##                                   9 
+##            English Springer Spaniel 
+##                                 317 
+##                 English Toy Spaniel 
+##                                  33 
+##            Entlebucher Mountain Dog 
+##                                  34 
+##                Estrela Mountain Dog 
+##                                   4 
+##                            Eurasier 
+##                                  11 
+##                       Field Spaniel 
+##                                  41 
+##                     Fila Brasileiro 
+##                                  11 
+##                    Finnish Lapphund 
+##                                   3 
+##                       Finnish Spitz 
+##                                  44 
+##               Flat-Coated Retriever 
+##                                 144 
+##                      French Bulldog 
+##                                6364 
+##                      French Spaniel 
+##                                  17 
+##           German Longhaired Pointer 
+##                                  21 
+##                     German Pinscher 
+##                                  49 
+##          German Shepherd Crossbreed 
+##                                5683 
+##                 German Shepherd Dog 
+##                                7129 
+##          German Shorthaired Pointer 
+##                                 364 
+##                        German Spitz 
+##                                  51 
+##           German Wirehaired Pointer 
+##                                  41 
+##                     Giant Schnauzer 
+##                                  58 
+##               Glen Of Imaal Terrier 
+##                                  47 
+##                    Golden Retriever 
+##                                7325 
+##                        Goldendoodle 
+##                                3849 
+##                       Gordon Setter 
+##                                  32 
+##        Grand Basset Griffon Vendeen 
+##                                   4 
+##                          Great Dane 
+##                                 546 
+##                      Great Pyrenees 
+##                                 496 
+##          Greater Swiss Mountain Dog 
+##                                  49 
+##                      Greek Shephard 
+##                                   2 
+##                           Greyhound 
+##                                 860 
+##                     Hamiltonstovare 
+##                                   3 
+##                             Harrier 
+##                                  44 
+##                            Havanese 
+##                                8606 
+##                            Hovawart 
+##                                  15 
+##                        Ibizan Hound 
+##                                  47 
+##                  Icelandic Sheepdog 
+##                                  11 
+##          Irish Red And White Setter 
+##                                  14 
+##                        Irish Setter 
+##                                 150 
+##                       Irish Terrier 
+##                                 200 
+##                 Irish Water Spaniel 
+##                                   2 
+##                     Irish Wolfhound 
+##                                  60 
+##                   Italian Greyhound 
+##                                1096 
+##                Jack Russell Terrier 
+##                                6880 
+##     Jack Russell Terrier Crossbreed 
+##                                 697 
+##                         Jagdterrier 
+##                                   3 
+##                       Japanese Chin 
+##                                 203 
+##               Japanese Chin/Spaniel 
+##                                 248 
+##                      Japanese Spitz 
+##                                  83 
+##                               Jindo 
+##                                 299 
+##                    Jindo Dog, Korea 
+##                                 937 
+##                             Kai Ken 
+##                                  10 
+##                   Karelian Bear Dog 
+##                                   2 
+##                            Keeshond 
+##                                 123 
+##                  Kerry Blue Terrier 
+##                                  65 
+##                           Kishu Ken 
+##                                   1 
+##                       Kooikerhondje 
+##                                  25 
+##                      Kromfohrlander 
+##                                   8 
+##                              Kuvasz 
+##                                  18 
+##                         Labradoodle 
+##                                3685 
+##            Labrador (or Crossbreed) 
+##                               28399 
+##                   Lagotto Romagnolo 
+##                                 194 
+##                    Lakeland Terrier 
+##                                  38 
+##                   Lancashire Heeler 
+##                                  10 
+##                          Leonberger 
+##                                  26 
+##                          Lhasa Apso 
+##                                2486 
+##                             Lowchen 
+##                                  31 
+##                             Maltese 
+##                               15701 
+##                  Maltese Crossbreed 
+##                                4498 
+##                            Maltipoo 
+##                                2358 
+##                  Manchester Terrier 
+##                                 158 
+##                             Mastiff 
+##                                 294 
+##                       Mastiff, Bull 
+##                                 192 
+## Mastiff, French (Dogue De Bordeaux) 
+##                                  51 
+##                 Mastiff, Neapolitan 
+##                                  40 
+##                Mastiff, Old English 
+##                                 125 
+##                    Mastiff, Tibetan 
+##                                  22 
+##         Miniature American Shepherd 
+##                                 449 
+##       Miniature Australian Shepherd 
+##                                 829 
+##              Miniature Bull Terrier 
+##                                  53 
+##               Miniature Fox Terrier 
+##                                  15 
+##                  Miniature Pinscher 
+##                                3242 
+##                 Miniature Schnauzer 
+##                                2298 
+##                              Morkie 
+##                                3049 
+##                      Mountain Feist 
+##                                  13 
+##                                Mudi 
+##                                  11 
+##                  Neapolitan Mastiff 
+##                                  12 
+##                        Newfoundland 
+##                                 263 
+##                     Norfolk Terrier 
+##                                 328 
+##                    Norwegian Buhund 
+##                                   7 
+##                  Norwegian Elkhound 
+##                                 110 
+##                     Norwich Terrier 
+##                                 399 
+##  Nova Scotia Duck Tolling Retriever 
+##                                 101 
+##                Old English Sheepdog 
+##                                 294 
+##              Olde English Bulldogge 
+##                                  11 
+##                          Otterhound 
+##                                   4 
+##                            Papillon 
+##                                1430 
+##              Parson Russell Terrier 
+##                                 208 
+##                  Patterdale Terrier 
+##                                   8 
+##                           Pekingese 
+##                                2043 
+##                Pembroke Welsh Corgi 
+##                                1113 
+##     Pembroke Welsh Corgi Crossbreed 
+##                                 130 
+##              Perro De Presa Canario 
+##                                  24 
+##                Peruvian Inca Orchid 
+##                                   5 
+##        Petit Basset Griffon Vendeen 
+##                                  99 
+##                       Pharaoh Hound 
+##                                 102 
+##                        Pharoh Hound 
+##                                  51 
+##                   Pit Bull (or Mix) 
+##                               24393 
+##                               Plott 
+##                                 491 
+##                             Pointer 
+##                                 861 
+##         Pointer, German Shorthaired 
+##                                 227 
+##          Pointer, German Wirehaired 
+##                                  59 
+##                        Polish Hound 
+##                                  19 
+##             Polish Lowland Sheepdog 
+##                                  17 
+##                          Pomeranian 
+##                                9287 
+##               Pomeranian Crossbreed 
+##                                1355 
+##                              Pomsky 
+##                                 381 
+##                              Poodle 
+##                                4723 
+##                   Poodle Crossbreed 
+##                                6178 
+##                   Poodle, Miniature 
+##                                4567 
+##                    Poodle, Standard 
+##                                3105 
+##                         Poodle, Toy 
+##                                4923 
+##          Portuguese Podengo Pequeno 
+##                                  58 
+##                 Portuguese Sheepdog 
+##                                   1 
+##                Portuguese Water Dog 
+##                                 557 
+##                                 Pug 
+##                                5203 
+##                      Pug Crossbreed 
+##                                 534 
+##                              Puggle 
+##                                2889 
+##                                Puli 
+##                                  72 
+##                                Pumi 
+##                                  10 
+##                   Pyrenean Shepherd 
+##                                  13 
+##                         Rat Terrier 
+##                                1181 
+##              Rat Terrier Crossbreed 
+##                                 240 
+##                   Redbone Coonhound 
+##                                 175 
+##                 Rhodesian Ridgeback 
+##                                 935 
+##                          Rottweiler 
+##                                2126 
+##               Rottweiler Crossbreed 
+##                                 339 
+##                     Russell Terrier 
+##                                  89 
+##                         Russian Toy 
+##                                  26 
+##                   Russian Wolfhound 
+##                                   2 
+##                       Saint Bernard 
+##                                 118 
+##                              Saluki 
+##                                  48 
+##                             Samoyed 
+##                                 437 
+##                          Schipperke 
+##                                  83 
+##                         Schipperkee 
+##                                 135 
+##                Schnauzer Crossbreed 
+##                                 624 
+##                    Schnauzer, Giant 
+##                                 107 
+##                Schnauzer, Miniature 
+##                                3398 
+##     Schnauzer, Miniature Crossbreed 
+##                                 310 
+##                 Schnauzer, Standard 
+##                                 659 
+##                  Scottish Deerhound 
+##                                  12 
+##                    Scottish Terrier 
+##                                 561 
+##                    Sealyham Terrier 
+##                                  31 
+##                   Shar-Pei, Chinese 
+##                                 704 
+##                  Shepard Crossbreed 
+##                                 771 
+##                   Shetland Sheepdog 
+##                                1070 
+##                           Shiba Inu 
+##                                6109 
+##                Shiba Inu Crossbreed 
+##                                 288 
+##                            Shih Tzu 
+##                               27407 
+##                 Shih Tzu Crossbreed 
+##                                8098 
+##                      Siberian Husky 
+##                                4999 
+##           Siberian Husky Crossbreed 
+##                                 770 
+##                       Silky Terrier 
+##                                 943 
+##                        Skye Terrier 
+##                                  31 
+##         Small Munsterlander Pointer 
+##                                   5 
+##                  Smooth Fox Terrier 
+##                                  71 
+##         Soft Coated Wheaten Terrier 
+##                                 363 
+##                   Spanish Water Dog 
+##                                  27 
+##                    Spinone Italiano 
+##                                  66 
+##                         St. Bernard 
+##                                  74 
+##                           Stabyhoun 
+##                                   1 
+##          Staffordshire Bull Terrier 
+##                                1230 
+##                  Standard Schnauzer 
+##                                  31 
+##                      Sussex Spaniel 
+##                                  20 
+##                    Swedish Lapphund 
+##                                   1 
+##                    Swedish Vallhund 
+##                                  11 
+##                  Terrier Crossbreed 
+##                                2369 
+##                         Terrier Mix 
+##                                5293 
+##                      Thai Ridgeback 
+##                                  45 
+##                     Tibetan Mastiff 
+##                                  26 
+##                     Tibetan Spaniel 
+##                                 253 
+##                     Tibetan Terrier 
+##                                 781 
+##                             Tornjak 
+##                                   1 
+##                                Tosa 
+##                                   3 
+##                     Toy Fox Terrier 
+##                                 194 
+##           Treeing Tennessee Brindle 
+##                                  34 
+##            Treeing Walker Coonhound 
+##                                 200 
+##                             Unknown 
+##                               54586 
+##                              Vizsla 
+##                                 877 
+##                          Weimaraner 
+##                                 559 
+##               Welsh Corgi, Cardigan 
+##                                 310 
+##               Welsh Corgi, Pembroke 
+##                                1123 
+##              Welsh Springer Spaniel 
+##                                  75 
+##                       Welsh Terrier 
+##                                 118 
+##             West High White Terrier 
+##                                1619 
+##         West Highland White Terrier 
+##                                 835 
+##                     Wheaton Terrier 
+##                                1539 
+##                             Whippet 
+##                                 600 
+##                    Wire Fox Terrier 
+##                                 583 
+##         Wirehaired Pointing Griffon 
+##                                  78 
+##                   Wirehaired Vizsla 
+##                                   8 
+##                      Xoloitzcuintli 
+##                                  44 
+##                   Yorkshire Terrier 
+##                               30379 
 ##        Yorkshire Terrier Crossbreed 
 ##                                4554</code></pre>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.</span></span>
