@@ -11,9 +11,9 @@
 
 
 
-<title>About Me</title>
+<title>Finley Malloc</title>
 
-<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.16/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
@@ -142,11 +142,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -242,7 +246,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">SUNY Geneseo DANL</a>
+      <a class="navbar-brand" href="index.html">suny geneseo danl</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -255,96 +259,258 @@ $(document).ready(function () {
 <li>
   <a href="resume.html">résumé</a>
 </li>
-<li>
-  <a href="list_github.html">github list</a>
-</li>
-<li>
-  <a href="lec01.html">oj project</a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    shiny apps
+    danl 100 lectures
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="shiny_storms.html">storm paths</a>
+      <a href="lec/DANL100_Lec01_20220830.html">lecture 01</a>
     </li>
     <li>
-      <a href="test_app.html">central limit theorem</a>
+      <a href="lec/DANL100_Lec02_20220901.html">lecture 02</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec03_20220906.html">lecture 03</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec04_20220908.html">lecture 04</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec05_20220913.html">lecture 05</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec06_20220915.html">lecture 06</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec07_20220920.html">lecture 07</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec08_20220922.html">lecture 08</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec09_20220927.html">lecture 09</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec10_20220929.html">lecture 10</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec11_20221004.html">lecture 11</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec12_20221006.html">lecture 12</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec13_20221013.html">lecture 13</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec14_20221018.html">lecture 14</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec15_20221020.html">lecture 15</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec16_20221025.html">lecture 16</a>
+    </li>
+    <li>
+      <a href="DANL100_midterm_mockup_q.html">lecture 16 practice</a>
+    </li>
+    <li>
+      <a href="DANL100_midterm_mockup_a.html">lecture 16 practice - answers</a>
+    </li>
+    <li>
+      <a href="DANL100_midterm_fall_2022_a.html">lecture 17 - midterm, fall 2022 - answers</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec18_20221103.html">lecture 18</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec19_20221108.html">lecture 19</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec20_20221110.html">lecture 20</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec21_20221115.html">lecture 21</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec22_20221117.html">lecture 22</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec23_20221122.html">lecture 23</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec24_20221129.html">lecture 24</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec25_20221201.html">lecture 25</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec26_20221206.html">lecture 26</a>
+    </li>
+    <li>
+      <a href="lec/DANL100_Lec27_20221208.html">lecture 27</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    hw &amp; exams 310
+    danl 100 homework
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="DANL310_hw1_a.html">hw 1 anwers</a>
+      <a href="DANL100_hw1q.html">hw 1 questions</a>
     </li>
     <li>
-      <a href="DANL310_hw2_a.html">hw 2 anwers</a>
+      <a href="DANL100_hw1a.html">hw 1 answers</a>
     </li>
     <li>
-      <a href="DANL310_hw4a.html">hw 4 anwers</a>
+      <a href="DANL100_hw2q.html">hw 2 questions</a>
     </li>
     <li>
-      <a href="DANL310_midterm_a.html">midterm anwers</a>
+      <a href="DANL100_hw2a.html">hw 2 answers</a>
     </li>
     <li>
-      <a href="DANL310_midterm_v2_a.html">midterm 2 anwers</a>
+      <a href="DANL100_hw4a.html">hw 4 answers</a>
+    </li>
+    <li>
+      <a href="DANL100_hw5a.html">hw 5 answers</a>
     </li>
   </ul>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    lecture 310
+    danl 200 lectures
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="lec/DANL310_Lec05_20220210.html">Lecture 05</a>
+      <a href="lec/DANL200_Lec01_20220830.html">lecture 01</a>
     </li>
     <li>
-      <a href="lec/DANL310_Lec06_20220215.html">Lecture 06</a>
+      <a href="lec/DANL200_Lec02_20220901.html">lecture 02</a>
     </li>
     <li>
-      <a href="lec/DANL310_Lec07_20220217.html">Lecture 07</a>
+      <a href="lec/DANL200_Lec03_20220906.html">lecture 03</a>
     </li>
     <li>
-      <a href="lec/DANL310_Lec08_20220222.html">Lecture 08</a>
+      <a href="lec/DANL200_Lec04_20220908.html">lecture 04</a>
     </li>
     <li>
-      <a href="lec/DANL310_Lec09_20220224.html">Lecture 09</a>
+      <a href="lec/DANL200_Lec05_20220913.html">lecture 05</a>
     </li>
     <li>
-      <a href="lec/DANL310_Lec10_20220301.html">Lecture 10</a>
+      <a href="lec/DANL200_Lec06_20220915.html">lecture 06</a>
     </li>
     <li>
-      <a href="lec/DANL310_Lec11_20220303.html">Lecture 11</a>
+      <a href="lec/DANL200_Lec07_20220920.html">lecture 07</a>
     </li>
     <li>
-      <a href="lec/DANL310_Lec12_20220324.html">Lecture 12</a>
+      <a href="lec/DANL200_Lec08_20220922.html">lecture 08</a>
     </li>
     <li>
-      <a href="lec/DANL310_Lec13_20220331.html">Lecture 13</a>
+      <a href="lec/DANL200_Lec09_20220927.html">lecture 09</a>
     </li>
     <li>
-      <a href="lec/DANL310_Lec14_20220405.html">Lecture 14</a>
+      <a href="lec/DANL200_Lec10_20220929.html">lecture 10</a>
     </li>
     <li>
-      <a href="lec/DANL310_Lec15_20220407.html">Lecture 15</a>
+      <a href="lec/DANL200_Lec11_20221004.html">lecture 11</a>
     </li>
     <li>
-      <a href="lec/DANL310_Lec16_20220414.html">Lecture 16</a>
+      <a href="lec/DANL200_Lec12_20221006.html">lecture 12</a>
     </li>
     <li>
-      <a href="lec/DANL310_default.html">Summary Table</a>
+      <a href="lec/DANL200_Lec13_20221013.html">lecture 13</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec14_20221018.html">lecture 14</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec15_20221020.html">lecture 15</a>
+    </li>
+    <li>
+      <a href="DANL200_ny_tweets_q.html">lecture 15 practice</a>
+    </li>
+    <li>
+      <a href="DANL200_ny_tweets_a.html">lecture 15 practice - answers</a>
+    </li>
+    <li>
+      <a href="DANL200_midterm_spring_2022_q.html">lecture 16 - midterm, spring 2022</a>
+    </li>
+    <li>
+      <a href="DANL200_midterm_spring_2022_a.html">lecture 16 - midterm, spring 2022 - answers</a>
+    </li>
+    <li>
+      <a href="DANL200_midterm_fall_2022_a.html">lecture 17 - midterm, fall 2022 - answers</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec18_20221103.html">lecture 18</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec19_20221108.html">lecture 19</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec20_20221110.html">lecture 20</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec21_20221115.html">lecture 21</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec22_20221117.html">lecture 22</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec23_20221122.html">lecture 23</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec24_20221129.html">lecture 24</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec25_20221201.html">lecture 25</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec26_20221206.html">lecture 26</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec27_20221208.html">lecture 27</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    danl 200 homework
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="DANL200_hw1q.html">hw 1 questions</a>
+    </li>
+    <li>
+      <a href="DANL200_hw1a.html">hw 1 answers</a>
+    </li>
+    <li>
+      <a href="DANL200_hw2q.html">hw 2 questions</a>
+    </li>
+    <li>
+      <a href="DANL200_hw2a.html">hw 2 answers</a>
+    </li>
+    <li>
+      <a href="DANL200_hw3a.html">hw 3 answers</a>
+    </li>
+    <li>
+      <a href="DANL200_hw4a.html">hw 4 answers</a>
+    </li>
+    <li>
+      <a href="DANL200_hw5a.html">hw 5 answers</a>
+    </li>
+    <li>
+      <a href="DANL200_final_practice_fall_2022.html">practice questions</a>
     </li>
   </ul>
 </li>
@@ -357,18 +523,32 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">About Me</h1>
+<h1 class="title toc-ignore">Finley Malloc</h1>
 
 </div>
 
 
-<ul>
-<li><strong>Name:</strong> Byeong-Hak Choe</li>
-<li><strong>Ocupation:</strong> Lecturer</li>
-<li><strong>Hobbies:</strong> Teaching economics and data science instead of studying for exams.</li>
-</ul>
-<p>Here is a super cool photo.</p>
-<p><img src="bchoe20201027.jpg" style="width:50.0%" /></p>
+<div id="this-content-appears-above-the-formatted-about-page-content."
+class="section level3">
+<h3>This content appears above the formatted about page content.</h3>
+<div id="hero-heading">
+<p>Finley Malloc is the Chief Data Scientist at Wengo Analytics. When
+not innovating on data platforms, Finley enjoys spending time unicycling
+and playing with her pet iguana.</p>
+<div id="education" class="section level2">
+<h2>Education</h2>
+<p>University of California, San Diego | San Diego, CA PhD in
+Mathematics | Sept 2011 - June 2015</p>
+<p>Macalester College | St. Paul MA B.A in Economics | Sept 2007 - June
+2011</p>
+</div>
+<div id="experience" class="section level2">
+<h2>Experience</h2>
+<p>Wengo Analytics | Head Data Scientist | April 2018 - present</p>
+<p>GeoScynce | Chief Analyst | Sept 2012 - April 2018</p>
+</div>
+</div>
+</div>
 
 
 
