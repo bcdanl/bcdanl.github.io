@@ -614,11 +614,6 @@ a = 10
 print(a)
 ```
 
-
----
-#  Python Basics
-### &lt;p style="color:#00449E"&gt; Values, Variables, and Types &lt;/p&gt;
-
 - Sometimes you will hear variables referred to as **objects**.
 
 - Everything that is not a literal value, such as 10, is an *object*. 
@@ -824,7 +819,7 @@ print(string_full)
 #  Python Basics
 ### &lt;p style="color:#00449E"&gt; Operators &lt;/p&gt;
 
-.pull-left[
+.panel-left[
 - It works for lists too:
 
 
@@ -837,7 +832,7 @@ print(list_full)
 
 ]
 
-.pull-right[
+.panel-right[
 - We can multiply strings!
 
 
@@ -855,31 +850,33 @@ print(string * 3)
 
 - We can combine the arithmetic operators with assignment by putting the operator before the `=`.
 
-.pull-left[
+
+.panel-left[
 - `x += 1` is equivalent to `x = x + 1`.
+
 
 ```python
 x = 3
 x += 1
 ```
+
 ]
 
-.pull-right[
+.panel-right[
 - `a -= 2` is equivalent to `a = a - 2`.
+
 
 ```python
 a = 2
 a -= 2
 ```
+
 ]
 
 
----
-#  Python Basics
-### &lt;p style="color:#00449E"&gt; Operators &lt;/p&gt;
+Q. Using Python operations only, what is
 
-**Q**. Using Python operations only, what is
-`$$\frac{2^5}{7 \cdot (4 - 2^3)} \quad\text{?}$$` 
+$\frac{2^5}{7 \cdot (4 - 2^3)} $ ?
 
 
 
@@ -902,25 +899,16 @@ print( string[-4:] )
 - Both lists and strings will allow us to use the `len()` command to get their length:
 
 
-.pull-left[
-- `x += 1` is equivalent to `x = x + 1`.
-
 ```python
 string = "cheesecake"
 print( "String has length:" )
 print( len(string) )
-```
-]
 
-.pull-right[
-- `a -= 2` is equivalent to `a = a - 2`.
-
-```python
 list_of_numbers = range(1, 20)
 print( "List of numbers has length:" )
 print( len(list_of_numbers) )
 ```
-]
+
 
 
 
@@ -947,8 +935,8 @@ print(f"The square root of {value:d} is {sqrt_val:.2f}")
 
 - Boolean data have either `True` or `False` value.
 
-
 - There are two types of operation that are associated with booleans: boolean operations.
+
   - Existing booleans are combined, and condition operations, which create a boolean when executed.
 
 
@@ -979,192 +967,234 @@ print(f"The square root of {value:d} is {sqrt_val:.2f}")
 
 ---
 #  Python Basics
-### &lt;p style="color:#00449E"&gt; Booleans and Conditions &lt;/p&gt;
+### &lt;p style="color:#00449E"&gt; Importing Modules, Packages, and Libraries &lt;/p&gt;
 
-Conditions are expressions that evaluate as booleans. 
 
-&lt;table class=" lightable-paper table table-hover table-condensed" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto; font-family: sans-serif, helvetica, arial; margin-left: auto; margin-right: auto;'&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; Operator &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x == y &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Is x equal to y? &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x != y &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Is x greater than y? &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x &amp;gt; y &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Is x greater than or equal to y? &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x &amp;gt;= y &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Is x greater than or equal to y? &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x &amp;lt; y &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Is x less than y? &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x &amp;lt;= y &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Is x less than or equal to y? &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x is y &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; Is x the same object as y? &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+- Python is a general-purpose programming language and is not specialized for numerical or statistical computation.
+
+- The core libraries that enable Python to store and analyze data efficiently are located in Python libraries.
+
+  - NumPy (`numpy`) - provide the basic array block used throughout numerical Python.
+  - pandas (`pandas`) - provides DataFrames which are used to store data in an easy-to-use format.
+  - matplotlib (`matplotlib`) - graphics. The most important submodule would be `matplotlib.pyplot`.
+  - seaborn (`seaborn`) - a general improvement in the default appearance of `matplotlib`-produced plots.
 
 
 ---
-#  Python Basics
-### &lt;p style="color:#00449E"&gt; Booleans and Conditions &lt;/p&gt;
+# Importing Modules, Packages, and Libraries
 
-- The `==` is an operator that compares the objects on either side and returns `True` if they have the same values
+- A *module* is basically a bunch of related codes saved in a file with the extension `.py`.
+
+- A *package* is basically a directory of a collection of modules. 
+
+- A *library* is a collection of packages
+
+
+- We refer to code of other modules/pacakges/libraries by using the Python `import` statement. 
+  - This makes the code and variables in the imported module available to our programming codes.
+  - We can use the `as` *keyword* when importing the modules using their canonical names.
+
+
+---
+class: inverse, center, middle
+
+# Getting started with `Pandas`
+
+---
+#  `Pandas`
+
+&lt;img src="../lec_figs/pandas-logo.png" width="48%" style="display: block; margin: auto;" /&gt;
+
+- `pandas` is a Python library including the following features:
+  - Data manipulation and analysis;
+  - Export and import data from files and web;
+  - Handling of missing data.
+
+- `pandas` provides high-performance data structures and data analysis tools.
 
 
 ```python
-boolean_condition1 = 10 == 20
-print(boolean_condition1)
-
-boolean_condition2 = 10 == '10'
-print(boolean_condition2)
+import pandas as pd
 ```
-
-**Q**. What does `not (not True)` evaluate to?
-
 
 
 
 ---
-#  Python Basics
-### &lt;p style="color:#00449E"&gt; Booleans and Conditions &lt;/p&gt;
+#  `Pandas`
 
-- The real power of conditions comes when we start to use them in more complex examples, such as `if` statements.
+- To give Python these enhanced features, Pandas introduces two new data types to Python: `Series` and `DataFrame`. 
 
-
-
-```python
-name = "Geneseo"
-score = 99
-
-if name == "Geneseo" and score &gt; 90:
-    print("Geneseo, you achieved a high score.")
-
-if name == "Geneseo" or score &gt; 90:
-    print("You could be called Geneseo or have a high score")
-
-if name != "Geneseo" and score &gt; 90:
-    print("You are not called Geneseo and you have a high score")
-```
+  - The `DataFrame` will represent your entire spreadsheet or rectangular data.
+  - The `Series` is like a single column of the `DataFrame`. 
 
 
 ---
-#  Python Basics
-### &lt;p style="color:#00449E"&gt; Booleans and Conditions &lt;/p&gt;
+#  `Pandas`
+### &lt;p style="color:#00449E"&gt; Learning Objectives &lt;/p&gt;
+- Use Pandas functions to load a simple delimited data file
 
-- Given that `==` and `!=` test for equality and not equal, respectively, you may be wondering what the keyword `is`  is for.
+- Calculate how many rows and columns were loaded
 
-  - Remember that everything in Python is an object, and that values can be assigned to objects.
+- Identify the type of data that were loaded
 
-  - `==` and `!=` compare values, while `is` compare objects.
+- Name differences between functions, methods, and attributes
 
-.pull-left[
+- Use methods and attributes to subset rows and columns
+
+- Calculate basic grouped and aggregated statistics from data
+
+- Use methods and attributes to create a simple figure from data
+
+
+
+
+---
+#  `Pandas`
+### &lt;p style="color:#00449E"&gt;  Load Your First Data Set &lt;/p&gt;
+
+
+- When given a data set, we first load it and begin looking at its structure and contents. 
+
+- The simplest way of looking at a data set is to look at and subset specific rows and columns. 
+
+- We can see what type of information is stored in each column, and can start looking for patterns by aggregating descriptive statistics.
+
+- Since Pandas is not part of the Python standard library, we have to first tell Python to load (i.e., `import`) the library. 
+
+
 
 ```python
-name_list = ["Ada", "Adam"]
-name_list_two = ["Ada", "Adam"]
+import pandas as pd
 ```
+
+
+
+
+---
+#  `Pandas`
+### &lt;p style="color:#00449E"&gt;  Load Your First Data Set &lt;/p&gt;
+
+- With the library loaded we can use the `read_csv()` function to load a CSV data file.
+
+- In order to access the `read_csv()` function from pandas, we use something called "dot" notation.
+
+  - We write `pd.read_csv()` to say: within the pandas library we just loaded, look inside for the `read_csv()` function.
+
+
+```python
+# *.tsv is a file of tab-separated values.
+# we can use the sep parameter and indicate a tab with \t
+df  = pd.read_csv('https://bcdanl.github.io/data/gapminder.tsv', sep='\t')
+print(df)    # print out the data
+```
+
+
+
+---
+#  `Pandas` - Load Your First Data Set
+
+.panelset[
+
+.panel[.panel-name[type()]
+
+- We can check to see if we are working with a Pandas `Dataframe` by using the built-in `type()` function (i.e., it comes directly from Python, not a separate library such as Pandas).
+
+
+```python
+type(df)
+```
+
+- The `type()` function is handy when we begin working with many different types of Python objects and need to know what object we are currently working on.
+
 ]
-.pull-right[
+
+.panel[.panel-name[.shape]
+
+- Every DataFrame object has a `.shape` attribute that will give us the number of rows and columns of the `DataFrame`.
+
+
 
 ```python
-# Compare values
-print(name_list == name_list_two)
-
-# Compare objects
-print(name_list is name_list_two)
+df.shape
+#  It’s written as df.shape and not df.shape()
 ```
+
+-  Since `.shape` is an **attribute** of the `DataFrame` object, and not a **function** or **method** of the `DataFrame` object, it does not have round parentheses after the period.
+
+]
+
+.panel[.panel-name[.columns]
+
+- To get a gist of what information the data set contains, we look at the column names. 
+
+- The column names are given using the `.column` attribute of the `DataFrame` object.
+
+
+
+```python
+df.columns
+```
+
+- Q. What is the `type` of the column names?
+
 ]
 
 
----
-#  Python Basics
-### &lt;p style="color:#00449E"&gt; Booleans and Conditions &lt;/p&gt;
+.panel[.panel-name[.dtypes]
 
-- One of the most useful conditional keywords is `in`. 
-  - This one must pop up ten times a day in most coders’ lives because it can pick out a variable or make sure something is where it’s supposed to be.
+-  Each column (i.e., `Series`) has to be the same type, whereas each row can contain mixed types.
 
+- We can use the `.dtypes` attribute or the `.info()` method to see the type of each column in `DataFrame`.
 
 
 ```python
-name_list = ["Lovelace", "Smith", "Hopper", "Babbage"]
-
-print("Lovelace" in name_list)
-
-print("Bob" in name_list)
+df.dtypes
+df.info()
 ```
 
-**Q**. Check if “a” is in the string “Sun Devil Arena” using `in`. Is “a” in “Anyone”?
+
+]
+
+]
+
 
 
 
 ---
-#  Python Basics
-### &lt;p style="color:#00449E"&gt; Booleans and Conditions &lt;/p&gt;
+# Look at Columns, Rows, and Cells
 
-- One conditional construct we're bound to use at some point, is the `if-else` chain:
+
+.panelset[
+
+.panel[.panel-name[head()]
+
+- We can use the `.head()` method of a `DataFrame` to look at the first 5 rows of our data.
+  - This is useful to see if our data loaded properly, and to get a better sense of the columns and contents.
 
 
 ```python
-score = 98
-
-if score == 100:
-    print("Top marks!")
-elif score &gt; 90 and score &lt; 100:
-    print("High score!")
-elif score &gt; 10 and score &lt;= 90:
-    pass
-else:
-    print("Better luck next time.")
+df.head()
 ```
 
+]
 
 
----
-#  Python Basics
-### &lt;p style="color:#00449E"&gt; Booleans and Conditions &lt;/p&gt;
+.panel[.panel-name[`[ ]`]
 
-
-**Q**. Create a new `if-else` chain that prints “well done” if a score is over 90, “good” if between 40 and 90, and “bad luck” otherwise.
-
-
-
-
-
----
-#  Python Basics
-### &lt;p style="color:#00449E"&gt; Booleans and Conditions &lt;/p&gt;
-
-
-- We can make multiple assignment or multiple boolean comparisons in a single line.
-
+- If we want only a specific column from our data, we can access the data using square brackets, `[ ]`.
 
 
 ```python
-a, b = 3, 6
-
-1 &lt; a &lt; b &lt; 20
+# just get the country column and save it to its own variable
+country_df = df['country']
+# show the first 5 observations
+print(country_df.head())
 ```
 
+]
 
+
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
