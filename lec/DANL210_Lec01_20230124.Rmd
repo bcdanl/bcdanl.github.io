@@ -570,6 +570,41 @@ knitr::include_graphics("../lec_figs/spyder_env.png")
 
 
 
+
+---
+class: inverse, center, middle
+
+# Importing modules, packages, and libraries
+<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
+
+---
+# Importing Modules, Packages, and Libraries
+
+- Python is a general-purpose programming language and is not specialized for numerical or statistical computation.
+
+- The core libraries that enable Python to store and analyze data efficiently are located in Python libraries.
+
+  - NumPy (`numpy`) - provide the basic array block used throughout numerical Python.
+  - pandas (`pandas`) - provides DataFrames which are used to store data in an easy-to-use format.
+  - matplotlib (`matplotlib`) - graphics. The most important submodule would be `matplotlib.pyplot`.
+  - seaborn (`seaborn`) - a general improvement in the default appearance of `matplotlib`-produced plots.
+
+
+---
+# Importing Modules, Packages, and Libraries
+
+- A *module* is basically a bunch of related codes saved in a file with the extension `.py`.
+
+- A *package* is basically a directory of a collection of modules. 
+
+- A *library* is a collection of packages
+
+
+- We refer to code of other modules/pacakges/libraries by using the Python `import` statement. 
+  - This makes the code and variables in the imported module available to our programming codes.
+  - We can use the `as` *keyword* when importing the modules using their canonical names.
+
+
 ---
 class: inverse, center, middle
 
@@ -628,4 +663,39 @@ import pandas as pd
 #  `pandas`
 ### <p style="color:#00449E">  Load Your First Data Set </p>
 
+
+- When given a data set, we first load it and begin looking at its structure and contents. 
+
+- The simplest way of looking at a data set is to look at and subset specific rows and columns. 
+
+- We can see what type of information is stored in each column, and can start looking for patterns by aggregating descriptive statistics.
+
+- Since Pandas is not part of the Python standard library, we have to first tell Python to load (i.e., `import`) the library. 
+
+
+```{python, echo = T, eval = F}
+import pandas as pd
+```
+
+
+
+
+---
+#  `pandas`
+### <p style="color:#00449E">  Load Your First Data Set </p>
+
+- With the library loaded we can use the `read_csv()` function to load a CSV data file.
+
+- In order to access the `read_csv()` function from pandas, we use something called "dot" notation.
+
+  - We write `pd.read_csv()` to say: within the pandas library we just loaded, look inside for the `read_csv()` function.
+
+```{python, echo = T, eval = F}
+# by default read_csv() will read a comma separated file,
+# our gapminder data set is separated by a tab
+# we can use the sep parameter and indicate a tab with \t
+df  = pd.read_csv('https://bcdanl.github.io/data/gapminder.tsv', sep='\t')
+# print out the data
+print(df)
+```
 
