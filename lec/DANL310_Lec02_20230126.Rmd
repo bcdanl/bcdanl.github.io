@@ -172,6 +172,7 @@ Step 4. Update your `rmarkdown` package to make sure we actually have the versio
 install.packages("rmarkdown", type = "source")
 ```
 
+
 Step 5. Download the template files from Byeong-Hak's GitHub repository.
 
 - In Terminal within RStudio, run the following lines:
@@ -193,14 +194,13 @@ Step 6. Arrange the files.
 # Creating a Personal Website
 
 Step 7. Render the site.
-
   1. From RStudio, open the files `index.Rmd` and `_site.yml`.
   2. Replace `YOUR_NAME` with your preferred name.
   3. Replace `https://github.com/` with `https://github.com/YOUR_GITHUB_USERNAME`.
   4. Save the files, `index.Rmd` and `_site.yml`.
 
-Step 8. Open the R script, `render-pages.R`, and run the entire codes in it.
 
+Step 8. Open the R script, `render-pages.R`, and run the entire codes in it.
   - If everything goes well, you should get a bunch of output followed by the message : `Output created: SOME_FILENAME.html`.
 
 
@@ -226,21 +226,39 @@ Step 10. Go to your website `r emo::ji('smile')`
 # Creating a Personal Website
 ### <p style="color:#00449E"> Updating Your Website </p>
 
-- Modify `index.Rmd` as follows:
+- *1*. Modify `index.Rmd` as follows:
 
-  - *1.* Add the following in `index.Rmd`
+  - Add the following in `index.Rmd`
 ```{r}
 - *Name*: YOUR_NAME
-- *Ocupation*: "Student"
+- *Ocupation*: Student
 - *Hobbies*: Blogging data analytics. 
 
 Here is a super cool photo. 
 
-![](PATHNAME_OF_YOUR_PHOTO_IN_THE_REPO_FOLDER.png){width=50%}
+![](RELATIVE_PATH_OF_YOUR_PHOTO_IN_THE_REPO_FOLDER.png){width=50%}
 ```
 
-  - *2.* Knit it using the shortcut (**Ctrl** (**command** for Mac user) + **Shift** + **K**)
+- *2.* Knit it using the shortcut (**Ctrl** (**command** for Mac user) + **Shift** + **K**)
 
+
+---
+# Creating a Personal Website
+### <p style="color:#00449E"> Updating Your Website </p>
+
+
+*3*. In Terminal within RStudio, run the following lines:
+```{bash, echo = T, eval = F}
+git add .
+git commit -m "ANY MESSAGE"
+git push -u origin main
+```
+
+
+*4*. Go to your website `r emo::ji('smile')`
+  1. View `index.html` in web browser.
+  2. Go to `https://YOUR_GITHUB_NAME.github.io` . 
+  
 ---
 class: inverse, center, middle
 
@@ -375,7 +393,17 @@ knitr::include_graphics("../lec_figs/rmarkdownflow.png")
 
 
 - The support for the interaction between R and Python comes from the `reticulate` package.
-  - Choose Python interpreter from Tools -> Global Options -> Python.
+  - Choose Python or interpreter from Tools -> Global Options -> Python -> Select.
+  - Choose Python Interpreter from Conda Environment.
+
+
+---
+# Getting Started with R Markdown
+### <p style="color:#00449E"> Python Interpreter in RStudio </p>
+
+```{r, eval = T, echo = F, out.width= '80%', fig.align='center'}
+knitr::include_graphics("../lec_figs/rstudio-py-setting.gif")
+```
 
 
 ---

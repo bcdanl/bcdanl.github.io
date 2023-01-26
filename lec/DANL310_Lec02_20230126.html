@@ -161,6 +161,7 @@ Step 4. Update your `rmarkdown` package to make sure we actually have the versio
 install.packages("rmarkdown", type = "source")
 ```
 
+
 Step 5. Download the template files from Byeong-Hak's GitHub repository.
 
 - In Terminal within RStudio, run the following lines:
@@ -183,14 +184,13 @@ Step 6. Arrange the files.
 # Creating a Personal Website
 
 Step 7. Render the site.
-
   1. From RStudio, open the files `index.Rmd` and `_site.yml`.
   2. Replace `YOUR_NAME` with your preferred name.
   3. Replace `https://github.com/` with `https://github.com/YOUR_GITHUB_USERNAME`.
   4. Save the files, `index.Rmd` and `_site.yml`.
 
-Step 8. Open the R script, `render-pages.R`, and run the entire codes in it.
 
+Step 8. Open the R script, `render-pages.R`, and run the entire codes in it.
   - If everything goes well, you should get a bunch of output followed by the message : `Output created: SOME_FILENAME.html`.
 
 
@@ -217,22 +217,41 @@ Step 10. Go to your website 😄
 # Creating a Personal Website
 ### &lt;p style="color:#00449E"&gt; Updating Your Website &lt;/p&gt;
 
-- Modify `index.Rmd` as follows:
+- *1*. Modify `index.Rmd` as follows:
 
-  - *1.* Add the following in `index.Rmd`
+  - Add the following in `index.Rmd`
 
 ```r
 - *Name*: YOUR_NAME
-- *Ocupation*: "Student"
+- *Ocupation*: Student
 - *Hobbies*: Blogging data analytics. 
 
 Here is a super cool photo. 
 
-![](PATHNAME_OF_YOUR_PHOTO_IN_THE_REPO_FOLDER.png){width=50%}
+![](RELATIVE_PATH_OF_YOUR_PHOTO_IN_THE_REPO_FOLDER.png){width=50%}
 ```
 
-  - *2.* Knit it using the shortcut (**Ctrl** (**command** for Mac user) + **Shift** + **K**)
+- *2.* Knit it using the shortcut (**Ctrl** (**command** for Mac user) + **Shift** + **K**)
 
+
+---
+# Creating a Personal Website
+### &lt;p style="color:#00449E"&gt; Updating Your Website &lt;/p&gt;
+
+
+*3*. In Terminal within RStudio, run the following lines:
+
+```bash
+git add .
+git commit -m "ANY MESSAGE"
+git push -u origin main
+```
+
+
+*4*. Go to your website 😄
+  1. View `index.html` in web browser.
+  2. Go to `https://YOUR_GITHUB_NAME.github.io` . 
+  
 ---
 class: inverse, center, middle
 
@@ -366,7 +385,15 @@ output: html_document
 
 
 - The support for the interaction between R and Python comes from the `reticulate` package.
-  - Choose Python interpreter from Tools -&gt; Global Options -&gt; Python.
+  - Choose Python or interpreter from Tools -&gt; Global Options -&gt; Python -&gt; Select.
+  - Choose Python Interpreter from Conda Environment.
+
+
+---
+# Getting Started with R Markdown
+### &lt;p style="color:#00449E"&gt; Python Interpreter in RStudio &lt;/p&gt;
+
+&lt;img src="../lec_figs/rstudio-py-setting.gif" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -394,8 +421,8 @@ print(x.split(' '))
 ### &lt;p style="color:#00449E"&gt; Interactive Map &lt;/p&gt;
 - `leaflet` is one of the most popular open-source JavaScript libraries for interactive maps.
 
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-4bc981b54135a51baed5" style="width:95%;height:50%;"></div>
-<script type="application/json" data-for="htmlwidget-4bc981b54135a51baed5">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[42.7953,-77.821,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPopups","args":[42.7953,-77.821,"Here is the <b>School of Business<\/b>, SUNY Geneseo",null,null,{"maxWidth":300,"minWidth":50,"autoPan":true,"keepInView":false,"closeButton":true,"className":""}]}],"setView":[[42.7953,-77.821],18,[]],"limits":{"lat":[42.7953,42.7953],"lng":[-77.821,-77.821]}},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d5e138efe685bf88883a" style="width:95%;height:50%;"></div>
+<script type="application/json" data-for="htmlwidget-d5e138efe685bf88883a">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[42.7953,-77.821,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPopups","args":[42.7953,-77.821,"Here is the <b>School of Business<\/b>, SUNY Geneseo",null,null,{"maxWidth":300,"minWidth":50,"autoPan":true,"keepInView":false,"closeButton":true,"className":""}]}],"setView":[[42.7953,-77.821],18,[]],"limits":{"lat":[42.7953,42.7953],"lng":[-77.821,-77.821]}},"evals":[],"jsHooks":[]}</script>
 
 
 
