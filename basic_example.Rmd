@@ -1,0 +1,25 @@
+---
+title: "Hello R Markdown"
+author: "Awesome Me"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: html_document
+---
+
+This is a paragraph in an R Markdown document.
+
+Below is a code chunk:
+
+```{r}
+library(tidyverse)
+
+fit <- lm(dist ~ speed, data = cars)
+b <- coef(fit)
+
+ggplot(cars) +
+  geom_smooth( aes( x = speed, 
+                    y = dist ),
+               method = lm)
+
+```
+
+The slope of the regression is `r b[1]`.

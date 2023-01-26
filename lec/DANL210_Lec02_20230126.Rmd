@@ -1,9 +1,9 @@
 ---
-title: "DANL 210 Lecture 1"
+title: "DANL 210 Lecture 2"
 subtitle: "DANL 210: Data Preparation and Management"
 author: "Byeong-Hak Choe"
 institute: "SUNY Geneseo"
-date: "January 24, 2023"
+date: "January 26, 2023"
 output:
   xaringan::moon_reader:
     css: 
@@ -29,7 +29,7 @@ library(tidyverse)
 library(NHSRtheme)
 library(fontawesome)
 # set default options
-opts_chunk$set(echo = FALSE,
+opts_chunk$set(echo = T, eval = F,
                fig.width = 7.252,
                fig.height = 4,
                comment = "#",
@@ -68,429 +68,10 @@ class: title-slide, left, bottom
 ### `r rmarkdown::metadata$author`
 ### `r rmarkdown::metadata$date`
 
-
 ---
-class: inverse, center, middle
-
-# Instructor
-<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
----
-
-# Instructor
-### <p style="color:#00449E"> Current Appointment & Education </p>
-
-- Name: Byeong-Hak Choe.
-- Lecturer in Data Analytics at School of Business at SUNY Geneseo.
-
-
-- Ph.D. in Economics from University of Wyoming.
-- M.S. in Economics from Arizona State University.
-- M.A. in Economics from SUNY Stony Brook.
-- B.A. in Economics & B.S. in Applied Mathematics from Hanyang University at Ansan, South Korea
-  - Minor in Business Administration.
-  - Concentration in Finance.
-  
----
-
-# Instructor
-### <p style="color:#00449E"> Data Science and Climate Change </p>
-
-- Choe, B.H., 2021. "Social Media Campaigns, Lobbying and Legislation: Evidence from #climatechange/#globalwarming and Energy Lobbies."
-
-- Question: To what extent do social media campaigns compete with fossil fuel lobbying on climate change legislation?
-
-- Data include:
-  - 5.0 million tweets with #climatechange/#globalwarming around the globe;
-  - 12.0 million retweets/likes to those tweets;
-  - 0.8 million Twitter users who wrote those tweets;
-  - 1.4 million Twitter users who retweeted or liked those tweets;
-  - 0.3 million US Twitter users with their location at a city level;
-  - Firm-level lobbying data (expenses, targeted bills, etc.). 
-
-
----
-class: inverse, center, middle
-
-# Syllabus
-<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
----
-
-# Syllabus
-
-### <p style="color:#00449E">Email, Class & Office Hours</p>
-
-- Email: [bchoe@geneseo.edu](bchoe@geneseo.edu)
-
-
-- Class Homepage: 
-  - [https://canvas.geneseo.edu/](https://canvas.geneseo.edu/)
-  - [https://bcdanl.github.io](https://bcdanl.github.io)
-  
-  
-- Office: South Hall 117B.
-- Office Hours: 
-  - Mondays 3:30 PM-5:30 PM.
-  - Wednesdays 1:30 PM-3:30 PM.
-
----
-# Syllabus
-### <p style="color:#00449E">Course Prerequisites</p>
-
-- Business & Economics Statistics or Equivalent:
-  - Economics 205, Geography 278, Mathematics 242, Mathematics 262, Political Science 251, Psychology 250, or Sociology 211.
-  
-- Programming for Data Analytics:
-  - Data Analytics 100.
-
----
-# Syllabus
-### <p style="color:#00449E">Textbooks</p>
-  
-- **Python for Data Analysis** by Wes McKinney
-  - A free online version of this book is available at [https://wesmckinney.com/book/](https://wesmckinney.com/book/).
-
-
-- **Python Data Science Handbook** by Jake VanderPlas
-  - A free online version of this book is available at [https://jakevdp.github.io/PythonDataScienceHandbook/](https://jakevdp.github.io/PythonDataScienceHandbook/)
-
-
----
-# Syllabus
-### <p style="color:#00449E">Reference Materials</p>
-  
-- **Coding for Economists** by Arthur Turrell
-  - A free online version of this book is available at [https://aeturrell.github.io/coding-for-economists/](https://aeturrell.github.io/coding-for-economists/).
-
-
-- **QuantEcon DataScience - pandas** by Chase Coleman, Spencer Lyon, and Jesse Perla
-  - A free online version of this book is available at [ttps://datascience.quantecon.org/pandas/index.html](ttps://datascience.quantecon.org/pandas/index.html)
-
----
-
-
-
-# Syllabus
-
-### <p style="color:#00449E">Course Description</p>
-
-- This course aims to provide overview of how one can collect, manipulate, process, clean, and crunch datasets with hands-on and practical case studies.
-
-- This course will cover topics such as (1) loading, cleaning, transforming, merging, and reshaping data, (2) creating informative visualizations (3) dataset slicing, dicing, and summarizing, and (4) collecting data using web scrapping, API, and SQL. 
-
-- We will cover these topics to solve real-world data analysis problems with thorough, detailed examples. 
-
-- During the course, you will work hands-on with the Python programming language and its associated data analysis libraries.
-
----
-
-# Syllabus
-
-### <p style="color:#00449E">Course Requirements</p>
-
-- Laptop: You should bring your own laptop (**Mac** or **Windows**) to the classroom. 
-  - It is recommended to have 2+ core CPU, 4+ GB RAM, and 500+ GB disk storage in your laptop for this course.
-  
-  
-- Homework: There will be six homework assignments.
-
-- Exams: There will be midterm and final exams. 
-  - The final exam is comprehensive.
-
----
-# Syllabus
-### <p style="color:#00449E">Course Contents</p>
-
-- There will be tentatively 28 class sessions:
-  - 27 lectures;
-  - 1 midterm exam.
-
-
-- There will be no class on February 28, 2023. 
-
-
-- The midterm exam will be tentatively scheduled on March 9, 2023. 
-
-
-- The final exam will be tentatively scheduled on May 16, 2023, from noon to 2 P.M. 
-
-
----
-# Syllabus
-### <p style="color:#00449E">Course Contents</p>
-
-- Basics in pandas
-
-```{r, out.width='100%', fig.align='center'}
-text_tbl <- data.frame(
-  Week = c("1", "2", "3", "4", "4"),
-  Contents = c("Syllabus, Python & Pandas Basics",
-"Pandas Basics",
-"Data Visualization with matplotlib and seaborn",
-"Tidy Data",
-"Apply Functions"),
-  HW = c("1", "1", "1", "2", "2")
-  )
-
-
-kable(text_tbl, format = "html") %>%
-  kable_paper(full_width = T) %>%
-  column_spec(1, bold = T, border_right = T) %>%
-  kable_styling(html_font = 'sans-serif, helvetica, arial',
-                bootstrap_options = c("hover", "condensed") )
-
-```
-
-
-
----
-# Syllabus
-### <p style="color:#00449E">Course Contents</p>
-
-- Data Transformation
-
-```{r, out.width='100%', fig.align='center'}
-text_tbl <- data.frame(
-  Lecture = c("5", "6--7", "7"),
-  Contents = c(
-"Relational Data",
-"Duplicate Data & Groupby Operations",
-"Midterm Exam"),
-  HW = c("2", "2", "")
-  )
-
-
-kable(text_tbl, format = "html") %>%
-  kable_paper(full_width = T) %>%
-  column_spec(1, bold = T, border_right = T) %>%
-  kable_styling(html_font = 'sans-serif, helvetica, arial',
-                bootstrap_options = c("hover", "condensed") ) 
-
-```
-
----
-# Syllabus
-### <p style="color:#00449E">Course Contents</p>
-- Data Type
-
-```{r, out.width='100%', fig.align='center'}
-text_tbl <- data.frame(
-  Lecture = c("8", "8", "9", "9"),
-  Contents = c("Missing Data",
-               "Data Types",
-               "String Data",
-               "Dates and Times Data"),
-  HW = c("3", "3", "3", "3")
-  )
-
-
-kbl(text_tbl) %>%
-  kable_paper(full_width = T) %>%
-  column_spec(1, bold = T, border_right = T) %>%
-  kable_styling(html_font = 'sans-serif, helvetica, arial', bootstrap_options = c("hover", "condensed"))
-
-```
----
-# Syllabus
-### <p style="color:#00449E">Course Contents</p>
-
-- Web Scrapping and Databases
-
-```{r, out.width='100%', fig.align='center'}
-text_tbl <- data.frame(
-  Lecture = c("10--12", "13", "14--15"),
-  Contents = c("Web Scrapping with Python selenium",
-               "Data Collection with APIs",
-               "Databases with SQL and Google BigQuery"),
-  HW = c("4--5", "5", "6")
-  )
-
-
-kbl(text_tbl) %>%
-  kable_paper(full_width = T) %>%
-  column_spec(1, bold = T, border_right = T) %>%
-  kable_styling(html_font = 'sans-serif, helvetica, arial', bootstrap_options = c("hover", "condensed"))
-
-```
-
----
-# Syllabus
-### <p style="color:#00449E">Attendance</p>
-- You are allowed up to 7 absences without penalty. 
-
-- There will be no additional absences available for standard excused reasons (illness, family emergency, transportation problems, etc.).
-
-
----
-# Syllabus
-### <p style="color:#00449E">Grading</p>
-- Attendance accounts for 5% of the total percentage grade.
-
-- Project accounts for 10% of the total percentage grade.
-
-- Homework assignments account for 25% of the total percentage grade.
-
-- Exams account for 60% of the total percentage grade.
-
-$$ 
-\begin{align}
-&\;(\text{Total Percentage Grade})  \notag\\
-=&\quad 0.05\times(\text{Attendance Score})  \notag\\
-&\,+\, 0.35\times(\text{Total Homework Score}) \,+\, 0.60\times(\text{Total Exam Score}).\notag
-\end{align}
-$$
-
----
-# Syllabus
-
-### <p style="color:#00449E">Grading</p>
-
-- The lowest homework score will be dropped when calculating the total homework score.
-
-- Each of the four homework accounts for 20% of the total homework score.
-
----
-
-# Syllabus
-
-### <p style="color:#00449E">Grading</p>
-
-- The total exam score is the maximum between the following two average scores:
-  1. the simple average of two exam scores;
-  2. the weighted average of them with one-fourth weight on the midterm exam score and three-fourth weight on the final exam score.
-  
-$$
-\begin{align}
-&(\text{Total Exam Score}) \notag\\
-=\; &\max\,\left\{0.5\times(\text{Midterm Exam Score}) \,+\, 0.5\times(\text{Final Exam Score})\right.,\notag\\ 
-&\qquad\;\,\left.0.25\times(\text{Midterm Exam Score}) \,+\, 0.75\times(\text{Final Exam Score})\right\}.\notag
-\end{align}
-$$
-
----
-
-# Syllabus
-
-### <p style="color:#00449E">Grading</p>
-
-- Letter grades will be determined by the total percentage grade:
-  
-$$
-\begin{align*}
-\! 100\; \geq\; A\;\;\, \geq \;93>\; A- \geq 90;\\
-90 >\; B+ \geq 87\; >\; B\;\;\, \geq \;83 >\; B- \geq 80;\\
-80 >\; C+ \geq 77\; >\; C\;\;\, \geq \;73 >\; C- \geq 70;\\
-70\; >\; D\;\;\, \geq\; 60 >\; E.\qquad\quad\;
-\end{align*}
-$$
-
-
----
-
-# Syllabus
-
-### <p style="color:#00449E">Make-up exams</p>
-
--  Make-up exams will not be given unless you have either a medically verified excuse or an absence excused by the University.
-
-- If you cannot take exams because of religious obligations, notify me by email at least two weeks in advance so that an alternative exam time may be set.
-
-- A missed exam without an excused absence earns a grade of zero.
-  
-
----
-
-# Syllabus
-
-### <p style="color:#00449E">Academic Integrity and Plagiarism</p>
-
--  All homework assignments and exams must be the original work by you. 
-
-- Examples of academic dishonesty include:
-  - *representing the work, thoughts, and ideas of another person as your own*
-  - *allowing others to represent your work, thoughts, or ideas as theirs*, and
-  - *being complicit in academic dishonesty by suspecting or knowing of it and not taking action*.
-
-
-- Geneseo’s Library offers frequent workshops to help you understand how to **paraphrase**, **quote**, and **cite** outside sources properly. 
-  - See [https://www.geneseo.edu/library/library-workshops](https://www.geneseo.edu/library/\\library-workshops).
-  
-
----
-
-# Syllabus
-
-### <p style="color:#00449E">Accessibility</p>
-
--  The Office of Accessibility will coordinate reasonable accommodations for persons with physical, emotional, or cognitive disabilities to ensure equal access to academic programs, activities, and services at Geneseo.
-
-- Please contact me and the Office of Accessibility Services for questions related to access and accommodations.
-  
-
-
----
-
-# Syllabus
-
-### <p style="color:#00449E">Well-being</p>
-
-- You are strongly encouraged to communicate your needs to faculty and staff and seek support if you are experiencing unmanageable stress or are having difficulties with daily functioning.
-
-- Liz Felski, the School of Business Student Advocate ([felski@geneseo.edu](felski@geneseo.edu), South Hall 303), or the Dean of Students (585-245-5706) can assist and provide direction to appropriate campus resources.
-
-- For more information, see [https://www.geneseo.edu/dean_students](https://www.geneseo.edu/dean_students).
-  
-
----
-# Syllabus
-
-### <p style="color:#00449E">Career Design</p>
-
-- To get information about career development, you can visit the Career Development Events Calendar ([https://www.geneseo.edu/career_development/events/calendar](https://www.geneseo.edu/career_development/events/calendar)).
-
-- You can stop by South 112 to get assistance in completing your Handshake Profile [https://app.joinhandshake.com/login](https://app.joinhandshake.com/login).
-  - Handshake is ranked #1 by students as the best place to find full-time jobs.
-  - 50% of the 2018-2020 graduates received a job or internship offer on Handshake.
-  - Handshake is trusted by all 500 of the Fortune 500.
-  
-
----
-class: inverse, center, middle
-
-# Installing the Tools
-<html><div style='float:left'></div><hr color='#EB811B' size=1px width=796px></html>
-
----
-# Installing the Tools
-### <p style="color:#00449E"> Anaconda </p>
-
-- Anaconda is an all-in-one Python distribution.
-  - Anaconda includes Python 3.x and its standard modules such as pip, pandas, matplotlib, etc.
-  - Anaconda also includes several software applications of integrated development environment (IDE), which is a software for editing codes.
-  - For the Python code, we will use **Spyder** IDE.  
-    - Do not use RStudio from Anaconda, because RStudio from Anaconda is out-dated.
-
-  
-- To install Anaconda, go to the following download page:
-  - [https://www.anaconda.com/products/distribution](https://www.anaconda.com/products/distribution).
-  - Click the "Download" button.
-
-
----
-# Installing the Tools
-### <p style="color:#00449E"> Spyder IDE </p>
-
-- If Spyder IDE from Anaconda is lagging, consider installing it additionally.
-  
-- To install Spyder IDE in addition to Anaconda, go to the following download page:
-  - [https://www.spyder-ide.org](https://www.spyder-ide.org).
-  - Click the "DOWNLOAD" menu.
-
-
----
-# Installing the Tools
-### <p style="color:#00449E"> Spyder Environment </p>
+# Spyder Environment
 .pull-left[
-```{r, echo=FALSE, out.width = '100%', fig.align='center'}
+```{r, echo=FALSE, eval = T,  eval = T,out.width = '100%', fig.align='center'}
 knitr::include_graphics("../lec_figs/spyder_env.png")
 ```
 ]
@@ -504,7 +85,7 @@ knitr::include_graphics("../lec_figs/spyder_env.png")
 # Installing the Tools
 ### <p style="color:#00449E"> Spyder Environment </p>
 .pull-left[
-```{r, echo=FALSE, out.width = '100%', fig.align='center'}
+```{r, echo=FALSE, eval = T, out.width = '100%', fig.align='center'}
 knitr::include_graphics("../lec_figs/spyder_env.png")
 ```
 ]
@@ -517,7 +98,7 @@ knitr::include_graphics("../lec_figs/spyder_env.png")
 # Installing the Tools
 ### <p style="color:#00449E"> Spyder Environment </p>
 .pull-left[
-```{r, echo=FALSE, out.width = '100%', fig.align='center'}
+```{r, echo=FALSE,  eval = T,out.width = '100%', fig.align='center'}
 knitr::include_graphics("../lec_figs/spyder_env.png")
 ```
 ]
@@ -592,6 +173,11 @@ a = 10
 print(a)
 ```
 
+
+---
+#  Python Basics
+### <p style="color:#00449E"> Values, Variables, and Types </p>
+
 - Sometimes you will hear variables referred to as **objects**.
 
 - Everything that is not a literal value, such as 10, is an *object*. 
@@ -641,7 +227,7 @@ y
 - In Python, *variables* are just names.
 
 
-```{r, echo=FALSE, out.width = '29%', fig.align='center', fig.cap="Names point to objects (variable `a` points to an integer object with value `7`)"}
+```{r, echo=FALSE,eval = T, out.width = '29%', fig.align='center', fig.cap="Names point to objects (variable `a` points to an integer object with value `7`)"}
 knitr::include_graphics("../lec_figs/int-py-fig2-3.png")
 ```
 
@@ -667,7 +253,7 @@ type(list_example)
 ### <p style="color:#00449E"> Types </p>
 
 .pull-left[
-```{r, echo=FALSE, out.width = '100%', fig.align='center', fig.cap = "Python’s basic data types"}
+```{r, echo=FALSE, eval = T, out.width = '100%', fig.align='center', fig.cap = "Python’s basic data types"}
 knitr::include_graphics("../lec_figs/int-py-tab2-1.png")
 ```
 ]
@@ -786,7 +372,7 @@ print(string_full)
 #  Python Basics
 ### <p style="color:#00449E"> Operators </p>
 
-.panel-left[
+.pull-left[
 - It works for lists too:
 
 ```{python, echo = T, eval = F}
@@ -798,7 +384,7 @@ print(list_full)
 
 ]
 
-.panel-right[
+.pull-right[
 - We can multiply strings!
 
 ```{python, echo = T, eval = F}
@@ -815,31 +401,29 @@ print(string * 3)
 
 - We can combine the arithmetic operators with assignment by putting the operator before the `=`.
 
-
-.panel-left[
+.pull-left[
 - `x += 1` is equivalent to `x = x + 1`.
-
 ```{python, echo = T, eval = F}
 x = 3
 x += 1
 ```
-
 ]
 
-.panel-right[
+.pull-right[
 - `a -= 2` is equivalent to `a = a - 2`.
-
 ```{python, echo = T, eval = F}
 a = 2
 a -= 2
 ```
-
 ]
 
 
-Q. Using Python operations only, what is
+---
+#  Python Basics
+### <p style="color:#00449E"> Operators </p>
 
-$\frac{2^5}{7 \cdot (4 - 2^3)} $ ?
+**Q**. Using Python operations only, what is
+$$\frac{2^5}{7 \cdot (4 - 2^3)} \quad\text{?}$$ 
 
 
 
@@ -860,16 +444,24 @@ print( string[-4:] )
 
 - Both lists and strings will allow us to use the `len()` command to get their length:
 
+
+.pull-left[
+- `x += 1` is equivalent to `x = x + 1`.
 ```{python, echo = T, eval = F}
 string = "cheesecake"
 print( "String has length:" )
 print( len(string) )
+```
+]
 
+.pull-right[
+- `a -= 2` is equivalent to `a = a - 2`.
+```{python, echo = T, eval = F}
 list_of_numbers = range(1, 20)
 print( "List of numbers has length:" )
 print( len(list_of_numbers) )
 ```
-
+]
 
 
 
@@ -895,8 +487,8 @@ print(f"The square root of {value:d} is {sqrt_val:.2f}")
 
 - Boolean data have either `True` or `False` value.
 
-- There are two types of operation that are associated with booleans: boolean operations.
 
+- There are two types of operation that are associated with booleans: boolean operations.
   - Existing booleans are combined, and condition operations, which create a boolean when executed.
 
 
@@ -921,224 +513,630 @@ kable(text_tbl, format = "html") %>%
 
 ---
 #  Python Basics
-### <p style="color:#00449E"> Importing Modules, Packages, and Libraries </p>
+### <p style="color:#00449E"> Booleans and Conditions </p>
 
+Conditions are expressions that evaluate as booleans. 
 
-- Python is a general-purpose programming language and is not specialized for numerical or statistical computation.
+```{r, out.width='100%', fig.align='center'}
+text_tbl <- data.frame(
+  Operator = c("x == y", "x != y", "x > y", "x >= y", "x < y", "x <= y", "x is y"),
+  Description = c("Is x equal to y?",
+"Is x greater than y?",
+"Is x greater than or equal to y?",
+"Is x greater than or equal to y?",
+"Is x less than y?",
+"Is x less than or equal to y?",
+"Is x the same object as y?" )
+)
 
-- The core libraries that enable Python to store and analyze data efficiently are located in Python libraries.
+kable(text_tbl, format = "html") %>%
+  kable_paper(full_width = T) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  kable_styling(html_font = 'sans-serif, helvetica, arial',
+                bootstrap_options = c("hover", "condensed") )
 
-  - NumPy (`numpy`) - provide the basic array block used throughout numerical Python.
-  - pandas (`pandas`) - provides DataFrames which are used to store data in an easy-to-use format.
-  - matplotlib (`matplotlib`) - graphics. The most important submodule would be `matplotlib.pyplot`.
-  - seaborn (`seaborn`) - a general improvement in the default appearance of `matplotlib`-produced plots.
-
-
----
-# Importing Modules, Packages, and Libraries
-
-- A *module* is basically a bunch of related codes saved in a file with the extension `.py`.
-
-- A *package* is basically a directory of a collection of modules. 
-
-- A *library* is a collection of packages
-
-
-- We refer to code of other modules/pacakges/libraries by using the Python `import` statement. 
-  - This makes the code and variables in the imported module available to our programming codes.
-  - We can use the `as` *keyword* when importing the modules using their canonical names.
-
-
----
-class: inverse, center, middle
-
-# Getting started with `Pandas`
-
----
-#  `Pandas`
-
-```{r, echo=FALSE, out.width = '48%', fig.align='center'}
-knitr::include_graphics("../lec_figs/pandas-logo.png")
 ```
 
-- `pandas` is a Python library including the following features:
-  - Data manipulation and analysis;
-  - Export and import data from files and web;
-  - Handling of missing data.
 
-- `pandas` provides high-performance data structures and data analysis tools.
+---
+#  Python Basics
+### <p style="color:#00449E"> Booleans and Conditions </p>
+
+- The `==` is an operator that compares the objects on either side and returns `True` if they have the same values
 
 ```{python, echo = T, eval = F}
-import pandas as pd
+boolean_condition1 = 10 == 20
+print(boolean_condition1)
+
+boolean_condition2 = 10 == '10'
+print(boolean_condition2)
 ```
 
-
-
----
-#  `Pandas`
-
-- To give Python these enhanced features, Pandas introduces two new data types to Python: `Series` and `DataFrame`. 
-
-  - The `DataFrame` will represent your entire spreadsheet or rectangular data.
-  - The `Series` is like a single column of the `DataFrame`. 
-
-
----
-#  `Pandas`
-### <p style="color:#00449E"> Learning Objectives </p>
-- Use Pandas functions to load a simple delimited data file
-
-- Calculate how many rows and columns were loaded
-
-- Identify the type of data that were loaded
-
-- Name differences between functions, methods, and attributes
-
-- Use methods and attributes to subset rows and columns
-
-- Calculate basic grouped and aggregated statistics from data
-
-- Use methods and attributes to create a simple figure from data
+**Q**. What does `not (not True)` evaluate to?
 
 
 
 
 ---
-#  `Pandas`
-### <p style="color:#00449E">  Load Your First Data Set </p>
+#  Python Basics
+### <p style="color:#00449E"> Booleans and Conditions </p>
 
-
-- When given a data set, we first load it and begin looking at its structure and contents. 
-
-- The simplest way of looking at a data set is to look at and subset specific rows and columns. 
-
-- We can see what type of information is stored in each column, and can start looking for patterns by aggregating descriptive statistics.
-
-- Since Pandas is not part of the Python standard library, we have to first tell Python to load (i.e., `import`) the library. 
+- The real power of conditions comes when we start to use them in more complex examples, such as `if` statements.
 
 
 ```{python, echo = T, eval = F}
-import pandas as pd
+name = "Geneseo"
+score = 99
+
+if name == "Geneseo" and score > 90:
+    print("Geneseo, you achieved a high score.")
+
+if name == "Geneseo" or score > 90:
+    print("You could be called Geneseo or have a high score")
+
+if name != "Geneseo" and score > 90:
+    print("You are not called Geneseo and you have a high score")
 ```
 
 
+---
+#  Python Basics
+### <p style="color:#00449E"> Booleans and Conditions </p>
+
+- Given that `==` and `!=` test for equality and not equal, respectively, you may be wondering what the keyword `is`  is for.
+
+  - Remember that everything in Python is an object, and that values can be assigned to objects.
+
+  - `==` and `!=` compare values, while `is` compare objects.
+
+.pull-left[
+```{python, echo = T, eval = F}
+name_list = ["Ada", "Adam"]
+name_list_two = ["Ada", "Adam"]
+```
+]
+.pull-right[
+```{python, echo = T, eval = F}
+# Compare values
+print(name_list == name_list_two)
+
+# Compare objects
+print(name_list is name_list_two)
+```
+]
 
 
 ---
-#  `Pandas`
-### <p style="color:#00449E">  Load Your First Data Set </p>
+#  Python Basics
+### <p style="color:#00449E"> Booleans and Conditions </p>
 
-- With the library loaded we can use the `read_csv()` function to load a CSV data file.
+- One of the most useful conditional keywords is `in`. 
+  - This one must pop up ten times a day in most coders’ lives because it can pick out a variable or make sure something is where it’s supposed to be.
 
-- In order to access the `read_csv()` function from pandas, we use something called "dot" notation.
-
-  - We write `pd.read_csv()` to say: within the pandas library we just loaded, look inside for the `read_csv()` function.
 
 ```{python, echo = T, eval = F}
-# *.tsv is a file of tab-separated values.
-# we can use the sep parameter and indicate a tab with \t
-df  = pd.read_csv('https://bcdanl.github.io/data/gapminder.tsv', sep='\t')
-print(df)    # print out the data
+name_list = ["Lovelace", "Smith", "Hopper", "Babbage"]
+
+print("Lovelace" in name_list)
+
+print("Bob" in name_list)
+```
+
+**Q**. Check if “a” is in the string “Sun Devil Arena” using `in`. Is “a” in “Anyone”?
+
+
+
+---
+#  Python Basics
+### <p style="color:#00449E"> Booleans and Conditions </p>
+
+- One conditional construct we're bound to use at some point, is the `if-else` chain:
+
+```{python, echo = T, eval = F}
+score = 98
+
+if score == 100:
+    print("Top marks!")
+elif score > 90 and score < 100:
+    print("High score!")
+elif score > 10 and score <= 90:
+    pass
+else:
+    print("Better luck next time.")
 ```
 
 
 
 ---
-#  `Pandas` - Load Your First Data Set
+#  Python Basics
+### <p style="color:#00449E"> Booleans and Conditions </p>
+
+
+**Q**. Create a new `if-else` chain that prints “well done” if a score is over 90, “good” if between 40 and 90, and “bad luck” otherwise.
+
+
+---
+#  Python Basics
+### <p style="color:#00449E"> Booleans and Conditions </p>
+
+
+- We can make multiple assignment or multiple boolean comparisons in a single line.
+
+
+```{python, echo = T, eval = F}
+a, b = 3, 6
+ 
+1 < a < b < 20
+```
+
+
+
+
+---
+#  Python Basics
+### <p style="color:#00449E"> Casting Variables </p>
+
+- Sometimes we need to explicitly cast a value from one type to another. 
+
+  - We can do this using functions like `str()`, `int()`, and `float()`. 
+  - If we try these, Python will do its best to interpret the input and convert it to the output type we’d like and, if they can’t, the code will throw a great big error.
+
+.pull-left[
+```{python, echo = T, eval = F}
+orig_number = 4.39898498
+type(orig_number)
+```
+]
+.pull-right[
+```{python, echo = T, eval = F}
+mod_number = int(orig_number)
+mod_number
+type(mod_number)
+```
+]
+
+
+---
+#  Python Basics
+### <p style="color:#00449E"> Tuples and (im)mutability </p>
+
+- A tuple is an object that is defined by parentheses and entries that are separated by commas, for example (15, 20, 32). (They are of type tuple.) 
+
+- Tuples are immutable, while lists are mutable.
+
+- Immutable objects, such as tuples and strings, can’t have their elements changed, appended, extended, or removed. 
+  - Mutable objects, such as lists, can do all of these things. 
+
+- In everyday programming, we use lists and dictionaries more than tuples.
+
+
+---
+#  Python Basics
+### <p style="color:#00449E"> Tuples and (im)mutability </p>
+
+**Q**. Are the entries in dictionaries mutable or immutable? To help you answer this, a simple dictionary can be defined as
+
+```{python}
+my_dict = {"a": 1, "b": 2}
+```
+
+and the values are accessed by `dictionary[key]`.
+
+
+
+---
+#  Python Basics
+### <p style="color:#00449E"> Indentation </p>
+
+- We have seen that certain parts of the code examples are indented. 
+
+- Code that is part of a function, a conditional clause, or loop is indented. 
+
+- Indention is actually what tells the Python interpreter that some code is to be executed as part of, say, a loop and not to executed after the loop is finished.
+
+
+
+---
+#  Python Basics
+### <p style="color:#00449E"> Indentation </p>
+
+- Here’s a basic example of indentation as part of an `if` statement.
+
+```{python}
+x = 10
+
+if x > 2:
+    print("x is greater than 2")
+```
+
+- The standard practice for indentation is that each sub-statement should be indented by 4 spaces.
+
+
+
+
+---
+#  Python Basics
+### <p style="color:#00449E"> Loops and List Comprehensions </p>
+
+- A loop is a way of executing a similar piece of code over and over in a similar way. 
+  - The most useful loops are **for loops** and **list comprehensions**.
+
+
+```{python}
+name_list = ["Ben", "Chris", "Kate", "Mary"]
+
+for name in name_list:
+    print(name)
+```
+
+- As long as our object is an iterable, then it can be used in this way in a *for loop*.
+
+- Lists, tuples, strings, and dictionaries are iterable.
+
+---
+#  Python Basics
+### <p style="color:#00449E"> Loops and List Comprehensions </p>
+
+**Q**. Write a for loop that prints out “coding for data analysts” so that each word is printed in a successive iteration.
+
+
+
+---
+#  Python Basics
+### <p style="color:#00449E"> Loops and List Comprehensions </p>
+
+- A useful trick with for loops is the `enumerate` keyword, which runs through an *index* that keeps track of the place of items in a list:
+
+
+```{python}
+name_list = ["Ben", "Chris", "Kate", "Mary"]
+
+for i, name in enumerate(name_list):
+    print(f"The name in position {i} is {name}")
+    
+for i, name in enumerate(name_list, start=1):
+    print(f"The name in position {i} is {name}")
+```
+
+
+---
+#  Python Basics
+### <p style="color:#00449E"> Loops and List Comprehensions </p>
+
+- Another useful type of for loop is provided by the `zip` function. 
+  - We can think of the `zip` function as being like a zipper, bringing elements from two different iterators together in turn. 
+  
+
+```{python}
+first_names = ["Ada", "Adam", "Grace", "Charles"]
+last_names = ["Lovelace", "Smith", "Hopper", "Babbage"]
+
+for forename, surname in zip(first_names, last_names):
+    print(f"{forename} {surname}")
+```
+
+  
+
+---
+#  Python Basics
+### <p style="color:#00449E"> Loops and List Comprehensions </p>
+
+
+.panelset[
+.panel[.panel-name[basic]
+- *List comprehensions* are a convenient and widely used Python language feature. 
+  - The simplest form of list comprehension looks like this:
+
+```{r, echo=FALSE, eval = T, out.width = '66%', fig.align='center'}
+knitr::include_graphics("../lec_figs/int-py-list-comprehension.png")
+```
+]
+
+.panel[.panel-name[example 1]
+```{python, echo = T, eval = F}
+number_list = [number for number in range(1,6)]
+number_list
+```
+- In the first line, we need the first `number` variable to produce values for the list: that is, to put a result of the loop into `number_list`. 
+
+- The second `number` is part of the for loop.
+]
+
+.panel[.panel-name[example 2]
+- To show that the first `number` in example 1 is an expression, try this variant:
+
+```{python, echo = T, eval = F}
+number_list = [number - 1 for number in range(1,6)]
+number_list
+```
+- The list comprehension moves the loop inside the square brackets.
+]
+
+
+.panel[.panel-name[with if]
+- A list comprehension can include a conditional expression, looking something like this:
+
+```{r, echo=FALSE, eval = T, out.width = '50%', fig.align='center'}
+knitr::include_graphics("../lec_figs/int-py-list-comprehension-if.png")
+```
+
+
+- Let’s make a new comprehension that builds a list of only the odd numbers between 1 and 5.
+```{python, echo = T, eval = F}
+a_list = [number for number in range(1,6) if number % 2 == 1]
+```
+]
+
+.panel[.panel-name[traditional `for`]
+- Now, the comprehension is a little more compact than its traditional counterpart:
+```{python, echo = T, eval = F}
+a_list = []
+for number in range(1,6):
+    if number % 2 == 1:
+        a_list.append(number)
+```
+]
+
+
+.panel[.panel-name[Q.]
+**Q.** Create a list comprehension that multiplies numbers in the range from 1 to 10 by 5.
+
+
+]
+
+]
+
+
+
+
+---
+#  Python Basics
+### <p style="color:#00449E"> Dictionaries </p>
 
 .panelset[
 
-.panel[.panel-name[type()]
+.panel[.panel-name[basic]
+- Another built-in Python type that is enormously useful is the dictionary. 
+  - This provides a mapping one set of variables to another (either one-to-one or many-to-one). 
+  
+  
+- We can obtain keys, values, or key-value paris from dictionaries.
 
-- We can check to see if we are working with a Pandas `Dataframe` by using the built-in `type()` function (i.e., it comes directly from Python, not a separate library such as Pandas).
+```{python}
+cities_to_temps = {"Paris": 28, "London": 22, "Seville": 36, "Wellesley": 29}
+cities_to_temps.keys()
+cities_to_temps.values()
+cities_to_temps.items()
+```
+]
 
-```{python, echo = T, eval = F}
-type(df)
+.panel[.panel-name[loop]
+
+- Another useful pattern when doing for loops with dictionaries is iteration over key-value pairs. 
+
+```{python}
+for key, value in cities_to_temps.items():
+    print(f"In {key}, the temperature is {value} degrees C today.")
+```
+]
+
+.panel[.panel-name[Q.]
+
+
+**Q**. Write a dictionary that maps four cities you know into their respective countries and print the results using the key-value iteration with for-loop.
+
+]
+
+]
+
+
+---
+#  Python Basics
+### <p style="color:#00449E"> Dictionary </p>
+
+.panelset[
+
+.panel[.panel-name[update]
+- We can update a dictionary:
+
+.pull-left[
+```{python}
+fruit_dict = {
+    "Jazz": "Apple",
+    "Owari": "Satsuma",
+    "Seto": "Satsuma",
+    "Pink Lady": "Apple",
+}
+```
+]
+
+.pull-right[
+```{python}
+# Add an entry
+fruit_dict.update(
+        {"Cox": "Apple"})
+
+variety_list = ["Jazz", "Jazz", 
+                "Seto", "Cox" ]
+
+fruit_list = [ fruit_dict[x] 
+               for x in variety_list ]
+```
+]
+
+]
+
+.panel[.panel-name[Q.]
+
+**Q**. Update the `cities_to_temps` dictionary with another two cities.
+
+```{python}
+cities_to_temps = {"Paris": 28, "London": 22, 
+                   "Seville": 36, "Wellesley": 29}
 ```
 
-- The `type()` function is handy when we begin working with many different types of Python objects and need to know what object we are currently working on.
 
 ]
 
-.panel[.panel-name[.shape]
+]
+---
+#  Python Basics
+### <p style="color:#00449E"> Loops and Dictionary Comprehensions </p>
+.panelset[
 
-- Every DataFrame object has a `.shape` attribute that will give us the number of rows and columns of the `DataFrame`.
+.panel[.panel-name[`for`]
+- Iterating over a dictionary (or its `keys()` function) returns the keys. 
+
+```{python, echo = T, eval = F}
+accusation = {'room': 'ballroom', 
+              'weapon': 'lead pipe',
+              'person': 'Col. Mustard'}
+for card in accusation: # or, for card in accusation.keys():
+    print(card)
+```
+
+]
+
+
+
+
+.panel[.panel-name[`values()`]
+- To iterate over the values rather than the keys, we use the dictionary's `values()` function:
 
 
 ```{python, echo = T, eval = F}
-df.shape
-#  It’s written as df.shape and not df.shape()
+accusation = {'room': 'ballroom', 
+              'weapon': 'lead pipe',
+              'person': 'Col. Mustard'}
+for value in accusation.values():
+    print(value)
 ```
-
--  Since `.shape` is an **attribute** of the `DataFrame` object, and not a **function** or **method** of the `DataFrame` object, it does not have round parentheses after the period.
 
 ]
 
-.panel[.panel-name[.columns]
 
-- To get a gist of what information the data set contains, we look at the column names. 
-
-- The column names are given using the `.column` attribute of the `DataFrame` object.
+.panel[.panel-name[`items()`]
+- To return both the key and value as a tuple, we can use the `items()` function:
 
 
 ```{python, echo = T, eval = F}
-df.columns
+accusation = {'room': 'ballroom', 
+              'weapon': 'lead pipe',
+              'person': 'Col. Mustard'}
+for item in accusation.items():
+    print(item)
 ```
 
-- Q. What is the `type` of the column names?
-
 ]
-
-
-.panel[.panel-name[.dtypes]
-
--  Each column (i.e., `Series`) has to be the same type, whereas each row can contain mixed types.
-
-- We can use the `.dtypes` attribute or the `.info()` method to see the type of each column in `DataFrame`.
+.panel[.panel-name[`items()`]
+- For each tuple returned by `items()`, let's assign the first value (the key) to *card*, and the second (the value) to *contents*:
 
 ```{python, echo = T, eval = F}
-df.dtypes
-df.info()
+accusation = {'room': 'ballroom', 
+              'weapon': 'lead pipe',
+              'person': 'Col. Mustard'}
+for card, contents in accusation.items():
+    print('Card', card, 'has the contents', contents)
 ```
 
-
 ]
 
 ]
-
 
 
 
 ---
-# Look at Columns, Rows, and Cells
-
-
+#  Python Basics
+### <p style="color:#00449E"> Loops and Dictionary Comprehensions </p>
 .panelset[
+.panel[.panel-name[syntax]
+- Dictionaries also have comprehensions.
+  - The simplest form of dictionary comprehension looks like this:
 
-.panel[.panel-name[head()]
+```{r, echo=FALSE, out.width = '80%', fig.align='center'}
+knitr::include_graphics("../lec_figs/int-py-dict-comprehension.png")
+```
 
-- We can use the `.head()` method of a `DataFrame` to look at the first 5 rows of our data.
-  - This is useful to see if our data loaded properly, and to get a better sense of the columns and contents.
+]
+
+.panel[.panel-name[e.g.,]
+
+- Let's run a loop over each of the seven letters in the string 'letters' and counting how many times that letter appears.
 
 ```{python, echo = T, eval = F}
-df.head()
+word = 'letters'
+letter_counts = {letter: word.count(letter) for letter in word}
+letter_counts
+```
+
+- How many times do we count 't' here?
+]
+
+
+.panel[.panel-name[w/ `set()`]
+
+- Let's run a loop over each of the seven letters in the string 'letters' and counting how many times that letter appears.
+
+```{python, echo = T, eval = F}
+word = 'letters'
+letter_counts = {letter: word.count(letter) for letter in set(word)}
+letter_counts
+```
+
+- How many times do we count 't' here?
+
+]
+
+
+.panel[.panel-name[w/ if]
+- Dictionary comprehensions can also have *if* tests and multiple *for* clauses:
+
+```{r, echo=FALSE, out.width = '95%', fig.align='center'}
+knitr::include_graphics("../lec_figs/int-py-dict-comprehension-if.png")
+```
+
+```{python, echo = T, eval = F}
+vowels = 'aeiou'
+word = 'onomatopoeia'
+vowel_counts = {letter: word.count(letter) for letter in set(word) 
+                                           if letter in vowels}
+vowel_counts
 ```
 
 ]
 
 
-.panel[.panel-name[`[ ]`]
+]
 
-- If we want only a specific column from our data, we can access the data using square brackets, `[ ]`.
 
-```{python, echo = T, eval = F}
-# just get the country column and save it to its own variable
-country_df = df['country']
-# show the first 5 observations
-print(country_df.head())
+---
+#  Python Basics
+### <p style="color:#00449E"> While-Loops </p>
+
+- A `while` loop continue to execute code until its conditional expression evaluates to `False`. 
+  - If it evaluates to `True` forever, our code will just continue to execute forever.
+
+```{python}
+n = 5
+while n > 0:
+    print(n)
+    n -= 1
+
+print("execution complete")
 ```
 
-]
+- We can use the keyword `break` to break out of a while loop.
+  - For example if it’s reached a certain number of iterations without converging.
 
 
-]
+
+---
+#  Python Basics
+### <p style="color:#00449E"> Running on Empty </p>
+
+- Being able to create empty containers is sometimes useful, especially when using loops. 
+
+- The commands to create empty lists, tuples, dictionaries, and sets are `lst = []`, `tup=()`, `dic={}`, and `st = set()` respectively.
+
+**Q.** What is the type of an empty list?
+

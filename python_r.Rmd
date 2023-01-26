@@ -1,0 +1,53 @@
+---
+title: "Python code chunks in R Markdown"
+date: 2023-01-25
+---
+
+```{r}
+# r
+library(reticulate)
+x = 42
+print(x)
+
+```
+
+
+```{r}
+# r
+x = x + 12
+print(x)
+
+```
+
+
+```{python}
+# python
+x = 42 * 2
+print(x)
+```
+
+```{r}
+# r
+py$x
+```
+
+
+```{r}
+# r
+py$y = 1:5
+```
+
+
+See the value of `y` in the Python session:
+
+```{python}
+# python
+print(y)
+```
+
+```{python}
+# python
+import matplotlib.pyplot as plt
+plt.plot([0, 2, 1, 4])
+plt.show()
+```

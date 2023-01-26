@@ -9,9 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Awesome Me" />
 
+<meta name="date" content="2023-01-25" />
 
-<title>Data Analytics School of Business, SUNY Geneseo</title>
+<title>Hello R Markdown</title>
 
 <script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -262,9 +264,6 @@ $(document).ready(function () {
     <li>
       <a href="lec/DANL200_Lec01_20230124.html">lecture 01 - syllabus</a>
     </li>
-    <li>
-      <a href="lec/DANL200_Lec01_20230124.html">lecture 01 - r basic</a>
-    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -276,9 +275,6 @@ $(document).ready(function () {
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="lec/DANL210_Lec01_20230124.html">lecture 01 - syllabus</a>
-    </li>
-    <li>
-      <a href="lec/DANL210_Lec02_20230126.html">lecture 02 - python basic</a>
     </li>
   </ul>
 </li>
@@ -293,7 +289,7 @@ $(document).ready(function () {
       <a href="lec/DANL310_Lec01_20230124.html">lecture 01 - syllabus</a>
     </li>
     <li>
-      <a href="lec/DANL310_Lec02_20230126.html">lecture 02 - github website, rmarkdown</a>
+      <a href="lec/DANL310_Lec01_20230124.html">lecture 01 - GitHub website</a>
     </li>
   </ul>
 </li>
@@ -306,38 +302,34 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Data Analytics<br>School of Business, SUNY
-Geneseo</h1>
+<h1 class="title toc-ignore">Hello R Markdown</h1>
+<h4 class="author">Awesome Me</h4>
+<h4 class="date">January 25, 2023</h4>
 
 </div>
 
 
-<div id="data-analytics-at-suny-geneseo" class="section level3">
-<h3>data analytics at suny geneseo</h3>
-<ul>
-<li><em>data visualization</em> and <em>machine learning</em> for
-<em>business</em> and <em>economics</em> with <em>python</em> and
-<em>r</em></li>
-<li><em>databases</em> with <em>sql</em></li>
-<li><em>dashboards</em> and <em>machine learning projects on the
-web</em> with <em>r markdown</em></li>
-<li><em>web scrapping</em> and <em>automation</em> with <em>python
-selenium</em></li>
-<li><em>version control</em> with <em>git</em> and <em>github</em></li>
-</ul>
-<p><br></p>
-<div style="width:600px; height:450px">
-<p><img src="figures/spooky-data.gif" /></p>
-</div>
-<p><br><br> <br><br></p>
-<div style="width:600px; height:350px">
-<p><img src="figures/correlation_causation.jpg" /></p>
-</div>
-<p><br><br> <br><br></p>
-<p>   <em>ggplot halloween</em> originally from <a
-href="https://twitter.com/andrewheiss/status/1057682358135021568">andrew
-heiss</a> and modified by byeong-hak choe</p>
-</div>
+<p>This is a paragraph in an R Markdown document.</p>
+<p>Below is a code chunk:</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+## ✔ ggplot2 3.4.0      ✔ purrr   1.0.1 
+## ✔ tibble  3.1.8      ✔ dplyr   1.0.10
+## ✔ tidyr   1.2.1      ✔ stringr 1.5.0 
+## ✔ readr   2.1.3      ✔ forcats 0.5.2 
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>fit &lt;- lm(dist ~ speed, data = cars)
+b &lt;- coef(fit)
+
+ggplot(cars) +
+  geom_smooth( aes( x = speed, 
+                    y = dist ),
+               method = lm)</code></pre>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="basic_example_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>The slope of the regression is -17.5790949.</p>
 
 
 
