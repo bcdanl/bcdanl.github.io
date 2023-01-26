@@ -70,44 +70,62 @@ class: title-slide, left, bottom
 
 ---
 # Spyder Environment
-.pull-left[
+### <p style="color:#00449E"> Script Editor </p>
+.right-column[
 ```{r, echo=FALSE, eval = T,  eval = T,out.width = '100%', fig.align='center'}
 knitr::include_graphics("../lec_figs/spyder_env.png")
 ```
 ]
 
-.pull-right[
-- Red box is **Script Editor** where you can create, open and edit files.
+.left-column[
+- From **Script Editor**, we can create, open and edit files.
 
 
 ]
 ---
-# Installing the Tools
-### <p style="color:#00449E"> Spyder Environment </p>
-.pull-left[
+# Spyder Environment
+### <p style="color:#00449E"> Console Pane </p>
+
+.right-column[
 ```{r, echo=FALSE, eval = T, out.width = '100%', fig.align='center'}
 knitr::include_graphics("../lec_figs/spyder_env.png")
 ```
 ]
 
-.pull-right[
-- Blue box is **Console Pane** that allows you to interact directly with the Python interpreter and type commands where Python will immediately execute them.
+.left-column[
+- From **Console Pane**, we can interact directly with the Python interpreter, and type commands where Python will immediately execute them.
 
 ]
 ---
-# Installing the Tools
-### <p style="color:#00449E"> Spyder Environment </p>
-.pull-left[
+# Spyder Environment
+### <p style="color:#00449E"> Variable Explorer </p>
+
+.right-column[
 ```{r, echo=FALSE,  eval = T,out.width = '100%', fig.align='center'}
 knitr::include_graphics("../lec_figs/spyder_env.png")
 ```
 ]
 
-.pull-right[
-- Yellow box is **Variable Explorer** where you can see the values of variables, data frames, and other objects that are currently stored in memory.
-  - Double-clicking a variable will open a specialized viewer, allowing you to inspect its contents.
+.left-column[
+- From **Variable Explorer**, we can see the values of variables, data frames, and other objects that are currently stored in memory.
 
 
+]
+
+
+
+---
+# Spyder Environment
+### <p style="color:#00449E"> Variable Explorer </p>
+
+.right-column[
+```{r, echo=FALSE,  eval = T,out.width = '100%', fig.align='center'}
+knitr::include_graphics("../lec_figs/spyder-var-explore.gif")
+```
+]
+
+.left-column[
+- If we doucle-click the objects such as `list` and `DataFrame` objects, we can see what data are contained in such objects.
 ]
 
 
@@ -149,6 +167,20 @@ knitr::include_graphics("../lec_figs/spyder_env.png")
 - **Ctrl + 4** is the shortcut for block comment.
 ]
 
+
+
+---
+# Coding Workflow
+### <p style="color:#00449E"> Shortcuts </p>
+
+
+- **Ctrl** (**command** for Mac Users) **+ Z** undoes the previous action.
+- **Ctrl** (**command** for Mac Users) **+ Shift + Z** redoes when undo is executed.
+
+
+- **Ctrl** (**command** for Mac Users) **+ F** is useful when finding a phrase in the Spyder
+
+- **Ctrl** (**command** for Mac Users) **+ R** is useful when replacing a phrase in the Spyder
 
 ---
 class: inverse, center, middle
@@ -402,7 +434,7 @@ print(string * 3)
 - We can combine the arithmetic operators with assignment by putting the operator before the `=`.
 
 .pull-left[
-- `x += 1` is equivalent to `x = x + 1`.
+- `x += 1` is equivalent to `x = x+1`.
 ```{python, echo = T, eval = F}
 x = 3
 x += 1
@@ -410,7 +442,7 @@ x += 1
 ]
 
 .pull-right[
-- `a -= 2` is equivalent to `a = a - 2`.
+- `a -= 2` is equivalent to `a = a-2`.
 ```{python, echo = T, eval = F}
 a = 2
 a -= 2
@@ -446,19 +478,17 @@ print( string[-4:] )
 
 
 .pull-left[
-- `x += 1` is equivalent to `x = x + 1`.
 ```{python, echo = T, eval = F}
 string = "cheesecake"
-print( "String has length:" )
+print("String has length:")
 print( len(string) )
 ```
 ]
 
 .pull-right[
-- `a -= 2` is equivalent to `a = a - 2`.
 ```{python, echo = T, eval = F}
 list_of_numbers = range(1, 20)
-print( "List of numbers has length:" )
+print("List of numbers has length:")
 print( len(list_of_numbers) )
 ```
 ]
@@ -493,7 +523,7 @@ print(f"The square root of {value:d} is {sqrt_val:.2f}")
 
 
 
-```{r, out.width='100%', fig.align='center'}
+```{r, eval = T, echo = F, out.width='100%', fig.align='center'}
 text_tbl <- data.frame(
   Operator = c("x and y", "x or y", "not x"),
   Description = c("Are x and y both True?",
@@ -517,7 +547,7 @@ kable(text_tbl, format = "html") %>%
 
 Conditions are expressions that evaluate as booleans. 
 
-```{r, out.width='100%', fig.align='center'}
+```{r, eval = T, echo = F, out.width='100%', fig.align='center'}
 text_tbl <- data.frame(
   Operator = c("x == y", "x != y", "x > y", "x >= y", "x < y", "x <= y", "x is y"),
   Description = c("Is x equal to y?",
@@ -710,19 +740,6 @@ type(mod_number)
 - In everyday programming, we use lists and dictionaries more than tuples.
 
 
----
-#  Python Basics
-### <p style="color:#00449E"> Tuples and (im)mutability </p>
-
-**Q**. Are the entries in dictionaries mutable or immutable? To help you answer this, a simple dictionary can be defined as
-
-```{python}
-my_dict = {"a": 1, "b": 2}
-```
-
-and the values are accessed by `dictionary[key]`.
-
-
 
 ---
 #  Python Basics
@@ -824,7 +841,7 @@ for forename, surname in zip(first_names, last_names):
 
 .panelset[
 .panel[.panel-name[basic]
-- *List comprehensions* are a convenient and widely used Python language feature. 
+- **List comprehensions** are a convenient and widely used Python language feature. 
   - The simplest form of list comprehension looks like this:
 
 ```{r, echo=FALSE, eval = T, out.width = '66%', fig.align='center'}
@@ -925,9 +942,20 @@ for key, value in cities_to_temps.items():
 
 **Q**. Write a dictionary that maps four cities you know into their respective countries and print the results using the key-value iteration with for-loop.
 
+
+**Q**. Are the entries in dictionaries mutable or immutable? To help you answer this, a simple dictionary can be defined as
+
+```{python}
+my_dict = {"a": 1, "b": 2}
+```
+
+and the values are accessed by `dictionary[key]`.
+
+
 ]
 
 ]
+
 
 
 ---
@@ -945,22 +973,22 @@ fruit_dict = {
     "Jazz": "Apple",
     "Owari": "Satsuma",
     "Seto": "Satsuma",
-    "Pink Lady": "Apple",
-}
+    "Pink Lady": "Apple", }
+    
+# Add an entry
+fruit_dict.update(
+        {"Cox": "Apple"})
 ```
 ]
 
 .pull-right[
 ```{python}
-# Add an entry
-fruit_dict.update(
-        {"Cox": "Apple"})
-
 variety_list = ["Jazz", "Jazz", 
                 "Seto", "Cox" ]
 
 fruit_list = [ fruit_dict[x] 
-               for x in variety_list ]
+               for x in 
+                  variety_list ]
 ```
 ]
 
@@ -1053,7 +1081,7 @@ for card, contents in accusation.items():
 - Dictionaries also have comprehensions.
   - The simplest form of dictionary comprehension looks like this:
 
-```{r, echo=FALSE, out.width = '80%', fig.align='center'}
+```{r, echo=FALSE, eval = T, out.width = '80%', fig.align='center'}
 knitr::include_graphics("../lec_figs/int-py-dict-comprehension.png")
 ```
 

@@ -27,6 +27,8 @@
     <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
     <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
     <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
   </head>
@@ -46,38 +48,54 @@ class: title-slide, left, bottom
 
 ---
 # Spyder Environment
-.pull-left[
+### &lt;p style="color:#00449E"&gt; Script Editor &lt;/p&gt;
+.right-column[
 &lt;img src="../lec_figs/spyder_env.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
-.pull-right[
-- Red box is **Script Editor** where you can create, open and edit files.
+.left-column[
+- From **Script Editor**, we can create, open and edit files.
 
 
 ]
 ---
-# Installing the Tools
-### &lt;p style="color:#00449E"&gt; Spyder Environment &lt;/p&gt;
-.pull-left[
+# Spyder Environment
+### &lt;p style="color:#00449E"&gt; Console Pane &lt;/p&gt;
+
+.right-column[
 &lt;img src="../lec_figs/spyder_env.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
-.pull-right[
-- Blue box is **Console Pane** that allows you to interact directly with the Python interpreter and type commands where Python will immediately execute them.
+.left-column[
+- From **Console Pane**, we can interact directly with the Python interpreter, and type commands where Python will immediately execute them.
 
 ]
 ---
-# Installing the Tools
-### &lt;p style="color:#00449E"&gt; Spyder Environment &lt;/p&gt;
-.pull-left[
+# Spyder Environment
+### &lt;p style="color:#00449E"&gt; Variable Explorer &lt;/p&gt;
+
+.right-column[
 &lt;img src="../lec_figs/spyder_env.png" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
-.pull-right[
-- Yellow box is **Variable Explorer** where you can see the values of variables, data frames, and other objects that are currently stored in memory.
-  - Double-clicking a variable will open a specialized viewer, allowing you to inspect its contents.
+.left-column[
+- From **Variable Explorer**, we can see the values of variables, data frames, and other objects that are currently stored in memory.
 
 
+]
+
+
+
+---
+# Spyder Environment
+### &lt;p style="color:#00449E"&gt; Variable Explorer &lt;/p&gt;
+
+.right-column[
+&lt;img src="../lec_figs/spyder-var-explore.gif" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.left-column[
+- If we doucle-click the objects such as `list` and `DataFrame` objects, we can see what data are contained in such objects.
 ]
 
 
@@ -119,6 +137,20 @@ class: title-slide, left, bottom
 - **Ctrl + 4** is the shortcut for block comment.
 ]
 
+
+
+---
+# Coding Workflow
+### &lt;p style="color:#00449E"&gt; Shortcuts &lt;/p&gt;
+
+
+- **Ctrl** (**command** for Mac Users) **+ Z** undoes the previous action.
+- **Ctrl** (**command** for Mac Users) **+ Shift + Z** redoes when undo is executed.
+
+
+- **Ctrl** (**command** for Mac Users) **+ F** is useful when finding a phrase in the Spyder
+
+- **Ctrl** (**command** for Mac Users) **+ R** is useful when replacing a phrase in the Spyder
 
 ---
 class: inverse, center, middle
@@ -386,7 +418,7 @@ print(string * 3)
 - We can combine the arithmetic operators with assignment by putting the operator before the `=`.
 
 .pull-left[
-- `x += 1` is equivalent to `x = x + 1`.
+- `x += 1` is equivalent to `x = x+1`.
 
 ```python
 x = 3
@@ -395,7 +427,7 @@ x += 1
 ]
 
 .pull-right[
-- `a -= 2` is equivalent to `a = a - 2`.
+- `a -= 2` is equivalent to `a = a-2`.
 
 ```python
 a = 2
@@ -433,21 +465,19 @@ print( string[-4:] )
 
 
 .pull-left[
-- `x += 1` is equivalent to `x = x + 1`.
 
 ```python
 string = "cheesecake"
-print( "String has length:" )
+print("String has length:")
 print( len(string) )
 ```
 ]
 
 .pull-right[
-- `a -= 2` is equivalent to `a = a - 2`.
 
 ```python
 list_of_numbers = range(1, 20)
-print( "List of numbers has length:" )
+print("List of numbers has length:")
 print( len(list_of_numbers) )
 ```
 ]
@@ -483,22 +513,28 @@ print(f"The square root of {value:d} is {sqrt_val:.2f}")
 
 
 
-
-```r
-text_tbl &lt;- data.frame(
-  Operator = c("x and y", "x or y", "not x"),
-  Description = c("Are x and y both True?",
-"Is at least one of x and y True?",
-"Is x False?")
-  )
-
-
-kable(text_tbl, format = "html") %&gt;%
-  kable_paper(full_width = T) %&gt;%
-  column_spec(1, bold = T, border_right = T) %&gt;%
-  kable_styling(html_font = 'sans-serif, helvetica, arial',
-                bootstrap_options = c("hover", "condensed") )
-```
+&lt;table class=" lightable-paper table table-hover table-condensed" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto; font-family: sans-serif, helvetica, arial; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Operator &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x and y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Are x and y both True? &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x or y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Is at least one of x and y True? &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; not x &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Is x False? &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 
 ---
@@ -507,25 +543,44 @@ kable(text_tbl, format = "html") %&gt;%
 
 Conditions are expressions that evaluate as booleans. 
 
-
-```r
-text_tbl &lt;- data.frame(
-  Operator = c("x == y", "x != y", "x &gt; y", "x &gt;= y", "x &lt; y", "x &lt;= y", "x is y"),
-  Description = c("Is x equal to y?",
-"Is x greater than y?",
-"Is x greater than or equal to y?",
-"Is x greater than or equal to y?",
-"Is x less than y?",
-"Is x less than or equal to y?",
-"Is x the same object as y?" )
-)
-
-kable(text_tbl, format = "html") %&gt;%
-  kable_paper(full_width = T) %&gt;%
-  column_spec(1, bold = T, border_right = T) %&gt;%
-  kable_styling(html_font = 'sans-serif, helvetica, arial',
-                bootstrap_options = c("hover", "condensed") )
-```
+&lt;table class=" lightable-paper table table-hover table-condensed" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto; font-family: sans-serif, helvetica, arial; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Operator &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x == y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Is x equal to y? &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x != y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Is x greater than y? &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x &amp;gt; y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Is x greater than or equal to y? &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x &amp;gt;= y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Is x greater than or equal to y? &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x &amp;lt; y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Is x less than y? &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x &amp;lt;= y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Is x less than or equal to y? &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x is y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Is x the same object as y? &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
 
 ---
@@ -709,20 +764,6 @@ type(mod_number)
 - In everyday programming, we use lists and dictionaries more than tuples.
 
 
----
-#  Python Basics
-### &lt;p style="color:#00449E"&gt; Tuples and (im)mutability &lt;/p&gt;
-
-**Q**. Are the entries in dictionaries mutable or immutable? To help you answer this, a simple dictionary can be defined as
-
-
-```python
-my_dict = {"a": 1, "b": 2}
-```
-
-and the values are accessed by `dictionary[key]`.
-
-
 
 ---
 #  Python Basics
@@ -828,7 +869,7 @@ for forename, surname in zip(first_names, last_names):
 
 .panelset[
 .panel[.panel-name[basic]
-- *List comprehensions* are a convenient and widely used Python language feature. 
+- **List comprehensions** are a convenient and widely used Python language feature. 
   - The simplest form of list comprehension looks like this:
 
 &lt;img src="../lec_figs/int-py-list-comprehension.png" width="66%" style="display: block; margin: auto;" /&gt;
@@ -931,9 +972,21 @@ for key, value in cities_to_temps.items():
 
 **Q**. Write a dictionary that maps four cities you know into their respective countries and print the results using the key-value iteration with for-loop.
 
+
+**Q**. Are the entries in dictionaries mutable or immutable? To help you answer this, a simple dictionary can be defined as
+
+
+```python
+my_dict = {"a": 1, "b": 2}
+```
+
+and the values are accessed by `dictionary[key]`.
+
+
 ]
 
 ]
+
 
 
 ---
@@ -952,23 +1005,23 @@ fruit_dict = {
     "Jazz": "Apple",
     "Owari": "Satsuma",
     "Seto": "Satsuma",
-    "Pink Lady": "Apple",
-}
+    "Pink Lady": "Apple", }
+    
+# Add an entry
+fruit_dict.update(
+        {"Cox": "Apple"})
 ```
 ]
 
 .pull-right[
 
 ```python
-# Add an entry
-fruit_dict.update(
-        {"Cox": "Apple"})
-
 variety_list = ["Jazz", "Jazz", 
                 "Seto", "Cox" ]
 
 fruit_list = [ fruit_dict[x] 
-               for x in variety_list ]
+               for x in 
+                  variety_list ]
 ```
 ]
 
@@ -1066,7 +1119,7 @@ for card, contents in accusation.items():
 - Dictionaries also have comprehensions.
   - The simplest form of dictionary comprehension looks like this:
 
-
+&lt;img src="../lec_figs/int-py-dict-comprehension.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ]
 
