@@ -1148,14 +1148,12 @@ df.iloc[ [0, 99, 999] ]
 ### <p style="color:#00449E">  Mix It Up </p>
 
 - We can use `.loc[]` and `.iloc[]` to obtain rows, columns, or both.
-
-
 -  The general syntax for `.loc[]` and `.iloc[]` uses square brackets with a comma.
   - `df.loc[ [rows], [columns] ]`
   - `df.iloc[ [rows], [columns] ]`
   
   
-- If we want to use these techniques to just subset columns, we must use Python’s slicing methods.
+- To just subset columns, we can use the slicing methods.
   -  If we are subsetting columns, we are getting all the rows for the specified column.
   -  So, we need a method to capture all the rows.
   -  If we have just a colon (`:`) when using slicing methods, it "slices" all the values in that axis.
@@ -1165,11 +1163,98 @@ df.iloc[ [0, 99, 999] ]
 # Look at Columns, Rows, and Cells
 ### <p style="color:#00449E">  Selecting Columns </p>
 
--  We can write `df.loc[:, [columns]]` to subset the column(s).
+-  We can write `df.loc[:, [columns]]` or `df.iloc[:, [columns]]` to subset the column(s).
 
 ```{python}
 # subset columns with loc
-subset = df.loc[:, ['year', 'pop']]
+subset_1 = df.loc[:, ['year', 'pop']]
+subset_1
 
+# subset columns with iloc
+# iloc will allow us to use integers -1 to select the last column
+subset_2 = df.iloc[:, [2, 4, -1]]
+subset_2
+
+# do the followings work?
+subset = df.loc[:, [2, 4, -1]] 
+subset = df.iloc[:, ['year', 'pop']]
+```
+
+
+---
+# Look at Columns, Rows, and Cells
+### <p style="color:#00449E">   Subsetting with `range()` </p>
+
+- We can use the built-in `range()` function to create a range of integer values. 
+  - By default, `range(start, stop)` creates all integer values between the beginning and the end (inclusive left, exclusive right).
+  - FYI, we can also pass in a 3rd parameter into `range(start, stop, step)`, `step`, that allows us to change how to increment between the start and stop values (defaults to `step=1`).
+
+
+```{python}
+# create a range of integers from 0 to 4 inclusive
+small_range = list( range(5) )   # equivalent to range(0, 5)
+small_range
+# subset the dataframe with the range
+subset = df.iloc[:, small_range]
+subset
+```
+
+
+
+
+---
+# Look at Columns, Rows, and Cells
+### <p style="color:#00449E">   Subsetting with `range()` </p>
+
+- Let's consider one more example with `range()`:
+
+```{python}
+#  create a range from 3 to 5 inclusive
+small_range = list( range(3, 6) )
+
+subset = df.iloc[:, small_range]
+subset
+```
+
+
+- **Q**. What happens when you specify a `range()` that’s beyond the number of columns you have?
+
+
+
+---
+# Look at Columns, Rows, and Cells
+### <p style="color:#00449E">   Subsetting with Slicing `:` </p>
+
+- Unlike the `range()` function, the slicing method separates the values with the colon within the square bracket, `[start : end : step ]`.
+
+- Let's see the columns of the DataFrame:
+```{python}
+df.columns
+```
+
+- See how `range()` and `:` are used to slice the first 3 columns.
+```{python}
+small_range = list( range(3) )
+subset_1 = df.iloc[ : , small_range ]
+
+subset_2 = df.iloc[ : , :3 ]
+```
+
+
+
+---
+# Look at Columns, Rows, and Cells
+### <p style="color:#00449E">   Subsetting with Slicing `:` </p>
+
+**Q**. Let's slice the columns 3 to 5 inclusive using (1) the `range()` function and (2) the slicing method.
+
+
+**Q**. What happens if we use the slicing method with 2 colons, but leave a value out? For example:
+```{python}
+ df.iloc[: , 0 : 6 :   ]
+ df.iloc[: , 0 :   : 2 ]
+ df.iloc[: ,   : 6 : 2 ]
+ df.iloc[: ,   :   : 2 ]
+ df.iloc[: ,   :   :   ]
 ```
 
