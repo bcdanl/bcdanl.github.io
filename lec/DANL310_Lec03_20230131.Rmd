@@ -328,47 +328,25 @@ output:
 - Below the YAML, we provide the document body:
 
 .pull-left[
-````{verbatim}
+
+```{verbatim, echo = T, eval = F}
 # Title
 
 ## Section X
 
 This is my introduction.
 
-```{r chunk-x}
+```{r chunk-x}  # We can name the chunk.
 x <- 1
 print(x)
 ```
 
-````
-]
-.pull-left[
-````{verbatim}
-This is another section.
-
-```{r chunk-y}
-y <- 2
-print(y)
-```
-````l-left[
-
-```{verbatim, echo = T, eval = F}
----
-title: "Habits"
-author: YOUR_NAME
-date: January 26, 2023
-output:
-  html_document:
-    toc: true
-    toc_depth: 2
----
-      
 ```
 
 ]
 .pull-right[
 
-```{verbatim, echo = T, eval = F}
+````{verbatim, echo = T, eval = F}
       
 # Section 1
 Wake up
@@ -379,7 +357,7 @@ Sleep again
 
 # Section 2
 Wake up
-```
+````
 
 ]
 
@@ -441,7 +419,6 @@ output:
 ### <p style="color:#00449E"> Section Numbering </p>
 
 - We can add section numbering to headers using the `number_sections` option.
-
   - We may also use `{.unnumbered}` to unnumber sections.
 ```{verbatim, echo = T, eval = F}
 ---
@@ -522,7 +499,7 @@ output:
 ---
 ```
 
-- Choose the values for `theme` and `highlight` for your website.
+- Choose the values for `theme` and `highlight` in the `style.css` file for your website .
 
 ---
 # Getting Started with R Markdown and HTML
@@ -632,10 +609,10 @@ output:
 
 ````{verbatim}
 
-```{r, fig.width=5}
+```{r}
 knitr::include_graphics("img/geneseo-logo-vertical.png")
 ```
-```
+````
 - pretty flexible
 - a little bulky
 
@@ -667,7 +644,7 @@ output:
 ```{r}
 ggplot2::mpg
 ```
-```
+````
 
 ]
 
@@ -696,7 +673,7 @@ ggplot2::mpg
 ggplot2::mpg
 ```
 
-```
+````
 ]
 
 
@@ -728,6 +705,7 @@ output:
 
 - We can use `Sys.Date()` or `Sys.time()` to the date field in YAML to set the date today.
 
+
 - We can also change the time format:
   - %B %Y: November 2023
   - %d/%m/%y: 02/01/23
@@ -750,3 +728,10 @@ output:
   html_document
 ```
 ]
+
+
+
+
+---
+# Getting Started with R Markdown and HTML
+### <p style="color:#00449E"> Update the Date Automatically </p>

@@ -254,8 +254,8 @@ print(x.split(' '))
 ### &lt;p style="color:#00449E"&gt; Interactive Map &lt;/p&gt;
 - `leaflet` is one of the most popular open-source JavaScript libraries for interactive maps.
 
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-08a4b534b2f1248e8214" style="width:95%;height:50%;"></div>
-<script type="application/json" data-for="htmlwidget-08a4b534b2f1248e8214">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[42.7953,-77.821,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPopups","args":[42.7953,-77.821,"Here is the <b>School of Business<\/b>, SUNY Geneseo",null,null,{"maxWidth":300,"minWidth":50,"autoPan":true,"keepInView":false,"closeButton":true,"className":""}]}],"setView":[[42.7953,-77.821],18,[]],"limits":{"lat":[42.7953,42.7953],"lng":[-77.821,-77.821]}},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-3873c70791a790b853c5" style="width:95%;height:50%;"></div>
+<script type="application/json" data-for="htmlwidget-3873c70791a790b853c5">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[42.7953,-77.821,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPopups","args":[42.7953,-77.821,"Here is the <b>School of Business<\/b>, SUNY Geneseo",null,null,{"maxWidth":300,"minWidth":50,"autoPan":true,"keepInView":false,"closeButton":true,"className":""}]}],"setView":[[42.7953,-77.821],18,[]],"limits":{"lat":[42.7953,42.7953],"lng":[-77.821,-77.821]}},"evals":[],"jsHooks":[]}</script>
 
 
 
@@ -304,6 +304,7 @@ output:
 
 .pull-left[
 
+
 ````default
 # Title
 
@@ -311,36 +312,11 @@ output:
 
 This is my introduction.
 
-```{r chunk-x}
+```{r chunk-x}  # We can name the chunk.
 x &lt;- 1
 print(x)
-```
-
 ````
-]
-.pull-left[
 
-````default
-This is another section.
-
-```{r chunk-y}
-y &lt;- 2
-print(y)
-````
-````l-left[
-
-
-```default
----
-title: "Habits"
-author: YOUR_NAME
-date: January 26, 2023
-output:
-  html_document:
-    toc: true
-    toc_depth: 2
----
-      
 ```
 
 ]
@@ -422,7 +398,6 @@ output:
 ### &lt;p style="color:#00449E"&gt; Section Numbering &lt;/p&gt;
 
 - We can add section numbering to headers using the `number_sections` option.
-
   - We may also use `{.unnumbered}` to unnumber sections.
 
 ```default
@@ -507,7 +482,7 @@ output:
 ---
 ```
 
-- Choose the values for `theme` and `highlight` for your website.
+- Choose the values for `theme` and `highlight` in the `style.css` file for your website .
 
 ---
 # Getting Started with R Markdown and HTML
@@ -625,10 +600,10 @@ output:
 
 ````default
 
-```{r, fig.width=5}
+```{r}
 knitr::include_graphics("img/geneseo-logo-vertical.png")
-````
 ```
+````
 - pretty flexible
 - a little bulky
 
@@ -660,8 +635,8 @@ output:
   
 ```{r}
 ggplot2::mpg
-````
 ```
+````
 
 ]
 
@@ -689,9 +664,9 @@ ggplot2::mpg
 
 ```{r cols.print=3, rows.print=3}
 ggplot2::mpg
-````
-
 ```
+
+````
 ]
 
 
@@ -724,6 +699,7 @@ output:
 
 - We can use `Sys.Date()` or `Sys.time()` to the date field in YAML to set the date today.
 
+
 - We can also change the time format:
   - %B %Y: November 2023
   - %d/%m/%y: 02/01/23
@@ -748,6 +724,13 @@ output:
   html_document
 ```
 ]
+
+
+
+
+---
+# Getting Started with R Markdown and HTML
+### &lt;p style="color:#00449E"&gt; Update the Date Automatically &lt;/p&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
