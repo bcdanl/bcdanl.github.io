@@ -364,14 +364,66 @@ ggsave("lifexp_vs_gdp_gradient.pdf",
 # Show the right number
 ### <p style="color:#00449E"> Grouped data and the `group` aesthetic </p>
 
+- Let's get a line plot that draws the trajectory of life expectancy over time for each country in the `gapminder` data.frame. 
 
 ```{r}
 p <- ggplot(data = gapminder,
-            mapping = aes(x = year,
-                          y = gdpPercap))
+            mapping = aes( x = year,
+                           y = gdpPercap ) )
 
 p + geom_line() 
-p + geom_line(aes(group=country)) 
+```
+
+- What happened?
+
+- `geom_line()` joins up all the lines for each particular year in the order they appear in the dataset.
+
+---
+# Show the right number
+### <p style="color:#00449E"> Grouped data and the `group` aesthetic </p>
+
+
+- Without group related parameters, `ggplot()` does not know that the yearly observations in the data are grouped by country.
+
+```{r}
+p <- ggplot(data = gapminder,
+            mapping = aes( x = year,
+                           y = gdpPercap ) )
+
+p + geom_line( aes( group = country ) ) 
+```
+
+
+
+---
+# Show the right number
+### <p style="color:#00449E"> Grouped data and the `group` aesthetic </p>
+
+
+- The `group` aesthetic is usually only needed when the grouping information we need to tell `ggplot()` about is not built-in to the variables being mapped.
+
+  - How about `color` aesthetic, instead of `group`?
+
+```{r}
+p <- ggplot(data = gapminder,
+            mapping = aes( x = year,
+                           y = gdpPercap ) )
+
+p + geom_line( aes( color = country ) ) 
+```
+
+---
+# Show the right number
+### <p style="color:#00449E"> Facet to make small multiples </p>
+- Making a “small multiple” plot by faceting data based on a caterigorical variable allows a lot of information to be presented compactly, and in a consistently comparable way. 
+  - `facet_wrap( VAR1 ~ . )` or `facet_wrap( . ~ VAR1 )`
+  - `facet_grid( VAR1 ~ . )`: row-wise split
+  - `facet_grid( . ~ VAR1 )`: colum-wise split
+  - `facet_grid( VAR1 ~ VAR2 )` 
+
+```{r}
+p + geom_line( aes( group = country ) ) + 
+  facet_wrap(~ continent)
 ```
 
 
@@ -379,15 +431,14 @@ p + geom_line(aes(group=country))
 # Show the right number
 ### <p style="color:#00449E"> Facet to make small multiples </p>
 
-```{r}
-p + geom_line(aes(group = country)) + facet_wrap(~ continent)
-```
-
+- Let's have all the facetted plots in a single row:
 ```{r}
 p + geom_line(color="gray70", aes(group = country)) +
     geom_smooth(size = 1.1, method = "loess", se = FALSE) +
-    scale_y_log10(labels=scales::dollar) +
-    facet_wrap(~ continent, ncol = 5) +
+    facet_[?] +
+    scale_y_log10(labels=scales::dollar) + 
+    theme(axis.text.x = element_text(angle = 45),
+          axis.title.x = element_text(margin = margin(t = 25))) +
     labs(x = "Year", y = "GDP per capita",
          title = "GDP per capita on Five Continents")
 ```
@@ -395,17 +446,281 @@ p + geom_line(color="gray70", aes(group = country)) +
 
 ---
 # Show the right number
+### <p style="color:#00449E"> The 2016 General Social Survey data </p>
+
+- The `socviz` package includes the `gss_sm` data frame.
+  - `gss_sm` is a dataset containing an extract from the 2016 General Social Survey.
+
+```{r}
+install.packages("socviz")
+library(socviz)
+?gss_sm
+glimpse(gss_sm)
+skimr::skim(gss_sm)
+gss_sm <- gss_sm
+```
+
+
+---
+# Show the right number
 ### <p style="color:#00449E"> Facet to make small multiples </p>
 
+- Describe the relationship between the age of the respondent and the number of children they have using a scatterplot and a fitted curve.
 
-```{r, eval=FALSE, echo=TRUE, fig.align='center', fig.height=4, message=FALSE, warning=FALSE}
-p + geom_line(color="gray70", aes(group = country)) +
-    geom_smooth(size = 1.1, method = "loess", se = FALSE) +
-    scale_y_log10(labels=scales::dollar) +
-    facet_wrap(~ continent, ncol = 5) +
-    labs(x = "Year", y = "GDP per capita",
-         title = "GDP per capita on Five Continents") + 
-    theme(axis.text.x = element_text(angle = 45),
-          axis.title.x = element_text(margin = margin(t = 25)))
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes( x = age, y = childs ))
+
+p + [?](alpha = 0.2) +
+    [?]() 
 ```
+
+
+---
+# Show the right number
+### <p style="color:#00449E"> Facet to make small multiples </p>
+
+- Describe how the relationship between the age of the respondent and the number of children they have varies by `sex` and `race`.
+
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes( x = age, y = childs ))
+
+p + geom_point(alpha = 0.2) +
+    geom_smooth() +
+    [?]
+```
+
+
+
+---
+# Show the right number
+### <p style="color:#00449E"> Facet to make small multiples </p>
+
+- The `facet_grid()` function is best used when you cross-classify some data by two categorical variables.
+
+  - e.g., the relationship between the age and the number of children by sex and race
+
+
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes( x = age, y = childs ))
+
+p + geom_point(alpha = 0.2) +
+    geom_smooth() +
+    facet_grid(sex ~ race + degree)
+```
+
+
+---
+# Show the right number
+### <p style="color:#00449E"> Geoms can transform data </p>
+
+- Let's plot a bar char:
+
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion))
+p + geom_bar()
+```
+
+
+---
+# Show the right number
+### <p style="color:#00449E"> Geoms can transform data </p>
+
+
+- Where does count come from? 
+
+  - Bar charts, histograms, and frequency polygons bin your data and then plot bin counts, the number of points that fall in each bin.
+
+  - Smoothers fit a model to your data and then plot predictions from the model.
+
+  - Boxplots compute a robust summary of the distribution and then display a specially formatted box.
+
+
+
+
+---
+# Show the right number
+### <p style="color:#00449E"> Geoms can transform data </p>
+
+
+- If we want a chart of relative frequencies rather than counts, we will need to get the `prop` statistic instead.
+
+- Our call to statistic from the `aes()` function generically looks like this: `<mapping> = <..statistic..>`. 
+
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion))
+p + geom_bar(mapping = aes(y = ..prop..))
+```
+
+- What happened?
+
+
+
+---
+# Show the right number
+### <p style="color:#00449E"> Geoms can transform data </p>
+
+- We need to tell ggplot to ignore the x-categories when calculating denominator of the proportion, and use the total number observations instead.
+
+  - To do so we specify `group = 1` inside the `aes()` call. 
+
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion))
+p + geom_bar(mapping = aes(y = ..prop.., group = 1)) 
+```
+
+
+---
+# Show the right number
+### <p style="color:#00449E"> Geoms can transform data </p>
+
+- Let’s look at another question from the survey. The `gss_sm` data contains a religion variable derived from a question asking:
+
+  - “What is your religious preference? Is it Protestant, Catholic, Jewish, some other religion, or no religion?”
+
+```{r}
+table(gss_sm$religion)
+```
+
+---
+# Show the right number
+### <p style="color:#00449E"> Geoms can transform data </p>
+
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes(x = religion, color = religion))
+p + geom_bar()
+```
+
+- If we map religion to `color`, only the border lines of the bars will be assigned colors, and the insides will remain gray.
+
+
+---
+# Show the right number
+### <p style="color:#00449E"> Geoms can transform data </p>
+
+-  If the gray bars look boring and we want to fill them with color instead, we can map the religion variable to `fill` in addition to mapping it to `x`.
+
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes(x = religion, fill = religion))
+p + geom_bar() + guides( fill = "none" )
+```
+
+-  If we set `guides(fill = "none")`, the legend about the `fill` mapping is removed.
+
+
+---
+# Show the right number
+### <p style="color:#00449E"> Frequency plots the slightly awkward way </p>
+
+- A more appropriate use of the `fill` aesthetic with `geom_bar()` is to cross-classify two categorical variables. 
+
+  - The default output of such `geom_bar()` is a stacked bar chart, with counts on the y-axis.
+
+
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion, fill = religion))
+p + geom_bar(position = "fill")
+```
+- An alternative choice is to set the position argument to `"fill"`.
+  - It is to compare proportions across groups.
+
+
+
+---
+# Show the right number
+### <p style="color:#00449E"> Frequency plots the slightly awkward way </p>
+
+- We can use `position = "dodge"` to make the bars within each region of the country appear side by side.
+
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion, fill = religion))
+p + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop..))
+
+```
+
+- What happened?
+
+---
+# Show the right number
+### <p style="color:#00449E"> Frequency plots the slightly awkward way </p>
+
+- In this case we should consider grouping variable, `religion`, so we map `religion` to the `group` aesthetic.
+
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion, fill = religion))
+p + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop.., group = religion))
+```
+
+
+---
+# Show the right number
+### <p style="color:#00449E"> Frequency plots the slightly awkward way </p>
+
+- How can we have a proportional bar chart such that the sum of all bars in each bigregion is 1?
+
+  - There are various ways to do so, and faceting is one of them.
+  - The proportions are calculated within each panel, which is the breakdown we wanted.
+
+
+```{r}
+p <- ggplot(data = gss_sm,
+            mapping = aes(x = religion))
+p + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop.., group = bigregion)) +
+    facet_wrap(~ bigregion, ncol = 1)
+```
+
+
+
+---
+# Show the right number
+### <p style="color:#00449E"> Histograms and density plots </p>
+
+- ggplot comes with a dataset, `midwest`, containing information on counties in several midwestern states of the USA. 
+
+```{r}
+?midwest
+glimpse(midwest)
+skim(midwest)
+view(midwest)
+```
+
+---
+# Show the right number
+### <p style="color:#00449E"> Histograms and density plots </p>
+
+- By default, the `geom_histogram()` function will choose a bin size for us based on a rule of thumb.
+
+```{r}
+p <- ggplot(data = midwest,
+            mapping = aes(x = area))
+p + geom_histogram()
+```
+
+
+
+---
+# Show the right number
+### <p style="color:#00449E"> Histograms and density plots </p>
+
+- When drawing histograms it is worth experimenting with `bins` and also optionally the `origin` of the x-axis. 
+```{r}
+p <- ggplot(data = midwest,
+            mapping = aes(x = area))
+p + geom_histogram(bins = 10)
+```
+
+
 
