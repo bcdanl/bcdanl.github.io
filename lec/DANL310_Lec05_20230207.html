@@ -720,12 +720,13 @@ p + geom_histogram()
 ```
 
 
+- We can also try `geom_freqpoly()` instead.
 
 ---
 # Show the right number
 ### &lt;p style="color:#00449E"&gt; Histograms and density plots &lt;/p&gt;
 
-- When drawing histograms it is worth experimenting with `bins` and also optionally the `origin` of the x-axis. 
+- When drawing histograms it is worth experimenting with `bins` and also optionally the origin of the x-axis. 
 
 ```r
 p &lt;- ggplot(data = midwest,
@@ -733,8 +734,163 @@ p &lt;- ggplot(data = midwest,
 p + geom_histogram(bins = 10)
 ```
 
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Histograms and density plots &lt;/p&gt;
 
 
+- While histograms summarize single variables, it’s also possible to use several at once to compare distributions. 
+  - We can facet histograms by some variable of interest.
+  - We can also compare them in the same plot using the fill mapping.
+
+
+```r
+oh_wi &lt;- c("OH", "WI")
+
+p &lt;- ggplot(data = filter(midwest, 
+                          state %in% oh_wi),
+            mapping = aes(x = percollege, fill = state) )
+p + geom_histogram(alpha = 0.4, bins = 20)
+```
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Histograms and density plots &lt;/p&gt;
+
+- When working with a continuous variable, an alternative to binning the data and making a histogram is to calculate a kernel density estimate of the underlying distribution with `geom_density()`.
+
+
+```r
+p &lt;- ggplot(data = midwest,
+            mapping = aes(x = area))
+p + geom_density()
+```
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Histograms and density plots &lt;/p&gt;
+
+- Here we can use `color` (for the lines) and `fill` (for the body of the density curve) for aesthetic mappings. 
+
+
+```r
+p &lt;- ggplot(data = midwest,
+            mapping = aes(x = area, fill = state, color = state))
+p + geom_density(alpha = 0.3)
+```
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Histograms and density plots &lt;/p&gt;
+
+- For `geom_density()`, the `stat_density()` function can return its default `after_stat(density)` statistic, or `after_stat(scaled)`, which will give a proportional density estimate.
+
+
+```r
+p &lt;- ggplot(data = filter(midwest, state %in% oh_wi),
+            mapping = aes(x = area, fill = state, color = state))
+p + geom_density( alpha = 0.3, mapping =  aes(y = after_stat(scaled) )  )
+```
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Avoid transformations when necessary &lt;/p&gt;
+
+- When we call `geom_bar()`, it does its calculations on the fly using `stat_count()` behind the scenes to produce the **counts** or **proportions** it displays. 
+
+
+
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Avoid transformations when necessary &lt;/p&gt;
+
+- But often, our data is in effect already a summary table. 
+
+- Let's consider the `socviz::titanic` data.frame.
+
+```r
+socviz::titanic
+```
+
+- Should we avoid transforming data if we want to describe the relationship between `fate` and `percent`?
+
+
+```r
+p &lt;- ggplot(data = titanic,
+            mapping = aes(x = fate, y = percent, fill = sex))
+p + geom_bar(position = "dodge", stat = "identity") +
+  theme(legend.position = "top")
+```
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Avoid transformations when necessary &lt;/p&gt;
+
+- `geom_col()` has exactly the same as `geom_bar()` except that it assumes that `stat = "identity"`. 
+
+- Let's consider `socviz::oecd_sum` data.frame.
+  - It contains information on average life expectancy at birth within the United States, and across other OECD countries.
+
+
+```r
+oecd_sum
+```
+
+- Let's draw the bar chart that describe the `diff`erence over time using `color = hi_lo`.
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Avoid transformations when necessary &lt;/p&gt;
+
+
+&lt;img src="DANL310_Lec05_20230207_files/figure-html/unnamed-chunk-47-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Bar plots as an alternative to line plots &lt;/p&gt;
+-  Just as `stat = "identity"` means “don’t do any summary calculations”, `position = "identity"` means “just plot the values as given”. 
+  - This allows us to do things like, for example, plot a flow of positive and negative values in a bar chart. 
+  - This sort of graph is an alternative to a line plot and is often seen in public policy settings where changes relative to some threshold level or baseline are of interest.
+  
+  
+  
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Class Exercises &lt;/p&gt;
+
+- Revisit the `gapminder` plots and experiment with different ways to facet the data. 
+  - Try plotting population and per capita GDP while faceting on year, or even on country. 
+  - Experiment changing the height and width of the figure.
+  
+  
+- Investigate the difference between a formula written as `facet_grid(sex ~ race)` versus one written as `facet_grid(~ sex + race)`.
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Class Exercises &lt;/p&gt;
+
+- The `geom_bin2d()` function takes two mappings, `x` and `y`. 
+  - It divides your plot into a grid and colors the bins by the count of observations in them. 
+  - Try using it on the `gapminder` data to plot life expectancy versus per capita GDP. 
+  - Like a histogram, we can vary the number or width of the bins for both `x` or `y`, (e.g., `bins = c(20, 50)`). 
+  - If we specify `bindwith` instead, we will need to pick values that are on the same scale as the variable we are mapping.
+  
+  
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
