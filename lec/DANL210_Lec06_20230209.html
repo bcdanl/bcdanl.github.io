@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DANL 210 Lecture 6</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Byeong-Hak Choe" />
+    <script src="libs/header-attrs-2.20/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <script src="libs/peerjs-1.3.1/peerjs.min.js"></script>
+    <script src="libs/tiny.toast-1.0.0/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast-0.2.6/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast-0.2.6/broadcast.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
+    <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, left, bottom
+
+# DANL 210 Lecture 6
+----
+## **DANL 210: Data Preparation and Management**
+### Byeong-Hak Choe
+### Febraury 9, 2023
+
+
+
+---
+# Coding Workflow
+### &lt;p style="color:#00449E"&gt; Spyder Keyboard Shortcuts &lt;/p&gt;
+
+- Check your keyboard shortcuts:
+  - Mac: python <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg> Preference <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg> Keyboard shortcuts <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg> Search "run"
+  - Windows: Tools <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg> Preference <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg> Keyboard shortcuts <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg> Search "run"
+  
+  
+- Set your own keyboard shortcuts for "run selection" and "run cell".
+
+
+- As a Mac user, my Spyder shortcuts are
+  - **cmd + return** for "run selection"
+  - **ctrl + return** for "run cell"
+
+
+- A cell can be created by `# %%`.
+
+---
+# Coding Workflow
+### &lt;p style="color:#00449E"&gt; Spyder Keyboard Shortcuts &lt;/p&gt;
+
+
+.pull-left[
+**Mac**
+
+- **command + N** opens a new Python script.
+- **command + ** <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg> goes to the next cell
+- **command + ** <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/></svg> goes to the previous cell
+- **command + 1** is the shortcut for `#`.
+- **command + 4** is the shortcut for a cell title.
+- **command + Z** undoes the previous action.
+]
+
+.pull-right[
+**Windows**
+
+- **Ctrl + N** opens a new Python script.
+- **Ctrl + ** <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg> goes to the next cell
+- **Ctrl + ** <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/></svg> goes to the previous cell
+- **Ctrl + 1** is the shortcut for `#`.
+- **Ctrl + 4** is the shortcut for a cell title.
+- **Ctrl + Z** undoes the previous action.
+]
+
+
+---
+class: inverse, center, middle
+
+# Pandas Data Structures Basics
+
+---
+
+# Pandas Data Structures Basics
+### &lt;p style="color:#00449E"&gt;  Create Your Own Data &lt;/p&gt;
+
+- Knowing how to create `Series` or `DataFrames` without loading data from a file is a useful skill.
+
+  
+- `Series` is a one-dimensional container.
+- A `Series` is very similar to a Python `list`, except that each element must be the same `dtype` (`object`, `int64`, `float64`, or `datetime64`). 
+  - This is the same behavior as the NumPy array (`ndarray`).
+  - If a column contains the number 1 and the sequence of letters "pizza", the entire `dtype` of the column will be a `string` (which is `object`).
+
+
+- A `DataFrame` can be thought of as a dictionary of `Series` objects.
+  - Each key is the column name and the value is the `Series`.
+  
+  
+---
+# Create Your Own Data 
+### &lt;p style="color:#00449E"&gt;   NumPy Array &lt;/p&gt;
+- Python library `NumPy` introduces an N-dimensional array object, or `ndarray`.
+  - Pandas implicitly uses `ndarray`, so here let's see what `ndarray` is.
+  - The easiest way to create an array is to use the `.array()` method.
+  
+.pull-left[
+
+```python
+import pandas as np
+data1 = [6, 7.5, 8, 0, 1]
+arr1 = np.array(data1) 
+arr1
+arr2.ndim
+arr2.shape
+```
+
+]  
+.pull-right[
+
+```python
+data2 = [ [1, 2, 3, 4], 
+          [5, 6, 7, '8'] ]
+arr2 = np.array(data2)
+arr2
+arr2.ndim
+arr2.shape
+```
+
+]  
+  
+---
+# Create Your Own Data 
+### &lt;p style="color:#00449E"&gt;   Create a `Series` &lt;/p&gt;
+- A `Series` is a data structure in pandas.
+  - Containing a sequence of `values` and a corresponding labels, called the `index`,
+  - A `Series` displays the `index` on the left and the `values` on the right,
+  - The default `index` consists of the integers 0 through N-1.
+  
+  
+- `pd.Series()` creates a one-dimensional container including `values` and an `index`.
+
+```python
+import pandas as pd
+s = pd.Series( ['banana', 42] )
+```
+
+
+---
+# Create Your Own Data 
+### &lt;p style="color:#00449E"&gt;   Create a `Series` &lt;/p&gt;
+
+-  The "row number" is shown on the left of the `Series`. 
+  - This is actually the `index` for the `Series`.
+  -  It is similar to the row name and row index for `DataFrame`.
+  
+
+```python
+# manually assign index values to a series
+# by passing a Python list
+s = pd.Series(
+  data =["Wes McKinney", "Creator of Pandas"],
+  index =["Person", "Who"],
+)
+
+s
+```
+
+
+
+---
+# Create Your Own Data 
+### &lt;p style="color:#00449E"&gt;   Create a `Series` &lt;/p&gt;
+
+- Pandas Series can also be created from `ndarrys`, `tuples`, and `dictionaries`.
+
+- **Q**. Use `dictdata` to create a Pandas `Series`.
+
+```python
+dictdata = {
+    "Name": ["William Nordhaus", "Ronald Coase"],
+    "Occupation": ["Economist", "Economist"],
+    "Born": ["1941-05-31", "1910-12-29"],
+    "Died": ["", "2013-09-02"],
+    "Age": [81, 102],
+  }
+```
+
+
+
+---
+# Create Your Own Data 
+### &lt;p style="color:#00449E"&gt;   Create a `DataFrame` &lt;/p&gt;
+
+- A `DataFrame` can be thought of as a dictionary of `Series` objects.
+  - `Dictionaries` are one of the most common ways of creating a `DataFrame`.
+  - The `key` represents the column name, and the `values` are the contents of the column.
+  
+
+```python
+economists = pd.DataFrame(
+ {  "Name": ["William Nordhaus", "Ronald Coase"],
+    "Occupation": ["Economist", "Economist"],
+    "Born": ["1941-05-31", "1910-12-29"],
+    "Died": ["", "2013-09-02"],
+    "Age": [81, 102]  } )
+```
+  
+
+
+---
+# The `Series`
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+- Let’s re-create our example DataFrame.
+
+```python
+# create our example dataframe with a row index label
+economists = pd.DataFrame(
+  data = {
+    "Occupation": ["Economist", "Economist"],
+    "Born": ["1941-05-31", "1910-12-29"],
+    "Died": ["", "2013-09-02"],
+    "Age": [81, 102] },
+  index =  ["William Nordhaus", "Ronald Coase"],
+  columns =["Occupation", "Born", "Died", "Age"] 
+)
+```
+
+- **Q**. Select an economist from `economists` by the row index label to get a `Series`.
+
+
+---
+# The `Series`
+### &lt;p style="color:#00449E"&gt; `Series` Attributes &lt;/p&gt;
+
+- When a series is printed (i.e., the string representation), the `index` is printed as the first “column”, and the `values` are printed as the second “column”.
+
+-  There are many attributes and methods associated with a `Series` object.
+
+
+```python
+first_row = economists.loc['William Nordhaus']
+type(first_row)
+first_row.index
+first_row.values
+type(first_row.values)
+first_row.shape
+first_row.size
+first_row.dtypes
+```
+  
+
+---
+# The `Series`
+### &lt;p style="color:#00449E"&gt; Attributes vs. Methods &lt;/p&gt;
+
+- Attributes can be thought of as features of an object (in this example, our object is a Series). 
+
+- Methods can be thought of as some calculation or operation that is performed on an object. 
+  - Methods or functions have round parentheses (`()`), while attributes do not.
+
+- The subsetting syntax `.loc[]` and `.iloc[]` consists of all attributes.    
+
+
+
+
+---
+# The `Series`
+### &lt;p style="color:#00449E"&gt; `Series` Methods &lt;/p&gt;
+
+- Let’s first get a series of the `Age` column from our `economists` DataFrame.
+
+
+```python
+ages = economists['Age']
+```
+
+-  When we have a vector of numbers, there are common calculations we can perform.
+
+```python
+ages.mean()
+ages.min()
+ages.max()
+ages.std()
+```
+- `.mean()`, `.min()`, `.max()`, and `.std()` are also methods in `np.ndarray`.
+
+
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; Working Directory &lt;/p&gt;
+
+- In Spyder, we can set the working directory.
+  - Windows: Tools &gt; Preferences &gt; Working directory &gt; The following directory
+  - Mac: python &gt; Preferences &gt; Working directory &gt; The following directory
+  
+
+- Download the CSV file, `scientists.csv` from the Files section in our Canvas.
+  - Create the `data` folder in your working directory.
+  - Then move the `scientists.csv` file to the `data` folder in your working directory.
+
+
+---
+# The `Series`
+### &lt;p style="color:#00449E"&gt; `Series` Methods &lt;/p&gt;
+
+- Let’s load the CSV file, `scientists.csv`.
+
+
+```python
+# If we set the working directory, we do not need to use the absolute path
+scientists = pd.read_csv('data/scientists.csv')  
+ages = scientists['Age']
+```
+
+-  The `.describe()` method calculates multiple descriptive statistics for numeric variables.
+
+```python
+scientists.describe()
+ages.describe()
+```
+
+
+---
+# Descriptive Statistics
+### &lt;p style="color:#00449E"&gt; `skimpy` &lt;/p&gt;
+
+- `skimpy` is a light weight tool that provides **summary statistics** about variables in data frames within the console.
+
+
+- Install the `skimpy` package. Then restart Spyder or its Console.
+
+```python
+pip install skimpy
+```
+
+- We can think of `skim(df)` as a super-charged version of `df.describe()`.
+
+
+```python
+from skimpy import skim
+skim(scientists)
+```
+
+
+---
+# The `Series`
+### &lt;p style="color:#00449E"&gt; Boolean Subsetting on `Series` &lt;/p&gt;
+
+- We can not only subset values using labels and indices, but also supply a vector of **boolean values**.
+
+- Boolean subsetting of numeric Series works as follows:
+  - `Series[ Series &gt; VALUE  ]`
+  - `Series[ Series == VALUE  ]`
+  - `Series[ Series &lt; VALUE  ]`
+
+- **Q**. What if we wanted to subset our ages by identifying those above the mean?
+
+
+---
+# The `Series`
+### &lt;p style="color:#00449E"&gt; Boolean Subsetting on `Series` &lt;/p&gt;
+- Let’s look at what `ages &gt; ages.mean()` returns.
+
+```python
+ages &gt; ages.mean()
+
+cond = ages &gt; ages.mean()
+ages[cond]
+```
+
+
+
+
+
+---
+# The `Series`
+### &lt;p style="color:#00449E"&gt;  Operations Are Automatically Aligned and Vectorized (Broadcasting) &lt;/p&gt;
+
+-  Many of the methods that work on `Series` (and also `DataFrames`) are “vectorized”, meaning that they work on the entire vector simultaneously.
+
+  - `ages &gt; ages.mean()` returns a vector without any `for` loops.
+
+
+.panelset[
+
+.panel[.panel-name[same length]
+- If we perform an operation between two vectors of the same length, the resulting vector will be an **element-by-element calculation** of the vectors.
+
+```python
+ages + ages
+ages * ages
+```
+]
+
+.panel[.panel-name[w/ scalars]
+- When we perform an operation on a vector using a scalar, the scalar will be recycled across all the elements in the vector.
+
+
+```python
+ages + 100
+ages * 2
+```
+]
+
+.panel[.panel-name[w/ different length]
+- When we are working with vectors of different lengths, the behavior will depend on the `type()` of the vectors.
+  -  With a `Series`, the vectors will perform an operation matched by the index.
+  - With other `types()`, the shapes must match.
+]
+
+.panel[.panel-name[w/ different length (e.g.,)]
+
+```python
+ages + pd.Series( [1, 100] )
+ages + np.array( [1, 100] )
+```
+]
+
+]
+
+
+
+---
+# The `Series`
+### &lt;p style="color:#00449E"&gt;  Operations Are Automatically Aligned and Vectorized (Broadcasting) &lt;/p&gt;
+
+- What’s convenient in Pandas is how data alignment is almost always automatic.   - If possible, things will always align themselves with the index label when actions are performed.
+
+
+- Let's consider `.sort_index()` method:
+  - `Series.sort_index(ascending=False)` sorts Series by index in descending order.
+
+```python
+rev_ages = ages.sort_index(ascending =False) 
+rev_ages
+```
+
+- **Q**. What is `ages + rev_ages`?
+
+
+
+---
+# The `DataFrame`
+### &lt;p style="color:#00449E"&gt; Parts of a `DataFrame`  &lt;/p&gt;
+
+- The `DataFrame` is the most common Pandas object. 
+  - It can be thought of as Python’s way of storing spreadsheet-like data. 
+  - Many of the features of the `Series` data structure carry over into the `DataFrame`.
+
+
+- There are 3 main parts of a Pandas `DataFrame` object: 
+  - (1) `.index`, (2) `.columns`, and (3) `.values`
+  
+
+```python
+scientists.index
+scientists.columns
+scientists.values
+```
+  
+
+
+---
+# The `DataFrame`
+### &lt;p style="color:#00449E"&gt;  Boolean Subsetting on `DataFrames` &lt;/p&gt;
+
+
+- Boolean subsetting of `DataFrames` works like boolean subsetting a `Series`.
+  - `DataFrame[ DataFrame['VARIABLE_NAME'] &gt; VALUE  ]`
+  - `DataFrame[ DataFrame['VARIABLE_NAME'] == VALUE  ]`
+  - `DataFrame[ DataFrame['VARIABLE_NAME'] &lt; VALUE  ]`
+
+
+```python
+# boolean vectors will subset rows
+scientists.loc[ scientists['Age'] &gt; scientists['Age'].mean() ]
+```
+
+
+---
+# The `DataFrame`
+### &lt;p style="color:#00449E"&gt;  Subsetting Multiple Rows and Columns &lt;/p&gt;
+
+&lt;table class=" lightable-paper table table-hover table-condensed" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto; font-family: sans-serif, helvetica, arial; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Type &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; df[val] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Select single column or set of columns &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; df`.`loc[val] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Select single row or set of rows &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; df`.`loc[:, val] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Select single column or set of columns &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; df`.`loc[val1, val2] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Select row and column by label &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; df`.`iloc[where] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Select row or set of rows by integer position &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; df`.`iloc[:, where] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Select column or set of columns by integer position &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; df`.`iloc[w1, w2] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Select row and column by integer position &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+---
+# The `DataFrame`
+### &lt;p style="color:#00449E"&gt;  Operations Are Automatically Aligned and Vectorized (Broadcasting) &lt;/p&gt;
+
+- Pandas supports *broadcasting* because the `Series` and `DataFrame` objects are built on top of the `numpy` library. 
+
+  - Broadcasting describes what happens when performing operations between array-like objects. 
+  
+  - These behaviors depend on the type of object, its length, and any labels associated with the object.
+  
+
+
+---
+# The `DataFrame`
+### &lt;p style="color:#00449E"&gt;  Operations Are Automatically Aligned and Vectorized (Broadcasting) &lt;/p&gt;
+
+
+.panelset[
+
+.panel[.panel-name[w/ scalars]
+- When we perform an action on a dataframe with a scalar, it will try to apply the operation on each cell of the dataframe.
+
+```python
+scientists * 2
+```
+
+
+]
+
+
+
+.panel[.panel-name[w/ Series]
+
+- By default, arithmetic operations between `DataFrames` and `Series` match the index of the `Series` on the `DataFrame`’s columns,
+
+- The operations will be broadcasted along the rows.
+
+```python
+pd.Series([10]) + scientists[['Age']]
+pd.Series([10], index = ['Age']) + scientists[['Age']]
+```
+
+
+]
+
+]
+
+
+
+---
+#  Making Changes to Series and DataFrames
+### &lt;p style="color:#00449E"&gt;  Add Additional Columns &lt;/p&gt;
+
+-  The `type` of the `Born` and `Died` columns is `object`, meaning they are strings or a sequence of characters.
+
+
+```python
+scientists.dtypes
+```
+
+- We can convert the strings to a proper `datetime` type so we can perform common date and time operations.
+
+```python
+# format the 'Born' column as a datetime
+born_datetime = pd.to_datetime( scientists['Born'] )
+
+died_datetime = pd.to_datetime( scientists['Died'] )
+```
+
+- More examples with `datetimes` would be discussed later in March or April.
+
+
+---
+#  Making Changes to Series and DataFrames
+### &lt;p style="color:#00449E"&gt;  Add Additional Columns &lt;/p&gt;
+
+- We can create a new set of columns that contain the `datetime` representations of the object (string) dates. 
+
+```python
+scientists['born_dt'], scientists['died_dt'] = (
+  born_datetime,
+  died_datetime
+)
+
+scientists.head()
+scientists.shape
+scientists.dtypes
+```
+
+
+
+---
+#  Making Changes to Series and DataFrames
+### &lt;p style="color:#00449E"&gt;   Directly Change a Column &lt;/p&gt;
+
+
+.panelset[
+
+.panel[.panel-name[(1)]
+- Let’s look at the original `Age` values.
+
+
+```python
+scientists['Age']
+```
+]
+
+.panel[.panel-name[(2)]
+- Let’s shuffle the values using `.sample()`.
+
+```python
+# the frac=1 tells pandas to randomly select 100% of the values
+# the random_state makes the randomization the same each time
+scientists['Age'].sample(frac=1, random_state = 210)
+```
+]
+
+.panel[.panel-name[(3)]
+- Let’s assign `scientists['Age']` to the shuffled one.
+
+```python
+scientists['Age'] = (
+  scientists['Age']
+  .sample(frac=1, random_state = 210)
+)
+scientists['Age']
+```
+- How is `scientists['Age']`?
+]
+
+.panel[.panel-name[(4)]
+- We tried to randomly shuffle the values, but when we assigned the values back into the dataframe, it reverted back to the original order. 
+
+  - That’s because Pandas will try to automatically join on the `.index` values on many operations, for this example to get around this problem we need to remove that `.index` information. 
+  
+  - One way of doing that, is to assign just the `.values` of the shuffled values that does not have any `.index` value associated with it.
+]
+
+.panel[.panel-name[(5)]
+
+```python
+scientists['Age'] = (
+  scientists['Age']
+  .sample(frac=1, random_state = 210)
+  .values    # remove the index so it doesn't auto align the values
+)
+
+scientists['Age']
+```
+- How is `scientists['Age']` now?
+
+]
+
+]
+
+
+
+---
+#  Making Changes to Series and DataFrames
+### &lt;p style="color:#00449E"&gt;   Directly Change a Column &lt;/p&gt;
+
+- Here is how we re-calculate the real ages.
+
+```python
+# subtracting dates will give us number of days
+scientists['age_days'] =  scientists['died_dt'] - scientists['born_dt']
+
+# we can convert the value to just the year
+# using the astype method
+scientists['age_years'] = (
+  scientists['age_days']
+  .astype('timedelta64[Y]')
+)
+
+scientists
+```
+
+
+---
+#  Making Changes to Series and DataFrames
+### &lt;p style="color:#00449E"&gt;   Modifying Columns with `.assign()` &lt;/p&gt;
+
+
+.panelset[
+
+.panel[.panel-name[(1)]
+- Let’s redo the `age_years` column creation, but this time using `.assign()`.
+
+
+```python
+scientists = scientists.assign(
+  # new columns on the left of the equal sign
+  # how to calculate values on the right of the equal sign
+  # separate new columns with a comma
+  age_days_assign = scientists['died_dt'] - scientists['born_dt'],
+  age_year_assign = scientists['age_days'].astype('timedelta64[Y]')
+)
+```
+]
+
+.panel[.panel-name[(2)]
+- When calculating `age_year_assign`, we did not use `age_days_assign`.
+  - To be able to use `age_days_assign` when calculating `age_year_assign` in the previous panel, we need to know about `lambda` functions.
+  
+
+```python
+scientists = scientists.assign(
+  age_days_assign = scientists['died_dt'] - scientists['born_dt'],
+  age_year_assign = lambda df_: df_['age_days_assign'].astype('timedelta64[Y]')
+)
+```
+
+- We will cover `lambda` functions in detail later.
+
+]
+
+]
+
+
+
+---
+#  Making Changes to Series and DataFrames
+### &lt;p style="color:#00449E"&gt; Dropping Values &lt;/p&gt;
+
+- To drop a column, we can select columns to drop with the `.drop()` method with `axis = 1` or `axis = "columns"` on our dataframe.
+
+
+```python
+# all the current columns in our data
+scientists.columns
+
+
+# drop the shuffled age column
+# we provide the axis=1 argument to drop column-wise
+scientists_dropped = scientists.drop( ['Age'], axis ="columns")
+scientists_dropped.columns
+```
+
+
+
+
+---
+#  Getting Started with Pandas
+### &lt;p style="color:#00449E"&gt; Class Exercise &lt;/p&gt;
+
+.panelset[
+
+.panel[.panel-name[(1)]
+- Consider the two Series, `area` and `pop`:
+
+```python
+area = pd.Series({'California': 423967, 'Texas': 695662,
+                  'New York': 141297, 'Florida': 170312,
+                  'Illinois': 149995})
+pop = pd.Series({'California': 38332521, 'Texas': 26448193,
+                 'New York': 19651127, 'Florida': 19552860,
+                 'Illinois': 12882135})
+```
+
+- Create the DataFrame `data` with two columns, `area` and `pop`.
+
+]
+
+.panel[.panel-name[(2)]
+- Add a variable of the population density to the DataFrame `data`.
+
+- Use boolean subsetting on the DataFrame `data` to find states whose population density is greater than 100 or less than 50.
+
+]
+
+]
+---
+# Exporting and Importing Data
+### &lt;p style="color:#00449E"&gt; Pickle &lt;/p&gt;
+
+
+.panelset[
+
+.panel[.panel-name[(1)]
+- Python has a way to `pickle` data. 
+  - This is Python’s way of serializing and saving data in a binary format.
+  - `pickle` files are usually saved with an extension of `.p`, `.pkl`, or `.pickle`.
+  - If we try to open it in a text editor, we will see a bunch of garbled characters.
+
+- Create the `output` folder in your working directory.
+  - We will use the `output` folder to store the exported `Series` or `DataFrame`.
+]
+
+.panel[.panel-name[(2)]
+- To export `Series` or `DataFrame` as a `pickle` file, we use the `to_pickle()` method.
+
+```python
+# pass in a string to the path you want to save
+scientists.to_pickle('output/scientists_df.pickle')
+```
+]
+
+.panel[.panel-name[(3)]
+- To read `pickle` data, we can use the `pd.read_pickle()` function.
+
+
+```python
+dataframe_pickle = pd.read_pickle(
+  'output/scientists_df.pickle'
+  )
+```
+
+]
+
+]
+
+
+---
+# Exporting and Importing Data
+### &lt;p style="color:#00449E"&gt;  Comma-Separated Values (CSV) &lt;/p&gt;
+
+- Comma-separated values (CSV) are the most flexible data storage type.
+  - For each row, the column information is separated with a comma.
+
+
+- To export `Series` or `DataFrame` as a `csv` file, we use the `to_csv()` method.
+
+
+```python
+# index =False  does not write the row names in the CSV output
+scientists.to_csv('output/scientists_df_no_index.csv', 
+                   index =False)
+```
+
+
+
+---
+# Exporting and Importing Data
+### &lt;p style="color:#00449E"&gt; Excel &lt;/p&gt;
+
+- The more of your work you can do in Python and/or R, the easier it will be to scale up to larger projects, catch and fix mistakes, and collaborate. 
+
+- However, Excel’s popularity and market share are unrivaled. 
+
+- To export `Series` or `DataFrame` as an `.xlsx` file, we use the `to_excel()` method.
+
+
+```python
+# saving a DataFrame into Excel format
+scientists.to_excel(
+  "output/scientists_df.xlsx",
+  sheet_name = "scientists",
+  index = False)
+```
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 66px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

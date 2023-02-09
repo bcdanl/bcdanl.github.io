@@ -1,0 +1,870 @@
+---
+title: "DANL 210 Lecture 6"
+subtitle: "DANL 210: Data Preparation and Management"
+author: "Byeong-Hak Choe"
+institute: "SUNY Geneseo"
+date: "Febraury 9, 2023"
+output:
+  xaringan::moon_reader:
+    css: 
+      - default
+      - css/nhsr.css
+      - css/nhsr-fonts.css
+    lib_dir: libs
+    seal: false
+    nature:
+      highlightStyle: googlecode
+      highlightLines: true
+      highlightLanguage: ["r"]
+      countIncrementalSlides: false
+      ratio: "16:9"
+    includes:
+      after_body: [css/insert-logo.html]
+---
+
+```{r setup, include = FALSE}
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(NHSRtheme)
+library(fontawesome)
+# set default options
+opts_chunk$set(echo = T, eval = F,
+               fig.width = 7.252,
+               fig.height = 4,
+               comment = "#",
+               dpi = 300)
+
+knitr::knit_engines$set("markdown")
+
+xaringanExtra::use_tile_view()
+xaringanExtra::use_panelset()
+xaringanExtra::use_clipboard()
+xaringanExtra::use_webcam()
+xaringanExtra::use_broadcast()
+xaringanExtra::use_share_again()
+xaringanExtra::style_share_again(
+  share_buttons = c("twitter", "linkedin", "pocket")
+)
+
+
+xaringanExtra::use_extra_styles(
+  hover_code_line = TRUE,         #<<
+  mute_unhighlighted_code = TRUE  #<<
+)
+
+# uncomment the following lines if you want to use the NHS-R theme colours by default
+# scale_fill_continuous <- partial(scale_fill_nhs, discrete = FALSE)
+# scale_fill_discrete <- partial(scale_fill_nhs, discrete = TRUE)
+# scale_colour_continuous <- partial(scale_colour_nhs, discrete = FALSE)
+# scale_colour_discrete <- partial(scale_colour_nhs, discrete = TRUE)
+```
+
+class: title-slide, left, bottom
+
+# `r rmarkdown::metadata$title`
+----
+## **`r rmarkdown::metadata$subtitle`**
+### `r rmarkdown::metadata$author`
+### `r rmarkdown::metadata$date`
+
+
+
+---
+# Coding Workflow
+### <p style="color:#00449E"> Spyder Keyboard Shortcuts </p>
+
+- Check your keyboard shortcuts:
+  - Mac: python `r fa("arrow-right")` Preference `r fa("arrow-right")` Keyboard shortcuts `r fa("arrow-right")` Search "run"
+  - Windows: Tools `r fa("arrow-right")` Preference `r fa("arrow-right")` Keyboard shortcuts `r fa("arrow-right")` Search "run"
+  
+  
+- Set your own keyboard shortcuts for "run selection" and "run cell".
+
+
+- As a Mac user, my Spyder shortcuts are
+  - **cmd + return** for "run selection"
+  - **ctrl + return** for "run cell"
+
+
+- A cell can be created by `# %%`.
+
+---
+# Coding Workflow
+### <p style="color:#00449E"> Spyder Keyboard Shortcuts </p>
+
+
+.pull-left[
+**Mac**
+
+- **command + N** opens a new Python script.
+- **command + ** `r fa("arrow-down")` goes to the next cell
+- **command + ** `r fa("arrow-up")` goes to the previous cell
+- **command + 1** is the shortcut for `#`.
+- **command + 4** is the shortcut for a cell title.
+- **command + Z** undoes the previous action.
+]
+
+.pull-right[
+**Windows**
+
+- **Ctrl + N** opens a new Python script.
+- **Ctrl + ** `r fa("arrow-down")` goes to the next cell
+- **Ctrl + ** `r fa("arrow-up")` goes to the previous cell
+- **Ctrl + 1** is the shortcut for `#`.
+- **Ctrl + 4** is the shortcut for a cell title.
+- **Ctrl + Z** undoes the previous action.
+]
+
+
+---
+class: inverse, center, middle
+
+# Pandas Data Structures Basics
+
+---
+
+# Pandas Data Structures Basics
+### <p style="color:#00449E">  Create Your Own Data </p>
+
+- Knowing how to create `Series` or `DataFrames` without loading data from a file is a useful skill.
+
+  
+- `Series` is a one-dimensional container.
+- A `Series` is very similar to a Python `list`, except that each element must be the same `dtype` (`object`, `int64`, `float64`, or `datetime64`). 
+  - This is the same behavior as the NumPy array (`ndarray`).
+  - If a column contains the number 1 and the sequence of letters "pizza", the entire `dtype` of the column will be a `string` (which is `object`).
+
+
+- A `DataFrame` can be thought of as a dictionary of `Series` objects.
+  - Each key is the column name and the value is the `Series`.
+  
+  
+---
+# Create Your Own Data 
+### <p style="color:#00449E">   NumPy Array </p>
+- Python library `NumPy` introduces an N-dimensional array object, or `ndarray`.
+  - Pandas implicitly uses `ndarray`, so here let's see what `ndarray` is.
+  - The easiest way to create an array is to use the `.array()` method.
+  
+.pull-left[
+```{python}
+import pandas as np
+data1 = [6, 7.5, 8, 0, 1]
+arr1 = np.array(data1) 
+arr1
+arr2.ndim
+arr2.shape
+```
+
+]  
+.pull-right[
+```{python}
+data2 = [ [1, 2, 3, 4], 
+          [5, 6, 7, '8'] ]
+arr2 = np.array(data2)
+arr2
+arr2.ndim
+arr2.shape
+```
+
+]  
+  
+---
+# Create Your Own Data 
+### <p style="color:#00449E">   Create a `Series` </p>
+- A `Series` is a data structure in pandas.
+  - Containing a sequence of `values` and a corresponding labels, called the `index`,
+  - A `Series` displays the `index` on the left and the `values` on the right,
+  - The default `index` consists of the integers 0 through N-1.
+  
+  
+- `pd.Series()` creates a one-dimensional container including `values` and an `index`.
+```{python}
+import pandas as pd
+s = pd.Series( ['banana', 42] )
+```
+
+
+---
+# Create Your Own Data 
+### <p style="color:#00449E">   Create a `Series` </p>
+
+-  The "row number" is shown on the left of the `Series`. 
+  - This is actually the `index` for the `Series`.
+  -  It is similar to the row name and row index for `DataFrame`.
+  
+```{python}
+# manually assign index values to a series
+# by passing a Python list
+s = pd.Series(
+  data =["Wes McKinney", "Creator of Pandas"],
+  index =["Person", "Who"],
+)
+
+s
+```
+
+
+
+---
+# Create Your Own Data 
+### <p style="color:#00449E">   Create a `Series` </p>
+
+- Pandas Series can also be created from `ndarrys`, `tuples`, and `dictionaries`.
+
+- **Q**. Use `dictdata` to create a Pandas `Series`.
+```{python}
+dictdata = {
+    "Name": ["William Nordhaus", "Ronald Coase"],
+    "Occupation": ["Economist", "Economist"],
+    "Born": ["1941-05-31", "1910-12-29"],
+    "Died": ["", "2013-09-02"],
+    "Age": [81, 102],
+  }
+```
+
+
+
+---
+# Create Your Own Data 
+### <p style="color:#00449E">   Create a `DataFrame` </p>
+
+- A `DataFrame` can be thought of as a dictionary of `Series` objects.
+  - `Dictionaries` are one of the most common ways of creating a `DataFrame`.
+  - The `key` represents the column name, and the `values` are the contents of the column.
+  
+```{python}
+economists = pd.DataFrame(
+ {  "Name": ["William Nordhaus", "Ronald Coase"],
+    "Occupation": ["Economist", "Economist"],
+    "Born": ["1941-05-31", "1910-12-29"],
+    "Died": ["", "2013-09-02"],
+    "Age": [81, 102]  } )
+```
+  
+
+
+---
+# The `Series`
+### <p style="color:#00449E">  </p>
+
+- Let’s re-create our example DataFrame.
+```{python}
+# create our example dataframe with a row index label
+economists = pd.DataFrame(
+  data = {
+    "Occupation": ["Economist", "Economist"],
+    "Born": ["1941-05-31", "1910-12-29"],
+    "Died": ["", "2013-09-02"],
+    "Age": [81, 102] },
+  index =  ["William Nordhaus", "Ronald Coase"],
+  columns =["Occupation", "Born", "Died", "Age"] 
+)
+```
+
+- **Q**. Select an economist from `economists` by the row index label to get a `Series`.
+
+
+---
+# The `Series`
+### <p style="color:#00449E"> `Series` Attributes </p>
+
+- When a series is printed (i.e., the string representation), the `index` is printed as the first “column”, and the `values` are printed as the second “column”.
+
+-  There are many attributes and methods associated with a `Series` object.
+
+```{python}
+first_row = economists.loc['William Nordhaus']
+type(first_row)
+first_row.index
+first_row.values
+type(first_row.values)
+first_row.shape
+first_row.size
+first_row.dtypes
+```
+  
+
+---
+# The `Series`
+### <p style="color:#00449E"> Attributes vs. Methods </p>
+
+- Attributes can be thought of as features of an object (in this example, our object is a Series). 
+
+- Methods can be thought of as some calculation or operation that is performed on an object. 
+  - Methods or functions have round parentheses (`()`), while attributes do not.
+
+- The subsetting syntax `.loc[]` and `.iloc[]` consists of all attributes.    
+
+
+
+
+---
+# The `Series`
+### <p style="color:#00449E"> `Series` Methods </p>
+
+- Let’s first get a series of the `Age` column from our `economists` DataFrame.
+
+```{python}
+ages = economists['Age']
+```
+
+-  When we have a vector of numbers, there are common calculations we can perform.
+```{python}
+ages.mean()
+ages.min()
+ages.max()
+ages.std()
+```
+- `.mean()`, `.min()`, `.max()`, and `.std()` are also methods in `np.ndarray`.
+
+
+
+---
+# Workflow
+### <p style="color:#00449E"> Working Directory </p>
+
+- In Spyder, we can set the working directory.
+  - Windows: Tools > Preferences > Working directory > The following directory
+  - Mac: python > Preferences > Working directory > The following directory
+  
+
+- Download the CSV file, `scientists.csv` from the Files section in our Canvas.
+  - Create the `data` folder in your working directory.
+  - Then move the `scientists.csv` file to the `data` folder in your working directory.
+
+
+---
+# The `Series`
+### <p style="color:#00449E"> `Series` Methods </p>
+
+- Let’s load the CSV file, `scientists.csv`.
+
+```{python}
+# If we set the working directory, we do not need to use the absolute path
+scientists = pd.read_csv('data/scientists.csv')  
+ages = scientists['Age']
+```
+
+-  The `.describe()` method calculates multiple descriptive statistics for numeric variables.
+```{python}
+scientists.describe()
+ages.describe()
+```
+
+
+---
+# Descriptive Statistics
+### <p style="color:#00449E"> `skimpy` </p>
+
+- `skimpy` is a light weight tool that provides **summary statistics** about variables in data frames within the console.
+
+
+- Install the `skimpy` package. Then restart Spyder or its Console.
+```{python}
+pip install skimpy
+```
+
+- We can think of `skim(df)` as a super-charged version of `df.describe()`.
+
+```{python}
+from skimpy import skim
+skim(scientists)
+```
+
+
+---
+# The `Series`
+### <p style="color:#00449E"> Boolean Subsetting on `Series` </p>
+
+- We can not only subset values using labels and indices, but also supply a vector of **boolean values**.
+
+- Boolean subsetting of numeric Series works as follows:
+  - `Series[ Series > VALUE  ]`
+  - `Series[ Series == VALUE  ]`
+  - `Series[ Series < VALUE  ]`
+
+- **Q**. What if we wanted to subset our ages by identifying those above the mean?
+
+
+---
+# The `Series`
+### <p style="color:#00449E"> Boolean Subsetting on `Series` </p>
+- Let’s look at what `ages > ages.mean()` returns.
+```{python}
+ages > ages.mean()
+
+cond = ages > ages.mean()
+ages[cond]
+```
+
+
+
+
+
+---
+# The `Series`
+### <p style="color:#00449E">  Operations Are Automatically Aligned and Vectorized (Broadcasting) </p>
+
+-  Many of the methods that work on `Series` (and also `DataFrames`) are “vectorized”, meaning that they work on the entire vector simultaneously.
+
+  - `ages > ages.mean()` returns a vector without any `for` loops.
+
+
+.panelset[
+
+.panel[.panel-name[same length]
+- If we perform an operation between two vectors of the same length, the resulting vector will be an **element-by-element calculation** of the vectors.
+```{python}
+ages + ages
+ages * ages
+```
+]
+
+.panel[.panel-name[w/ scalars]
+- When we perform an operation on a vector using a scalar, the scalar will be recycled across all the elements in the vector.
+
+```{python}
+ages + 100
+ages * 2
+```
+]
+
+.panel[.panel-name[w/ different length]
+- When we are working with vectors of different lengths, the behavior will depend on the `type()` of the vectors.
+  -  With a `Series`, the vectors will perform an operation matched by the index.
+  - With other `types()`, the shapes must match.
+]
+
+.panel[.panel-name[w/ different length (e.g.,)]
+```{python}
+ages + pd.Series( [1, 100] )
+ages + np.array( [1, 100] )
+```
+]
+
+]
+
+
+
+---
+# The `Series`
+### <p style="color:#00449E">  Operations Are Automatically Aligned and Vectorized (Broadcasting) </p>
+
+- What’s convenient in Pandas is how data alignment is almost always automatic.   - If possible, things will always align themselves with the index label when actions are performed.
+
+
+- Let's consider `.sort_index()` method:
+  - `Series.sort_index(ascending=False)` sorts Series by index in descending order.
+```{python}
+rev_ages = ages.sort_index(ascending =False) 
+rev_ages
+```
+
+- **Q**. What is `ages + rev_ages`?
+
+
+
+---
+# The `DataFrame`
+### <p style="color:#00449E"> Parts of a `DataFrame`  </p>
+
+- The `DataFrame` is the most common Pandas object. 
+  - It can be thought of as Python’s way of storing spreadsheet-like data. 
+  - Many of the features of the `Series` data structure carry over into the `DataFrame`.
+
+
+- There are 3 main parts of a Pandas `DataFrame` object: 
+  - (1) `.index`, (2) `.columns`, and (3) `.values`
+  
+```{python}
+scientists.index
+scientists.columns
+scientists.values
+```
+  
+
+
+---
+# The `DataFrame`
+### <p style="color:#00449E">  Boolean Subsetting on `DataFrames` </p>
+
+
+- Boolean subsetting of `DataFrames` works like boolean subsetting a `Series`.
+  - `DataFrame[ DataFrame['VARIABLE_NAME'] > VALUE  ]`
+  - `DataFrame[ DataFrame['VARIABLE_NAME'] == VALUE  ]`
+  - `DataFrame[ DataFrame['VARIABLE_NAME'] < VALUE  ]`
+
+```{python}
+# boolean vectors will subset rows
+scientists.loc[ scientists['Age'] > scientists['Age'].mean() ]
+```
+
+
+---
+# The `DataFrame`
+### <p style="color:#00449E">  Subsetting Multiple Rows and Columns </p>
+
+```{r, echo = F, eval = T, out.width='100%', fig.align='center'}
+text_tbl <- data.frame(
+  `Type` = c("df[val]",
+"df`.`loc[val]",
+"df`.`loc[:, val]",
+"df`.`loc[val1, val2]",
+"df`.`iloc[where]",
+"df`.`iloc[:, where]",
+"df`.`iloc[w1, w2]"),
+  `Description` = c("Select single column or set of columns",
+"Select single row or set of rows",
+"Select single column or set of columns",
+"Select row and column by label",
+"Select row or set of rows by integer position",
+"Select column or set of columns by integer position",
+"Select row and column by integer position")
+  )
+
+
+kable(text_tbl, format = "html") %>%
+  kable_paper(full_width = T) %>%
+  column_spec(1, bold = T, border_right = T) %>%
+  kable_styling(html_font = 'sans-serif, helvetica, arial',
+                bootstrap_options = c("hover", "condensed") )
+
+```
+
+
+
+---
+# The `DataFrame`
+### <p style="color:#00449E">  Operations Are Automatically Aligned and Vectorized (Broadcasting) </p>
+
+- Pandas supports *broadcasting* because the `Series` and `DataFrame` objects are built on top of the `numpy` library. 
+
+  - Broadcasting describes what happens when performing operations between array-like objects. 
+  
+  - These behaviors depend on the type of object, its length, and any labels associated with the object.
+  
+
+
+---
+# The `DataFrame`
+### <p style="color:#00449E">  Operations Are Automatically Aligned and Vectorized (Broadcasting) </p>
+
+
+.panelset[
+
+.panel[.panel-name[w/ scalars]
+- When we perform an action on a dataframe with a scalar, it will try to apply the operation on each cell of the dataframe.
+```{python}
+scientists * 2
+```
+
+
+]
+
+
+
+.panel[.panel-name[w/ Series]
+
+- By default, arithmetic operations between `DataFrames` and `Series` match the index of the `Series` on the `DataFrame`’s columns,
+
+- The operations will be broadcasted along the rows.
+```{python}
+pd.Series([10]) + scientists[['Age']]
+pd.Series([10], index = ['Age']) + scientists[['Age']]
+```
+
+
+]
+
+]
+
+
+
+---
+#  Making Changes to Series and DataFrames
+### <p style="color:#00449E">  Add Additional Columns </p>
+
+-  The `type` of the `Born` and `Died` columns is `object`, meaning they are strings or a sequence of characters.
+
+```{python}
+scientists.dtypes
+```
+
+- We can convert the strings to a proper `datetime` type so we can perform common date and time operations.
+```{python}
+# format the 'Born' column as a datetime
+born_datetime = pd.to_datetime( scientists['Born'] )
+
+died_datetime = pd.to_datetime( scientists['Died'] )
+```
+
+- More examples with `datetimes` would be discussed later in March or April.
+
+
+---
+#  Making Changes to Series and DataFrames
+### <p style="color:#00449E">  Add Additional Columns </p>
+
+- We can create a new set of columns that contain the `datetime` representations of the object (string) dates. 
+```{python}
+scientists['born_dt'], scientists['died_dt'] = (
+  born_datetime,
+  died_datetime
+)
+
+scientists.head()
+scientists.shape
+scientists.dtypes
+```
+
+
+
+---
+#  Making Changes to Series and DataFrames
+### <p style="color:#00449E">   Directly Change a Column </p>
+
+
+.panelset[
+
+.panel[.panel-name[(1)]
+- Let’s look at the original `Age` values.
+
+```{python}
+scientists['Age']
+```
+]
+
+.panel[.panel-name[(2)]
+- Let’s shuffle the values using `.sample()`.
+```{python}
+# the frac=1 tells pandas to randomly select 100% of the values
+# the random_state makes the randomization the same each time
+scientists['Age'].sample(frac=1, random_state = 210)
+```
+]
+
+.panel[.panel-name[(3)]
+- Let’s assign `scientists['Age']` to the shuffled one.
+```{python}
+scientists['Age'] = (
+  scientists['Age']
+  .sample(frac=1, random_state = 210)
+)
+scientists['Age']
+```
+- How is `scientists['Age']`?
+]
+
+.panel[.panel-name[(4)]
+- We tried to randomly shuffle the values, but when we assigned the values back into the dataframe, it reverted back to the original order. 
+
+  - That’s because Pandas will try to automatically join on the `.index` values on many operations, for this example to get around this problem we need to remove that `.index` information. 
+  
+  - One way of doing that, is to assign just the `.values` of the shuffled values that does not have any `.index` value associated with it.
+]
+
+.panel[.panel-name[(5)]
+```{python}
+scientists['Age'] = (
+  scientists['Age']
+  .sample(frac=1, random_state = 210)
+  .values    # remove the index so it doesn't auto align the values
+)
+
+scientists['Age']
+```
+- How is `scientists['Age']` now?
+
+]
+
+]
+
+
+
+---
+#  Making Changes to Series and DataFrames
+### <p style="color:#00449E">   Directly Change a Column </p>
+
+- Here is how we re-calculate the real ages.
+```{python}
+# subtracting dates will give us number of days
+scientists['age_days'] =  scientists['died_dt'] - scientists['born_dt']
+
+# we can convert the value to just the year
+# using the astype method
+scientists['age_years'] = (
+  scientists['age_days']
+  .astype('timedelta64[Y]')
+)
+
+scientists
+```
+
+
+---
+#  Making Changes to Series and DataFrames
+### <p style="color:#00449E">   Modifying Columns with `.assign()` </p>
+
+
+.panelset[
+
+.panel[.panel-name[(1)]
+- Let’s redo the `age_years` column creation, but this time using `.assign()`.
+
+```{python}
+scientists = scientists.assign(
+  # new columns on the left of the equal sign
+  # how to calculate values on the right of the equal sign
+  # separate new columns with a comma
+  age_days_assign = scientists['died_dt'] - scientists['born_dt'],
+  age_year_assign = scientists['age_days'].astype('timedelta64[Y]')
+)
+```
+]
+
+.panel[.panel-name[(2)]
+- When calculating `age_year_assign`, we did not use `age_days_assign`.
+  - To be able to use `age_days_assign` when calculating `age_year_assign` in the previous panel, we need to know about `lambda` functions.
+  
+```{python}
+scientists = scientists.assign(
+  age_days_assign = scientists['died_dt'] - scientists['born_dt'],
+  age_year_assign = lambda df_: df_['age_days_assign'].astype('timedelta64[Y]')
+)
+```
+
+- We will cover `lambda` functions in detail later.
+
+]
+
+]
+
+
+
+---
+#  Making Changes to Series and DataFrames
+### <p style="color:#00449E"> Dropping Values </p>
+
+- To drop a column, we can select columns to drop with the `.drop()` method with `axis = 1` or `axis = "columns"` on our dataframe.
+
+```{python}
+# all the current columns in our data
+scientists.columns
+
+
+# drop the shuffled age column
+# we provide the axis=1 argument to drop column-wise
+scientists_dropped = scientists.drop( ['Age'], axis ="columns")
+scientists_dropped.columns
+```
+
+
+
+
+---
+#  Getting Started with Pandas
+### <p style="color:#00449E"> Class Exercise </p>
+
+.panelset[
+
+.panel[.panel-name[(1)]
+- Consider the two Series, `area` and `pop`:
+```{python}
+area = pd.Series({'California': 423967, 'Texas': 695662,
+                  'New York': 141297, 'Florida': 170312,
+                  'Illinois': 149995})
+pop = pd.Series({'California': 38332521, 'Texas': 26448193,
+                 'New York': 19651127, 'Florida': 19552860,
+                 'Illinois': 12882135})
+```
+
+- Create the DataFrame `data` with two columns, `area` and `pop`.
+
+]
+
+.panel[.panel-name[(2)]
+- Add a variable of the population density to the DataFrame `data`.
+
+- Use boolean subsetting on the DataFrame `data` to find states whose population density is greater than 100 or less than 50.
+
+]
+
+]
+---
+# Exporting and Importing Data
+### <p style="color:#00449E"> Pickle </p>
+
+
+.panelset[
+
+.panel[.panel-name[(1)]
+- Python has a way to `pickle` data. 
+  - This is Python’s way of serializing and saving data in a binary format.
+  - `pickle` files are usually saved with an extension of `.p`, `.pkl`, or `.pickle`.
+  - If we try to open it in a text editor, we will see a bunch of garbled characters.
+
+- Create the `output` folder in your working directory.
+  - We will use the `output` folder to store the exported `Series` or `DataFrame`.
+]
+
+.panel[.panel-name[(2)]
+- To export `Series` or `DataFrame` as a `pickle` file, we use the `to_pickle()` method.
+```{python}
+# pass in a string to the path you want to save
+scientists.to_pickle('output/scientists_df.pickle')
+```
+]
+
+.panel[.panel-name[(3)]
+- To read `pickle` data, we can use the `pd.read_pickle()` function.
+
+```{python}
+dataframe_pickle = pd.read_pickle(
+  'output/scientists_df.pickle'
+  )
+```
+
+]
+
+]
+
+
+---
+# Exporting and Importing Data
+### <p style="color:#00449E">  Comma-Separated Values (CSV) </p>
+
+- Comma-separated values (CSV) are the most flexible data storage type.
+  - For each row, the column information is separated with a comma.
+
+
+- To export `Series` or `DataFrame` as a `csv` file, we use the `to_csv()` method.
+
+```{python}
+# index =False  does not write the row names in the CSV output
+scientists.to_csv('output/scientists_df_no_index.csv', 
+                   index =False)
+```
+
+
+
+---
+# Exporting and Importing Data
+### <p style="color:#00449E"> Excel </p>
+
+- The more of your work you can do in Python and/or R, the easier it will be to scale up to larger projects, catch and fix mistakes, and collaborate. 
+
+- However, Excel’s popularity and market share are unrivaled. 
+
+- To export `Series` or `DataFrame` as an `.xlsx` file, we use the `to_excel()` method.
+
+```{python}
+# saving a DataFrame into Excel format
+scientists.to_excel(
+  "output/scientists_df.xlsx",
+  sheet_name = "scientists",
+  index = False)
+```
+
+
