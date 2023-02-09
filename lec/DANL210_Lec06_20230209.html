@@ -762,7 +762,7 @@ scientists = scientists.assign(
 ```python
 scientists = scientists.assign(
   age_days_assign = scientists['died_dt'] - scientists['born_dt'],
-  age_year_assign = lambda df_: df_['age_days_assign'].astype('timedelta64[Y]')
+  age_year_assign = lambda some_df: some_df['age_days_assign'].astype('timedelta64[Y]')
 )
 ```
 

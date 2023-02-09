@@ -740,7 +740,7 @@ scientists = scientists.assign(
 ```{python}
 scientists = scientists.assign(
   age_days_assign = scientists['died_dt'] - scientists['born_dt'],
-  age_year_assign = lambda df_: df_['age_days_assign'].astype('timedelta64[Y]')
+  age_year_assign = lambda some_df: some_df['age_days_assign'].astype('timedelta64[Y]')
 )
 ```
 
@@ -748,7 +748,42 @@ scientists = scientists.assign(
 
 ]
 
+.panel[.panel-name[lambda (1)]
+- Python has support for so-called anonymous or lambda functions. 
+  - Lambda functions are a way of writing functions consisting of a single statement, the result of which is the return value. 
+
+```{python}
+def short_function(x):
+  return x * 2
+
+equiv_anon = lambda x: x * 2
+
+short_function(2)
+equiv_anon(2)
+```
+
 ]
+
+
+.panel[.panel-name[lambda (2)]
+- The power of lambda is better shown when we use them as an anonymous function inside another function.
+  - Say we have a function definition that takes one argument, and that argument will be multiplied with an unknown number:
+
+```{python}
+def short_function(x):
+  return x * 2
+
+equiv_anon = lambda x: x * 2
+
+short_function(2)
+equiv_anon(2)
+```
+
+]
+
+
+]
+
 
 
 
