@@ -37,6 +37,8 @@
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -448,11 +450,6 @@ econometrics, and data science to <strong>think critically about
 business and real-world socioeconomic issues</strong>. As an instructor,
 I let students use those tools to deal with important <strong>business
 strategies, social issues, and individual decision-making</strong>.</p>
-<p>Here is my <a href="choe_cv.pdf" target="_blank">curriculum vitae
-<svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#003896;overflow:visible;position:relative;"><path d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V160H256c-17.7 0-32-14.3-32-32V0H64zM256 0V128H384L256 0zM64 224H88c30.9 0 56 25.1 56 56s-25.1 56-56 56H80v32c0 8.8-7.2 16-16 16s-16-7.2-16-16V320 240c0-8.8 7.2-16 16-16zm24 80c13.3 0 24-10.7 24-24s-10.7-24-24-24H80v48h8zm72-64c0-8.8 7.2-16 16-16h24c26.5 0 48 21.5 48 48v64c0 26.5-21.5 48-48 48H176c-8.8 0-16-7.2-16-16V240zm32 112h8c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16h-8v96zm96-128h48c8.8 0 16 7.2 16 16s-7.2 16-16 16H304v32h32c8.8 0 16 7.2 16 16s-7.2 16-16 16H304v48c0 8.8-7.2 16-16 16s-16-7.2-16-16V304 240c0-8.8 7.2-16 16-16z"/></svg></a>.</p>
-<p>Here is my <a href="https://bcecon.github.io"
-target="_blank">academic website
-<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:#003896;overflow:visible;position:relative;"><path d="M288 32c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9L306.7 128 169.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L352 173.3l41.4 41.4c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V64c0-17.7-14.3-32-32-32H288zM80 64C35.8 64 0 99.8 0 144V400c0 44.2 35.8 80 80 80H336c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v80c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V144c0-8.8 7.2-16 16-16h80c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg></a>.</p>
 </div>
 <div>
 <p><img src="bchoe20201027.jpg" style="width:75.0%" /></p>
@@ -461,172 +458,558 @@ target="_blank">academic website
 <p><br></p>
 <div id="current-position" class="section level1">
 <h1>Current Position</h1>
-<pre class="r"><code>cv_entries %&gt;% 
-  filter(type == &#39;current_positions&#39;, is.na(exclude)) %&gt;%
-  mutate(what = str_c(&quot;&lt;span class=&#39;cv-entry-title&#39;&gt;&quot;, what, &quot;&lt;/span&gt;&lt;br&gt;&quot;, 
-                      where)) %&gt;% 
-  select(year, what) %&gt;% 
-  kbl(padding = 0, col.names = NULL, escape = FALSE) %&gt;%
-  kable_styling( bootstrap_options = c(&quot;hover&quot;))  %&gt;% 
-  column_spec(1, width = &quot;17%&quot;)</code></pre>
+<table class="table table-hover" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2021 — present
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Lecturer in Data Analytics</span><br>School
+of Business, SUNY Geneseo
+</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
 </div>
 <div id="education" class="section level1">
 <h1>Education</h1>
-<pre class="r"><code>cv_entries %&gt;% 
-  filter(type == &#39;education&#39;) %&gt;% 
-  mutate(what = str_c( &quot;&lt;span class=&#39;cv-entry-title&#39;&gt;&quot;, 
-                              what, &quot;&lt;/span&gt;, &quot;, where,
-                              &quot;&lt;br&gt;&quot;, 
-                       ifelse(is.na(additional_info), &quot;&quot;, additional_info) 
-                       , &quot;&lt;br&gt;&quot;, 
-                       ifelse(is.na(additional_info2), &quot;&quot;, additional_info2))) %&gt;% 
-  select(year, what) %&gt;% 
-  kbl(padding = 0, col.names = NULL, escape = FALSE) %&gt;%
-  kable_styling( bootstrap_options = c(&quot;hover&quot;, &quot;condensed&quot;))   %&gt;% 
-  column_spec(1, width = &quot;17%&quot;)</code></pre>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2016 — 2021
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Ph.D. in Economics</span>, University of
+Wyoming<br>Supervisors: <a
+href="http://www.uwyo.edu/economics/faculty-staff/charles-mason/"
+target="_blank">Chuck Mason</a> and <a
+href="http://www.uwyo.edu/economics/faculty-staff/thorsten-janus/"
+target="_blank">Thorsten Janus</a><br>Mentors: <a
+href="http://www.uwyo.edu/economics/faculty-staff/stephen-newbold/index.html"
+target="_blank">Stephen Newbold</a> and <a
+href="http://www.uwyo.edu/economics/faculty-staff/jason-shogren/index.html"
+target="_blank">Jay Shogren</a><br>Dissertaion: Essays in Political
+Economy of Climate Change
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2014 — 2015
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">M.Sc. in Economics</span>, Arizona State
+University<br><br>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2012 — 2014
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">M.A. in Economics</span>, SUNY Stony
+Brook<br><br>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2006 — 2012
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">B.Sc. in Applied Mathematics</span>,
+Hanyang University at Ansan, South Korea<br><br>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2006 — 2012
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">B.A. in Economics</span>, Hanyang
+University at Ansan, South Korea<br><br>
+</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
 </div>
 <div id="research" class="section level1">
 <h1>Research</h1>
 <div id="working-papers" class="section level2">
 <h2>Working papers</h2>
-<pre class="r"><code>cv_entries %&gt;% 
-  filter(type == &#39;wp&#39;) %&gt;% 
-  mutate(what = str_c(&quot;&lt;span class=&#39;cv-entry-title&#39;&gt; &lt;u&gt;&quot;, what, &quot;&lt;/u&gt;&amp;nbsp;&lt;/span&gt;&lt;br&gt; &quot;, additional_info)) %&gt;% 
-  select(type, what) %&gt;% 
-  mutate(type = &quot;&quot;) %&gt;% 
-  kbl(padding = 0, col.names = NULL, escape=FALSE) %&gt;%
-  kable_styling( bootstrap_options = c(&quot;hover&quot;, &quot;condensed&quot;)) </code></pre>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title"> <u>Social Media Campaigns, Lobbying and
+Legislation: Evidence from #climatechange/#globalwarming and Energy
+Lobbies</u> </span><br> <em>Abstract</em>: To what extent do social
+media campaigns compete with fossil fuel lobbying on climate change
+legislation? In this article, I estimate the effect of social media
+campaigns on a congressperson’s legislative activities against climate
+change actions during the U.S. Congresses (January 2013-January 2019). I
+find that (1) a 1% increase in the per-capita level of activities of
+climate change campaigns using Twitter decreases Democrats’ tendency to
+support climate-unfriendly legislation by 0.9%, while it increases
+Republicans’ one by 0.2%; and (2) a 1% increase in the fossil fuel
+industry’s lobbying expenditure relative to the rest of industries’
+lobbying expenditure increases Republicans’ tendency to support
+climate-unfriendly legislation by 1.1%. I also find that negative
+sentiment in social media campaigns contributes to affecting
+congresspersons’ support for climate-unfriendly legislation.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title"> <u>Climate Finance under Conflicts and
+Renegotiations: A Dynamic Contract Approach
+<a href="https://drive.google.com/file/d/1DC7mB4s_yM7ckt_H2K2g_KaO_EFbkQLC/view?usp=sharing" target="_blank">
+(AEA 2019 poster)
+<i class="fa fa-file-pdf" aria-hidden="true"></i></a></u> </span><br>
+<em>Abstract</em>: Considering climate funds (e.g. the Green Climate
+Fund) as the financial mechanism to provide funding to developing
+countries, this paper examines a long-term climate funding relationship
+between two agents—the rich country and the poor country. Conflicts
+between the rich and poor countries arise when determining 1) the size
+of climate funding that the rich country contributes to the poor
+country, and 2) the funding allocation between climate adaptation and
+mitigation projects in the poor country. In addition, the rich country
+cannot be forced to commit contractual contributions to the poor
+country, and the climate funding relationship can be repeatedly
+renegotiated. This paper derives the following results: (1) climate
+funds converge to the first-best in the long-run, in terms of the size
+of climate funding and its balance between adaptation and mitigation
+projects, if and only if climate damage becomes sufficiently severe. (2)
+funding allocation between adaptation and mitigation projects becomes
+more favorable to the poor country if marginal climate costs in the poor
+country grow faster than in the rich country. (3) fewer conflicts and
+fewer renegotiations between the rich and poor countries make climate
+funding contracts more efficient, remedying inequality between the poor
+and rich countries.
+</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
 </div>
 <div id="work-in-progress" class="section level2">
 <h2>Work in progress</h2>
-<pre class="r"><code>cv_entries %&gt;% 
-  filter(type == &#39;wp-progress&#39;) %&gt;% 
-  mutate(what = str_c(&quot;&lt;span class=&#39;cv-entry-title&#39;&gt; &lt;u&gt;&quot;, what, &quot;&lt;/u&gt;&amp;nbsp;&lt;/span&gt;&lt;br&gt; &quot;, additional_info)) %&gt;% 
-  select(type, what) %&gt;% 
-  mutate(type = &quot;&quot;) %&gt;% 
-  kbl(padding = 0, col.names = NULL, escape=FALSE) %&gt;%
-  kable_styling( bootstrap_options = c(&quot;hover&quot;, &quot;condensed&quot;)) </code></pre>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title"> <u>Hiding Behind a Small Cake’ in an
+Online Dictator Game: The Way You Hide Matters!, (with Tabare Capitan
+(1st author) , Jason Shogren, and Benjamin White)</u> </span><br>
+<em>Abstract</em>: Using an online dictator game in which receivers have
+incomplete information of the size of the endowment (big or small), the
+article, ‘’Hiding behind a small cake’ in a newspaper dictator game
+(Ockenfels and Werner (2012))’’ shows that a few givers who received the
+big endowment use their giving to signal they received the small
+endowment (i.e., to lie). In other words, even though a giver will never
+meet the corresponding receiver, he cares enough about how he could be
+perceived by others to lie (i.e., second-order beliefs enters his
+utility function). In our experiment we provide givers with the
+opportunity to lie about the size of the endowment without using their
+giving. Similar to Ockenfels and Werner (2012) we find that (i) few take
+the opportunity to lie—but those who do give less when their giving is
+not constrained by its role as a signal—and (ii) givers are more likely
+to lie when the lie is private. However, using a second stage in the
+experimental design, we show that liars are the most responsive group of
+givers to a simple message stating the expectation of the receiver.
+</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
 </div>
 </div>
 <div id="teaching" class="section level1">
 <h1>Teaching</h1>
-<pre class="r"><code>cv_entries %&gt;% 
-  filter(type == &#39;teaching&#39;) %&gt;% 
-  mutate(what = ifelse(!is.na(additional_info), 
-    str_c(&quot;&lt;span class=&#39;cv-entry-title&#39;&gt;&quot;, what, &quot;&lt;/span&gt;&lt;br class=&#39;work-break&#39;&gt;&quot;, where, &quot;&lt;br&gt;&quot;, additional_info),
-    str_c(&quot;&lt;span class=&#39;cv-entry-title&#39;&gt;&quot;, what, &quot;&lt;/span&gt;&lt;br class=&#39;work-break&#39;&gt;&quot;, where))) %&gt;% 
-  select(year, what) %&gt;% 
-  kbl(padding = 0, col.names = NULL, escape = FALSE) %&gt;%
-  kable_styling( bootstrap_options = c(&quot;hover&quot;, &quot;condensed&quot;))  %&gt;% 
-  column_spec(1, width = &quot;17%&quot;) </code></pre>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2022 — 2023
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Advisor, Business Analytics
+Competition</span><br class="work-break">Manhattan College<br>Honorable
+Mention in the 2022 event, Advising the SUNY Geneseo team (Jason
+Rappazzo and James Jordan)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2022 — 2023
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Instructor, DANL 399: Data Analytics
+Capstone</span><br class="work-break">SUNY Geneseo<br>Advised students’
+research project that integrates the technical data analytic skills and
+critical analysis on a business/economics topic
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2022 — 2023
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Instructor, DANL 310: Data Visualization
+and Presentation</span><br class="work-break">SUNY Geneseo<br>Taught for
+data visualization and reproducible writing of research papers on the
+web.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2021 — 2023
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Instructor, DANL 210: Data Preparation and
+Management</span><br class="work-break">SUNY Geneseo<br>Taught the
+tidyverse R package, Python Pandas, Selenium, Web API, SQL Database and
+Google Clouds
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2021 — 2023
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Instructor, DANL 200: Introduction to Data
+Analytics</span><br class="work-break">SUNY Geneseo<br>Covered data
+cleaning and basics in machine learning methods using business and
+economics applications
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2022
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Instructor, DANL 100: Programming for Data
+Analytics</span><br class="work-break">SUNY Geneseo<br>Covered basics in
+Python programming and exploratory data analysis using Python
+pandas/seaborn and R ggplot2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2021
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Instructor, DANL 300: Advanced Data
+Analytics</span><br class="work-break">SUNY Geneseo<br>Taught for
+machine learning methods (classification, regularized regression, random
+forest, clustering, association rules) using business and economics
+applications
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2018
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Instructor, ECON 3010: Intermediate
+Macroeconomics</span><br class="work-break">University of
+Wyoming<br>Taught (1) the concept of GDP, (2) the causes of economic
+growth and inequality, (3) how goods, labor, and credit markets work,
+(4) the role of the Fed and the monetary system, (5) the theory and
+policymaking for short-run economic fluctuations, (6) the influence of
+international trade and international finance on the domestic economy
+</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
 </div>
 <div id="professional-activities" class="section level1">
 <h1>Professional activities</h1>
 <div id="presentations" class="section level2">
 <h2>Presentations</h2>
-<pre class="r"><code>cv_entries %&gt;% 
-  filter(type == &#39;presentation&#39;) %&gt;% 
-  mutate(what = str_c(&quot;&lt;span class=&#39;cv-entry-title&#39;&gt;&quot;, what, &quot;&lt;/span&gt;, &quot;, where)) %&gt;% 
-  select(year_begin, what) %&gt;% 
-  kbl(padding = 0, col.names = NULL, align = c(&quot;l&quot;, &quot;l&quot;), escape = FALSE) %&gt;%
-  kable_styling( bootstrap_options = c(&quot;hover&quot;, &quot;condensed&quot;)) %&gt;% 
-  column_spec(1, width = &quot;17%&quot;)  </code></pre>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2022
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Interdisciplinary Data Science
+Workshop</span>, Brigham Young University, Provo, Utah
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2021
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Online Seminar</span>, Department of
+Environmental and Business Economics, University of Southern Denmark
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2019
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">University of Wyoming &amp; Colorado State
+University Economics Graduate Student Symposium</span>, Laramie, Wyoming
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2019
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">American Economic Association Annual
+Meeting (poster session)</span>, Atlanta, Georgia
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2018
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">The 29th International Conference on Game
+Theory</span>, Stony Brook, New York
+</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
 </div>
 <div id="memberships" class="section level2">
 <h2>Memberships</h2>
-<pre class="r"><code>cv_entries %&gt;% 
-  filter(type == &#39;membership&#39;, is.na(exclude)) %&gt;%
-  mutate(what = str_c(&quot;&lt;span class=&#39;cv-entry-title&#39;&gt;&quot;, what, &quot;&lt;/span&gt;&quot;)) %&gt;% 
-  select(year, what) %&gt;% 
-  kbl(padding = 0, col.names = NULL, escape = FALSE) %&gt;%
-  kable_styling( bootstrap_options = c(&quot;hover&quot;))  %&gt;% 
-  column_spec(1, width = &quot;17%&quot;)</code></pre>
+<table class="table table-hover" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2022 — present
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Southern Economic Association</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2018 — present
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Association of Environmental and Resource
+Economists</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2017 — present
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">American Economic Association</span>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2017 — 2019
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Econometric Society</span>
+</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
 </div>
 </div>
 <div id="hornors-awards" class="section level1">
 <h1>Hornors &amp; Awards</h1>
-<pre class="r"><code>cv_entries %&gt;% 
-  filter(type == &#39;awards&#39;) %&gt;%
-  filter(!(website == &quot;n&quot;) | is.na(website)) %&gt;% 
-  mutate(what = if_else(
-    !is.na(where),
-    str_c(&quot;&lt;span class=&#39;cv-entry-title&#39;&gt;&quot;, what, &quot;&lt;/span&gt;, &quot;, where),
-    str_c(&quot;&lt;span class=&#39;cv-entry-title&#39;&gt;&quot;, what, &quot;&lt;/span&gt;&quot;))
-  ) %&gt;% 
-  blank_year_when_repeated() %&gt;% 
-  select(year_begin, what) %&gt;% 
-  kbl(padding = 0, col.names = NULL, align = c(&quot;l&quot;, &quot;l&quot;), escape = FALSE) %&gt;%
-  kable_styling( bootstrap_options = c(&quot;hover&quot;, &quot;condensed&quot;))   %&gt;% 
-  column_spec(1, width = &quot;17%&quot;)</code></pre>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2019
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">H. A. True Chair in Petroleum and Economics
+Scholarship</span>, University of Wyoming
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+<span class="repeated-year">2019</span>
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">John S. Bugas Economics Scholarship</span>,
+University of Wyoming
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2018
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Ralph d’Arge Scholarship in Natural
+Resource Economics and Finance</span>, University of Wyoming
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+<span class="repeated-year">2018</span>
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">McMurry Excellence Fund</span>, University
+of Wyoming
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+<span class="repeated-year">2018</span>
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Joseph C. and Katherine A. Drew
+Scholarship</span>, University of Wyoming
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2012
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Highest Grade Point Average in Economics
+Class of 2012</span>, Hanyang University at Ansan, South Korea
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2010
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">University Tutor of the Excellent Tutoring
+Team</span>, Hanyang University at Ansan, South Korea
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2006
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Merit-based Scholarships</span>, Hanyang
+University at Ansan, South Korea
+</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
 </div>
 <div id="grants-and-funding" class="section level1">
 <h1>Grants and funding</h1>
-<pre class="r"><code>cv_entries %&gt;% 
-  filter(type == &#39;minor_grants&#39; | type == &#39;major_grants&#39;,
-         is.na(exclude)) %&gt;%
-  filter(!(website == &quot;n&quot;) | is.na(website)) %&gt;% 
-  mutate(what = if_else(
-    !is.na(additional_info),
-    str_c(&quot;&lt;span class=&#39;cv-entry-title&#39;&gt;&quot;, what, &quot;&lt;/span&gt;, &quot;, where, &quot;&lt;br&gt;&quot;, additional_info),
-    str_c(&quot;&lt;span class=&#39;cv-entry-title&#39;&gt;&quot;, what, &quot;&lt;/span&gt;, &quot;, where))
-  ) %&gt;% 
-  blank_year_when_repeated() %&gt;% 
-  select(year, what) %&gt;% 
-  kbl(padding = 0, col.names = NULL, align = c(&quot;l&quot;, &quot;l&quot;), escape = FALSE)  %&gt;%
-  kable_styling( bootstrap_options = c(&quot;hover&quot;, &quot;condensed&quot;)) %&gt;% 
-  column_spec(1, width = &quot;17%&quot;)   </code></pre>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2022
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Conference Travel Funding</span>, SUNY
+Geneseo
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+<span class="repeated-year">2022</span>
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Workshop Travel Funding</span>, Brigham
+Young University, Provo, Utah
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2020
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Summer Augmentation Scholarship for
+Ph.D. Dissertation Research</span>, University of Wyoming
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2018 — 2019
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Graduate Student Conference Travel
+Funding</span>, University of Wyoming
+</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
 </div>
 <div id="service" class="section level1">
 <h1>Service</h1>
-<pre class="r"><code>cv_entries %&gt;% 
-  filter(type == &#39;service&#39;) %&gt;% 
-  mutate(where = ifelse(!is.na(url), str_c(&quot;[&quot;, where, &quot;](&quot;, url, &quot;)&quot;), where)) %&gt;% 
-  mutate(what = ifelse(!is.na(additional_info),
-                       str_c(&quot;&lt;span class=&#39;cv-entry-title&#39;&gt;&quot;, what,
-                      &quot;&lt;/span&gt;&lt;br class=&#39;work-break&#39;&gt;&quot;, 
-                      where),
-                      str_c(&quot;&lt;span class=&#39;cv-entry-title&#39;&gt;&quot;, what,
-                      &quot;&lt;/span&gt;&lt;br class=&#39;work-break&#39;&gt;&quot;, 
-                      where))) %&gt;% 
-  arrange(desc(date_end), desc(date)) %&gt;% 
-  select(year, what) %&gt;% 
-  kbl(padding = 0, col.names = NULL, escape = FALSE) %&gt;%
-  kable_styling( bootstrap_options = c(&quot;hover&quot;, &quot;condensed&quot;)) %&gt;% 
-  column_spec(1, width = &quot;17%&quot;)  </code></pre>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2021 — present
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Data Analytics Curriculum
+Meetings</span><br class="work-break">School of Business, SUNY Geneseo
+</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
 </div>
 <div id="miscelaneous" class="section level1">
 <h1>Miscelaneous</h1>
-<pre class="r"><code>cv_entries %&gt;% 
-  filter(type == &#39;technical&#39;) %&gt;% 
-  mutate(what = str_c(&quot;&lt;span class=&#39;cv-entry-title&#39;&gt;&quot;, what, &quot;&amp;nbsp;&lt;/span&gt; &quot;)) %&gt;% 
-  select(year, what, additional_info) %&gt;% 
-  mutate(year = what) %&gt;% select(-what) %&gt;% 
-  kbl(padding = 0, col.names = NULL, escape=FALSE) %&gt;%
-  kable_styling( bootstrap_options = c(&quot;hover&quot;, &quot;condensed&quot;)) %&gt;% 
-  column_spec(1, width = &quot;17%&quot;)  </code></pre>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;width: 17%; ">
+NA
+</td>
+<td style="text-align:left;">
+Python, R, Stata, MATLAB, Git, SQL, LaTeX, R Markdown
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 17%; ">
+NA
+</td>
+<td style="text-align:left;">
+English, Korean (native)
+</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
 </div>
 <div id="non-academic-experience" class="section level1">
 <h1>Non-Academic Experience</h1>
-<pre class="r"><code>cv_entries %&gt;% 
-  filter(type == &#39;non-academic&#39;, is.na(website)) %&gt;% 
-  mutate(additional_info = replace_na(additional_info, &quot;&quot;)) %&gt;% 
-  mutate(what = str_c(&quot;&lt;span class=&#39;cv-entry-title&#39;&gt;&quot;, what, &quot;&lt;/span&gt;&lt;br class=&#39;work-break&#39;&gt;&quot;, where, &quot;&lt;br&gt;&quot;, additional_info)) %&gt;% 
-  arrange(desc(date)) %&gt;% 
-  select(year, what) %&gt;% 
-  kbl(padding = 0, col.names = NULL, escape = FALSE) %&gt;%
-  kable_styling( bootstrap_options = c(&quot;hover&quot;, &quot;condensed&quot;))   %&gt;% 
-  column_spec(1, width = &quot;17%&quot;)</code></pre>
+<table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
+<tbody>
+<tr>
+<td style="text-align:left;width: 17%; ">
+2007 — 2009
+</td>
+<td style="text-align:left;">
+<span class="cv-entry-title">Completion of Military
+Obligation</span><br class="work-break">Republic of Korea Army, South
+Korea<br>Attained the Rank of Sergeant
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 
 
