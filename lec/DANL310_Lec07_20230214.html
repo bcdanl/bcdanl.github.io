@@ -84,7 +84,8 @@ git clone https://github.com/bcdanl/danl-web-template.git
 
 Step 2. Arrange the files. 
 
-  1. Delete all the files in the  `YOUR_GITHUB_USERNAME.github.io` folder except for (1) the `danl-web-template` subfolder and (2) the file, `YOUR_GITHUB_USERNAME.github.io.Rproj`.
+  1. Keep the `danl-web-template` subfolder and (2) the R project file, `YOUR_GITHUB_USERNAME.github.io.Rproj`.
+    - Delete all the other files in the  `YOUR_GITHUB_USERNAME.github.io` folder, or move them to somewhere outside of the `YOUR_GITHUB_USERNAME.github.io` folder.
 
   2. Move all the files in the `danl-web-template` folder to the  `YOUR_GITHUB_USERNAME.github.io` folder.
   
@@ -616,7 +617,9 @@ by_country
 
 ```r
 by_country &lt;- organdata %&gt;% group_by(consent_law, country) %&gt;%
-  summarize_if(is.numeric, lst(mean, sd), na.rm = TRUE) %&gt;%
+  summarize_if(is.numeric, list(mean = mean, 
+                                median = median), 
+               na.rm = TRUE) %&gt;%
   ungroup()
 ```
 
@@ -673,7 +676,6 @@ by_country &lt;- organdata %&gt;% group_by(consent_law, country) %&gt;%
 ### &lt;p style="color:#00449E"&gt; Plot text directly &lt;/p&gt;
 
 - It can sometimes be useful to plot the labels along with the points in a scatterplot, or just plot informative labels directly.
-
   - We can do this with `geom_text()`.
   
 
@@ -684,14 +686,106 @@ p + geom_point() + geom_text(mapping = aes(label = country))
 ```
 
 - By default, the text is plotted right on top of the points.
-
 - Setting `hjust = 0` will left justify the label, and `hjust = 1` will right justify it.
-
 
 
 ```r
 p + geom_point() + geom_text(mapping = aes(label = country), hjust = 0)
 ```
+
+
+
+
+
+---
+# Graph tables, add labels, make notes
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+&lt;img src="DANL310_Lec07_20230214_files/figure-html/unnamed-chunk-36-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Graph tables, add labels, make notes
+### &lt;p style="color:#00449E"&gt; Plot text directly &lt;/p&gt;
+
+- Instead of wrestling any further with `geom_text()`, we can use `ggrepel::geom_text_repel()` instead. 
+
+
+```r
+install.packages("ggrepel")
+library(ggrepel)
+```
+
+- Let's use some historical U.S. presidential election data provided in the `socviz` library.
+
+```r
+socviz::elections_historic %&gt;% select(2:7) 
+```
+
+---
+# Graph tables, add labels, make notes
+### &lt;p style="color:#00449E"&gt; Plot text directly &lt;/p&gt;
+
+.panelset[
+.panel[.panel-name[Step 1]
+- Let's map aethetics to variables
+
+```r
+p &lt;- ggplot(elections_historic, aes(x = popular_pct, y = ec_pct,
+                                    label = winner_label))
+```
+
+]
+
+.panel[.panel-name[Step 2]
+- Then, add geometric objects to ggplot.
+
+```r
+p &lt;- p + 
+    geom_hline(yintercept = 0.5, linewidth = 1.4, color = "gray80") +
+    geom_vline(xintercept = 0.5, linewidth = 1.4, color = "gray80") +
+    geom_point() +
+    geom_text_repel()
+p
+```
+- We use two new geoms, `geom_hline(yintercept = NUMBER)` and `geom_vline(xintercept = NUMBER)` to make the lines.
+]
+
+
+
+.panel[.panel-name[Step 3]
+- Let's set the scales for `x` and `y`.
+
+```r
+p &lt;- p + 
+     scale_x_continuous(labels = scales::percent) +
+     scale_y_continuous(labels = scales::percent) 
+p
+```
+
+]
+
+
+.panel[.panel-name[Step 4]
+- Let's set the labels.
+
+```r
+p_title &lt;- "Presidential Elections: Popular &amp; Electoral College Margins"
+p_subtitle &lt;- "1824-2016"
+p_caption &lt;- "Data for 2016 are provisional."
+x_label &lt;- "Winner's share of Popular Vote"
+y_label &lt;- "Winner's share of Electoral College Votes"
+
+p + labs(x = x_label, y = y_label, 
+         title = p_title, subtitle = p_subtitle,
+         caption = p_caption)
+```
+
+]
+
+
+]
 
 
     </textarea>

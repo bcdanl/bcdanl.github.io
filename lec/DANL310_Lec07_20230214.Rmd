@@ -29,6 +29,8 @@ library(tidyverse)
 library(NHSRtheme)
 library(fontawesome)
 library(hrbrthemes)
+library(ggrepel)
+
 theme_set(theme_ipsum())
 # set default options
 opts_chunk$set(echo = T, eval = F,
@@ -112,7 +114,8 @@ knitr::include_graphics("../lec_figs/rstudio-terminal0.gif")
 
 Step 2. Arrange the files. 
 
-  1. Delete all the files in the  `YOUR_GITHUB_USERNAME.github.io` folder except for (1) the `danl-web-template` subfolder and (2) the file, `YOUR_GITHUB_USERNAME.github.io.Rproj`.
+  1. Keep the `danl-web-template` subfolder and (2) the R project file, `YOUR_GITHUB_USERNAME.github.io.Rproj`.
+    - Delete all the other files in the  `YOUR_GITHUB_USERNAME.github.io` folder, or move them to somewhere outside of the `YOUR_GITHUB_USERNAME.github.io` folder.
 
   2. Move all the files in the `danl-web-template` folder to the  `YOUR_GITHUB_USERNAME.github.io` folder.
   
@@ -688,8 +691,11 @@ by_country
 
 ```{r}
 by_country <- organdata %>% group_by(consent_law, country) %>%
-  summarize_if(is.numeric, lst(mean, sd), na.rm = TRUE) %>%
+  summarize_if(is.numeric, list(mean = mean, 
+                                median = median), 
+               na.rm = TRUE) %>%
   ungroup()
+
 ```
 
 
@@ -778,7 +784,6 @@ p + geom_pointrange(mapping = aes(ymin = donors_mean - donors_sd,
 ### <p style="color:#00449E"> Plot text directly </p>
 
 - It can sometimes be useful to plot the labels along with the points in a scatterplot, or just plot informative labels directly.
-
   - We can do this with `geom_text()`.
   
 ```{r}
@@ -788,12 +793,117 @@ p + geom_point() + geom_text(mapping = aes(label = country))
 ```
 
 - By default, the text is plotted right on top of the points.
-
 - Setting `hjust = 0` will left justify the label, and `hjust = 1` will right justify it.
-
 
 ```{r}
 p + geom_point() + geom_text(mapping = aes(label = country), hjust = 0)
 ```
+
+
+
+
+
+---
+# Graph tables, add labels, make notes
+### <p style="color:#00449E">  </p>
+
+```{r, echo = F, eval = T, warning = F, message = F, out.width = '100%', fig.align = 'center'}
+p_title <- "Presidential Elections: Popular & Electoral College Margins"
+p_subtitle <- "1824-2016"
+p_caption <- "Data for 2016 are provisional."
+x_label <- "Winner's share of Popular Vote"
+y_label <- "Winner's share of Electoral College Votes"
+
+p <- ggplot(elections_historic, aes(x = popular_pct, y = ec_pct,
+                                    label = winner_label))
+
+p + geom_hline(yintercept = 0.5, linewidth = 1.4, color = "gray80") +
+    geom_vline(xintercept = 0.5, linewidth = 1.4, color = "gray80") +
+    geom_point() +
+    geom_text_repel() +
+    scale_x_continuous(labels = scales::percent) +
+    scale_y_continuous(labels = scales::percent) +
+    labs(x = x_label, y = y_label, title = p_title, subtitle = p_subtitle,
+         caption = p_caption)
+
+```
+
+
+
+---
+# Graph tables, add labels, make notes
+### <p style="color:#00449E"> Plot text directly </p>
+
+- Instead of wrestling any further with `geom_text()`, we can use `ggrepel::geom_text_repel()` instead. 
+
+```{r}
+install.packages("ggrepel")
+library(ggrepel)
+```
+
+- Let's use some historical U.S. presidential election data provided in the `socviz` library.
+```{r}
+socviz::elections_historic %>% select(2:7) 
+```
+
+---
+# Graph tables, add labels, make notes
+### <p style="color:#00449E"> Plot text directly </p>
+
+.panelset[
+.panel[.panel-name[Step 1]
+- Let's map aethetics to variables
+```{r}
+p <- ggplot(elections_historic, aes(x = popular_pct, y = ec_pct,
+                                    label = winner_label))
+```
+
+]
+
+.panel[.panel-name[Step 2]
+- Then, add geometric objects to ggplot.
+```{r}
+p <- p + 
+    geom_hline(yintercept = 0.5, linewidth = 1.4, color = "gray80") +
+    geom_vline(xintercept = 0.5, linewidth = 1.4, color = "gray80") +
+    geom_point() +
+    geom_text_repel()
+p
+```
+- We use two new geoms, `geom_hline(yintercept = NUMBER)` and `geom_vline(xintercept = NUMBER)` to make the lines.
+]
+
+
+
+.panel[.panel-name[Step 3]
+- Let's set the scales for `x` and `y`.
+```{r}
+p <- p + 
+     scale_x_continuous(labels = scales::percent) +
+     scale_y_continuous(labels = scales::percent) 
+p
+```
+
+]
+
+
+.panel[.panel-name[Step 4]
+- Let's set the labels.
+```{r}
+p_title <- "Presidential Elections: Popular & Electoral College Margins"
+p_subtitle <- "1824-2016"
+p_caption <- "Data for 2016 are provisional."
+x_label <- "Winner's share of Popular Vote"
+y_label <- "Winner's share of Electoral College Votes"
+
+p + labs(x = x_label, y = y_label, 
+         title = p_title, subtitle = p_subtitle,
+         caption = p_caption)
+```
+
+]
+
+
+]
 
 
