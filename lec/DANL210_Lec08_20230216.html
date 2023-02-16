@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DANL 210 Lecture 8</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Byeong-Hak Choe" />
+    <script src="libs/header-attrs-2.20/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <script src="libs/peerjs-1.3.1/peerjs.min.js"></script>
+    <script src="libs/tiny.toast-1.0.0/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast-0.2.6/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast-0.2.6/broadcast.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
+    <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, left, bottom
+
+# DANL 210 Lecture 8
+----
+## **DANL 210: Data Preparation and Management**
+### Byeong-Hak Choe
+### Febraury 16, 2023
+
+
+
+---
+# Announcement
+### &lt;p style="color:#00449E"&gt;  Guideline for Homework Assignments &lt;/p&gt;
+
+- You are encouraged to 
+  - Work together with classmates.
+  - Use office hours and tutoring/TA sessions.
+
+
+- At the beginning of the homework, please mention 
+  - Who you work with for the homework.
+  - Whether or not getting help from a tutor 
+  - Whether or not using ChatGPT
+
+
+- If you use ChatGPT for your homework, please paraphrase, quote, and cite it.
+  - ChatGPT is good at adding comments on the code.
+  - ChatGPT is good at correcting errors in the code.
+
+---
+# The `DataFrame`
+### &lt;p style="color:#00449E"&gt;  Subsetting Multiple Rows and Columns &lt;/p&gt;
+
+&lt;table class=" lightable-paper table table-hover table-condensed" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto; font-family: sans-serif, helvetica, arial; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Type &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; df[val] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Select single column or set of columns &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; df`.`loc[val] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Select single row or set of rows &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; df`.`loc[:, val] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Select single column or set of columns &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; df`.`loc[val1, val2] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Select row and column by label &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; df`.`iloc[where] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Select row or set of rows by integer position &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; df`.`iloc[:, where] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Select column or set of columns by integer position &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; df`.`iloc[w1, w2] &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Select row and column by integer position &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; df`.`query(CONDITION) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Select row by a condition &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+---
+# The `DataFrame`
+### &lt;p style="color:#00449E"&gt;  Boolean Subsetting &lt;/p&gt;
+
+.panelset[
+.panel[.panel-name[Series]
+
+- We can not only subset values using labels and indices, but also supply a vector of **boolean values**.
+
+- Boolean subsetting of numeric Series works as follows:
+  - `Series[ Series &gt; VALUE  ]`
+  - `Series[ Series == VALUE  ]`
+  - `Series[ Series &lt; VALUE  ]`
+
+]
+
+.panel[.panel-name[DataFrame]
+- Boolean subsetting of `DataFrames` works like boolean subsetting a `Series`.
+  - `DataFrame[ DataFrame['VARIABLE_NAME'] &gt; VALUE  ]`
+  - `DataFrame[ DataFrame['VARIABLE_NAME'] == VALUE  ]`
+  - `DataFrame[ DataFrame['VARIABLE_NAME'] &lt; VALUE  ]`
+
+
+```python
+import pandas as pd
+scientists = read_csv('data/scientists.csv')  
+
+# What if we want to subset our ages by identifying those above the mean?
+scientists.loc[ scientists['Age'] &gt; scientists['Age'].mean() ]
+```
+]
+
+
+.panel[.panel-name[Q.]
+- Consider the two Series, `area` and `pop`:
+
+```python
+area = pd.Series({'California': 423967, 'Texas': 695662,
+                  'New York': 141297, 'Florida': 170312,
+                  'Illinois': 149995})
+pop = pd.Series({'California': 38332521, 'Texas': 26448193,
+                 'New York': 19651127, 'Florida': 19552860,
+                 'Illinois': 12882135})
+```
+
+- Use boolean subsetting to find states whose population density is greater than 100 or less than 50.
+
+]
+
+
+]
+
+
+---
+# The `DataFrame`
+### &lt;p style="color:#00449E"&gt;  Subsetting Rows with `.query()` &lt;/p&gt;
+
+- We can also subset rows based on a condition using `DataFrame.query()`:
+
+.panelset[
+.panel[.panel-name[Data]
+
+```python
+df = pd.DataFrame(
+    # array with numbers from 0 to 35, 6 rows and 6 columns
+    data = np.reshape( range(36), (6, 6) ),
+    index = ["a", "b", "c", "d", "e", "f"],
+    columns = ["col" + str(i) for i in range(6)],
+    dtype = float,
+)
+df["col6"] = ["apple", "orange", "pineapple", "mango", "kiwi", "lemon"]
+df
+```
+]
+
+.panel[.panel-name[.query() (1)]
+- Select rows if a value of `col6` is "kiwi" or "pineapple": 
+
+```python
+df.query("col6 == 'kiwi' or col6 == 'pineapple'")
+```
+
+- Select rows if a value of `col0` is greater than 6:
+
+```python
+df.query("col0 &gt; 6")
+```
+
+]
+
+
+.panel[.panel-name[(2)]
+- Select flights that departed on January 1:
+
+```python
+# download NY_flights.csv from the Files section in Canvas
+flights = pd.read_csv("data/NY_flights.csv")
+flights.head()
+
+flights.query("month == 1 and day == 1")
+```
+
+
+]
+
+.panel[.panel-name[(3)]
+- Select penguins whose `bill_length_mm` is smaller than `1.8 * bill_depth_mm`.
+
+```python
+import seaborn as sns
+penguins = sns.load_dataset("penguins")
+penguins.head()
+
+penguins.query('bill_length_mm &lt; bill_depth_mm*1.8')
+```
+
+]
+
+.panel[.panel-name[(4)]
+- Objects not in DataFrame can be referenced with an `@` character like` @a + b`.
+
+
+
+```python
+outside_var = 21
+penguins.query('bill_depth_mm &gt; @outside_var')
+```
+
+]
+
+
+]
+
+
+---
+# The `Series` and the `DataFrame`
+### &lt;p style="color:#00449E"&gt;  Sorting and Ranking &lt;/p&gt;
+
+- Let's consider `.sort_index()` and `.sort_values()` methods:
+
+.panelset[
+
+.panel[.panel-name[Series]
+  - `Series.sort_index(ascending=False)` sorts `Series` by index in descending order.
+  - `Series.sort_values(ascending=False)` sorts `Series` by value in descending order.
+
+```python
+rev_ages = ages.sort_index(ascending =False) 
+sorted_ages = ages.sort_values(ascending =False) 
+```
+]
+.panel[.panel-name[DataFrame]
+  - `DataFrame.sort_index(ascending=False)` sorts `DataFrame` by index in descending order.
+  - `DataFrame.sort_values(by = "VAR", ascending=False)` sorts `DataFrame` by value of `VAR` in descending order.
+
+```python
+rev_ages = scientists.sort_index(ascending =False) 
+sorted_df = scientists.sort_values(by = 'Age', 
+                                   ascending =False) 
+```
+
+
+]
+
+]
+
+
+
+---
+# The `Series` and the `DataFrame`
+### &lt;p style="color:#00449E"&gt;  Sorting and Ranking &lt;/p&gt;
+
+- In Pandas, there are a variety of ranking functions with `.rank()`.
+
+.panelset[
+
+.panel[.panel-name[example]
+
+- Consider the following DataFrame.
+
+
+```python
+import numpy as np
+df = pd.DataFrame(data={'Animal': ['fox', 'Kangaroo', 'deer',
+                                   'spider', 'snake'],
+                        'Number_legs': [4, 2, 4, 8, np.nan]})
+df
+```
+]
+
+.panel[.panel-name[method (1)]
+
+- `.rank(method = "min", ascending=False)` does give the largest values the smallest ranks.
+
+- `.rank(method = "dense", ascending=False)` does give the largest values the smallest ranks without any gaps between ranks when breaking ties.
+
+- `.rank(method = "min", ascending=False)` does give the largest values the smallest ranks.
+
+- `.rank(method = "average", ascending=False)` calculates the average rank for each unique value.
+]
+
+
+.panel[.panel-name[method (2)]
+
+```python
+df['default_rank'] = df['Number_legs'].rank(ascending = False)  # method = 'average'
+df['min_rank'] = df['Number_legs'].rank(method='min', ascending = False)
+df['dense_rank'] = df['Number_legs'].rank(method='dense', ascending = False)
+df
+```
+]
+
+
+.panel[.panel-name[na_option]
+- `na_option = keep` assigns `NaN` rank to `NaN` values (default).
+- `na_option = top` assign smallest rank to `NaN` values if ascending
+- `na_option = bottom` assign highest rank to `NaN` values if ascending
+
+```python
+df['NA_bottom'] = df['Number_legs'].rank(na_option='bottom')
+df['NA_top'] = df['Number_legs'].rank(na_option='top')
+df
+```
+]
+
+.panel[.panel-name[pct]
+
+- `pct = True` displays the returned rankings in percentile form.	
+
+```python
+df['pct_rank'] = df['Number_legs'].rank(pct=True)
+df
+```
+]
+
+]
+
+
+---
+#  Making Changes to Series and DataFrames
+### &lt;p style="color:#00449E"&gt; Dropping Values &lt;/p&gt;
+
+
+.panelset[
+
+.panel[.panel-name[Columns]
+- To drop a column, we can select columns to drop with the `.drop()` method with `axis = 1` or `axis = "columns"` on our dataframe.
+
+
+```python
+# all the current columns in our data
+scientists.columns
+
+# drop the shuffled age column
+# we provide the axis=1 argument to drop column-wise
+scientists_dropped = scientists.drop( ['Age'], axis ="columns")
+scientists_dropped.columns
+```
+
+]
+
+.panel[.panel-name[Rows]
+- To drop rows, we can select rows by index to drop with the `.drop()` method with `axis = 0`, which is default.
+
+
+
+```python
+# all the current columns in our data
+scientists.columns
+
+# drop rows by their indices
+scientists_rows_dropped = scientists.drop( [2, 4, 6] )
+scientists_rows_dropped
+```
+
+]
+
+]
+
+
+---
+#  Making Changes to Series and DataFrames
+### &lt;p style="color:#00449E"&gt;   Modifying Columns with `.assign()` &lt;/p&gt;
+
+.panelset[
+
+.panel[.panel-name[(0)]
+- Let's create a new set of columns that contain the `datetime` representations of the object (string) dates.
+
+```python
+# format the 'Born' column as a datetime
+born_datetime = pd.to_datetime( scientists['Born'] )
+died_datetime = pd.to_datetime( scientists['Died'] )
+
+scientists['born_dt'], scientists['died_dt'] = (
+  born_datetime,
+  died_datetime
+)
+
+scientists['age_days'] =  scientists['died_dt'] - scientists['born_dt']
+```
+
+
+]
+
+.panel[.panel-name[(1)]
+- Let’s create the `age_year_assign` column using `.assign()`.
+
+
+```python
+scientists = scientists.assign(
+  # new columns on the left of the equal sign
+  # how to calculate values on the right of the equal sign
+  # separate new columns with a comma
+  age_days_assign = scientists['died_dt'] - scientists['born_dt'],
+  age_year_assign = scientists['age_days'].astype('timedelta64[Y]')
+)
+```
+]
+
+.panel[.panel-name[(2)]
+- In the previous panel, we had to use `age_days` to create `age_year_assign`.
+  - To be able to use `age_days_assign` when calculating `age_year_assign` in the previous panel, we need to know about `lambda` functions.
+  
+
+```python
+scientists = scientists.drop( ['age_days'], axis = 1)  # to drop age_days
+scientists = scientists.assign(
+  age_days_assign = scientists['died_dt'] - scientists['born_dt'],
+  age_year_assign = lambda some_df: 
+    some_df['age_days_assign'].astype('timedelta64[Y]') 
+)
+```
+
+]
+
+]
+
+
+
+---
+# Pandas Data Structures Basics
+### &lt;p style="color:#00449E"&gt; Lambda functions &lt;/p&gt;
+.panelset[
+
+.panel[.panel-name[(1)]
+- Python has support for so-called anonymous or lambda functions. 
+  - Lambda functions are a way of writing functions consisting of a single statement, the result of which is the return value. 
+  - A syntax for a lambda function is `lambda ARGUMENTS : EXPRESSION`
+
+
+```python
+def short_function(x):
+  return x * 2
+
+equiv_anon = lambda x: x * 2
+short_function(2)
+equiv_anon(2)
+```
+
+]
+
+
+.panel[.panel-name[(2)]
+- A `lambda` function can have multiple arguments:
+
+
+```python
+fn_two = lambda a, b : a * b
+fn_two(1, 2)
+
+fn_three = lambda a, b, c : a + b + c
+fn_two(1, 2, 3)
+```
+
+]
+
+
+
+.panel[.panel-name[(3)]
+- The power of lambda is better shown when we use them as an anonymous function inside another function.
+  - Say we have a function definition that takes one argument, and that argument will be multiplied with an unknown number:
+
+
+```python
+def myfunc(n):
+  return lambda a : a * n
+```
+
+]
+
+
+.panel[.panel-name[(4)]
+.pull-left[
+- Use that function definition to make a function that always doubles the number we send in:
+
+
+```python
+def myfunc(n):
+  return lambda a : a * n
+
+my_doubler = myfunc(2)
+my_doubler(10)
+```
+]
+
+.pull-right[
+- Use the same function definition to make a function that always triples the number we send in:
+
+```python
+def myfunc(n):
+  return lambda a : a * n
+
+my_tripler = myfunc(3)
+my_tripler(10)
+```
+
+]
+
+]
+
+.panel[.panel-name[(5)]
+- Here is the example of applying a lambda function to single variable in DataFrame using `.assign()`
+
+
+```python
+values= [['Rohan',182],['Elvish',100],['Deepak',198],
+         ['Soni',160],['Radhika',140],['Vansh',180]]
+df = pd.DataFrame(values, columns = ['name','tot_marks'])
+ 
+# Applying lambda function to find percentage of 'tot_marks' column
+# using df.assign()
+df = df.assign( percentage = 
+  lambda some_name: (some_name['tot_marks'] /200 * 100) )
+```
+
+]
+
+]
+
+
+
+
+---
+class: inverse, center, middle
+
+# Apply Functions
+
+---
+#  Apply Functions
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+- Learning about `.apply()` is fundamental in the data cleaning process. 
+
+- It also encapsulates key concepts in programming, mainly writing **functions**. 
+
+- The `.apply()` method takes a function and applies it (i.e., runs it) across each row or column of a DataFrame without having us write the code for each element separately.
+
+
+
+---
+#  Apply Functions
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+- How do we use functions in Pandas?
+  - We've already seen lambda functions in Pandas!
+- Here’s a toy DataFrame of two columns.
+
+```python
+df = pd.DataFrame({"a": [10, 20, 30], "b": [20, 30, 40]})
+```
+
+- We can `.apply()` our functions over a `Series` (i.e., a **column** or a **row**).
+- Let's consider the following example:
+
+.pull-left[
+
+```python
+def my_sq(x):
+  """Squares a given value
+  """
+  return x ** 2
+```
+]
+.pull-right[
+
+```python
+df['a'] ** 2
+# this would not allow us to use 
+# a function we wrote ourselves.
+```
+]
+
+
+---
+#  Apply Functions
+### &lt;p style="color:#00449E"&gt;  Apply Over a Series &lt;/p&gt;
+
+.panelset[
+
+.panel[.panel-name[(1)]
+-  If we want to square each value in column `a`, we can do the following:
+
+
+```python
+sq = df['a'].apply(my_sq)
+```
+]
+
+.panel[.panel-name[(2)]
+- Let’s consider a function that takes two parameters.
+
+
+```python
+def my_exp(x, e):
+  return x ** e
+
+cubed = my_exp(2, 3)
+my_exp(2)  # does it work?
+```
+]
+
+.panel[.panel-name[(3)]
+- If we want to apply the function `my_exp(x, e)` on our series, we will need to pass in the second parameter.
+  -  To do this, we pass the second argument as a **keyword** argument into `.apply()`.
+
+
+```python
+ex2 = df['a'].apply(my_exp, e=2)
+ex3 = df['a'].apply(my_exp, e=3)
+```
+]
+
+
+]
+
+
+
+---
+#  Apply Functions
+### &lt;p style="color:#00449E"&gt;  Apply Over a DataFrame --- Column-Wise Operations &lt;/p&gt;
+
+.panelset[
+
+.panel[.panel-name[DataFrames]
+- We’ve seen how to apply functions over a one-dimensional `Series`.
+
+- `DataFrames` typically have at least two dimensions. 
+  - When we apply a function over a dataframe, we first need to specify which axis to apply the function over–for example, column-by-column or row-by-row.
+]
+
+.panel[.panel-name[(1)]
+
+- Use the `axis = 0` parameter (the default value) in `.apply()` when working with functions in a column-wise manner (i.e., for each column).
+
+
+```python
+def print_me(x):
+  print(x)
+df.apply(print_me, axis =0)
+```
+
+- Compare this output to the following:
+
+
+```python
+print(df['a']); print(df['b'])
+```
+]
+
+
+
+.panel[.panel-name[(2)]
+
+-  When we apply a function across a DataFrame (in this case, column-wise with `axis=0`), the **entire** axis (e.g., column) is passed into the **first** argument of the function.
+
+
+```python
+def avg_3(x, y, z):
+   return (x + y + z) / 3
+
+df.apply(avg_3)  # does it work?
+df.apply(avg_3, y= 1, z = 1)
+df.apply(avg_3, y= [1, 1, 1], z = [1, 1, 1])
+df.apply(avg_3, y= [1, 1, 1], z = [1, 5, 10])
+```
+
+
+]
+
+.panel[.panel-name[(3)]
+-  Does the following work?
+
+
+```python
+def avg_3_apply(col):
+  """The avg_3 function but apply compatible by taking in all the values 
+  as the first argument and parsing out the values within the function
+  """
+   x = col[0]
+   y = col[1]
+   z = col[2]
+   return (x + y + z) / 3
+df.apply(avg_3_apply)  # does it work?
+```
+
+
+]
+
+]
+  
+
+---
+#  Apply Functions
+### &lt;p style="color:#00449E"&gt;  Apply Over a DataFrame --- Row-Wise Operations &lt;/p&gt;
+
+.panelset[
+
+
+.panel[.panel-name[(1)]
+
+- Use the `axis = 1` parameter in `.apply()` when working with functions in a row-wise manner (i.e., for each column).
+  -  The **entire row** is used as the first argument.
+
+
+- Let's `.apply( axis = 1)` to each row.
+
+```python
+df.apply( avg_3_apply, axis = 1 )  
+```
+
+- Does it work?
+
+]
+
+
+.panel[.panel-name[(2)]
+
+-  The main issue here is the `index out of bounds`. 
+
+  - We passed the row of data in as the first argument, but in our function we begin indexing out of range. 
+  
+  - That is, we have only two values in each row, but we tried to get index 2, which means the third element, and it does not exist).
+
+]
+
+.panel[.panel-name[(3)]
+
+-  If we want to calculate our averages row-wise, we have to write a new function to work with two values.
+
+
+```python
+def avg_2_apply(row):
+    """Taking the average of row value.
+    Assuming that there are only 2 values in a row.
+    """
+    x = row[0]
+    y = row[1]
+    return (x + y) / 2
+df.apply(avg_2_apply, axis =1)
+```
+
+]
+
+]
+  
+
+---
+#  Apply Functions
+### &lt;p style="color:#00449E"&gt;  Lambda Functions &lt;/p&gt;
+- Sometimes the function used in the `.apply()` method is simple enough that there is no need to create a separate function.
+
+.pull-left[
+
+
+```python
+def my_sq(x):
+  return x ** 2
+
+df['a_sq'] = df['a'].apply(my_sq)
+```
+
+]
+
+.pull-right[
+
+
+```python
+df['a_sq_lamb'] = ( df['a']
+    .apply(lambda x: x ** 2) )
+```
+
+]
+
+- We can see that the actual function is a simple one-liner. 
+  - Usually when this happens, we would want to use lambda functions.
+
+
+
+---
+#  Apply Functions
+### &lt;p style="color:#00449E"&gt;   Vectorized Functions &lt;/p&gt;
+
+
+.panelset[
+
+
+.panel[.panel-name[(1)]
+- When we use `.apply()`, we are able to make a function work on a column-by-column or row-by-row basis.
+
+
+- However, there might be times when it is not feasible to rewrite a function in this way. 
+  - We can then leverage the `.vectorize()` function and decorator to vectorize any function.
+  - We expect performance gains by doing so.
+  
+  
+]
+ 
+.panel[.panel-name[(2)] 
+- Here’s our average function, which we can apply on a row-by-row basis:
+
+
+```python
+def avg_2(x, y):
+  return (x + y) / 2
+
+df   # to remind ourselves
+avg_2( df['a'], df['b'] )
+```
+
+- For a vectorized function, we’d like to be able to pass in a vector of values for `x` and a vector of values for `y`, and the results should be the average of the given `x` and `y` values in the same order. 
+
+]
+
+.panel[.panel-name[(3)]
+
+- `avg_2(df['a'], df['y'])` works because the actual calculations within our function are inherently vectorized.
+
+  - If we add two numeric columns together, `Pandas` (and the `NumPy` library) will automatically perform element-wise addition.
+  
+  - Likewise, when we divide by a scalar, it will “broadcast” the scalar, and divide each element by the scalar.
+]
+
+
+.panel[.panel-name[(4)]
+
+- Let’s change our function and perform a non-vectorizable calculation.
+
+```python
+def avg_2_mod(x, y):
+   """Calculate the average, unless x is 20."""
+   if x == 20:
+     return np.NaN
+   else:
+     return (x + y) / 2
+avg_2_mod( df['a'], df['b'] )   # does it work?
+avg_2_mod(10, 20)
+avg_2_mod(20, 30)
+```
+
+
+]
+
+.panel[.panel-name[w/ np (1)]
+- We pass `np.vectorize()` to the function we want to vectorize, to create a new function.
+
+
+```python
+# np.vectorize actually creates a new function
+avg_2_mod_vec = np.vectorize(avg_2_mod)
+
+# use the newly vectorized function
+avg_2_mod_vec( df['a'], df['b'] )
+```
+
+]
+
+
+.panel[.panel-name[w/ np (2)]
+
+- Sometimes, we want to modify an existing function without changing its source code. 
+  - We can then consider using a decorator.
+
+
+- A decorator is a function that takes one function as input and returns another function.
+
+
+- We can add `@decorator_name` before the function that we want to decorate:
+]
+
+.panel[.panel-name[w/ np (3)]
+
+```python
+# to use the vectorize decorator
+# we use the @ symbol before our function definition
+@np.vectorize
+def v_avg_2_mod(x, y):
+   if x == 20:
+     return np.NaN
+   else:
+     return (x + y) / 2
+   
+v_avg_2_mod( df['a'], df['b']) )
+```
+
+]
+
+
+
+]
+
+
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Exporting and Importing Data
+
+---
+# Exporting and Importing Data
+### &lt;p style="color:#00449E"&gt; Pickle &lt;/p&gt;
+
+
+.panelset[
+
+.panel[.panel-name[(1)]
+- Python has a way to `pickle` data. 
+  - This is Python’s way of serializing and saving data in a binary format.
+  - `pickle` files are usually saved with an extension of `.p`, `.pkl`, or `.pickle`.
+  - If we try to open it in a text editor, we will see a bunch of garbled characters.
+
+- Create the `output` folder in your working directory.
+  - We will use the `output` folder to store the exported `Series` or `DataFrame`.
+]
+
+.panel[.panel-name[(2)]
+- To export `Series` or `DataFrame` as a `pickle` file, we use the `to_pickle()` method.
+
+```python
+# pass in a string to the path you want to save
+scientists.to_pickle('output/scientists_df.pickle')
+```
+]
+
+.panel[.panel-name[(3)]
+- To read `pickle` data, we can use the `pd.read_pickle()` function.
+
+
+```python
+dataframe_pickle = pd.read_pickle(
+  'output/scientists_df.pickle'
+  )
+```
+
+]
+
+]
+
+
+---
+# Exporting and Importing Data
+### &lt;p style="color:#00449E"&gt;  Comma-Separated Values (CSV) &lt;/p&gt;
+
+- Comma-separated values (CSV) are the most flexible data storage type.
+  - For each row, the column information is separated with a comma.
+
+
+- To export `Series` or `DataFrame` as a `csv` file, we use the `to_csv()` method.
+
+
+```python
+# index =False  does not write the row names in the CSV output
+scientists.to_csv('output/scientists_df_no_index.csv', 
+                   index =False)
+```
+
+
+
+---
+# Exporting and Importing Data
+### &lt;p style="color:#00449E"&gt; Excel &lt;/p&gt;
+
+- The more of your work you can do in Python and/or R, the easier it will be to scale up to larger projects, catch and fix mistakes, and collaborate. 
+
+- However, Excel’s popularity and market share are unrivaled. 
+
+- To export `Series` or `DataFrame` as an `.xlsx` file, we use the `to_excel()` method.
+
+
+```python
+# saving a DataFrame into Excel format
+scientists.to_excel(
+  "output/scientists_df.xlsx",
+  sheet_name = "scientists",
+  index = False)
+```
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Exploratory Data Analysis with `Seaborn`
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+# Exploratory Data Analysis 
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+- Here we discuss how to use summary statistics and visualization to explore your data in a systematic way, a task that statisticians call **exploratory data analysis** (EDA). 
+
+
+- EDA is an iterative cycle. We:
+  - Generate questions about your data.
+  - Search for answers by visualizing, transforming, and modelling our data.
+  - Use what we learn to refine our questions and/or generate new questions.
+  
+- Here, we focus on the visualization part.
+  
+
+
+---
+# Exploratory Data Analysis 
+### &lt;p style="color:#00449E"&gt; Tidy `data.frame` &lt;/p&gt;
+
+&lt;img src="../lec_figs/tidy-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+- In a tidy `DataFrame`,
+  - A **variable** is in a column.
+  - An **observation** is in a row. 
+  - A **value** are in a cell.
+
+
+---
+# Exploratory Data Analysis 
+### &lt;p style="color:#00449E"&gt; Tidy `data.frame` &lt;/p&gt;
+
+- A **variable** is a quantity, quality, or property that we can measure/count.
+  
+  
+- An **observation** is a set of measurements made under similar conditions (e.g, similar unit of entity, time, and/or geography).
+  - We usually make all of the measurements in an observation at the same time and on the same object.
+  - An observation will contain several values, each associated with a different variable.
+  - We sometimes refer to an observation as a data point.
+
+
+- The **value** of a variable may change from measurement to measurement.
+
+
+---
+# Exploratory Data Analysis 
+### &lt;p style="color:#00449E"&gt; Categorical/Discrete vs. Continuous Variables &lt;/p&gt;
+
+
+- A **discrete/categorical variable** is a variable whose value is obtained by *counting* and is whole numbers.
+  - Number of red marbles in a jar
+  - Number of heads when flipping three coins 
+  - Students’ letter grade
+  - US state/county
+
+
+- A **continuous variable** is a variable whose value is obtained by *measuring*  and can have a decimal or fractional value.
+  - Height/weight of students
+  - Time it takes to get to school
+  - Fuel efficiency of a vehicle (e.g., miles per gallon)
+
+
+---
+# Exploratory Data Analysis 
+### &lt;p style="color:#00449E"&gt; Making Discoveries from a Data Set &lt;/p&gt;
+
+.panelset[
+
+.panel[.panel-name[Distribution]
+- What type of **variation** occurs within a variable?
+
+
+- **Variation** is the tendency of the values of a variable to change from measurement to measurement. 
+  - We can see variation easily in real life; if we measure any continuous variable twice, we will be likely to get two different values.
+  - Which values are the most common? Why?
+  - Which values are rare? Why? Does that match your expectations?
+  - Can we see any unusual patterns? What might explain them?
+
+]
+
+.panel[.panel-name[Relationship]
+- **Co-variation** is the tendency for the values of two or more variables to vary together in a related way. 
+
+
+- What type of **co-variation** occurs between variables?
+
+]
+
+.panel[.panel-name[Steps]
+
+- Figure out whether variables of interests are categorical or continuous.
+
+- Think which geometric objects, aesthetic mappings, and faceting are appropriate to visualize distributions and relationships.
+
+- If needed, transform a given `DataFrame` (e.g., subset of observations, new variables, summarized data) and try new visualizations.
+
+]
+
+.panel[.panel-name[Types]
+
+  - A distribution of a categorical variable (e.g., bar charts and more)
+  - A distribution of a continuous variable (e.g., histograms and more)
+  - A relationship between two categorical variables (e.g., bar charts and more)
+  - A relationship between two continuous variables (e.g., scatter plots  and more)
+  - A relationship between a categorical variable and a continuous variable (e.g., boxplots and more)
+  - A time trend of a categorical variable (e.g., bar plots and more)
+  - A time trend of a continuous variable (e.g., line plots and more)
+  
+]
+
+.panel[.panel-name[Summary Stat.]
+
+- Use `skim(DataFrame)` or `.describe()` to know:
+
+  - Mean (Average, Expected Value);
+  
+  - Standard Deviation (SD)
+  
+  - Minimum, First Quartile (Q1), Median (Q2), Third Quartile (Q3), and Maximum.
+
+]
+
+]
+
+
+
+---
+class: inverse, center, middle
+
+# Data Visualization with `seaborn`
+
+
+---
+# Data Visualization
+
+.pull-left[
+
+&lt;img src="../lec_figs/lego.png" width="67%" style="display: block; margin: auto;" /&gt;
+
+]
+.pull-right[
+- Graphs and charts let us explore and learn about the structure of the information we have in DataFrame. 
+
+- Good data visualizations make it easier to communicate our ideas and findings to other people. 
+
+
+]
+
+
+---
+#  `seaborn`
+
+
+
+- `seaborn` is a Python data visualization library based on `matplotlib`. 
+  - It allows us to easily create beautiful but complex graphics using a simple interface.
+  - It also provides a general improvement in the default appearance of `matplotlib`-produced plots, and so I recommend using it by default.
+
+
+```python
+import seaborn as sns
+sns.set_theme(rc={'figure.dpi': 600, 
+                  'figure.figsize': (5, 3.75)})   # better quality
+```
+
+
+---
+# Data Visualization with `seaborn`
+### &lt;p style="color:#00449E"&gt; Getting started with `seaborn`
+
+- Let's get the names of `DataFrame`s provided by the `seaborn` library:
+
+
+```python
+import seaborn as sns
+print( sns.get_dataset_names() )
+```
+
+
+- Let's use the `titanic` and `tips` DataFrames:
+
+
+```python
+titanic = sns.load_dataset('titanic')
+titanic.head()
+tips = sns.load_dataset('tips')
+tips.head()
+```
+
+
+
+
+---
+# Data Visualization with `seaborn`
+### &lt;p style="color:#00449E"&gt; Bar Chart 
+
+- A bar chart is used to plot the frequency of the different categories.
+  - It is useful to visualize how values of a **categorical variable** are distributed.
+  - A variable is **categorical** if it can only take one of a small set of values.
+  
+  
+- We use `sns.countplot()` function to plot a bar chart:
+
+
+.pull-left[
+
+```python
+sns.countplot(data = titanic,
+              x =  'sex')
+```
+]
+
+.pull-right[
+
+- Mapping
+  - `data`: DataFrame.
+  - `x`:  Name of a categorical variable (column) in DataFrame
+
+]
+
+
+
+
+
+
+
+
+---
+# Data Visualization with `seaborn`
+### &lt;p style="color:#00449E"&gt; Bar Chart 
+
+- We can further break up the bars in the bar chart based on another categorical variable. 
+
+  - This is useful to visualize the relationship between the two categorical variables.
+
+
+.pull-left[
+
+```python
+sns.countplot(data = titanic,
+              x = 'sex'
+              hue = 'survived')
+```
+]
+
+.pull-right[
+
+- Mapping
+  - `hue`:  Name of a categorical variable
+
+]
+
+
+
+
+
+---
+# Data Visualization with `seaborn`
+### &lt;p style="color:#00449E"&gt; Histogram 
+
+- A histogram is a **continuous** version of a bar chart.
+  - It is used to plot the frequency of the different values.
+  - It is useful to visualize how values of a **continuous variable** are distributed.
+
+  
+- We use `sns.histplot()` function to plot a histogram:
+.pull-left[
+
+```python
+sns.histplot(data = titanic,
+             x =  'age', 
+             bins = 5)
+```
+]
+
+.pull-right[
+- Mapping
+  - `bins`:  Number of bins
+
+]
+
+
+
+
+---
+# Data Visualization with `seaborn`
+### &lt;p style="color:#00449E"&gt; Histogram 
+
+- A boxplot computes a summary of the distribution and then display a specially formatted box.
+  - It is useful to visualize how values of a **continuous variable** are distributed across different values of another (categorical) variable.
+  
+  
+- We use `sns.histplot()` function to plot a histogram:
+.pull-left[
+
+```python
+sns.boxplot(data = tips,
+             y='total_bill')
+```
+]
+
+.pull-right[
+
+```python
+sns.boxplot(data = tips,
+            x='time', y='total_bill')
+```
+]
+
+
+
+
+
+
+---
+# Data Visualization with `seaborn`
+### &lt;p style="color:#00449E"&gt; Scatter plot 
+
+- A scatter plot is used to display the relationship between two continuous variables.
+
+  -  We can see co-variation as a pattern in the scattered points.
+
+- We use `sns.scatterplot()` function to plot a scatter plot:
+
+.pull-left[
+
+```python
+sns.scatterplot(data = tips,
+                x = 'total_bill', 
+                y = 'tip')
+```
+]
+
+.pull-right[
+- Mapping
+  - `x`:  Name of a continuous variable on the horizontal axis
+  - `y`:  Name of a continuous variable on the vertical axis
+]
+
+
+---
+# Data Visualization with `seaborn`
+### &lt;p style="color:#00449E"&gt; Scatter plot 
+
+- To the scatter plot, we can add a `hue`-`VARIABLE` mapping to display how the relationship between two continuous variables varies by `VARIABLE`.
+
+- Suppose we are interested in the following question:
+  - **Q**. Does a smoker and a non-smoker have a difference in tipping behavior?
+
+
+```python
+sns.scatterplot(data = tips,
+                x = 'total_bill', 
+                y = 'tip',
+                hue = 'smoker')
+```
+
+
+
+---
+# Data Visualization with `seaborn`
+### &lt;p style="color:#00449E"&gt; Fitted line 
+
+- From the scatter plot, it is often difficult to clearly see the relationship between two continuous variables.
+
+  - `sns.lmplot()` adds a line that fits well into the scattered points.
+  
+  - On average, the fitted line describes the relationship between two continuous variables.
+  
+
+
+```python
+sns.lmplot(data = tips,
+           x = 'total_bill', 
+           y = 'tip')
+```
+
+
+
+
+
+---
+# Data Visualization with `seaborn`
+### &lt;p style="color:#00449E"&gt; Transparency with `alpha`
+
+- In a scatter plot, adding transparency with `alpha` helps address many data points on the same location.
+  - We can map `alpha` to number between 0 and 1.
+  
+.pull-left[
+
+```python
+sns.scatterplot(x = 'total_bill', 
+                y = 'tip',
+                hue = 'smoker',
+                alpha = .25)
+```
+]
+
+.pull-left[
+
+```python
+sns.lmplot(data = tips,
+           x = 'total_bill', 
+           y = 'tip',
+           scatter_kws = {'alpha' : 0.2})
+```
+]
+
+
+
+
+---
+# Data Visualization with `seaborn`
+### &lt;p style="color:#00449E"&gt; Scatter plot 
+
+- To the scatter plot, we can add a `hue`-`VARIABLE` mapping to display how the relationship between two continuous variables varies by `VARIABLE`.
+
+- Using the fitted lines, let's answer the following question:
+  - **Q**. Does a smoker and a non-smoker have a difference in tipping behavior?
+
+
+```python
+sns.scatterplot(data = tips,
+                x = 'total_bill', 
+                y = 'tip',
+                hue = 'smoker')
+```
+
+  
+
+
+---
+# Data Visualization with `seaborn`
+### &lt;p style="color:#00449E"&gt; Line cahrt 
+
+- A line chart is used to display the trend in a continuous variable or the change in a continuous variable over other variable.
+  - It draws a line by connecting the scattered points in order of the variable on the x-axis, so that it highlights exactly when changes occur.
+- We use `sns.lineplot()` function to plot a line plot:
+.pull-left[
+
+```python
+path_csv = 'https://bcdanl.github.io/data/dji.csv'
+dow = pd.read_csv(path_csv, index_col=0, parse_dates=True)
+sns.lineplot(data = dow,
+             x =  'Date', 
+             y =  'Close')
+```
+]
+
+.pull-right[
+- Mapping
+  - `x`:  Name of a continuous variable (often time variable) on the horizontal axis 
+  - `y`:  Name of a continuous variable on the vertical axis
+]
+
+
+---
+# Data Visualization with `seaborn`
+### &lt;p style="color:#00449E"&gt; Line cahrt 
+
+- For line charts, we often need to group or connect observations to visualize the number of distinct lines.
+
+
+```python
+healthexp = ( sns.load_dataset("healthexp")
+             .sort_values(["Country", "Year"])
+             .query("Year &lt;= 2020") )
+healthexp.head()
+
+sns.lineplot(data = dow,
+             x =  'Year', 
+             y =  'Life_Expectancy',
+             color = 'Country')
+```
+
+
+---
+# Data Visualization with `seaborn`
+### &lt;p style="color:#00449E"&gt; Faceting
+
+- Faceting allows us to plot subsets (facets) of our data across subplots. 
+
+.panelset[
+.panel[.panel-name[Step 1. FacetGrid()]
+- First, we create a `FacetGrid()` object with the data we will be using and define how it will be subset with the `row` and `col` arguments: 
+
+```python
+g = sns.FacetGrid(
+      data = titanic,
+      row='class',
+      col='sex')
+```
+
+]
+
+.panel[.panel-name[Step2. FacetGrid().map()]
+- Secodn, we use the `FacetGrid().map()` method to run a plotting function on each of the subsets, passing along any necessary arguments.
+
+```python
+g.map(sns.histplot, 'age', kde=True)  # kde: kernel density (probability density function)
+```
+
+]
+]
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 66px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
