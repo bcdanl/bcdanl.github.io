@@ -113,7 +113,7 @@ class: inverse, center, middle
 ### &lt;p style="color:#00449E"&gt; Use pipes to summarize data &lt;/p&gt;
 - Let's describe how the distribution of religious preferences varies by regions in the US using the `socviz::gss_sm` data.frame.
 
-
+&lt;img src="../lec_figs/socviz_fig5_1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -378,17 +378,17 @@ class: inverse, center, middle
 # Understanding Scales, Guides, and Themes
 ### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
 
-- We have used `scale_x_log10()`, `scale_x_continuous()` and other` scale_` functions to adjust axis labels. 
+- We have used `scale_x_log10()`, `scale_x_continuous()` and other` scale_*_*()` functions to adjust axis labels. 
 
 - We used the `guides()` function to remove the legends for a color mapping and a `label` mapping. 
 
 - We also used the `theme()` function to move the position of a legend from the side to the top of a figure.
 
-- What are the differences between the `scale_` functions, the `guides()` function, and the `theme()` function? 
+- What are the differences between the `scale_*_*()` functions, the `guides()` function, and the `theme()` function? 
 
 - When do we know to use one rather than the other? 
 
-- Why are there so many `scale_` functions? 
+- Why are there so many `scale_*_*()` functions? 
 
 - How can we tell which one we need?
 
@@ -405,15 +405,20 @@ class: inverse, center, middle
 
 - Every aesthetic mapping has a scale. 
 
-  - If we want to adjust how that scale is marked or graduated, then we use a `scale_` function.
+  - If we want to adjust how that scale is marked or graduated, then we use a `scale_*_*()` function.
 
 ]
 
 .panel[.panel-name[guides]
 - Many scales come with a *legend* or key to help the reader interpret the graph. These are called `guides`. 
+
   - We can make adjustments to them with the `guides()` function. 
-  - Perhaps the most common use case is to make the legend disappear, as it is sometimes superfluous. 
+
+  - Perhaps the most common use case is to make the legend disappear.
+
   - Another is to adjust the arrangement of the key in *legends* and *colorbars*.
+  
+  - `guides` is also one of the parameters in `scales_*_*()`.
 
 ]
 
@@ -433,11 +438,67 @@ class: inverse, center, middle
 
 
 
-&lt;!-- --- --&gt;
-&lt;!-- # Understanding Scales, Guides, and Themes --&gt;
-&lt;!-- ### &lt;p style="color:#00449E"&gt;  &lt;/p&gt; --&gt;
+---
+# Understanding Scales, Guides, and Themes
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
   
+- `scale_*_*()` and `guides()` are closely connected.
+  - The `guides()` provides information about the `scale`, such as in a **legend** or **colorbar**.
+  - So, it is possible to make adjustments to guides from inside the various `scale_*_*()` functions.
 
+
+```r
+p &lt;- ggplot(data = organdata,
+            mapping = aes(x = roads, y = donors, color = world))
+p + geom_point()
+```
+- The `x` and `y` scales are both **continuous**.
+- The `color` scale is **discrete**.
+  - A `color` or `fill` mapping can also be a *continuous* quantity (*colorbar*).
+  
+  
+  
+---
+# Understanding Scales, Guides, and Themes
+### &lt;p style="color:#00449E"&gt; `scale_&lt;MAPPING&gt;_&lt;KIND&gt;` &lt;/p&gt;
+
+- Because we have several potential mappings, and each mapping might be to one of several different scales, we end up with a lot of individual `scale_*_*` functions. 
+  - Each deals with one combination of mapping and scale. Too many to memorize. 
+  - They are named according to a consistent logic:
+  
+&lt;img src="../lec_figs/scale_mapping_kind.png" width="50%" style="display: block; margin: auto;" /&gt;
+ 
+- [https://ggplot2tor.com/scales](https://ggplot2tor.com/scales) provides a complete guide to scales.
+  - This app makes it easy for you to find the right scales and arguments for your variable types and aesthetics.
+
+
+
+---
+# Understanding Scales, Guides, and Themes
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+.panelset[
+.panel[.panel-name[(1)]
+- Let's replicate the following:
+  &lt;!-- - Use the `log10` scale on x-axis. --&gt;
+  &lt;!-- - Break y-axis at `c(5, 15, 25)`, and label them as `c("Five", "Fifteen", "Twenty Five")`. --&gt;
+
+&lt;img src="DANL310_Lec08_20230216_files/figure-html/unnamed-chunk-20-1.png" width="75%" /&gt;
+
+]
+
+
+.panel[.panel-name[(2)]
+- Let's replicate the following:
+  &lt;!-- - Label colors to `c("Corporatist", "Liberal", "Social Democratic", "Unclassified")` --&gt;
+  &lt;!-- - Label `x`-axis, `y`-axis, and a title of `color` legend using `labs()`. --&gt;
+
+&lt;img src="DANL310_Lec08_20230216_files/figure-html/unnamed-chunk-21-1.png" width="75%" /&gt;
+
+]
+
+
+]
 
 ---
 class: inverse, center, middle
@@ -475,7 +536,7 @@ p + geom_point() + geom_text(mapping = aes(label = country), hjust = 0)
 # Add Labels and Make Notes
 ### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
 
-&lt;img src="DANL310_Lec08_20230216_files/figure-html/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="DANL310_Lec08_20230216_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -561,6 +622,128 @@ p + labs(x = x_label, y = y_label,
 
 ]
 
+
+---
+# Add Labels and Make Notes
+### &lt;p style="color:#00449E"&gt; Label Outliers &lt;/p&gt;
+
+- Sometimes we want to pick out some points of interest in the data without labeling every single item. 
+  -  We do this using the `filter()` function.
+
+.panelset[
+.panel[.panel-name[(1)]
+
+```r
+p &lt;- ggplot(data = by_country,
+            mapping = aes(x = gdp_mean, y = health_mean))
+
+p + geom_point() +
+    geom_text_repel(data = subset(by_country, gdp_mean &gt; 25000),
+                    mapping = aes(label = country))
+```
+]
+
+.panel[.panel-name[(2)]
+
+```r
+p &lt;- ggplot(data = by_country,
+            mapping = aes(x = gdp_mean, y = health_mean))
+p + geom_point() +
+    geom_text_repel(data = filter(by_country,
+                                  gdp_mean &gt; 25000 | health_mean &lt; 1500 |
+                                  country %in% "Belgium"),
+                    mapping = aes(label = country))
+```
+]
+
+
+
+]
+
+
+
+---
+# Add Labels and Make Notes
+### &lt;p style="color:#00449E"&gt; Label Outliers &lt;/p&gt;
+
+- We can also add a logical variable (either `TRUE` or `FALSE`) to label specific points using `filter()`.
+
+
+```r
+# creating a dummy variable in the data set for labels
+organdata$ind &lt;- organdata$ccode %in% c("Ita", "Spa") &amp; organdata$year &gt; 1998   
+
+p &lt;- ggplot(data = organdata,
+            mapping = aes(x = roads, y = donors, 
+                          color = ind))
+p + geom_point() +
+    geom_text_repel(data = filter(organdata, ind),
+                    mapping = aes(label = ccode)) +
+    guides(label = "none", color = "none")
+```
+
+
+---
+# Add Labels and Make Notes
+### &lt;p style="color:#00449E"&gt; Write and draw in the plot area &lt;/p&gt;
+
+- We can use `annotate()` to annotate the figure directly. 
+  &lt;!-- - Maybe we sometimes need to point out something important that is not mapped to a variable.  --&gt;
+
+.panelset[
+.panel[.panel-name[text]
+
+```r
+p &lt;- ggplot(data = organdata, mapping = aes(x = roads, y = donors))
+p + geom_point() + annotate(geom = "text", x = 91, y = 33,
+                            label = "A surprisingly high \n recovery rate.",
+                            hjust = 0)
+```
+]
+
+.panel[.panel-name[rect]
+
+```r
+p &lt;- ggplot(data = organdata,
+            mapping = aes(x = roads, y = donors))
+p + geom_point() +
+    annotate(geom = "rect", xmin = 125, xmax = 155,
+             ymin = 30, ymax = 35, fill = "red", alpha = 0.2) + 
+    annotate(geom = "text", x = 157, y = 33,
+             label = "A surprisingly high \n recovery rate.", hjust = 0)
+```
+
+]
+
+.panel[.panel-name[point]
+
+```r
+p &lt;- ggplot(mpg, aes(displ, hwy)) +
+  geom_point(
+    data = filter(mpg, manufacturer == "subaru"), color = "orange", size = 3) +
+  geom_point() 
+
+p + 
+  annotate(geom = "point", x = 5.5, y = 40, colour = "orange", size = 3) + 
+  annotate(geom = "point", x = 5.5, y = 40) + 
+  annotate(geom = "text", x = 5.6, y = 40, label = "subaru", hjust = "left")
+```
+
+]
+
+.panel[.panel-name[curve]
+
+```r
+p + 
+  annotate(
+    geom = "curve", x = 4, y = 35, xend = 2.65, yend = 27, 
+    curvature = .3, arrow = arrow(length = unit(2, "mm"))
+  ) +
+  annotate(geom = "text", x = 4.1, y = 35, label = "subaru", hjust = "left")
+```
+
+]
+]
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
