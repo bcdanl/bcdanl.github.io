@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Byeong-Hak Choe " />
+
+<meta name="date" content="2023-02-19" />
+
+<title>DANL 200: Introduction to Data Analytics</title>
+
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">suny geneseo danl</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">home</a>
+</li>
+<li>
+  <a href="resume.html">résumé</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    danl 200 lec
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lec/DANL200_Lec01_20230124.html">lecture 01 - syllabus</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec02_20230126.html">lecture 02 - r basic</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec03_20230131.html">lecture 03 - r basic, ggplot</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec04_20230202.html">lecture 04 - ggplot</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec05_20230207.html">lecture 05 - ggplot</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec06_20230209.html">lecture 06 - ggplot</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec07_20230214.html">lecture 07 - ggplot</a>
+    </li>
+    <li>
+      <a href="lec/DANL200_Lec08_20230216.html">lecture 08 - ggplot</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    danl 200 hw
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="DANL200_hw1q.html">hw1q</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    danl 210 lec
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lec/DANL210_Lec01_20230124.html">lecture 01 - syllabus</a>
+    </li>
+    <li>
+      <a href="lec/DANL210_Lec02_20230126.html">lecture 02 - python basic</a>
+    </li>
+    <li>
+      <a href="lec/DANL210_Lec03_20230131.html">lecture 03 - python basic</a>
+    </li>
+    <li>
+      <a href="lec/DANL210_Lec04_20230202.html">lecture 04 - python basic, pandas</a>
+    </li>
+    <li>
+      <a href="lec/DANL210_Lec05_20230207.html">lecture 05 - pandas</a>
+    </li>
+    <li>
+      <a href="lec/DANL210_Lec06_20230209.html">lecture 06 - pandas</a>
+    </li>
+    <li>
+      <a href="lec/DANL210_Lec07_20230214.html">lecture 07 - pandas</a>
+    </li>
+    <li>
+      <a href="lec/DANL210_Lec08_20230216.html">lecture 08 - pandas</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    danl 210 hw
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="DANL210_hw1q.html">hw1q</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    danl 310 lec
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lec/DANL310_Lec01_20230124.html">lecture 01 - syllabus</a>
+    </li>
+    <li>
+      <a href="lec/DANL310_Lec02_20230126.html">lecture 02 - github website, rmarkdown</a>
+    </li>
+    <li>
+      <a href="lec/DANL310_Lec03_20230131.html">lecture 03 - rmarkdown</a>
+    </li>
+    <li>
+      <a href="lec/DANL310_Lec04_20230202.html">lecture 04 - ggplot</a>
+    </li>
+    <li>
+      <a href="lec/DANL310_Lec05_20230207.html">lecture 05 - ggplot</a>
+    </li>
+    <li>
+      <a href="lec/DANL310_Lec06_20230209.html">lecture 06 - ggplot</a>
+    </li>
+    <li>
+      <a href="lec/DANL310_Lec07_20230214.html">lecture 07 - ggplot</a>
+    </li>
+    <li>
+      <a href="lec/DANL310_Lec08_20230216.html">lecture 08 - ggplot</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    danl 310 hw
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="DANL310_hw1q.html">hw1q</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">DANL 200: Introduction to Data
+Analytics</h1>
+<h3 class="subtitle">DANL 200 - Homework Assignment 1<br><br></h3>
+<h4 class="author">Byeong-Hak Choe<br></h4>
+<h4 class="date">2023-02-19<br><br></h4>
+
+</div>
+
+
+<div id="direction-for-homework-assignment-1" class="section level1">
+<h1>Direction for Homework Assignment 1</h1>
+<div id="files" class="section level2">
+<h2>Files</h2>
+<ul>
+<li><p>Step 1. Download the compressed ZIP file,
+<code>ny_colleges.zip</code>, from the Homework Assignment 1 in our
+Canvas.</p></li>
+<li><p>Step 2. Extract the file, <code>ny_colleges.zip</code>, so that
+you can access the file, <code>NY_colleges.csv</code>, for Homework
+Assignment 1.</p></li>
+</ul>
+<p><br><br></p>
+</div>
+<div id="about-ny_colleges.csv" class="section level2">
+<h2>About <code>NY_colleges.csv</code></h2>
+<ul>
+<li><code>NY_colleges.csv</code> is university-year level data about
+<ul>
+<li><ol style="list-style-type: decimal">
+<li>median debt of college students,</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: decimal">
+<li>net price of college</li>
+</ol></li>
+<li><ol start="3" style="list-style-type: decimal">
+<li>number of college students,</li>
+</ol></li>
+<li><ol start="4" style="list-style-type: decimal">
+<li>college majors</li>
+</ol></li>
+<li><p>with a variety of segmentation.</p></li>
+<li><p>A description of each variable in <code>NY_colleges.csv</code> is
+provided in <code>ny_colleges.yaml</code>, which we can open in RStudio
+or other text editors.</p></li>
+<li><p>A description of values of each variable in
+<code>NY_colleges.csv</code> is provided in columns,
+<code>VARIABLE_NAME</code>, <code>VALUE</code>, and <code>LABEL</code>,
+in <code>ny_colleges_vars.xlsx</code>, which we can open in Microsoft
+Excel.</p></li>
+<li><p>Using Ctrl + F (cmd + F for mac users) would be useful to find
+the variable description.</p></li>
+<li><p>I recommend you to copy and paste the description of the variable
+you use in your R code to your R script with a comment (# …).</p></li>
+<li><p>From the file, <code>ny_colleges_vars.xlsx</code>, we can find
+that</p>
+<ul>
+<li><code>CIP**BACHL</code>, whose value is either <code>0</code>,
+<code>1</code>, or <code>2</code>, indicates whether a university offers
+a bachelor’s degree in SOME MAJOR (**).</li>
+<li>0: Program not offered</li>
+<li>1: Program offered</li>
+<li>2: Program offered through an exclusively distance-education
+program</li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br><br><br></p>
+</div>
+</div>
+<div id="question-1" class="section level1">
+<h1>Question 1</h1>
+<div id="q1a" class="section level2">
+<h2>Q1a</h2>
+<p>Read the data file, <code>NY_colleges.csv</code>, as the data.frame
+object with the name, <code>NY_colleges</code>, using (1) the
+<code>read_csv()</code> function and (2) the absolute path name of the
+file <code>NY_colleges.csv</code> from your local hard disk drive in
+your laptop.</p>
+<p><br><br></p>
+</div>
+<div id="q1b" class="section level2">
+<h2>Q1b</h2>
+<p>What are the mean, median1, minimum, maximum, and standard deviation
+for each of the following variables, - (1) average net price of public
+institution; - (2) average net price of private institution; - (3)
+median debt for students who have completed; - (4) median debt for
+students who have not completed?</p>
+<p><br><br></p>
+</div>
+<div id="instruction-for-q1c-q1i" class="section level2">
+<h2>Instruction for Q1c-Q1i</h2>
+<p>From Q1c to Q1g, provide both (1) ggplot codes and (2) a couple of
+sentences to answer the questions.</p>
+<p><br><br></p>
+</div>
+<div id="q1c" class="section level2">
+<h2>Q1c</h2>
+<p>Compare between public institutions and private institutions in terms
+of the distribution of average net price.</p>
+<p><br><br></p>
+</div>
+<div id="q1d" class="section level2">
+<h2>Q1d</h2>
+<p>Compare between public institutions and private institutions in terms
+of the relationship between (1) average net price and (2) median debt
+for students who have completed.</p>
+<p><br><br></p>
+</div>
+<div id="q1e" class="section level2">
+<h2>Q1e</h2>
+<p>How does the relationship between (1) average net price and (2)
+median debt for students who have completed vary by levels of family
+income?</p>
+<p><br><br></p>
+</div>
+<div id="q1f" class="section level2">
+<h2>Q1f</h2>
+<p>Compare between public institutions and private institutions in terms
+of the proportion of high-income students.</p>
+<p><br><br></p>
+</div>
+<div id="q1g" class="section level2">
+<h2>Q1g</h2>
+<p>Describe how the number of students in a college varies by whether or
+not a college offers bachelor’s degree in Business, Management,
+Marketing, and Related Support Services.</p>
+<p><br><br></p>
+</div>
+<div id="q1h" class="section level2">
+<h2>Q1h</h2>
+<p>Describe how the median debt for students who have completed varies
+by whether or not a college offers bachelor’s degree in Business,
+Management, Marketing, and Related Support Services.</p>
+</div>
+<div id="q1i" class="section level2">
+<h2>Q1i</h2>
+<p>Describe how the yearly trend of the median debt for students varies
+by levels of family income.</p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
