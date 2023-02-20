@@ -27,20 +27,20 @@ knitr::opts_chunk$set(
 
 Renovate your personal website on GitHub using Quarto.
 
-  - FAQ about Quarto for R Markdown users are provided below: <https://quarto.org/docs/faq/rmarkdown.html>
+-   FAQ about Quarto for R Markdown users are provided below: <https://quarto.org/docs/faq/rmarkdown.html>
 
-  - A guide for creating a Quarto website is provided in the following webpage: <https://quarto.org/docs/websites/>.
+-   A guide for creating a Quarto website is provided in the following webpage: <https://quarto.org/docs/websites/>.
 
-  <!-- - You can also simply download the template for the Quarto website using the following `git clone` command in Terminal, `git clone https://github.com/bcdanl/danl-web-template.git` -->
-
+<!-- - You can also simply download the template for the Quarto website using the following `git clone` command in Terminal, `git clone https://github.com/bcdanl/danl-web-template.git` -->
 
 # Question 2
 
 Provide ggplot codes to replicate the given figure.
 
-
 ## Q2a.
+
 Use the following data.frame for Q2a, Q2b, and Q2c.
+
 ```{r, echo = T, eval = F}
 ncdc_temp <- read_csv(
   'https://bcdanl.github.io/data/ncdc_temp_cleaned.csv')
@@ -75,10 +75,8 @@ ggplot(ncdc_temp, aes(x = month, y = temperature)) +
   theme_clean()
 ```
 
-
-
-
 ## Q2c
+Use `ggridges::geom_density_ridges()` for Q2c.
 
 ```{r}
 ncdc_temp <- read_csv(
@@ -99,7 +97,6 @@ ggplot(ncdc_temp, aes(x = temperature, y = month)) +
   )
 ```
 
-
 ## Q2d
 
 Use `ggplot::mtcars` for Q2d.
@@ -113,15 +110,14 @@ m + geom_point(aes(color = hp)) +
   scale_fill_brewer(palette = "Emrld")
 ```
 
-
 ## Q2e
 
 Use the following data.frame for Q2e.
+
 ```{r, echo = T, eval = F}
 popgrowth_df <- read_csv(
   'https://bcdanl.github.io/data/popgrowth.csv')
 ```
-
 
 ```{r}
 popgrowth_df <- read_csv(
@@ -141,16 +137,14 @@ ggplot(popgrowth_df, aes(x = reorder(state, popgrowth),
         axis.text.y = element_text( size = 6, margin = margin(t = 0, r = 0, b = 0, l = 0) )) 
 ```
 
-
-
 ## Q2f
 
 Use the following data.frame for Q2f.
+
 ```{r, echo = T, eval = F}
 male_Aus <- read_csv(
   'https://bcdanl.github.io/data/aus_athletics_male.csv')
 ```
-
 
 ```{r}
 male_Aus <- read_csv(
@@ -169,11 +163,10 @@ ggplot(male_Aus, aes(x=height, y=pcBfat,
   ylab("% body fat") 
 ```
 
-
-
 ## Q2g
 
 Use the following data.frame for Q2g.
+
 ```{r, echo = T, eval = F}
 titanic <- read_csv(
   'https://bcdanl.github.io/data/titanic_cleaned.csv')
@@ -214,17 +207,14 @@ ggplot(titanic, aes(x = age, y = ..count..)) +
   )
 ```
 
-
-
-
 ## Q2h
 
 Use the following data.frame for Q2h.
+
 ```{r, echo = T, eval = F}
 cows_filtered <- read_csv(
   'https://bcdanl.github.io/data/cows_filtered.csv')
 ```
-
 
 ```{r}
 cows_filtered <- read_csv(
@@ -242,4 +232,3 @@ ggplot(cows_filtered, aes(x = butterfat,
   coord_cartesian(clip = "off") +
   theme(axis.line.x = element_blank())
 ```
-
