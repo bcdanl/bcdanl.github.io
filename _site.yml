@@ -1,18 +1,20 @@
-project:
-  type: website
-  output-dir: "."
-  
-website:
-  title: "Geneseo DANL"
-  page-footer: "powered with quarto and rstudio<br>byeong-hak choe, 2023"
-  reader-mode: false
-  navbar:
-    pinned: true
-    left:
-      - text: résumé
-        href: cv.qmd
-      - text: "danl 200 lec"
-        menu:
+---
+name: "bcdanl-website"
+title: "byeong-hak choe"
+output_dir: "."
+theme: style.css
+navbar:
+  title: "suny geneseo danl"
+  logo:
+    image: logo.png
+    href: https://bcdanl.github.io
+  right:
+    - text: "home"
+      href: index.html
+    - text: "résumé"
+      href: resume.html
+    - text: "danl 200 lec"
+      menu:
         - text: "lecture 01 - syllabus"
           href: lec/DANL200_Lec01_20230124.html
         - text: "lecture 02 - r basic"
@@ -29,12 +31,11 @@ website:
           href: lec/DANL200_Lec07_20230214.html
         - text: "lecture 08 - ggplot"
           href: lec/DANL200_Lec08_20230216.html
-      - text: "danl 200 hw"
-        menu:
-        - text: hw1q
-          href: DANL200_hw1q.qmd
-      - text: danl 210 lec
-        menu:
+    - text: "danl 200 hw"
+      menu:
+        - text: "hw1q"
+    - text: "danl 210 lec"
+      menu:
         - text: "lecture 01 - syllabus"
           href: lec/DANL210_Lec01_20230124.html
         - text: "lecture 02 - python basic"
@@ -51,12 +52,11 @@ website:
           href: lec/DANL210_Lec07_20230214.html
         - text: "lecture 08 - pandas"
           href: lec/DANL210_Lec08_20230216.html
-      - text: "danl 210 hw"
-        menu:
-        - text: hw1q
-          href: DANL210_hw1q.qmd    
-      - text: "danl 310 lec"
-        menu:
+    - text: "danl 210 hw"
+      menu:
+        - text: "hw1q"
+    - text: "danl 310 lec"
+      menu:
         - text: "lecture 01 - syllabus"
           href: lec/DANL310_Lec01_20230124.html
         - text: "lecture 02 - github website, rmarkdown"
@@ -73,17 +73,16 @@ website:
           href: lec/DANL310_Lec07_20230214.html
         - text: "lecture 08 - ggplot"
           href: lec/DANL310_Lec08_20230216.html
-      - text: "danl 310 hw"
-        menu:
-        - text: hw1q
-          href: DANL310_hw1q.qmd
-
-format:
-  html:
-    theme:
-      light: flatly
-      dark: [darkly, theme-dark.scss]
-    # mainfont: Georgia, serif;
-    mainfont: Gill Sans, sans-serif;
-    toc: true
-    include-after-body: target_blank.html
+    - text: "danl 310 hw"
+      menu:
+        - text: "hw1q"
+          href: DANL310_hw1q.html
+output:
+  html_document:
+    theme: journal
+    css: style.css
+---
+# “default”, “bootstrap”, “cerulean”, 
+# “cosmo”, “darkly”, “flatly”, “journal”, 
+# “lumen”, “paper”, “readable”, “sandstone”, 
+# “simplex”, “spacelab”, “united”, “yeti”
