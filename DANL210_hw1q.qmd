@@ -1,0 +1,238 @@
+---
+title: "DANL 210: Data Preparation and Management<br>Homework Assignment 1"
+author: "Byeong-Hak Choe"
+editor: visual
+---
+
+```{r setup, include = F}
+library(tidyverse)
+library(gapminder)
+library(skimr)   # a better summary of data.frame
+library(scales)  # scales for ggplot
+library(ggthemes)  # additional ggplot themes
+library(hrbrthemes) # additional ggplot themes and color pallets
+library(lubridate)
+library(ggridges)
+theme_set(theme_minimal()) # setting the minimal theme for ggplot
+# setting default chunk options
+knitr::opts_chunk$set(
+	eval = F,
+	echo = T,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+
+# Direction for Homework Assignment 1
+
+- Write a Python code to answer each question.
+
+- Make at least some simple comment (`# ...`) in each question.
+
+- Use your working directory with the subfolder, `data`, so that the relative pathname of CSV files in the subfolder `data` is sufficient to import the CSV files.
+
+
+- Import all the Python libraries you need here.
+```{python, eval = F}
+import pandas as pd
+```
+
+
+
+<br><br><br>
+
+# Question 1
+Consider the probability of survival in `titanic_1.csv`.
+```{python, eval = F}
+titanic_1 = pd.read_csv("data/titanic_1.csv")
+```
+
+
+## Q1a
+Calculate the simple difference between the probability of survival when passengers are first-class and the probability of survival when they are not.
+
+```{r}
+
+```
+
+<br><br>
+
+## Q1b
+
+How much does the probability of survival increase for first-class passengers relative to those who are not first-class passengers?
+
+```{r}
+
+```
+
+<br><br>
+
+## Q1c
+
+Consider the probability of survival in `titanic_2.csv`.
+
+```{python, eval = F}
+titanic_2 = pd.read_csv("data/titanic_2.csv")
+```
+
+
+After stratifying on gender and age, what happens to the difference in the probabilities of survival between first-class passengers and non-first-class passengers.
+
+Explain in your own words what stratifying on gender and age did for this difference in probabilities of survival between first-class passengers and non-first-class passengers.
+
+```{r}
+
+```
+
+
+<br><br><br>
+
+# Question 2
+
+Consider the data file, NHL-1617.csv.
+
+```{python, eval = F}
+nhl1617 = pd.read_csv('data/NHL-1617.csv')
+```
+
+
+
+## Q2a
+How many players have been recorded?
+
+```{r}
+
+```
+
+<br><br>
+
+
+
+## Q2b
+A column points (`P`) is missing in the data. The number of points of a player is defined as the sum of his goals (`G`) and assists (`A`). Add the point column `P` to your DataFrame.
+
+```{r}
+
+```
+
+<br><br>
+
+
+## Q2c
+Who is the top scorer in terms of points?
+
+```{r}
+
+```
+
+<br><br>
+
+## Q2d
+How many Russian (non-goalie) players had some ice time in there 2016/2017 regular season? Hint: Nationality of a player can be found in "Nat". Russians are indicated by "RUS".
+
+```{r}
+
+```
+
+<br><br>
+
+
+## Q2e
+What are their names? 
+
+```{r}
+
+```
+
+<br><br>
+
+
+## Q2f
+Who performed best among the Russian players in terms of points (`P`)?
+
+```{r}
+
+```
+
+<br><br>
+
+
+## Q2g
+How many points (`P`) did he have?
+
+```{r}
+
+```
+
+<br><br>
+
+## Q2h
+How well did he perform in the entire league? Put differently, what was his rank in terms of points?
+
+```{r}
+
+```
+
+<br><br>
+
+
+## Q2i
+Find the top ten scorers (in terms of points) and print them including their number of point and their respective team.
+
+```{r}
+
+```
+
+<br><br>
+
+
+## Q2j
+What are the three countries with the most players originating from?
+
+```{r}
+
+```
+
+<br><br>
+
+
+
+
+<br><br><br>
+
+# Question 3
+Consider the data file, `coal_production_county.csv`.
+```{python, eval = F}
+coal = pd.read_csv("data/coal_production_county.csv")
+```
+
+
+## Q3a
+For each type of mine, calculate the total coal production for each pair of state-year.
+
+```{r}
+
+```
+
+
+<br><br>
+
+
+## Q3b
+Find the top 5 coal-producing states for each year.
+
+```{r}
+
+```
+
+
+<br><br>
+
+
+## Q3c
+Visualize the yearly trend of the total coal production from each type of mine.
+
+```{r}
+
+```

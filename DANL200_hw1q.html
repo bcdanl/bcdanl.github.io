@@ -1,685 +1,686 @@
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-<html>
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
 
-<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<meta name="author" content="Byeong-Hak Choe">
 
-
-<meta name="author" content="Byeong-Hak Choe " />
-
-<meta name="date" content="2023-02-19" />
-
-<title>DANL 200: Introduction to Data Analytics</title>
-
-<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
-<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
-<script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
-<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
-
-<style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
-
-
-
-
-
-
-
-<link rel="stylesheet" href="style.css" type="text/css" />
-
-
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-img {
-  max-width:100%;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-.html-widget {
-  margin-bottom: 20px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-summary {
-  display: list-item;
-}
-details > summary > p:only-child {
-  display: inline;
-}
-pre code {
-  padding: 0;
+<title>Geneseo DANL - DANL 200: Introduction to Data AnalyticsHomework Assignment 1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
 }
 </style>
 
 
-<style type="text/css">
-.dropdown-submenu {
-  position: relative;
-}
-.dropdown-submenu>.dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  border-radius: 0 6px 6px 6px;
-}
-.dropdown-submenu:hover>.dropdown-menu {
-  display: block;
-}
-.dropdown-submenu>a:after {
-  display: block;
-  content: " ";
-  float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #cccccc;
-  margin-top: 5px;
-  margin-right: -10px;
-}
-.dropdown-submenu:hover>a:after {
-  border-left-color: #adb5bd;
-}
-.dropdown-submenu.pull-left {
-  float: none;
-}
-.dropdown-submenu.pull-left>.dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  border-radius: 6px 0 6px 6px;
-}
-</style>
-
-<script type="text/javascript">
-// manage active state of menu based on current page
-$(document).ready(function () {
-  // active menu anchor
-  href = window.location.pathname
-  href = href.substr(href.lastIndexOf('/') + 1)
-  if (href === "")
-    href = "index.html";
-  var menuAnchor = $('a[href="' + href + '"]');
-
-  // mark the anchor link active (and if it's in a dropdown, also mark that active)
-  var dropdown = menuAnchor.closest('li.dropdown');
-  if (window.bootstrap) { // Bootstrap 4+
-    menuAnchor.addClass('active');
-    dropdown.find('> .dropdown-toggle').addClass('active');
-  } else { // Bootstrap 3
-    menuAnchor.parent().addClass('active');
-    dropdown.addClass('active');
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
   }
-
-  // Navbar adjustments
-  var navHeight = $(".navbar").first().height() + 15;
-  var style = document.createElement('style');
-  var pt = "padding-top: " + navHeight + "px; ";
-  var mt = "margin-top: -" + navHeight + "px; ";
-  var css = "";
-  // offset scroll position for anchor links (for fixed navbar)
-  for (var i = 1; i <= 6; i++) {
-    css += ".section h" + i + "{ " + pt + mt + "}\n";
-  }
-  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
-  document.head.appendChild(style);
-});
-</script>
-
-<!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "\e259";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "\e258";
-  font-family: 'Glyphicons Halflings';
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-  background-color: transparent;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
-<!-- code folding -->
-
-
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
-
+}</script>
 
 
 </head>
 
-<body>
+<body class="nav-fixed">
 
-
-<div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
-
-
-
-
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="index.html">suny geneseo danl</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Geneseo DANL</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./cv.html">
+ <span class="menu-text">résumé</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl-200-lec" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl 200 lec</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl-200-lec">    
         <li>
-  <a href="index.html">home</a>
-</li>
-<li>
-  <a href="resume.html">résumé</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    danl 200 lec
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="lec/DANL200_Lec01_20230124.html">lecture 01 - syllabus</a>
-    </li>
-    <li>
-      <a href="lec/DANL200_Lec02_20230126.html">lecture 02 - r basic</a>
-    </li>
-    <li>
-      <a href="lec/DANL200_Lec03_20230131.html">lecture 03 - r basic, ggplot</a>
-    </li>
-    <li>
-      <a href="lec/DANL200_Lec04_20230202.html">lecture 04 - ggplot</a>
-    </li>
-    <li>
-      <a href="lec/DANL200_Lec05_20230207.html">lecture 05 - ggplot</a>
-    </li>
-    <li>
-      <a href="lec/DANL200_Lec06_20230209.html">lecture 06 - ggplot</a>
-    </li>
-    <li>
-      <a href="lec/DANL200_Lec07_20230214.html">lecture 07 - ggplot</a>
-    </li>
-    <li>
-      <a href="lec/DANL200_Lec08_20230216.html">lecture 08 - ggplot</a>
-    </li>
+    <a class="dropdown-item" href="./lec/DANL200_Lec01_20230124.html">
+ <span class="dropdown-text">lecture 01 - syllabus</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL200_Lec02_20230126.html">
+ <span class="dropdown-text">lecture 02 - r basic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL200_Lec03_20230131.html">
+ <span class="dropdown-text">lecture 03 - r basic, ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL200_Lec04_20230202.html">
+ <span class="dropdown-text">lecture 04 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL200_Lec05_20230207.html">
+ <span class="dropdown-text">lecture 05 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL200_Lec06_20230209.html">
+ <span class="dropdown-text">lecture 06 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL200_Lec07_20230214.html">
+ <span class="dropdown-text">lecture 07 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL200_Lec08_20230216.html">
+ <span class="dropdown-text">lecture 08 - ggplot</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl-200-hw" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl 200 hw</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl-200-hw">    
+        <li>
+    <a class="dropdown-item" href="./DANL200_hw1q.html">
+ <span class="dropdown-text">hw1q</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl-210-lec" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl 210 lec</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl-210-lec">    
+        <li>
+    <a class="dropdown-item" href="./lec/DANL210_Lec01_20230124.html">
+ <span class="dropdown-text">lecture 01 - syllabus</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL210_Lec02_20230126.html">
+ <span class="dropdown-text">lecture 02 - python basic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL210_Lec03_20230131.html">
+ <span class="dropdown-text">lecture 03 - python basic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL210_Lec04_20230202.html">
+ <span class="dropdown-text">lecture 04 - python basic, pandas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL210_Lec05_20230207.html">
+ <span class="dropdown-text">lecture 05 - pandas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL210_Lec06_20230209.html">
+ <span class="dropdown-text">lecture 06 - pandas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL210_Lec07_20230214.html">
+ <span class="dropdown-text">lecture 07 - pandas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL210_Lec08_20230216.html">
+ <span class="dropdown-text">lecture 08 - pandas</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl-210-hw" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl 210 hw</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl-210-hw">    
+        <li>
+    <a class="dropdown-item" href="./DANL210_hw1q.html">
+ <span class="dropdown-text">hw1q</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl-310-lec" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl 310 lec</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl-310-lec">    
+        <li>
+    <a class="dropdown-item" href="./lec/DANL310_Lec01_20230124.html">
+ <span class="dropdown-text">lecture 01 - syllabus</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL310_Lec02_20230126.html">
+ <span class="dropdown-text">lecture 02 - github website, rmarkdown</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL310_Lec03_20230131.html">
+ <span class="dropdown-text">lecture 03 - rmarkdown</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL310_Lec04_20230202.html">
+ <span class="dropdown-text">lecture 04 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL310_Lec05_20230207.html">
+ <span class="dropdown-text">lecture 05 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL310_Lec06_20230209.html">
+ <span class="dropdown-text">lecture 06 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL310_Lec07_20230214.html">
+ <span class="dropdown-text">lecture 07 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./lec/DANL310_Lec08_20230216.html">
+ <span class="dropdown-text">lecture 08 - ggplot</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl-310-hw" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl 310 hw</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl-310-hw">    
+        <li>
+    <a class="dropdown-item" href="./DANL310_hw1q.html">
+ <span class="dropdown-text">hw1q</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#direction-for-homework-assignment-1" id="toc-direction-for-homework-assignment-1" class="nav-link active" data-scroll-target="#direction-for-homework-assignment-1">Direction for Homework Assignment 1</a>
+  <ul class="collapse">
+  <li><a href="#files" id="toc-files" class="nav-link" data-scroll-target="#files">Files</a></li>
+  <li><a href="#about-ny_colleges.csv" id="toc-about-ny_colleges.csv" class="nav-link" data-scroll-target="#about-ny_colleges.csv">About <code>NY_colleges.csv</code></a></li>
+  </ul></li>
+  <li><a href="#question-1" id="toc-question-1" class="nav-link" data-scroll-target="#question-1">Question 1</a>
+  <ul class="collapse">
+  <li><a href="#q1a" id="toc-q1a" class="nav-link" data-scroll-target="#q1a">Q1a</a></li>
+  <li><a href="#q1b" id="toc-q1b" class="nav-link" data-scroll-target="#q1b">Q1b</a></li>
+  <li><a href="#instruction-for-q1c-q1i" id="toc-instruction-for-q1c-q1i" class="nav-link" data-scroll-target="#instruction-for-q1c-q1i">Instruction for Q1c-Q1i</a></li>
+  <li><a href="#q1c" id="toc-q1c" class="nav-link" data-scroll-target="#q1c">Q1c</a></li>
+  <li><a href="#q1d" id="toc-q1d" class="nav-link" data-scroll-target="#q1d">Q1d</a></li>
+  <li><a href="#q1e" id="toc-q1e" class="nav-link" data-scroll-target="#q1e">Q1e</a></li>
+  <li><a href="#q1f" id="toc-q1f" class="nav-link" data-scroll-target="#q1f">Q1f</a></li>
+  <li><a href="#q1g" id="toc-q1g" class="nav-link" data-scroll-target="#q1g">Q1g</a></li>
+  <li><a href="#q1h" id="toc-q1h" class="nav-link" data-scroll-target="#q1h">Q1h</a></li>
+  <li><a href="#q1i" id="toc-q1i" class="nav-link" data-scroll-target="#q1i">Q1i</a></li>
+  </ul></li>
   </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    danl 200 hw
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="DANL200_hw1q.html">hw1q</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    danl 210 lec
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="lec/DANL210_Lec01_20230124.html">lecture 01 - syllabus</a>
-    </li>
-    <li>
-      <a href="lec/DANL210_Lec02_20230126.html">lecture 02 - python basic</a>
-    </li>
-    <li>
-      <a href="lec/DANL210_Lec03_20230131.html">lecture 03 - python basic</a>
-    </li>
-    <li>
-      <a href="lec/DANL210_Lec04_20230202.html">lecture 04 - python basic, pandas</a>
-    </li>
-    <li>
-      <a href="lec/DANL210_Lec05_20230207.html">lecture 05 - pandas</a>
-    </li>
-    <li>
-      <a href="lec/DANL210_Lec06_20230209.html">lecture 06 - pandas</a>
-    </li>
-    <li>
-      <a href="lec/DANL210_Lec07_20230214.html">lecture 07 - pandas</a>
-    </li>
-    <li>
-      <a href="lec/DANL210_Lec08_20230216.html">lecture 08 - pandas</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    danl 210 hw
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="DANL210_hw1q.html">hw1q</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    danl 310 lec
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="lec/DANL310_Lec01_20230124.html">lecture 01 - syllabus</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec02_20230126.html">lecture 02 - github website, rmarkdown</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec03_20230131.html">lecture 03 - rmarkdown</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec04_20230202.html">lecture 04 - ggplot</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec05_20230207.html">lecture 05 - ggplot</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec06_20230209.html">lecture 06 - ggplot</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec07_20230214.html">lecture 07 - ggplot</a>
-    </li>
-    <li>
-      <a href="lec/DANL310_Lec08_20230216.html">lecture 08 - ggplot</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    danl 310 hw
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="DANL310_hw1q.html">hw1q</a>
-    </li>
-  </ul>
-</li>
-      </ul>
-    </div><!--/.nav-collapse -->
-  </div><!--/.container -->
-</div><!--/.navbar -->
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
 
-<div id="header">
-
-
-
-<h1 class="title toc-ignore">DANL 200: Introduction to Data
-Analytics</h1>
-<h3 class="subtitle">DANL 200 - Homework Assignment 1<br><br></h3>
-<h4 class="author">Byeong-Hak Choe<br></h4>
-<h4 class="date">2023-02-19<br><br></h4>
-
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">DANL 200: Introduction to Data Analytics<br>Homework Assignment 1</h1>
 </div>
 
 
-<div id="direction-for-homework-assignment-1" class="section level1">
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Byeong-Hak Choe </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="direction-for-homework-assignment-1" class="level1">
 <h1>Direction for Homework Assignment 1</h1>
-<div id="files" class="section level2">
-<h2>Files</h2>
+<section id="files" class="level2">
+<h2 class="anchored" data-anchor-id="files">Files</h2>
 <ul>
-<li><p>Step 1. Download the compressed ZIP file,
-<code>ny_colleges.zip</code>, from the Homework Assignment 1 in our
-Canvas.</p></li>
-<li><p>Step 2. Extract the file, <code>ny_colleges.zip</code>, so that
-you can access the file, <code>NY_colleges.csv</code>, for Homework
-Assignment 1.</p></li>
+<li><p>Step 1. Download the compressed ZIP file, <code>ny_colleges.zip</code>, from the Homework Assignment 1 in our Canvas.</p></li>
+<li><p>Step 2. Extract the file, <code>ny_colleges.zip</code>, so that you can access the file, <code>NY_colleges.csv</code>, for Homework Assignment 1.</p></li>
 </ul>
 <p><br><br></p>
-</div>
-<div id="about-ny_colleges.csv" class="section level2">
-<h2>About <code>NY_colleges.csv</code></h2>
+</section>
+<section id="about-ny_colleges.csv" class="level2">
+<h2 class="anchored" data-anchor-id="about-ny_colleges.csv">About <code>NY_colleges.csv</code></h2>
 <ul>
 <li><code>NY_colleges.csv</code> is university-year level data about
 <ul>
-<li><ol style="list-style-type: decimal">
+<li><ol type="1">
 <li>median debt of college students,</li>
 </ol></li>
-<li><ol start="2" style="list-style-type: decimal">
+<li><ol start="2" type="1">
 <li>net price of college</li>
 </ol></li>
-<li><ol start="3" style="list-style-type: decimal">
+<li><ol start="3" type="1">
 <li>number of college students,</li>
 </ol></li>
-<li><ol start="4" style="list-style-type: decimal">
+<li><ol start="4" type="1">
 <li>college majors</li>
 </ol></li>
 <li><p>with a variety of segmentation.</p></li>
-<li><p>A description of each variable in <code>NY_colleges.csv</code> is
-provided in <code>ny_colleges.yaml</code>, which we can open in RStudio
-or other text editors.</p></li>
-<li><p>A description of values of each variable in
-<code>NY_colleges.csv</code> is provided in columns,
-<code>VARIABLE_NAME</code>, <code>VALUE</code>, and <code>LABEL</code>,
-in <code>ny_colleges_vars.xlsx</code>, which we can open in Microsoft
-Excel.</p></li>
-<li><p>Using Ctrl + F (cmd + F for mac users) would be useful to find
-the variable description.</p></li>
-<li><p>I recommend you to copy and paste the description of the variable
-you use in your R code to your R script with a comment (# …).</p></li>
-<li><p>From the file, <code>ny_colleges_vars.xlsx</code>, we can find
-that</p>
+<li><p>A description of each variable in <code>NY_colleges.csv</code> is provided in <code>ny_colleges.yaml</code>, which we can open in RStudio or other text editors.</p></li>
+<li><p>A description of values of each variable in <code>NY_colleges.csv</code> is provided in columns, <code>VARIABLE_NAME</code>, <code>VALUE</code>, and <code>LABEL</code>, in <code>ny_colleges_vars.xlsx</code>, which we can open in Microsoft Excel.</p></li>
+<li><p>Using Ctrl + F (cmd + F for mac users) would be useful to find the variable description.</p></li>
+<li><p>I recommend you to copy and paste the description of the variable you use in your R code to your R script with a comment (# …).</p></li>
+<li><p>From the file, <code>ny_colleges_vars.xlsx</code>, we can find that</p>
 <ul>
-<li><code>CIP**BACHL</code>, whose value is either <code>0</code>,
-<code>1</code>, or <code>2</code>, indicates whether a university offers
-a bachelor’s degree in SOME MAJOR (**).</li>
+<li><code>CIP**BACHL</code>, whose value is either <code>0</code>, <code>1</code>, or <code>2</code>, indicates whether a university offers a bachelor’s degree in SOME MAJOR (**).</li>
 <li>0: Program not offered</li>
 <li>1: Program offered</li>
-<li>2: Program offered through an exclusively distance-education
-program</li>
+<li>2: Program offered through an exclusively distance-education program</li>
 </ul></li>
 </ul></li>
 </ul>
 <p><br><br><br></p>
-</div>
-</div>
-<div id="question-1" class="section level1">
+</section>
+</section>
+<section id="question-1" class="level1">
 <h1>Question 1</h1>
-<div id="q1a" class="section level2">
-<h2>Q1a</h2>
-<p>Read the data file, <code>NY_colleges.csv</code>, as the data.frame
-object with the name, <code>NY_colleges</code>, using (1) the
-<code>read_csv()</code> function and (2) the absolute path name of the
-file <code>NY_colleges.csv</code> from your local hard disk drive in
-your laptop.</p>
+<section id="q1a" class="level2">
+<h2 class="anchored" data-anchor-id="q1a">Q1a</h2>
+<p>Read the data file, <code>NY_colleges.csv</code>, as the data.frame object with the name, <code>NY_colleges</code>, using (1) the <code>read_csv()</code> function and (2) the absolute path name of the file <code>NY_colleges.csv</code> from your local hard disk drive in your laptop.</p>
+<div class="cell">
+
+</div>
 <p><br><br></p>
+</section>
+<section id="q1b" class="level2">
+<h2 class="anchored" data-anchor-id="q1b">Q1b</h2>
+<p>What are the mean, median1, minimum, maximum, and standard deviation for each of the following variables, - (1) average net price of public institution; - (2) average net price of private institution; - (3) median debt for students who have completed; - (4) median debt for students who have not completed?</p>
+<div class="cell">
+
 </div>
-<div id="q1b" class="section level2">
-<h2>Q1b</h2>
-<p>What are the mean, median1, minimum, maximum, and standard deviation
-for each of the following variables, - (1) average net price of public
-institution; - (2) average net price of private institution; - (3)
-median debt for students who have completed; - (4) median debt for
-students who have not completed?</p>
 <p><br><br></p>
-</div>
-<div id="instruction-for-q1c-q1i" class="section level2">
-<h2>Instruction for Q1c-Q1i</h2>
-<p>From Q1c to Q1g, provide both (1) ggplot codes and (2) a couple of
-sentences to answer the questions.</p>
+</section>
+<section id="instruction-for-q1c-q1i" class="level2">
+<h2 class="anchored" data-anchor-id="instruction-for-q1c-q1i">Instruction for Q1c-Q1i</h2>
+<p>From Q1c to Q1g, provide both (1) ggplot codes and (2) a couple of sentences to answer the questions.</p>
 <p><br><br></p>
+</section>
+<section id="q1c" class="level2">
+<h2 class="anchored" data-anchor-id="q1c">Q1c</h2>
+<p>Compare between public institutions and private institutions in terms of the distribution of average net price.</p>
+<div class="cell">
+
 </div>
-<div id="q1c" class="section level2">
-<h2>Q1c</h2>
-<p>Compare between public institutions and private institutions in terms
-of the distribution of average net price.</p>
 <p><br><br></p>
+</section>
+<section id="q1d" class="level2">
+<h2 class="anchored" data-anchor-id="q1d">Q1d</h2>
+<p>Compare between public institutions and private institutions in terms of the relationship between (1) average net price and (2) median debt for students who have completed.</p>
+<div class="cell">
+
 </div>
-<div id="q1d" class="section level2">
-<h2>Q1d</h2>
-<p>Compare between public institutions and private institutions in terms
-of the relationship between (1) average net price and (2) median debt
-for students who have completed.</p>
 <p><br><br></p>
+</section>
+<section id="q1e" class="level2">
+<h2 class="anchored" data-anchor-id="q1e">Q1e</h2>
+<p>How does the relationship between (1) average net price and (2) median debt for students who have completed vary by levels of family income?</p>
+<div class="cell">
+
 </div>
-<div id="q1e" class="section level2">
-<h2>Q1e</h2>
-<p>How does the relationship between (1) average net price and (2)
-median debt for students who have completed vary by levels of family
-income?</p>
 <p><br><br></p>
+</section>
+<section id="q1f" class="level2">
+<h2 class="anchored" data-anchor-id="q1f">Q1f</h2>
+<p>Compare between public institutions and private institutions in terms of the proportion of high-income students.</p>
+<div class="cell">
+
 </div>
-<div id="q1f" class="section level2">
-<h2>Q1f</h2>
-<p>Compare between public institutions and private institutions in terms
-of the proportion of high-income students.</p>
 <p><br><br></p>
+</section>
+<section id="q1g" class="level2">
+<h2 class="anchored" data-anchor-id="q1g">Q1g</h2>
+<p>Describe how the number of students in a college varies by whether or not a college offers bachelor’s degree in Business, Management, Marketing, and Related Support Services.</p>
+<div class="cell">
+
 </div>
-<div id="q1g" class="section level2">
-<h2>Q1g</h2>
-<p>Describe how the number of students in a college varies by whether or
-not a college offers bachelor’s degree in Business, Management,
-Marketing, and Related Support Services.</p>
 <p><br><br></p>
-</div>
-<div id="q1h" class="section level2">
-<h2>Q1h</h2>
-<p>Describe how the median debt for students who have completed varies
-by whether or not a college offers bachelor’s degree in Business,
-Management, Marketing, and Related Support Services.</p>
-</div>
-<div id="q1i" class="section level2">
-<h2>Q1i</h2>
-<p>Describe how the yearly trend of the median debt for students varies
-by levels of family income.</p>
-</div>
-</div>
-
-
+</section>
+<section id="q1h" class="level2">
+<h2 class="anchored" data-anchor-id="q1h">Q1h</h2>
+<p>Describe how the median debt for students who have completed varies by whether or not a college offers bachelor’s degree in Business, Management, Marketing, and Related Support Services.</p>
+<div class="cell">
 
 </div>
-</div>
+</section>
+<section id="q1i" class="level2">
+<h2 class="anchored" data-anchor-id="q1i">Q1i</h2>
+<p>Describe how the yearly trend of the median debt for students varies by levels of family income.</p>
+<div class="cell">
 
 </div>
 
-<script>
 
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
-}
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
+</section>
+</section>
 
-
-</script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open');
+</main> <!-- /main -->
+<script type="text/javascript" src="links.js"></script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
   });
-});
-</script>
-
-<!-- code folding -->
-
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
       },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
     };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
 });
 </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center">Copyright 2023, Byeong-Hak Choe</div>
+  </div>
+</footer>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 
-</body>
-</html>
+
+</body></html>
