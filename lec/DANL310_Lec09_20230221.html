@@ -45,6 +45,17 @@ class: title-slide, left, bottom
 
 
 ---
+# Announcement
+### &lt;p style="color:#00449E"&gt;  Guideline for Homework Assignments &lt;/p&gt;
+
+- If you use AI tools (e.g., ChatGPT) for your homework, please paraphrase, quote, and cite it.
+
+  - ChatGPT is good at adding comments on the code.
+  
+  - ChatGPT is good at correcting errors in the code.
+  
+  
+---
 # Workflow
 ### &lt;p style="color:#00449E"&gt; Shortcuts for Presentation Slides &lt;/p&gt;
  
@@ -74,12 +85,30 @@ class: inverse, center, middle
   
 *3*. Tell `ggplot()` how we want to see the relationships in our data.
   - Choose a `geom_*()`.
+  - If needed, use `stat()`, `after_stat()`, or `..statistics..`.
   
   
 *4*. Layer on `geoms` as needed, by adding them to the `p` object one at a time.
 
 
-*5*. Use some additional functions to adjust scales, labels, tick marks, titles, etc.
+*5*. Use some additional functions to adjust scales, labels, tick marks, titles, coord, etc.
+
+
+
+---
+# Get Started with `ggplot` visualization
+
+- In last class, we have learned how to customize the scale, guide, and theme functions in ggplot.
+
+  - These techniques will allow us to produce very sophisticated graphs in a systematic, comprehensible way.
+  
+  - [ggThemeAssist](https://github.com/calligross/ggthemeassist) can be helpful.
+  
+  - [https://ggplot2tor.com/scales](https://ggplot2tor.com/scales) provides a complete guide to `scale`s.
+  
+  - [https://ggplot2tor.com/theme](https://ggplot2tor.com/theme) provides a complete guide to `theme`s.
+  
+  - [https://ggplot2tor.com/aesthetics](https://ggplot2tor.com/aesthetics) finds available aesthetics for each geom.
 
 
 ---
@@ -101,11 +130,6 @@ class: inverse, center, middle
 - We will expand the number of geoms we know about, and learn more about how to choose between them. 
   - Different geoms potentially requires different aesthetic mappings.
 
-
-- We will learn how to customize the scale, guide, and theme functions in ggplot.
-  - These techniques will allow us to produce very sophisticated graphs in a systematic, comprehensible way.
-  - [ggThemeAssist](https://github.com/calligross/ggthemeassist) can be helpful.
-  
   
 
 ---
@@ -127,7 +151,8 @@ class: inverse, center, middle
 - Filter or select pieces of the data by row, column, or both. 
 
 
-- Mutate the data by creating new variables at the current level of grouping.    - This adds new columns to the table without aggregating it.
+- Mutate the data by creating new variables at the current level of grouping.    
+  - This adds new columns to the table without aggregating it.
 
 
 - Summarize or aggregate the grouped data. 
@@ -144,6 +169,7 @@ class: inverse, center, middle
 
 
 ```r
+library(tidyverse)
 library(socviz)
 rel_by_region &lt;- gss_sm %&gt;%
     group_by( bigregion, religion ) %&gt;%
@@ -153,218 +179,6 @@ rel_by_region &lt;- gss_sm %&gt;%
 
 rel_by_region
 ```
-
-
-
-
----
-# Graph tables
-### &lt;p style="color:#00449E"&gt; Use pipes to summarize data &lt;/p&gt;
-
-- Now that we are working directly with percentage values in a summary table, we can use `geom_col()` instead of `geom_bar()`.
-
-
-
-.pull-left[
-
-```r
-p &lt;- ggplot( rel_by_region, 
-             aes( x = bigregion, 
-                  y = pct, 
-                  fill = religion))
-
-p + geom_col( position = "dodge2" ) +
-    labs(x = "Region", 
-         y = "Percent", 
-         fill = "Religion") +
-    theme(legend.position 
-            = "top") 
-```
-]
-.pull-right[
-![](DANL310_Lec09_20230221_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
-]
-
-
-
----
-# Graph tables
-### &lt;p style="color:#00449E"&gt; Use pipes to summarize data &lt;/p&gt;
-
-- Let's replicate the following bar chart:
-
-&lt;img src="DANL310_Lec09_20230221_files/figure-html/unnamed-chunk-6-1.png" width="85%" style="display: block; margin: auto;" /&gt;
-
-
-
----
-# Graph tables
-### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
-
-- Let’s move to a new dataset, the `socviz::organdata` data.frame. 
-
-
-```r
-organdata
-skimr::skim(organdata)
-```
-
-- We can take a look at a simple scatterplot of donors vs year.
-
-&lt;img src="DANL310_Lec09_20230221_files/figure-html/unnamed-chunk-8-1.png" width="85%" style="display: block; margin: auto;" /&gt;
-
-
-
----
-# Graph tables
-### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
-
-- Let's draw a yearly trend of `donors` for each country.
-
-&lt;img src="DANL310_Lec09_20230221_files/figure-html/unnamed-chunk-9-1.png" width="85%" style="display: block; margin: auto;" /&gt;
-
-
-
----
-# Graph tables
-### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
-
-- Let’s focus on the country-level variation of `donors` using `geom_boxplot()`, but without paying attention to the time trend.
-
-&lt;img src="DANL310_Lec09_20230221_files/figure-html/unnamed-chunk-10-1.png" width="85%" style="display: block; margin: auto;" /&gt;
-
-
-
----
-# Graph tables
-### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
-
-
-- We can reorder the levels using `fct_reorder(f, x, fun)`, which can take three arguments.
-
-- `f`: the factor whose levels we want to modify.
-- `x`: a numeric vector that we want to use to reorder the levels.
-- Optionally, `fun`: a function that's used if there are multiple values of `x` for each value of `f`. The default value is *median*.
-
-
-
-```r
-organdata &lt;- organdata %&gt;%
-  mutate(country = fct_reorder(country, tvhours, na.rm = T) ) 
-
-p &lt;- ggplot(data = organdata,
-            mapping = aes(x = country, y = donors))
-p + geom_boxplot() +
-    labs(x = NULL) +
-    coord_flip()
-```
-
-
-
-
----
-# Graph tables
-### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
-
-- Let’s replicate the following boxplot:
-
-&lt;img src="DANL310_Lec09_20230221_files/figure-html/unnamed-chunk-12-1.png" width="85%" style="display: block; margin: auto;" /&gt;
-
-
-
----
-# Graph tables
-### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
-
-- Sometimes it is better to sort the data with a categorical variable when plotting a bar chart or a Cleveland dotplot.
-
-
-
----
-# Graph tables
-### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
-
-- Let's summarize the data.frame `organdata` to calculate the mean and the standard deviation of each numeric variable for each `consent_law`-`country` pair.
-
-
-```r
-by_country &lt;- organdata %&gt;% group_by(consent_law, country) %&gt;%
-    summarize(donors_mean= mean(donors, na.rm = TRUE),
-              donors_sd = sd(donors, na.rm = TRUE),
-              gdp_mean = mean(gdp, na.rm = TRUE),
-              health_mean = mean(health, na.rm = TRUE),
-              roads_mean = mean(roads, na.rm = TRUE),
-              cerebvas_mean = mean(cerebvas, na.rm = TRUE))
-
-by_country
-```
-
-- Would there be a simpler way to do the task above?
-
-
-
----
-# Graph tables
-### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
-
-- What we would like to do is apply the `mean()` and `sd()` functions to every numerical variable in `organdata`, but only the numerical ones. 
-
-  - `summarize_if( is.numeric, lst(mean, sd), na.rm = T)` works really well.
-
-
-```r
-by_country &lt;- organdata %&gt;% group_by(consent_law, country) %&gt;%
-  summarize_if(is.numeric, list(mean = mean, 
-                                median = median), 
-               na.rm = TRUE) %&gt;%
-  ungroup()
-```
-
-
-
-
----
-# Graph tables
-### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
-
-- Let's draw the following dot plot.
-
-&lt;img src="DANL310_Lec09_20230221_files/figure-html/unnamed-chunk-15-1.png" width="85%" style="display: block; margin: auto;" /&gt;
-
-
-
----
-# Graph tables
-### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
-
-- Let's draw the following faceted dot plot.
-
-
-&lt;img src="DANL310_Lec09_20230221_files/figure-html/unnamed-chunk-16-1.png" width="85%" style="display: block; margin: auto;" /&gt;
-
-
-
----
-# Graph tables
-### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
-
-- Cleveland dotplots are generally preferred to bar or column charts.
-  - When making them, put the categories on the y-axis and order them in the way that is most relevant to the numerical summary you are providing.
-  - This sort of plot is also an excellent way to summarize model results or any data with **error ranges**. 
-  
-  
-- Using `geom_pointrange()`, we can tell ggplot to show us a point estimate and a range around it.
-  -  With `geom_pointrange()`, we map our `x` and `y` variables as usual, but the function needs a little more information than `geom_point()`, for example (`ymin`, `ymax`) or (`xmin`, `xmax`). 
-  
-  
-
----
-# Graph tables
-### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
-
-- Let's draw the following dot-and-whisker plot.
-
-&lt;img src="DANL310_Lec09_20230221_files/figure-html/unnamed-chunk-17-1.png" width="85%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -483,7 +297,7 @@ p + geom_point()
   &lt;!-- - Use the `log10` scale on x-axis. --&gt;
   &lt;!-- - Break y-axis at `c(5, 15, 25)`, and label them as `c("Five", "Fifteen", "Twenty Five")`. --&gt;
 
-&lt;img src="DANL310_Lec09_20230221_files/figure-html/unnamed-chunk-20-1.png" width="75%" /&gt;
+&lt;img src="DANL310_Lec09_20230221_files/figure-html/unnamed-chunk-5-1.png" width="75%" /&gt;
 
 ]
 
@@ -493,10 +307,28 @@ p + geom_point()
   &lt;!-- - Label colors to `c("Corporatist", "Liberal", "Social Democratic", "Unclassified")` --&gt;
   &lt;!-- - Label `x`-axis, `y`-axis, and a title of `color` legend using `labs()`. --&gt;
 
-&lt;img src="DANL310_Lec09_20230221_files/figure-html/unnamed-chunk-21-1.png" width="75%" /&gt;
+&lt;img src="DANL310_Lec09_20230221_files/figure-html/unnamed-chunk-6-1.png" width="75%" /&gt;
 
 ]
 
+.panel[.panel-name[(3)]
+- Let's replicate the following:
+  &lt;!-- - Use the `log10` scale on x-axis. --&gt;
+  &lt;!-- - Break y-axis at `c(5, 15, 25)`, and label them as `c("Five", "Fifteen", "Twenty Five")`. --&gt;
+
+&lt;img src="DANL310_Lec09_20230221_files/figure-html/unnamed-chunk-7-1.png" width="75%" /&gt;
+
+]
+
+
+.panel[.panel-name[(4)]
+- Let's replicate the following using `theme()`:
+  &lt;!-- - Use the `log10` scale on x-axis. --&gt;
+  &lt;!-- - Break y-axis at `c(5, 15, 25)`, and label them as `c("Five", "Fifteen", "Twenty Five")`. --&gt;
+
+&lt;img src="DANL310_Lec09_20230221_files/figure-html/unnamed-chunk-8-1.png" width="75%" /&gt;
+
+]
 
 ]
 
@@ -536,7 +368,7 @@ p + geom_point() + geom_text(mapping = aes(label = country), hjust = 0)
 # Add Labels and Make Notes
 ### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
 
-&lt;img src="DANL310_Lec09_20230221_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="DANL310_Lec09_20230221_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -623,6 +455,7 @@ p + labs(x = x_label, y = y_label,
 ]
 
 
+
 ---
 # Add Labels and Make Notes
 ### &lt;p style="color:#00449E"&gt; Label Outliers &lt;/p&gt;
@@ -681,6 +514,16 @@ p + geom_point() +
                     mapping = aes(label = ccode)) +
     guides(label = "none", color = "none")
 ```
+
+
+
+
+---
+# Add Labels and Make Notes
+### &lt;p style="color:#00449E"&gt; Label Outliers &lt;/p&gt;
+
+- Let's replicate the following using `ggplot::mtcars`:
+&lt;img src="DANL310_Lec09_20230221_files/figure-html/unnamed-chunk-21-1.png" width="75%" /&gt;
 
 
 ---
@@ -744,7 +587,6 @@ p +
 
 ]
 ]
-
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

@@ -4,7 +4,7 @@
     <title>DANL 200 Lecture 9</title>
     <meta charset="utf-8" />
     <meta name="author" content="Byeong-Hak Choe" />
-    <meta name="date" content="2023-02-19" />
+    <meta name="date" content="2023-02-21" />
     <script src="libs/header-attrs-2.20/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
@@ -27,6 +27,8 @@
     <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
     <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
     <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
   </head>
@@ -42,7 +44,7 @@ class: title-slide, left, bottom
 ----
 ## **DANL 200: Introduction to Data Analytics**
 ### Byeong-Hak Choe
-### February 19, 2023
+### February 21, 2023
 
 ---
 # Announcement
@@ -56,10 +58,10 @@ class: title-slide, left, bottom
 - At the beginning of the homework, please mention 
   - Who you work with for the homework
   - Whether or not getting help from a tutor
-  - Whether or not using ChatGPT
+  - Whether or not using ChatGPT or any other AI tools
 
 
-- If you use ChatGPT for your homework, please paraphrase, quote, and cite it.
+- If you use AI tools for your homework, please paraphrase, quote, and cite it.
   - ChatGPT is good at adding comments on the code.
   - ChatGPT is good at correcting errors in the code.
   
@@ -104,6 +106,111 @@ class: inverse, center, middle
 
 
 ---
+# Workflow
+### &lt;p style="color:#00449E"&gt; Shortcuts for Switching Apps&lt;/p&gt;
+
+.pull-left[
+**Mac**
+- **command + Tab** allows us to switch between apps quickly.
+
+- If we use the full-screen mode of an app, the trackpad gesture of "three finger drag" switches across the screens.
+
+]
+
+.pull-right[
+**Windows**
+
+- **Alt + Tab** allows us to switch between apps quickly.
+
+- Trackpad gestures might be supported depending on laptops or versions of Windows.
+
+]
+
+
+---
+# About the dataset in Homework Assignment 1
+
+- The entity and time units of observation (row) in the dataset, `NY_colleges.csv`, are **university** and **year**.
+
+&lt;table class=" lightable-paper lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto; font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; UNITID &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; INSTNM &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; YEAR &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; CONTROL &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; NPT4_PUB &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; NPT4_PRIV &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; GRAD_DEBT_MDN &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 196167 &lt;/td&gt;
+   &lt;td style="text-align:left;font-weight: bold;"&gt; SUNY College at Geneseo &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 2019 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: yellow !important;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; 18924 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; NULL &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: yellow !important;"&gt; 20047 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 195030 &lt;/td&gt;
+   &lt;td style="text-align:left;font-weight: bold;"&gt; University of Rochester &lt;/td&gt;
+   &lt;td style="text-align:right;font-weight: bold;"&gt; 2019 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: yellow !important;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; NULL &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: yellow !important;"&gt; 29522 &lt;/td&gt;
+   &lt;td style="text-align:right;background-color: yellow !important;"&gt; 20000 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+For example, the observation above means that in year `2019`
+  - average net price of `SUNY College at Geneseo` is $18,924.
+  - average net price of `University of Rochester` is $29,522.
+
+
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; `ggforce` &lt;/p&gt;
+- The `ggforce` package allows us to see a part of faceted plots:
+  - Instead of `facet_grid()`, use `facet_grid_paginate()` in `ggplot`.
+  - Instead of `facet_wrap()`, use `facet_wrap_paginate()` in `ggplot`.
+  - Set values for `ncol`, `nrow`, and `page` in `facet_*_paginate()`.
+
+```r
+bikeshare &lt;- read_csv(
+  'https://bcdanl.github.io/data/bikeshare_cleaned.csv')
+# install.packages("ggforce")
+library(ggforce)
+ggplot(data = bikeshare) +
+  geom_histogram( mapping = aes(x = cnt, fill = month),
+                  binwidth = 10, color = NA, show.legend = F) +
+  facet_grid_paginate(month~year, nrow = 3, ncol = 2, page = 1) 
+```
+
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; `ggsave()` &lt;/p&gt;
+- In `ggsave()`, we can set the `width`, `height`, and `dpi` (dots per inch) of the picture file.
+
+```r
+ggplot(data = bikeshare) +
+  geom_histogram( mapping = aes(x = cnt, fill = month),
+                  binwidth = 10, color = NA,
+                  show.legend = F) +
+  facet_grid(month ~ year) 
+ggsave(file="ABSOLUTE_PATH_NAME_OF_THE_FILE_faceted_hist.png", 
+       width=8, height=16, dpi=300)  # using the absolute path to save the file
+```
+
+
+
+---
 class: inverse, center, middle
 
 # Statistical Transformation
@@ -114,34 +221,18 @@ class: inverse, center, middle
 # Statistical Transformations
 
 
-- Bar charts seem simple, but they are interesting because they reveal something subtle about plots. 
-
-- Consider a basic bar chart, as drawn with `geom_bar()`. 
-
-- The following bar chart displays the total number of diamonds in the `ggplot2::diamonds` dataset, grouped by `cut`. 
+- `geom_smooth()` fits a model to our data and then plots predictions from the model.
+  - `geom_smooth( method = lm )` plots predictions from the linear regression model, which we will discuss in late April and in May.
+  - `geom_smooth( se = FALSE )` turns off standard errors from the predictions.
 
 
 ```r
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut))
+library(tidyverse)
+ggplot( data = mpg,
+        mapping = aes(x = displ, y = hwy)) + 
+  geom_point() +
+  geom_smooth( method = lm, se = F )
 ```
-
-- The `diamonds` dataset comes in `ggplot2` and contains information about ~54,000 diamonds, including the `price`, `carat`, `color`, `clarity`, and `cut` of each diamond. 
-
-
-
----
-# Statistical Transformations
-
-
-- Many graphs, including bar charts, calculate new values to plot:
-
-  - `geom_bar()`, `geom_histogram()`, and `geom_freqpoly()` bin our data and then plot bin counts, the number of observations that fall in each bin.
-  
-  - `geom_boxplot()` computes a summary of the distribution and then display a specially formatted box.
-  
-  - `geom_smooth()` fits a model to our data and then plot predictions from the model.
-
 
 
 ---
@@ -206,10 +297,6 @@ ggplot(data = diamonds) +
 ```r
 ggplot(data = diamonds) + 
   geom_bar(mapping = aes(x = cut, y = stat(prop) ) )
-
-ggplot(data = diamonds) + 
-  geom_bar(mapping = aes(x = cut, y = stat(prop), 
-*                        fill = color ) )
 ```
 
 
@@ -233,27 +320,6 @@ ggplot(data = diamonds) +
     fun = median
   )
 ```
-
-
-
-
-
-
-
-
----
-# Statistical Transformations
-### &lt;p style="color:#00449E"&gt; Exercises
-
-- What is the default geom associated with `stat_summary()`? How could you rewrite the previous plot to use that geom function instead of the stat function?
-
-- What does `geom_col()` do? How is it different to `geom_bar()`?
-
-- Most `geoms` and `stats` come in pairs that are almost always used in concert. Read through the documentation and make a list of all the pairs. What do they have in common?
-
-- What variables does `stat_smooth()` compute? What parameters control its behavior?
-
-
 
 
 
@@ -285,7 +351,7 @@ ggplot(data = diamonds) +
 ```
 ]
 .pull-right[
-![](DANL200_Lec09_20230221_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+![](DANL200_Lec09_20230221_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 ]
 
 ]
@@ -300,7 +366,7 @@ ggplot(data = diamonds) +
 ```
 ]
 .pull-right[
-![](DANL200_Lec09_20230221_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+![](DANL200_Lec09_20230221_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
 ]
 ]
 
@@ -323,31 +389,8 @@ ggplot(data = diamonds) +
 ```
 ]
 .pull-right[
-![](DANL200_Lec09_20230221_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+![](DANL200_Lec09_20230221_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
 ]
-
-
----
-# Position Adjustments
-### &lt;p style="color:#00449E"&gt; Stacked bar charts with `fill` aesthetic
-
-- The `stack`ing is performed automatically by the **position adjustment** specified by the `position` argument. 
-
-.pull-left[
-
-```r
-ggplot(data = diamonds) + 
-  geom_bar(mapping = 
-             aes(x = cut, 
-                 fill = clarity),
-*          position = "stack")
-```
-]
-.pull-right[
-![](DANL200_Lec09_20230221_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
-]
-
-
 
 
 ---
@@ -408,29 +451,6 @@ ggplot(data = diamonds) +
 ggplot(data = mpg) + 
   geom_point(mapping = aes(x = displ, y = hwy), position = [?])
 ```
-
-
-
-
-
----
-# Position Adjustments
-### &lt;p style="color:#00449E"&gt; Exercises
-
-- What is the problem with this plot? How could you improve it?
-
-
-```r
-ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
-  geom_point()
-```
-
-- What parameters to `geom_jitter()` control the amount of jittering?
-
-- Compare and contrast `geom_hex()` with `geom_count()`.
-
-- What’s the default position adjustment for `geom_boxplot()`? Create a visualization of the `mpg` dataset that demonstrates it.
-
 
 
 
@@ -644,11 +664,11 @@ class: inverse, center, middle
 
 .panel[.panel-name[Steps]
 
-- Figure out whether variables of interests are categorical or continuous.
+- Step 1. Figure out whether variables of interests are categorical or continuous.
 
-- Think which geometric objects, aesthetic mappings, and faceting are appropriate to visualize distributions and relationships.
+- Step 2. Think which geometric objects, aesthetic mappings, and faceting are appropriate to visualize distributions and relationships.
 
-- If needed, transform a given `data.frame` (e.g., filtered observations, new variables, summarized data) and try new visualizations.
+- Step 3. If needed, transform a given `data.frame` (e.g., filtered observations, new variables, summarized data) and try new visualizations.
 
 ]
 
@@ -678,6 +698,287 @@ class: inverse, center, middle
 
 ]
 
+
+
+---
+# Exploratory Data Analysis 
+### &lt;p style="color:#00449E"&gt; `geom_line()` &lt;/p&gt;
+
+- We can use `geom_line()` to draw a line chart.
+
+- Let's consider a dataset about organ donation in the OECD countries.
+
+```r
+organdata_simple &lt;- read_csv('https://bcdanl.github.io/data/organdata_simple.csv')
+```
+
+- `country`: Country name.
+- `year`: Year.
+- `donors`: Organ Donation rate per million population.
+
+**Q.** Visualize the yearly trend of `donors` for each country.
+
+
+
+
+---
+class: inverse, center, middle
+
+# Data Transformation
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+  
+
+
+---
+# Data Transformation
+
+- It is rare that we get the data in exactly the right form we need.
+
+- We'll need to create some new variables, summaries, rename the variables or reorder the observations in order to make the data a little easier to work with.
+
+- We'll discuss how to transform data using the `dplyr` package and a dataset on flights departing New York City in 2013.
+
+
+
+```r
+library(tidyverse)
+library(nycflights13)
+library(skimr)
+flights &lt;- flights
+View(flights) 
+?flights
+skim(flights)
+```
+
+
+
+---
+# Data Transformation
+### &lt;p style="color:#00449E"&gt; `dplyr` basics &lt;/p&gt;
+
+- We are going to discuss the five key `dplyr` functions to solve various data manipulation challenges:
+  - Pick observations by their values (`filter()`).
+  - Reorder the rows (`arrange()`).
+  - Pick variables by their names (`select()`).
+  - Create new variables with functions of existing variables (`mutate()`).
+  - Collapse many values down to a single summary (`summarise()`).
+
+
+
+---
+# Data Transformation
+### &lt;p style="color:#00449E"&gt; `dplyr` basics &lt;/p&gt;
+
+- `filter(&lt;DATA.FRAME&gt;, LOGICAL_STATEMENT)`
+- `arrange(&lt;DATA.FRAME&gt;, ...)`
+- `select(&lt;DATA.FRAME&gt;, ...)`
+- `mutate(&lt;DATA.FRAME&gt;, ...)`
+- `summarise(&lt;DATA.FRAME&gt;, ...)`
+
+
+- The first argument is a **data.frame**.
+- The subsequent arguments describe what to do with the data frame, using the variable names.
+- The result is also a **data.frame**.
+
+
+
+---
+class: inverse, center, middle
+
+# `filter()`
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+  
+
+
+---
+# Filter rows with `filter()`
+
+- `filter()` allows us to subset observations based on the value of logical conditions, which are either `TRUE` or `FALSE`.
+
+
+```r
+filter(flights, month == 1, day == 1)
+jan1 &lt;- filter(flights, month == 1, day == 1)
+(dec25 &lt;- filter(flights, month == 12, day == 25))
+
+class(flights$month == 1)
+```
+
+
+
+---
+# Filter rows with `filter()`
+### &lt;p style="color:#00449E"&gt; `logical`conditions &lt;/p&gt;
+
+Conditions are expressions that evaluate as `logical` 
+
+&lt;table class=" lightable-paper table table-hover table-condensed" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto; font-family: sans-serif, helvetica, arial; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Operator &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x == y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Is x equal to y? &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x != y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Is x greater than y? &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x &amp;gt; y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Is x greater than or equal to y? &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x &amp;gt;= y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Is x greater than or equal to y? &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x &amp;lt; y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Is x less than y? &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; x &amp;lt;= y &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Is x less than or equal to y? &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+---
+# Filter rows with `filter()`
+### &lt;p style="color:#00449E"&gt; `logical`conditions &lt;/p&gt;
+
+- The `==` is an operator that compares the objects on either side and returns `TRUE` if they have the same values.
+
+
+```r
+num_vec &lt;- c(9, 10, 11)
+num_vec == 10
+cond &lt;- num_vec == 10
+
+df &lt;- tibble( num_vec = num_vec ) 
+filter(df, num_vec == 10)
+filter(df, cond)
+```
+
+**Q**. What does `! (!TRUE)` evaluate to?
+
+
+
+---
+# Filter rows with `filter()`
+### &lt;p style="color:#00449E"&gt; Logical Operators
+
+
+- De Morgan’s law: 
+
+- `!(x &amp; y)` is the same as `!x | !y`. 
+- `!(x | y)` is the same as `!x &amp; !y`.
+
+- For example, comparison and logical operators can be used with `filter()` as follows:
+
+
+
+```r
+filter(flights, month == 11 | month == 12)
+nov_dec &lt;- filter(flights, month %in% c(11, 12))
+
+filter(flights, !(arr_delay &gt; 120 | dep_delay &gt; 120))
+filter(flights, arr_delay &lt;= 120 &amp; dep_delay &lt;= 120)
+```
+
+
+
+---
+# Filter rows with `filter()`
+### &lt;p style="color:#00449E"&gt; Missing values
+
+
+- Almost any operation involving an unknown value will also be unknown.
+
+
+
+```r
+NA &gt; 5
+10 == NA
+NA + 10
+NA / 2
+
+NA == NA
+```
+
+
+
+
+---
+# Filter rows with `filter()`
+### &lt;p style="color:#00449E"&gt; Missing values
+
+
+- Let x be Mary's age. We don't know how old she is.
+- Let y be John's age. We don't know how old he is.
+- Are John and Mary the same age?
+
+
+
+```r
+x &lt;- NA
+y &lt;- NA
+x == y
+```
+
+
+
+
+---
+# Filter rows with `filter()`
+### &lt;p style="color:#00449E"&gt; Missing values
+
+
+- If we want to determine if a value is missing, use `is.na()`.
+- If we want to preserve missing values, ask `filter()` for them explicitly.
+
+
+
+```r
+x &lt;- NA
+is.na(x)
+
+df &lt;- tibble(y = c(1, NA, 3))
+filter(df, y &gt; 1)
+filter(df, is.na(y) | y &gt; 1)
+```
+
+
+
+
+---
+# Filter rows with `filter()`
+### &lt;p style="color:#00449E"&gt; Exercises
+
+- Find all flights that
+  - Had an arrival delay of two or more hours
+  - Flew to Houston (`IAH` or `HOU`)
+  - Were operated by United, American, or Delta
+  - Departed in summer (July, August, and September)
+  - Arrived more than two hours late, but didn’t leave late
+  - Were delayed by at least an hour, but made up over 30 minutes in flight
+  - Departed between midnight and 6am (inclusive)
+
+
+---
+# Filter rows with `filter()`
+### &lt;p style="color:#00449E"&gt; Exercises
+
+- Another useful `dplyr` filtering helper is `between()`. What does it do? Can you use it to simplify the code needed to answer the previous challenges?
+
+- How many flights have a missing `dep_time`? What other variables are missing? What might these rows represent?
+
+- Why is `NA^0` not missing? Why is `NA | TRUE` not missing? Why is `FALSE &amp; NA` not missing? Can you figure out the general rule? (`NA * 0` is a tricky counterexample!)
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
