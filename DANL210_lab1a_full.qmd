@@ -1,0 +1,146 @@
+---
+title: "Python Lab 1 - Pandas Group Operations"
+author: "Byeong-Hak Choe"
+editor: visual
+---
+
+# Load Data
+
+```{python}
+import pandas as pd
+df_ny = pd.read_csv('https://bcdanl.github.io/data/NY_pinc_pop.csv')
+df_ny.head(10)
+```
+
+- Variable Description
+    - `FIPS`: ID number for a county
+    - `pincp`: average personal income in a county `X` in year `Y`
+    - `pop_18_24`: population 18 to 24 years
+    - `pop_25_over`: population 25 years and over
+
+# Q1a
+
+- Use `.sort_values()` to find the top 5 rich counties in NY for each year.
+
+  - Example 1. group slicing with `.groupby().head()`
+```{python}
+q1a = (
+  df_ny
+  .sort_values(by = 'pincp', ascending = False)
+  .groupby('year').head(5)
+  .sort_values( by = ['year', 'pincp'], ascending = [True, False] )
+)
+
+q1a
+```
+
+
+  - Example 2.` apply()` with `lambda`
+```{python}
+q1a = (
+  df_ny
+  .groupby('year')
+  .apply( lambda x: x.sort_values(['pincp'], ascending = False )
+  .head()
+      )
+)
+
+q1a
+```
+
+
+
+# Q1b
+
+- Use `.rank()` to find the top 5 rich counties in NY for each year.
+
+```{python}
+q1b = (
+   df_ny.assign( 
+          ranking = df_ny.groupby('year')['pincp']
+                         .rank(method = 'dense', ascending = False) 
+                         )
+)
+
+q1b = (
+  q1b.query('ranking <= 5')
+  .sort_values(by = ['year', 'ranking'])
+)
+
+q1b
+```
+
+
+# cf) `SeriesGroupBy.nlargest()`
+```{python}
+q1ab = df_ny.groupby('year')['pincp'].nlargest(5)
+
+q1ab
+```
+
+
+# Q1c
+
+- Visualize the yearly trend of the mean level of `pincp`.
+
+```{python}
+q1c = df_ny.groupby('year')['pincp'].mean()
+q1c.plot()
+```
+
+# Q1d
+
+- For each year, find the county that has the largest proportion of 18-to-24-years adult population.
+
+- For each year, find the county that has the largest proportion of 25-years-and-over adult population.
+
+
+```{python}
+q1d = (
+   df_ny.assign( 
+          prop_young = df_ny['pop_18_24'] / (df_ny['pop_18_24'] + df_ny['pop_25_over']),
+          prop_old = lambda x: 1 - x['prop_young']
+                         )
+)
+```
+
+```{python}
+# young
+q1d1 = (
+  q1d
+  .sort_values(by = 'prop_young', ascending = False)
+  .groupby('year').head(1)
+  .sort_values(by = 'year')
+)
+
+q1d1
+```
+
+```{python}
+# old
+q1d2 = (
+  q1d
+  .sort_values(by = 'prop_old', ascending = False)
+  .groupby('year').head(1)
+  .sort_values(by = 'year')
+)
+
+q1d2
+```
+
+# Q1e
+
+- Visualize the yearly trends of 
+  - the size of population 18-24 years in NY;
+  - the size of population 25 years and over in NY.
+  
+```{python}
+q1e = (
+       q1d[ ['year', 'pop_18_24', 'pop_25_over'] ]
+       .groupby('year').sum()
+       )
+q1e.plot()
+q1e[['pop_18_24']].plot()
+q1e[['pop_25_over']].plot()
+
+```

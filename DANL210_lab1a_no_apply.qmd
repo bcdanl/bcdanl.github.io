@@ -1,5 +1,5 @@
 ---
-title: "Python Lab 1 - Pandas Group Operations"
+title: "Python Lab 1 - Pandas Group Operations and apply()"
 author: "Byeong-Hak Choe"
 editor: visual
 ---
@@ -18,14 +18,10 @@ df_ny.head(10)
     -   `pop_18_24`: population 18 to 24 years
     -   `pop_25_over`: population 25 years and over
 
-
-
-
-
 # Q1a
 
-- Use `.sort_values()` to find the top 5 rich counties in NY for each year.
-  - Do not use `.apply()`.
+-   Use `.sort_values()` to find the top 5 rich counties in NY for each year.
+    -   Do not use `.apply()`.
 
 ```{python}
 q1a = (
@@ -38,12 +34,10 @@ q1a = (
 q1a
 ```
 
-
-
 # Q1b
 
-- Use `.rank()` to find the top 5 rich counties in NY for each year.
-  - Do not use `apply()`.
+-   Use `.rank()` to find the top 5 rich counties in NY for each year.
+    -   Do not use `apply()`.
 
 ```{python}
 q1b = (
@@ -61,50 +55,33 @@ q1b = (
 q1b
 ```
 
-
 #Q1c
 
-- Use `apply()` with a `lambda` function  and `.sort_values()` to find the top 5 rich counties in NY for each year.
+-   Use `apply()` with a `lambda` function and `.sort_values()` to find the top 5 rich counties in NY for each year.
 
 ```{python}
-q1c = (
-      df_ny
-      .groupby('year')
-      .apply( lambda x: x.sort_values(['pincp'], ascending = False )
-      .head()
-          )
-    )
 
-q1c
 ```
-
 
 #Q1d
 
-- Write a function with `def` and `.sort_values()` that selects the top 5 `pincp` values.
+-   Write a function with `def` and `.sort_values()` that selects the top 5 `pincp` values.
 
-- Then, use the `def`ined function in `apply()` to find the top 5 rich counties in NY for each year.
+-   Then, use the `def`ined function in `apply()` to find the top 5 rich counties in NY for each year.
 
 ```{python}
-def top(df, n=5, column="pincp"):
-    return df.sort_values(column, ascending=False)[:n]
-  
-q1d = df_ny.groupby('year').apply(top)
-q1d
-```
 
+```
 
 # cf) `SeriesGroupBy.nlargest()`
 
 ```{python}
-q1abcd = df_ny.groupby('year')['pincp'].nlargest(5)
 
-q1abcd
 ```
 
 # Q1e
 
-- Visualize the yearly trend of the mean level of `pincp`.
+-   Visualize the yearly trend of the mean level of `pincp`.
 
 ```{python}
 q1e = df_ny.groupby('year')['pincp'].mean()

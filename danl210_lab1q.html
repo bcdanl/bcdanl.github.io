@@ -322,7 +322,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#load-data" id="toc-load-data" class="nav-link active" data-scroll-target="#load-data">Load Data</a></li>
+  <li><a href="#load-libraries-and-dataframe" id="toc-load-libraries-and-dataframe" class="nav-link active" data-scroll-target="#load-libraries-and-dataframe">Load Libraries and <code>DataFrame</code></a></li>
   <li><a href="#q1a" id="toc-q1a" class="nav-link" data-scroll-target="#q1a">Q1a</a></li>
   <li><a href="#q1b" id="toc-q1b" class="nav-link" data-scroll-target="#q1b">Q1b</a></li>
   <li><a href="#q1c" id="toc-q1c" class="nav-link" data-scroll-target="#q1c">Q1c</a></li>
@@ -357,13 +357,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="load-data" class="level1">
-<h1>Load Data</h1>
+<section id="load-libraries-and-dataframe" class="level1">
+<h1>Load Libraries and <code>DataFrame</code></h1>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ny_pincp <span class="op">=</span> pd.read_csv(<span class="st">'https://bcdanl.github.io/data/NY_pinc.csv'</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ny_pincp.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> skimpy <span class="im">import</span> skim</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df_ny <span class="op">=</span> pd.read_csv(<span class="st">'https://bcdanl.github.io/data/NY_pinc_pop.csv'</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>df_ny.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
 
 <div>
 
@@ -375,6 +376,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <th>county_name</th>
       <th>year</th>
       <th>pincp</th>
+      <th>pop_18_24</th>
+      <th>pop_25_over</th>
     </tr>
   </thead>
   <tbody>
@@ -384,6 +387,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>Albany</td>
       <td>2015</td>
       <td>55120</td>
+      <td>44478</td>
+      <td>204024</td>
     </tr>
     <tr>
       <th>1</th>
@@ -391,6 +396,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>Albany</td>
       <td>2016</td>
       <td>55126</td>
+      <td>45357</td>
+      <td>204003</td>
     </tr>
     <tr>
       <th>2</th>
@@ -398,6 +405,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>Albany</td>
       <td>2017</td>
       <td>58814</td>
+      <td>45589</td>
+      <td>204833</td>
     </tr>
     <tr>
       <th>3</th>
@@ -405,6 +414,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>Albany</td>
       <td>2018</td>
       <td>59547</td>
+      <td>45521</td>
+      <td>204509</td>
     </tr>
     <tr>
       <th>4</th>
@@ -412,6 +423,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>Albany</td>
       <td>2019</td>
       <td>61876</td>
+      <td>45150</td>
+      <td>204918</td>
     </tr>
     <tr>
       <th>5</th>
@@ -419,6 +432,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>Albany</td>
       <td>2020</td>
       <td>66632</td>
+      <td>44608</td>
+      <td>205082</td>
     </tr>
     <tr>
       <th>6</th>
@@ -426,6 +441,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>Allegany</td>
       <td>2015</td>
       <td>32205</td>
+      <td>7461</td>
+      <td>30568</td>
     </tr>
     <tr>
       <th>7</th>
@@ -433,6 +450,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>Allegany</td>
       <td>2016</td>
       <td>32417</td>
+      <td>7493</td>
+      <td>30449</td>
     </tr>
     <tr>
       <th>8</th>
@@ -440,6 +459,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>Allegany</td>
       <td>2017</td>
       <td>34001</td>
+      <td>7377</td>
+      <td>30331</td>
     </tr>
     <tr>
       <th>9</th>
@@ -447,6 +468,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <td>Allegany</td>
       <td>2018</td>
       <td>34553</td>
+      <td>7284</td>
+      <td>30155</td>
     </tr>
   </tbody>
 </table>
@@ -456,40 +479,480 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Variable Description
 <ul>
+<li><code>FIPS</code>: ID number for a county</li>
 <li><code>pincp</code>: average personal income in a county <code>X</code> in year <code>Y</code></li>
 <li><code>pop_18_24</code>: population 18 to 24 years</li>
 <li><code>pop_25_over</code>: population 25 years and over</li>
 </ul></li>
+<li>Summarize DataFrame <code>df_ny</code>.</li>
 </ul>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>skim(df_ny)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">╭──────────────────────────────────────────────── skimpy summary ─────────────────────────────────────────────────╮
+│ <span style="font-style: italic">         Data Summary         </span> <span style="font-style: italic">      Data Types       </span>                                                          │
+│ ┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┓ ┏━━━━━━━━━━━━━┳━━━━━━━┓                                                          │
+│ ┃<span style="color: #008080; text-decoration-color: #008080; font-weight: bold"> dataframe         </span>┃<span style="color: #008080; text-decoration-color: #008080; font-weight: bold"> Values </span>┃ ┃<span style="color: #008080; text-decoration-color: #008080; font-weight: bold"> Column Type </span>┃<span style="color: #008080; text-decoration-color: #008080; font-weight: bold"> Count </span>┃                                                          │
+│ ┡━━━━━━━━━━━━━━━━━━━╇━━━━━━━━┩ ┡━━━━━━━━━━━━━╇━━━━━━━┩                                                          │
+│ │ Number of rows    │ 372    │ │ int64       │ 5     │                                                          │
+│ │ Number of columns │ 6      │ │ string      │ 1     │                                                          │
+│ └───────────────────┴────────┘ └─────────────┴───────┘                                                          │
+│ <span style="font-style: italic">                                                    number                                                    </span>  │
+│ ┏━━━━━━━━━━━━━━━━━┳━━━━━━┳━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━┓  │
+│ ┃<span style="font-weight: bold"> column_name     </span>┃<span style="font-weight: bold"> NA   </span>┃<span style="font-weight: bold"> NA %   </span>┃<span style="font-weight: bold"> mean     </span>┃<span style="font-weight: bold"> sd       </span>┃<span style="font-weight: bold"> p0      </span>┃<span style="font-weight: bold"> p25     </span>┃<span style="font-weight: bold"> p75      </span>┃<span style="font-weight: bold"> p100      </span>┃<span style="font-weight: bold"> hist    </span>┃  │
+│ ┡━━━━━━━━━━━━━━━━━╇━━━━━━╇━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━┩  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">FIPS           </span> │ <span style="color: #008080; text-decoration-color: #008080">   0</span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">   36000</span> │ <span style="color: #008080; text-decoration-color: #008080">      36</span> │ <span style="color: #008080; text-decoration-color: #008080">  36000</span> │ <span style="color: #008080; text-decoration-color: #008080">  36000</span> │ <span style="color: #008080; text-decoration-color: #008080">   36000</span> │ <span style="color: #008080; text-decoration-color: #008080">    36000</span> │ <span style="color: #008000; text-decoration-color: #008000">█▇▇▇▇█ </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">year           </span> │ <span style="color: #008080; text-decoration-color: #008080">   0</span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">    2000</span> │ <span style="color: #008080; text-decoration-color: #008080">     1.7</span> │ <span style="color: #008080; text-decoration-color: #008080">   2000</span> │ <span style="color: #008080; text-decoration-color: #008080">   2000</span> │ <span style="color: #008080; text-decoration-color: #008080">    2000</span> │ <span style="color: #008080; text-decoration-color: #008080">     2000</span> │ <span style="color: #008000; text-decoration-color: #008000">██████ </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">pincp          </span> │ <span style="color: #008080; text-decoration-color: #008080">   0</span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">   50000</span> │ <span style="color: #008080; text-decoration-color: #008080">   20000</span> │ <span style="color: #008080; text-decoration-color: #008080">  32000</span> │ <span style="color: #008080; text-decoration-color: #008080">  41000</span> │ <span style="color: #008080; text-decoration-color: #008080">   52000</span> │ <span style="color: #008080; text-decoration-color: #008080">   190000</span> │ <span style="color: #008000; text-decoration-color: #008000">  █▁   </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">pop_18_24      </span> │ <span style="color: #008080; text-decoration-color: #008080">   0</span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">   31000</span> │ <span style="color: #008080; text-decoration-color: #008080">   49000</span> │ <span style="color: #008080; text-decoration-color: #008080">    320</span> │ <span style="color: #008080; text-decoration-color: #008080">   4700</span> │ <span style="color: #008080; text-decoration-color: #008080">   28000</span> │ <span style="color: #008080; text-decoration-color: #008080">   250000</span> │ <span style="color: #008000; text-decoration-color: #008000">  █▁   </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">pop_25_over    </span> │ <span style="color: #008080; text-decoration-color: #008080">   0</span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">  220000</span> │ <span style="color: #008080; text-decoration-color: #008080">  380000</span> │ <span style="color: #008080; text-decoration-color: #008080">   3500</span> │ <span style="color: #008080; text-decoration-color: #008080">  35000</span> │ <span style="color: #008080; text-decoration-color: #008080">  160000</span> │ <span style="color: #008080; text-decoration-color: #008080">  1800000</span> │ <span style="color: #008000; text-decoration-color: #008000">   █   </span> │  │
+│ └─────────────────┴──────┴────────┴──────────┴──────────┴─────────┴─────────┴──────────┴───────────┴─────────┘  │
+│ <span style="font-style: italic">                                                    string                                                    </span>  │
+│ ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┓  │
+│ ┃<span style="font-weight: bold"> column_name               </span>┃<span style="font-weight: bold"> NA      </span>┃<span style="font-weight: bold"> NA %       </span>┃<span style="font-weight: bold"> words per row                </span>┃<span style="font-weight: bold"> total words              </span>┃  │
+│ ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━┩  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">county_name              </span> │ <span style="color: #008080; text-decoration-color: #008080">      0</span> │ <span style="color: #008080; text-decoration-color: #008080">         0</span> │ <span style="color: #008080; text-decoration-color: #008080">                           1</span> │ <span style="color: #008080; text-decoration-color: #008080">                     380</span> │  │
+│ └───────────────────────────┴─────────┴────────────┴──────────────────────────────┴──────────────────────────┘  │
+╰────────────────────────────────────────────────────── End ──────────────────────────────────────────────────────╯
+</pre>
+</div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_ny.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>FIPS</th>
+      <th>year</th>
+      <th>pincp</th>
+      <th>pop_18_24</th>
+      <th>pop_25_over</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>372.000000</td>
+      <td>372.000000</td>
+      <td>372.000000</td>
+      <td>372.000000</td>
+      <td>3.720000e+02</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>36062.000000</td>
+      <td>2017.500000</td>
+      <td>50102.801075</td>
+      <td>30601.064516</td>
+      <td>2.190541e+05</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>35.839264</td>
+      <td>1.710125</td>
+      <td>20291.643067</td>
+      <td>49283.641237</td>
+      <td>3.797498e+05</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>36001.000000</td>
+      <td>2015.000000</td>
+      <td>31831.000000</td>
+      <td>323.000000</td>
+      <td>3.485000e+03</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>36031.000000</td>
+      <td>2016.000000</td>
+      <td>40612.250000</td>
+      <td>4675.750000</td>
+      <td>3.520200e+04</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>36062.000000</td>
+      <td>2017.500000</td>
+      <td>45269.000000</td>
+      <td>9668.500000</td>
+      <td>5.985150e+04</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>36093.000000</td>
+      <td>2019.000000</td>
+      <td>51998.000000</td>
+      <td>28099.250000</td>
+      <td>1.605870e+05</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>36123.000000</td>
+      <td>2020.000000</td>
+      <td>191220.000000</td>
+      <td>251964.000000</td>
+      <td>1.789355e+06</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_ny.groupby(<span class="st">'year'</span>)[<span class="st">'pincp'</span>].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>year</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2015</th>
+      <td>62.0</td>
+      <td>45449.580645</td>
+      <td>17342.754837</td>
+      <td>31831.0</td>
+      <td>37523.75</td>
+      <td>40790.5</td>
+      <td>47230.50</td>
+      <td>152793.0</td>
+    </tr>
+    <tr>
+      <th>2016</th>
+      <td>62.0</td>
+      <td>46474.064516</td>
+      <td>18544.679598</td>
+      <td>32417.0</td>
+      <td>38140.00</td>
+      <td>41283.0</td>
+      <td>48046.25</td>
+      <td>163112.0</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>62.0</td>
+      <td>49078.548387</td>
+      <td>20323.712796</td>
+      <td>34001.0</td>
+      <td>40197.25</td>
+      <td>43617.5</td>
+      <td>50476.00</td>
+      <td>179655.0</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>62.0</td>
+      <td>50400.483871</td>
+      <td>21110.934480</td>
+      <td>34553.0</td>
+      <td>40867.25</td>
+      <td>44751.5</td>
+      <td>52062.25</td>
+      <td>184539.0</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>62.0</td>
+      <td>52551.370968</td>
+      <td>21381.379235</td>
+      <td>37131.0</td>
+      <td>42687.25</td>
+      <td>46772.0</td>
+      <td>54339.25</td>
+      <td>187213.0</td>
+    </tr>
+    <tr>
+      <th>2020</th>
+      <td>62.0</td>
+      <td>56662.758065</td>
+      <td>21384.820890</td>
+      <td>40840.0</td>
+      <td>47044.75</td>
+      <td>50577.5</td>
+      <td>58764.00</td>
+      <td>191220.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_ny.groupby(<span class="st">'year'</span>)[<span class="st">'pop_18_24'</span>].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>year</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2015</th>
+      <td>62.0</td>
+      <td>32025.887097</td>
+      <td>52851.482119</td>
+      <td>466.0</td>
+      <td>5039.00</td>
+      <td>9875.5</td>
+      <td>28233.25</td>
+      <td>251964.0</td>
+    </tr>
+    <tr>
+      <th>2016</th>
+      <td>62.0</td>
+      <td>31725.241935</td>
+      <td>51964.450784</td>
+      <td>382.0</td>
+      <td>5082.75</td>
+      <td>9900.5</td>
+      <td>28467.75</td>
+      <td>244788.0</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>62.0</td>
+      <td>31195.403226</td>
+      <td>50824.225228</td>
+      <td>386.0</td>
+      <td>4903.50</td>
+      <td>9762.5</td>
+      <td>28317.00</td>
+      <td>236951.0</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>62.0</td>
+      <td>30169.000000</td>
+      <td>48502.347023</td>
+      <td>406.0</td>
+      <td>4740.50</td>
+      <td>9577.5</td>
+      <td>27736.25</td>
+      <td>223707.0</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>62.0</td>
+      <td>29546.500000</td>
+      <td>47141.642477</td>
+      <td>323.0</td>
+      <td>4550.25</td>
+      <td>9473.0</td>
+      <td>27574.00</td>
+      <td>215081.0</td>
+    </tr>
+    <tr>
+      <th>2020</th>
+      <td>62.0</td>
+      <td>28944.354839</td>
+      <td>45967.793981</td>
+      <td>369.0</td>
+      <td>4403.25</td>
+      <td>9394.0</td>
+      <td>27272.00</td>
+      <td>207966.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_ny.groupby(<span class="st">'year'</span>)[<span class="st">'pop_25_over'</span>].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>year</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2015</th>
+      <td>62.0</td>
+      <td>216706.370968</td>
+      <td>376492.870083</td>
+      <td>3546.0</td>
+      <td>35351.25</td>
+      <td>60028.0</td>
+      <td>159284.50</td>
+      <td>1735647.0</td>
+    </tr>
+    <tr>
+      <th>2016</th>
+      <td>62.0</td>
+      <td>217807.790323</td>
+      <td>379394.903521</td>
+      <td>3575.0</td>
+      <td>35209.50</td>
+      <td>60022.5</td>
+      <td>159512.25</td>
+      <td>1753695.0</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>62.0</td>
+      <td>220335.629032</td>
+      <td>386192.777963</td>
+      <td>3604.0</td>
+      <td>35328.75</td>
+      <td>60108.0</td>
+      <td>160193.00</td>
+      <td>1789355.0</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>62.0</td>
+      <td>219457.129032</td>
+      <td>383470.172157</td>
+      <td>3536.0</td>
+      <td>35492.25</td>
+      <td>59851.5</td>
+      <td>160939.50</td>
+      <td>1777281.0</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>62.0</td>
+      <td>219869.951613</td>
+      <td>384159.431483</td>
+      <td>3567.0</td>
+      <td>35138.50</td>
+      <td>59689.0</td>
+      <td>161993.50</td>
+      <td>1780247.0</td>
+    </tr>
+    <tr>
+      <th>2020</th>
+      <td>62.0</td>
+      <td>220147.693548</td>
+      <td>384199.007544</td>
+      <td>3485.0</td>
+      <td>35528.00</td>
+      <td>59656.5</td>
+      <td>163294.50</td>
+      <td>1780524.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
 </section>
 <section id="q1a" class="level1">
 <h1>Q1a</h1>
 <ul>
-<li>Use <code>.sort_values()</code> to find the top 5 rich counties in NY for each year.</li>
+<li>Use <code>.sort_values()</code> to find the top 5 rich counties in NY for each year.
+<ul>
+<li>Do not use <code>.apply()</code></li>
+</ul></li>
 </ul>
+<p><br><br></p>
 </section>
 <section id="q1b" class="level1">
 <h1>Q1b</h1>
 <ul>
-<li>Use <code>.rank()</code> to find the top 5 rich counties in NY for each year.</li>
+<li>Use <code>.rank()</code> to find the top 5 rich counties in NY for each year.
+<ul>
+<li>Do not use <code>.apply()</code></li>
+</ul></li>
 </ul>
+<p><br><br></p>
 </section>
 <section id="q1c" class="level1">
 <h1>Q1c</h1>
 <ul>
-<li>Visualize the yearly trend of the mean level of <code>pincp</code>.</li>
+<li>Use <code>apply()</code> with a <code>lambda</code> function and <code>.sort_values()</code> to find the top 5 rich counties in NY for each year.</li>
 </ul>
+<p><br><br></p>
 </section>
 <section id="q1d" class="level1">
 <h1>Q1d</h1>
 <ul>
-<li>Which county has the largest proportion of population with 18 to 25 years?</li>
+<li>Define a function with <code>def</code> and <code>.sort_values()</code>.</li>
+<li>Then, use the <code>def</code>ined function in <code>apply()</code> to find the top 5 rich counties in NY for each year.</li>
 </ul>
+<p><br><br></p>
 </section>
 <section id="q1e" class="level1">
 <h1>Q1e</h1>
 <ul>
-<li>Visualize the yearly trends of <code>pop_18_24</code> and <code>pop_25_over</code>.</li>
+<li>Visualize the yearly trend of the mean level of <code>pincp</code>.</li>
 </ul>
 
 
