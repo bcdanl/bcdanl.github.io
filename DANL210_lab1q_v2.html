@@ -8,7 +8,7 @@
 
 <meta name="author" content="Byeong-Hak Choe">
 
-<title>Geneseo DANL - R Lab 1 - ggplot visualization</title>
+<title>Geneseo DANL - Python Lab 1 - Pandas Group Operations</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -123,6 +123,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -331,7 +334,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#load-packages-and-data.frames" id="toc-load-packages-and-data.frames" class="nav-link active" data-scroll-target="#load-packages-and-data.frames">Load Packages and <code>data.frames</code></a></li>
+  <li><a href="#load-data" id="toc-load-data" class="nav-link active" data-scroll-target="#load-data">Load Data</a></li>
+  <li><a href="#q1a" id="toc-q1a" class="nav-link" data-scroll-target="#q1a">Q1a</a></li>
+  <li><a href="#q1b" id="toc-q1b" class="nav-link" data-scroll-target="#q1b">Q1b</a></li>
+  <li><a href="#q1c" id="toc-q1c" class="nav-link" data-scroll-target="#q1c">Q1c</a></li>
+  <li><a href="#q1d" id="toc-q1d" class="nav-link" data-scroll-target="#q1d">Q1d</a></li>
+  <li><a href="#q1e" id="toc-q1e" class="nav-link" data-scroll-target="#q1e">Q1e</a></li>
   </ul>
 </nav>
     </div>
@@ -340,7 +348,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">R Lab 1 - ggplot visualization</h1>
+<h1 class="title">Python Lab 1 - Pandas Group Operations</h1>
 </div>
 
 
@@ -361,21 +369,175 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="load-packages-and-data.frames" class="level1">
-<h1>Load Packages and <code>data.frames</code></h1>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-✔ ggplot2 3.4.0      ✔ purrr   1.0.1 
-✔ tibble  3.1.8      ✔ dplyr   1.0.10
-✔ tidyr   1.2.1      ✔ stringr 1.5.0 
-✔ readr   2.1.3      ✔ forcats 0.5.2 
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()</code></pre>
+<section id="load-data" class="level1">
+<h1>Load Data</h1>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>df_ny <span class="op">=</span> pd.read_csv(<span class="st">'https://bcdanl.github.io/data/NY_pinc_pop.csv'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df_ny.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>FIPS</th>
+      <th>county_name</th>
+      <th>year</th>
+      <th>pincp</th>
+      <th>pop_18_24</th>
+      <th>pop_25_over</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>36001</td>
+      <td>Albany</td>
+      <td>2015</td>
+      <td>55120</td>
+      <td>44478</td>
+      <td>204024</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>36001</td>
+      <td>Albany</td>
+      <td>2016</td>
+      <td>55126</td>
+      <td>45357</td>
+      <td>204003</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>36001</td>
+      <td>Albany</td>
+      <td>2017</td>
+      <td>58814</td>
+      <td>45589</td>
+      <td>204833</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>36001</td>
+      <td>Albany</td>
+      <td>2018</td>
+      <td>59547</td>
+      <td>45521</td>
+      <td>204509</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>36001</td>
+      <td>Albany</td>
+      <td>2019</td>
+      <td>61876</td>
+      <td>45150</td>
+      <td>204918</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>36001</td>
+      <td>Albany</td>
+      <td>2020</td>
+      <td>66632</td>
+      <td>44608</td>
+      <td>205082</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>36003</td>
+      <td>Allegany</td>
+      <td>2015</td>
+      <td>32205</td>
+      <td>7461</td>
+      <td>30568</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>36003</td>
+      <td>Allegany</td>
+      <td>2016</td>
+      <td>32417</td>
+      <td>7493</td>
+      <td>30449</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>36003</td>
+      <td>Allegany</td>
+      <td>2017</td>
+      <td>34001</td>
+      <td>7377</td>
+      <td>30331</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>36003</td>
+      <td>Allegany</td>
+      <td>2018</td>
+      <td>34553</td>
+      <td>7284</td>
+      <td>30155</td>
+    </tr>
+  </tbody>
+</table>
 </div>
 </div>
+</div>
+<ul>
+<li>Variable Description
+<ul>
+<li><code>FIPS</code>: ID number for a county</li>
+<li><code>pincp</code>: average personal income in a county <code>X</code> in year <code>Y</code></li>
+<li><code>pop_18_24</code>: population 18 to 24 years</li>
+<li><code>pop_25_over</code>: population 25 years and over</li>
+</ul></li>
+</ul>
+</section>
+<section id="q1a" class="level1">
+<h1>Q1a</h1>
+<ul>
+<li>Use <code>.sort_values()</code> to find the top 5 rich counties in NY for each year.
+<ul>
+<li>Do not use <code>.apply()</code>.</li>
+</ul></li>
+</ul>
+<p><br></p>
+</section>
+<section id="q1b" class="level1">
+<h1>Q1b</h1>
+<ul>
+<li>Use <code>.rank()</code> to find the top 5 rich counties in NY for each year.
+<ul>
+<li>Do not use <code>apply()</code>.</li>
+</ul></li>
+</ul>
+<p><br></p>
+</section>
+<section id="q1c" class="level1">
+<h1>Q1c</h1>
+<ul>
+<li>Use <code>apply()</code> with a <code>lambda</code> function and <code>.sort_values()</code> to find the top 5 rich counties in NY for each year.</li>
+</ul>
+<p><br></p>
+</section>
+<section id="q1d" class="level1">
+<h1>Q1d</h1>
+<ul>
+<li><p>Write a function with <code>def</code> and <code>.sort_values()</code> that selects the top 5 <code>pincp</code> values.</p></li>
+<li><p>Then, use the <code>def</code>ined function in <code>apply()</code> to find the top 5 rich counties in NY for each year.</p></li>
+</ul>
+<p><br></p>
+</section>
+<section id="q1e" class="level1">
+<h1>Q1e</h1>
+<ul>
+<li>Visualize the yearly trend of the mean level of <code>pincp</code>.</li>
+</ul>
+<p><br></p>
 
 
 </section>
