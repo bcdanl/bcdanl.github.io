@@ -123,6 +123,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -187,17 +190,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl-200-hw" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">danl 200 hw</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl-200-lab" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl 200 lab</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl-200-hw">    
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl-200-lab">    
         <li>
     <a class="dropdown-item" href="./DANL200_hw1q.html">
- <span class="dropdown-text">hw1q</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./DANL210_lab1.qmd">
- <span class="dropdown-text">hw1q</span></a>
+ <span class="dropdown-text">hw 1q</span></a>
   </li>  
     </ul>
   </li>
@@ -241,13 +240,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl-210-hw" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">danl 210 hw</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl-210-lab" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl 210 lab</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl-210-hw">    
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl-210-lab">    
         <li>
     <a class="dropdown-item" href="./DANL210_hw1q.html">
- <span class="dropdown-text">hw1q</span></a>
+ <span class="dropdown-text">hw 1q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_lab1q.html">
+ <span class="dropdown-text">lab 1q</span></a>
   </li>  
     </ul>
   </li>
@@ -291,13 +294,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </ul>
   </li>
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl-310-hw" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">danl 310 hw</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl-310-lab" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl 310 lab</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl-310-hw">    
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl-310-lab">    
         <li>
     <a class="dropdown-item" href="./DANL310_hw1q.html">
- <span class="dropdown-text">hw1q</span></a>
+ <span class="dropdown-text">hw 1q</span></a>
   </li>  
     </ul>
   </li>
@@ -358,7 +361,97 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1>Load Data</h1>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ny_pincp <span class="op">=</span> pd.read_csv(<span class="st">'/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/NY_pinc.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>ny_pincp <span class="op">=</span> pd.read_csv(<span class="st">'https://bcdanl.github.io/data/NY_pinc.csv'</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>ny_pincp.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>FIPS</th>
+      <th>county_name</th>
+      <th>year</th>
+      <th>pincp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>36001</td>
+      <td>Albany</td>
+      <td>2015</td>
+      <td>55120</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>36001</td>
+      <td>Albany</td>
+      <td>2016</td>
+      <td>55126</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>36001</td>
+      <td>Albany</td>
+      <td>2017</td>
+      <td>58814</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>36001</td>
+      <td>Albany</td>
+      <td>2018</td>
+      <td>59547</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>36001</td>
+      <td>Albany</td>
+      <td>2019</td>
+      <td>61876</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>36001</td>
+      <td>Albany</td>
+      <td>2020</td>
+      <td>66632</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>36003</td>
+      <td>Allegany</td>
+      <td>2015</td>
+      <td>32205</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>36003</td>
+      <td>Allegany</td>
+      <td>2016</td>
+      <td>32417</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>36003</td>
+      <td>Allegany</td>
+      <td>2017</td>
+      <td>34001</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>36003</td>
+      <td>Allegany</td>
+      <td>2018</td>
+      <td>34553</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
 </div>
 <ul>
 <li>Variable Description
