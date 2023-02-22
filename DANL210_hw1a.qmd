@@ -5,6 +5,15 @@ author: "Byeong-Hak Choe"
 editor: visual
 ---
 
+# Direction
+
+- Write a Python code to answer each question.
+
+- Make at least some simple comment (`# ...`) in each question.
+
+- Use your working directory with the subfolder, `data`,  so that the relative pathname of CSV files in the subfolder `data` is sufficient to import the CSV files.
+
+
 # Load Libraries
 - Import all the Python libraries we need here.
 
@@ -13,7 +22,7 @@ import pandas as pd
 ```
 
 # Question 1
-- Consider the probability of survival in 'titanic_1.csv'.
+- Consider the probability of survival in `titanic_1.csv`.
 
 ```{python}
 titanic_1 = pd.read_csv('https://bcdanl.github.io/data/titanic_1.csv')
@@ -71,48 +80,113 @@ SDP
 
 
 ## Q1c
-
--   Use `apply()` with a `lambda` function and `.sort_values()` to find the top 5 rich counties in NY for each year.
+- Consider the probability of survival in `titanic_2.csv`.
 
 ```{python}
-q1c = (
-      df_ny
-      .groupby('year')
-      .apply( lambda x: x.sort_values(['pincp'], ascending = False )
-      .head()
-          )
-    )
-
-q1c
+titanic_2 = pd.read_csv('https://bcdanl.github.io/data/titanic_2.csv')
 ```
 
-# Q1d
+- After stratifying on gender and age, what happens to the difference in the probabilities of survival between first-class passengers and non-first-class passengers.
 
--   Write a function with `def` and `.sort_values()` that selects the top 5 `pincp` values.
+- Explain in your own words what stratifying on gender and age did for this difference in probabilities of survival between first-class passengers and non-first-class passengers.
 
--   Then, use the `def`ined function in `apply()` to find the top 5 rich counties in NY for each year.
 
 ```{python}
-def top(df, n=5, column="pincp"):
-    return df.sort_values(column, ascending=False)[:n]
+# Get column names of dataframe titanic_2
+titanic_2.columns
+
+# Get count of passengers by pclass
+titanic_2[['pclass']].value_counts()
+
+# Get count of passengers who survived or not
+titanic_2[['survived']].value_counts()
+
+# Get count of passengers by gender
+titanic_2[['sex']].value_counts()
+
+# Get count of passengers by age
+titanic_2[['age']].value_counts()
+
+# Create a new column 'd' and set its value to 0 for all rows
+titanic_2['d'] = 0
+
+# Set the value of column 'd' to 1 for rows where pclass is '1st class'
+titanic_2.loc[titanic_2['pclass']=='1st class', 'd'] = 1
+
+# Create a new column 'survived_d' and set its value to 0 for all rows
+titanic_2['survived_d'] = 0
+
+# Set the value of column 'survived_d' to 1 for rows where survived is 'yes'
+titanic_2.loc[titanic_2['survived']=='yes', 'survived_d'] = 1
+
+# Create a new column 'sex_d' and set its value to 0 for all rows
+titanic_2['sex_d'] = 0
+
+# Set the value of column 'sex_d' to 1 for rows where sex is 'male'
+titanic_2.loc[titanic_2['sex']=='male', 'sex_d'] = 1
+
+# Create a new column 'AgeGroup' and set its value to 0 for all rows
+titanic_2['AgeGroup'] = 0
+
+# Set the value of column 'AgeGroup' to 1 for rows where age is greater than or equal to 18
+titanic_2.loc[titanic_2['age'] >= 18, 'AgeGroup'] = 1
+
+# Create a new column 's' and set its value to 0 for all rows
+titanic_2['s'] = 0 
+
+# Set the value of column 's' based on gender and age group
+titanic_2.loc[(titanic_2.sex_d == 0) & (titanic_2.AgeGroup == 1), 's'] = 1
+titanic_2.loc[(titanic_2.sex_d == 0) & (titanic_2.AgeGroup == 0), 's'] = 2
+titanic_2.loc[(titanic_2.sex_d == 1) & (titanic_2.AgeGroup == 1), 's'] = 3
+titanic_2.loc[(titanic_2.sex_d == 1) & (titanic_2.AgeGroup == 0), 's'] = 4
+
+# Get the number of observations where d is 0
+obs = titanic_2.loc[titanic_2.d == 0].shape[0]
+
+# Define a function to calculate weighted average effect
+def weighted_avg_effect(df):
   
-q1d = df_ny.groupby('year').apply(top)
-q1d
+  # Calculate the difference in survival rates between the treatment and control groups
+    diff = ( df[ df.d == 1 ].survived_d.mean() - 
+             df[ df.d == 0 ].survived_d.mean() )
+  
+  # Calculate the weight assigned to the treatment group
+    weight = df[ df.d == 0 ].shape[0] / obs
+    
+  # Calculate the weighted average effect
+    return diff * weight
+
+
+# Apply the weighted_avg_effect function to each group in the data frame grouped by the s variable
+SDP2 = titanic_2.groupby('s').apply( weighted_avg_effect )
+
+# Calculate the weighted average effect of treatment for the entire population
+WSDP = SDP2.sum()
+
+WSDP
 ```
 
-# cf) `SeriesGroupBy.nlargest()`
+- The probability of survival for the first-class passengers can be different across gender and age groups.
+  - In other words, the effect of being the first-class on the probability of survival from the Titanic Disaster can be different across genders and age groups.
+
+- WSDP takes into account the difference in the effect of being first-class across gender and age groups by weighting.
+
 
 ```{python}
-q1abcd = df_ny.groupby('year')['pincp'].nlargest(5)
-
-q1abcd
+WSDP - SDP
 ```
 
-# Q1e
+- The probability of survival for first-class after taking into account gender and age (`WSDP`) is less than that (`SDP`) which does presumably assume that characteristics of passengers such as gender and ages is related with the probability of survival.
 
--   Visualize the yearly trend of the mean level of `pincp`.
+
+
+# Question 2
+
+- Consider the data file, `NHL-1617.csv`.
 
 ```{python}
-q1e = df_ny.groupby('year')['pincp'].mean()
-q1e.plot()
+nhl1617 = pd.read_csv('https://bcdanl.github.io/data/NHL-1617.csv')
 ```
+
+
+
