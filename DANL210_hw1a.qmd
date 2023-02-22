@@ -1,0 +1,118 @@
+---
+title: "DANL 210 - Homework Assignment 1"
+subtitle: "Example Answers"
+author: "Byeong-Hak Choe"
+editor: visual
+---
+
+# Load Libraries
+- Import all the Python libraries we need here.
+
+```{python}
+import pandas as pd
+```
+
+# Question 1
+- Consider the probability of survival in 'titanic_1.csv'.
+
+```{python}
+titanic_1 = pd.read_csv('https://bcdanl.github.io/data/titanic_1.csv')
+```
+
+
+## Q1a
+
+- Calculate the simple difference between the probability of survival when passengers are first-class and the probability of survival when they are not.
+
+
+```{python}
+# Get the column names of the titanic_1 dataframe
+titanic_1.columns
+
+# Count the number of passengers in each class and return the count in descending order
+titanic_1[['pclass']].value_counts()
+
+# Count the number of passengers who survived and who didn't and return the count in descending order
+titanic_1[['survived']].value_counts()
+
+# Add a new column 'd' to the titanic_1 dataframe and set all values to 0
+titanic_1['d'] = 0
+
+# For rows where the 'pclass' column is '1st class', set the value of the 'd' column to 1
+titanic_1.loc[titanic_1['pclass']=='1st class', 'd'] = 1
+
+# Add a new column 'survived_d' to the titanic_1 DataFrame and set all values to 0
+titanic_1['survived_d'] = 0
+
+# For rows where the 'survived' column is 'yes', set the value of the 'survived_d' column to 1
+titanic_1.loc[titanic_1['survived']=='yes', 'survived_d'] = 1
+
+# Compute the mean of 'survived_d' for rows where 'd' is 0
+e_y0 = titanic_1.loc[titanic_1['d']==0, 'survived_d'].mean()
+
+# Compute the mean of 'survived_d' for rows where 'd' is 1
+e_y1 = titanic_1.loc[titanic_1['d']==1, 'survived_d'].mean()
+
+# Compute the SDP (so called treatment effect) by subtracting the mean of 'survived_d' where 'd' is 0 from the mean where 'd' is 1
+SDP = e_y1 - e_y0
+
+# Return the value of SDP
+SDP
+
+```
+
+## Q1b
+
+- How much does the probability of survival increase for first-class passengers relative to those who are not first-class passengers?
+
+
+- `SDP` tells us what would happen to the probability of survival if non-first-class passengers were first-class.
+  - In other words, `SDP` means the effect of being the first-class on the probability of survival from the Titanic Disaster.
+
+
+## Q1c
+
+-   Use `apply()` with a `lambda` function and `.sort_values()` to find the top 5 rich counties in NY for each year.
+
+```{python}
+q1c = (
+      df_ny
+      .groupby('year')
+      .apply( lambda x: x.sort_values(['pincp'], ascending = False )
+      .head()
+          )
+    )
+
+q1c
+```
+
+# Q1d
+
+-   Write a function with `def` and `.sort_values()` that selects the top 5 `pincp` values.
+
+-   Then, use the `def`ined function in `apply()` to find the top 5 rich counties in NY for each year.
+
+```{python}
+def top(df, n=5, column="pincp"):
+    return df.sort_values(column, ascending=False)[:n]
+  
+q1d = df_ny.groupby('year').apply(top)
+q1d
+```
+
+# cf) `SeriesGroupBy.nlargest()`
+
+```{python}
+q1abcd = df_ny.groupby('year')['pincp'].nlargest(5)
+
+q1abcd
+```
+
+# Q1e
+
+-   Visualize the yearly trend of the mean level of `pincp`.
+
+```{python}
+q1e = df_ny.groupby('year')['pincp'].mean()
+q1e.plot()
+```
