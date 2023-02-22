@@ -1,6 +1,6 @@
 # Revise date and lec_no -------------------------------------------------------
-date <- "0221"
-lec_no <- "09"
+date <- "0223"
+lec_no <- "10"
 
 
 # Run the following code -------------------------------------------------------
@@ -13,6 +13,14 @@ lec <- "_Lec"
 rmd <- ".Rmd"
 html <- ".html"
 files <- "_files/figure-html"
+
+# 
+# rmarkdown::render(
+#   paste0(f_origin, course[2], lec, lec_no, year, date, rmd),
+#   output_file = paste0(f_origin, course[2], lec, lec_no, year, date, html),
+#   output_dir = "/Users/byeong-hakchoe/Documents/website/bcdanl.github.io/lec"
+# )
+
 
 
 for (i in 1:3){
