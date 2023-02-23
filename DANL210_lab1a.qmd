@@ -24,11 +24,14 @@ df_ny.head(10)
     -   Do not use `.apply()`.
 
 ```{python}
+# Sorts the DataFrame 'df_ny' by the column 'pincp' in descending order 
+# and takes the top 5 records for each 'year' group.
+# Then, sorts the resulting DataFrame by 'year' in ascending order and 'pincp' in descending order.
 q1a = (
       df_ny
-      .sort_values(by = 'pincp', ascending = False)
+      .sort_values(by='pincp', ascending=False)
       .groupby('year').head(5)
-      .sort_values( by = ['year', 'pincp'], ascending = [True, False] )
+      .sort_values(by=['year', 'pincp'], ascending=[True, False])
     )
 
 q1a
@@ -40,16 +43,19 @@ q1a
     -   Do not use `apply()`.
 
 ```{python}
+# Creates a new column 'ranking' in DataFrame 'df_ny' using the 'pincp' column to calculate rankings within each 'year' group
 q1b = (
-   df_ny.assign( 
+   df_ny.assign(
           ranking = df_ny.groupby('year')['pincp']
-                         .rank(method = 'dense', ascending = False) 
+                         .rank(method = 'dense', ascending = False)
                          )
 )
 
+# Filters the records in DataFrame 'q1b' where the 'ranking' column is less than or equal to 5.
+# Then, sorts the resulting DataFrame by 'year' and 'ranking'.
 q1b = (
   q1b.query('ranking <= 5')
-  .sort_values(by = ['year', 'ranking'])
+  .sort_values(by=['year', 'ranking'])
 )
 
 q1b
@@ -60,12 +66,13 @@ q1b
 -   Use `apply()` with a `lambda` function and `.sort_values()` to find the top 5 rich counties in NY for each year.
 
 ```{python}
+# Groups the DataFrame 'df_ny' by 'year' and applies a lambda function on each group.
+# The lambda function sorts each group by 'pincp' in descending order and selects the top 5 records.
+# The resulting DataFrame is the concatenation of these groups.
 q1c = (
       df_ny
       .groupby('year')
-      .apply( lambda x: x.sort_values(['pincp'], ascending = False )
-      .head()
-          )
+      .apply(lambda x: x.sort_values(['pincp'], ascending=False).head())
     )
 
 q1c
@@ -78,19 +85,30 @@ q1c
 -   Then, use the `def`ined function in `apply()` to find the top 5 rich counties in NY for each year.
 
 ```{python}
+# Defines a function 'top' that sorts a DataFrame by the specified column in descending order and 
+# selects the top 'n' records. If 'n' is not specified, the function selects the top 5 records.
 def top(df, n=5, column="pincp"):
     return df.sort_values(column, ascending=False)[:n]
   
+# Groups the DataFrame 'df_ny' by 'year' and applies the 'top' function on each group.
+# The resulting DataFrame is the concatenation of these groups.
 q1d = df_ny.groupby('year').apply(top)
+
 q1d
 ```
 
 # cf) `SeriesGroupBy.nlargest()`
 
 ```{python}
-q1abcd = df_ny.groupby('year')['pincp'].nlargest(5)
+# set the 'county_name' column as the index
+df_ny.set_index('county_name', inplace=True) # to know what counties are corresponding to selected rows after `SeriesGroupBy.nlargest()` operation.
 
-q1abcd
+
+# Groups the DataFrame 'df_ny' by 'year' and selects the 'pincp' column of each group.
+# For each group, selects the top 5 records based on the values in the 'pincp' column.
+q1cf = df_ny.groupby('year')['pincp'].nlargest(5)
+
+q1cf
 ```
 
 # Q1e
@@ -98,6 +116,11 @@ q1abcd
 -   Visualize the yearly trend of the mean level of `pincp`.
 
 ```{python}
+# Groups the DataFrame 'df_ny' by 'year' and selects the 'pincp' column of each group.
+# Calculates the mean of the 'pincp' column for each group.
 q1e = df_ny.groupby('year')['pincp'].mean()
+
+# Plots the resulting Series using the default line plot.
 q1e.plot()
+
 ```
