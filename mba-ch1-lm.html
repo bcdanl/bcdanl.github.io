@@ -8,7 +8,7 @@
 
 <meta name="author" content="Byeong-Hak Choe">
 
-<title>Geneseo DANL - DANL 200: Introduction to Data AnalyticsHomework Assignment 1</title>
+<title>Geneseo DANL - Linear Regression</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -308,24 +308,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#direction-for-homework-assignment-1" id="toc-direction-for-homework-assignment-1" class="nav-link active" data-scroll-target="#direction-for-homework-assignment-1">Direction for Homework Assignment 1</a>
-  <ul class="collapse">
-  <li><a href="#files" id="toc-files" class="nav-link" data-scroll-target="#files">Files</a></li>
-  <li><a href="#about-ny_colleges.csv" id="toc-about-ny_colleges.csv" class="nav-link" data-scroll-target="#about-ny_colleges.csv">About <code>NY_colleges.csv</code></a></li>
-  </ul></li>
-  <li><a href="#question-1" id="toc-question-1" class="nav-link" data-scroll-target="#question-1">Question 1</a>
-  <ul class="collapse">
-  <li><a href="#q1a" id="toc-q1a" class="nav-link" data-scroll-target="#q1a">Q1a</a></li>
-  <li><a href="#q1b" id="toc-q1b" class="nav-link" data-scroll-target="#q1b">Q1b</a></li>
-  <li><a href="#instruction-for-q1c-q1i" id="toc-instruction-for-q1c-q1i" class="nav-link" data-scroll-target="#instruction-for-q1c-q1i">Instruction for Q1c-Q1i</a></li>
-  <li><a href="#q1c" id="toc-q1c" class="nav-link" data-scroll-target="#q1c">Q1c</a></li>
-  <li><a href="#q1d" id="toc-q1d" class="nav-link" data-scroll-target="#q1d">Q1d</a></li>
-  <li><a href="#q1e" id="toc-q1e" class="nav-link" data-scroll-target="#q1e">Q1e</a></li>
-  <li><a href="#q1f" id="toc-q1f" class="nav-link" data-scroll-target="#q1f">Q1f</a></li>
-  <li><a href="#q1g" id="toc-q1g" class="nav-link" data-scroll-target="#q1g">Q1g</a></li>
-  <li><a href="#q1h" id="toc-q1h" class="nav-link" data-scroll-target="#q1h">Q1h</a></li>
-  <li><a href="#q1i" id="toc-q1i" class="nav-link" data-scroll-target="#q1i">Q1i</a></li>
-  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link active" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -334,7 +317,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">DANL 200: Introduction to Data Analytics<br>Homework Assignment 1</h1>
+<h1 class="title">Linear Regression</h1>
+<p class="subtitle lead">Machine Learning Lab</p>
 </div>
 
 
@@ -355,147 +339,14 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="direction-for-homework-assignment-1" class="level1">
-<h1>Direction for Homework Assignment 1</h1>
-<section id="files" class="level2">
-<h2 class="anchored" data-anchor-id="files">Files</h2>
+<section id="references" class="level1">
+<h1>References</h1>
 <ul>
-<li><p>Step 1. Download the compressed ZIP file, <code>ny_colleges.zip</code>, from the Homework Assignment 1 in our Canvas.</p></li>
-<li><p>Step 2. Extract the file, <code>ny_colleges.zip</code>, so that you can access the file, <code>NY_colleges.csv</code>, for Homework Assignment 1.</p></li>
+<li><p><a href="https://www.mheducation.com/highered/product/modern-business-analytics-taddy-hendrix/M9781264071678.html">Modern Business Analytics</a> (1st Edition) by <a href="https://www.linkedin.com/in/matt-taddy-433078137/">Matt Taddy</a>, <a href="https://sc.edu/study/colleges_schools/moore/directory/hendrix.leslie.php">Leslie Hendrix</a>, and <a href="https://www.harding.ai">Matthew Harding</a>.</p></li>
+<li><p><a href="https://www.manning.com/books/practical-data-science-with-r-second-edition">Practical Data Science with R</a> (2nd Edition) by <a href="https://ninazumel.com">Nina Zumel</a> and <a href="https://win-vector.com/john-mount/">John Mount</a>.</p></li>
 </ul>
-<p><br><br></p>
-</section>
-<section id="about-ny_colleges.csv" class="level2">
-<h2 class="anchored" data-anchor-id="about-ny_colleges.csv">About <code>NY_colleges.csv</code></h2>
-<ul>
-<li><code>NY_colleges.csv</code> is university-year level data about
-<ul>
-<li><ol type="1">
-<li>median debt of college students,</li>
-</ol></li>
-<li><ol start="2" type="1">
-<li>net price of college</li>
-</ol></li>
-<li><ol start="3" type="1">
-<li>number of college students,</li>
-</ol></li>
-<li><ol start="4" type="1">
-<li>college majors</li>
-</ol></li>
-</ul></li>
-</ul>
-<p>with a variety of segmentation.</p>
-<ul>
-<li><p>A description of each variable in <code>NY_colleges.csv</code> is provided in <code>ny_colleges.yaml</code>, which we can open in RStudio or other text editors.</p></li>
-<li><p>A description of values of each variable in <code>NY_colleges.csv</code> is provided in columns, <code>VARIABLE_NAME</code>, <code>VALUE</code>, and <code>LABEL</code>, in <code>ny_colleges_vars.xlsx</code>, which we can open in Microsoft Excel.</p></li>
-<li><p>Using <strong>Ctrl + F</strong> (<strong>cmd + F</strong> for mac users) would be useful to find the variable description.</p></li>
-<li><p>I recommend you to copy and paste the description of the variable you use in your R code to your R script with a comment (# …).</p></li>
-<li><p>From the file, <code>ny_colleges_vars.xlsx</code>, we can find that</p>
-<ul>
-<li><code>CIP**BACHL</code>, whose value is either <code>0</code>, <code>1</code>, or <code>2</code>, indicates whether a university offers a bachelor’s degree in SOME MAJOR.
-<ul>
-<li><code>0</code>: Program not offered</li>
-<li><code>1</code>: Program offered</li>
-<li><code>2</code>: Program offered through an exclusively distance-education program</li>
-</ul></li>
-</ul></li>
-</ul>
-<p><br><br><br></p>
-</section>
-</section>
-<section id="question-1" class="level1">
-<h1>Question 1</h1>
-<section id="q1a" class="level2">
-<h2 class="anchored" data-anchor-id="q1a">Q1a</h2>
-<p>Read the data file, <code>NY_colleges.csv</code>, as the data.frame object with the name, <code>NY_colleges</code>, using (1) the <code>read_csv()</code> function and (2) the absolute path name of the file <code>NY_colleges.csv</code> from your local hard disk drive in your laptop.</p>
-<div class="cell">
-
-</div>
-<p><br><br></p>
-</section>
-<section id="q1b" class="level2">
-<h2 class="anchored" data-anchor-id="q1b">Q1b</h2>
-<p>What are the mean, median1, minimum, maximum, and standard deviation for each of the following variables?</p>
-<ul>
-<li><ol type="1">
-<li>average net price of public institution;</li>
-</ol></li>
-<li><ol start="2" type="1">
-<li>average net price of private institution;</li>
-</ol></li>
-<li><ol start="3" type="1">
-<li>median debt for students who have completed;</li>
-</ol></li>
-<li><ol start="4" type="1">
-<li>median debt for students who have not completed.</li>
-</ol></li>
-</ul>
-<div class="cell">
-
-</div>
-<p><br><br></p>
-</section>
-<section id="instruction-for-q1c-q1i" class="level2">
-<h2 class="anchored" data-anchor-id="instruction-for-q1c-q1i">Instruction for Q1c-Q1i</h2>
-<p>From Q1c to Q1g, provide both (1) ggplot codes and (2) a couple of sentences to answer the questions.</p>
-<p><br><br></p>
-</section>
-<section id="q1c" class="level2">
-<h2 class="anchored" data-anchor-id="q1c">Q1c</h2>
-<p>Compare between public institutions and private institutions in terms of the distribution of average net price.</p>
-<div class="cell">
-
-</div>
-<p><br><br></p>
-</section>
-<section id="q1d" class="level2">
-<h2 class="anchored" data-anchor-id="q1d">Q1d</h2>
-<p>Compare between public institutions and private institutions in terms of the relationship between (1) average net price and (2) median debt for students who have completed.</p>
-<div class="cell">
-
-</div>
-<p><br><br></p>
-</section>
-<section id="q1e" class="level2">
-<h2 class="anchored" data-anchor-id="q1e">Q1e</h2>
-<p>How does the relationship between (1) average net price and (2) median debt for students who have completed vary by levels of family income?</p>
-<div class="cell">
-
-</div>
-<p><br><br></p>
-</section>
-<section id="q1f" class="level2">
-<h2 class="anchored" data-anchor-id="q1f">Q1f</h2>
-<p>Compare between public institutions and private institutions in terms of the proportion of high-income students.</p>
-<div class="cell">
-
-</div>
-<p><br><br></p>
-</section>
-<section id="q1g" class="level2">
-<h2 class="anchored" data-anchor-id="q1g">Q1g</h2>
-<p>Describe how the number of students in a college varies by whether or not a college offers bachelor’s degree in Business, Management, Marketing, and Related Support Services.</p>
-<div class="cell">
-
-</div>
-<p><br><br></p>
-</section>
-<section id="q1h" class="level2">
-<h2 class="anchored" data-anchor-id="q1h">Q1h</h2>
-<p>Describe how the median debt for students who have completed varies by whether or not a college offers bachelor’s degree in Business, Management, Marketing, and Related Support Services.</p>
-<div class="cell">
-
-</div>
-</section>
-<section id="q1i" class="level2">
-<h2 class="anchored" data-anchor-id="q1i">Q1i</h2>
-<p>Describe how the yearly trend of the median debt for students varies by levels of family income.</p>
-<div class="cell">
-
-</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
