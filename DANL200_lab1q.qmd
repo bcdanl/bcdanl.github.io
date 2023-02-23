@@ -4,10 +4,254 @@ author: "Byeong-Hak Choe"
 editor: visual
 ---
 
-# Load Packages and `data.frames`
+```{r setup, include=FALSE}
+library(kableExtra)
+```
+
+# Loading R packages
+
+```{r, eval = F, echo = T}
+library(tidyverse)
+library(skimr)
+```
+
+<br>
+
+# Question 1
+
+## Q1a
+
+Read the data file, `bikeshare_cleaned.csv`, as the data.frame object with the name, `bikeshare`, using (1) the `read_csv()` function and (2) its URL, `https://bcdanl.github.io/data/bikeshare_cleaned.csv`.
 
 ```{r}
-library(tidyverse)
 
 ```
 
+Use the data.frame `bikeshare` for the rest of questions in Question 1.
+
+### Description of variables in the data file, `bikeshare_cleaned.csv`
+
+The data set, `bikeshare_cleaned.csv`, includes 17376 observations of hourly counts from 2011 to 2012 for bike rides (rentals) in Washington D.C.
+
+-   `cnt`: count of total bikes rented out
+-   `year`: year
+-   `month`: month
+-   `date`: date
+-   `hr`: hours
+-   `wkday`: week day
+-   `holiday`: holiday if holiday == 1; non-holiday otherwise
+-   `seasons`: season
+-   `weather_cond`: weather condition
+-   `temp`: temperature, measured in standard deviations from average.
+-   `hum`: humidity, measured in standard deviations from average.
+-   `windspeed`: wind speed, measured in standard deviations from average.
+
+## Q1b
+
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the distribution of `cnt`.
+
+```{r}
+
+```
+
+## Q1c
+
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the distribution of `cnt` by `year` and `month`.
+
+```{r}
+
+```
+
+## Q1d
+
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the distribution of `temp` by `year` and `month`.
+
+```{r}
+
+```
+
+## Q1e
+
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the distribution of `hum` by `year` and `month`.
+
+```{r}
+
+```
+
+## Q1f
+
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the distribution of `windspeed` by `year` and `month`.
+
+```{r}
+
+```
+
+## Q1g
+
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the relationship between `temp` and `cnt`.
+
+```{r}
+
+```
+
+## Q1h
+
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the relationship between `temp` and `cnt` by `year` and `month`.
+
+```{r}
+
+```
+
+## Q1i
+
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the relationship between `weather_cond` and `cnt`.
+
+```{r}
+
+```
+
+## Q1j
+
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the relationship between `weather_cond` and `cnt` by `hr`.
+
+```{r}
+
+```
+
+## Q1k
+
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the relationship between `wkday` and `cnt`.
+
+```{r}
+
+```
+
+## Q1l
+
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the relationship between `wkday` and `cnt` by `hr`.
+
+```{r}
+
+```
+
+<br>
+
+# Question 2
+
+## Q2a
+
+Read the data file, `NY_school_enrollment_socioecon.csv`, as the data.frame object with the name, `NY_school_enrollment_socioecon`, using (1) the `read_csv()` function and (2) its URL, `https://bcdanl.github.io/data/NY_school_enrollment_socioecon.csv`.
+
+```{r}
+
+```
+
+For description of variables in `NY_school_enrollment_socioecon`, refer to the file, `ny_school_enrollment_socioecon_description.zip`, which is in the Files section in our Canvas web-page. (I recommend you to extract the zip file, and then read the file, `ny_school_enrollment_socioecon_description.csv`, using Excel or Numbers.)
+
+
+
+- Here are some details about the data.frame, `NY_school_enrollment_socioecon`:
+
+- The geographic and time units of observation (row) in the data.frame, `NY_school_enrollment_socioecon`, are *New York county* and *year*.
+
+```{r, echo=F, eval=T}
+text_tbl <- data.frame(
+  FIPS = c(36001),
+  year = c(2015),
+  county_name = c("Albany"),
+  pincp = c(55793),
+  c01_001 = c(84463),
+  c02_002 = c(4.7)
+  )
+
+kbl(text_tbl) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T) %>%
+  column_spec(2, bold = T) %>%
+  column_spec(3, bold = T) %>%
+  kable_paper("hover", full_width = F)
+
+```
+
+- For example, the observation above means that in Albany county in year 2015 ...
+  - Average personal income of people is $55,793.
+  - Population 3 years and over enrolled in school is 84,463.
+  - Percent of population 3 years and over enrolled in nursery school and preschool is 4.7%.
+  
+
+
+- The following is sample observations from Bronx and Livingston counties:
+
+```{r, echo=FALSE, out.width = '100%', fig.align='center'}
+knitr::include_graphics("lec_figs/danl200-hw1-sample-data.png")
+```
+
+- The following describes the variables:
+
+  - `c01_010`:  *Total!!Population enrolled in college or graduate school*
+  - So, `c01_010` is total population enrolled in college or graduate school;
+  
+  - `c02_010`:  *Percent!!Population enrolled in college or graduate school*
+  - So, `c02_010` is a *percent* of total population enrolled in college or graduate school;
+  
+  - In which county is more likely for a person to be enrolled in a college or graduate school? 
+  
+
+
+-  A county's college enrollment level can be represented by an *overall* tendency of that county's residents to be enrolled in college (as long as we are interested in analyzing how human behaves overall).
+
+
+- The size of a county's population enrolled in college or graduate school (`c01_010`) may *not* be appropriate to represent a county's college enrollment level. 
+
+  - A county's larger size of population enrolled in college does not necessarily mean people in people in that county are likely to be enrolled in college.
+
+- Consider the following example:
+
+```{r, echo=F, eval=T}
+text_tbl <- data.frame(
+  `County` = c("A", "B"),
+  `Total Population` = c("100,000", "1,000"),
+  `Bachelor's Degree` = c("1,000", "999"),
+  `High School` = c("99,000", "1"),
+  `Percent of Bachelor's Degree` = c("1.0%", "99.9%"),
+  `Percent of High School` = c("99.0%", "0.1%")
+  )
+kbl(text_tbl) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T) %>%
+  kable_paper("hover", full_width = F)
+```
+
+  - Although County A has the larger number of people that have bachelor's degrees than County B, it is more appropriate to say that people in County B have a higher college enrollment than people in County A.
+  
+  - This is because the overall tendency of County B's people to attend college is stronger than that of County A's people.
+
+- Similarly, to represent a standard of living of people in a country, we do not use a country's gross domestic product (*GDP*) but its *GDP per capita* (GDP per capita is GDP devided by population).
+
+  - For example, China records the second largest GDP in the world as of now. However, World Bank still considers China a middle-income country, because of its relatively low level of GDP per capita. 
+  
+
+
+## Q2b
+
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the relationship between college enrollment and educational attainment of population 45 to 64 years, and how such relationship varies by the type (public or private) of colleges.
+
+```{r}
+
+```
+
+## Q2c
+
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe how the relationships described in Q3b vary by gender of population 45 to 64 years.
+
+```{r}
+
+```
+
+## Q2d
+
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe how the relationships described in Q3b vary by gender of college enrollment.
+
+```{r}
+
+```

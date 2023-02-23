@@ -19,6 +19,7 @@ editor: visual
 
 ```{python}
 import pandas as pd
+from skimpy import skim
 ```
 
 # Question 1
@@ -28,6 +29,20 @@ import pandas as pd
 titanic_1 = pd.read_csv('https://bcdanl.github.io/data/titanic_1.csv')
 ```
 
+```{python}
+titanic_1.head()
+```
+
+```{python}
+titanic_1.describe()
+```
+
+
+```{python}
+skim(titanic_1)
+```
+
+
 
 ## Q1a
 
@@ -35,9 +50,6 @@ titanic_1 = pd.read_csv('https://bcdanl.github.io/data/titanic_1.csv')
 
 
 ```{python}
-# Get the column names of the titanic_1 dataframe
-titanic_1.columns
-
 # Count the number of passengers in each class and return the count in descending order
 titanic_1[['pclass']].value_counts()
 
@@ -86,15 +98,23 @@ SDP
 titanic_2 = pd.read_csv('https://bcdanl.github.io/data/titanic_2.csv')
 ```
 
+
+```{python}
+titanic_2.head()
+```
+
+```{python}
+titanic_2.describe()
+```
+
+
 - After stratifying on gender and age, what happens to the difference in the probabilities of survival between first-class passengers and non-first-class passengers.
 
 - Explain in your own words what stratifying on gender and age did for this difference in probabilities of survival between first-class passengers and non-first-class passengers.
 
 
-```{python}
-# Get column names of dataframe titanic_2
-titanic_2.columns
 
+```{python}
 # Get count of passengers by pclass
 titanic_2[['pclass']].value_counts()
 
@@ -106,7 +126,15 @@ titanic_2[['sex']].value_counts()
 
 # Get count of passengers by age
 titanic_2[['age']].value_counts()
+```
 
+```{python}
+titanic_2.groupby('sex').describe()
+```
+
+
+
+```{python}
 # Create a new column 'd' and set its value to 0 for all rows
 titanic_2['d'] = 0
 
@@ -130,7 +158,19 @@ titanic_2['AgeGroup'] = 0
 
 # Set the value of column 'AgeGroup' to 1 for rows where age is greater than or equal to 18
 titanic_2.loc[titanic_2['age'] >= 18, 'AgeGroup'] = 1
+```
 
+```{python}
+titanic_2.groupby('AgeGroup').describe()
+```
+
+
+```{python}
+titanic_2.groupby(['sex', 'AgeGroup']).describe()
+```
+
+
+```{python}
 # Create a new column 's' and set its value to 0 for all rows
 titanic_2['s'] = 0 
 
@@ -188,5 +228,270 @@ WSDP - SDP
 nhl1617 = pd.read_csv('https://bcdanl.github.io/data/NHL-1617.csv')
 ```
 
+```{python}
+nhl1617.head()
+```
+
+```{python}
+nhl1617.describe()
+```
 
 
+
+## Q2a
+
+- How many players have been recorded?
+
+```{python}
+# the number of unique players
+q2a = nhl1617['id_player'].nunique()  
+
+q2a
+```
+
+
+## Q2b. 
+
+- A column `points` ("`P`") is missing in the data. The number of points of a player is defined as the sum of his goals ("`G`") and `assists` ("`A`"). 
+
+- Add the point column "`P`" to your DataFrame.
+
+```{python}
+# create a new column called 'P' in the nhl1617 dataframe that is the sum of the 'G' and 'A' columns
+q2b = nhl1617.assign(P = nhl1617['G'] + nhl1617['A'])
+
+q2b
+```
+
+
+
+
+## Q2c. 
+
+- Who is the top scorer in terms of points?
+
+```{python}
+# Sort the DataFrame q2b by the column 'P' in descending order
+q2c = q2b.sort_values(by= 'P', ascending=False)
+
+q2c
+```
+
+
+## Q2d. 
+
+- How many Russian (non-goalie) players had some ice time in there 2016/2017 regular season? 
+
+- Hint: Nationality of a player can be found in "Nat". Russians are indicated by "RUS".
+
+```{python}
+# the number of rows in the 'nhl1617' dataframe where the value in the 'Nat' column is equal to 'RUS', and returns the count as output.
+q2d = len( nhl1617[nhl1617['Nat'] == 'RUS'] )
+
+q2d
+```
+
+
+
+
+## Q2e. 
+
+- What are their names? 
+
+```{python}
+# Select rows where the 'Nat' column equals 'RUS', then select only the 'Last_Name' and 'First_Name' columns
+q2e = nhl1617[ nhl1617['Nat'] == 'RUS' ][ ['Last_Name', 'First_Name'] ]
+
+q2e
+```
+
+
+
+
+## Q2f. 
+
+- Who performed best among the Russian players in terms of points ("`P`")?
+
+```{python}
+# Select only the rows where 'Nat' column is 'RUS'
+# Then sort these rows in descending order based on the values in the 'P' column
+q2f = q2b[q2b['Nat'] == 'RUS'].sort_values(by='P', ascending = False)
+
+q2f
+```
+
+
+
+## Q2g. 
+
+- How many points ("`P`") did he have?
+
+```{python}
+q2g = (
+  q2b[q2b['Nat'] == 'RUS'] 
+  .sort_values(by='P', ascending=False)
+  .head(1)[['Last_Name', 'First_Name', 'P']]
+  )
+  
+q2g
+```
+
+- The above code creates a new DataFrame called `q2g`, which:
+
+  1. Filters `q2b` for players whose nationality is '`RUS`'
+  2. Sorts the filtered DataFrame by the '`P`' column in descending order
+  3. Selects the top row of the sorted DataFrame using the `.head(1)` method
+  4. Filters the columns '`Last_Name`', '`First_Name`', and '`P`' from the selected row
+
+## Q2h. 
+
+- How well did he perform in the entire league? Put differently, what was his rank in terms of points?
+
+```{python}
+q2h = (
+     q2b.assign(ranking = q2b['P'].rank(method = 'min', ascending=False))  # Create a new column 'ranking' based on the values in column 'P'
+        .sort_values(by='P', ascending=False)  # Sort the DataFrame by 'P' column in descending order
+        .loc[q2b['Nat'] == 'RUS']  # Filter the rows where the 'Nat' column is 'RUS'
+        .head(1)[['ranking', 'Last_Name', 'First_Name', 'P']]  # Select the top row and specific columns
+        )
+
+q2h
+```
+
+
+
+## Q2i. 
+- Find the top ten scorers (in terms of points) and print them including their number of point and their respective team.
+
+```{python}
+q2i = ( q2b.assign( ranking = q2b['P'].rank(ascending=False) )   # add a new column 'ranking' based on the 'P' column's rank
+           .sort_values(by='P', ascending=False)                  # sort by 'P' column in descending order
+           )
+
+( q2i.loc[q2i['ranking'] <= 10]                                    # select rows where 'ranking' is less than or equal to 10
+            [['ranking', 'Last_Name', 'First_Name', 'P', 'Team']]  # select specific columns
+            )
+
+
+```
+
+
+## Q2j. 
+- What are the three countries with the most players originating from?
+
+```{python}
+# Create a dataframe of count of players by nationality
+q2j = q2b[['Nat']].value_counts().reset_index()
+
+# Rename the columns of the dataframe
+q2j.columns = ['Nat', 'counts']
+
+# Create a new column 'ranking' with the ranking of each nationality by count
+q2j = ( q2j.assign( ranking = q2j['counts']
+                             .rank(method = 'dense', ascending=False) )
+           
+           # Filter the dataframe to only include the top 3 nationalities by count
+           .query('ranking <= 3' ) 
+      )
+
+```
+
+
+
+# Question 3
+
+- Consider the data file, `coal_production_county.csv`.
+```{python}
+coal = pd.read_csv('https://bcdanl.github.io/data/coal_production_county.csv')
+```
+
+```{python}
+coal.describe()
+```
+
+```{python}
+coal.groupby('year').describe()
+```
+
+
+```{python}
+coal.groupby('state').describe()
+```
+
+
+```{python}
+coal.groupby(['year', 'state']).describe()
+```
+
+
+## Q3a. 
+
+- For each type of mine, calculate the total coal production for each pair of state-year.
+
+```{python}
+# Create a new column 'production' which is the sum of two other columns
+coal['production'] = coal['production_underground'] + coal['production_surface']
+
+# Group the data by 'state' and 'year' columns and calculate the sum of 'production', 'production_underground', and 'production_surface'
+q3a = (
+       coal[ ['state', 'year', 'production',
+             'production_underground',
+             'production_surface'] ]
+       .groupby(['state', 'year'])
+       .sum()
+       )
+
+q3a
+```
+
+
+
+## Q3b. 
+
+- Find the top 5 coal-producing states for each year.
+
+```{python}
+# Creates a new dataframe q3b
+q3b = (
+       # Reset the index of q3a
+       q3a.reset_index()
+       # Sort the values of q3a by the production column in descending order
+       .sort_values(['production'], ascending = False)
+       # Group q3a by year and get the head with the largest production for each year
+       .groupby('year')
+       .head()
+       # Sort q3b first by year in ascending order and then by production in descending order
+       .sort_values(['year','production'], ascending = [True, False])
+       )
+
+q3b
+```
+
+## Q3c. 
+
+- Visualize the yearly trend of the total coal production from each type of mine.
+
+
+```{python}
+# selecting the columns 'year', 'production_underground', and 'production_surface' from the original DataFrame coal, grouping them by year, and summing the values of each group.
+q3c = (
+  coal[['year','production_underground', 'production_surface']]
+    .groupby(['year']).sum()
+    )
+```
+
+```{python}
+# create a line plot for the 'production_underground' column of the q3c DataFrame.
+q3c['production_underground'].plot()
+```
+
+```{python}
+# create a line plot for the 'production_surface' column of the q3c DataFrame.
+q3c['production_surface'].plot()
+```
+
+
+```{python}
+# create a line plot for the 'production_underground' and 'production_surface' columns of the q3c DataFrame on the same graph.
+q3c.plot()
+```
