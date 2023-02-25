@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DANL 310 Lecture 1</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Byeong-Hak Choe" />
+    <meta name="date" content="2023-01-24" />
+    <script src="libs/header-attrs-2.20/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <script src="libs/peerjs-1.3.1/peerjs.min.js"></script>
+    <script src="libs/tiny.toast-1.0.0/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast-0.2.6/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast-0.2.6/broadcast.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
+    <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, left, bottom
+
+# DANL 310 Lecture 1
+----
+## **DANL 310: Data Visualization and Presentation**
+### Byeong-Hak Choe
+### January 24, 2023
+
+
+---
+class: inverse, center, middle
+
+# Instructor
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+---
+
+# Instructor
+### &lt;p style="color:#00449E"&gt; Current Appointment &amp; Education &lt;/p&gt;
+
+- Name: Byeong-Hak Choe.
+- Lecturer in Data Analytics at School of Business at SUNY Geneseo.
+
+
+- Ph.D. in Economics from University of Wyoming.
+- M.S. in Economics from Arizona State University.
+- M.A. in Economics from SUNY Stony Brook.
+- B.A. in Economics &amp; B.S. in Applied Mathematics from Hanyang University at Ansan, South Korea
+  - Minor in Business Administration.
+  - Concentration in Finance.
+  
+---
+
+# Instructor
+### &lt;p style="color:#00449E"&gt; Data Science and Climate Change &lt;/p&gt;
+
+- Choe, B.H., 2021. "Social Media Campaigns, Lobbying and Legislation: Evidence from #climatechange/#globalwarming and Energy Lobbies."
+
+- Question: To what extent do social media campaigns compete with fossil fuel lobbying on climate change legislation?
+
+- Data include:
+  - 5.0 million tweets with #climatechange/#globalwarming around the globe;
+  - 12.0 million retweets/likes to those tweets;
+  - 0.8 million Twitter users who wrote those tweets;
+  - 1.4 million Twitter users who retweeted or liked those tweets;
+  - 0.3 million US Twitter users with their location at a city level;
+  - Firm-level lobbying data (expenses, targeted bills, etc.). 
+
+
+---
+class: inverse, center, middle
+
+# Syllabus
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+---
+
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Email, Class &amp; Office Hours&lt;/p&gt;
+
+- Email: [bchoe@geneseo.edu](bchoe@geneseo.edu)
+
+
+- Class Homepage: 
+  - [https://canvas.geneseo.edu/](https://canvas.geneseo.edu/)
+  - [https://bcdanl.github.io](https://bcdanl.github.io)
+  
+  
+- Office: South Hall 117B.
+- Office Hours: 
+  - Mondays 3:30 PM-5:30 PM.
+  - Wednesdays 1:30 PM-3:30 PM.
+
+---
+# Syllabus
+### &lt;p style="color:#00449E"&gt;Course Prerequisites&lt;/p&gt;
+
+- Data Analytics 200: Introduction to Data Analytics
+  
+- Data Analytics 210: Data Preparation and Management
+
+---
+# Syllabus
+### &lt;p style="color:#00449E"&gt;Textbooks&lt;/p&gt;
+  
+- **Data Visualization: A Practical Introduction** by Kieran Healy
+  - A free online version of this book is available at [https://socviz.co/](https://socviz.co/).
+
+
+- **R Markdown: The Definitive Guide** by Yihui Xie, J. J. Allaire, and Garrett Grolemund
+  - A free online version of this book is available at [https://bookdown.org/yihui/rmarkdown/](https://bookdown.org/yihui/rmarkdown/)
+
+
+---
+# Syllabus
+### &lt;p style="color:#00449E"&gt;Course Description&lt;/p&gt;
+
+- This course covers tools and methodologies that visually represent data using well-presented and visually appealing graphics in order to understand data better and perform useful data analytics tasks. 
+
+
+---
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Course Description&lt;/p&gt;
+- Topics covered in this course include 
+  1. Visualizing many forms of graphs such as line graphs, scatter plots, bar charts, and more
+  2. Tidying data from various sources for data visualization
+  3. Customizing graphics using various formats and styles including colors, fonts, lines, and more
+  4. Visualizing geographical data with maps
+  5. Showing an overview and telling a story using dashboard. 
+
+
+- During the course, you will work hands-on with R, R Markdown, Git, and GitHub.
+
+---
+# Syllabus
+### &lt;p style="color:#00449E"&gt;Course Requirements&lt;/p&gt;
+
+- Laptop: You should bring your own laptop (**Mac** or **Windows**) to the classroom. 
+  - It is recommended to have 2+ core CPU, 4+ GB RAM, and 500+ GB disk storage in your laptop for this course.
+  
+  
+- Homework: There will be six homework assignments.
+
+
+- Exam: There will a midterm exam.
+
+
+- Team Project: There will be a team project
+
+
+
+---
+# Syllabus
+### &lt;p style="color:#00449E"&gt;Course Requirements - Team Project&lt;/p&gt;
+- Each team consists of one or two student(s). 
+
+
+- Each team must select data for the team project. 
+
+
+- The data for the team project must be approved by Byeong-Hak Choe. 
+
+
+- The write-up for the team project must include 
+  - (1) exploratory data analysis through summary statistics, several visualizations, and a dashboard 
+  - (2) machine learning analysis (e.g., linear regression, clustering). 
+
+
+- The document for the team project must be published in each member's website. 
+
+
+
+
+---
+# Syllabus
+### &lt;p style="color:#00449E"&gt;Course Requirements - Team Project&lt;/p&gt;
+
+- Team projects will be evaluated based on 
+
+  - (1) the quality of exploratory data analysis using ggplot and dashboards; 
+  
+  - (2) the quality of applying machine learning methods;
+  
+  - (3) the quality of the midterm and final presentations; 
+  
+  - (4) peer evaluation on other students' presentations and web-pages. 
+  
+
+- Changing a team member or a project topic must be approved by Byeong-Hak Choe.
+
+
+---
+# Syllabus
+### &lt;p style="color:#00449E"&gt;Course Schedule&lt;/p&gt;
+
+- There will be tentatively twenty-eight class sessions:
+
+  - (1) twenty-four class sessions for the twenty-four lectures (one class session for one lecture);
+  
+  - (2) one class session for the midterm exam;
+  
+  - (3) one class session for the midterm presentation for the team project;
+  
+  - (4) two class sessions for the final presentation for the team project. 
+
+
+
+- There will be no class on February 28, 2023. 
+
+
+- The midterm exam will be tentatively scheduled on March 9, 2023. 
+
+
+- The final exam will be tentatively scheduled on May 16, 2023, from noon to 2 P.M. 
+
+
+---
+# Syllabus
+### &lt;p style="color:#00449E"&gt;Course Contents&lt;/p&gt;
+
+&lt;table class=" lightable-paper table table-hover table-condensed" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto; font-family: sans-serif, helvetica, arial; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Week &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Contents &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; HW &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Syllabus, Ch 1. Look at Data &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; 1--4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Ch 2. Get Started with R Markdown &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; 1--4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Git and GitHub websites with R Markdown, HTML and CSS &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Ch 3. Make a Plot &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Ch 4. Show the Right Numbers &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+---
+# Syllabus
+### &lt;p style="color:#00449E"&gt;Course Contents&lt;/p&gt;
+
+- Data Transformation
+
+&lt;table class=" lightable-paper table table-hover table-condensed" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto; font-family: sans-serif, helvetica, arial; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Lecture &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Contents &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; HW &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; 7--8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Ch 5. Graph Tables, Add Labels, Make Notes &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; 9--10 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Ch 6. Work with Models &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; 11--12 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Ch 8. Refine Your Plots &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Midterm Exam &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Midterm Presentations for Team Projects &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+# Syllabus
+### &lt;p style="color:#00449E"&gt;Course Contents&lt;/p&gt;
+
+&lt;table class=" lightable-paper table table-hover table-condensed" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto; font-family: sans-serif, helvetica, arial; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Lecture &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Contents &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; HW &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; 15--17 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Interactive and Animation Plots &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; 18--20 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Maps with Geographic Data &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; 21--22 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; R Markdown HTML Documents (Tables, R with Python, R'esume, Etc.) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; 23--26 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Dashboards &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; 27--28 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Final Presentations for Team Projects &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+---
+# Syllabus
+### &lt;p style="color:#00449E"&gt;Attendance&lt;/p&gt;
+- You are allowed up to 7 absences without penalty. 
+
+- There will be no additional absences available for standard excused reasons (illness, family emergency, transportation problems, etc.).
+
+
+---
+# Syllabus
+### &lt;p style="color:#00449E"&gt;Grading&lt;/p&gt;
+- Attendance accounts for 5% of the total percentage grade.
+
+- Homework assignments account for 35% of the total percentage grade.
+
+- An exam and a team project account for 60% of the total percentage grade.
+
+$$ 
+`\begin{align}
+&amp;\;(\text{Total Percentage Grade})  \notag\\
+=&amp;\quad 0.05\times(\text{Attendance Score})  \notag\\
+&amp;\,+\, 0.35\times(\text{Total Homework Score}) \,+\, 0.60\times(\text{Total Exam Score}).\notag
+\end{align}`
+$$
+
+---
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Grading&lt;/p&gt;
+
+- The lowest homework score will be dropped when calculating the total homework score.
+
+- Each of the four homework accounts for 20% of the total homework score.
+
+---
+
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Grading&lt;/p&gt;
+
+- The total exam score is the maximum between the following two average scores:
+  1. the simple average of two exam scores;
+  2. the weighted average of them with one-fourth weight on the midterm exam score and three-fourth weight on the final exam score.
+  
+$$
+`\begin{align}
+&amp;(\text{Total Exam Score}) \notag\\
+=\; &amp;\max\,\left\{0.5\times(\text{Midterm Exam Score}) \,+\, 0.5\times(\text{Team Project Score})\right.,\notag\\ 
+&amp;\qquad\;\,\left.0.25\times(\text{Midterm Exam Score}) \,+\, 0.75\times(\text{Team Project Score})\right\}.\notag
+\end{align}`
+$$
+
+---
+
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Grading&lt;/p&gt;
+
+- Letter grades will be determined by the total percentage grade:
+  
+$$
+`\begin{align*}
+\! 100\; \geq\; A\;\;\, \geq \;93&gt;\; A- \geq 90;\\
+90 &gt;\; B+ \geq 87\; &gt;\; B\;\;\, \geq \;83 &gt;\; B- \geq 80;\\
+80 &gt;\; C+ \geq 77\; &gt;\; C\;\;\, \geq \;73 &gt;\; C- \geq 70;\\
+70\; &gt;\; D\;\;\, \geq\; 60 &gt;\; E.\qquad\quad\;
+\end{align*}`
+$$
+
+
+---
+
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Make-up exams&lt;/p&gt;
+
+-  Make-up exams will not be given unless you have either a medically verified excuse or an absence excused by the University.
+
+- If you cannot take exams because of religious obligations, notify me by email at least two weeks in advance so that an alternative exam time may be set.
+
+- A missed exam without an excused absence earns a grade of zero.
+  
+
+---
+
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Academic Integrity and Plagiarism&lt;/p&gt;
+
+-  All homework assignments and exams must be the original work by you. 
+
+- Examples of academic dishonesty include:
+  - *representing the work, thoughts, and ideas of another person as your own*
+  - *allowing others to represent your work, thoughts, or ideas as theirs*, and
+  - *being complicit in academic dishonesty by suspecting or knowing of it and not taking action*.
+
+
+- Geneseo’s Library offers frequent workshops to help you understand how to **paraphrase**, **quote**, and **cite** outside sources properly. 
+  - See [https://www.geneseo.edu/library/library-workshops](https://www.geneseo.edu/library/\\library-workshops).
+  
+
+---
+
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Accessibility&lt;/p&gt;
+
+-  The Office of Accessibility will coordinate reasonable accommodations for persons with physical, emotional, or cognitive disabilities to ensure equal access to academic programs, activities, and services at Geneseo.
+
+- Please contact me and the Office of Accessibility Services for questions related to access and accommodations.
+  
+
+
+---
+
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Well-being&lt;/p&gt;
+
+- You are strongly encouraged to communicate your needs to faculty and staff and seek support if you are experiencing unmanageable stress or are having difficulties with daily functioning.
+
+- Liz Felski, the School of Business Student Advocate ([felski@geneseo.edu](felski@geneseo.edu), South Hall 303), or the Dean of Students (585-245-5706) can assist and provide direction to appropriate campus resources.
+
+- For more information, see [https://www.geneseo.edu/dean_students](https://www.geneseo.edu/dean_students).
+  
+
+---
+# Syllabus
+
+### &lt;p style="color:#00449E"&gt;Career Design&lt;/p&gt;
+
+- To get information about career development, you can visit the Career Development Events Calendar ([https://www.geneseo.edu/career_development/events/calendar](https://www.geneseo.edu/career_development/events/calendar)).
+
+- You can stop by South 112 to get assistance in completing your Handshake Profile [https://app.joinhandshake.com/login](https://app.joinhandshake.com/login).
+  - Handshake is ranked #1 by students as the best place to find full-time jobs.
+  - 50% of the 2018-2020 graduates received a job or internship offer on Handshake.
+  - Handshake is trusted by all 500 of the Fortune 500.
+  
+
+---
+class: inverse, center, middle
+
+# Installing the Tools
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+---
+# Installing the Tools
+### &lt;p style="color:#00449E"&gt; R programming &lt;/p&gt;
+
+The R language is available as a free download from the R Project website at:
+
+- Windows: [https://cran.r-project.org/bin/windows/base/](https://cran.r-project.org/bin/windows/base/)
+- Mac: [https://cran.r-project.org/bin/macosx/](https://cran.r-project.org/bin/macosx/)
+  -  Download the file of R that corresponds to your Mac OS (Big Sur, Apple silicon arm64, High Sierra, El Capitan, Mavericks, etc.)
+
+---
+# Installing the Tools
+### &lt;p style="color:#00449E"&gt; RStudio &lt;/p&gt;
+
+- **RStudio** offers a graphical interface to assist in creating R code:
+
+  - The RStudio Desktop is available as a free download from the following webpage:
+    - [https://www.rstudio.com/products/rstudio/download/#download](https://www.rstudio.com/products/rstudio/download/#download)
+
+
+
+---
+# Installing the Tools
+### &lt;p style="color:#00449E"&gt; R Packages &lt;/p&gt;
+
+
+
+```r
+update.packages(ask = FALSE, checkBuilt = TRUE)
+
+pkgs &lt;- c("tidyverse", "nycflights13", "gapminder", "skimr")
+install.packages(pkgs,
+	dependencies = c("Depends", "Imports", "LinkingTo"))
+```
+
+
+- While running the above codes, I recommend you to answer "no" to the following question:
+
+.pull-left[
+
+   **Mac**: *"Do you want to install from sources the packages which need compilation?"* from Console Pane.
+]
+
+.pull-right[
+
+   **Windows**: *"Would you like to use a personal library instead?"* from Pop-up message.
+]
+
+
+
+---
+# Installing the Tools
+### &lt;p style="color:#00449E"&gt; R Packages &lt;/p&gt;
+
+- Check whether `tidyverse` is installed well:
+
+
+```r
+library(tidyverse)   # loading the package tidyverse
+mpg  # data.frame provided by the package ggplot2
+     # ggplot2 is included in tidyverse
+```
+
+- Let me know if you have an error from the above code.
+
+
+---
+# Installing the Tools
+### &lt;p style="color:#00449E"&gt; RStudio Options Setting &lt;/p&gt;
+.pull-left[
+&lt;img src="lec_figs/RStudio_options.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+- This option menu is found by menus as follows:
+  - *Mac*: RStudio `\(&gt;\)` Preferences 
+  - *Windows*: Tools `\(&gt;\)` Global Options
+]
+
+
+---
+# Installing the Tools
+### &lt;p style="color:#00449E"&gt; GitHub &lt;/p&gt;
+
+- Create the GitHub account with your school email.
+
+1. Go to [GitHub](https://github.com).
+2. Click "Sign up for GitHub".
+
+
+---
+# Installing the Tools
+### &lt;p style="color:#00449E"&gt; Git &lt;/p&gt;
+
+- Install `git`
+
+.pull-left[
+- Mac
+  - Go to [http://git-scm.com/downloads](http://git-scm.com/downloads), and download the file.
+  - Run the downloaded file.
+]
+
+.pull-right[
+- Windows
+  - Go to [https://gitforwindows.org](https://gitforwindows.org), and download the file.
+  - Run the downloaded file.
+]
+
+- In terminal for Mac users or GitBash for Windows users, run the following lines:
+
+```base
+git config --list
+git config --global user.email "YOUR_GITHUB_EMAIL_ADDRESS"
+git config --global user.name "YOUR_GITHUB_USERNAME"
+```
+
+
+---
+# Installing the Tools
+### &lt;p style="color:#00449E"&gt; Python &lt;/p&gt;
+  
+- To install Python, go to the following download page:
+  - [https://www.python.org/downloads/](https://www.python.org/downloads/).
+  - Click the "Download" button.
+
+- To install Python libraries, install the `pip` installer first:
+
+  - Follow the steps in the following webpage:
+  - [https://packaging.python.org/en/latest/tutorials/installing-packages/](https://packaging.python.org/en/latest/tutorials/installing-packages/)
+  
+.pull-left[
+- Mac
+
+```bash
+python3 -m pip --version
+python3 -m ensurepip --default-pip
+```
+]
+
+.pull-right[
+- Windows
+
+```bash
+py -m pip --version
+py -m ensurepip --default-pip
+```
+]
+
+---
+# Installing the Tools
+### &lt;p style="color:#00449E"&gt; Python &lt;/p&gt;
+
+- To install Python libraries, use the following commands:
+
+.pull-left[
+- Mac
+
+```bash
+python3 -m pip install "SomeLibrary"
+```
+]
+
+.pull-right[
+- Windows
+
+```bash
+py -m pip install "SomeLibrary"
+```
+]
+
+- Make sure you have `numpy`, `pandas`, `matplotlib`, `seaborn`, and `scikit-learn` installed.
+
+
+---
+# Installing the Tools
+### &lt;p style="color:#00449E"&gt; Creating a Personal Website &lt;/p&gt;
+
+Step 1.1 Obtain a personal access token (PAT) for GitHub. 
+
+  - In RStudio Console, run the followings:
+
+```r
+install.packages("usethis")
+usethis::create_github_token()
+```
+  - Then, click “Generate token” in the pop-upped web browser. 
+  - Then, copy the generated PAT to your clipboard.
+
+
+
+---
+# Installing the Tools
+### &lt;p style="color:#00449E"&gt; Creating a Personal Website &lt;/p&gt;
+
+
+Step 1.2. Set the GitHub credential using the PAT. 
+
+  - In RStudio Console, run the followings:
+
+```r
+install.packages("gitcreds")
+gitcreds::gitcreds_set()
+```
+  - Then, paste your PAT to the RStudio Console
+  
+  
+
+---
+# Installing the Tools
+### &lt;p style="color:#00449E"&gt; Creating a Personal Website &lt;/p&gt;
+
+Step 2.1. Login to your GitHib and make the repository.
+
+  - From [https://github.com](https://github.com), click the plus (+) icon in the upper right corner and select "New repository".
+
+  - Name this repo `YOUR_GITHUB_NAME.github.io`, which will be the domain for your website.
+
+  - Then, copy the web address of your GitHub repo.
+
+
+
+---
+# Installing the Tools
+### &lt;p style="color:#00449E"&gt; Creating a Personal Website &lt;/p&gt;
+
+
+Step 2.2. 
+  - Find the path name of the folder where you want to keep the files for your website on your laptop.
+  
+  - Make a folder with the name `tmp` in the parent folder.
+  
+  - In terminal or GitBash, run the following line:
+
+```bash
+cd "PATH_NAME_OF_THE_PARENT_FOLDER_FOR_THE_WEBSITE_FOLDER"
+```
+
+
+---
+# Installing the Tools
+### &lt;p style="color:#00449E"&gt; Creating a Personal Website &lt;/p&gt;
+
+Step 3.1. Follow the steps in the following webpage:
+  - [https://pages.github.com](https://pages.github.com)
+  - If you have an error with the line `git push -u origin main`, try `git push -u origin master`.
+  - After following all the steps, close terminal or GitBash.
+  
+Step 3.2. 
+  - Change the folder name, `YOUR_GITHUB_USERNAME.github.io` to `tmp2`.
+  
+
+  
+---
+# Installing the Tools
+### &lt;p style="color:#00449E"&gt; Creating a Personal Website &lt;/p&gt;
+
+Step 4. Create the RStudio project with the name, `YOUR_GITHUB_NAME.github.io`:
+  - Open R Studio. Then select "New Project" under the "File" menu.
+  - Click "Version Control". Then click "Git".
+  - Paste the web address of your GitHub repo in the "Repository URL" dialogue box.
+    - `https://github.com/YOUR_GITHUB_NAME/YOUR_GITHUB_NAME.github.io`
+  - Select a location of the parent folder for your personal website in your laptop, and copy its path name to "Create project as subdirectory of:"
+  - Click "Create Project".
+
+---
+# Installing the Tools
+### &lt;p style="color:#00449E"&gt; Creating a Personal Website &lt;/p&gt;
+
+Step 5. Update our `rmarkdown` package to make sure we actually have the version that supports R Markdown websites.
+
+
+```r
+install.packages("rmarkdown", type = "source")
+```
+
+Step 6. From our Canvas, download the website files---(1) `index.Rmd`, (2) `about.Rmd`, (3) `_site.yml`, and (4) `style.css`---and save them inside your repository folder, `YOUR_GITHUB_NAME.github.io`, in your laptop.
+
+
+
+---
+# Installing the Tools
+### &lt;p style="color:#00449E"&gt; Creating a Personal Website &lt;/p&gt;
+
+Step 7. Rune the following line in RStudio:
+
+```r
+rmarkdown::render_site()
+```
+
+  - If everything has gone according to plan, you should get a bunch of output followed by the message : `Output created: index.html`.
+  - Open the repository folder with Finder (Mac) or File Explorer (Windows) in your laptop.
+  - Open the file, `index.html`.
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 66px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

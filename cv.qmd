@@ -19,6 +19,7 @@ library(kableExtra)
 library(DT)
 library(glue)
 library(readxl)
+library(leaflet)
 # library(stringi)
 
 # install.packages("remotes")
@@ -56,7 +57,23 @@ blank_year_when_repeated <- function(cv_entry_tibble){
 }
 ```
 
-# Bio
+# Byeong-Hak Choe
+
+Office: South Hall 117B<br>
+Email: [bchoe@geneseo.edu](mailto:bchoe@geneseo.edu)
+
+```{r eval= T, echo = F, fig.align='center', out.height= '50%', out.width='95%'}
+leaflet() %>% addTiles() %>%
+  setView(-77.8210, 42.7953, zoom = 18) %>%
+  addMarkers(-77.8210, 42.7953) %>% 
+  addPopups(
+    -77.8210, 42.7953, 
+    'Here is the <b>School of Business</b>, SUNY Geneseo'
+  )
+```
+
+
+## Bio
 <div>
 I view myself as an **applied economist** with interest in **environmental economics** and a particular focus on **climate change**. Methodologically, I make use of **causal inference/econometrics/machine learning methods**, and other **data science tools** to conduct empirical analysis. I also use computational methods to solve **integrated assessment models of climate change** and theoretical economic models, such as **dynamic contracts**.
 
@@ -70,7 +87,7 @@ As **an economics and data science teacher**, my goal is to equip students with 
 <br>
 
 
-# Current Position
+## Current Position
 
 ```{r}
 cv_entries %>% 
@@ -86,7 +103,7 @@ cv_entries %>%
 
 <br>
 
-# Education
+## Education
 
 ```{r}
 cv_entries %>% 
@@ -106,9 +123,9 @@ cv_entries %>%
 
 <br>
 
-# Research
+## Research
 
-## Working papers
+### Working papers
 
 ```{r}
 cv_entries %>% 
@@ -122,7 +139,7 @@ cv_entries %>%
 
 <br>
 
-## Work in progress
+### Work in progress
 
 ```{r}
 cv_entries %>% 
@@ -136,7 +153,7 @@ cv_entries %>%
 
 <br>
 
-# Teaching
+## Teaching
 
 ```{r}
 cv_entries %>% 
@@ -153,9 +170,9 @@ cv_entries %>%
 
 <br>
 
-# Professional Activities
+## Professional Activities
 
-## Presentations
+### Presentations
 
 ```{r}
 cv_entries %>% 
@@ -169,7 +186,7 @@ cv_entries %>%
 
 <br>
 
-## Memberships
+### Memberships
 
 ```{r}
 cv_entries %>% 
@@ -184,7 +201,7 @@ cv_entries %>%
 
 <br>
 
-# Hornors & Awards
+## Hornors & Awards
 
 ```{r}
 cv_entries %>% 
@@ -204,7 +221,7 @@ cv_entries %>%
 
 <br>
 
-# Grants and Funding
+## Grants and Funding
 
 ```{r}
 cv_entries %>% 
@@ -225,7 +242,7 @@ cv_entries %>%
 
 <br>
 
-# Service
+## Service
 
 ```{r}
 cv_entries %>% 
@@ -248,7 +265,7 @@ cv_entries %>%
 
 <br>
 
-# Miscelaneous
+## Miscelaneous
 
 ```{r}
 cv_entries %>% 
@@ -264,7 +281,7 @@ cv_entries %>%
 
 <br>
 
-# Non-Academic Experience
+## Non-Academic Experience
 
 ```{r}
 cv_entries %>% 
