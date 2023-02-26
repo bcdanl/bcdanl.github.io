@@ -1184,6 +1184,7 @@ R S S\left(\beta_{0}, \beta_{1}\right)=\sum_{i=1}^{n}\left[Y_{i}-\left(\hat{\bet
 </div>
 </div>
 </div>
+<p>Therefore, the beta estimate has the following solution:</p>
 <p><span class="math display">\[
 \widehat{\beta}_{1}=\frac{\sum_{i=1}^{n}\left(X_{i}-\bar{X}\right)\left(Y_{i}-\bar{Y}\right)}{\sum_{i=1}^{n}\left(X_{i}-\bar{X}\right)^{2}} \quad \text{ and } \quad \widehat{\beta}_{0}=\bar{Y}-\widehat{\beta}_{1} \bar{X}
 \]</span></p>
@@ -1606,13 +1607,13 @@ Unbiased Conditional
 female
 </td>
 <td>
--2.942<sup>***</sup>
+-3.034<sup>***</sup>
 </td>
 <td>
-0.638<sup>***</sup>
+0.623<sup>***</sup>
 </td>
 <td>
--1.012<sup>***</sup>
+-0.984<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1645,10 +1646,10 @@ occupation
 <td>
 </td>
 <td>
-1.796<sup>***</sup>
+1.799<sup>***</sup>
 </td>
 <td>
-0.982<sup>***</sup>
+0.999<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1682,7 +1683,7 @@ ability
 <td>
 </td>
 <td>
-2.035<sup>***</sup>
+1.999<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1711,13 +1712,13 @@ ability
 Constant
 </td>
 <td>
-1.984<sup>***</sup>
+1.935<sup>***</sup>
 </td>
 <td>
-0.180<sup>***</sup>
+0.160<sup>***</sup>
 </td>
 <td>
-1.000<sup>***</sup>
+0.979<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1766,13 +1767,13 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.106
+0.113
 </td>
 <td>
 0.911
 </td>
 <td>
-0.952
+0.951
 </td>
 </tr>
 <tr>
@@ -1780,13 +1781,13 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.106
+0.113
 </td>
 <td>
 0.911
 </td>
 <td>
-0.952
+0.951
 </td>
 </tr>
 <tr>
@@ -1794,13 +1795,13 @@ Adjusted R<sup>2</sup>
 Residual Std. Error
 </td>
 <td>
-4.261 (df = 9998)
+4.247 (df = 9998)
 </td>
 <td>
-1.346 (df = 9997)
+1.343 (df = 9997)
 </td>
 <td>
-0.987 (df = 9996)
+1.001 (df = 9996)
 </td>
 </tr>
 <tr>
@@ -1808,13 +1809,13 @@ Residual Std. Error
 F Statistic
 </td>
 <td>
-1,191.510<sup>***</sup> (df = 1; 9998)
+1,275.897<sup>***</sup> (df = 1; 9998)
 </td>
 <td>
-51,032.070<sup>***</sup> (df = 2; 9997)
+51,382.180<sup>***</sup> (df = 2; 9997)
 </td>
 <td>
-66,224.290<sup>***</sup> (df = 3; 9996)
+64,293.860<sup>***</sup> (df = 3; 9996)
 </td>
 </tr>
 <tr>
@@ -1925,12 +1926,12 @@ R M S E \,=\, \sqrt{M S E}
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>formula_0 <span class="ot">&lt;-</span> <span class="fu">log</span>(sales) <span class="sc">~</span> <span class="fu">log</span>(price)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>formula_1 <span class="ot">&lt;-</span> <span class="fu">log</span>(sales) <span class="sc">~</span> brand <span class="sc">+</span> <span class="fu">log</span>(price)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>formula_2 <span class="ot">&lt;-</span> <span class="fu">log</span>(sales) <span class="sc">~</span> brand <span class="sc">*</span> <span class="fu">log</span>(price)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>formula_3 <span class="ot">&lt;-</span> <span class="fu">log</span>(sales) <span class="sc">~</span> brand <span class="sc">*</span> feat <span class="sc">*</span> <span class="fu">log</span>(price)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>formula_3 <span class="ot">&lt;-</span> <span class="fu">log</span>(sales) <span class="sc">~</span> brand <span class="sc">*</span> ad <span class="sc">*</span> <span class="fu">log</span>(price)</span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>fit_0 <span class="ot">&lt;-</span> <span class="fu">lm</span>( formula_0, <span class="at">data =</span> oj )</span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>fit_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>( formula_1, <span class="at">data =</span> oj )</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>fit_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>( formula_1, <span class="at">data =</span> oj )</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>fit_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>( formula_1, <span class="at">data =</span> oj )</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>fit_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>( formula_2, <span class="at">data =</span> oj )</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>fit_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>( formula_3, <span class="at">data =</span> oj )</span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(fit_1, fit_2, fit_3, <span class="at">type =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
@@ -1984,10 +1985,10 @@ brandminute.maid
 0.870<sup>***</sup>
 </td>
 <td>
-0.870<sup>***</sup>
+0.888<sup>***</sup>
 </td>
 <td>
-0.870<sup>***</sup>
+0.047
 </td>
 </tr>
 <tr>
@@ -1997,10 +1998,10 @@ brandminute.maid
 (0.013)
 </td>
 <td>
-(0.013)
+(0.042)
 </td>
 <td>
-(0.013)
+(0.047)
 </td>
 </tr>
 <tr>
@@ -2021,10 +2022,10 @@ brandtropicana
 1.530<sup>***</sup>
 </td>
 <td>
-1.530<sup>***</sup>
+0.962<sup>***</sup>
 </td>
 <td>
-1.530<sup>***</sup>
+0.708<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -2034,10 +2035,43 @@ brandtropicana
 (0.016)
 </td>
 <td>
-(0.016)
+(0.046)
 </td>
 <td>
-(0.016)
+(0.051)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+ad
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+1.094<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.038)
 </td>
 </tr>
 <tr>
@@ -2058,10 +2092,10 @@ log(price)
 -3.139<sup>***</sup>
 </td>
 <td>
--3.139<sup>***</sup>
+-3.378<sup>***</sup>
 </td>
 <td>
--3.139<sup>***</sup>
+-2.774<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -2071,10 +2105,245 @@ log(price)
 (0.023)
 </td>
 <td>
-(0.023)
+(0.036)
 </td>
 <td>
-(0.023)
+(0.039)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandminute.maid:ad
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+1.173<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.082)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandtropicana:ad
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.785<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.099)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandminute.maid:log(price)
+</td>
+<td>
+</td>
+<td>
+0.057
+</td>
+<td>
+0.783<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.057)
+</td>
+<td>
+(0.061)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandtropicana:log(price)
+</td>
+<td>
+</td>
+<td>
+0.666<sup>***</sup>
+</td>
+<td>
+0.736<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.054)
+</td>
+<td>
+(0.057)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+ad:log(price)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.471<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.074)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandminute.maid:ad:log(price)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-1.109<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.122)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandtropicana:ad:log(price)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.986<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.124)
 </td>
 </tr>
 <tr>
@@ -2095,10 +2364,10 @@ Constant
 10.829<sup>***</sup>
 </td>
 <td>
-10.829<sup>***</sup>
+10.955<sup>***</sup>
 </td>
 <td>
-10.829<sup>***</sup>
+10.407<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -2108,10 +2377,10 @@ Constant
 (0.015)
 </td>
 <td>
-(0.015)
+(0.021)
 </td>
 <td>
-(0.015)
+(0.023)
 </td>
 </tr>
 <tr>
@@ -2150,10 +2419,10 @@ R<sup>2</sup>
 0.394
 </td>
 <td>
-0.394
+0.398
 </td>
 <td>
-0.394
+0.535
 </td>
 </tr>
 <tr>
@@ -2164,38 +2433,38 @@ Adjusted R<sup>2</sup>
 0.394
 </td>
 <td>
-0.394
+0.398
 </td>
 <td>
-0.394
+0.535
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
-Residual Std. Error (df = 28943)
+Residual Std. Error
 </td>
 <td>
-0.794
+0.794 (df = 28943)
 </td>
 <td>
-0.794
+0.791 (df = 28941)
 </td>
 <td>
-0.794
+0.695 (df = 28935)
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
-F Statistic (df = 3; 28943)
+F Statistic
 </td>
 <td>
-6,275.074<sup>***</sup>
+6,275.074<sup>***</sup> (df = 3; 28943)
 </td>
 <td>
-6,275.074<sup>***</sup>
+3,823.404<sup>***</sup> (df = 5; 28941)
 </td>
 <td>
-6,275.074<sup>***</sup>
+3,031.232<sup>***</sup> (df = 11; 28935)
 </td>
 </tr>
 <tr>

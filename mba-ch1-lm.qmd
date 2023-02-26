@@ -158,6 +158,7 @@ $$
 knitr::include_graphics('lec_figs/mba-1-9.png')
 ```
 
+Therefore, the beta estimate has the following solution:
 
 $$
 \widehat{\beta}_{1}=\frac{\sum_{i=1}^{n}\left(X_{i}-\bar{X}\right)\left(Y_{i}-\bar{Y}\right)}{\sum_{i=1}^{n}\left(X_{i}-\bar{X}\right)^{2}} \quad \text{ and } \quad \widehat{\beta}_{0}=\bar{Y}-\widehat{\beta}_{1} \bar{X}
@@ -409,12 +410,12 @@ fit_1 <- lm( formula_1, data = oj )
 formula_0 <- log(sales) ~ log(price)
 formula_1 <- log(sales) ~ brand + log(price)
 formula_2 <- log(sales) ~ brand * log(price)
-formula_3 <- log(sales) ~ brand * feat * log(price)
+formula_3 <- log(sales) ~ brand * ad * log(price)
 
 fit_0 <- lm( formula_0, data = oj )
 fit_1 <- lm( formula_1, data = oj )
-fit_2 <- lm( formula_1, data = oj )
-fit_3 <- lm( formula_1, data = oj )
+fit_2 <- lm( formula_2, data = oj )
+fit_3 <- lm( formula_3, data = oj )
 
 stargazer(fit_1, fit_2, fit_3, type = "html")
 ```
