@@ -14,6 +14,7 @@ library(ggthemes)  # additional ggplot themes
 library(hrbrthemes) # additional ggplot themes and color pallets
 library(lubridate)
 library(ggridges)
+library(stargazer)
 theme_set(theme_ipsum()) # setting the minimal theme for ggplot
 # setting default chunk options
 knitr::opts_chunk$set(
@@ -30,12 +31,14 @@ library(tidyverse)
 library(skimr)
 library(ggfortify)
 library(ggcorrplot)
-library(GGally)
 library(fastDummies)
 library(stargazer)
 
 oj <- read_csv('https://bcdanl.github.io/data/dominick_oj.csv')
 ```
+
+<br><br> 
+
 
 ## Descriptive Statistics
 ```{r}
@@ -44,13 +47,16 @@ skim(oj)
 oj %>% group_by(brand) %>% 
   skim()
 
-oj %>% group_by(brand, feat) %>% 
+oj %>% group_by(brand, ad) %>% 
   skim()
 ```
 
+<br><br> 
+
+
 ## Data Visualization
 
-- Correlation heatmap is a great tool to start identifying which input variables are strongly correlated with the outcome variable
+- Correlation heatmap is a great tool to start identifying which input variables are strongly correlated with an outcome variable.
 ```{r}
 # to convert a factor variable into indicators
 oj_dummies <- dummy_cols(oj, select_columns = 'brand' ) %>% 
@@ -59,30 +65,322 @@ oj_dummies <- dummy_cols(oj, select_columns = 'brand' ) %>%
 # the matrix of the correlation test p-values
 p.mat <- cor_pmat(oj_dummies) 
 
-# correlation heatmap with cor values
+# correlation heatmap with correlation values
 ggcorrplot( cor(oj_dummies), lab = T,
             type = 'lower',
             colors = c("#2E74C0", "white", "#CB454A"),
-            p.mat = p.mat)
+            p.mat = p.mat) # p.values
 
+# variation in log price
+ggplot(oj, aes(x = log(price), fill = brand )) +
+  geom_histogram() +
+  facet_wrap(brand ~., ncol = 1)
+
+# variation in log sales
+ggplot(oj, aes(x = log(sales), fill = brand )) +
+  geom_histogram() +
+  facet_wrap(brand ~., ncol = 1)
+
+
+# law of demand
 p <- ggplot(oj, aes(x = log(sales), y = log(price),
                     color = brand ))
 
 p + geom_point( alpha = .025 ) +
   geom_smooth(method = lm, se = F)
 
+
+# mosaic plot
+ggplot(data = oj) +
+  geom_bar(aes(x = as.factor(ad), y = after_stat(prop),
+               group = brand, fill = brand), 
+           position = "fill") +
+  labs(x = 'ad') +
+  theme(plot.title = element_text(size = rel(1.5)),
+        axis.title = element_text(size = 25),
+        axis.text.x = element_text(size = rel(1.5)),
+        axis.text.y = element_text(size = rel(1.5)))
+
+
 ```
 
-## 
+<br><br> 
+
+
+## Linear Regression Model
+- A basic but powerful regression strategy is to deal in **averages** and lines.
+
+  - We model the conditional mean for $y$ given $x$ as 
+  
+$$
+\begin{align}
+\mathbb{E}[\, y \,|\, \mathbf{X} \,] &= \beta_{0} \,+\, \beta_{1}\,x_{1} \,+\, \cdots \,+\, \beta_{p}\,x_{p}\\
+{ }\\
+y_{i} &=   \beta_{0} \,+\, \beta_{1}\,x_{1, i} \,+\, \cdots \,+\, \beta_{p}\,x_{p, i} + \epsilon_{i} \quad \text{for } i = 1, 2, ..., n
+\end{align}
+$$
+- Linear regression is used to model linear relationship between an **outcome** variable, $y$, and a set of **predictor** variables $x_{1}, \,\cdots\,, x_{p}$.
+
+```{r, fig.align='center'}
+knitr::include_graphics('lec_figs/mba-1-2.png')
+```
+
+- $\beta_{0}$ is an intercept when $\mathbf{X} = \mathbf{0}$.
+- $\beta_{1}$ is a slope that describes a change in average value for $y$ for each one-unit increase in $x_{1}$.
+- $\epsilon_{i}$ is the random noise.
+  - For inference, we need to assume that $\epsilon_{i}$ is **independent, identically distributed** (*iid*) from Normal distribution.
+  
+$$
+\epsilon_i \overset{iid}{\sim}N(0, \sigma^2) \quad \text{ with constant variance } \sigma^2
+$$
+
+
+```{r, fig.align='center'}
+knitr::include_graphics('lec_figs/mba-1-3.png')
+```
+
+
+
+<br><br> 
+
+
+
+## Fitted line and beta
+
+  - We estimatede the best fittling line by ordinary least squares (**OLS**) - by minimizing the residual sum of squares (**RSS**)
+  
+$$
+R S S\left(\beta_{0}, \beta_{1}\right)=\sum_{i=1}^{n}\left[Y_{i}-\left(\beta_{0}+\beta_{1} X_{i}\right)\right]^{2}=\sum_{i=1}^{n}\left(Y_{i}-\beta_{0}-\beta_{1} X_{i}\right)^{2}
+$$
+
+
+$$
+\widehat{\beta}_{1}=\frac{\sum_{i=1}^{n}\left(X_{i}-\bar{X}\right)\left(Y_{i}-\bar{Y}\right)}{\sum_{i=1}^{n}\left(X_{i}-\bar{X}\right)^{2}} \quad \text{ and } \quad \widehat{\beta}_{0}=\bar{Y}-\widehat{\beta}_{1} \bar{X}
+$$
+
+where $\bar{X} = \frac{1}{n}\sum_{i=1}^n X_i$ and $\bar{Y} = \frac{1}{n}\sum_{i=1}^n Y_i$
+
+
+<br>
+
+
+### Connection to covariance and correlation
+
+- [__Covariance__](https://en.wikipedia.org/wiki/Covariance) describes the __joint variability of two variables__
+
+$$
+\text{Cov}(X, Y) = \sigma_{X,Y} = \mathbb{E}[(X-\mathbb{E}[X])(Y-\mathbb{E}[Y])]
+$$
+
+
+- __Correlation__ is a _normalized_ form of covariance, ranges from -1 to 1
+
+$$
+\rho_{X,Y} = \frac{\text{Cov}(X,Y)}{\sigma_X \cdot \sigma_Y}
+$$
+- So, the beta coefficent can be represented by:
+$$
+\begin{align}
+\widehat{\beta}_{1} &= \, \frac{\widehat{\text{Cov}}(X,Y)}{\widehat{\text{Var}}(X)} \,=\,  \hat{\rho}_{x,y} \cdot \frac{\hat{\sigma}_{Y}}{\hat{\sigma}_{X}}
+
+\end{align}
+$$
+
+
+<br><br> 
+
+
+## The Goals of Linear Regression
+
+1. Modeling for **prediction**: When we want to predict an outcome variable  $y$ based on the information contained in a set of predictor variables $\mathbf{X}$.
+  - We are estimating the conditional expection (mean) for $y$:
+$$
+\mathbb{E}[\, y \,|\, \mathbf{X} \,] = \beta_{0} \,+\, \beta_{1}\,x_{1} \,+\, \cdots \,+\, \beta_{p}\,x_{p}.
+$$
+  - which is the average value for $y$ given the value for $X$.
+
+<br>
+
+2. Modeling for **explanation**: When we want to explicitly describe and quantify the relationship between the outcome variable y and a set of **explanatory variables** $\mathbf{X}$.
+  - **Correlation** does not imply **causation**.
+  - Without proper identification strategies, $\beta_{1}$ just means a correlation between $x_{1}$ and $y$.
+  - However, we can possibly identify a *causal* relationship between the explanatory variable and the outcome variable.
+ 
+
+
+
+
+<br><br>
+
+
+
+## Linear Regression and Controls
+
+### Simple Linear Regression
+To start, we can fit a simple model that regresses log price on log sales.
+
+$$
+\mathbb{E}[\, \log(\, \texttt{sales} \,) \,|\, \texttt{price}\,] = \alpha \,+\, \beta\, \log(\,\texttt{price}\,)
+$$
+- The following model incorporates both `brand` and `price`
+
+$$
+\mathbb{E}[\, \log(\, \texttt{sales} \,) \,|\, \texttt{price}\,] = \alpha_{\texttt{brand}} \,+\, \beta\, \log(\,\texttt{price}\,)
+$$
+
+```{r, results='asis'}
+formula_0 <- log(sales) ~ log(price)
+formula_1 <- log(sales) ~ brand + log(price)
+
+fit_0 <- lm( formula_0, data = oj )
+fit_1 <- lm( formula_1, data = oj )
+
+stargazer(fit_0, fit_1, type = "html")
+```
+
+- We know that there are different brands of OJ here and some are more valuable than others.
+  - When we control for brand effect, the elasticity estimate nearly doubles to −3.14.
+
+
+
+- The premium brands, Minute Maid and Tropicana, had equivalent sales to Dominick’s at higher price points.
+
+- So if we don’t control for brand, it looks as though prices can rise without affecting sales for those observations. 
+
+  - This dampens the observable relationship between prices and sales and results in the (artificially) low elasticity estimate of −1.6.
+
+
+- More mechanically, how does this happen in regression?
+```{r}
+price_fit <- lm(log(price) ~ brand, data = oj)
+p_hat <- predict(price_fit, newdata = oj)
+p_resid <- log(oj$price) - p_hat
+
+# regress log sales on p_resi
+resid_fit <- lm(log(sales) ~ p_resid, data = oj)
+
+# What is the beta coefficient for p_resid?!
+round( coef(resid_fit)[2], digit = 3 )
+```
+
+- The coefficient on `p_resid`, the residuals from regression of log price on brand, is exactly the same as what we get on `log(price)` in the multiple linear regression for log sales onto this and brand!
+
+
+- This is one way that you can understand what OLS is doing: 
+  - It is finding the coefficients on the part of each input that is independent from the other inputs.
+
+<br>
+
+### Controls in Linear Regression
+
+- **Omitted variable bias** is a type of bias that can occur in linear regression when an important variable that is related to both the outcome variable and the input variable(s) is not included in the model. 
+  - This omission can lead to biased estimates of the beta coefficients of the included input variables.
+
+
+- In linear regression, a **confounding variable** is a variable that is related to both the treatment and outcome variables, and that affects the relationship between them.
+  - When a confounding variable is not controlled in the regression model, it can lead to biased estimates of the relationship between the independent and treatment variables. 
+
+
+
+- **Bad controls** in linear regression refer to the inclusion of variables in the model that do not actually control for the confounding factors they are intended to control for. 
+  - This can lead to biased estimates of the relationship between the independent and dependent variables.
+
+```{r, results='asis'}
+# simulation data
+tb <- tibble( 
+  female = ifelse(runif(10000)>=0.5,1,0), # female indicator variable
+  ability = rnorm(10000), # e.g., talent, usually unobserved.
+  discrimination = female, # gender discrimination variable
+  occupation = 1 + 2*ability + 0*female - 2*discrimination + rnorm(10000), # true data generating process for occupation variable
+  wage = 1 - 1*discrimination + 1*occupation + 2*ability + rnorm(10000) # true data generating process for wage variable
+)
+
+lm_1 <- lm(wage ~ female, tb)
+lm_2 <- lm(wage ~ female + occupation, tb)
+lm_3 <- lm(wage ~ female + occupation + ability, tb)
+
+stargazer(lm_1,lm_2,lm_3, 
+          column.labels = c("Biased Unconditional", 
+                            "Biased",
+                            "Unbiased Conditional"),
+          type = 'html')
+
+```
+
+- `occupation` is a bad control.
+
+<br>
+
+### Inference with OLS
+
+- $t$-statistics are coefficients `Estimates` / `Std. Error`, i.e., number of standard deviations from 0
+
+  - _p-values_ (i.e., `Pr(>|t|)`): estimated probability observing value as extreme as |`t value`| __given the null hypothesis__ $\beta = 0$
+  
+  - p-value $<$ conventional threshold of $\alpha = 0.05$, __sufficient evidence to reject the null hypothesis that the coefficient is zero__,
+  
+  - Typically |`t values`| $> 2$ indicate __significant__ relationship at $\alpha = 0.05$
+
+  - i.e., there is a __significant__ association between `log(sales)` and `log(price)`
+
+
+- Controlling the Type 1 error rate at $\alpha = 0.05$, i.e., the probability of a __false positive__ mistake:
+  - 5% chance that you'll conclude there's a significant association between $x$ and $y$ __even when there is none__
+
+
+<br>
+
+### R-squared
+
+- $R^2$ estimates the __proportion of the variance__ of $Y$ explained by $X$.
+
+<br>
+
+### Residual plot, QQ plot, and Residual vs Leverage plot
+
+- Residuals should NOT display any systematic pattern.
+
+- Check the assumptions about normality with a QQ plot using `ggfortify`.
+
+```{r, fig.width=7, fig.height=14}
+library(ggfortify)
+autoplot(fit_1, ncol = 1)
+```
+- Standardized residuals = residuals `/ sd(`residuals`)` 
+
+
+- A QQ (Quantile-Quantile) plot is a graphical tool used to assess the normality of a distribution. 
+  - In the context of linear regression, a QQ plot can be used to assess whether the residuals are normally distributed.
+  - A QQ plot visualizes the relationship between the quantiles of the residuals and the quantiles of a theoretical normal distribution.
+  - QQ plots can be useful in identifying potential outliers or influential observations in a linear regression model, as well as in deciding whether to transform the dependent variable or use a different type of regression model altogether.
+
+
+
+- A residual vs leverage plot is a graphical tool used to detect influential observations in linear regression.
+  - Leverage refers to how much an observation's independent variables differ from the mean of the independent variables, and is a measure of how much influence that observation has on the regression line.
+  - In a residual vs leverage plot, influential observations will typically appear as points that are far away from the center of the plot. 
+  - If an observation has high leverage but a small residual, it may not be influential. 
+  - Conversely, an observation with a large residual but low leverage may also not be influential.
+
+
+
+<br><br>
 
 ## References
 
--   [The Elements of Statistical Learning: Data Mining, Inference, and Prediction](https://hastie.su.domains/ElemStatLearn/) by [Trevor Hastie](https://hastie.su.domains), [Robert Tibshirani](https://tibshirani.su.domains) and [Jerome Friedman](https://jerryfriedman.su.domains).
+<!-- -   [The Elements of Statistical Learning: Data Mining, Inference, and Prediction](https://hastie.su.domains/ElemStatLearn/) by [Trevor Hastie](https://hastie.su.domains), [Robert Tibshirani](https://tibshirani.su.domains) and [Jerome Friedman](https://jerryfriedman.su.domains). -->
 
--   [Statistical Inference via Data Science: A ModernDive into R and the Tidyverse](https://moderndive.com) by [Chester Ismay](https://chester.rbind.io) and [Albert Y. Kim](http://rudeboybert.rbind.io).
 
--   [An Introduction to Statistical Learning](https://www.statlearning.com) by [Gareth James](https://www.garethmjames.com), [Daniela Witten](https://www.danielawitten.com), [Trevor Hastie](https://hastie.su.domains), and [Robert Tibshirani](https://tibshirani.su.domains).
+
+- [Causal Inference: The Mixtape](https://mixtape.scunning.com) by [Scott Cunningham](https://www.scunning.com).
+
+
+- [Statistical Inference via Data Science: A ModernDive into R and the Tidyverse](https://moderndive.com) by [Chester Ismay](https://chester.rbind.io) and [Albert Y. Kim](http://rudeboybert.rbind.io).
+
+<!-- -   [An Introduction to Statistical Learning](https://www.statlearning.com) by [Gareth James](https://www.garethmjames.com), [Daniela Witten](https://www.danielawitten.com), [Trevor Hastie](https://hastie.su.domains), and [Robert Tibshirani](https://tibshirani.su.domains). -->
 
 -   [Modern Business Analytics](https://www.mheducation.com/highered/product/modern-business-analytics-taddy-hendrix/M9781264071678.html) by [Matt Taddy](https://www.linkedin.com/in/matt-taddy-433078137/), [Leslie Hendrix](https://sc.edu/study/colleges_schools/moore/directory/hendrix.leslie.php), and [Matthew Harding](https://www.harding.ai).
 
--   [Practical Data Science with R](https://www.manning.com/books/practical-data-science-with-r-second-edition) by [Nina Zumel](https://ninazumel.com) and [John Mount](https://win-vector.com/john-mount/).
+<!-- -   [Practical Data Science with R](https://www.manning.com/books/practical-data-science-with-r-second-edition) by [Nina Zumel](https://ninazumel.com) and [John Mount](https://win-vector.com/john-mount/). -->
+
+- [Summer Undergraduate Research Experience (SURE) 2022 in Statistics at Carnegie Mellon University](https://www.stat.cmu.edu/cmsac/sure/2022/materials/) by [Ron Yurko](https://www.stat.cmu.edu/~ryurko/).
