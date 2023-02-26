@@ -390,8 +390,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#controls-in-linear-regression" id="toc-controls-in-linear-regression" class="nav-link" data-scroll-target="#controls-in-linear-regression">Controls in Linear Regression</a></li>
   <li><a href="#inference-with-ols" id="toc-inference-with-ols" class="nav-link" data-scroll-target="#inference-with-ols">Inference with OLS</a></li>
   <li><a href="#r-squared" id="toc-r-squared" class="nav-link" data-scroll-target="#r-squared">R-squared</a></li>
+  <li><a href="#mean-squared-errors" id="toc-mean-squared-errors" class="nav-link" data-scroll-target="#mean-squared-errors">Mean Squared Errors</a></li>
   <li><a href="#residual-plot-qq-plot-and-residual-vs-leverage-plot" id="toc-residual-plot-qq-plot-and-residual-vs-leverage-plot" class="nav-link" data-scroll-target="#residual-plot-qq-plot-and-residual-vs-leverage-plot">Residual plot, QQ plot, and Residual vs Leverage plot</a></li>
   </ul></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
@@ -1167,11 +1169,21 @@ y_{i} &amp;=   \beta_{0} \,+\, \beta_{1}\,x_{1, i} \,+\, \cdots \,+\, \beta_{p}\
 <section id="fitted-line-and-beta" class="level2">
 <h2 class="anchored" data-anchor-id="fitted-line-and-beta">Fitted line and beta</h2>
 <ul>
-<li>We estimatede the best fittling line by ordinary least squares (<strong>OLS</strong>) - by minimizing the residual sum of squares (<strong>RSS</strong>)</li>
+<li>We estimatede the best fitting line by ordinary least squares (<strong>OLS</strong>) - by minimizing the residual sum of squares (<strong>RSS</strong>)</li>
 </ul>
 <p><span class="math display">\[
-R S S\left(\beta_{0}, \beta_{1}\right)=\sum_{i=1}^{n}\left[Y_{i}-\left(\beta_{0}+\beta_{1} X_{i}\right)\right]^{2}=\sum_{i=1}^{n}\left(Y_{i}-\beta_{0}-\beta_{1} X_{i}\right)^{2}
+R S S\left(\beta_{0}, \beta_{1}\right)=\sum_{i=1}^{n}\left[Y_{i}-\left(\hat{\beta}_{0}+\hat{\beta}_{1} X_{i}\right)\right]^{2}
 \]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'lec_figs/mba-1-9.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lec_figs/mba-1-9.png" class="img-fluid figure-img" width="438"></p>
+</figure>
+</div>
+</div>
+</div>
 <p><span class="math display">\[
 \widehat{\beta}_{1}=\frac{\sum_{i=1}^{n}\left(X_{i}-\bar{X}\right)\left(Y_{i}-\bar{Y}\right)}{\sum_{i=1}^{n}\left(X_{i}-\bar{X}\right)^{2}} \quad \text{ and } \quad \widehat{\beta}_{0}=\bar{Y}-\widehat{\beta}_{1} \bar{X}
 \]</span></p>
@@ -1226,17 +1238,17 @@ R S S\left(\beta_{0}, \beta_{1}\right)=\sum_{i=1}^{n}\left[Y_{i}-\left(\beta_{0}
 <p>To start, we can fit a simple model that regresses log price on log sales.</p>
 <p><span class="math display">\[
 \mathbb{E}[\, \log(\, \texttt{sales} \,) \,|\, \texttt{price}\,] = \alpha \,+\, \beta\, \log(\,\texttt{price}\,)
-\]</span> - The following model incorporates both <code>brand</code> and <code>price</code></p>
+\]</span> - The following model incorporates both <code>brand</code> and <code>price</code>:</p>
 <p><span class="math display">\[
 \mathbb{E}[\, \log(\, \texttt{sales} \,) \,|\, \texttt{price}\,] = \alpha_{\texttt{brand}} \,+\, \beta\, \log(\,\texttt{price}\,)
 \]</span></p>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>formula_0 <span class="ot">&lt;-</span> <span class="fu">log</span>(sales) <span class="sc">~</span> <span class="fu">log</span>(price)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>formula_1 <span class="ot">&lt;-</span> <span class="fu">log</span>(sales) <span class="sc">~</span> brand <span class="sc">+</span> <span class="fu">log</span>(price)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>fit_0 <span class="ot">&lt;-</span> <span class="fu">lm</span>( formula_0, <span class="at">data =</span> oj )</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>fit_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>( formula_1, <span class="at">data =</span> oj )</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(fit_0, fit_1, <span class="at">type =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>formula_0 <span class="ot">&lt;-</span> <span class="fu">log</span>(sales) <span class="sc">~</span> <span class="fu">log</span>(price)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>formula_1 <span class="ot">&lt;-</span> <span class="fu">log</span>(sales) <span class="sc">~</span> brand <span class="sc">+</span> <span class="fu">log</span>(price)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>fit_0 <span class="ot">&lt;-</span> <span class="fu">lm</span>( formula_0, <span class="at">data =</span> oj )</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>fit_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>( formula_1, <span class="at">data =</span> oj )</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(fit_0, fit_1, <span class="at">type =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 <table style="text-align:center">
 <tbody><tr>
@@ -1475,15 +1487,15 @@ F Statistic
 <li><p>More mechanically, how does this happen in regression?</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>price_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(price) <span class="sc">~</span> brand, <span class="at">data =</span> oj)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>p_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(price_fit, <span class="at">newdata =</span> oj)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>p_resid <span class="ot">&lt;-</span> <span class="fu">log</span>(oj<span class="sc">$</span>price) <span class="sc">-</span> p_hat</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># regress log sales on p_resi</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>resid_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(sales) <span class="sc">~</span> p_resid, <span class="at">data =</span> oj)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># What is the beta coefficient for p_resid?!</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>( <span class="fu">coef</span>(resid_fit)[<span class="dv">2</span>], <span class="at">digit =</span> <span class="dv">3</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>price_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(price) <span class="sc">~</span> brand, <span class="at">data =</span> oj)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>p_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(price_fit, <span class="at">newdata =</span> oj)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>p_resid <span class="ot">&lt;-</span> <span class="fu">log</span>(oj<span class="sc">$</span>price) <span class="sc">-</span> p_hat</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># regress log sales on p_resi</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>resid_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(sales) <span class="sc">~</span> p_resid, <span class="at">data =</span> oj)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># What is the beta coefficient for p_resid?!</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>( <span class="fu">coef</span>(resid_fit)[<span class="dv">2</span>], <span class="at">digit =</span> <span class="dv">3</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>p_resid 
  -3.139 </code></pre>
@@ -1505,8 +1517,9 @@ F Statistic
 <ul>
 <li>This omission can lead to biased estimates of the beta coefficients of the included input variables.</li>
 </ul></li>
-<li>In linear regression, a <strong>confounding variable</strong> is a variable that is related to both the treatment and outcome variables, and that affects the relationship between them.
+<li>In linear regression, a <strong>confounding variable</strong> is a variable that is related to both the <em>treatment</em> and outcome variables, and that affects the relationship between them.
 <ul>
+<li>The <strong>treatment</strong> variable is an input variable that the researcher believes has a causal effect on the outcome variable.</li>
 <li>When a confounding variable is not controlled in the regression model, it can lead to biased estimates of the relationship between the independent and treatment variables.</li>
 </ul></li>
 <li><strong>Bad controls</strong> in linear regression refer to the inclusion of variables in the model that do not actually control for the confounding factors they are intended to control for.
@@ -1514,24 +1527,24 @@ F Statistic
 <li>This can lead to biased estimates of the relationship between the independent and dependent variables.</li>
 </ul></li>
 </ul>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># simulation data</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">tibble</span>( </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">female =</span> <span class="fu">ifelse</span>(<span class="fu">runif</span>(<span class="dv">10000</span>)<span class="sc">&gt;=</span><span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">0</span>), <span class="co"># female indicator variable</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ability =</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>), <span class="co"># e.g., talent, usually unobserved.</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">discrimination =</span> female, <span class="co"># gender discrimination variable</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">occupation =</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>ability <span class="sc">+</span> <span class="dv">0</span><span class="sc">*</span>female <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>discrimination <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>), <span class="co"># true data generating process for occupation variable</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">wage =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="dv">1</span><span class="sc">*</span>discrimination <span class="sc">+</span> <span class="dv">1</span><span class="sc">*</span>occupation <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>ability <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>) <span class="co"># true data generating process for wage variable</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>lm_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> female, tb)</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>lm_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> female <span class="sc">+</span> occupation, tb)</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>lm_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> female <span class="sc">+</span> occupation <span class="sc">+</span> ability, tb)</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(lm_1,lm_2,lm_3, </span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">column.labels =</span> <span class="fu">c</span>(<span class="st">"Biased Unconditional"</span>, </span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"Biased"</span>,</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"Unbiased Conditional"</span>),</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">type =</span> <span class="st">'html'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># simulation data</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>tb <span class="ot">&lt;-</span> <span class="fu">tibble</span>( </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">female =</span> <span class="fu">ifelse</span>(<span class="fu">runif</span>(<span class="dv">10000</span>)<span class="sc">&gt;=</span><span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">0</span>), <span class="co"># female indicator variable</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ability =</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>), <span class="co"># e.g., talent, usually unobserved.</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">discrimination =</span> female, <span class="co"># gender discrimination variable</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">occupation =</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>ability <span class="sc">+</span> <span class="dv">0</span><span class="sc">*</span>female <span class="sc">-</span> <span class="dv">2</span><span class="sc">*</span>discrimination <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>), <span class="co"># true data generating process for occupation variable</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">wage =</span> <span class="dv">1</span> <span class="sc">-</span> <span class="dv">1</span><span class="sc">*</span>discrimination <span class="sc">+</span> <span class="dv">1</span><span class="sc">*</span>occupation <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>ability <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>) <span class="co"># true data generating process for wage variable</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>lm_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> female, tb)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>lm_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> female <span class="sc">+</span> occupation, tb)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>lm_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(wage <span class="sc">~</span> female <span class="sc">+</span> occupation <span class="sc">+</span> ability, tb)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(lm_1,lm_2,lm_3, </span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>          <span class="at">column.labels =</span> <span class="fu">c</span>(<span class="st">"Biased Unconditional"</span>, </span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"Biased"</span>,</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"Unbiased Conditional"</span>),</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>          <span class="at">type =</span> <span class="st">'html'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 <table style="text-align:center">
 <tbody><tr>
@@ -1593,13 +1606,13 @@ Unbiased Conditional
 female
 </td>
 <td>
--2.919<sup>***</sup>
+-2.942<sup>***</sup>
 </td>
 <td>
-0.629<sup>***</sup>
+0.638<sup>***</sup>
 </td>
 <td>
--1.006<sup>***</sup>
+-1.012<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1632,10 +1645,10 @@ occupation
 <td>
 </td>
 <td>
-1.802<sup>***</sup>
+1.796<sup>***</sup>
 </td>
 <td>
-0.992<sup>***</sup>
+0.982<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1669,7 +1682,7 @@ ability
 <td>
 </td>
 <td>
-2.012<sup>***</sup>
+2.035<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1680,7 +1693,7 @@ ability
 <td>
 </td>
 <td>
-(0.023)
+(0.022)
 </td>
 </tr>
 <tr>
@@ -1698,13 +1711,13 @@ ability
 Constant
 </td>
 <td>
-1.968<sup>***</sup>
+1.984<sup>***</sup>
 </td>
 <td>
-0.196<sup>***</sup>
+0.180<sup>***</sup>
 </td>
 <td>
-0.999<sup>***</sup>
+1.000<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1756,10 +1769,10 @@ R<sup>2</sup>
 0.106
 </td>
 <td>
-0.912
+0.911
 </td>
 <td>
-0.951
+0.952
 </td>
 </tr>
 <tr>
@@ -1770,10 +1783,10 @@ Adjusted R<sup>2</sup>
 0.106
 </td>
 <td>
-0.912
+0.911
 </td>
 <td>
-0.951
+0.952
 </td>
 </tr>
 <tr>
@@ -1781,13 +1794,13 @@ Adjusted R<sup>2</sup>
 Residual Std. Error
 </td>
 <td>
-4.233 (df = 9998)
+4.261 (df = 9998)
 </td>
 <td>
-1.332 (df = 9997)
+1.346 (df = 9997)
 </td>
 <td>
-0.993 (df = 9996)
+0.987 (df = 9996)
 </td>
 </tr>
 <tr>
@@ -1795,13 +1808,13 @@ Residual Std. Error
 F Statistic
 </td>
 <td>
-1,188.588<sup>***</sup> (df = 1; 9998)
+1,191.510<sup>***</sup> (df = 1; 9998)
 </td>
 <td>
-51,520.400<sup>***</sup> (df = 2; 9997)
+51,032.070<sup>***</sup> (df = 2; 9997)
 </td>
 <td>
-64,421.440<sup>***</sup> (df = 3; 9996)
+66,224.290<sup>***</sup> (df = 3; 9996)
 </td>
 </tr>
 <tr>
@@ -1847,6 +1860,22 @@ F Statistic
 </ul>
 <p><br></p>
 </section>
+<section id="mean-squared-errors" class="level3">
+<h3 class="anchored" data-anchor-id="mean-squared-errors">Mean Squared Errors</h3>
+<ul>
+<li><strong>Mean squared error</strong> (MSE) is a commonly used metric to evaluate the performance of a regression model.
+<ul>
+<li>It measures the average squared difference between the predicted values and the actual values in the dataset.</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+M S E \,=\, \frac{\sum_{i = 1}^{ n}\,(\, y_{i} - \hat{y}_{i} \,)^2}{n}
+\]</span> - <strong>Root mean squared error</strong> (RMSE) is the square root of the mean squared error (MSE).</p>
+<p><span class="math display">\[
+R M S E \,=\, \sqrt{M S E}
+\]</span> - RMSE shows how far predictions fall from true values.</p>
+<p><br></p>
+</section>
 <section id="residual-plot-qq-plot-and-residual-vs-leverage-plot" class="level3">
 <h3 class="anchored" data-anchor-id="residual-plot-qq-plot-and-residual-vs-leverage-plot">Residual plot, QQ plot, and Residual vs Leverage plot</h3>
 <ul>
@@ -1854,10 +1883,10 @@ F Statistic
 <li><p>Check the assumptions about normality with a QQ plot using <code>ggfortify</code>.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(fit_1, <span class="at">ncol =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(fit_1, <span class="at">ncol =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="mba-ch1-lm_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<p><img src="mba-ch1-lm_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <ul>
@@ -1876,8 +1905,314 @@ F Statistic
 <li>Conversely, an observation with a large residual but low leverage may also not be influential.</li>
 </ul></li>
 </ul>
-<p><br><br></p>
 </section>
+</section>
+<section id="exercise" class="level2">
+<h2 class="anchored" data-anchor-id="exercise">Exercise</h2>
+<p>Consider the orange juice models:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>formula_0 <span class="ot">&lt;-</span> <span class="fu">log</span>(sales) <span class="sc">~</span> <span class="fu">log</span>(price)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>formula_1 <span class="ot">&lt;-</span> <span class="fu">log</span>(sales) <span class="sc">~</span> brand <span class="sc">+</span> <span class="fu">log</span>(price)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>fit_0 <span class="ot">&lt;-</span> <span class="fu">lm</span>( formula_0, <span class="at">data =</span> oj )</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>fit_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>( formula_1, <span class="at">data =</span> oj )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol type="1">
+<li><p>Draw a residual plot for each model of <code>fit_0</code> and <code>fit_1</code>.</p></li>
+<li><p>Calculate the RMSE for each model of <code>fit_0</code> and <code>fit_1</code>.</p></li>
+<li><p>Review the interaction models:</p></li>
+</ol>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>formula_0 <span class="ot">&lt;-</span> <span class="fu">log</span>(sales) <span class="sc">~</span> <span class="fu">log</span>(price)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>formula_1 <span class="ot">&lt;-</span> <span class="fu">log</span>(sales) <span class="sc">~</span> brand <span class="sc">+</span> <span class="fu">log</span>(price)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>formula_2 <span class="ot">&lt;-</span> <span class="fu">log</span>(sales) <span class="sc">~</span> brand <span class="sc">*</span> <span class="fu">log</span>(price)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>formula_3 <span class="ot">&lt;-</span> <span class="fu">log</span>(sales) <span class="sc">~</span> brand <span class="sc">*</span> feat <span class="sc">*</span> <span class="fu">log</span>(price)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>fit_0 <span class="ot">&lt;-</span> <span class="fu">lm</span>( formula_0, <span class="at">data =</span> oj )</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>fit_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>( formula_1, <span class="at">data =</span> oj )</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>fit_2 <span class="ot">&lt;-</span> <span class="fu">lm</span>( formula_1, <span class="at">data =</span> oj )</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>fit_3 <span class="ot">&lt;-</span> <span class="fu">lm</span>( formula_1, <span class="at">data =</span> oj )</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(fit_1, fit_2, fit_3, <span class="at">type =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<table style="text-align:center">
+<tbody><tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+log(sales)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandminute.maid
+</td>
+<td>
+0.870<sup>***</sup>
+</td>
+<td>
+0.870<sup>***</sup>
+</td>
+<td>
+0.870<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.013)
+</td>
+<td>
+(0.013)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+brandtropicana
+</td>
+<td>
+1.530<sup>***</sup>
+</td>
+<td>
+1.530<sup>***</sup>
+</td>
+<td>
+1.530<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.016)
+</td>
+<td>
+(0.016)
+</td>
+<td>
+(0.016)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+log(price)
+</td>
+<td>
+-3.139<sup>***</sup>
+</td>
+<td>
+-3.139<sup>***</sup>
+</td>
+<td>
+-3.139<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.023)
+</td>
+<td>
+(0.023)
+</td>
+<td>
+(0.023)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+10.829<sup>***</sup>
+</td>
+<td>
+10.829<sup>***</sup>
+</td>
+<td>
+10.829<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.015)
+</td>
+<td>
+(0.015)
+</td>
+<td>
+(0.015)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+28,947
+</td>
+<td>
+28,947
+</td>
+<td>
+28,947
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.394
+</td>
+<td>
+0.394
+</td>
+<td>
+0.394
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.394
+</td>
+<td>
+0.394
+</td>
+<td>
+0.394
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error (df = 28943)
+</td>
+<td>
+0.794
+</td>
+<td>
+0.794
+</td>
+<td>
+0.794
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+F Statistic (df = 3; 28943)
+</td>
+<td>
+6,275.074<sup>***</sup>
+</td>
+<td>
+6,275.074<sup>***</sup>
+</td>
+<td>
+6,275.074<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="3" style="text-align:right">
+<sup><em></em></sup><em>p&lt;0.1; <sup><strong></strong></sup><strong>p&lt;0.05; <sup></sup></strong></em>p&lt;0.01
+</td>
+</tr>
+
+</tbody></table>
+<p><br><br></p>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>

@@ -147,11 +147,16 @@ knitr::include_graphics('lec_figs/mba-1-3.png')
 
 ## Fitted line and beta
 
-  - We estimatede the best fittling line by ordinary least squares (**OLS**) - by minimizing the residual sum of squares (**RSS**)
+  - We estimatede the best fitting line by ordinary least squares (**OLS**) - by minimizing the residual sum of squares (**RSS**)
   
 $$
-R S S\left(\beta_{0}, \beta_{1}\right)=\sum_{i=1}^{n}\left[Y_{i}-\left(\beta_{0}+\beta_{1} X_{i}\right)\right]^{2}=\sum_{i=1}^{n}\left(Y_{i}-\beta_{0}-\beta_{1} X_{i}\right)^{2}
+R S S\left(\beta_{0}, \beta_{1}\right)=\sum_{i=1}^{n}\left[Y_{i}-\left(\hat{\beta}_{0}+\hat{\beta}_{1} X_{i}\right)\right]^{2}
 $$
+
+
+```{r, fig.align='center'}
+knitr::include_graphics('lec_figs/mba-1-9.png')
+```
 
 
 $$
@@ -222,7 +227,7 @@ To start, we can fit a simple model that regresses log price on log sales.
 $$
 \mathbb{E}[\, \log(\, \texttt{sales} \,) \,|\, \texttt{price}\,] = \alpha \,+\, \beta\, \log(\,\texttt{price}\,)
 $$
-- The following model incorporates both `brand` and `price`
+- The following model incorporates both `brand` and `price`:
 
 $$
 \mathbb{E}[\, \log(\, \texttt{sales} \,) \,|\, \texttt{price}\,] = \alpha_{\texttt{brand}} \,+\, \beta\, \log(\,\texttt{price}\,)
@@ -277,7 +282,8 @@ round( coef(resid_fit)[2], digit = 3 )
   - This omission can lead to biased estimates of the beta coefficients of the included input variables.
 
 
-- In linear regression, a **confounding variable** is a variable that is related to both the treatment and outcome variables, and that affects the relationship between them.
+- In linear regression, a **confounding variable** is a variable that is related to both the *treatment* and outcome variables, and that affects the relationship between them.
+  - The **treatment** variable is an input variable that the researcher believes has a causal effect on the outcome variable. 
   - When a confounding variable is not controlled in the regression model, it can lead to biased estimates of the relationship between the independent and treatment variables. 
 
 
@@ -336,6 +342,25 @@ stargazer(lm_1,lm_2,lm_3,
 
 <br>
 
+
+### Mean Squared Errors
+
+- **Mean squared error** (MSE) is a commonly used metric to evaluate the performance of a regression model. 
+  - It measures the average squared difference between the predicted values and the actual values in the dataset. 
+  
+$$
+M S E \,=\, \frac{\sum_{i = 1}^{ n}\,(\, y_{i} - \hat{y}_{i} \,)^2}{n}
+$$
+- **Root mean squared error** (RMSE) is the square root of the mean squared error (MSE).
+
+$$
+R M S E \,=\, \sqrt{M S E}
+$$
+- RMSE shows how far predictions fall from true values.
+
+
+<br>
+
 ### Residual plot, QQ plot, and Residual vs Leverage plot
 
 - Residuals should NOT display any systematic pattern.
@@ -363,6 +388,36 @@ autoplot(fit_1, ncol = 1)
   - Conversely, an observation with a large residual but low leverage may also not be influential.
 
 
+## Exercise
+Consider the orange juice models:
+
+```{r}
+formula_0 <- log(sales) ~ log(price)
+formula_1 <- log(sales) ~ brand + log(price)
+
+fit_0 <- lm( formula_0, data = oj )
+fit_1 <- lm( formula_1, data = oj )
+```
+
+1. Draw a residual plot for each model of `fit_0` and `fit_1`.
+
+2. Calculate the RMSE for each model of `fit_0` and `fit_1`.
+
+3. Review the interaction models:
+
+```{r, results = 'asis'}
+formula_0 <- log(sales) ~ log(price)
+formula_1 <- log(sales) ~ brand + log(price)
+formula_2 <- log(sales) ~ brand * log(price)
+formula_3 <- log(sales) ~ brand * feat * log(price)
+
+fit_0 <- lm( formula_0, data = oj )
+fit_1 <- lm( formula_1, data = oj )
+fit_2 <- lm( formula_1, data = oj )
+fit_3 <- lm( formula_1, data = oj )
+
+stargazer(fit_1, fit_2, fit_3, type = "html")
+```
 
 <br><br>
 
