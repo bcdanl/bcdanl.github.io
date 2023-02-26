@@ -14,7 +14,7 @@ library(ggthemes)  # additional ggplot themes
 library(hrbrthemes) # additional ggplot themes and color pallets
 library(lubridate)
 library(ggridges)
-theme_set(theme_minimal()) # setting the minimal theme for ggplot
+theme_set(theme_ipsum()) # setting the minimal theme for ggplot
 # setting default chunk options
 knitr::opts_chunk$set(
 	eval = T,
@@ -24,16 +24,65 @@ knitr::opts_chunk$set(
 )
 ```
 
+## Loading Packages and Data
+```{r}
+library(tidyverse)
+library(skimr)
+library(ggfortify)
+library(ggcorrplot)
+library(GGally)
+library(fastDummies)
+library(stargazer)
 
+oj <- read_csv('https://bcdanl.github.io/data/dominick_oj.csv')
+```
 
-# References
+## Descriptive Statistics
+```{r}
+skim(oj)
 
-- [The Elements of Statistical Learning: Data Mining, Inference, and Prediction](https://hastie.su.domains/ElemStatLearn/) by [Trevor Hastie](https://hastie.su.domains), [Robert Tibshirani](https://tibshirani.su.domains) and [Jerome Friedman](https://jerryfriedman.su.domains).
+oj %>% group_by(brand) %>% 
+  skim()
 
-- [Statistical Inference via Data Science: A ModernDive into R and the Tidyverse](https://moderndive.com) by [Chester Ismay](https://chester.rbind.io) and [Albert Y. Kim](http://rudeboybert.rbind.io).
+oj %>% group_by(brand, feat) %>% 
+  skim()
+```
 
-- [An Introduction to Statistical Learning](https://www.statlearning.com) by [Gareth James](https://www.garethmjames.com), [Daniela Witten](https://www.danielawitten.com), [Trevor Hastie](https://hastie.su.domains), and [Robert Tibshirani](https://tibshirani.su.domains).
+## Data Visualization
 
-- [Modern Business Analytics](https://www.mheducation.com/highered/product/modern-business-analytics-taddy-hendrix/M9781264071678.html) by [Matt Taddy](https://www.linkedin.com/in/matt-taddy-433078137/), [Leslie Hendrix](https://sc.edu/study/colleges_schools/moore/directory/hendrix.leslie.php), and [Matthew Harding](https://www.harding.ai).
+- Correlation heatmap is a great tool to start identifying which input variables are strongly correlated with the outcome variable
+```{r}
+# to convert a factor variable into indicators
+oj_dummies <- dummy_cols(oj, select_columns = 'brand' ) %>% 
+  select(-brand)
 
-- [Practical Data Science with R](https://www.manning.com/books/practical-data-science-with-r-second-edition) by [Nina Zumel](https://ninazumel.com) and [John Mount](https://win-vector.com/john-mount/).
+# the matrix of the correlation test p-values
+p.mat <- cor_pmat(oj_dummies) 
+
+# correlation heatmap with cor values
+ggcorrplot( cor(oj_dummies), lab = T,
+            type = 'lower',
+            colors = c("#2E74C0", "white", "#CB454A"),
+            p.mat = p.mat)
+
+p <- ggplot(oj, aes(x = log(sales), y = log(price),
+                    color = brand ))
+
+p + geom_point( alpha = .025 ) +
+  geom_smooth(method = lm, se = F)
+
+```
+
+## 
+
+## References
+
+-   [The Elements of Statistical Learning: Data Mining, Inference, and Prediction](https://hastie.su.domains/ElemStatLearn/) by [Trevor Hastie](https://hastie.su.domains), [Robert Tibshirani](https://tibshirani.su.domains) and [Jerome Friedman](https://jerryfriedman.su.domains).
+
+-   [Statistical Inference via Data Science: A ModernDive into R and the Tidyverse](https://moderndive.com) by [Chester Ismay](https://chester.rbind.io) and [Albert Y. Kim](http://rudeboybert.rbind.io).
+
+-   [An Introduction to Statistical Learning](https://www.statlearning.com) by [Gareth James](https://www.garethmjames.com), [Daniela Witten](https://www.danielawitten.com), [Trevor Hastie](https://hastie.su.domains), and [Robert Tibshirani](https://tibshirani.su.domains).
+
+-   [Modern Business Analytics](https://www.mheducation.com/highered/product/modern-business-analytics-taddy-hendrix/M9781264071678.html) by [Matt Taddy](https://www.linkedin.com/in/matt-taddy-433078137/), [Leslie Hendrix](https://sc.edu/study/colleges_schools/moore/directory/hendrix.leslie.php), and [Matthew Harding](https://www.harding.ai).
+
+-   [Practical Data Science with R](https://www.manning.com/books/practical-data-science-with-r-second-edition) by [Nina Zumel](https://ninazumel.com) and [John Mount](https://win-vector.com/john-mount/).
