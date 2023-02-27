@@ -145,7 +145,7 @@ knitr::include_graphics('lec_figs/mba-1-3.png')
 
 
 
-## Fitted line and beta
+## Fitted Line and Beta Estimates
 
   - We estimatede the best fitting line by ordinary least squares (**OLS**) - by minimizing the residual sum of squares (**RSS**)
   
@@ -191,14 +191,56 @@ $$
 
 \end{align}
 $$
+<br>
+
+### Inference with OLS
+
+- $t$-statistics are coefficients `Estimates` / `Std. Error`, i.e., number of standard deviations from 0
+
+  - _p-values_ (i.e., `Pr(>|t|)`): estimated probability observing value as extreme as |`t value`| __given the null hypothesis__ $\beta = 0$
+  
+  - p-value $<$ conventional threshold of $\alpha = 0.05$, __sufficient evidence to reject the null hypothesis that the coefficient is zero__,
+  
+  - Typically |`t values`| $> 2$ indicate __significant__ relationship at $\alpha = 0.05$
+
+  - i.e., there is a __significant__ association between `log(sales)` and `log(price)`
+
+
+- Controlling the Type 1 error rate at $\alpha = 0.05$, i.e., the probability of a __false positive__ mistake:
+  - 5% chance that you'll conclude there's a significant association between $x$ and $y$ __even when there is none__
+
+
+<br>
+
+### R-squared
+
+- $R^2$ estimates the __proportion of the variance__ of $Y$ explained by $X$.
+
+<br>
+
+
+### Mean Squared Errors
+
+- **Mean squared error** (MSE) is a commonly used metric to evaluate the performance of a regression model. 
+  - It measures the average squared difference between the predicted values and the actual values in the dataset. 
+  
+$$
+M S E \,=\, \frac{\sum_{i = 1}^{ n}\,(\, y_{i} - \hat{y}_{i} \,)^2}{n}
+$$
+- **Root mean squared error** (RMSE) is the square root of the mean squared error (MSE).
+
+$$
+R M S E \,=\, \sqrt{M S E}
+$$
+- RMSE shows how far predictions fall from true values.
 
 
 <br><br> 
 
 
-## The Goals of Linear Regression
+### The Goals of Linear Regression
 
-1. Modeling for **prediction**: When we want to predict an outcome variable  $y$ based on the information contained in a set of predictor variables $\mathbf{X}$.
+1. Modeling for **prediction** ($\hat{y}$): When we want to predict an outcome variable  $y$ based on the information contained in a set of predictor variables $\mathbf{X}$.
   - We are estimating the conditional expection (mean) for $y$:
 $$
 \mathbb{E}[\, y \,|\, \mathbf{X} \,] = \beta_{0} \,+\, \beta_{1}\,x_{1} \,+\, \cdots \,+\, \beta_{p}\,x_{p}.
@@ -207,7 +249,7 @@ $$
 
 <br>
 
-2. Modeling for **explanation**: When we want to explicitly describe and quantify the relationship between the outcome variable y and a set of **explanatory variables** $\mathbf{X}$.
+2. Modeling for **explanation** ($\hat{\beta}$): When we want to explicitly describe and quantify the relationship between the outcome variable $y$ and a set of **explanatory variables** $\mathbf{X}$.
   - **Correlation** does not imply **causation**.
   - Without proper identification strategies, $\beta_{1}$ just means a correlation between $x_{1}$ and $y$.
   - However, we can possibly identify a *causal* relationship between the explanatory variable and the outcome variable.
@@ -318,50 +360,6 @@ stargazer(lm_1,lm_2,lm_3,
 
 <br>
 
-### Inference with OLS
-
-- $t$-statistics are coefficients `Estimates` / `Std. Error`, i.e., number of standard deviations from 0
-
-  - _p-values_ (i.e., `Pr(>|t|)`): estimated probability observing value as extreme as |`t value`| __given the null hypothesis__ $\beta = 0$
-  
-  - p-value $<$ conventional threshold of $\alpha = 0.05$, __sufficient evidence to reject the null hypothesis that the coefficient is zero__,
-  
-  - Typically |`t values`| $> 2$ indicate __significant__ relationship at $\alpha = 0.05$
-
-  - i.e., there is a __significant__ association between `log(sales)` and `log(price)`
-
-
-- Controlling the Type 1 error rate at $\alpha = 0.05$, i.e., the probability of a __false positive__ mistake:
-  - 5% chance that you'll conclude there's a significant association between $x$ and $y$ __even when there is none__
-
-
-<br>
-
-### R-squared
-
-- $R^2$ estimates the __proportion of the variance__ of $Y$ explained by $X$.
-
-<br>
-
-
-### Mean Squared Errors
-
-- **Mean squared error** (MSE) is a commonly used metric to evaluate the performance of a regression model. 
-  - It measures the average squared difference between the predicted values and the actual values in the dataset. 
-  
-$$
-M S E \,=\, \frac{\sum_{i = 1}^{ n}\,(\, y_{i} - \hat{y}_{i} \,)^2}{n}
-$$
-- **Root mean squared error** (RMSE) is the square root of the mean squared error (MSE).
-
-$$
-R M S E \,=\, \sqrt{M S E}
-$$
-- RMSE shows how far predictions fall from true values.
-
-
-<br>
-
 ### Residual plot, QQ plot, and Residual vs Leverage plot
 
 - Residuals should NOT display any systematic pattern.
@@ -387,6 +385,8 @@ autoplot(fit_1, ncol = 1)
   - In a residual vs leverage plot, influential observations will typically appear as points that are far away from the center of the plot. 
   - If an observation has high leverage but a small residual, it may not be influential. 
   - Conversely, an observation with a large residual but low leverage may also not be influential.
+
+<br><br>
 
 
 ## Exercise

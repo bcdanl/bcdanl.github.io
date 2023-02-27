@@ -379,18 +379,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link" data-scroll-target="#descriptive-statistics">Descriptive Statistics</a></li>
   <li><a href="#data-visualization" id="toc-data-visualization" class="nav-link" data-scroll-target="#data-visualization">Data Visualization</a></li>
   <li><a href="#linear-regression-model" id="toc-linear-regression-model" class="nav-link" data-scroll-target="#linear-regression-model">Linear Regression Model</a></li>
-  <li><a href="#fitted-line-and-beta" id="toc-fitted-line-and-beta" class="nav-link" data-scroll-target="#fitted-line-and-beta">Fitted line and beta</a>
+  <li><a href="#fitted-line-and-beta-estimates" id="toc-fitted-line-and-beta-estimates" class="nav-link" data-scroll-target="#fitted-line-and-beta-estimates">Fitted Line and Beta Estimates</a>
   <ul class="collapse">
   <li><a href="#connection-to-covariance-and-correlation" id="toc-connection-to-covariance-and-correlation" class="nav-link" data-scroll-target="#connection-to-covariance-and-correlation">Connection to covariance and correlation</a></li>
-  </ul></li>
+  <li><a href="#inference-with-ols" id="toc-inference-with-ols" class="nav-link" data-scroll-target="#inference-with-ols">Inference with OLS</a></li>
+  <li><a href="#r-squared" id="toc-r-squared" class="nav-link" data-scroll-target="#r-squared">R-squared</a></li>
+  <li><a href="#mean-squared-errors" id="toc-mean-squared-errors" class="nav-link" data-scroll-target="#mean-squared-errors">Mean Squared Errors</a></li>
   <li><a href="#the-goals-of-linear-regression" id="toc-the-goals-of-linear-regression" class="nav-link" data-scroll-target="#the-goals-of-linear-regression">The Goals of Linear Regression</a></li>
+  </ul></li>
   <li><a href="#linear-regression-and-controls" id="toc-linear-regression-and-controls" class="nav-link" data-scroll-target="#linear-regression-and-controls">Linear Regression and Controls</a>
   <ul class="collapse">
   <li><a href="#simple-linear-regression" id="toc-simple-linear-regression" class="nav-link" data-scroll-target="#simple-linear-regression">Simple Linear Regression</a></li>
   <li><a href="#controls-in-linear-regression" id="toc-controls-in-linear-regression" class="nav-link" data-scroll-target="#controls-in-linear-regression">Controls in Linear Regression</a></li>
-  <li><a href="#inference-with-ols" id="toc-inference-with-ols" class="nav-link" data-scroll-target="#inference-with-ols">Inference with OLS</a></li>
-  <li><a href="#r-squared" id="toc-r-squared" class="nav-link" data-scroll-target="#r-squared">R-squared</a></li>
-  <li><a href="#mean-squared-errors" id="toc-mean-squared-errors" class="nav-link" data-scroll-target="#mean-squared-errors">Mean Squared Errors</a></li>
   <li><a href="#residual-plot-qq-plot-and-residual-vs-leverage-plot" id="toc-residual-plot-qq-plot-and-residual-vs-leverage-plot" class="nav-link" data-scroll-target="#residual-plot-qq-plot-and-residual-vs-leverage-plot">Residual plot, QQ plot, and Residual vs Leverage plot</a></li>
   </ul></li>
   <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise">Exercise</a></li>
@@ -1166,8 +1166,8 @@ y_{i} &amp;=   \beta_{0} \,+\, \beta_{1}\,x_{1, i} \,+\, \cdots \,+\, \beta_{p}\
 </div>
 <p><br><br></p>
 </section>
-<section id="fitted-line-and-beta" class="level2">
-<h2 class="anchored" data-anchor-id="fitted-line-and-beta">Fitted line and beta</h2>
+<section id="fitted-line-and-beta-estimates" class="level2">
+<h2 class="anchored" data-anchor-id="fitted-line-and-beta-estimates">Fitted Line and Beta Estimates</h2>
 <ul>
 <li>We estimatede the best fitting line by ordinary least squares (<strong>OLS</strong>) - by minimizing the residual sum of squares (<strong>RSS</strong>)</li>
 </ul>
@@ -1206,14 +1206,52 @@ R S S\left(\beta_{0}, \beta_{1}\right)=\sum_{i=1}^{n}\left[Y_{i}-\left(\hat{\bet
 \]</span> - So, the beta coefficent can be represented by: $$ <span class="math display">\[\begin{align}
 \widehat{\beta}_{1} &amp;= \, \frac{\widehat{\text{Cov}}(X,Y)}{\widehat{\text{Var}}(X)} \,=\,  \hat{\rho}_{x,y} \cdot \frac{\hat{\sigma}_{Y}}{\hat{\sigma}_{X}}
 
-\end{align}\]</span> $$</p>
+\end{align}\]</span> $$ <br></p>
+</section>
+<section id="inference-with-ols" class="level3">
+<h3 class="anchored" data-anchor-id="inference-with-ols">Inference with OLS</h3>
+<ul>
+<li><p><span class="math inline">\(t\)</span>-statistics are coefficients <code>Estimates</code> / <code>Std. Error</code>, i.e., number of standard deviations from 0</p>
+<ul>
+<li><p><em>p-values</em> (i.e., <code>Pr(&gt;|t|)</code>): estimated probability observing value as extreme as |<code>t value</code>| <strong>given the null hypothesis</strong> <span class="math inline">\(\beta = 0\)</span></p></li>
+<li><p>p-value <span class="math inline">\(&lt;\)</span> conventional threshold of <span class="math inline">\(\alpha = 0.05\)</span>, <strong>sufficient evidence to reject the null hypothesis that the coefficient is zero</strong>,</p></li>
+<li><p>Typically |<code>t values</code>| <span class="math inline">\(&gt; 2\)</span> indicate <strong>significant</strong> relationship at <span class="math inline">\(\alpha = 0.05\)</span></p></li>
+<li><p>i.e., there is a <strong>significant</strong> association between <code>log(sales)</code> and <code>log(price)</code></p></li>
+</ul></li>
+<li><p>Controlling the Type 1 error rate at <span class="math inline">\(\alpha = 0.05\)</span>, i.e., the probability of a <strong>false positive</strong> mistake:</p>
+<ul>
+<li>5% chance that you’ll conclude there’s a significant association between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> <strong>even when there is none</strong></li>
+</ul></li>
+</ul>
+<p><br></p>
+</section>
+<section id="r-squared" class="level3">
+<h3 class="anchored" data-anchor-id="r-squared">R-squared</h3>
+<ul>
+<li><span class="math inline">\(R^2\)</span> estimates the <strong>proportion of the variance</strong> of <span class="math inline">\(Y\)</span> explained by <span class="math inline">\(X\)</span>.</li>
+</ul>
+<p><br></p>
+</section>
+<section id="mean-squared-errors" class="level3">
+<h3 class="anchored" data-anchor-id="mean-squared-errors">Mean Squared Errors</h3>
+<ul>
+<li><strong>Mean squared error</strong> (MSE) is a commonly used metric to evaluate the performance of a regression model.
+<ul>
+<li>It measures the average squared difference between the predicted values and the actual values in the dataset.</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+M S E \,=\, \frac{\sum_{i = 1}^{ n}\,(\, y_{i} - \hat{y}_{i} \,)^2}{n}
+\]</span> - <strong>Root mean squared error</strong> (RMSE) is the square root of the mean squared error (MSE).</p>
+<p><span class="math display">\[
+R M S E \,=\, \sqrt{M S E}
+\]</span> - RMSE shows how far predictions fall from true values.</p>
 <p><br><br></p>
 </section>
-</section>
-<section id="the-goals-of-linear-regression" class="level2">
-<h2 class="anchored" data-anchor-id="the-goals-of-linear-regression">The Goals of Linear Regression</h2>
+<section id="the-goals-of-linear-regression" class="level3">
+<h3 class="anchored" data-anchor-id="the-goals-of-linear-regression">The Goals of Linear Regression</h3>
 <ol type="1">
-<li>Modeling for <strong>prediction</strong>: When we want to predict an outcome variable <span class="math inline">\(y\)</span> based on the information contained in a set of predictor variables <span class="math inline">\(\mathbf{X}\)</span>.</li>
+<li>Modeling for <strong>prediction</strong> (<span class="math inline">\(\hat{y}\)</span>): When we want to predict an outcome variable <span class="math inline">\(y\)</span> based on the information contained in a set of predictor variables <span class="math inline">\(\mathbf{X}\)</span>.</li>
 </ol>
 <ul>
 <li>We are estimating the conditional expection (mean) for <span class="math inline">\(y\)</span>: <span class="math display">\[
@@ -1223,7 +1261,7 @@ R S S\left(\beta_{0}, \beta_{1}\right)=\sum_{i=1}^{n}\left[Y_{i}-\left(\hat{\bet
 </ul>
 <p><br></p>
 <ol start="2" type="1">
-<li>Modeling for <strong>explanation</strong>: When we want to explicitly describe and quantify the relationship between the outcome variable y and a set of <strong>explanatory variables</strong> <span class="math inline">\(\mathbf{X}\)</span>.</li>
+<li>Modeling for <strong>explanation</strong> (<span class="math inline">\(\hat{\beta}\)</span>): When we want to explicitly describe and quantify the relationship between the outcome variable <span class="math inline">\(y\)</span> and a set of <strong>explanatory variables</strong> <span class="math inline">\(\mathbf{X}\)</span>.</li>
 </ol>
 <ul>
 <li><strong>Correlation</strong> does not imply <strong>causation</strong>.</li>
@@ -1231,6 +1269,7 @@ R S S\left(\beta_{0}, \beta_{1}\right)=\sum_{i=1}^{n}\left[Y_{i}-\left(\hat{\bet
 <li>However, we can possibly identify a <em>causal</em> relationship between the explanatory variable and the outcome variable.</li>
 </ul>
 <p><br><br></p>
+</section>
 </section>
 <section id="linear-regression-and-controls" class="level2">
 <h2 class="anchored" data-anchor-id="linear-regression-and-controls">Linear Regression and Controls</h2>
@@ -1607,20 +1646,20 @@ Unbiased Conditional
 female
 </td>
 <td>
--3.034<sup>***</sup>
+-2.853<sup>***</sup>
 </td>
 <td>
-0.623<sup>***</sup>
+0.603<sup>***</sup>
 </td>
 <td>
--0.984<sup>***</sup>
+-0.982<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.085)
+(0.084)
 </td>
 <td>
 (0.029)
@@ -1646,10 +1685,10 @@ occupation
 <td>
 </td>
 <td>
-1.799<sup>***</sup>
+1.796<sup>***</sup>
 </td>
 <td>
-0.999<sup>***</sup>
+1.006<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1683,7 +1722,7 @@ ability
 <td>
 </td>
 <td>
-1.999<sup>***</sup>
+1.994<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1712,20 +1751,20 @@ ability
 Constant
 </td>
 <td>
-1.935<sup>***</sup>
+1.902<sup>***</sup>
 </td>
 <td>
-0.160<sup>***</sup>
+0.184<sup>***</sup>
 </td>
 <td>
-0.979<sup>***</sup>
+0.980<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.060)
+(0.059)
 </td>
 <td>
 (0.020)
@@ -1767,13 +1806,13 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.113
+0.103
 </td>
 <td>
-0.911
+0.909
 </td>
 <td>
-0.951
+0.950
 </td>
 </tr>
 <tr>
@@ -1781,13 +1820,13 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.113
+0.103
 </td>
 <td>
-0.911
+0.909
 </td>
 <td>
-0.951
+0.950
 </td>
 </tr>
 <tr>
@@ -1795,13 +1834,13 @@ Adjusted R<sup>2</sup>
 Residual Std. Error
 </td>
 <td>
-4.247 (df = 9998)
+4.209 (df = 9998)
 </td>
 <td>
-1.343 (df = 9997)
+1.338 (df = 9997)
 </td>
 <td>
-1.001 (df = 9996)
+0.993 (df = 9996)
 </td>
 </tr>
 <tr>
@@ -1809,13 +1848,13 @@ Residual Std. Error
 F Statistic
 </td>
 <td>
-1,275.897<sup>***</sup> (df = 1; 9998)
+1,148.792<sup>***</sup> (df = 1; 9998)
 </td>
 <td>
-51,382.180<sup>***</sup> (df = 2; 9997)
+50,103.650<sup>***</sup> (df = 2; 9997)
 </td>
 <td>
-64,293.860<sup>***</sup> (df = 3; 9996)
+63,359.720<sup>***</sup> (df = 3; 9996)
 </td>
 </tr>
 <tr>
@@ -1835,46 +1874,6 @@ F Statistic
 <ul>
 <li><code>occupation</code> is a bad control.</li>
 </ul>
-<p><br></p>
-</section>
-<section id="inference-with-ols" class="level3">
-<h3 class="anchored" data-anchor-id="inference-with-ols">Inference with OLS</h3>
-<ul>
-<li><p><span class="math inline">\(t\)</span>-statistics are coefficients <code>Estimates</code> / <code>Std. Error</code>, i.e., number of standard deviations from 0</p>
-<ul>
-<li><p><em>p-values</em> (i.e., <code>Pr(&gt;|t|)</code>): estimated probability observing value as extreme as |<code>t value</code>| <strong>given the null hypothesis</strong> <span class="math inline">\(\beta = 0\)</span></p></li>
-<li><p>p-value <span class="math inline">\(&lt;\)</span> conventional threshold of <span class="math inline">\(\alpha = 0.05\)</span>, <strong>sufficient evidence to reject the null hypothesis that the coefficient is zero</strong>,</p></li>
-<li><p>Typically |<code>t values</code>| <span class="math inline">\(&gt; 2\)</span> indicate <strong>significant</strong> relationship at <span class="math inline">\(\alpha = 0.05\)</span></p></li>
-<li><p>i.e., there is a <strong>significant</strong> association between <code>log(sales)</code> and <code>log(price)</code></p></li>
-</ul></li>
-<li><p>Controlling the Type 1 error rate at <span class="math inline">\(\alpha = 0.05\)</span>, i.e., the probability of a <strong>false positive</strong> mistake:</p>
-<ul>
-<li>5% chance that you’ll conclude there’s a significant association between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> <strong>even when there is none</strong></li>
-</ul></li>
-</ul>
-<p><br></p>
-</section>
-<section id="r-squared" class="level3">
-<h3 class="anchored" data-anchor-id="r-squared">R-squared</h3>
-<ul>
-<li><span class="math inline">\(R^2\)</span> estimates the <strong>proportion of the variance</strong> of <span class="math inline">\(Y\)</span> explained by <span class="math inline">\(X\)</span>.</li>
-</ul>
-<p><br></p>
-</section>
-<section id="mean-squared-errors" class="level3">
-<h3 class="anchored" data-anchor-id="mean-squared-errors">Mean Squared Errors</h3>
-<ul>
-<li><strong>Mean squared error</strong> (MSE) is a commonly used metric to evaluate the performance of a regression model.
-<ul>
-<li>It measures the average squared difference between the predicted values and the actual values in the dataset.</li>
-</ul></li>
-</ul>
-<p><span class="math display">\[
-M S E \,=\, \frac{\sum_{i = 1}^{ n}\,(\, y_{i} - \hat{y}_{i} \,)^2}{n}
-\]</span> - <strong>Root mean squared error</strong> (RMSE) is the square root of the mean squared error (MSE).</p>
-<p><span class="math display">\[
-R M S E \,=\, \sqrt{M S E}
-\]</span> - RMSE shows how far predictions fall from true values.</p>
 <p><br></p>
 </section>
 <section id="residual-plot-qq-plot-and-residual-vs-leverage-plot" class="level3">
@@ -1906,6 +1905,7 @@ R M S E \,=\, \sqrt{M S E}
 <li>Conversely, an observation with a large residual but low leverage may also not be influential.</li>
 </ul></li>
 </ul>
+<p><br><br></p>
 </section>
 </section>
 <section id="exercise" class="level2">
