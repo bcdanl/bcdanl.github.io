@@ -28,19 +28,20 @@ knitr::opts_chunk$set(
 ## Loading Packages and Data
 ```{r}
 library(tidyverse)
-library(skimr)
-library(ggfortify)
-library(ggcorrplot)
-library(fastDummies)
-library(stargazer)
+library(skimr) 
+library(ggfortify) # to create regression-related plots
+library(ggcorrplot) # to create correlation heatmaps
+library(fastDummies) # to create dummy variables
+library(stargazer) # to create regression tables
 
 oj <- read_csv('https://bcdanl.github.io/data/dominick_oj.csv')
 ```
 
 <br><br> 
 
+## Exploratory Data Analysis
 
-## Descriptive Statistics
+### Descriptive Statistics
 ```{r}
 skim(oj)
 
@@ -51,10 +52,10 @@ oj %>% group_by(brand, ad) %>%
   skim()
 ```
 
-<br><br> 
+<br>
 
 
-## Data Visualization
+### Data Visualization
 
 - Correlation heatmap is a great tool to start identifying which input variables are strongly correlated with an outcome variable.
 ```{r}
@@ -141,11 +142,9 @@ knitr::include_graphics('lec_figs/mba-1-3.png')
 
 
 
-<br><br> 
+<br>
 
-
-
-## Fitted Line and Beta Estimates
+### Fitted Line and Beta Estimates
 
   - We estimatede the best fitting line by ordinary least squares (**OLS**) - by minimizing the residual sum of squares (**RSS**)
   
@@ -185,12 +184,14 @@ $$
 \rho_{X,Y} = \frac{\text{Cov}(X,Y)}{\sigma_X \cdot \sigma_Y}
 $$
 - So, the beta coefficent can be represented by:
+
 $$
 \begin{align}
 \widehat{\beta}_{1} &= \, \frac{\widehat{\text{Cov}}(X,Y)}{\widehat{\text{Var}}(X)} \,=\,  \hat{\rho}_{x,y} \cdot \frac{\hat{\sigma}_{Y}}{\hat{\sigma}_{X}}
 
 \end{align}
 $$
+
 <br>
 
 ### Inference with OLS
@@ -304,7 +305,7 @@ price_fit <- lm(log(price) ~ brand, data = oj)
 p_hat <- predict(price_fit, newdata = oj)
 p_resid <- log(oj$price) - p_hat
 
-# regress log sales on p_resi
+# regress log sales on p_resid
 resid_fit <- lm(log(sales) ~ p_resid, data = oj)
 
 # What is the beta coefficient for p_resid?!
@@ -315,7 +316,7 @@ round( coef(resid_fit)[2], digit = 3 )
 
 
 - This is one way that you can understand what OLS is doing: 
-  - It is finding the coefficients on the part of each input that is independent from the other inputs.
+  - It is finding the coefficients on the *part of each input* that is independent from the other inputs.
 
 <br>
 
@@ -325,8 +326,8 @@ round( coef(resid_fit)[2], digit = 3 )
   - This omission can lead to biased estimates of the beta coefficients of the included input variables.
 
 
-- In linear regression, a **confounding variable** is a variable that is related to both the *treatment* and outcome variables, and that affects the relationship between them.
-  - The **treatment** variable is an input variable that the researcher believes has a causal effect on the outcome variable. 
+- In linear regression, a **confounding variable** is a variable that is related to both *treatment* and outcome variables, and that affects the relationship between them.
+  - A **treatment** variable is an input variable that the researcher believes has a causal effect on the outcome variable. 
   - When a confounding variable is not controlled in the regression model, it can lead to biased estimates of the relationship between the independent and treatment variables. 
 
 

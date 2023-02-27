@@ -376,11 +376,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#loading-packages-and-data" id="toc-loading-packages-and-data" class="nav-link active" data-scroll-target="#loading-packages-and-data">Loading Packages and Data</a></li>
+  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a>
+  <ul class="collapse">
   <li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link" data-scroll-target="#descriptive-statistics">Descriptive Statistics</a></li>
   <li><a href="#data-visualization" id="toc-data-visualization" class="nav-link" data-scroll-target="#data-visualization">Data Visualization</a></li>
-  <li><a href="#linear-regression-model" id="toc-linear-regression-model" class="nav-link" data-scroll-target="#linear-regression-model">Linear Regression Model</a></li>
-  <li><a href="#fitted-line-and-beta-estimates" id="toc-fitted-line-and-beta-estimates" class="nav-link" data-scroll-target="#fitted-line-and-beta-estimates">Fitted Line and Beta Estimates</a>
+  </ul></li>
+  <li><a href="#linear-regression-model" id="toc-linear-regression-model" class="nav-link" data-scroll-target="#linear-regression-model">Linear Regression Model</a>
   <ul class="collapse">
+  <li><a href="#fitted-line-and-beta-estimates" id="toc-fitted-line-and-beta-estimates" class="nav-link" data-scroll-target="#fitted-line-and-beta-estimates">Fitted Line and Beta Estimates</a></li>
   <li><a href="#connection-to-covariance-and-correlation" id="toc-connection-to-covariance-and-correlation" class="nav-link" data-scroll-target="#connection-to-covariance-and-correlation">Connection to covariance and correlation</a></li>
   <li><a href="#inference-with-ols" id="toc-inference-with-ols" class="nav-link" data-scroll-target="#inference-with-ols">Inference with OLS</a></li>
   <li><a href="#r-squared" id="toc-r-squared" class="nav-link" data-scroll-target="#r-squared">R-squared</a></li>
@@ -429,18 +432,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="loading-packages-and-data">Loading Packages and Data</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fastDummies)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr) </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify) <span class="co"># to create regression-related plots</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot) <span class="co"># to create correlation heatmaps</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fastDummies) <span class="co"># to create dummy variables</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer) <span class="co"># to create regression tables</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>oj <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://bcdanl.github.io/data/dominick_oj.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br><br></p>
 </section>
-<section id="descriptive-statistics" class="level2">
-<h2 class="anchored" data-anchor-id="descriptive-statistics">Descriptive Statistics</h2>
+<section id="exploratory-data-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h2>
+<section id="descriptive-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="descriptive-statistics">Descriptive Statistics</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(oj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1056,10 +1061,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </table>
 </div>
 </div>
-<p><br><br></p>
+<p><br></p>
 </section>
-<section id="data-visualization" class="level2">
-<h2 class="anchored" data-anchor-id="data-visualization">Data Visualization</h2>
+<section id="data-visualization" class="level3">
+<h3 class="anchored" data-anchor-id="data-visualization">Data Visualization</h3>
 <ul>
 <li>Correlation heatmap is a great tool to start identifying which input variables are strongly correlated with an outcome variable.</li>
 </ul>
@@ -1118,6 +1123,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p><br><br></p>
 </section>
+</section>
 <section id="linear-regression-model" class="level2">
 <h2 class="anchored" data-anchor-id="linear-regression-model">Linear Regression Model</h2>
 <ul>
@@ -1164,10 +1170,9 @@ y_{i} &amp;=   \beta_{0} \,+\, \beta_{1}\,x_{1, i} \,+\, \cdots \,+\, \beta_{p}\
 </div>
 </div>
 </div>
-<p><br><br></p>
-</section>
-<section id="fitted-line-and-beta-estimates" class="level2">
-<h2 class="anchored" data-anchor-id="fitted-line-and-beta-estimates">Fitted Line and Beta Estimates</h2>
+<p><br></p>
+<section id="fitted-line-and-beta-estimates" class="level3">
+<h3 class="anchored" data-anchor-id="fitted-line-and-beta-estimates">Fitted Line and Beta Estimates</h3>
 <ul>
 <li>We estimatede the best fitting line by ordinary least squares (<strong>OLS</strong>) - by minimizing the residual sum of squares (<strong>RSS</strong>)</li>
 </ul>
@@ -1190,6 +1195,7 @@ R S S\left(\beta_{0}, \beta_{1}\right)=\sum_{i=1}^{n}\left[Y_{i}-\left(\hat{\bet
 \]</span></p>
 <p>where <span class="math inline">\(\bar{X} = \frac{1}{n}\sum_{i=1}^n X_i\)</span> and <span class="math inline">\(\bar{Y} = \frac{1}{n}\sum_{i=1}^n Y_i\)</span></p>
 <p><br></p>
+</section>
 <section id="connection-to-covariance-and-correlation" class="level3">
 <h3 class="anchored" data-anchor-id="connection-to-covariance-and-correlation">Connection to covariance and correlation</h3>
 <ul>
@@ -1203,10 +1209,12 @@ R S S\left(\beta_{0}, \beta_{1}\right)=\sum_{i=1}^{n}\left[Y_{i}-\left(\hat{\bet
 </ul>
 <p><span class="math display">\[
 \rho_{X,Y} = \frac{\text{Cov}(X,Y)}{\sigma_X \cdot \sigma_Y}
-\]</span> - So, the beta coefficent can be represented by: $$ <span class="math display">\[\begin{align}
+\]</span> - So, the beta coefficent can be represented by:</p>
+<p>$$ <span class="math display">\[\begin{align}
 \widehat{\beta}_{1} &amp;= \, \frac{\widehat{\text{Cov}}(X,Y)}{\widehat{\text{Var}}(X)} \,=\,  \hat{\rho}_{x,y} \cdot \frac{\hat{\sigma}_{Y}}{\hat{\sigma}_{X}}
 
-\end{align}\]</span> $$ <br></p>
+\end{align}\]</span> $$</p>
+<p><br></p>
 </section>
 <section id="inference-with-ols" class="level3">
 <h3 class="anchored" data-anchor-id="inference-with-ols">Inference with OLS</h3>
@@ -1531,7 +1539,7 @@ F Statistic
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>p_hat <span class="ot">&lt;-</span> <span class="fu">predict</span>(price_fit, <span class="at">newdata =</span> oj)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>p_resid <span class="ot">&lt;-</span> <span class="fu">log</span>(oj<span class="sc">$</span>price) <span class="sc">-</span> p_hat</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># regress log sales on p_resi</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># regress log sales on p_resid</span></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>resid_fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(sales) <span class="sc">~</span> p_resid, <span class="at">data =</span> oj)</span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># What is the beta coefficient for p_resid?!</span></span>
@@ -1545,7 +1553,7 @@ F Statistic
 <li><p>The coefficient on <code>p_resid</code>, the residuals from regression of log price on brand, is exactly the same as what we get on <code>log(price)</code> in the multiple linear regression for log sales onto this and brand!</p></li>
 <li><p>This is one way that you can understand what OLS is doing:</p>
 <ul>
-<li>It is finding the coefficients on the part of each input that is independent from the other inputs.</li>
+<li>It is finding the coefficients on the <em>part of each input</em> that is independent from the other inputs.</li>
 </ul></li>
 </ul>
 <p><br></p>
@@ -1557,9 +1565,9 @@ F Statistic
 <ul>
 <li>This omission can lead to biased estimates of the beta coefficients of the included input variables.</li>
 </ul></li>
-<li>In linear regression, a <strong>confounding variable</strong> is a variable that is related to both the <em>treatment</em> and outcome variables, and that affects the relationship between them.
+<li>In linear regression, a <strong>confounding variable</strong> is a variable that is related to both <em>treatment</em> and outcome variables, and that affects the relationship between them.
 <ul>
-<li>The <strong>treatment</strong> variable is an input variable that the researcher believes has a causal effect on the outcome variable.</li>
+<li>A <strong>treatment</strong> variable is an input variable that the researcher believes has a causal effect on the outcome variable.</li>
 <li>When a confounding variable is not controlled in the regression model, it can lead to biased estimates of the relationship between the independent and treatment variables.</li>
 </ul></li>
 <li><strong>Bad controls</strong> in linear regression refer to the inclusion of variables in the model that do not actually control for the confounding factors they are intended to control for.
@@ -1646,13 +1654,13 @@ Unbiased Conditional
 female
 </td>
 <td>
--2.853<sup>***</sup>
+-2.915<sup>***</sup>
 </td>
 <td>
-0.603<sup>***</sup>
+0.616<sup>***</sup>
 </td>
 <td>
--0.982<sup>***</sup>
+-0.958<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1685,10 +1693,10 @@ occupation
 <td>
 </td>
 <td>
-1.796<sup>***</sup>
+1.791<sup>***</sup>
 </td>
 <td>
-1.006<sup>***</sup>
+1.009<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1722,7 +1730,7 @@ ability
 <td>
 </td>
 <td>
-1.994<sup>***</sup>
+1.966<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -1751,23 +1759,23 @@ ability
 Constant
 </td>
 <td>
-1.902<sup>***</sup>
+1.897<sup>***</sup>
 </td>
 <td>
-0.184<sup>***</sup>
+0.202<sup>***</sup>
 </td>
 <td>
-0.980<sup>***</sup>
+0.987<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.059)
+(0.060)
 </td>
 <td>
-(0.020)
+(0.019)
 </td>
 <td>
 (0.017)
@@ -1806,13 +1814,13 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.103
+0.107
 </td>
 <td>
-0.909
+0.913
 </td>
 <td>
-0.950
+0.952
 </td>
 </tr>
 <tr>
@@ -1820,13 +1828,13 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.103
+0.106
 </td>
 <td>
-0.909
+0.913
 </td>
 <td>
-0.950
+0.952
 </td>
 </tr>
 <tr>
@@ -1834,13 +1842,13 @@ Adjusted R<sup>2</sup>
 Residual Std. Error
 </td>
 <td>
-4.209 (df = 9998)
+4.222 (df = 9998)
 </td>
 <td>
-1.338 (df = 9997)
+1.318 (df = 9997)
 </td>
 <td>
-0.993 (df = 9996)
+0.982 (df = 9996)
 </td>
 </tr>
 <tr>
@@ -1848,13 +1856,13 @@ Residual Std. Error
 F Statistic
 </td>
 <td>
-1,148.792<sup>***</sup> (df = 1; 9998)
+1,192.168<sup>***</sup> (df = 1; 9998)
 </td>
 <td>
-50,103.650<sup>***</sup> (df = 2; 9997)
+52,422.990<sup>***</sup> (df = 2; 9997)
 </td>
 <td>
-63,359.720<sup>***</sup> (df = 3; 9996)
+65,620.310<sup>***</sup> (df = 3; 9996)
 </td>
 </tr>
 <tr>
