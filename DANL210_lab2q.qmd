@@ -1,0 +1,70 @@
+---
+title: "Python Lab 2 - EDA with pandas and seaborn"
+author: "Byeong-Hak Choe"
+# include-after-body: [beer_map.html, beer_map_ny.html]
+editor: visual
+---
+
+## Load Libraries
+
+```{python, eval = F}
+import pandas as pd
+from skimpy import skim
+import seaborn as sns
+```
+
+# Question 1
+
+## Load `DataFrame`
+
+```{python, eval = F}
+beer_mkt = pd.read_csv('https://bcdanl.github.io/data/beer_markets.csv')
+beer_mkt.head(10)
+```
+
+- Variable Description
+  - `hh`: An identifier of the purchasing household;
+  - `_purchase_desc`: Details on the purchased item;
+  - `quantity`: Number of items purchased;
+  - `brand`: BUD LIGHT, BUSCH LIGHT, COORS LIGHT, MILLER LITE, or NATURAL LIGHT;
+  - `spent`: Total dollar value of purchase;
+  - `beer_floz`: Total volume of beer, in fluid ounces;
+  - `price_per_floz`: Price per fl.oz. (i.e., `spent`/`beer_floz`);
+  - `container`: Type of container;
+  - `promo`: Whether the item was promoted (coupon or something else);
+  - `market`: Scan-track market (or state if rural);
+  - various demographic data, including gender, marital status, household income, class of work, race, education, age, the size of household, and whether or not the household has a microwave or a dishwasher.
+
+
+-   Summarize DataFrame `beer_mkt`.
+
+```{python, eval = F}
+skim(beer_mkt)
+```
+
+```{python, eval = F}
+beer_mkt.describe()
+```
+
+
+
+## Q1a
+
+- Sort the DataFrame `beer_mkt` by `hh` in ascending order.
+
+## Q1b
+
+- Find the top 5 beer markets in terms of the number of households that purchased beer.
+
+## Q1c
+
+- Find the top 5 beer markets in terms of the amount of total beer consumption.
+
+## Q1d
+
+- Provide (1) seaborn code and (2) a simple comment to describe how the distribution of `price_per_floz` varies by `brand`.
+
+
+## Q1e
+
+- Provide (1) seaborn code and (2) a simple comment to describe how the relationship between `price_per_floz` and `beer_floz` varies by `brand`.

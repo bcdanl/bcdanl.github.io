@@ -8,7 +8,7 @@
 
 <meta name="author" content="Byeong-Hak Choe">
 
-<title>B.H. CHOE - Python Lab 1 - Pandas Group Operations and apply()</title>
+<title>B.H. CHOE - Python Lab 2 - EDA with pandas and seaborn</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -419,7 +419,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Python Lab 1 - Pandas Group Operations and apply()</h1>
+<h1 class="title">Python Lab 2 - EDA with pandas and seaborn</h1>
 </div>
 
 
@@ -444,7 +444,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="load-libraries">Load Libraries</h2>
 <div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> skimpy <span class="im">import</span> skim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> skimpy <span class="im">import</span> skim</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="question-1" class="level1">
@@ -452,8 +453,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="load-dataframe" class="level2">
 <h2 class="anchored" data-anchor-id="load-dataframe">Load <code>DataFrame</code></h2>
 <div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df_ny <span class="op">=</span> pd.read_csv(<span class="st">'https://bcdanl.github.io/data/NY_pinc_pop.csv'</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df_ny.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>beer_mkt <span class="op">=</span> pd.read_csv(<span class="st">'https://bcdanl.github.io/data/beer_markets.csv'</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>beer_mkt.head(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
 
 <div>
@@ -462,153 +463,351 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <thead>
     <tr>
       <th></th>
-      <th>FIPS</th>
-      <th>county_name</th>
-      <th>year</th>
-      <th>pincp</th>
-      <th>pop_18_24</th>
-      <th>pop_25_over</th>
+      <th>hh</th>
+      <th>_purchase_desc</th>
+      <th>quantity</th>
+      <th>brand</th>
+      <th>spent</th>
+      <th>beer_floz</th>
+      <th>price_per_floz</th>
+      <th>container</th>
+      <th>promo</th>
+      <th>market</th>
+      <th>...</th>
+      <th>age</th>
+      <th>employment</th>
+      <th>degree</th>
+      <th>cow</th>
+      <th>race</th>
+      <th>microwave</th>
+      <th>dishwasher</th>
+      <th>tvcable</th>
+      <th>singlefamilyhome</th>
+      <th>npeople</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>36001</td>
-      <td>Albany</td>
-      <td>2015</td>
-      <td>55120</td>
-      <td>44478</td>
-      <td>204024</td>
+      <td>2000946</td>
+      <td>BUD LT BR CN 12P</td>
+      <td>1</td>
+      <td>BUD LIGHT</td>
+      <td>8.14</td>
+      <td>144.0</td>
+      <td>0.056528</td>
+      <td>CAN</td>
+      <td>False</td>
+      <td>RURAL ILLINOIS</td>
+      <td>...</td>
+      <td>50+</td>
+      <td>none</td>
+      <td>Grad</td>
+      <td>none/retired/student</td>
+      <td>white</td>
+      <td>True</td>
+      <td>True</td>
+      <td>premium</td>
+      <td>False</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>36001</td>
-      <td>Albany</td>
-      <td>2016</td>
-      <td>55126</td>
-      <td>45357</td>
-      <td>204003</td>
+      <td>2003036</td>
+      <td>BUD LT BR CN 24P</td>
+      <td>1</td>
+      <td>BUD LIGHT</td>
+      <td>17.48</td>
+      <td>288.0</td>
+      <td>0.060694</td>
+      <td>CAN</td>
+      <td>False</td>
+      <td>ATLANTA</td>
+      <td>...</td>
+      <td>50+</td>
+      <td>full</td>
+      <td>College</td>
+      <td>clerical/sales/service</td>
+      <td>white</td>
+      <td>True</td>
+      <td>True</td>
+      <td>basic</td>
+      <td>True</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>36001</td>
-      <td>Albany</td>
-      <td>2017</td>
-      <td>58814</td>
-      <td>45589</td>
-      <td>204833</td>
+      <td>2003036</td>
+      <td>BUD LT BR CN 24P</td>
+      <td>2</td>
+      <td>BUD LIGHT</td>
+      <td>33.92</td>
+      <td>576.0</td>
+      <td>0.058889</td>
+      <td>CAN</td>
+      <td>False</td>
+      <td>ATLANTA</td>
+      <td>...</td>
+      <td>50+</td>
+      <td>full</td>
+      <td>College</td>
+      <td>clerical/sales/service</td>
+      <td>white</td>
+      <td>True</td>
+      <td>True</td>
+      <td>basic</td>
+      <td>True</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>36001</td>
-      <td>Albany</td>
-      <td>2018</td>
-      <td>59547</td>
-      <td>45521</td>
-      <td>204509</td>
+      <td>2003036</td>
+      <td>BUD LT BR CN 30P</td>
+      <td>2</td>
+      <td>BUD LIGHT</td>
+      <td>34.74</td>
+      <td>720.0</td>
+      <td>0.048250</td>
+      <td>CAN</td>
+      <td>False</td>
+      <td>ATLANTA</td>
+      <td>...</td>
+      <td>50+</td>
+      <td>full</td>
+      <td>College</td>
+      <td>clerical/sales/service</td>
+      <td>white</td>
+      <td>True</td>
+      <td>True</td>
+      <td>basic</td>
+      <td>True</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>36001</td>
-      <td>Albany</td>
-      <td>2019</td>
-      <td>61876</td>
-      <td>45150</td>
-      <td>204918</td>
+      <td>2003036</td>
+      <td>BUD LT BR CN 36P</td>
+      <td>2</td>
+      <td>BUD LIGHT</td>
+      <td>40.48</td>
+      <td>864.0</td>
+      <td>0.046852</td>
+      <td>CAN</td>
+      <td>False</td>
+      <td>ATLANTA</td>
+      <td>...</td>
+      <td>50+</td>
+      <td>full</td>
+      <td>College</td>
+      <td>clerical/sales/service</td>
+      <td>white</td>
+      <td>True</td>
+      <td>True</td>
+      <td>basic</td>
+      <td>True</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>5</th>
-      <td>36001</td>
-      <td>Albany</td>
-      <td>2020</td>
-      <td>66632</td>
-      <td>44608</td>
-      <td>205082</td>
+      <td>2003036</td>
+      <td>BUD LT BR CN 36P</td>
+      <td>2</td>
+      <td>BUD LIGHT</td>
+      <td>42.96</td>
+      <td>864.0</td>
+      <td>0.049722</td>
+      <td>CAN</td>
+      <td>False</td>
+      <td>ATLANTA</td>
+      <td>...</td>
+      <td>50+</td>
+      <td>full</td>
+      <td>College</td>
+      <td>clerical/sales/service</td>
+      <td>white</td>
+      <td>True</td>
+      <td>True</td>
+      <td>basic</td>
+      <td>True</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>36003</td>
-      <td>Allegany</td>
-      <td>2015</td>
-      <td>32205</td>
-      <td>7461</td>
-      <td>30568</td>
+      <td>2003036</td>
+      <td>BUD LT BR CN 36P</td>
+      <td>2</td>
+      <td>BUD LIGHT</td>
+      <td>40.96</td>
+      <td>864.0</td>
+      <td>0.047407</td>
+      <td>CAN</td>
+      <td>False</td>
+      <td>ATLANTA</td>
+      <td>...</td>
+      <td>50+</td>
+      <td>full</td>
+      <td>College</td>
+      <td>clerical/sales/service</td>
+      <td>white</td>
+      <td>True</td>
+      <td>True</td>
+      <td>basic</td>
+      <td>True</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>7</th>
-      <td>36003</td>
-      <td>Allegany</td>
-      <td>2016</td>
-      <td>32417</td>
-      <td>7493</td>
-      <td>30449</td>
+      <td>2001521</td>
+      <td>BUD LT BR CN 6P</td>
+      <td>5</td>
+      <td>BUD LIGHT</td>
+      <td>30.60</td>
+      <td>480.0</td>
+      <td>0.063750</td>
+      <td>CAN</td>
+      <td>False</td>
+      <td>RURAL INDIANA</td>
+      <td>...</td>
+      <td>50+</td>
+      <td>none</td>
+      <td>College</td>
+      <td>none/retired/student</td>
+      <td>white</td>
+      <td>True</td>
+      <td>True</td>
+      <td>none</td>
+      <td>False</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>36003</td>
-      <td>Allegany</td>
-      <td>2017</td>
-      <td>34001</td>
-      <td>7377</td>
-      <td>30331</td>
+      <td>2001521</td>
+      <td>BUD LT BR CN 6P</td>
+      <td>1</td>
+      <td>BUD LIGHT</td>
+      <td>9.99</td>
+      <td>96.0</td>
+      <td>0.104063</td>
+      <td>CAN</td>
+      <td>False</td>
+      <td>RURAL INDIANA</td>
+      <td>...</td>
+      <td>50+</td>
+      <td>none</td>
+      <td>College</td>
+      <td>none/retired/student</td>
+      <td>white</td>
+      <td>True</td>
+      <td>True</td>
+      <td>none</td>
+      <td>False</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>36003</td>
-      <td>Allegany</td>
-      <td>2018</td>
-      <td>34553</td>
-      <td>7284</td>
-      <td>30155</td>
+      <td>2001521</td>
+      <td>BUD LT BR CN 6P</td>
+      <td>5</td>
+      <td>BUD LIGHT</td>
+      <td>30.70</td>
+      <td>480.0</td>
+      <td>0.063958</td>
+      <td>CAN</td>
+      <td>False</td>
+      <td>RURAL INDIANA</td>
+      <td>...</td>
+      <td>50+</td>
+      <td>none</td>
+      <td>College</td>
+      <td>none/retired/student</td>
+      <td>white</td>
+      <td>True</td>
+      <td>True</td>
+      <td>none</td>
+      <td>False</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
+<p>10 rows × 24 columns</p>
 </div>
 </div>
 </div>
 <ul>
 <li>Variable Description
 <ul>
-<li><code>FIPS</code>: ID number for a county</li>
-<li><code>pincp</code>: average personal income in a county <code>X</code> in year <code>Y</code></li>
-<li><code>pop_18_24</code>: population 18 to 24 years</li>
-<li><code>pop_25_over</code>: population 25 years and over</li>
+<li><code>hh</code>: An identifier of the purchasing household;</li>
+<li><code>_purchase_desc</code>: Details on the purchased item;</li>
+<li><code>quantity</code>: Number of items purchased;</li>
+<li><code>brand</code>: BUD LIGHT, BUSCH LIGHT, COORS LIGHT, MILLER LITE, or NATURAL LIGHT;</li>
+<li><code>spent</code>: Total dollar value of purchase;</li>
+<li><code>beer_floz</code>: Total volume of beer, in fluid ounces;</li>
+<li><code>price_per_floz</code>: Price per fl.oz. (i.e., <code>spent</code>/<code>beer_floz</code>);</li>
+<li><code>container</code>: Type of container;</li>
+<li><code>promo</code>: Whether the item was promoted (coupon or something else);</li>
+<li><code>market</code>: Scan-track market (or state if rural);</li>
+<li>various demographic data, including gender, marital status, household income, class of work, race, education, age, the size of household, and whether or not the household has a microwave or a dishwasher.</li>
 </ul></li>
-<li>Summarize DataFrame <code>df_ny</code>.</li>
+<li>Summarize DataFrame <code>beer_mkt</code>.</li>
 </ul>
 <div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>skim(df_ny)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>skim(beer_mkt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">╭──────────────────────────────────────────────── skimpy summary ─────────────────────────────────────────────────╮
 │ <span style="font-style: italic">         Data Summary         </span> <span style="font-style: italic">      Data Types       </span>                                                          │
 │ ┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┓ ┏━━━━━━━━━━━━━┳━━━━━━━┓                                                          │
 │ ┃<span style="color: #008080; text-decoration-color: #008080; font-weight: bold"> dataframe         </span>┃<span style="color: #008080; text-decoration-color: #008080; font-weight: bold"> Values </span>┃ ┃<span style="color: #008080; text-decoration-color: #008080; font-weight: bold"> Column Type </span>┃<span style="color: #008080; text-decoration-color: #008080; font-weight: bold"> Count </span>┃                                                          │
 │ ┡━━━━━━━━━━━━━━━━━━━╇━━━━━━━━┩ ┡━━━━━━━━━━━━━╇━━━━━━━┩                                                          │
-│ │ Number of rows    │ 372    │ │ int64       │ 5     │                                                          │
-│ │ Number of columns │ 6      │ │ string      │ 1     │                                                          │
-│ └───────────────────┴────────┘ └─────────────┴───────┘                                                          │
+│ │ Number of rows    │ 73115  │ │ string      │ 13    │                                                          │
+│ │ Number of columns │ 24     │ │ bool        │ 6     │                                                          │
+│ └───────────────────┴────────┘ │ float64     │ 3     │                                                          │
+│                                │ int64       │ 2     │                                                          │
+│                                └─────────────┴───────┘                                                          │
 │ <span style="font-style: italic">                                                    number                                                    </span>  │
-│ ┏━━━━━━━━━━━━━━━━━┳━━━━━━┳━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━┓  │
-│ ┃<span style="font-weight: bold"> column_name     </span>┃<span style="font-weight: bold"> NA   </span>┃<span style="font-weight: bold"> NA %   </span>┃<span style="font-weight: bold"> mean     </span>┃<span style="font-weight: bold"> sd       </span>┃<span style="font-weight: bold"> p0      </span>┃<span style="font-weight: bold"> p25     </span>┃<span style="font-weight: bold"> p75      </span>┃<span style="font-weight: bold"> p100      </span>┃<span style="font-weight: bold"> hist    </span>┃  │
-│ ┡━━━━━━━━━━━━━━━━━╇━━━━━━╇━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━┩  │
-│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">FIPS           </span> │ <span style="color: #008080; text-decoration-color: #008080">   0</span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">   36000</span> │ <span style="color: #008080; text-decoration-color: #008080">      36</span> │ <span style="color: #008080; text-decoration-color: #008080">  36000</span> │ <span style="color: #008080; text-decoration-color: #008080">  36000</span> │ <span style="color: #008080; text-decoration-color: #008080">   36000</span> │ <span style="color: #008080; text-decoration-color: #008080">    36000</span> │ <span style="color: #008000; text-decoration-color: #008000">█▇▇▇▇█ </span> │  │
-│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">year           </span> │ <span style="color: #008080; text-decoration-color: #008080">   0</span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">    2000</span> │ <span style="color: #008080; text-decoration-color: #008080">     1.7</span> │ <span style="color: #008080; text-decoration-color: #008080">   2000</span> │ <span style="color: #008080; text-decoration-color: #008080">   2000</span> │ <span style="color: #008080; text-decoration-color: #008080">    2000</span> │ <span style="color: #008080; text-decoration-color: #008080">     2000</span> │ <span style="color: #008000; text-decoration-color: #008000">██████ </span> │  │
-│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">pincp          </span> │ <span style="color: #008080; text-decoration-color: #008080">   0</span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">   50000</span> │ <span style="color: #008080; text-decoration-color: #008080">   20000</span> │ <span style="color: #008080; text-decoration-color: #008080">  32000</span> │ <span style="color: #008080; text-decoration-color: #008080">  41000</span> │ <span style="color: #008080; text-decoration-color: #008080">   52000</span> │ <span style="color: #008080; text-decoration-color: #008080">   190000</span> │ <span style="color: #008000; text-decoration-color: #008000">  █▁   </span> │  │
-│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">pop_18_24      </span> │ <span style="color: #008080; text-decoration-color: #008080">   0</span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">   31000</span> │ <span style="color: #008080; text-decoration-color: #008080">   49000</span> │ <span style="color: #008080; text-decoration-color: #008080">    320</span> │ <span style="color: #008080; text-decoration-color: #008080">   4700</span> │ <span style="color: #008080; text-decoration-color: #008080">   28000</span> │ <span style="color: #008080; text-decoration-color: #008080">   250000</span> │ <span style="color: #008000; text-decoration-color: #008000">  █▁   </span> │  │
-│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">pop_25_over    </span> │ <span style="color: #008080; text-decoration-color: #008080">   0</span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">  220000</span> │ <span style="color: #008080; text-decoration-color: #008080">  380000</span> │ <span style="color: #008080; text-decoration-color: #008080">   3500</span> │ <span style="color: #008080; text-decoration-color: #008080">  35000</span> │ <span style="color: #008080; text-decoration-color: #008080">  160000</span> │ <span style="color: #008080; text-decoration-color: #008080">  1800000</span> │ <span style="color: #008000; text-decoration-color: #008000">   █   </span> │  │
-│ └─────────────────┴──────┴────────┴──────────┴──────────┴─────────┴─────────┴──────────┴───────────┴─────────┘  │
+│ ┏━━━━━━━━━━━━━━━━━━┳━━━━━┳━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━┓  │
+│ ┃<span style="font-weight: bold"> column_name      </span>┃<span style="font-weight: bold"> NA  </span>┃<span style="font-weight: bold"> NA %  </span>┃<span style="font-weight: bold"> mean      </span>┃<span style="font-weight: bold"> sd        </span>┃<span style="font-weight: bold"> p0       </span>┃<span style="font-weight: bold"> p25     </span>┃<span style="font-weight: bold"> p75      </span>┃<span style="font-weight: bold"> p100     </span>┃<span style="font-weight: bold"> hist   </span>┃  │
+│ ┡━━━━━━━━━━━━━━━━━━╇━━━━━╇━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━┩  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">hh              </span> │ <span style="color: #008080; text-decoration-color: #008080">  0</span> │ <span style="color: #008080; text-decoration-color: #008080">    0</span> │ <span style="color: #008080; text-decoration-color: #008080"> 17000000</span> │ <span style="color: #008080; text-decoration-color: #008080"> 12000000</span> │ <span style="color: #008080; text-decoration-color: #008080"> 2000000</span> │ <span style="color: #008080; text-decoration-color: #008080">8200000</span> │ <span style="color: #008080; text-decoration-color: #008080">30000000</span> │ <span style="color: #008080; text-decoration-color: #008080">30000000</span> │ <span style="color: #008000; text-decoration-color: #008000">▂█   █</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">quantity        </span> │ <span style="color: #008080; text-decoration-color: #008080">  0</span> │ <span style="color: #008080; text-decoration-color: #008080">    0</span> │ <span style="color: #008080; text-decoration-color: #008080">      1.3</span> │ <span style="color: #008080; text-decoration-color: #008080">      1.1</span> │ <span style="color: #008080; text-decoration-color: #008080">       1</span> │ <span style="color: #008080; text-decoration-color: #008080">      1</span> │ <span style="color: #008080; text-decoration-color: #008080">       1</span> │ <span style="color: #008080; text-decoration-color: #008080">      48</span> │ <span style="color: #008000; text-decoration-color: #008000">  █   </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">spent           </span> │ <span style="color: #008080; text-decoration-color: #008080">  0</span> │ <span style="color: #008080; text-decoration-color: #008080">    0</span> │ <span style="color: #008080; text-decoration-color: #008080">       14</span> │ <span style="color: #008080; text-decoration-color: #008080">      8.7</span> │ <span style="color: #008080; text-decoration-color: #008080">    0.51</span> │ <span style="color: #008080; text-decoration-color: #008080">      9</span> │ <span style="color: #008080; text-decoration-color: #008080">      16</span> │ <span style="color: #008080; text-decoration-color: #008080">     160</span> │ <span style="color: #008000; text-decoration-color: #008000">  █▁  </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">beer_floz       </span> │ <span style="color: #008080; text-decoration-color: #008080">  0</span> │ <span style="color: #008080; text-decoration-color: #008080">    0</span> │ <span style="color: #008080; text-decoration-color: #008080">      270</span> │ <span style="color: #008080; text-decoration-color: #008080">      200</span> │ <span style="color: #008080; text-decoration-color: #008080">      12</span> │ <span style="color: #008080; text-decoration-color: #008080">    140</span> │ <span style="color: #008080; text-decoration-color: #008080">     360</span> │ <span style="color: #008080; text-decoration-color: #008080">    9200</span> │ <span style="color: #008000; text-decoration-color: #008000">  █   </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">price_per_floz  </span> │ <span style="color: #008080; text-decoration-color: #008080">  0</span> │ <span style="color: #008080; text-decoration-color: #008080">    0</span> │ <span style="color: #008080; text-decoration-color: #008080">    0.056</span> │ <span style="color: #008080; text-decoration-color: #008080">    0.013</span> │ <span style="color: #008080; text-decoration-color: #008080">  0.0013</span> │ <span style="color: #008080; text-decoration-color: #008080">  0.046</span> │ <span style="color: #008080; text-decoration-color: #008080">   0.064</span> │ <span style="color: #008080; text-decoration-color: #008080">    0.23</span> │ <span style="color: #008000; text-decoration-color: #008000">  ▁█  </span> │  │
+│ └──────────────────┴─────┴───────┴───────────┴───────────┴──────────┴─────────┴──────────┴──────────┴────────┘  │
 │ <span style="font-style: italic">                                                    string                                                    </span>  │
-│ ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━┓  │
-│ ┃<span style="font-weight: bold"> column_name               </span>┃<span style="font-weight: bold"> NA      </span>┃<span style="font-weight: bold"> NA %       </span>┃<span style="font-weight: bold"> words per row                </span>┃<span style="font-weight: bold"> total words              </span>┃  │
-│ ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━┩  │
-│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">county_name              </span> │ <span style="color: #008080; text-decoration-color: #008080">      0</span> │ <span style="color: #008080; text-decoration-color: #008080">         0</span> │ <span style="color: #008080; text-decoration-color: #008080">                           1</span> │ <span style="color: #008080; text-decoration-color: #008080">                     380</span> │  │
-│ └───────────────────────────┴─────────┴────────────┴──────────────────────────────┴──────────────────────────┘  │
+│ ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┓  │
+│ ┃<span style="font-weight: bold"> column_name                   </span>┃<span style="font-weight: bold"> NA     </span>┃<span style="font-weight: bold"> NA %       </span>┃<span style="font-weight: bold"> words per row               </span>┃<span style="font-weight: bold"> total words            </span>┃  │
+│ ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━┩  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">_purchase_desc               </span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">         0</span> │ <span style="color: #008080; text-decoration-color: #008080">                        5.3</span> │ <span style="color: #008080; text-decoration-color: #008080">                390000</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">brand                        </span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">         0</span> │ <span style="color: #008080; text-decoration-color: #008080">                        5.3</span> │ <span style="color: #008080; text-decoration-color: #008080">                390000</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">container                    </span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">         0</span> │ <span style="color: #008080; text-decoration-color: #008080">                        5.3</span> │ <span style="color: #008080; text-decoration-color: #008080">                390000</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">market                       </span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">         0</span> │ <span style="color: #008080; text-decoration-color: #008080">                        5.3</span> │ <span style="color: #008080; text-decoration-color: #008080">                390000</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">buyertype                    </span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">         0</span> │ <span style="color: #008080; text-decoration-color: #008080">                        5.3</span> │ <span style="color: #008080; text-decoration-color: #008080">                390000</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">income                       </span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">         0</span> │ <span style="color: #008080; text-decoration-color: #008080">                        5.3</span> │ <span style="color: #008080; text-decoration-color: #008080">                390000</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">age                          </span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">         0</span> │ <span style="color: #008080; text-decoration-color: #008080">                        5.3</span> │ <span style="color: #008080; text-decoration-color: #008080">                390000</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">employment                   </span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">         0</span> │ <span style="color: #008080; text-decoration-color: #008080">                        5.3</span> │ <span style="color: #008080; text-decoration-color: #008080">                390000</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">degree                       </span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">         0</span> │ <span style="color: #008080; text-decoration-color: #008080">                        5.3</span> │ <span style="color: #008080; text-decoration-color: #008080">                390000</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">cow                          </span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">         0</span> │ <span style="color: #008080; text-decoration-color: #008080">                        5.3</span> │ <span style="color: #008080; text-decoration-color: #008080">                390000</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">race                         </span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">         0</span> │ <span style="color: #008080; text-decoration-color: #008080">                        5.3</span> │ <span style="color: #008080; text-decoration-color: #008080">                390000</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">tvcable                      </span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">         0</span> │ <span style="color: #008080; text-decoration-color: #008080">                        5.3</span> │ <span style="color: #008080; text-decoration-color: #008080">                390000</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">npeople                      </span> │ <span style="color: #008080; text-decoration-color: #008080">     0</span> │ <span style="color: #008080; text-decoration-color: #008080">         0</span> │ <span style="color: #008080; text-decoration-color: #008080">                        5.3</span> │ <span style="color: #008080; text-decoration-color: #008080">                390000</span> │  │
+│ └───────────────────────────────┴────────┴────────────┴─────────────────────────────┴────────────────────────┘  │
+│ <span style="font-style: italic">                                                     bool                                                     </span>  │
+│ ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━┓  │
+│ ┃<span style="font-weight: bold"> column_name                               </span>┃<span style="font-weight: bold"> true            </span>┃<span style="font-weight: bold"> true rate                 </span>┃<span style="font-weight: bold"> hist             </span>┃  │
+│ ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━┩  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">promo                                    </span> │ <span style="color: #008080; text-decoration-color: #008080">          15000</span> │ <span style="color: #008080; text-decoration-color: #008080">                      0.2</span> │ <span style="color: #008000; text-decoration-color: #008000">     █    ▂     </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">childrenUnder6                           </span> │ <span style="color: #008080; text-decoration-color: #008080">           5000</span> │ <span style="color: #008080; text-decoration-color: #008080">                    0.068</span> │ <span style="color: #008000; text-decoration-color: #008000">     █    ▁     </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">children6to17                            </span> │ <span style="color: #008080; text-decoration-color: #008080">          15000</span> │ <span style="color: #008080; text-decoration-color: #008080">                      0.2</span> │ <span style="color: #008000; text-decoration-color: #008000">     █    ▂     </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">microwave                                </span> │ <span style="color: #008080; text-decoration-color: #008080">          73000</span> │ <span style="color: #008080; text-decoration-color: #008080">                     0.99</span> │ <span style="color: #008000; text-decoration-color: #008000">          █     </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">dishwasher                               </span> │ <span style="color: #008080; text-decoration-color: #008080">          53000</span> │ <span style="color: #008080; text-decoration-color: #008080">                     0.73</span> │ <span style="color: #008000; text-decoration-color: #008000">     ▃    █     </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">singlefamilyhome                         </span> │ <span style="color: #008080; text-decoration-color: #008080">          59000</span> │ <span style="color: #008080; text-decoration-color: #008080">                     0.81</span> │ <span style="color: #008000; text-decoration-color: #008000">     ▂    █     </span> │  │
+│ └───────────────────────────────────────────┴─────────────────┴───────────────────────────┴──────────────────┘  │
 ╰────────────────────────────────────────────────────── End ──────────────────────────────────────────────────────╯
 </pre>
 </div>
 </div>
 <div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df_ny.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>beer_mkt.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 
 <div>
@@ -617,386 +816,77 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <thead>
     <tr>
       <th></th>
-      <th>FIPS</th>
-      <th>year</th>
-      <th>pincp</th>
-      <th>pop_18_24</th>
-      <th>pop_25_over</th>
+      <th>hh</th>
+      <th>quantity</th>
+      <th>spent</th>
+      <th>beer_floz</th>
+      <th>price_per_floz</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>count</th>
-      <td>372.000000</td>
-      <td>372.000000</td>
-      <td>372.000000</td>
-      <td>372.000000</td>
-      <td>3.720000e+02</td>
+      <td>7.311500e+04</td>
+      <td>73115.000000</td>
+      <td>73115.000000</td>
+      <td>73115.000000</td>
+      <td>73115.000000</td>
     </tr>
     <tr>
       <th>mean</th>
-      <td>36062.000000</td>
-      <td>2017.500000</td>
-      <td>50102.801075</td>
-      <td>30601.064516</td>
-      <td>2.190541e+05</td>
+      <td>1.740772e+07</td>
+      <td>1.317527</td>
+      <td>13.777683</td>
+      <td>265.926853</td>
+      <td>0.055951</td>
     </tr>
     <tr>
       <th>std</th>
-      <td>35.839264</td>
-      <td>1.710125</td>
-      <td>20291.643067</td>
-      <td>49283.641237</td>
-      <td>3.797498e+05</td>
+      <td>1.158215e+07</td>
+      <td>1.149649</td>
+      <td>8.722942</td>
+      <td>199.522488</td>
+      <td>0.013417</td>
     </tr>
     <tr>
       <th>min</th>
-      <td>36001.000000</td>
-      <td>2015.000000</td>
-      <td>31831.000000</td>
-      <td>323.000000</td>
-      <td>3.485000e+03</td>
+      <td>2.000235e+06</td>
+      <td>1.000000</td>
+      <td>0.510000</td>
+      <td>12.000000</td>
+      <td>0.001315</td>
     </tr>
     <tr>
       <th>25%</th>
-      <td>36031.000000</td>
-      <td>2016.000000</td>
-      <td>40612.250000</td>
-      <td>4675.750000</td>
-      <td>3.520200e+04</td>
+      <td>8.223438e+06</td>
+      <td>1.000000</td>
+      <td>8.970000</td>
+      <td>144.000000</td>
+      <td>0.046306</td>
     </tr>
     <tr>
       <th>50%</th>
-      <td>36062.000000</td>
-      <td>2017.500000</td>
-      <td>45269.000000</td>
-      <td>9668.500000</td>
-      <td>5.985150e+04</td>
+      <td>8.413624e+06</td>
+      <td>1.000000</td>
+      <td>12.990000</td>
+      <td>216.000000</td>
+      <td>0.055509</td>
     </tr>
     <tr>
       <th>75%</th>
-      <td>36093.000000</td>
-      <td>2019.000000</td>
-      <td>51998.000000</td>
-      <td>28099.250000</td>
-      <td>1.605870e+05</td>
+      <td>3.017132e+07</td>
+      <td>1.000000</td>
+      <td>16.380000</td>
+      <td>360.000000</td>
+      <td>0.063750</td>
     </tr>
     <tr>
       <th>max</th>
-      <td>36123.000000</td>
-      <td>2020.000000</td>
-      <td>191220.000000</td>
-      <td>251964.000000</td>
-      <td>1.789355e+06</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-</div>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_ny.groupby(<span class="st">'year'</span>)[<span class="st">'pincp'</span>].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
-
-<div>
-
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>count</th>
-      <th>mean</th>
-      <th>std</th>
-      <th>min</th>
-      <th>25%</th>
-      <th>50%</th>
-      <th>75%</th>
-      <th>max</th>
-    </tr>
-    <tr>
-      <th>year</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>2015</th>
-      <td>62.0</td>
-      <td>45449.580645</td>
-      <td>17342.754837</td>
-      <td>31831.0</td>
-      <td>37523.75</td>
-      <td>40790.5</td>
-      <td>47230.50</td>
-      <td>152793.0</td>
-    </tr>
-    <tr>
-      <th>2016</th>
-      <td>62.0</td>
-      <td>46474.064516</td>
-      <td>18544.679598</td>
-      <td>32417.0</td>
-      <td>38140.00</td>
-      <td>41283.0</td>
-      <td>48046.25</td>
-      <td>163112.0</td>
-    </tr>
-    <tr>
-      <th>2017</th>
-      <td>62.0</td>
-      <td>49078.548387</td>
-      <td>20323.712796</td>
-      <td>34001.0</td>
-      <td>40197.25</td>
-      <td>43617.5</td>
-      <td>50476.00</td>
-      <td>179655.0</td>
-    </tr>
-    <tr>
-      <th>2018</th>
-      <td>62.0</td>
-      <td>50400.483871</td>
-      <td>21110.934480</td>
-      <td>34553.0</td>
-      <td>40867.25</td>
-      <td>44751.5</td>
-      <td>52062.25</td>
-      <td>184539.0</td>
-    </tr>
-    <tr>
-      <th>2019</th>
-      <td>62.0</td>
-      <td>52551.370968</td>
-      <td>21381.379235</td>
-      <td>37131.0</td>
-      <td>42687.25</td>
-      <td>46772.0</td>
-      <td>54339.25</td>
-      <td>187213.0</td>
-    </tr>
-    <tr>
-      <th>2020</th>
-      <td>62.0</td>
-      <td>56662.758065</td>
-      <td>21384.820890</td>
-      <td>40840.0</td>
-      <td>47044.75</td>
-      <td>50577.5</td>
-      <td>58764.00</td>
-      <td>191220.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-</div>
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_ny.groupby(<span class="st">'year'</span>)[<span class="st">'pop_18_24'</span>].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
-
-<div>
-
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>count</th>
-      <th>mean</th>
-      <th>std</th>
-      <th>min</th>
-      <th>25%</th>
-      <th>50%</th>
-      <th>75%</th>
-      <th>max</th>
-    </tr>
-    <tr>
-      <th>year</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>2015</th>
-      <td>62.0</td>
-      <td>32025.887097</td>
-      <td>52851.482119</td>
-      <td>466.0</td>
-      <td>5039.00</td>
-      <td>9875.5</td>
-      <td>28233.25</td>
-      <td>251964.0</td>
-    </tr>
-    <tr>
-      <th>2016</th>
-      <td>62.0</td>
-      <td>31725.241935</td>
-      <td>51964.450784</td>
-      <td>382.0</td>
-      <td>5082.75</td>
-      <td>9900.5</td>
-      <td>28467.75</td>
-      <td>244788.0</td>
-    </tr>
-    <tr>
-      <th>2017</th>
-      <td>62.0</td>
-      <td>31195.403226</td>
-      <td>50824.225228</td>
-      <td>386.0</td>
-      <td>4903.50</td>
-      <td>9762.5</td>
-      <td>28317.00</td>
-      <td>236951.0</td>
-    </tr>
-    <tr>
-      <th>2018</th>
-      <td>62.0</td>
-      <td>30169.000000</td>
-      <td>48502.347023</td>
-      <td>406.0</td>
-      <td>4740.50</td>
-      <td>9577.5</td>
-      <td>27736.25</td>
-      <td>223707.0</td>
-    </tr>
-    <tr>
-      <th>2019</th>
-      <td>62.0</td>
-      <td>29546.500000</td>
-      <td>47141.642477</td>
-      <td>323.0</td>
-      <td>4550.25</td>
-      <td>9473.0</td>
-      <td>27574.00</td>
-      <td>215081.0</td>
-    </tr>
-    <tr>
-      <th>2020</th>
-      <td>62.0</td>
-      <td>28944.354839</td>
-      <td>45967.793981</td>
-      <td>369.0</td>
-      <td>4403.25</td>
-      <td>9394.0</td>
-      <td>27272.00</td>
-      <td>207966.0</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-</div>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_ny.groupby(<span class="st">'year'</span>)[<span class="st">'pop_25_over'</span>].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
-
-<div>
-
-<table class="dataframe table table-sm table-striped">
-  <thead>
-    <tr>
-      <th></th>
-      <th>count</th>
-      <th>mean</th>
-      <th>std</th>
-      <th>min</th>
-      <th>25%</th>
-      <th>50%</th>
-      <th>75%</th>
-      <th>max</th>
-    </tr>
-    <tr>
-      <th>year</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>2015</th>
-      <td>62.0</td>
-      <td>216706.370968</td>
-      <td>376492.870083</td>
-      <td>3546.0</td>
-      <td>35351.25</td>
-      <td>60028.0</td>
-      <td>159284.50</td>
-      <td>1735647.0</td>
-    </tr>
-    <tr>
-      <th>2016</th>
-      <td>62.0</td>
-      <td>217807.790323</td>
-      <td>379394.903521</td>
-      <td>3575.0</td>
-      <td>35209.50</td>
-      <td>60022.5</td>
-      <td>159512.25</td>
-      <td>1753695.0</td>
-    </tr>
-    <tr>
-      <th>2017</th>
-      <td>62.0</td>
-      <td>220335.629032</td>
-      <td>386192.777963</td>
-      <td>3604.0</td>
-      <td>35328.75</td>
-      <td>60108.0</td>
-      <td>160193.00</td>
-      <td>1789355.0</td>
-    </tr>
-    <tr>
-      <th>2018</th>
-      <td>62.0</td>
-      <td>219457.129032</td>
-      <td>383470.172157</td>
-      <td>3536.0</td>
-      <td>35492.25</td>
-      <td>59851.5</td>
-      <td>160939.50</td>
-      <td>1777281.0</td>
-    </tr>
-    <tr>
-      <th>2019</th>
-      <td>62.0</td>
-      <td>219869.951613</td>
-      <td>384159.431483</td>
-      <td>3567.0</td>
-      <td>35138.50</td>
-      <td>59689.0</td>
-      <td>161993.50</td>
-      <td>1780247.0</td>
-    </tr>
-    <tr>
-      <th>2020</th>
-      <td>62.0</td>
-      <td>220147.693548</td>
-      <td>384199.007544</td>
-      <td>3485.0</td>
-      <td>35528.00</td>
-      <td>59656.5</td>
-      <td>163294.50</td>
-      <td>1780524.0</td>
+      <td>3.044072e+07</td>
+      <td>48.000000</td>
+      <td>159.130000</td>
+      <td>9216.000000</td>
+      <td>0.234063</td>
     </tr>
   </tbody>
 </table>
@@ -1007,38 +897,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="q1a" class="level2">
 <h2 class="anchored" data-anchor-id="q1a">Q1a</h2>
 <ul>
-<li>Use <code>.sort_values()</code> to find the top 5 rich counties in NY for each year.
-<ul>
-<li>Do not use <code>.apply()</code></li>
-</ul></li>
+<li>Sort the DataFrame <code>beer_mkt</code> by <code>hh</code> in ascending order.</li>
 </ul>
 </section>
 <section id="q1b" class="level2">
 <h2 class="anchored" data-anchor-id="q1b">Q1b</h2>
 <ul>
-<li>Use <code>.rank()</code> to find the top 5 rich counties in NY for each year.
-<ul>
-<li>Do not use <code>.apply()</code></li>
-</ul></li>
+<li>Find the top 5 beer markets in terms of the number of households that purchased beer.</li>
 </ul>
 </section>
 <section id="q1c" class="level2">
 <h2 class="anchored" data-anchor-id="q1c">Q1c</h2>
 <ul>
-<li>Use <code>apply()</code> with a <code>lambda</code> function and <code>.sort_values()</code> to find the top 5 rich counties in NY for each year.</li>
+<li>Find the top 5 beer markets in terms of the amount of total beer consumption.</li>
 </ul>
 </section>
 <section id="q1d" class="level2">
 <h2 class="anchored" data-anchor-id="q1d">Q1d</h2>
 <ul>
-<li><p>Write a function with <code>def</code> and <code>.sort_values()</code> that selects the top 5 <code>pincp</code> values.</p></li>
-<li><p>Then, use the <code>def</code>ined function in <code>apply()</code> to find the top 5 rich counties in NY for each year.</p></li>
+<li>Provide (1) seaborn code and (2) a simple comment to describe how the distribution of <code>price_per_floz</code> varies by <code>brand</code>.</li>
 </ul>
 </section>
 <section id="q1e" class="level2">
 <h2 class="anchored" data-anchor-id="q1e">Q1e</h2>
 <ul>
-<li>Visualize the yearly trend of the mean level of <code>pincp</code>.</li>
+<li>Provide (1) seaborn code and (2) a simple comment to describe how the relationship between <code>price_per_floz</code> and <code>beer_floz</code> varies by <code>brand</code>.</li>
 </ul>
 
 

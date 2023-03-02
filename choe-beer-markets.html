@@ -8,7 +8,7 @@
 
 <meta name="author" content="Byeong-Hak Choe">
 
-<title>B.H. CHOE - R Lab 1 - ggplot visualization</title>
+<title>B.H. CHOE - Beer Markets</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -123,9 +123,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-submit-button-title": "Submit"
   }
 }</script>
-
-<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
 
 </head>
@@ -401,32 +398,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#loading-r-packages" id="toc-loading-r-packages" class="nav-link active" data-scroll-target="#loading-r-packages">Loading R packages</a></li>
-  <li><a href="#question-1" id="toc-question-1" class="nav-link" data-scroll-target="#question-1">Question 1</a>
-  <ul class="collapse">
-  <li><a href="#q1a" id="toc-q1a" class="nav-link" data-scroll-target="#q1a">Q1a</a>
-  <ul class="collapse">
-  <li><a href="#description-of-variables-in-the-data-file-bikeshare_cleaned.csv" id="toc-description-of-variables-in-the-data-file-bikeshare_cleaned.csv" class="nav-link" data-scroll-target="#description-of-variables-in-the-data-file-bikeshare_cleaned.csv">Description of variables in the data file, <code>bikeshare_cleaned.csv</code></a></li>
-  </ul></li>
-  <li><a href="#q1b" id="toc-q1b" class="nav-link" data-scroll-target="#q1b">Q1b</a></li>
-  <li><a href="#q1c" id="toc-q1c" class="nav-link" data-scroll-target="#q1c">Q1c</a></li>
-  <li><a href="#q1d" id="toc-q1d" class="nav-link" data-scroll-target="#q1d">Q1d</a></li>
-  <li><a href="#q1e" id="toc-q1e" class="nav-link" data-scroll-target="#q1e">Q1e</a></li>
-  <li><a href="#q1f" id="toc-q1f" class="nav-link" data-scroll-target="#q1f">Q1f</a></li>
-  <li><a href="#q1g" id="toc-q1g" class="nav-link" data-scroll-target="#q1g">Q1g</a></li>
-  <li><a href="#q1h" id="toc-q1h" class="nav-link" data-scroll-target="#q1h">Q1h</a></li>
-  <li><a href="#q1i" id="toc-q1i" class="nav-link" data-scroll-target="#q1i">Q1i</a></li>
-  <li><a href="#q1j" id="toc-q1j" class="nav-link" data-scroll-target="#q1j">Q1j</a></li>
-  <li><a href="#q1k" id="toc-q1k" class="nav-link" data-scroll-target="#q1k">Q1k</a></li>
-  <li><a href="#q1l" id="toc-q1l" class="nav-link" data-scroll-target="#q1l">Q1l</a></li>
-  </ul></li>
-  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a>
-  <ul class="collapse">
-  <li><a href="#q2a" id="toc-q2a" class="nav-link" data-scroll-target="#q2a">Q2a</a></li>
-  <li><a href="#q2b" id="toc-q2b" class="nav-link" data-scroll-target="#q2b">Q2b</a></li>
-  <li><a href="#q2c" id="toc-q2c" class="nav-link" data-scroll-target="#q2c">Q2c</a></li>
-  <li><a href="#q2d" id="toc-q2d" class="nav-link" data-scroll-target="#q2d">Q2d</a></li>
-  </ul></li>
+  <li><a href="#loading-data-and-packages" id="toc-loading-data-and-packages" class="nav-link active" data-scroll-target="#loading-data-and-packages">Loading Data and Packages</a></li>
   </ul>
 </nav>
     </div>
@@ -435,7 +407,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">R Lab 1 - ggplot visualization</h1>
+<h1 class="title">Beer Markets</h1>
 </div>
 
 
@@ -456,265 +428,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="loading-r-packages" class="level1">
-<h1>Loading R packages</h1>
+<section id="loading-data-and-packages" class="level1">
+<h1>Loading Data and Packages</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p><br></p>
-</section>
-<section id="question-1" class="level1">
-<h1>Question 1</h1>
-<section id="q1a" class="level2">
-<h2 class="anchored" data-anchor-id="q1a">Q1a</h2>
-<p>Read the data file, <code>bikeshare_cleaned.csv</code>, as the data.frame object with the name, <code>bikeshare</code>, using (1) the <code>read_csv()</code> function and (2) its URL, <code>https://bcdanl.github.io/data/bikeshare_cleaned.csv</code>.</p>
-<div class="cell">
-
-</div>
-<p>Use the data.frame <code>bikeshare</code> for the rest of questions in Question 1.</p>
-<p><br></p>
-<section id="description-of-variables-in-the-data-file-bikeshare_cleaned.csv" class="level3">
-<h3 class="anchored" data-anchor-id="description-of-variables-in-the-data-file-bikeshare_cleaned.csv">Description of variables in the data file, <code>bikeshare_cleaned.csv</code></h3>
-<p>The data set, <code>bikeshare_cleaned.csv</code>, includes 17376 observations of hourly counts from 2011 to 2012 for bike rides (rentals) in Washington D.C.</p>
-<ul>
-<li><code>cnt</code>: count of total bikes rented out</li>
-<li><code>year</code>: year</li>
-<li><code>month</code>: month</li>
-<li><code>date</code>: date</li>
-<li><code>hr</code>: hours</li>
-<li><code>wkday</code>: week day</li>
-<li><code>holiday</code>: holiday if holiday == 1; non-holiday otherwise</li>
-<li><code>seasons</code>: season</li>
-<li><code>weather_cond</code>: weather condition</li>
-<li><code>temp</code>: temperature, measured in standard deviations from average.</li>
-<li><code>hum</code>: humidity, measured in standard deviations from average.</li>
-<li><code>windspeed</code>: wind speed, measured in standard deviations from average.</li>
-</ul>
-</section>
-</section>
-<section id="q1b" class="level2">
-<h2 class="anchored" data-anchor-id="q1b">Q1b</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of sentences to describe the distribution of <code>cnt</code>.</p>
-<div class="cell">
-
-</div>
-</section>
-<section id="q1c" class="level2">
-<h2 class="anchored" data-anchor-id="q1c">Q1c</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of sentences to describe the distribution of <code>cnt</code> by <code>year</code> and <code>month</code>.</p>
-<div class="cell">
-
-</div>
-</section>
-<section id="q1d" class="level2">
-<h2 class="anchored" data-anchor-id="q1d">Q1d</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of sentences to describe the distribution of <code>temp</code> by <code>year</code> and <code>month</code>.</p>
-<div class="cell">
-
-</div>
-</section>
-<section id="q1e" class="level2">
-<h2 class="anchored" data-anchor-id="q1e">Q1e</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of sentences to describe the distribution of <code>hum</code> by <code>year</code> and <code>month</code>.</p>
-<div class="cell">
-
-</div>
-</section>
-<section id="q1f" class="level2">
-<h2 class="anchored" data-anchor-id="q1f">Q1f</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of sentences to describe the distribution of <code>windspeed</code> by <code>year</code> and <code>month</code>.</p>
-<div class="cell">
-
-</div>
-</section>
-<section id="q1g" class="level2">
-<h2 class="anchored" data-anchor-id="q1g">Q1g</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of sentences to describe the relationship between <code>temp</code> and <code>cnt</code>.</p>
-<div class="cell">
-
-</div>
-</section>
-<section id="q1h" class="level2">
-<h2 class="anchored" data-anchor-id="q1h">Q1h</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of sentences to describe the relationship between <code>temp</code> and <code>cnt</code> by <code>year</code> and <code>month</code>.</p>
-<div class="cell">
-
-</div>
-</section>
-<section id="q1i" class="level2">
-<h2 class="anchored" data-anchor-id="q1i">Q1i</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of sentences to describe the relationship between <code>weather_cond</code> and <code>cnt</code>.</p>
-<div class="cell">
-
-</div>
-</section>
-<section id="q1j" class="level2">
-<h2 class="anchored" data-anchor-id="q1j">Q1j</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of sentences to describe the relationship between <code>weather_cond</code> and <code>cnt</code> by <code>hr</code>.</p>
-<div class="cell">
-
-</div>
-</section>
-<section id="q1k" class="level2">
-<h2 class="anchored" data-anchor-id="q1k">Q1k</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of sentences to describe the relationship between <code>wkday</code> and <code>cnt</code>.</p>
-<div class="cell">
-
-</div>
-</section>
-<section id="q1l" class="level2">
-<h2 class="anchored" data-anchor-id="q1l">Q1l</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of sentences to describe the relationship between <code>wkday</code> and <code>cnt</code> by <code>hr</code>.</p>
-<div class="cell">
-
-</div>
-<p><br></p>
-</section>
-</section>
-<section id="question-2" class="level1">
-<h1>Question 2</h1>
-<section id="q2a" class="level2">
-<h2 class="anchored" data-anchor-id="q2a">Q2a</h2>
-<p>Read the data file, <code>NY_school_enrollment_socioecon.csv</code>, as the data.frame object with the name, <code>NY_school_enrollment_socioecon</code>, using (1) the <code>read_csv()</code> function and (2) its URL, <code>https://bcdanl.github.io/data/NY_school_enrollment_socioecon.csv</code>.</p>
-<div class="cell">
-
-</div>
-<p>For description of variables in <code>NY_school_enrollment_socioecon</code>, refer to the file, <code>ny_school_enrollment_socioecon_description.zip</code>, which is in the Files section in our Canvas web-page. (I recommend you to extract the zip file, and then read the file, <code>ny_school_enrollment_socioecon_description.csv</code>, using Excel or Numbers.)</p>
-<ul>
-<li><p>Here are some details about the data.frame, <code>NY_school_enrollment_socioecon</code>:</p></li>
-<li><p>The geographic and time units of observation (row) in the data.frame, <code>NY_school_enrollment_socioecon</code>, are <em>New York county</em> and <em>year</em>.</p></li>
-</ul>
-<div class="cell">
-<div class="cell-output-display">
-
-<table class=" lightable-paper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto; font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:right;"> FIPS </th>
-   <th style="text-align:right;"> year </th>
-   <th style="text-align:left;"> county_name </th>
-   <th style="text-align:right;"> pincp </th>
-   <th style="text-align:right;"> c01_001 </th>
-   <th style="text-align:right;"> c02_002 </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:right;font-weight: bold;"> 36001 </td>
-   <td style="text-align:right;font-weight: bold;"> 2015 </td>
-   <td style="text-align:left;font-weight: bold;"> Albany </td>
-   <td style="text-align:right;"> 55793 </td>
-   <td style="text-align:right;"> 84463 </td>
-   <td style="text-align:right;"> 4.7 </td>
-  </tr>
-</tbody>
-</table>
-
-</div>
-</div>
-<ul>
-<li>For example, the observation above means that in Albany county in year 2015 …
-<ul>
-<li>Average personal income of people is $55,793.</li>
-<li>Population 3 years and over enrolled in school is 84,463.</li>
-<li>Percent of population 3 years and over enrolled in nursery school and preschool is 4.7%.</li>
-</ul></li>
-<li>The following is sample observations from Bronx and Livingston counties:</li>
-</ul>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="lec_figs/danl200-hw1-sample-data.png" class="img-fluid figure-img" style="width:100.0%"></p>
-</figure>
-</div>
-</div>
-</div>
-<ul>
-<li><p>The following describes the variables:</p>
-<ul>
-<li><p><code>c01_010</code>: <em>Total!!Population enrolled in college or graduate school</em></p></li>
-<li><p>So, <code>c01_010</code> is total population enrolled in college or graduate school;</p></li>
-<li><p><code>c02_010</code>: <em>Percent!!Population enrolled in college or graduate school</em></p></li>
-<li><p>So, <code>c02_010</code> is a <em>percent</em> of total population enrolled in college or graduate school;</p></li>
-<li><p>In which county is more likely for a person to be enrolled in a college or graduate school?</p></li>
-</ul></li>
-<li><p>A county’s college enrollment level can be represented by an <em>overall</em> tendency of that county’s residents to be enrolled in college (as long as we are interested in analyzing how human behaves overall).</p></li>
-<li><p>The size of a county’s population enrolled in college or graduate school (<code>c01_010</code>) may <em>not</em> be appropriate to represent a county’s college enrollment level.</p>
-<ul>
-<li>A county’s larger size of population enrolled in college does not necessarily mean people in people in that county are likely to be enrolled in college.</li>
-</ul></li>
-<li><p>Consider the following example:</p></li>
-</ul>
-<div class="cell">
-<div class="cell-output-display">
-
-<table class=" lightable-paper lightable-paper lightable-hover" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto; font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:left;"> County </th>
-   <th style="text-align:left;"> Total.Population </th>
-   <th style="text-align:left;"> Bachelor.s.Degree </th>
-   <th style="text-align:left;"> High.School </th>
-   <th style="text-align:left;"> Percent.of.Bachelor.s.Degree </th>
-   <th style="text-align:left;"> Percent.of.High.School </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> A </td>
-   <td style="text-align:left;"> 100,000 </td>
-   <td style="text-align:left;"> 1,000 </td>
-   <td style="text-align:left;"> 99,000 </td>
-   <td style="text-align:left;"> 1.0% </td>
-   <td style="text-align:left;"> 99.0% </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> B </td>
-   <td style="text-align:left;"> 1,000 </td>
-   <td style="text-align:left;"> 999 </td>
-   <td style="text-align:left;"> 1 </td>
-   <td style="text-align:left;"> 99.9% </td>
-   <td style="text-align:left;"> 0.1% </td>
-  </tr>
-</tbody>
-</table>
-
-</div>
-</div>
-<ul>
-<li><p>Although County A has the larger number of people that have bachelor’s degrees than County B, it is more appropriate to say that people in County B have a higher college enrollment than people in County A.</p></li>
-<li><p>This is because the overall tendency of County B’s people to attend college is stronger than that of County A’s people.</p></li>
-<li><p>Similarly, to represent a standard of living of people in a country, we do not use a country’s gross domestic product (<em>GDP</em>) but its <em>GDP per capita</em> (GDP per capita is GDP devided by population).</p>
-<ul>
-<li>For example, China records the second largest GDP in the world as of now. However, World Bank still considers China a middle-income country, because of its relatively low level of GDP per capita.</li>
-</ul></li>
-</ul>
-</section>
-<section id="q2b" class="level2">
-<h2 class="anchored" data-anchor-id="q2b">Q2b</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of sentences to describe the relationship between college enrollment and educational attainment of population 45 to 64 years, and how such relationship varies by the type (public or private) of colleges.</p>
-<div class="cell">
-
-</div>
-</section>
-<section id="q2c" class="level2">
-<h2 class="anchored" data-anchor-id="q2c">Q2c</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of sentences to describe how the relationships described in Q3b vary by gender of population 45 to 64 years.</p>
-<div class="cell">
-
-</div>
-</section>
-<section id="q2d" class="level2">
-<h2 class="anchored" data-anchor-id="q2d">Q2d</h2>
-<p>Provide both (1) <code>ggplot</code> codes and (2) a couple of sentences to describe how the relationships described in Q3b vary by gender of college enrollment.</p>
-<div class="cell">
-
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)   <span class="co"># a better summary of data.frame</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)  <span class="co"># scales for ggplot</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)  <span class="co"># additional ggplot themes</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes) <span class="co"># additional ggplot themes and color pallets</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_ipsum</span>())</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>beer_mkt <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'https://bcdanl.github.io/data/beer_markets.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
