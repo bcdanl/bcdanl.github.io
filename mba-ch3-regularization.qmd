@@ -25,127 +25,281 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Loading Packages and Data
-```{r}
-library(tidyverse)
-library(skimr) 
-library(ggfortify) # to create regression-related plots
-library(ggcorrplot) # to create correlation heatmaps
-library(fastDummies) # to create dummy variables
-library(stargazer) # to create regression tables
-```
-
-<br><br> 
-
-## Logistic Regression Model
-
-- In a regression model, we model the conditional mean for $y$ given $x$ as 
-  
-$$
-\begin{align}
-\mathbb{E}[\, y \,|\, \mathbf{X} \,] &= \beta_{0} \,+\, \beta_{1}\,x_{1} \,+\, \cdots \,+\, \beta_{p}\,x_{p}\\
-{ }\\
-y_{i} &=   \beta_{0} \,+\, \beta_{1}\,x_{1, i} \,+\, \cdots \,+\, \beta_{p}\,x_{p, i} + \epsilon_{i} \quad \text{for } i = 1, 2, ..., n
-\end{align}
-$$
-- Logistic regression is used to model a *binary* response:
-
-  - $y$ is either 1 or 0 (e.g., `True` or `False`).
-  
-  - $\epsilon_{i}$ is the random noise from logistic distribution whose cumulative density function is as follows:
-
-
-```{r, fig.align='center'}
-knitr::include_graphics('lec_figs/mba-1-11.png')
-```
-
-where $z$ is a linear combination of explanatory variables $\mathbf{X}$.
-  
-$$
-f(z) = \frac{e^{z}}{1 + e^{z}}
-$$
-- Since $y$ is either 0 or 1, the conditional mean value of $y$ is the probability:
-
-$$
-\begin{align}
-\mathbb{E}[\, y \,|\, \mathbf{X} \,] &= \text{Pr}(y = 1 | \mathbf{X}) \times 1 \,+\,\text{Pr}(y = 0 | \mathbf{X}) \times 0\\ &= \text{Pr}(y = 1 | \mathbf{X}) \\
-{ }\\
-\text{Pr}(y = 1 | \mathbf{X}) &= f(\beta_{0} \,+\, \beta_{1}\,x_{1} \,+\, \cdots \,+\, \beta_{p}\,x_{p})\\
-&= \frac{e^{\beta_{0} \,+\, \beta_{1}\,x_{1} \,+\, \cdots \,+\, \beta_{p}\,x_{p}}}{1 + e^{\beta_{0} \,+\, \beta_{1}\,x_{1} \,+\, \cdots \,+\, \beta_{p}\,x_{p}}} \\
-\end{align}
-$$
-
-- The logistic regression finds the beta coefficients, $b_{0}, b_{1}, \cdots$, such that the logistic function ranging from 0 to 1
-
-$$
-\begin{align}
-f( b_{0} + b_{1}*x_{i,1} + b_{2}*x_{i,2} + \cdots )\notag
-\end{align}
-$$
-
-is the best possible estimate of the binary outcome $y_{i}$.
-
-<br>
-
-### Interpretation of Beta Estimates
-
-- In logistic regression, the effect of $x_{1}$ on $Pr(y_{i} = 1 | \mathbf{X})$ is different across observations $i = 1, 2, \cdots$:
-
-
-```{r, fig.align='center'}
-knitr::include_graphics('lec_figs/effect-linear-logit.png')
-```
-
-
-<br>
-
-### The Goals of Logistic Regression:
-
-
-1.  Modeling for **prediction** ($\text{Pr}({y} | \mathbf{X})$): When we want to predict an outcome variable $y$ based on the information contained in a set of predictor variables $\mathbf{X}$.
-
-- We are estimating the conditional expectation (mean) for $y$: 
-
-$$
-\text{Pr}(\, y \,|\, \mathbf{X} \,) = f(\beta_{0} \,+\, \beta_{1}\,x_{1} \,+\, \cdots \,+\, \beta_{p}\,x_{p}).
-$$
--  which is the probability that $y = 1$ given the value of $X$ from the logistic function.
-
-
-- Prediction from the logistic regression with a threshold on the probabilities can be used as a **classifier**.
-  - If the probability that the newborn baby `i` is at risk is greater than the threshold $\theta\in (0, 1)$ ($\text{Pr}(y_{i} = 1 | \mathbf{X}) > \theta$), the baby `i` is classified as at-risk.
-  
-  
-- We can discuss the performance of classifiers later.
-  - **Accuracy**: When the classifier says this newborn baby is at risk or is not at risk, what is the probability that the model is correct?
-  - **Precision**: If the classifier says this newborn baby is at risk, what's the probability that the baby is really at risk?
-  - **Recall**:  Of all the babies at risk, what fraction did the classifier detect?
-  - There is a trade-off between recall and precision.
-
-<br>
-
-
-2.  Modeling for **explanation** ($\hat{\beta}$): When we want to explicitly describe and quantify the relationship between the outcome variable $y$ and a set of **explanatory variables** $\mathbf{X}$.
-
-  - We can average the marginal effects across the training data (average marginal effect, or AME).
-  
-  - We can obtain the marginal effect at an average observation or representative observations in the training data (marginal effect at the mean or at representative values).
-  
-  - We can also obtain the AME for subgroup of the data.
 
 <br><br>
 
+## Bias-Variance Tradeoff
 
 
+```{r, fig.align='center'}
+knitr::include_graphics('lec_figs/bias-variance-tradeoff-1.png')
+```
+
+### Decomposition of MSE
+- The mean squared error (MSE) of the model with unknown set of parameters $\mathbf{\theta}$ can be decomposed into *bias* and *variance*. 
+
+$$
+\begin{align}
+M S E &\,=\, \frac{\sum_{i = 1}^{ n}\,(\, y_{i} - \hat{y}_{i} \,)^2}{n}\\
+&\,=\,E \,[\, y_{i} - \hat{f}(\mathbf{X}) \,]^{2}\\
+&\,=\, [\text{Bias}(\, \hat{f}(\mathbf{X}) \,)]^{2} \,+\, Var(\,\hat{f}(\mathbf{X})\,) \,+\, \text{Var}(\epsilon)
+\end{align}
+$$
+
+- In order to minimize the MSE above, we need to select a machine learning methods that simultaneously achieves low variance and low bias. 
+  - Note that both squared bias and variance are nonnegative.
+  - The MSE can never lie below $\text{Var}(\epsilon)$, the irreducible error.
+
+
+
+```{r, fig.align='center'}
+knitr::include_graphics('lec_figs/bias-variance-tradeoff-2.png')
+```
+- The horizontal dashed line represents $\text{Var}(\epsilon)$, the irreducible error.
+
+- The vertical dotted line indicates the flexibility level corresponding to the smallest test MSE.
+ 
+
+
+```{r, fig.align='center'}
+knitr::include_graphics('lec_figs/bias-variance-tradeoff-2.png')
+```
+
+
+<br>
+
+
+## Regularization
+- Regularization helps find some optimal amount of flexibility that minimizes MSE.
+
+- Regularized regression can resolve the following problems
+  - **Quasi-separation** in logistic regression:
+    - The input variable yields an almost perfect prediction of the binary response variable.
+  - **Multicolinearity** in regression:
+    - Variables `age` and `years_of_workforce` in linear regression of `income` are too highly correlated.
+
+
+
+### Ridge Regression
+
+- __Ridge regression__ introduces a __shrinkage penalty__ $\lambda \geq 0$ by minimizing:
+
+$$\sum_i^n \big(Y_i - \beta_0 -  \sum_j^p \beta_j x_{ij}\big)^2 + \lambda \sum_j^p \beta_j^2 = \text{SSR} + \lambda \sum_j^p \beta_j^2$$
+- As $\lambda$ increases $\Rightarrow$ flexibility of models decreases
+
+  - __increases bias, but decreases variance__
+
+- For fixed value of $\lambda$, ridge regression fits only a single model
+
+  - need to use cross-validation to __tune__ $\lambda$
+  
+- For example: note how the magnitude of the coefficient for `Income` trends as $\lambda \rightarrow \infty$
+
+```{r out.width='40%', echo = FALSE, fig.align='center'}
+knitr::include_graphics('lec_figs/cmu-ridge.png')
+```
+
+- The coefficient __shrinks towards zero__, but never actually reaches it.
+  - Ridge regression tends to average the collinear variables together.
+
+- `Income` is always a variable in the learned model, regardless of the value of $\lambda$.
+
+
+<br>
+
+
+
+### Lasso Regression
+
+- Ridge regression __keeps all variables__.
+
+- But Lasso regression gets lid of variables.
+
+  - __Lasso__ enables variable selection with $\lambda$ by minimizing:
+
+$$\sum_i^n \big(Y_i - \beta_0 -  \sum_j^p \beta_j X_{ij}\big)^2 + \lambda \sum_j^p\vert  \beta_j \vert = \text{SSR} + \lambda \sum_j^p \vert \beta_j \vert$$
+
+- As $\lambda$ increases $\Rightarrow$ flexibility of models decreases
+
+  - __increases bias, but decreases variance__
+
+- Lasso can handle the $p > n$ case, i.e. more variables than observations!
+
+
+- Lasso regression __performs variable selection__ yielding __sparse__ models, which only includes a small subset of the available variables that are relevant to predicting the outcome of interest.
+
+```{r out.width='40%', echo = FALSE, fig.align='center'}
+knitr::include_graphics("lec_figs/cmu-lasso.png")
+```
+
+- The coefficient shrinks towards and __eventually equals zero__ at $\lambda \approx 1000$
+
+- If the optimum value of $\lambda$ is larger, then `Income` would NOT be included in the learned model.
+
+
+<br>
+
+
+### Elastic net
+
+$$\sum_{i}^{n}\left(Y_{i}-\beta_{0}-\sum_{j}^{p} \beta_{j} X_{i j}\right)^{2}+\lambda\left[(1-\alpha)\|\beta\|_{2}^{2} / 2+\alpha\|\beta\|_{1} \right]$$
+- $\vert \vert \beta \vert \vert_1$ is the $\ell_1$ norm: $\vert \vert \beta \vert \vert_1 = \sum_j^p \vert \beta_j \vert$
+
+- $\vert \vert \beta \vert \vert_2$ is the $\ell_2$, Euclidean, norm: $\vert \vert \beta \vert \vert_2 = \sqrt{\sum_j^p \beta_j^2}$
+
+
+- Ridge penalty: $\lambda \cdot (1 - \alpha) / 2$
+
+- Lasso penalty: $\lambda \cdot \alpha$
+
+
+- $\alpha$ controls the __mixing__ between the two types, ranges from 0 to 1
+
+  - $\alpha = 1$ returns lasso
+  
+  - $\alpha = 0$ return ridge
+
+
+<br>
+
+
+### Gamma Lasso Regression
+
+$$\sum_i^n \big(Y_i - \beta_0 -  \sum_j^p \beta_j X_{ij}\big)^2 + \lambda \sum_j^p\vert  \beta_j \vert = \text{SSR} + \lambda \sum_j^p \log(\, 1 + \vert \beta_j \vert\,)$$
+
+<br>
+
+
+## Putting a Cost on Complexity
+
+- With regularization, we put a cost on the magnitude of each $\beta_{p}$.
+  - This penalizes *complexity*, because the $\beta_{p}$ coefficients are what allow our predicted $\hat{y}$ values to move around with different input $X$ values.
+  
+- If we force all the $\hat{\beta}_{p}$ to be close to zero, then our $\hat{y}$ values will be shrunk toward $\bar{y}$ and when we jitter the data your predictions will not change as much as they would if we did not include a penalty term during estimation.
+
+- $\lambda$ is the penalty weight that determines the price of complexity.
+  - It is a tuning parameter that needs to be selected in some data-dependent manner.
+```{r, fig.align='center'}
+knitr::include_graphics('lec_figs/mba-3-4.png')
+```
+
+- The ridge penalty ($\beta^{2}$) places little penalty on small values of $\beta$.
+
+- The Lasso penalty ($\vert \beta \vert$) places a constant penalty on incremental deviations from zero.
+
+- The gamma Lasso penalty ($\log(1 + \vert \beta \vert)$) places extreme cost on the move from zero to small values of $\beta$, but for large values the rate of penalty change is small.
+  - This encourages lots of zeros in our fit while allowing large betas to be estimated without any bias!
+
+
+<br>
+
+
+### Advantages of the Lasso
+1. The Lasso gives the least possible amount of bias on large signals while still retaining the stability of a convex penalty like ridge (convex means that the penalty does not flatten out for large values.).
+
+2. The Lasso will yield automatic variable screening---**model selection**---some of the $\hat{\beta}_{p}$ will be zero!
+
+```{r}
+knitr::include_graphics('lec_figs/ridge-lasso-animation.gif')
+```
+- Source: [Quora](https://www.quora.com/What-is-the-intuition-that-the-l-1-norm-leads-to-sparse-solutions)
+
+- Here is another [illustration of the Lasso and its path in 2D](https://twitter.com/i/status/1107625298936451073).
+
+
+
+<br>
+
+
+## Regularization Algorithms
+
+### Standardizing Data
+
+- For either ridge, lasso, gamma lasso or elastic net: __we should consider standardizing our data__
+
+- Common convention: within each column, compute then subtract off the sample mean, and compute the divide off the sample standard deviation:
+
+$$\tilde{x}_{ij} = \frac{x_{ij} - \bar{x}_j}{s_{x,j}}$$
+
+- [`glmnet`](https://web.stanford.edu/~hastie/glmnet/glmnet_alpha.html) and [`gamlr`](https://github.com/TaddyLab/gamlr) package do this by default and reports coefficients on the original scale
+
+  - $\lambda$ and $\alpha$ are __tuning parameters__
+
+  - When using `glmnet`, the `cv.glmnet()` function will perform the cross-validation for us
+
+
+- [`gamlr`](https://github.com/TaddyLab/gamlr) package does  implements the gamma lasso algorithm.
+
+    - When using `gamlr`, the `cv.gamlr()` function will perform the cross-validation for us.
+
+
+
+- `glmnetUtils` enables us to use a `data.frame` to provide data to the model.
+
+- `glmnet` and `gamlr` use a `sparse.matrix`, instead of a `data.frame`, to provide data to the model.
+
+- A sparse matrix is a matrix with many zero entries.
+
+  - A sparse matrix is almost essential in big data analysis because of its lower storage costs and faster computation. 
+
+```{r, caption = "An example of a sparse matrix representation"}
+knitr::include_graphics('lec_figs/sparse-matrix.png')
+```
+
+
+<br>
+
+
+
+### k-fold Cross-Validation
+
+- Split the data into `k` random and roughly evenly sized subsets, called **folds**. Then, for \texttt{k = 1,...,K}:
+
+  - Step 1. Use all data except the k-th fold to train a model 
+  - Step 2. Record the error rate (e.g., MSE, $R^2$, AICc) for predictions on the left-out fold based on the fitted model (out-of-sample (OOS) deviance).
+  
+```{r, caption = "Partitioning data for 3-fold corss validaation"}
+knitr::include_graphics('lec_figs/pds_fig69.png')
+```
+- For each candidate model, $m \in\{1, \cdots, M\}$, with $\lambda_{m}$, we do k-fold cross-validation (CV).
+
+- So k-fold CV will yield a set of `k` OOS deviances for each of our candidate models.
+  - So we select the model with the best OOS performance!
+
+
+- How should we choose `k`?
+  - More is better but only up to a point.
+  - Note that the variance of the `k`-CV estimate of average OOS deviance is the variance on each left-out fold 
+
+<br>
+
+
+### Schematic of `cv.glmnet()` and `cv.gamlr()`
+
+```{r, caption = "Partitioning data for 3-fold corss validaation"}
+knitr::include_graphics('lec_figs/pds_fig69.png')
+```
+
+- $\lambda_{.min}$: the $\lambda$ for the model with the minimum cross-validation (CV) error.
+
+- $\lambda_{1se}$: corresponds to the model with cross-validation error, which is one standard error (se) of CV error above the minimum CV error.
+
+
+
+### Schematic of `cva.glmnet()`
+
+
+```{r, caption = "Partitioning data for 3-fold corss validaation"}
+knitr::include_graphics('lec_figs/pds_fig721.png')
+```
+
+<br><br>
 
 ## References
 
-<!-- -   [The Elements of Statistical Learning: Data Mining, Inference, and Prediction](https://hastie.su.domains/ElemStatLearn/) by [Trevor Hastie](https://hastie.su.domains), [Robert Tibshirani](https://tibshirani.su.domains) and [Jerome Friedman](https://jerryfriedman.su.domains). -->
-
-
+-   [The Elements of Statistical Learning: Data Mining, Inference, and Prediction](https://hastie.su.domains/ElemStatLearn/) by [Trevor Hastie](https://hastie.su.domains), [Robert Tibshirani](https://tibshirani.su.domains) and [Jerome Friedman](https://jerryfriedman.su.domains).
 
 <!-- - [Causal Inference: The Mixtape](https://mixtape.scunning.com) by [Scott Cunningham](https://www.scunning.com). -->
-
 
 <!-- - [Statistical Inference via Data Science: A ModernDive into R and the Tidyverse](https://moderndive.com) by [Chester Ismay](https://chester.rbind.io) and [Albert Y. Kim](http://rudeboybert.rbind.io). -->
 
@@ -155,4 +309,4 @@ $$
 
 -   [Practical Data Science with R](https://www.manning.com/books/practical-data-science-with-r-second-edition) by [Nina Zumel](https://ninazumel.com) and [John Mount](https://win-vector.com/john-mount/).
 
-<!-- - [Summer Undergraduate Research Experience (SURE) 2022 in Statistics at Carnegie Mellon University](https://www.stat.cmu.edu/cmsac/sure/2022/materials/) by [Ron Yurko](https://www.stat.cmu.edu/~ryurko/). -->
+- [Summer Undergraduate Research Experience (SURE) 2022 in Statistics at Carnegie Mellon University](https://www.stat.cmu.edu/cmsac/sure/2022/materials/) by [Ron Yurko](https://www.stat.cmu.edu/~ryurko/).

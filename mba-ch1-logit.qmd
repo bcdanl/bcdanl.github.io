@@ -25,46 +25,33 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Loading Packages and Data
-```{r}
-library(tidyverse)
-library(skimr) 
-library(ggfortify) # to create regression-related plots
-library(ggcorrplot) # to create correlation heatmaps
-library(fastDummies) # to create dummy variables
-library(stargazer) # to create regression tables
-```
-
-<br><br> 
+<br><br>
 
 ## Logistic Regression Model
 
-- In a regression model, we model the conditional mean for $y$ given $x$ as 
-  
+-   In a regression model, we model the conditional mean for $y$ given $x$ as
+
 $$
 \begin{align}
 \mathbb{E}[\, y \,|\, \mathbf{X} \,] &= \beta_{0} \,+\, \beta_{1}\,x_{1} \,+\, \cdots \,+\, \beta_{p}\,x_{p}\\
 { }\\
 y_{i} &=   \beta_{0} \,+\, \beta_{1}\,x_{1, i} \,+\, \cdots \,+\, \beta_{p}\,x_{p, i} + \epsilon_{i} \quad \text{for } i = 1, 2, ..., n
 \end{align}
-$$
-- Logistic regression is used to model a *binary* response:
+$$ - Logistic regression is used to model a *binary* response:
 
-  - $y$ is either 1 or 0 (e.g., `True` or `False`).
-  
-  - $\epsilon_{i}$ is the random noise from logistic distribution whose cumulative density function is as follows:
+-   $y$ is either 1 or 0 (e.g., `True` or `False`).
 
+-   $\epsilon_{i}$ is the random noise from logistic distribution whose cumulative density function is as follows:
 
 ```{r, fig.align='center'}
 knitr::include_graphics('lec_figs/mba-1-11.png')
 ```
 
 where $z$ is a linear combination of explanatory variables $\mathbf{X}$.
-  
+
 $$
 f(z) = \frac{e^{z}}{1 + e^{z}}
-$$
-- Since $y$ is either 0 or 1, the conditional mean value of $y$ is the probability:
+$$ - Since $y$ is either 0 or 1, the conditional mean value of $y$ is the probability:
 
 $$
 \begin{align}
@@ -75,7 +62,7 @@ $$
 \end{align}
 $$
 
-- The logistic regression finds the beta coefficients, $b_{0}, b_{1}, \cdots$, such that the logistic function ranging from 0 to 1
+-   The logistic regression finds the beta coefficients, $b_{0}, b_{1}, \cdots$, such that the logistic function ranging from 0 to 1
 
 $$
 \begin{align}
@@ -85,51 +72,248 @@ $$
 
 is the best possible estimate of the binary outcome $y_{i}$.
 
+
 <br>
 
 ### Interpretation of Beta Estimates
 
-- In logistic regression, the effect of $x_{1}$ on $Pr(y_{i} = 1 | \mathbf{X})$ is different across observations $i = 1, 2, \cdots$:
-
+-   In logistic regression, the effect of $x_{1}$ on $Pr(y_{i} = 1 | \mathbf{X})$ is different across observations $i = 1, 2, \cdots$:
 
 ```{r, fig.align='center'}
 knitr::include_graphics('lec_figs/effect-linear-logit.png')
 ```
 
-
 <br>
 
 ### The Goals of Logistic Regression:
-
 
 1.  Modeling for **prediction** ($\text{Pr}({y} | \mathbf{X})$): When we want to predict an outcome variable $y = 0 ,1$ based on the information contained in a set of predictor variables $\mathbf{X}$.
 
 -   We are estimating the conditional expectation (mean) for $y$: $$
     \text{Pr}(\, y \,|\, \mathbf{X} \,) = f(\beta_{0} \,+\, \beta_{1}\,x_{1} \,+\, \cdots \,+\, \beta_{p}\,x_{p}).
     $$
+
 -   which is the probability that $y = 1$ given the value for $X$ from the logistic function.
 
+-   Prediction from the logistic regression with a threshold on the probabilities can be used as a **classifier**.
 
-- Prediction from the logistic regression with a threshold on the probabilities can be used as a **classifier**.
-  - If the probability that the newborn baby `i` is at risk is greater than the threshold $\theta\in (0, 1)$ ($\text{Pr}(y_{i} = 1 | \mathbf{X}) > \theta$), the baby `i` is classified as at-risk.
-  
-  
-- We can discuss the performance of classifiers later.
-  - **Accuracy**: When the classifier says this newborn baby is at risk or is not at risk, what is the probability that the model is correct?
-  - **Precision**: If the classifier says this newborn baby is at risk, what's the probability that the baby is really at risk?
-  - **Recall**:  Of all the babies at risk, what fraction did the classifier detect?
-  - There is a trade-off between recall and precision.
+    -   If the probability that the newborn baby `i` is at risk is greater than the threshold $\theta\in (0, 1)$ ($\text{Pr}(y_{i} = 1 | \mathbf{X}) > \theta$), the baby `i` is classified as at-risk.
+
+-   We can discuss the performance of classifiers later.
+
+    -   **Accuracy**: When the classifier says this newborn baby is at risk or is not at risk, what is the probability that the model is correct?
+    -   **Precision**: If the classifier says this newborn baby is at risk, what's the probability that the baby is really at risk?
+    -   **Recall**: Of all the babies at risk, what fraction did the classifier detect?
+    -   There is a trade-off between recall and precision.
+
+<br>
+
+2.  Modeling for **explanation** ($\hat{\beta}$): When we want to explicitly describe and quantify the relationship between the outcome variable $y$ and a set of **explanatory variables** $\mathbf{X}$.
+
+-   We can average the marginal effects across the training data (average marginal effect, or AME).
+
+-   We can obtain the marginal effect at an average observation or representative observations in the training data (marginal effect at the mean or at representative values).
+
+-   We can also consider:
+  - The AME for subgroup of the data
+  - The AME at the mean value of `VARIABLE`.
+
+<br>
+
+### Example: Newbron Babies at risk
+
+- We’ll use a sample dataset from the 2010 CDC natality public-use data.
+  - The data set records information about all US births, including risk factors about the mother and father, and about the delivery. 
+  - Newborn babies are assessed at one and five minutes after birth to determine if a baby needs immediate emergency care or extra medical attention.  
+
+
+
+Task 1. Identify the effects of several risk factors on the probability of `atRisk == TRUE`.
+Task 2. Classify ahead of time babies with a higher probability of `atRisk == TRUE`.
 
 <br>
 
 
-2.  Modeling for **explanation** ($\hat{\beta}$): When we want to explicitly describe and quantify the relationship between the outcome variable $y$ and a set of **explanatory variables** $\mathbf{X}$.
+#### Load Packages and Data
+```{r}
+# install.packages("margins")
+library(tidyverse)
+library(margins) # for AME
+library(hrbrthemes) # for ggplot theme, theme_ipsum()
+library(stargazer)
 
-  - We can average the marginal effects across the training data (average marginal effect, or AME).
+theme_set(theme_ipsum()) # setting theme_ipsum() default
+load(url("https://bcdanl.github.io/data/NatalRiskData.rData"))
+
+# 50:50 split between training and testing data
+train <- filter(sdata,
+                ORIGRANDGROUP <= 5)
+test <- filter(sdata,
+                ORIGRANDGROUP > 5)
+skim(train)
+```
+
+<br>
+
+
+#### Linear Probability Model (LPM)
+```{r}
+# linear probability model
+lpm <- lm(atRisk ~ CIG_REC + GESTREC3 + DPLURAL + 
+               ULD_MECO + ULD_PRECIP + ULD_BREECH + 
+               URF_DIAB + URF_CHYPER + URF_PHYPER + URF_ECLAM, 
+             data = train)
+```
+
+- LPM often works well when it comes to identifying AME.
+
+- Caveats
+  - Probability of $y = 1$ can be beyond [0, 1].
+  - The error can't be distributed Normal with $y_{i} \in \{0 , 1\}$.
+  - When using LPM, we should make standard errors of beta estimates robust to **heteroskedasticity**---variances of errors are non-constant across observations. 
+
+
+<br>
+
+
+#### Logistic Regression via `glm( family = binomial(link = "logit") )`
+```{r, results='asis'}
+model <- glm(atRisk ~ PWGT + UPREVIS + CIG_REC + GESTREC3 + DPLURAL + 
+               ULD_MECO + ULD_PRECIP + ULD_BREECH + 
+               URF_DIAB + URF_CHYPER + URF_PHYPER + URF_ECLAM, 
+             data = train, 
+             family = binomial(link = "logit") )
+stargazer(model, type = 'html')
+```
+
+```{r}
+summary(model)
+```
+
+
+- Logistic regression finds the beta parameters that maximize the log likelihood of the data, given the model, which is equivalent to minimizing the sum of the residual deviance.
   
-  - We can obtain the marginal effect at an average observation or representative observations in the training data (marginal effect at the mean or at representative values).
+  - We want to make the likelihood as big as possible.
+  - We want to make the deviance as small as possible.
+
+
+<br>
+
+
+#### Likelihood Function
+
+- Likelihood is the probability of our data given the model.
+
+```{r, fig.align='center', caption = "Logistic function and the seven data points"}
+knitr::include_graphics('lec_figs/logistic_likelihood.png')
+```
+
+- The probability that the seven data points would be observed: $L = (1-P1)*(1-P2)* P3*(1-P4)*P5*P6*P7$.
+  - The log of the likelihood: $\log(L) = \log(1-P1) + \log(1-P2) + \log(P3) + \log(1-P4) + \log(P5) + \log(P6) + \log(P7)$
+
+
+- In statistics, maximum likelihood estimation (MLE) is a method of estimating the parameters of an assumed probability distribution, given some observed data. 
+  - This is achieved by maximizing a likelihood function so that, under the assumed statistical model, the observed data is most probable.
+
+
+<br>
+
+
+#### Deviance
+
+- Deviance measures to the distance between data and fit
+
+- The null deviance is similar to the variance of the data around the average rate of positive examples.
+
+
+```{r}
+# likelihood function for logistic regression
+## y: the outcome in numeric form, either 1 or 0
+## py: the predicted probability that y == 1
+
+loglikelihood <- function(y, py) {
+  sum( y * log(py) + (1-y)*log(1 - py) )
+}
+
+# the rate of positive example in the dataset
+pnull <- mean( as.numeric(train$atRisk) )
+
+# the null deviance
+null.dev <- -2 *loglikelihood(as.numeric(train$atRisk), pnull)
+
+# the null deviance from summary(model)
+model$null.deviance
+
+
+# the predicted probability for the training data
+pred <- predict(model, newdata=train, type = "response")
+
+# the residual deviance
+resid.dev <- -2 * loglikelihood(as.numeric(train$atRisk), pred)
+
+# the residual deviance from summary(model)
+model$deviance
+```
+
+<br>
+
+
+#### AIC, AICc, BIC and pseudo R-squared
+- The AIC, or the Akaike information criterion, is the log likelihood adjusted for the number of coefficients.
+  - The corrected AIC, AICc, is the AIC corrected by the sample size and the degree of freedom, which is superior to the AIC.
   
-  - We can also obtain the AME for subgroup of the data.
+- The BIC, or Bayesian information criterion, attempts to approximate the posterior probability that each model is best.
+  - The BIC can be useful only when in small sample settings.
+
+- The pseudo R-squared is a goodness-of-fit measure of how much of the deviance is “explained” by the model.
+```{r}
+# the AIC
+AIC <- 2 * ( length( model$coefficients ) -
+             loglikelihood( as.numeric(train$atRisk), pred) )
+AIC
+model$aic
+
+# the pseudo R-squared
+pseudo_r2 <- 1 - (resid.dev / null.dev)
+```
+
+
+
+
+
+
+- Regression preserves the probabilities:
+```{r}
+train$pred <- predict(model, newdata=train, type = "response")
+test$pred <- predict(model, newdata=test, type="response")
+
+sum(train$atRisk == TRUE)
+sum(train$pred)
+
+premature <- subset(train, GESTREC3 == "< 37 weeks")
+sum(premature$atRisk == TRUE)
+sum(premature$pred)
+
+```
+
+<br>
+
+
+#### Average Marginal Effects
+```{r}
+m <- margins(model)
+ame_result <- summary(m)
+ame_result
+
+
+ggplot(data = ame_result) +
+  geom_point( aes(factor, AME) ) +
+  geom_errorbar(aes(x = factor, ymin = lower, ymax = upper), 
+                width = .5) +
+  geom_hline(yintercept = 0) +
+  coord_flip()
+```
+
 
 <br><br>
 
@@ -140,10 +324,7 @@ knitr::include_graphics('lec_figs/effect-linear-logit.png')
 
 <!-- -   [The Elements of Statistical Learning: Data Mining, Inference, and Prediction](https://hastie.su.domains/ElemStatLearn/) by [Trevor Hastie](https://hastie.su.domains), [Robert Tibshirani](https://tibshirani.su.domains) and [Jerome Friedman](https://jerryfriedman.su.domains). -->
 
-
-
 <!-- - [Causal Inference: The Mixtape](https://mixtape.scunning.com) by [Scott Cunningham](https://www.scunning.com). -->
-
 
 <!-- - [Statistical Inference via Data Science: A ModernDive into R and the Tidyverse](https://moderndive.com) by [Chester Ismay](https://chester.rbind.io) and [Albert Y. Kim](http://rudeboybert.rbind.io). -->
 
