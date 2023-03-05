@@ -57,6 +57,8 @@ dma_sf2 <- geojson_sf(
 
 save.image('/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/beer_map.RData')
 
+load('/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/beer_map.RData')
+
 ggplot(dma_sf) +
   geom_sf() +
   theme_map()
@@ -407,7 +409,7 @@ p2 <- ggplot(data = beer_mkt_dma_full,
   theme(legend.position = "top",
         legend.direction = "horizontal",
         legend.justification = "center",
-        legend.box.margin=margin(30,30,30,30),
+        legend.box.margin=margin(5,5,5,5),
         legend.title=element_text(size = 15,
                                   face = 'bold'))
 
@@ -445,7 +447,7 @@ p_ny <- ggplot(data = filter(beer_mkt_dma_full, state == "ny"),
   theme(legend.position = "top",
         legend.direction = "horizontal",
         legend.justification = "center",
-        legend.box.margin=margin(30,30,30,30),
+        legend.box.margin=margin(5,5,5,5),
         legend.title=element_text(size = 15,
                                   face = 'bold'))
 p_ny
@@ -481,19 +483,38 @@ p_ny2 <- ggplot(data = filter(beer_mkt_dma_full, state == "ny"),
   theme(legend.position = "top",
         legend.direction = "horizontal",
         legend.justification = "center",
-        legend.box.margin=margin(30,30,30,30),
+        legend.box.margin=margin(5,5,5,5),
         legend.title=element_text(size = 15,
                                   face = 'bold'))
 p_ny2
 
 
-widg <- ggiraph(ggobj = p_ny2, width_svg = 6, height_svg = 8)
+p_ny2 <- girafe(ggobj = p_ny2, 
+                
+)
+
+
+
+widg <- ggiraph(ggobj = p_ny2, width_svg = 6, height_svg = 8,
+                fonts = list(sans = "Helvetica"),
+                options = list(
+                  opts_sizing(width = 0.7), 
+                  opts_tooltip(css = tooltip_css)
+                ))
 widg
 
-# save the widget
-library(htmlwidgets)
 saveWidget(widg, 
            file=paste0( getwd(), "/beer_map_ny.html"))
 
 
 
+# beer market with geo ----------------------------------------------------
+beer_mkt_geo_tmp <- select(beer_mkt_dma_full,
+       market, dma_name, latitude, longitude, geometry) %>% 
+  distinct()
+
+beer_mkt_geo_tmp
+
+beer_mkt_geo <- beer_mkt %>% 
+  left_join(beer_mkt_geo_tmp)
+beer_mkt_geo

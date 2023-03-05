@@ -1,0 +1,158 @@
+---
+subtitle: Machine Learning Lab
+title: "Regularized Regression"
+author: "Byeong-Hak Choe"
+editor: visual
+---
+
+```{r setup, include = F}
+library(tidyverse)
+library(gapminder)
+library(skimr)   # a better summary of data.frame
+library(scales)  # scales for ggplot
+library(ggthemes)  # additional ggplot themes
+library(hrbrthemes) # additional ggplot themes and color pallets
+library(lubridate)
+library(ggridges)
+library(stargazer)
+theme_set(theme_ipsum()) # setting the minimal theme for ggplot
+# setting default chunk options
+knitr::opts_chunk$set(
+	eval = T,
+	echo = T,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+## Loading Packages and Data
+```{r}
+library(tidyverse)
+library(skimr) 
+library(ggfortify) # to create regression-related plots
+library(ggcorrplot) # to create correlation heatmaps
+library(fastDummies) # to create dummy variables
+library(stargazer) # to create regression tables
+```
+
+<br><br> 
+
+## Logistic Regression Model
+
+- In a regression model, we model the conditional mean for $y$ given $x$ as 
+  
+$$
+\begin{align}
+\mathbb{E}[\, y \,|\, \mathbf{X} \,] &= \beta_{0} \,+\, \beta_{1}\,x_{1} \,+\, \cdots \,+\, \beta_{p}\,x_{p}\\
+{ }\\
+y_{i} &=   \beta_{0} \,+\, \beta_{1}\,x_{1, i} \,+\, \cdots \,+\, \beta_{p}\,x_{p, i} + \epsilon_{i} \quad \text{for } i = 1, 2, ..., n
+\end{align}
+$$
+- Logistic regression is used to model a *binary* response:
+
+  - $y$ is either 1 or 0 (e.g., `True` or `False`).
+  
+  - $\epsilon_{i}$ is the random noise from logistic distribution whose cumulative density function is as follows:
+
+
+```{r, fig.align='center'}
+knitr::include_graphics('lec_figs/mba-1-11.png')
+```
+
+where $z$ is a linear combination of explanatory variables $\mathbf{X}$.
+  
+$$
+f(z) = \frac{e^{z}}{1 + e^{z}}
+$$
+- Since $y$ is either 0 or 1, the conditional mean value of $y$ is the probability:
+
+$$
+\begin{align}
+\mathbb{E}[\, y \,|\, \mathbf{X} \,] &= \text{Pr}(y = 1 | \mathbf{X}) \times 1 \,+\,\text{Pr}(y = 0 | \mathbf{X}) \times 0\\ &= \text{Pr}(y = 1 | \mathbf{X}) \\
+{ }\\
+\text{Pr}(y = 1 | \mathbf{X}) &= f(\beta_{0} \,+\, \beta_{1}\,x_{1} \,+\, \cdots \,+\, \beta_{p}\,x_{p})\\
+&= \frac{e^{\beta_{0} \,+\, \beta_{1}\,x_{1} \,+\, \cdots \,+\, \beta_{p}\,x_{p}}}{1 + e^{\beta_{0} \,+\, \beta_{1}\,x_{1} \,+\, \cdots \,+\, \beta_{p}\,x_{p}}} \\
+\end{align}
+$$
+
+- The logistic regression finds the beta coefficients, $b_{0}, b_{1}, \cdots$, such that the logistic function ranging from 0 to 1
+
+$$
+\begin{align}
+f( b_{0} + b_{1}*x_{i,1} + b_{2}*x_{i,2} + \cdots )\notag
+\end{align}
+$$
+
+is the best possible estimate of the binary outcome $y_{i}$.
+
+<br>
+
+### Interpretation of Beta Estimates
+
+- In logistic regression, the effect of $x_{1}$ on $Pr(y_{i} = 1 | \mathbf{X})$ is different across observations $i = 1, 2, \cdots$:
+
+
+```{r, fig.align='center'}
+knitr::include_graphics('lec_figs/effect-linear-logit.png')
+```
+
+
+<br>
+
+### The Goals of Logistic Regression:
+
+
+1.  Modeling for **prediction** ($\text{Pr}({y} | \mathbf{X})$): When we want to predict an outcome variable $y$ based on the information contained in a set of predictor variables $\mathbf{X}$.
+
+- We are estimating the conditional expectation (mean) for $y$: 
+
+$$
+\text{Pr}(\, y \,|\, \mathbf{X} \,) = f(\beta_{0} \,+\, \beta_{1}\,x_{1} \,+\, \cdots \,+\, \beta_{p}\,x_{p}).
+$$
+-  which is the probability that $y = 1$ given the value of $X$ from the logistic function.
+
+
+- Prediction from the logistic regression with a threshold on the probabilities can be used as a **classifier**.
+  - If the probability that the newborn baby `i` is at risk is greater than the threshold $\theta\in (0, 1)$ ($\text{Pr}(y_{i} = 1 | \mathbf{X}) > \theta$), the baby `i` is classified as at-risk.
+  
+  
+- We can discuss the performance of classifiers later.
+  - **Accuracy**: When the classifier says this newborn baby is at risk or is not at risk, what is the probability that the model is correct?
+  - **Precision**: If the classifier says this newborn baby is at risk, what's the probability that the baby is really at risk?
+  - **Recall**:  Of all the babies at risk, what fraction did the classifier detect?
+  - There is a trade-off between recall and precision.
+
+<br>
+
+
+2.  Modeling for **explanation** ($\hat{\beta}$): When we want to explicitly describe and quantify the relationship between the outcome variable $y$ and a set of **explanatory variables** $\mathbf{X}$.
+
+  - We can average the marginal effects across the training data (average marginal effect, or AME).
+  
+  - We can obtain the marginal effect at an average observation or representative observations in the training data (marginal effect at the mean or at representative values).
+  
+  - We can also obtain the AME for subgroup of the data.
+
+<br><br>
+
+
+
+
+## References
+
+<!-- -   [The Elements of Statistical Learning: Data Mining, Inference, and Prediction](https://hastie.su.domains/ElemStatLearn/) by [Trevor Hastie](https://hastie.su.domains), [Robert Tibshirani](https://tibshirani.su.domains) and [Jerome Friedman](https://jerryfriedman.su.domains). -->
+
+
+
+<!-- - [Causal Inference: The Mixtape](https://mixtape.scunning.com) by [Scott Cunningham](https://www.scunning.com). -->
+
+
+<!-- - [Statistical Inference via Data Science: A ModernDive into R and the Tidyverse](https://moderndive.com) by [Chester Ismay](https://chester.rbind.io) and [Albert Y. Kim](http://rudeboybert.rbind.io). -->
+
+<!-- -   [An Introduction to Statistical Learning](https://www.statlearning.com) by [Gareth James](https://www.garethmjames.com), [Daniela Witten](https://www.danielawitten.com), [Trevor Hastie](https://hastie.su.domains), and [Robert Tibshirani](https://tibshirani.su.domains). -->
+
+-   [Modern Business Analytics](https://www.mheducation.com/highered/product/modern-business-analytics-taddy-hendrix/M9781264071678.html) by [Matt Taddy](https://www.linkedin.com/in/matt-taddy-433078137/), [Leslie Hendrix](https://sc.edu/study/colleges_schools/moore/directory/hendrix.leslie.php), and [Matthew Harding](https://www.harding.ai).
+
+-   [Practical Data Science with R](https://www.manning.com/books/practical-data-science-with-r-second-edition) by [Nina Zumel](https://ninazumel.com) and [John Mount](https://win-vector.com/john-mount/).
+
+<!-- - [Summer Undergraduate Research Experience (SURE) 2022 in Statistics at Carnegie Mellon University](https://www.stat.cmu.edu/cmsac/sure/2022/materials/) by [Ron Yurko](https://www.stat.cmu.edu/~ryurko/). -->
