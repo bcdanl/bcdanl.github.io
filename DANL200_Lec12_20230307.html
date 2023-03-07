@@ -518,6 +518,48 @@ Let's have an attendance quiz.
 
 
 
+
+---
+class: inverse, center, middle
+
+# `arrange()`
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+---
+# Arrange rows with `arrange()`
+
+- `arrange()` changes their order.
+
+- If we provide more than one column name, each additional column will be used to break ties in the values of preceding columns.
+
+- Use `desc()` to re-order by a column in descending order.
+
+
+
+```r
+flights %&gt;% arrange(year, month, day)
+
+# re-order observations by dep_delay in descending order.
+flights %&gt;% arrange([?])
+```
+
+
+---
+# Arrange rows with `arrange()`
+### &lt;p style="color:#00449E"&gt; Exercises
+
+- How could you use `arrange()` to sort all missing values to the start? (Hint: use `is.na()`).
+
+- Sort flights to find the most delayed flights. Find the flights that left earliest.
+
+- Sort flights to find the fastest (highest speed) flights.
+
+- Which flights traveled the farthest? Which traveled the shortest?
+
+
+
+
 ---
 class: inverse, center, middle
 
