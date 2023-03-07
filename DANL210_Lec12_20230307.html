@@ -618,11 +618,13 @@ sns.lineplot(data = healthexp,
 - Faceting allows us to plot subsets (facets) of our data across subplots. 
 
 .panelset[
-.panel[.panel-name[FacetGrid().map()]
+.panel[.panel-name[Faceting]
 - First, we create a `.FacetGrid()` object with the data we will be using and define how it will be subset with the `row` and `col` arguments: 
 
 - Second, we then use the `.map()` method to run a plotting function on each of the subsets, passing along any necessary arguments.
+]
 
+.panel[.panel-name[FacetGrid().map()]
 
 ```python
 (
@@ -638,17 +640,13 @@ sns.lineplot(data = healthexp,
 
 .panel[.panel-name[No FacetGrid().map()]
 - Some geometric object, such as `sns.lmplot`, does not work well with `sns.FacetGrid()`.
-
   - Instead, `sns.lmplot` supports mapping, `col = 'VAR'` and `row = 'VAR'` to facet the plot.
   
 
 ```python
-sns.lmplot(data = tips,
-           x = 'total_bill', 
-           y = 'tip',
-           hue = 'smoker',
+sns.lmplot(data = tips, x = 'total_bill', y = 'tip', hue = 'smoker',
            scatter_kws = {'alpha' : 0.5},
-           col = 'smoker')
+*          col = 'smoker')
 ```
 ]
 ]
@@ -817,6 +815,20 @@ y1952_mean = y1952["lifeExp"].mean()
    &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; .var() &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Variance &lt;/td&gt;
   &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+
+.panel[.panel-name[(3)]
+&lt;table class=" lightable-paper table table-hover table-condensed" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto; font-family: sans-serif, helvetica, arial; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Pandas.Method &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; .first() &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; Returns the first row &lt;/td&gt;
@@ -833,7 +845,7 @@ y1952_mean = y1952["lifeExp"].mean()
 &lt;/table&gt;
 ]
 
-.panel[.panel-name[(3)]
+.panel[.panel-name[(4)]
 
 We know we can calculate multiple summary statistics simultaneously with `.describe()`.
 
@@ -847,7 +859,7 @@ continent_describe
 
 ]
   
-
+]
 ---
 # Groupby Operations: Split-Apply-Combine
 ### &lt;p style="color:#00449E"&gt;  Aggregation Functions &lt;/p&gt;
