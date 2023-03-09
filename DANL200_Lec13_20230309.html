@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DANL 200 Lecture 13</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Byeong-Hak Choe" />
+    <meta name="date" content="2023-03-09" />
+    <script src="libs/header-attrs-2.20/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <script src="libs/peerjs-1.3.1/peerjs.min.js"></script>
+    <script src="libs/tiny.toast-1.0.0/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast-0.2.6/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast-0.2.6/broadcast.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
+    <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, left, bottom
+
+# DANL 200 Lecture 13
+----
+## **DANL 200: Introduction to Data Analytics**
+### Byeong-Hak Choe
+### March 9, 2023
+
+
+---
+class: inverse, center, middle
+
+# Workflow
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; Shortcuts for Presentation Slides &lt;/p&gt;
+ 
+- Use `o` to see the tile view of all the slide pages.
+
+- Use <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg> and <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg> to turn over the slide pages.
+
+- When you can't turn over slide pages, use **Ctrl + R** (**cmd + R** for mac users) to refresh the webpage.
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; Shortcuts for RStudio and RScript &lt;/p&gt;
+
+.pull-left[
+**Mac**
+
+- **command + return** runs a current line or selected lines.
+- **command + shift + C** is the shortcut for # (commenting).
+- **command + shift + R** is the shortcut for #--- (sectioning).
+- **option + - ** is the shortcut for `&lt;-`.
+]
+
+.pull-right[
+**Windows**
+
+- **Ctrl + return** runs a current line or selected lines.
+- **Ctrl + Shift + C** is the shortcut for # (commenting).
+- **Ctrl + Shift + R** is the shortcut for #--- (sectioning).
+- **Alt + - ** is the shortcut for `&lt;-`.
+]
+
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; Shortcuts for RStudio and RScript &lt;/p&gt;
+
+- **Shift +** <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>/<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg>/<svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/></svg>/<svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg> to select a part of code as a block.
+
+
+- When correcting an object's name, double click it.
+
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; Shortcuts for RStudio and RScript &lt;/p&gt;
+
+
+- **Ctrl + L** on Console when we want to clear everything printed in Console.
+
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; Shortcuts for Switching Apps&lt;/p&gt;
+
+.pull-left[
+**Mac**
+- **command + Tab** allows us to switch between apps quickly.
+
+- If we use the full-screen mode of an app, the trackpad gesture of "three finger drag" switches across the screens.
+
+]
+
+.pull-right[
+**Windows**
+
+- **Alt + Tab** allows us to switch between apps quickly.
+
+- Trackpad gestures might be supported depending on laptops or versions of Windows.
+
+]
+
+---
+# `R` workflow
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+- When we want to *remove* the object from R Environment, we can use `rm(NAME_OF_OBJECT)`
+
+```r
+bikeshare &lt;- read_csv(
+  'https://bcdanl.github.io/data/bikeshare_cleaned.csv')
+rm(bikeshare)
+```
+
+
+- When we want to *remove* all the objects from R Environment, we can use `rm(list = ls())`
+
+```r
+rm(list = ls())
+```
+
+
+
+---
+class: inverse, center, middle
+
+# `arrange()`
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+---
+# Arrange rows with `arrange()`
+
+- `arrange()` changes their order.
+
+- If we provide more than one column name, each additional column will be used to break ties in the values of preceding columns.
+
+- Use `desc()` to re-order by a column in descending order.
+
+
+
+```r
+flights %&gt;% arrange(year, month, day)
+
+# re-order observations by dep_delay in descending order.
+flights %&gt;% arrange([?])
+```
+
+
+---
+# Arrange rows with `arrange()`
+### &lt;p style="color:#00449E"&gt; Exercises
+
+- How could you use `arrange()` to sort all missing values to the start? (Hint: use `is.na()`).
+
+- Sort flights to find the most delayed flights. Find the flights that left earliest.
+
+- Sort flights to find the fastest (highest speed) flights.
+
+- Which flights traveled the farthest? Which traveled the shortest?
+
+
+
+
+---
+class: inverse, center, middle
+
+# `select()`
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+---
+# Select columns with `select()`
+
+- It’s not uncommon to get datasets with hundreds or thousands of variables.
+- `select()` allows us to narrow in on the variables we're actually interested in. 
+
+
+
+```r
+flights %&gt;% 
+  select(year, month, day)
+
+flights %&gt;% 
+  select(year:day)
+
+flights %&gt;% 
+  select(-(year:day))
+```
+
+
+
+---
+# Select columns with `select()`
+
+- There are a number of helper functions we can use within `select()`:
+
+- `starts_with("abc")`: matches names that begin with "abc".
+
+- `ends_with("xyz")`: matches names that end with "xyz".
+
+- `contains("ijk")`: matches names that contain "ijk".
+
+- `num_range("x", 1:3)`: matches x1, x2 and x3.
+
+
+---
+# Select columns with `select()`
+### &lt;p style="color:#00449E"&gt; Rename variables with `rename()`
+
+
+- `rename()` can be used to rename variables:
+
+  - `rename(&lt;DATA&gt;, &lt;NEW_VARIABLE&gt; = &lt;EXISTING_VARIABLE&gt;)`
+
+
+
+```r
+flights %&gt;% 
+  rename( tail_num = tailnum )
+```
+
+
+
+---
+# Change the Order of Variables
+### &lt;p style="color:#00449E"&gt; 
+
+.panelset[
+.panel[.panel-name[select( , everything())]
+- The function, `everything()`, can be used to move variables to the start of the data frame:
+
+
+
+```r
+flights %&gt;% 
+  select(time_hour, air_time, [?])
+```
+
+]
+
+.panel[.panel-name[relocate()]
+
+- We can also use `relocate()` to move variables around. 
+  - We can specify `.before` and `.after` arguments to choose where to put variables:
+
+
+```r
+flights %&gt;% 
+  relocate(time_hour, air_time)
+
+flights %&gt;% 
+  relocate(year:dep_time, .after = time_hour)
+
+flights %&gt;% 
+  relocate(starts_with("arr"), .before = dep_time)
+```
+
+]
+
+
+]
+
+---
+# Select columns with `select()`
+### &lt;p style="color:#00449E"&gt; Exercises
+
+- Brainstorm as many ways as possible to select `dep_time`, `dep_delay`, `arr_time`, and `arr_delay` from flights.
+
+- What happens if we include the name of a variable multiple times in a `select()` call?
+
+- What does the `any_of()` function do? Why might it be helpful in conjunction with this vector?
+
+
+```r
+vars &lt;- c("year", "month", "day", "dep_delay", "arr_delay")
+```
+
+
+
+---
+# Select columns with `select()`
+### &lt;p style="color:#00449E"&gt; Exercises
+
+- Does the result of running the following code surprise us? How do the select helpers deal with case by default? How can we change that default?
+
+
+```r
+select(flights, contains("TIME"))
+```
+
+- Rename `air_time` to `air_time_min` to indicate units of measurement and move it to the beginning of the data frame.
+
+
+
+---
+class:  center, middle
+
+# Attendance Time
+
+Let's have an attendance quiz.
+
+
+
+
+---
+class: inverse, center, middle
+
+# `mutate()`
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+# Add new variables with `mutate()`
+
+- `mutate()` is useful to add new columns that are functions of existing columns.
+
+
+
+```r
+flights_sml &lt;- flights %&gt;% 
+  select(year:day, 
+         ends_with("delay"), 
+         distance, 
+         air_time )
+flights_sml %&gt;% 
+  mutate(gain = dep_delay - arr_delay,
+         speed = distance / air_time * 60 )
+
+flights_sml %&gt;% 
+  mutate(gain = dep_delay - arr_delay,
+         hours = air_time / 60,
+         gain_per_hour = gain / hours )
+```
+
+
+
+---
+# Add new variables with `mutate()`
+
+.panelset[
+.panel[.panel-name[.before]
+- We can use the `.before` argument to add the variables to the position of a column:
+
+
+```r
+flights %&gt;% 
+  mutate(
+    gain = dep_delay - arr_delay,
+    speed = distance / air_time * 60,
+    .before = 1  # try different position numbers.
+  )
+```
+
+- The `.` is a sign that `.before` is an **argument** to the function, not the name of variable.
+]
+
+
+.panel[.panel-name[.after]
+- In both `.before` and `.after`, we can use the variable name instead of a position number.
+
+
+```r
+flights %&gt;% 
+  mutate(
+    gain = dep_delay - arr_delay,
+    speed = distance / air_time * 60,
+    .after = day  
+  )
+```
+]
+
+]
+
+
+---
+# Add new variables with `mutate()`
+### &lt;p style="color:#00449E"&gt; Useful creation functions
+
+- There are many functions for creating new variables that we can use with `mutate()`.
+
+- Arithmetic operators: `+`, `-`, `*`, `/`, `^`
+- Modular arithmetic: `%/%` (integer division) and `%%` (remainder).
+
+
+
+```r
+flights %&gt;% 
+  mutate( 
+    hour = dep_time %/% 100,
+    minute = dep_time %% 100,
+    .before = 1
+    )
+```
+
+
+---
+# Add new variables with `mutate()`
+
+- There are many functions for creating new variables that we can use with `mutate()`.
+
+- Offsets: `lead()` and `lag()` allow us to refer to leading or lagging values. 
+
+- Cumulative and rolling aggregates: R provides functions for running sums, products, mins and maxes: `cumsum()`, `cummean()`, `cummin()`, `cummax()`, and `cumprod()`. 
+
+
+
+```r
+(x &lt;- 1:10)
+lag(x)
+lead(x)
+cumsum(x)
+cummean(x)
+```
+
+
+
+
+---
+# Add new variables with `mutate()`
+### &lt;p style="color:#00449E"&gt; Useful creation functions
+
+- There are many functions for creating new variables that we can use with `mutate()`.
+
+
+- Ranking: `min_rank()`, `dense_rank()`, `row_number()`, `percent_rank()`, and `cume_dist()`.
+
+
+
+
+```r
+rank_me &lt;- tibble( x = c(10, 5, 1, 5, 5, NA) )
+rank_me &lt;- rank_me %&gt;% 
+  mutate(id_x = row_number(x),
+         x_min_rank = min_rank(x),
+         x_dense_rank = dense_rank(x)
+         )
+```
+
+
+
+
+
+---
+# Add new variables with `mutate()`
+### &lt;p style="color:#00449E"&gt; Useful creation functions (cont.)
+
+- To create new variables based on a condition, we can use the `if_else()` and `ifelse()` functions. 
+  - `if_else(&lt;condition&gt;, &lt;if TRUE&gt;, &lt;else&gt;)`
+  - `ifelse(&lt;condition&gt;, &lt;if TRUE&gt;, &lt;else&gt;)`
+
+
+
+```r
+flight_season &lt;- flights %&gt;%  mutate(
+    summer_month = if_else(month %in% c(6, 7, 8), TRUE, FALSE))
+
+flight_season &lt;- flights %&gt;%  mutate(
+    summer_month = if_else(month %in% c(6, 7, 8), TRUE, 0))
+
+flight_season &lt;- flights %&gt;%  mutate(  # ifelse() is less restrictive
+    summer_month = ifelse(month %in% c(6, 7, 8), TRUE, 0))
+```
+
+
+
+---
+# Add new variables with `mutate()`
+### &lt;p style="color:#00449E"&gt; Exercises
+ 
+- Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to compute with because they’re not really continuous numbers. Convert them to a more convenient representation of number of minutes since midnight.
+
+- Compare `air_time` with `arr_time - dep_time`. What do you expect to see? What do you see? What do you need to do to fix it?
+
+- Compare `dep_time`, `sched_dep_time`, and `dep_delay.` How would you expect those three numbers to be related?
+
+- Find the 10 most delayed flights using a ranking function. How do you want to handle ties? 
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# `summarize()`
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+  
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; 
+
+- `summarize()` collapses a data frame to a single row.
+- `na.rm` argument removes the missing values prior to computation when using `summarize()` or other aggregate functions.
+- `summarize()` is not terribly useful unless we pair it with `group_by()`.
+
+
+
+```r
+flights %&gt;% 
+  summarize(delay = mean(dep_delay, na.rm = TRUE))
+
+by_day &lt;- flights %&gt;% group_by(year, month, day)
+by_day %&gt;% summarize(delay = mean(dep_delay, na.rm = TRUE))
+```
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Example
+
+- Explore the relationship between the mean level `distance` and the mean level `arr_delay` for each value of `dest`.
+
+
+
+```r
+by_dest &lt;- flights %&gt;% group_by(dest)
+delay &lt;- by_dest %&gt;% summarize(
+  count = n(),
+  dist = mean(distance, na.rm = TRUE),
+  delay = mean(arr_delay, na.rm = TRUE)
+)
+delay &lt;- delay %&gt;% 
+  filter(count &gt; 20, dest != "HNL")
+
+ggplot(data = delay, mapping = aes(x = dist, y = delay)) +
+  geom_point(aes(size = count), alpha = 1/3) +
+  geom_smooth(se = FALSE)
+```
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Missing values
+
+- What happens if we don’t set `na.rm`?
+
+
+
+```r
+flights %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize(mean = mean(dep_delay))
+  
+flights %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize(mean = mean(dep_delay, na.rm = TRUE))
+```
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Missing values
+
+- Suppose missing values represent cancelled flights.
+
+
+
+```r
+not_cancelled &lt;- flights %&gt;% 
+  filter(!is.na(dep_delay), !is.na(arr_delay))
+
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize(mean = mean(dep_delay))
+```
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Counts
+
+- Let’s look at the planes (identified by their tail number (`tailnum`)) that have the highest average delays
+
+
+
+```r
+delays &lt;- not_cancelled %&gt;% 
+  group_by(tailnum) %&gt;% 
+  summarize(
+    delay = mean(arr_delay)
+  )
+
+ggplot(data = delays, mapping = aes(x = delay)) + 
+  geom_freqpoly(binwidth = 10)
+```
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Counts
+
+- When doing any aggregation, it’s always a good idea to include either a count (`n()`), or a count of non-missing values (`sum(!is.na(x))`).
+
+
+
+```r
+delays &lt;- not_cancelled %&gt;% 
+  group_by(tailnum) %&gt;% 
+  summarize( delay = mean(arr_delay, na.rm = TRUE),
+             n = n() )
+
+ggplot(data = delays, mapping = aes(x = n, y = delay)) + 
+  geom_point(alpha = 1/10)
+
+delays %&gt;% 
+  filter(n &gt; 25) %&gt;% 
+  ggplot(mapping = aes(x = n, y = delay)) + 
+    geom_point(alpha = 1/10)
+```
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Useful summary functions
+
+- Measures of location: `mean(x)` and `median(x)`. 
+
+- Measures of spread: `sd(x)`, `IQR(x)`. 
+
+
+
+
+```r
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize( avg_delay1 = mean(arr_delay),
+             avg_delay2 = mean(arr_delay[arr_delay &gt; 0]) ) # the average positive delay
+# Brackets[] lets us filter (or subset) data from a column
+# Why is distance to some destinations more variable than to others?
+not_cancelled %&gt;% 
+  group_by(dest) %&gt;% 
+  summarize(distance_sd = sd(distance)) %&gt;% 
+  arrange(desc(distance_sd))
+```
+
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Useful summary functions
+
+
+- Measures of rank: `min(x)`, `quantile(x, 0.25)`, `max(x)`, `range(x)`.
+- Measures of position: `first(x)`, `nth(x, 2)`, `last(x)`.
+
+
+- When do the first and last flights leave each day?
+
+.panelset[
+
+.panel[.panel-name[(1)]
+
+
+```r
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize(first = min(dep_time), 
+            last = max(dep_time) )
+```
+]
+
+
+.panel[.panel-name[(2)]
+
+```r
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize(first_dep = first(dep_time),last_dep = last(dep_time) )
+```
+]
+
+.panel[.panel-name[(3)]
+
+
+```r
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  mutate(r = min_rank(desc(dep_time))) %&gt;% 
+  filter(r %in% range(r) )
+```
+]
+
+]
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Useful summary functions
+
+- Measures of count: `sum(!is.na(x))`, `n_distinct(x)`,  `count(x)`, and `count(x, wt = VARIABLE)`.
+
+
+```r
+# Which destinations have the most carriers?
+not_cancelled %&gt;% 
+  group_by(dest) %&gt;% 
+  summarise(carriers = n_distinct(carrier)) %&gt;% 
+  arrange(desc(carriers))
+  
+  
+not_cancelled %&gt;% 
+  count(dest)
+
+not_cancelled %&gt;% 
+  count(tailnum, wt = distance)
+```
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Useful summary functions
+
+- We can compute the height of bars in a histogram by combining `dplyr::count()` and `ggplot2::cut_width()`:
+
+
+```r
+ggplot(data = diamonds) +
+  geom_histogram(mapping = aes(x = carat), binwidth = 0.5)
+
+diamonds %&gt;% 
+  count(cut_width(carat, 0.5))
+```
+
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Useful summary functions
+
+
+- Counts and proportions of logical values: `sum(x &gt; 10)`, `mean(y == 0)`.
+
+
+
+
+
+```r
+# How many flights left before 5am? 
+# (these usually indicate delayed flights from the previous day)
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize(n_early = sum(dep_time &lt; 500))
+
+# What proportion of flights are delayed by more than an hour?
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize(hour_prop = mean(arr_delay &gt; 60))
+```
+
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Grouping by multiple variables
+
+
+- When you group by multiple variables, each summary peels off one level of the grouping.
+
+
+
+
+
+```r
+daily &lt;- flights %&gt;% group_by(year, month, day)
+
+(per_day   &lt;- daily %&gt;% summarize(flights = n()))
+
+(per_month &lt;- per_day %&gt;% summarize(flights = sum(flights)))
+
+(per_year  &lt;- per_month %&gt;% summarize(flights = sum(flights)))
+```
+
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Ungrouping
+
+
+- If you need to remove grouping, and return to operations on ungrouped data, use `ungroup()`.
+
+
+
+
+```r
+daily %&gt;% 
+  ungroup() %&gt;%             # no longer grouped by date
+  summarize(flights = n())  # all flights
+```
+
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Exercises
+
+
+- Brainstorm at least 5 different ways to assess the typical delay characteristics of a group of flights. Consider the following scenarios:
+
+  - A flight is 15 minutes early 50% of the time, and 15 minutes late 50% of the time.
+
+  - A flight is always 10 minutes late.
+
+  - A flight is 30 minutes early 50% of the time, and 30 minutes late 50% of the time.
+
+  - 99% of the time a flight is on time. 1% of the time it’s 2 hours late.
+
+Q. Which is more important: arrival delay or departure delay?
+
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Exercises
+
+- Come up with another approach that will give you the same output as `not_cancelled` `%&gt;%` `count(dest)` and `not_cancelled %&gt;% count(tailnum, wt = distance)` (without using `count()`).
+
+- Our definition of cancelled flights (`is.na(dep_delay) | is.na(arr_delay)` ) is slightly suboptimal. Why? Which is the most important column?
+
+- Look at the number of cancelled flights per day. Is there a pattern? Is the proportion of cancelled flights related to the average delay?
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Exercises
+
+- Which carrier has the worst delays? Challenge: can you disentangle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about `flights %&gt;% group_by(carrier, dest) %&gt;% summarize(n())`)
+
+- What does the sort argument to `count()` do. When might you use it?
+
+
+
+
+---
+class: inverse, center, middle
+
+# Grouped mutates
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+  
+
+---
+# Grouped mutates (and filters)
+### &lt;p style="color:#00449E"&gt; 
+
+- Grouping is most useful in conjunction with `summarize()`, but you can also do convenient operations with `mutate()` and `filter()`.
+
+.panelset[
+
+.panel[.panel-name[worst]
+- Find the worst members of each group:
+
+
+```r
+flights %&gt;% 
+  group_by(year, month, day) %&gt;%
+  filter(rank(desc(arr_delay)) &lt; 10)
+```
+]
+
+
+.panel[.panel-name[threshold]
+- Find all groups bigger than a threshold:
+
+
+```r
+popular_dests &lt;- flights %&gt;% 
+  group_by(dest) %&gt;% 
+  filter(n() &gt; 17250)
+popular_dests
+```
+]
+
+.panel[.panel-name[standardization]
+- Standardize to compute per group metrics:
+
+
+```r
+popular_dests %&gt;% 
+  filter(arr_delay &gt; 0) %&gt;% 
+  mutate(prop_delay = arr_delay / sum(arr_delay)) %&gt;% 
+  select(year:day, dest, arr_delay, prop_delay)
+```
+]
+
+]
+
+---
+# Grouped mutates (and filters)
+### &lt;p style="color:#00449E"&gt; Exercises
+
+- Refer back to the lists of useful mutate and filtering functions. Describe how each operation changes when you combine it with grouping.
+
+- Which plane (`tailnum`) has the worst on-time record?
+
+- What time of day should you fly if you want to avoid delays as much as possible?
+
+- For each destination, compute the total minutes of delay. For each flight, compute the proportion of the total delay for its destination.
+
+
+
+
+---
+# Grouped mutates (and filters)
+### &lt;p style="color:#00449E"&gt; Exercises
+
+- Delays are typically temporally correlated: even once the problem that caused the initial delay has been resolved, later flights are delayed to allow earlier flights to leave. Using `lag()`, explore how the delay of a flight is related to the delay of the immediately preceding flight.
+
+- Look at each destination. Can you find flights that are suspiciously fast? (i.e. flights that represent a potential data entry error). Compute the air time of a flight relative to the shortest flight to that destination. Which flights were most delayed in the air?
+
+
+
+---
+# Grouped mutates (and filters)
+### &lt;p style="color:#00449E"&gt; Exercises
+
+- Find all destinations that are flown by at least two carriers. Use that information to rank the carriers.
+
+- For each plane, count the number of flights before the first delay of greater than 1 hour.
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 66px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
