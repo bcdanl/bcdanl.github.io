@@ -567,7 +567,7 @@ M S E &amp;\,=\, \frac{\sum_{i = 1}^{ n}\,(\, y_{i} - \hat{y}_{i} \,)^2}{n}\\
 <ul>
 <li><strong>Ridge regression</strong> introduces a <strong>shrinkage penalty</strong> <span class="math inline">\(\lambda \geq 0\)</span> by minimizing:</li>
 </ul>
-<p><span class="math display">\[\sum_i^n \big(Y_i - \beta_0 -  \sum_j^p \beta_j x_{ij}\big)^2 + \lambda \sum_j^p \beta_j^2 = \text{SSR} + \lambda \sum_j^p \beta_j^2\]</span> - As <span class="math inline">\(\lambda\)</span> increases <span class="math inline">\(\Rightarrow\)</span> flexibility of models decreases</p>
+<p><span class="math display">\[\sum_i^n \big(Y_i - \beta_0 -  \sum_j^p \beta_j x_{ij}\big)^2 + \lambda \sum_j^p \beta_j^2 = \text{SSE} + \lambda \sum_j^p \beta_j^2\]</span> - As <span class="math inline">\(\lambda\)</span> increases <span class="math inline">\(\Rightarrow\)</span> flexibility of models decreases</p>
 <ul>
 <li><p><strong>increases bias, but decreases variance</strong></p></li>
 <li><p>For fixed value of <span class="math inline">\(\lambda\)</span>, ridge regression fits only a single model</p>
@@ -603,7 +603,7 @@ M S E &amp;\,=\, \frac{\sum_{i = 1}^{ n}\,(\, y_{i} - \hat{y}_{i} \,)^2}{n}\\
 <li><strong>Lasso</strong> enables variable selection with <span class="math inline">\(\lambda\)</span> by minimizing:</li>
 </ul></li>
 </ul>
-<p><span class="math display">\[\sum_i^n \big(Y_i - \beta_0 -  \sum_j^p \beta_j X_{ij}\big)^2 + \lambda \sum_j^p\vert  \beta_j \vert = \text{SSR} + \lambda \sum_j^p \vert \beta_j \vert\]</span></p>
+<p><span class="math display">\[\sum_i^n \big(Y_i - \beta_0 -  \sum_j^p \beta_j X_{ij}\big)^2 + \lambda \sum_j^p\vert  \beta_j \vert = \text{SSE} + \lambda \sum_j^p \vert \beta_j \vert\]</span></p>
 <ul>
 <li><p>As <span class="math inline">\(\lambda\)</span> increases <span class="math inline">\(\Rightarrow\)</span> flexibility of models decreases</p>
 <ul>
@@ -644,7 +644,7 @@ M S E &amp;\,=\, \frac{\sum_{i = 1}^{ n}\,(\, y_{i} - \hat{y}_{i} \,)^2}{n}\\
 </section>
 <section id="gamma-lasso-regression" class="level3">
 <h3 class="anchored" data-anchor-id="gamma-lasso-regression">Gamma Lasso Regression</h3>
-<p><span class="math display">\[\sum_i^n \big(Y_i - \beta_0 -  \sum_j^p \beta_j X_{ij}\big)^2 + \lambda \sum_j^p\vert  \beta_j \vert = \text{SSR} + \lambda \sum_j^p \log(\, 1 + \vert \beta_j \vert\,)\]</span></p>
+<p><span class="math display">\[\sum_i^n \big(Y_i - \beta_0 -  \sum_j^p \beta_j X_{ij}\big)^2 + \lambda \sum_j^p\vert  \beta_j \vert = \text{SSE} + \lambda \sum_j^p \log(\, 1 + \vert \beta_j \vert\,)\]</span></p>
 <p><br></p>
 </section>
 </section>
@@ -659,7 +659,6 @@ M S E &amp;\,=\, \frac{\sum_{i = 1}^{ n}\,(\, y_{i} - \hat{y}_{i} \,)^2}{n}\\
 <li><p><span class="math inline">\(\lambda\)</span> is the penalty weight that determines the price of complexity.</p>
 <ul>
 <li>It is a tuning parameter that needs to be selected in some data-dependent manner.</li>
-</ul></li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'lec_figs/mba-3-4.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -670,8 +669,7 @@ M S E &amp;\,=\, \frac{\sum_{i = 1}^{ n}\,(\, y_{i} - \hat{y}_{i} \,)^2}{n}\\
 </figure>
 </div>
 </div>
-</div>
-<ul>
+</div></li>
 <li><p>The ridge penalty (<span class="math inline">\(\beta^{2}\)</span>) places little penalty on small values of <span class="math inline">\(\beta\)</span>.</p></li>
 <li><p>The Lasso penalty (<span class="math inline">\(\vert \beta \vert\)</span>) places a constant penalty on incremental deviations from zero.</p></li>
 <li><p>The gamma Lasso penalty (<span class="math inline">\(\log(1 + \vert \beta \vert)\)</span>) places extreme cost on the move from zero to small values of <span class="math inline">\(\beta\)</span>, but for large values the rate of penalty change is small.</p>
