@@ -1,0 +1,142 @@
+---
+title: "DANL 210: Data Preparation and Management<br>Homework Assignment 2"
+author: "Byeong-Hak Choe"
+editor: visual
+---
+
+# Direction for Homework Assignment 2
+
+-   Write a Python code to answer each question.
+
+-   Make at least some simple comment (`# ...`) in each question.
+
+-   Import Python libraries you need here.
+
+```{python, eval = F}
+import pandas as pd
+import seaborn as sns
+```
+
+<br><br><br>
+
+# Question 1
+
+Consider the `stock` DataFrame for Question 1.
+
+```{python, eval = F}
+path = 'https://bcdanl.github.io/data/stocks2013_2023.csv'
+stock = pd.read_csv(path)
+```
+
+## Q1a
+
+What are the minimum, first quartile, median, thrid quartile, maximum, mean, and standard deviation of `Close` and `Volume` for each `company`?
+
+```{python}
+
+```
+
+<br><br>
+
+## Q1b
+
+Find the 10 largest values for `Volume`. What are the `companies` and `dates` associated with those 10 largest values for `Volume`?
+
+```{python}
+
+```
+
+<br><br>
+
+## Q1c
+
+Calculate the Z-scores of Open and Close for each company using `apply()`.
+
+```{python}
+
+```
+
+## Q1d
+
+Use the `transform()` method on the `stock` data to represent all the values of `Open`, `High`, `Low`, `Close`, `Adj Close`, and `Volume` in terms of the first date in the data.
+
+To do so, divide all values for each company by the values of the first date in the data for that company.
+
+```{python}
+
+```
+
+## Q1e
+
+Visualize the daily trend of normalized values of `Close` for each company in one plot. The normalized values of `Close` are the one calculated from Q1d.
+
+```{python}
+
+```
+
+## Q1f
+
+Create a box plot of `Close` for each `company` in one plot.
+
+```{python}
+
+```
+
+<br><br><br>
+
+# Question 2
+
+Load the DataFrfame for Question 2.
+
+```{python, eval = F}
+path = 'https://bcdanl.github.io/data/climate_finance.csv'
+climate_finance = pd.read_csv(path)
+```
+
+## Q2a
+
+How many `parties` have `provided` or `disbursed` positive funding `contributions` to other countries or regions for their `adaptation` projects for every single `year` from 2011 to 2018?
+
+```{python}
+
+```
+
+<br><br>
+
+## Q2b
+
+For each `party`, calculate the total funding `contributions` that were `disbursed` or `provided` for `mitigation` projects for each `year`.
+
+```{python}
+
+```
+
+<br><br>
+
+## Q2c
+
+For each `party`, calculate the ratio between `adaptation` contribution and `mitigation` contribution for each type of `Status` for each `year`.
+
+```{python}
+
+```
+
+<br><br>
+
+## Q2d
+
+Provide both seaborn code and a simple comment to visualize the distribution of the ratio between `adaptation` contribution and `mitigation` contribution, which is calculated in Q2c.
+
+```{python}
+
+```
+
+<br><br>
+
+## Q2e
+
+Visualize how the distribution of `Contribution` varies by `Type of support` and `Status`.
+
+```{python}
+
+```
