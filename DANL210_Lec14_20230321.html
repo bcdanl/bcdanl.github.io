@@ -555,6 +555,35 @@ s_apply2 = s.groupby(s.index).apply(lambda x: x[x&gt;0].cumsum())
 
 ]
 
+
+
+.panel[.panel-name[(3)]
+
+
+```python
+iris = sns.load_dataset("iris")
+def f(x):
+    print(type(x))
+    print(x.head(3))
+    return 1
+
+by_species = iris.groupby('species')
+by_species_apply = by_species.apply(f)
+by_species_agg = by_species.agg(f)
+```
+
+
+
+]
+.panel[.panel-name[(4)]
+
+`.apply()` applies the function to each group (your species). Our function returns 1, so we end up with 1 value for each of 3 groups.
+
+`.agg()` aggregates each column (variable) for each group, so we end up with one value per column per group.
+
+]
+
+
 ]
 
 
