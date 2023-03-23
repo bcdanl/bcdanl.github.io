@@ -1,0 +1,113 @@
+---
+title: "Python Lab 3 - Tidy Data"
+author: "Byeong-Hak Choe"
+# include-after-body: [beer_map.html, beer_map_ny.html]
+editor: visual
+---
+
+## Load Libraries
+
+```{python, eval = F}
+import pandas as pd
+import numpy as np
+from skimpy import skim
+import seaborn as sns
+```
+
+# Question 1
+
+## Load `DataFrame`
+
+```{python, eval = F}
+#| warning: false
+#| message: false
+billboard = pd.read_csv('https://bcdanl.github.io/data/billboard.csv')
+ny_pincp = pd.read_csv('https://bcdanl.github.io/data/NY_pinc_wide.csv')
+covid = pd.read_csv('https://bcdanl.github.io/data/covid19_cases.csv')
+```
+
+
+## Q1a
+
+- Describe how the distribution of rating varies across week 1, week 2, and week 3 using the **faceted** histogram.
+
+```{python}
+# The .isin() method is used to check whether each value in the "week" column is present in the given list of values. 
+billboard_wk1_2_3 = billboard_long.loc[
+    billboard_long['week'].isin(['wk1', 'wk2', 'wk3'])
+    ]
+
+import seaborn as sns
+sns.displot(billboard_long3,
+             x = 'rating',
+             row = 'week'
+             )
+
+```
+
+## Q1b
+
+-  Which artist(s) have the most number of tracks in `billboard` DataFrame?
+
+```{python}
+#| warning: false
+#| message: false
+
+billboard_songs = (
+    billboard[["artist", "track"]]
+    .drop_duplicates()        # drops duplicate observations.
+    .drop("track", axis = 1)  # drops variable, track.
+    .value_counts()
+    )
+```
+
+## Q1c
+
+-   Make `ny_pincp` longer.
+
+```{python}
+#| warning: false
+#| message: false
+
+ny_pincp_long = ny_pincp.melt(
+        id_vars = ['fips', 'geoname'],
+        var_name = 'year',
+        value_name = 'pincp'
+        )
+    
+
+```
+
+## Q1d
+
+- Make a wide-form DataFrame of `covid` whose variable names are from `countriesAndTerritories` and values are from `cases`.
+
+```{python}
+#| warning: false
+#| message: false
+
+covid_wide = (
+    covid
+    .pivot_table(index = 'date', 
+           columns = 'countriesAndTerritories', 
+           values = 'cases')
+    )
+    
+```
+
+
+
+## Q1e
+
+- Use the wide-form DataFrame of `covid` to find the top 10 countries for which their cases are highly correlated with USA's cases using `DataFrame.corr()`
+
+```{python}
+
+corr_usa = (
+    covid_wide.corr()
+    .sort_values(by = 'USA', ascending = False)
+    .USA
+    )
+
+```
+
