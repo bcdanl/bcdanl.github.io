@@ -26,19 +26,27 @@ ny_pincp = pd.read_csv('https://bcdanl.github.io/data/NY_pinc_wide.csv')
 covid = pd.read_csv('https://bcdanl.github.io/data/covid19_cases.csv')
 ```
 
-
 ## Q1a
 
-- Describe how the distribution of rating varies across week 1, week 2, and week 3 using the **faceted** histogram.
+-   Describe how the distribution of rating varies across week 1, week 2, and week 3 using the **faceted** histogram.
 
 ```{python}
+#| warning: false
+#| message: false
+
+billboard_long = billboard.melt(
+  id_vars = ["year", "artist", "track", "time", "date.entered"],
+  var_name = "week",
+  value_name = "rating",
+)
+
+
 # The .isin() method is used to check whether each value in the "week" column is present in the given list of values. 
 billboard_wk1_2_3 = billboard_long.loc[
     billboard_long['week'].isin(['wk1', 'wk2', 'wk3'])
     ]
 
-import seaborn as sns
-sns.displot(billboard_long3,
+sns.displot(billboard_wk1_2_3,
              x = 'rating',
              row = 'week'
              )
@@ -47,7 +55,7 @@ sns.displot(billboard_long3,
 
 ## Q1b
 
--  Which artist(s) have the most number of tracks in `billboard` DataFrame?
+-   Which artist(s) have the most number of tracks in `billboard` DataFrame?
 
 ```{python}
 #| warning: false
@@ -80,7 +88,7 @@ ny_pincp_long = ny_pincp.melt(
 
 ## Q1d
 
-- Make a wide-form DataFrame of `covid` whose variable names are from `countriesAndTerritories` and values are from `cases`.
+-   Make a wide-form DataFrame of `covid` whose variable names are from `countriesAndTerritories` and values are from `cases`.
 
 ```{python}
 #| warning: false
@@ -95,11 +103,9 @@ covid_wide = (
     
 ```
 
-
-
 ## Q1e
 
-- Use the wide-form DataFrame of `covid` to find the top 10 countries for which their cases are highly correlated with USA's cases using `DataFrame.corr()`
+-   Use the wide-form DataFrame of `covid` to find the top 10 countries for which their cases are highly correlated with USA's cases using `DataFrame.corr()`
 
 ```{python}
 
@@ -110,4 +116,3 @@ corr_usa = (
     )
 
 ```
-
