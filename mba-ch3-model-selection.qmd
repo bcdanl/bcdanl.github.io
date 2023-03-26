@@ -1,0 +1,368 @@
+---
+subtitle: Machine Learning Lab
+title: "Model Selection"
+author: "Byeong-Hak Choe"
+editor: visual
+---
+
+```{r setup, include = F}
+library(tidyverse)
+library(gapminder)
+library(skimr)   # a better summary of data.frame
+library(scales)  # scales for ggplot
+library(ggthemes)  # additional ggplot themes
+library(hrbrthemes) # additional ggplot themes and color pallets
+library(lubridate)
+library(ggridges)
+library(stargazer)
+theme_set(theme_ipsum()) # setting the minimal theme for ggplot
+# setting default chunk options
+knitr::opts_chunk$set(
+	eval = T,
+	echo = T,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+<br><br>
+
+## Fixed effects
+
+- Unobserved characteristics that is associated with at least one explanatory variable is called a "**fixed effect**."
+
+- If there exist the fixed effect in the data and we do not control the fixed effect in the model, the model will have a biased result in estimation.
+
+- We often control unobserved heterogeneity across US counties characteristics by including dummy variables of counties in the model.
+
+
+## Beer Markets
+
+```{r}
+library(tidyverse)
+
+# Importing the beer data
+beer_markets <- read.table(
+  'https://bcdanl.github.io/data/beer_markets.csv',
+  sep = ',',
+  header = TRUE,
+  stringsAsFactor = TRUE
+)
+
+# Adding a variable of log price of beer
+beer_markets <- beer_markets %>% 
+  mutate(logprice = log(price_per_floz))
+
+
+################################################################################
+# Setting missing value (NA) 
+# as the reference level of a factor variable
+xnaref <- function(x){
+  if(is.factor(x))
+    if(!is.na(levels(x)[1]))
+      x <- factor(x,levels=c(NA,levels(x)),exclude=NULL)
+  return(x) }
+
+naref <- function(DF){
+  if(is.null(dim(DF))) return(xnaref(DF))
+  if(!is.data.frame(DF)) 
+    stop("You need to give me a data.frame or a factor")
+  DF <- lapply(DF, xnaref)
+  return(as.data.frame(DF))
+}
+beer_markets_naref <- naref(beer_markets)
+
+# Checking levels of factor variable, brand
+levels(beer_markets_naref$brand) 
+
+
+
+################################################################################
+# Building a sparse matrix for a bigger demographics design 
+# by interacting with market
+
+# sparse.model.matrix() works with formula, which makes it more convenient
+# to construct the matrix of explanatory variables
+# than using sparseMatrix(), provided by 
+# the glmnet package
+library(gamlr)
+xdemog <- sparse.model.matrix( 
+  ~ market * (buyertype + income + childrenUnder6 + children6to17 +
+                employment + degree + cow + race + microwave +
+                dishwasher + tvcable + singlefamilyhome + npeople), 
+  data = beer_markets_naref)[,-1]  # [,1] to remove the (Intercept) term
+
+xdemog <- xdemog[, colSums(xdemog)>0 ] 
+    # drop columns whose entries are all zeros
+
+xbeer <- sparse.model.matrix( 
+  ~ logprice + brand, 
+  data=beer_markets_naref)[,-1]
+
+xbeer_brand_promo <- sparse.model.matrix( 
+  ~ logprice * brand * promo, 
+  data=beer_markets_naref)[,-1]
+
+xbeer_brand <- sparse.model.matrix( 
+  ~ logprice * brand, 
+  data=beer_markets_naref)[,-1]
+
+ylogspent <- log(beer_markets$dollar_spent)
+
+
+
+
+############################################################################
+#  linear regression without demographic controls
+oned1 <- lm(log(dollar_spent) ~ logprice+brand, 
+            data = beer_markets)
+oned2 <- lm(log(dollar_spent) ~ logprice*brand, 
+            data = beer_markets)
+oned3 <- lm(log(dollar_spent) ~ logprice*brand*promo, 
+            data = beer_markets)
+summary(oned1)
+summary(oned2)
+summary(oned3)
+
+# the price elasticity of beer from the model, oned1.
+coef(oned1)['logprice']
+
+# the brand-specific price elasticity of beer from the model, oned2.
+coef(oned2)['logprice']
+coef(oned2)['logprice'] + coef(oned2)['logprice:brandBUSCH LIGHT']
+coef(oned2)['logprice'] + coef(oned2)['logprice:brandCOORS LIGHT']
+coef(oned2)['logprice'] + coef(oned2)['logprice:brandMILLER LITE']
+coef(oned2)['logprice'] + coef(oned2)['logprice:brandNATURAL LIGHT']
+
+
+# the brand-specific price elasticity from the model, oned3 with no promo
+coef(oned3)['logprice']
+coef(oned3)['logprice'] + coef(oned3)['logprice:brandBUSCH LIGHT']
+coef(oned3)['logprice'] + coef(oned3)['logprice:brandCOORS LIGHT']
+coef(oned3)['logprice'] + coef(oned3)['logprice:brandMILLER LITE']
+coef(oned3)['logprice'] + coef(oned3)['logprice:brandNATURAL LIGHT']
+
+
+
+# the brand-specific price elasticity from the model, oned3 with promo
+coef(oned3)['logprice'] + coef(oned3)['logprice:promoTRUE']
+
+coef(oned3)['logprice'] + coef(oned3)['logprice:promoTRUE'] + 
+  coef(oned3)['logprice:brandBUSCH LIGHT'] + 
+  coef(oned3)['logprice:brandBUSCH LIGHT:promoTRUE'] 
+
+coef(oned3)['logprice'] + coef(oned3)['logprice:promoTRUE'] + 
+  coef(oned3)['logprice:brandCOORS LIGHT'] + 
+  coef(oned3)['logprice:brandCOORS LIGHT:promoTRUE'] 
+
+coef(oned3)['logprice'] + coef(oned3)['logprice:promoTRUE'] + 
+  coef(oned3)['logprice:brandMILLER LITE'] + 
+  coef(oned3)['logprice:brandMILLER LITE:promoTRUE'] 
+
+coef(oned3)['logprice'] + coef(oned3)['logprice:promoTRUE'] + 
+  coef(oned3)['logprice:brandNATURAL LIGHT'] + 
+  coef(oned3)['logprice:brandNATURAL LIGHT:promoTRUE']
+
+# `oned3` allows for brand-specific price elasticities to vary with promo status.
+# Bud, Coors, and Miller have positive price elasticities when doing promo.
+
+#  For example, if the stores in
+#   richer areas raise prices of Bud, Coors, and Miller, 
+#  and people still spend more for Bud, Coors, and Miller?!!
+
+
+
+
+
+################################################################################
+# Gamma Lasso regression with a big demographics design
+gamlr_reg1 <- cv.gamlr(cbind(xbeer,xdemog), 
+                       ylogspent)
+gamlr_reg2 <- cv.gamlr(cbind(xbeer_brand,xdemog), 
+                       ylogspent)
+gamlr_reg3 <- cv.gamlr(cbind(xbeer_brand_promo,xdemog), 
+                       ylogspent)
+
+plot(gamlr_reg1)
+plot(gamlr_reg2)
+plot(gamlr_reg3)
+
+# the price elasticity of beer from the model gamlr_reg1. 
+coef(gamlr_reg1)["logprice",]
+coef(oned1)["logprice"]
+
+# In long regression, consumers are less sensitive  to price change.
+# there were controls that
+# led to lower sales while being simultaneously associated with higher prices.
+
+# the brand-specific price elasticity of beer from the model, gamlr_reg2
+coef(gamlr_reg2)["logprice",] + 
+  coef(gamlr_reg2)["logprice:brandBUD LIGHT",]
+coef(oned2)['logprice']
+
+coef(gamlr_reg2)["logprice",] + 
+  coef(gamlr_reg2)["logprice:brandBUSCH LIGHT",]
+coef(oned2)['logprice'] + coef(oned2)['logprice:brandBUSCH LIGHT']
+
+coef(gamlr_reg2)["logprice",] + 
+  coef(gamlr_reg2)["logprice:brandCOORS LIGHT",]
+coef(oned2)['logprice'] + coef(oned2)['logprice:brandCOORS LIGHT']
+
+coef(gamlr_reg2)["logprice",] + 
+  coef(gamlr_reg2)["logprice:brandMILLER LITE",]
+coef(oned2)['logprice'] + coef(oned2)['logprice:brandMILLER LITE']
+
+coef(gamlr_reg2)["logprice",] + 
+  coef(gamlr_reg2)["logprice:brandNATURAL LIGHT",]
+coef(oned2)['logprice'] + coef(oned2)['logprice:brandNATURAL LIGHT']
+
+
+# the brand-specific price elasticity from the model, gamlr_reg3
+coef(gamlr_reg3)["logprice",] + 
+  coef(gamlr_reg3)["logprice:brandBUD LIGHT",]
+coef(gamlr_reg3)["logprice",] + 
+  coef(gamlr_reg3)["logprice:brandBUD LIGHT",]+ 
+  coef(gamlr_reg3)["logprice:brandBUD LIGHT:promoTRUE",]
+
+coef(gamlr_reg3)["logprice",] + 
+  coef(gamlr_reg3)["logprice:brandBUSCH LIGHT",]
+coef(gamlr_reg3)["logprice",] + 
+  coef(gamlr_reg3)["logprice:brandBUSCH LIGHT",]+ 
+  coef(gamlr_reg3)["logprice:brandBUSCH LIGHT:promoTRUE",]
+
+coef(gamlr_reg3)["logprice",] + 
+  coef(gamlr_reg3)["logprice:brandCOORS LIGHT",]
+coef(gamlr_reg3)["logprice",] + 
+  coef(gamlr_reg3)["logprice:brandCOORS LIGHT",]+ 
+  coef(gamlr_reg3)["logprice:brandCOORS LIGHT:promoTRUE",]
+
+coef(gamlr_reg3)["logprice",] + 
+  coef(gamlr_reg3)["logprice:brandMILLER LITE",]
+coef(gamlr_reg3)["logprice",] + 
+  coef(gamlr_reg3)["logprice:brandMILLER LITE",]+ 
+  coef(gamlr_reg3)["logprice:brandMILLER LITE:promoTRUE",]
+
+coef(gamlr_reg3)["logprice",] + 
+  coef(gamlr_reg3)["logprice:brandNATURAL LIGHT",]
+coef(gamlr_reg3)["logprice",] + 
+  coef(gamlr_reg3)["logprice:brandNATURAL LIGHT",]+ 
+  coef(gamlr_reg3)["logprice:brandNATURAL LIGHT:promoTRUE",]
+
+# `gamlr_reg3` has no positive price elasticities, while `oned3` has some
+# positive price elasticities.
+
+
+
+
+
+################################################################################
+# Lasso regression.
+library(glmnet)
+# The matrices used in cv.gamlr() can be used in cv.glmnet().
+glmnet_reg1 <- cv.glmnet(cbind(xbeer,xdemog), 
+                         ylogspent, alpha = 1)
+glmnet_reg2 <- cv.glmnet(cbind(xbeer_brand,xdemog), 
+                         ylogspent, alpha = 1)
+glmnet_reg3 <- cv.glmnet(cbind(xbeer_brand_promo,xdemog), 
+                         ylogspent, alpha = 1)
+
+plot(glmnet_reg1)
+plot(glmnet_reg2)
+plot(glmnet_reg3)
+
+
+# broom package works with glmnet() but not with gamlr().
+library(broom)
+sum_glmnet_reg1 <- tidy(glmnet_reg1)  
+sum_glmnet_reg2 <- tidy(glmnet_reg2)
+sum_glmnet_reg3 <- tidy(glmnet_reg3)
+
+lambda_glmnet_reg1 <- glance(glmnet_reg1)
+lambda_glmnet_reg2 <- glance(glmnet_reg2)
+lambda_glmnet_reg3 <- glance(glmnet_reg3)
+
+
+# plot of CV errors as a function of lambda
+ggplot(sum_glmnet_reg1, aes(lambda, estimate)) +
+  geom_line() +
+  geom_ribbon(aes(ymin = conf.low, 
+                  ymax = conf.high), alpha = .25) +
+  geom_vline(xintercept = lambda_glmnet_reg1$lambda.min) +
+  geom_vline(xintercept = lambda_glmnet_reg1$lambda.1se, lty = 2) +
+  scale_x_log10()
+
+
+# plot of number of nonzero betas for each choice of lambda
+ggplot(sum_glmnet_reg1, aes(lambda, nzero)) +
+  geom_line() +
+  geom_vline(xintercept = lambda_glmnet_reg1$lambda.min) +
+  geom_vline(xintercept = lambda_glmnet_reg1$lambda.1se, lty = 2) +
+  scale_x_log10()
+
+
+# coefficient plot as a function of lambda
+tidied <- tidy(glmnet_reg1$glmnet.fit)
+tidied <- filter(tidied, 
+                 str_detect(term, "brand") == T | 
+                   str_detect(term, "logprice") == T)
+ggplot(tidied, 
+       aes(lambda, estimate, color = term)) +
+  scale_x_log10() +
+  geom_line() +
+  geom_vline(xintercept = lambda_glmnet_reg1$lambda.min) +
+  geom_vline(xintercept = lambda_glmnet_reg1$lambda.1se, lty = 2)
+
+
+# saving beta estimates from both 1se and min lambdas
+beta1se <- coef(glmnet_reg1) ## 1se cv selection
+beta1se <- as.data.frame(as.matrix(beta1se))
+beta1se <- rename(beta1se, b_1se = s1)
+
+betamin <- coef(glmnet_reg1, 
+                s = glmnet_reg1$lambda.min) ## min cv `s`election
+betamin <- as.data.frame(as.matrix(betamin))
+betamin <- rename(betamin, b_min = s1)
+
+betas <- cbind(betamin, beta1se)
+betas$term <- rownames(betas)
+rownames(betas) <- NULL
+
+betas <- betas %>% 
+  select(term, b_min, b_1se)
+
+# visualizing beta estimates
+ggplot(data = filter(betas,     # drop obs. w/ market* terms
+                     str_detect(term, "market") == F), 
+       aes(x = term, y = b_min)) +
+  geom_pointrange(aes(ymin = 0, ymax = b_min)) +
+  ggtitle("Coefficients of lasso model with lambda.1se") +
+  coord_flip()
+
+ggplot(data = filter(betas,     # drop obs. w/ market* terms
+                     str_detect(term, "market") == F), 
+       aes(x = term, y = b_min)) +
+  geom_pointrange(aes(ymin = 0, ymax = b_1se)) +
+  ggtitle("Coefficients of lasso model with lambda.1se") +
+  coord_flip()
+
+
+```
+
+
+<br><br>
+
+## References
+
+-   [The Elements of Statistical Learning: Data Mining, Inference, and Prediction](https://hastie.su.domains/ElemStatLearn/) by [Trevor Hastie](https://hastie.su.domains), [Robert Tibshirani](https://tibshirani.su.domains) and [Jerome Friedman](https://jerryfriedman.su.domains).
+
+<!-- - [Causal Inference: The Mixtape](https://mixtape.scunning.com) by [Scott Cunningham](https://www.scunning.com). -->
+
+<!-- - [Statistical Inference via Data Science: A ModernDive into R and the Tidyverse](https://moderndive.com) by [Chester Ismay](https://chester.rbind.io) and [Albert Y. Kim](http://rudeboybert.rbind.io). -->
+
+<!-- -   [An Introduction to Statistical Learning](https://www.statlearning.com) by [Gareth James](https://www.garethmjames.com), [Daniela Witten](https://www.danielawitten.com), [Trevor Hastie](https://hastie.su.domains), and [Robert Tibshirani](https://tibshirani.su.domains). -->
+
+-   [Modern Business Analytics](https://www.mheducation.com/highered/product/modern-business-analytics-taddy-hendrix/M9781264071678.html) by [Matt Taddy](https://www.linkedin.com/in/matt-taddy-433078137/), [Leslie Hendrix](https://sc.edu/study/colleges_schools/moore/directory/hendrix.leslie.php), and [Matthew Harding](https://www.harding.ai).
+
+-   [Practical Data Science with R](https://www.manning.com/books/practical-data-science-with-r-second-edition) by [Nina Zumel](https://ninazumel.com) and [John Mount](https://win-vector.com/john-mount/).
+
+<!-- -   [Summer Undergraduate Research Experience (SURE) 2022 in Statistics at Carnegie Mellon University](https://www.stat.cmu.edu/cmsac/sure/2022/materials/) by [Ron Yurko](https://www.stat.cmu.edu/~ryurko/). -->
