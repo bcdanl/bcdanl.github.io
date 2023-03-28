@@ -70,6 +70,18 @@ knitr::include_graphics("lec_figs/statemap-unemp.png")
 
 # Question 2 - Election maps and data clearning
 
+The following data is for Question 2:
+
+```{r, echo = T, eval = T, message=F}
+election_panel <- read_csv(
+  'https://bcdanl.github.io/data/election_panel.csv')
+
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(election_panel) 
+```
+
 -   Replicate the following map.
     -   Do not use `coord_map(projection = "albers", lat0 = 39, lat1 = 45)`.
 
