@@ -89,6 +89,12 @@ covid = pd.read_csv('https://bcdanl.github.io/data/covid19_cases.csv')
 paidsearch = pd.read_csv('https://bcdanl.github.io/data/paidsearch.csv')
 ```
 
+- Variable description
+  - `dma`: an identification number of a designated market (DM) area `i` (e.g., Boston, Los Angeles)
+  - `treatment_period`: 0 if date is before May 22, 2012 and 1 after.
+  - `search_stays_on`: 1 if the paid-search goes off in dma `i`, 0 otherwise.
+  - `revenue`: eBay's sales revenue for dma `i` and date `t`
+
 
 ## Q2a
 Summarize the mean value of `revenue` for each group of `search_stays_on` for each `date`.
@@ -122,7 +128,7 @@ paid_search = pd.read_csv('https://bcdanl.github.io/data/paid_search.csv')
 
 <br>
 
-
+- `May22_2012`: 0 if date is before May 22, 2012; 1 otherwise.
 
 ## Q2C
 Sort `paid_search` by `DM` and `May22_2012` in ascending order.
