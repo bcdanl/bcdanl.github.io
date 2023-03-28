@@ -26,6 +26,9 @@ ny_pincp = pd.read_csv('https://bcdanl.github.io/data/NY_pinc_wide.csv')
 covid = pd.read_csv('https://bcdanl.github.io/data/covid19_cases.csv')
 ```
 
+<br>
+
+
 ## Q1a
 
 -   Describe how the distribution of rating varies across week 1, week 2, and week 3 using the **faceted** histogram.
@@ -33,6 +36,9 @@ covid = pd.read_csv('https://bcdanl.github.io/data/covid19_cases.csv')
 ```{python}
 
 ```
+
+<br>
+
 
 ## Q1b
 
@@ -42,6 +48,9 @@ covid = pd.read_csv('https://bcdanl.github.io/data/covid19_cases.csv')
 
 ```
 
+<br>
+
+
 ## Q1c
 
 -   Make `ny_pincp` longer.
@@ -49,6 +58,9 @@ covid = pd.read_csv('https://bcdanl.github.io/data/covid19_cases.csv')
 ```{python}
 
 ```
+
+<br>
+
 
 ## Q1d
 
@@ -58,6 +70,8 @@ covid = pd.read_csv('https://bcdanl.github.io/data/covid19_cases.csv')
 
 ```
 
+<br>
+
 ## Q1e
 
 -   Use the wide-form DataFrame of `covid` to find the top 10 countries for which their cases are highly correlated with USA's cases using `DataFrame.corr()`
@@ -65,3 +79,69 @@ covid = pd.read_csv('https://bcdanl.github.io/data/covid19_cases.csv')
 ```{python}
 
 ```
+
+<br><br><br>
+
+# Question 2
+
+## Load DataFrame for Q2a and Q2b
+```{python}
+paidsearch = pd.read_csv('https://bcdanl.github.io/data/paidsearch.csv')
+```
+
+
+## Q2a
+Summarize the mean vale of `revenue` for each group of `search_stays_on` and for each `date`.
+
+
+<br>
+
+
+## Q2b
+Calculate the log difference between mean revenues in each group of `search_stays_on`. (This is the log of the average revenue in group of search_stays_on == 1 minus the log of the average revenue in group of search_stays_on == 0.)
+
+
+- For example, consider the following two observations:
+```{python}
+# date        the daily mean vale of `revenue`   search_stays_on
+# 1-Apr-12    93650.68                           0
+# 1-Apr-12    120277.57                          1
+```
+
+- The log difference of daily mean revenues between the two group of `search_stays_on` for date 1-Apr-12 is log(120277.57) - log(93650.68).
+
+
+<br>
+
+
+
+## Load DataFrame for Q2c, Q2d, and Q2e
+```{python}
+paid_search = pd.read_csv('https://bcdanl.github.io/data/paid_search.csv')
+```
+
+<br>
+
+
+
+## Q2C
+Sort `paid_search` by `DM` and `May22_2012` in ascending order.
+
+<br>
+
+
+
+## Q2d
+For each `DM`, calculate the difference between `log_revenue` before and after `May22_2012`.
+
+<br>
+
+
+
+## Q2e
+- Consider the DataFrame from Q2d. 
+
+- Calculate the mean value of the difference between `log_revenue` before and after `May22_2012` for each group of `no_paid_search`.
+
+- What is the difference in the mean values?
+

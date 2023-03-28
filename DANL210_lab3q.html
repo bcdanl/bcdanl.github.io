@@ -243,6 +243,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <a class="dropdown-item" href="./DANL200_lab2q.html">
  <span class="dropdown-text">lab2-q</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_midterm-spring-2022-q.html">
+ <span class="dropdown-text">midterm-spring-2022-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_midterm-fall-2022-q.html">
+ <span class="dropdown-text">midterm-fall-2022-q</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -501,6 +509,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#q1d" id="toc-q1d" class="nav-link" data-scroll-target="#q1d">Q1d</a></li>
   <li><a href="#q1e" id="toc-q1e" class="nav-link" data-scroll-target="#q1e">Q1e</a></li>
   </ul></li>
+  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a>
+  <ul class="collapse">
+  <li><a href="#load-dataframe-for-q2a-and-q2b" id="toc-load-dataframe-for-q2a-and-q2b" class="nav-link" data-scroll-target="#load-dataframe-for-q2a-and-q2b">Load DataFrame for Q2a and Q2b</a></li>
+  <li><a href="#q2a" id="toc-q2a" class="nav-link" data-scroll-target="#q2a">Q2a</a></li>
+  <li><a href="#q2b" id="toc-q2b" class="nav-link" data-scroll-target="#q2b">Q2b</a></li>
+  <li><a href="#load-dataframe-for-q2c-q2d-and-q2e" id="toc-load-dataframe-for-q2c-q2d-and-q2e" class="nav-link" data-scroll-target="#load-dataframe-for-q2c-q2d-and-q2e">Load DataFrame for Q2c, Q2d, and Q2e</a></li>
+  <li><a href="#q2c" id="toc-q2c" class="nav-link" data-scroll-target="#q2c">Q2C</a></li>
+  <li><a href="#q2d" id="toc-q2d" class="nav-link" data-scroll-target="#q2d">Q2d</a></li>
+  <li><a href="#q2e" id="toc-q2e" class="nav-link" data-scroll-target="#q2e">Q2e</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -548,35 +566,96 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ny_pincp <span class="op">=</span> pd.read_csv(<span class="st">'https://bcdanl.github.io/data/NY_pinc_wide.csv'</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>covid <span class="op">=</span> pd.read_csv(<span class="st">'https://bcdanl.github.io/data/covid19_cases.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><br></p>
 </section>
 <section id="q1a" class="level2">
 <h2 class="anchored" data-anchor-id="q1a">Q1a</h2>
 <ul>
 <li>Describe how the distribution of rating varies across week 1, week 2, and week 3 using the <strong>faceted</strong> histogram.</li>
 </ul>
+<p><br></p>
 </section>
 <section id="q1b" class="level2">
 <h2 class="anchored" data-anchor-id="q1b">Q1b</h2>
 <ul>
 <li>Which artist(s) have the most number of tracks in <code>billboard</code> DataFrame?</li>
 </ul>
+<p><br></p>
 </section>
 <section id="q1c" class="level2">
 <h2 class="anchored" data-anchor-id="q1c">Q1c</h2>
 <ul>
 <li>Make <code>ny_pincp</code> longer.</li>
 </ul>
+<p><br></p>
 </section>
 <section id="q1d" class="level2">
 <h2 class="anchored" data-anchor-id="q1d">Q1d</h2>
 <ul>
 <li>Make a wide-form DataFrame of <code>covid</code> whose variable names are from <code>countriesAndTerritories</code> and values are from <code>cases</code>.</li>
 </ul>
+<p><br></p>
 </section>
 <section id="q1e" class="level2">
 <h2 class="anchored" data-anchor-id="q1e">Q1e</h2>
 <ul>
 <li>Use the wide-form DataFrame of <code>covid</code> to find the top 10 countries for which their cases are highly correlated with USA’s cases using <code>DataFrame.corr()</code></li>
+</ul>
+<p><br><br><br></p>
+</section>
+</section>
+<section id="question-2" class="level1">
+<h1>Question 2</h1>
+<section id="load-dataframe-for-q2a-and-q2b" class="level2">
+<h2 class="anchored" data-anchor-id="load-dataframe-for-q2a-and-q2b">Load DataFrame for Q2a and Q2b</h2>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>paidsearch <span class="op">=</span> pd.read_csv(<span class="st">'https://bcdanl.github.io/data/paidsearch.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="q2a" class="level2">
+<h2 class="anchored" data-anchor-id="q2a">Q2a</h2>
+<p>Summarize the mean vale of <code>revenue</code> for each group of <code>search_stays_on</code> and for each <code>date</code>.</p>
+<p><br></p>
+</section>
+<section id="q2b" class="level2">
+<h2 class="anchored" data-anchor-id="q2b">Q2b</h2>
+<p>Calculate the log difference between mean revenues in each group of <code>search_stays_on</code>. (This is the log of the average revenue in group of search_stays_on == 1 minus the log of the average revenue in group of search_stays_on == 0.)</p>
+<ul>
+<li>For example, consider the following two observations:</li>
+</ul>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># date        the daily mean vale of `revenue`   search_stays_on</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1-Apr-12    93650.68                           0</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1-Apr-12    120277.57                          1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>The log difference of daily mean revenues between the two group of <code>search_stays_on</code> for date 1-Apr-12 is log(120277.57) - log(93650.68).</li>
+</ul>
+<p><br></p>
+</section>
+<section id="load-dataframe-for-q2c-q2d-and-q2e" class="level2">
+<h2 class="anchored" data-anchor-id="load-dataframe-for-q2c-q2d-and-q2e">Load DataFrame for Q2c, Q2d, and Q2e</h2>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>paid_search <span class="op">=</span> pd.read_csv(<span class="st">'https://bcdanl.github.io/data/paid_search.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+</section>
+<section id="q2c" class="level2">
+<h2 class="anchored" data-anchor-id="q2c">Q2C</h2>
+<p>Sort <code>paid_search</code> by <code>DM</code> and <code>May22_2012</code> in ascending order.</p>
+<p><br></p>
+</section>
+<section id="q2d" class="level2">
+<h2 class="anchored" data-anchor-id="q2d">Q2d</h2>
+<p>For each <code>DM</code>, calculate the difference between <code>log_revenue</code> before and after <code>May22_2012</code>.</p>
+<p><br></p>
+</section>
+<section id="q2e" class="level2">
+<h2 class="anchored" data-anchor-id="q2e">Q2e</h2>
+<ul>
+<li><p>Consider the DataFrame from Q2d.</p></li>
+<li><p>Calculate the mean value of the difference between <code>log_revenue</code> before and after <code>May22_2012</code> for each group of <code>no_paid_search</code>.</p></li>
+<li><p>What is the difference in the mean values?</p></li>
 </ul>
 
 

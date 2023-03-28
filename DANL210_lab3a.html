@@ -8,7 +8,7 @@
 
 <meta name="author" content="Byeong-Hak Choe">
 
-<title>B.H. CHOE - Python Lab 3 - Tidy Data</title>
+<title>B.H. CHOE - Python Lab 4 - Practice</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -242,6 +242,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <li>
     <a class="dropdown-item" href="./DANL200_lab2q.html">
  <span class="dropdown-text">lab2-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_midterm-spring-2022-q.html">
+ <span class="dropdown-text">midterm-spring-2022-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_midterm-fall-2022-q.html">
+ <span class="dropdown-text">midterm-fall-2022-q</span></a>
   </li>  
     </ul>
   </li>
@@ -501,6 +509,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#q1d" id="toc-q1d" class="nav-link" data-scroll-target="#q1d">Q1d</a></li>
   <li><a href="#q1e" id="toc-q1e" class="nav-link" data-scroll-target="#q1e">Q1e</a></li>
   </ul></li>
+  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a>
+  <ul class="collapse">
+  <li><a href="#load-dataframe-for-q2a-and-q2b" id="toc-load-dataframe-for-q2a-and-q2b" class="nav-link" data-scroll-target="#load-dataframe-for-q2a-and-q2b">Load DataFrame for Q2a and Q2b</a></li>
+  <li><a href="#q2a" id="toc-q2a" class="nav-link" data-scroll-target="#q2a">Q2a</a></li>
+  <li><a href="#q2b" id="toc-q2b" class="nav-link" data-scroll-target="#q2b">Q2b</a></li>
+  <li><a href="#load-dataframe-for-q2c-q2d-and-q2e" id="toc-load-dataframe-for-q2c-q2d-and-q2e" class="nav-link" data-scroll-target="#load-dataframe-for-q2c-q2d-and-q2e">Load DataFrame for Q2c, Q2d, and Q2e</a></li>
+  <li><a href="#q2c" id="toc-q2c" class="nav-link" data-scroll-target="#q2c">Q2C</a></li>
+  <li><a href="#q2d" id="toc-q2d" class="nav-link" data-scroll-target="#q2d">Q2d</a></li>
+  <li><a href="#q2e" id="toc-q2e" class="nav-link" data-scroll-target="#q2e">Q2e</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -509,7 +527,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Python Lab 3 - Tidy Data</h1>
+<h1 class="title">Python Lab 4 - Practice</h1>
 </div>
 
 
@@ -572,7 +590,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>             row <span class="op">=</span> <span class="st">'week'</span></span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>             )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>&lt;seaborn.axisgrid.FacetGrid at 0x7fb70353cb20&gt;</code></pre>
+<pre><code>&lt;seaborn.axisgrid.FacetGrid at 0x7fe68b042a90&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="DANL210_lab3a_files/figure-html/cell-4-output-2.png" width="469" height="1427"></p>
@@ -632,6 +650,133 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    .USA</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><br><br><br></p>
+</section>
+</section>
+<section id="question-2" class="level1">
+<h1>Question 2</h1>
+<section id="load-dataframe-for-q2a-and-q2b" class="level2">
+<h2 class="anchored" data-anchor-id="load-dataframe-for-q2a-and-q2b">Load DataFrame for Q2a and Q2b</h2>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>paidsearch <span class="op">=</span> pd.read_csv(<span class="st">'https://bcdanl.github.io/data/paidsearch.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Variable description
+<ul>
+<li><code>dma</code>: an identification number of a designated market (DM) area <code>i</code> (e.g., Boston, Los Angeles)</li>
+<li><code>treatment_period</code>: 0 if date is before May 22, 2012 and 1 after.</li>
+<li><code>search_stays_on</code>: 1 if the paid-search goes off in dma <code>i</code>, 0 otherwise.</li>
+<li><code>revenue</code>: eBay’s sales revenue for dma <code>i</code> and date <code>t</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="q2a" class="level2">
+<h2 class="anchored" data-anchor-id="q2a">Q2a</h2>
+<p>Summarize the mean vale of <code>revenue</code> for each group of <code>search_stays_on</code> and for each <code>date</code>.</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>q2a <span class="op">=</span> (</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    paidsearch                                              <span class="co"># Use paidsearch dataframe</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    .groupby([<span class="st">'search_stays_on'</span>, <span class="st">'date'</span>])                    <span class="co"># Group by 'search_stays_on' and 'date' columns</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    .agg( {<span class="st">'revenue'</span>: <span class="st">'mean'</span>} )                        <span class="co"># Compute mean revenue for each group</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    .reset_index()                                          <span class="co"># Reset index to convert to DataFrame</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+</section>
+<section id="q2b" class="level2">
+<h2 class="anchored" data-anchor-id="q2b">Q2b</h2>
+<p>Calculate the log difference between mean revenues in each group of <code>search_stays_on</code>. (This is the log of the average revenue in group of search_stays_on == 1 minus the log of the average revenue in group of search_stays_on == 0.)</p>
+<ul>
+<li>For example, consider the following two observations:</li>
+</ul>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># date        the daily mean vale of `revenue`   search_stays_on</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1-Apr-12    93650.68                           0</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1-Apr-12    120277.57                          1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>The log difference of daily mean revenues between the two group of <code>search_stays_on</code> for date 1-Apr-12 is log(120277.57) - log(93650.68).</li>
+</ul>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute mean revenue for each group of 'search_stays_on' and 'date' in Q1b DataFrame</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>q2b <span class="op">=</span> (</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    paidsearch</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    .groupby([<span class="st">'search_stays_on'</span>, <span class="st">'date'</span>])                             <span class="co"># Group by 'search_stays_on' and 'date' columns</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    .agg( {<span class="st">'revenue'</span> : <span class="st">'mean'</span>} )                                 <span class="co"># Compute mean revenue for each group</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    .reset_index()</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    .sort_values(by<span class="op">=</span>[<span class="st">'date'</span>, <span class="st">'search_stays_on'</span>])                       <span class="co"># Sort by 'date' and 'search_stays_on' columns</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    .pivot(index<span class="op">=</span><span class="st">'date'</span>, columns<span class="op">=</span><span class="st">'search_stays_on'</span>, values<span class="op">=</span><span class="st">'revenue'</span>)  <span class="co"># Pivot 'search_stays_on' column to create wide format</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># rename columns of q1b</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>q2b.columns <span class="op">=</span> [<span class="st">'rev_control'</span>, <span class="st">'rev_treat'</span>]</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>q2b <span class="op">=</span> q2b.assign(diff_log <span class="op">=</span> </span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>                 np.log(q2b[<span class="st">'rev_control'</span>]) <span class="op">-</span> </span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>                 np.log(q2b[<span class="st">'rev_treat'</span>]) ) <span class="co"># Compute 'diff_log' column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+</section>
+<section id="load-dataframe-for-q2c-q2d-and-q2e" class="level2">
+<h2 class="anchored" data-anchor-id="load-dataframe-for-q2c-q2d-and-q2e">Load DataFrame for Q2c, Q2d, and Q2e</h2>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>paid_search <span class="op">=</span> pd.read_csv(<span class="st">'https://bcdanl.github.io/data/paid_search.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+</section>
+<section id="q2c" class="level2">
+<h2 class="anchored" data-anchor-id="q2c">Q2C</h2>
+<p>Sort <code>paid_search</code> by <code>DM</code> and <code>May22_2012</code> in ascending order.</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>paid_search <span class="op">=</span> paid_search.sort_values(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    by <span class="op">=</span> [<span class="st">'DM'</span>, <span class="st">'May22_2012'</span>]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+</section>
+<section id="q2d" class="level2">
+<h2 class="anchored" data-anchor-id="q2d">Q2d</h2>
+<p>For each <code>DM</code>, calculate the difference between <code>log_revenue</code> before and after <code>May22_2012</code>.</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>q2d <span class="op">=</span> (</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>     paid_search</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    .set_index([<span class="st">'DM'</span>, <span class="st">'May22_2012'</span>, <span class="st">'no_paid_search'</span>])</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    .assign(after <span class="op">=</span> <span class="kw">lambda</span> x: x.groupby(<span class="st">'DM'</span>)[<span class="st">'log_revenue'</span>].transform(<span class="st">'last'</span>),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>            before <span class="op">=</span> <span class="kw">lambda</span> x: x.groupby(<span class="st">'DM'</span>)[<span class="st">'log_revenue'</span>].transform(<span class="st">'first'</span>))</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    .reset_index()</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    .drop(columns<span class="op">=</span>[<span class="st">'log_revenue'</span>, <span class="st">'May22_2012'</span>])</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    .drop_duplicates()</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    .assign(diff <span class="op">=</span> <span class="kw">lambda</span> x: x[<span class="st">'after'</span>] <span class="op">-</span> x[<span class="st">'before'</span>])</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+</section>
+<section id="q2e" class="level2">
+<h2 class="anchored" data-anchor-id="q2e">Q2e</h2>
+<ul>
+<li><p>Consider the DataFrame from Q2d.</p></li>
+<li><p>For each group of <code>no_paid_search</code>, calculate the mean value of the difference between <code>log_revenue</code> before and after <code>May22_2012</code> .</p></li>
+<li><p>What is the difference in the mean values?</p></li>
+</ul>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>q2e <span class="op">=</span> (</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>     q2d</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    .drop(columns<span class="op">=</span>[<span class="st">'DM'</span>, <span class="st">'after'</span>, <span class="st">'before'</span>])</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">'no_paid_search'</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    .mean()</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>q2e[<span class="st">'diff'</span>].iloc[<span class="dv">1</span>] <span class="op">-</span> q2e[<span class="st">'diff'</span>].iloc[<span class="dv">0</span>]  <span class="co"># treatment effect of turning off search-engine marketing</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>-0.006586851608119372</code></pre>
+</div>
+</div>
+<ul>
+<li>After the paid-search went off, sales revenue decreased by 0.66%
+<ul>
+<li>Was eBay’s paid search worth it?</li>
+</ul></li>
+</ul>
 
 
 </section>
