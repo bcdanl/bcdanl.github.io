@@ -32,7 +32,8 @@ library(tidyverse)
 <br><br>
 
 # Question 1
-## Q1a. 
+
+## Q1a.
 
 Download `dominick_oj_q1a.csv` from the Midterm Exam in the Assignments or the Files sections in our Canvas.
 
@@ -49,14 +50,15 @@ You need to provide the absolute path name for the file, `dominick_oj_q1a.csv` t
 
 ### Variable Description
 
-- `sales`: the number of orange juice (OJ) cartons sold in a week
-- `price`: price of OJ carton
-- `brand`: OJ brand
-- `feat`: Advertisement status--- 1 if advertised; 0 if not advertised.
+-   `sales`: the number of orange juice (OJ) cartons sold in a week
 
+-   `price`: price of OJ carton
 
-- Report (1) minimum, (2) median, (3) maximum, (4) mean, and (5) standard deviation of variable `price` for the `brand`, Dominick's OJ.
+-   `brand`: OJ brand
 
+-   `feat`: Advertisement status--- 1 if advertised; 0 if not advertised.
+
+-   Report (1) minimum, (2) median, (3) maximum, (4) mean, and (5) standard deviation of variable `price` for the `brand`, Dominick's OJ.
 
 ```{r, echo = T, eval = T, message = F, warning= F}
 library(tidyverse)
@@ -68,13 +70,14 @@ oj_q1a_d <- filter(oj_q1a, brand == 'dominicks')
 skim(oj_q1a_d$price)
 ```
 
- (1) minimum, (2) median, (3) maximum, (4) mean, and (5) standard deviation of variable `price` for the `brand`, `dominicks` are ......
-
+(1) minimum, (2) median, (3) maximum, (4) mean, and (5) standard deviation of variable `price` for the `brand`, `dominicks` are ......
 
 <br><br>
 
 ## Q1b
+
 For Question 1b, run the following function to read the `dominick_oj.csv` file:
+
 ```{r, echo = T, eval = T, message = F, warning= F}
 oj_q1b <- read_csv(
   'https://bcdanl.github.io/data/dominick_oj.csv'
@@ -85,8 +88,7 @@ oj_q1b <- read_csv(
 
 The description of variables in `oj_q1b` is the same as `oj_q1a`.
 
-- Describe the relationship between the log of `price` and the log of `sales` by `brand` using ggplot. Make a simple comment on your ggplot figure.
-
+-   Describe the relationship between the log of `price` and the log of `sales` by `brand` using ggplot. Make a simple comment on your ggplot figure.
 
 ```{r, echo = T, eval = T, warning= F, message= F}
 summary(oj_q1b)
@@ -102,10 +104,9 @@ Here we observe the downward sloping demand curve for each OJ brand.
 
 For the same level of price, the demand for `tropicana` is the highest, followed by `minute.maid` and `dominicks`.
 
-- `tropicana` is the luxurious OJ; 
-- `dominicks` OJ seems to be a budget option.
-- `minute.maid` is somewhat between the two.
-
+-   `tropicana` is the luxurious OJ;
+-   `dominicks` OJ seems to be a budget option.
+-   `minute.maid` is somewhat between the two.
 
 <br><br><br>
 
@@ -119,7 +120,8 @@ nyc_dogs <- read_csv('https://bcdanl.github.io/data/nyc_dogs.csv')
 
 <br>
 
-## Q2a 
+## Q2a
+
 Describe the distribution of `animal_gender` using ggplot. Make a simple comment on your ggplot figure.
 
 ```{r, echo = T, eval = T, warning= F, message= F}
@@ -138,13 +140,14 @@ ggplot(nyc_dogs) +
 
 ```
 
-- There are more male dogs than female dogs.
+-   There are more male dogs than female dogs.
 
-- There are more male dogs than female dogs in each borough.
+-   There are more male dogs than female dogs in each borough.
 
 <br><br>
 
 ## Q2b
+
 Find the five most popular breeds in NYC.
 
 ```{r, echo = T, eval = T, warning= F, message= F}
@@ -155,13 +158,18 @@ table(nyc_dogs$breed_rc)
 # 1.
 q2b <- group_by(nyc_dogs, 
                 breed_rc)
-
 q2b <- summarise(q2b,
                  n = n())
-
 q2b <- arrange(q2b,
                -n)  # or desc(n)
 q2b
+
+# Or with pipes!
+q2b <- nyc_dogs %>% 
+  group_by(breed_rc) %>% 
+  summarise(n = n()) %>% 
+  arrange(-n)
+
 
 # 2.
 q2b <- group_by(nyc_dogs, 
@@ -178,19 +186,23 @@ q2b <- select(q2b,
 
 q2b <- distinct(q2b)
 q2b
+
+# Or with pipes!
+q2b <- nyc_dogs %>% 
+  group_by(breed_rc) %>% 
+  mutate(n = n()) %>% 
+  arrange(-n) %>% 
+  select(breed_rc, n) %>% 
+  distinct()
+
 ```
 
-1 Unknown                  54586
-2 Yorkshire Terrier        30379
-3 Labrador (or Crossbreed) 28399
-4 Shih Tzu                 27407
-5 Pit Bull (or Mix)        24393
-6 Chihuahua                21211
-
+1 Unknown 54586 2 Yorkshire Terrier 30379 3 Labrador (or Crossbreed) 28399 4 Shih Tzu 27407 5 Pit Bull (or Mix) 24393 6 Chihuahua 21211
 
 <br><br>
 
 ## Q2c
+
 Describe the relationship between the five popular breeds and borough using ggplot. Make a simple comment on your ggplot figure.
 
 ```{r, echo = T, eval = T, warning= F, message= F}
@@ -202,6 +214,9 @@ q2c <- filter(nyc_dogs,
                               "Chihuahua"),
               !is.na(borough)
                          )
+
+# or | (or) operator. 
+# IMHO, %in% (membership operator) is more convenient to use.
 
 q2c <- filter(nyc_dogs,
               breed_rc == "Yorkshire Terrier" | 
@@ -269,8 +284,7 @@ ggplot(q2c) +
 
 ```
 
-
-```{r, echo = T, eval = T, warning= F, message= F, fig.width= 8, fig.height= 60}
+```{r, echo = T, eval = T, warning= F, message= F, fig.width= 8, fig.height= 120}
 # What if the filtered data could not be obtained ... 
 ggplot(data = nyc_dogs)+
   geom_bar(mapping = aes(x=borough))+
@@ -281,6 +295,7 @@ ggplot(data = nyc_dogs)+
 <br><br>
 
 ## Q2d
+
 Find the five most popular breeds for each borough in NYC.
 
 ```{r, echo = T, eval = T, warning= F, message= F}
@@ -291,7 +306,14 @@ q2d <- summarize(q2d,
                  n = n())
 q2d <- arrange(q2d,
                borough, -n)
-  
+
+# equivalently,
+q2d <- nyc_dogs %>% 
+  group_by(breed_rc, borough) %>% 
+  summarize(n = n()) %>% 
+  arrange(borough, -n)
+
+
 # 2.
 q2d <- group_by(nyc_dogs,
                 breed_rc, borough)
@@ -303,21 +325,29 @@ q2d <- select(q2d,
               breed_rc, n, borough)
 q2d <- distinct(q2d)
 
+# equivalently,
+q2d <- nyc_dogs %>% 
+  group_by(breed_rc, borough) %>% 
+  mutate(n = n()) %>% 
+  arrange(-n) %>% 
+  select(breed_rc, n, borough) %>% 
+  distinct()
+
 
 # filter by borough
-q2d_bronx <- filter(q2d, borough == "Bronx")
+q2d_bronx <- q2d %>% filter(borough == "Bronx")
 q2d_bronx
 
-q2d_brooklyn <- filter(q2d, borough == "Brooklyn")
+q2d_brooklyn <- q2d %>% filter(borough == "Brooklyn")
 q2d_brooklyn
 
-q2d_manhattan <- filter(q2d, borough == "Manhattan")
+q2d_manhattan <- q2d %>% filter(borough == "Manhattan")
 q2d_manhattan
 
-q2d_queens <- filter(q2d, borough == "Queens")
+q2d_queens <- q2d %>% filter(borough == "Queens")
 q2d_queens
 
-q2d_staten_island <- filter(q2d, borough == "Staten Island")
+q2d_staten_island <- q2d %>% filter(borough == "Staten Island")
 q2d_staten_island
 
 
@@ -345,13 +375,27 @@ q2d <- distinct(q2d)
 q2d <- arrange(q2d,
                borough,-n)
 
-print(q2d, n = Inf)
 
+# equivalently
+q2d <- nyc_dogs %>% 
+  group_by(breed_rc, borough) %>% 
+  mutate(n = n()) %>% 
+  group_by(borough) %>% 
+  mutate(rank = dense_rank(desc(n)) ) %>% 
+  filter(rank <= 10 ) %>% 
+  select(breed_rc, n, rank, borough) %>% 
+  distinct() %>% 
+  arrange(borough,-n)
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(q2d) 
 ```
 
 <br><br>
 
-## Q2e 
+## Q2e
+
 Find the five most popular dog names for each gender in NYC.
 
 ```{r, echo = T, eval = T, warning= F, message= F}
@@ -362,6 +406,12 @@ q2e <- summarise(q2e,
                  n = n())
 q2e <- arrange(q2e,
                animal_gender, -n)
+
+# equivalently
+q2e <- nyc_dogs %>% 
+  group_by(animal_name, animal_gender) %>% 
+  summarise(n = n()) %>% 
+  arrange(animal_gender, -n)
 
 
 # 2. 
@@ -375,13 +425,21 @@ q2e <- select(q2e,
               animal_name, animal_gender, n)
 q2e <- distinct(q2e)
 
+# equivalently
+q2e <- nyc_dogs %>% 
+  group_by(animal_name, animal_gender) %>% 
+  mutate(n = n()) %>% 
+  arrange(-n) %>% 
+  select(animal_name, animal_gender, n) %>% 
+  distinct()
+
 
 
 # filter by animal_gender
-q2e_F <- filter(q2e, animal_gender == "F")
+q2e_F <- q2e %>% filter(animal_gender == "F")
 q2e_F
 
-q2e_M <- filter(q2e, animal_gender == "M")
+q2e_M <- q2e %>% filter(animal_gender == "M")
 q2e_M
 
 ```
@@ -389,6 +447,7 @@ q2e_M
 <br><br>
 
 ## Q2f
+
 Find the five most popular dog names for each gender for each borough in NYC.
 
 ```{r, echo = T, eval = T, warning= F, message= F}
@@ -408,6 +467,11 @@ q2f <- summarise(q2f,
 q2f <- arrange(q2f,
                animal_gender, -n)
 
+# equivalently,
+q2f <- nyc_dogs %>% 
+  group_by(animal_name, animal_gender, borough) %>% 
+  summarise(n = n()) %>% 
+  arrange(animal_gender, -n)
 
 # 2. 
 q2f <- group_by(nyc_dogs,
@@ -420,44 +484,51 @@ q2f <- select(q2f,
               animal_name, animal_gender, borough, n)
 q2f <- distinct(q2f)
 
+# equivalently
+q2f <- nyc_dogs %>% 
+  group_by(animal_name, animal_gender, borough) %>% 
+  mutate(n = n()) %>% 
+  arrange(-n) %>% 
+  select(animal_name, animal_gender, borough, n) %>% 
+  distinct()
 
 
 # filter by animal_gender
-q2f_F <- filter(q2f, animal_gender == "F")
-q2f_M <- filter(q2f, animal_gender == "M")
+q2f_F <- q2f %>% filter(animal_gender == "F")
+q2f_M <- q2f %>% filter(animal_gender == "M")
 
 
 # filter `q2f_F` by borough
-q2f_F_bronx <- filter(q2f_F, borough == "Bronx")
+q2f_F_bronx <- q2f_F %>% filter(borough == "Bronx")
 q2f_F_bronx
 
-q2f_F_brooklyn <- filter(q2f_F, borough == "Brooklyn")
+q2f_F_brooklyn <- q2f_F %>% filter(borough == "Brooklyn")
 q2f_F_brooklyn
 
-q2f_F_manhattan <- filter(q2f_F, borough == "Manhattan")
+q2f_F_manhattan <- q2f_F %>% filter(borough == "Manhattan")
 q2f_F_manhattan
 
-q2f_F_queens <- filter(q2f_F, borough == "Queens")
+q2f_F_queens <- q2f_F %>% filter(borough == "Queens")
 q2f_F_queens
 
-q2f_F_staten_island <- filter(q2f_F, borough == "Staten Island")
+q2f_F_staten_island <- q2f_F %>% filter(borough == "Staten Island")
 q2f_F_staten_island
 
 
 # filter `q2f_M` by borough
-q2f_M_bronx <- filter(q2f_M, borough == "Bronx")
+q2f_M_bronx <- q2f_M %>% filter(borough == "Bronx")
 q2f_M_bronx
 
-q2f_M_brooklyn <- filter(q2f_M, borough == "Brooklyn")
+q2f_M_brooklyn <- q2f_M %>% filter(borough == "Brooklyn")
 q2f_M_brooklyn
 
-q2f_M_manhattan <- filter(q2f_M, borough == "Manhattan")
+q2f_M_manhattan <- q2f_M %>% filter(borough == "Manhattan")
 q2f_M_manhattan
 
-q2f_M_queens <- filter(q2f_M, borough == "Queens")
+q2f_M_queens <- q2f_M %>% filter(borough == "Queens")
 q2f_M_queens
 
-q2f_M_staten_island <- filter(q2f_M, borough == "Staten Island")
+q2f_M_staten_island <- q2f_M %>% filter(borough == "Staten Island")
 q2f_M_staten_island
 
 
@@ -486,13 +557,28 @@ q2f <- distinct(q2f)
 q2f <- arrange(q2f,
                borough, animal_gender, -n)
 
-print(q2f, n = Inf)
-
+# equivalently
+q2f <- nyc_dogs %>% 
+  group_by(animal_name, animal_gender, borough) %>% 
+  mutate(n = n()) %>% 
+  group_by(animal_gender, borough) %>% 
+  mutate(rank = dense_rank(desc(n)) ) %>% 
+  filter(rank <= 10 ) %>% 
+  select(animal_name, animal_gender, n, rank, borough) %>% 
+  distinct() %>% 
+  arrange(borough, animal_gender, -n)
 ```
+
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(q2f) 
+```
+
 
 <br><br>
 
 ## Q2g
+
 Assume that all dogs in the `nyc_dogs` data frame are alive as of today.
 
 Describe the distribution of age for each borough using ggplot. Make a simple comment on your ggplot.
@@ -500,9 +586,6 @@ Describe the distribution of age for each borough using ggplot. Make a simple co
 ```{r, echo = T, eval = T, warning= F, message= F}
 nyc_dogs_age <- nyc_dogs %>% 
   mutate( age = 2022 - animal_birth_year )
-
-nyc_dogs_age <- mutate(nyc_dogs, 
-                       age = 2022 - animal_birth_year )
 
 ggplot( nyc_dogs_age ) +
   geom_density(aes(x = age)) + 
@@ -514,7 +597,8 @@ ggplot( filter(nyc_dogs_age,
   facet_wrap(~borough)
 
 
-ggplot( filter(nyc_dogs_age, age <= 25, !is.na(borough)) ) +
+ggplot( filter(nyc_dogs_age, 
+               age <= 25, !is.na(borough)) ) +
   geom_histogram(aes(x = age), 
                  binwidth = 1) + 
   facet_wrap(~borough)
@@ -541,7 +625,8 @@ Description of variables in the nyc_payroll dataset is provided at the end of th
 
 <br>
 
-## Q3a. 
+## Q3a.
+
 Create a variable, `payroll`, which is defined as:
 
 $$
@@ -553,16 +638,15 @@ $$
 where `regular_gross_paid` and `total_ot_paid` are variables in the `nyc_payroll` data frame.
 
 ```{r, echo = T, eval = T, warning= F, message= F}
-q3a <-  mutate(nyc_payroll,
-               payroll = regular_gross_paid + total_ot_paid)
+q3a <-  nyc_payroll %>% 
+  mutate(payroll = regular_gross_paid + total_ot_paid)
 ```
-
 
 <br><br>
 
-## Q3b. 
-Calculate the mean of `payroll` by `title_description`.
+## Q3b.
 
+Calculate the mean of `payroll` by `title_description`.
 
 ```{r, echo = T, eval = T, warning= F, message= F}
 q3b <- group_by(q3a, 
@@ -571,12 +655,18 @@ q3b <-  summarise(q3b,
                   avg_payroll = mean(payroll, na.rm = T))
 q3b <- arrange(q3b, 
                -avg_payroll)
+
+# equivalently
+q3b <- q3a %>% 
+  group_by(title_description) %>% 
+  summarise(avg_payroll = mean(payroll, na.rm = T)) %>% 
+  arrange(-avg_payroll)
 ```
 
 <br><br>
 
+## Q3c.
 
-## Q3c. 
 Calculate the mean of `payroll` by `work_location_borough`.
 
 ```{r, echo = T, eval = T, warning= F, message= F}
@@ -586,29 +676,35 @@ q3c <-  summarise(q3c,
                   avg_payroll = mean(payroll, na.rm = T))
 q3c <- arrange(q3c, 
                -avg_payroll)
+
+# equivalently
+q3c <- q3a %>% 
+  group_by(work_location_borough) %>% 
+  summarise(avg_payroll = mean(payroll, na.rm = T)) %>% 
+  arrange(-avg_payroll)
 ```
 
 <br><br>
 
 ## Variable Description
 
-1. Fiscal Year: Fiscal Year
+1.  Fiscal Year: Fiscal Year
 
-2. Payroll Number: Payroll Number
+2.  Payroll Number: Payroll Number
 
-3. Agency Name: The Payroll agency that the employee works for
+3.  Agency Name: The Payroll agency that the employee works for
 
-4. Last Name: Last name of employee
+4.  Last Name: Last name of employee
 
-5. First Name: First name of employee
+5.  First Name: First name of employee
 
-6. Mid Init: Middle initial of employee
+6.  Mid Init: Middle initial of employee
 
-7. Agency Start Date: Date which employee began working for their current agency Date & Time
+7.  Agency Start Date: Date which employee began working for their current agency Date & Time
 
-8. Work Location Borough: Borough of employee's primary work location
+8.  Work Location Borough: Borough of employee's primary work location
 
-9. Title Description: Civil service title description of the employee
+9.  Title Description: Civil service title description of the employee
 
 10. Leave Status as of June 30: Status of employee as of the close of the relevant fiscal year: Active, Ceased, or On Leave
 
@@ -625,6 +721,3 @@ q3c <- arrange(q3c,
 16. Total OT Paid: Total overtime pay paid to the employee in the fiscal year
 
 17. Total Other Pay: Includes any compensation in addition to gross salary and overtime pay, ie Differentials, lump sums, uniform allowance, meal allowance, retroactive pay increases, settlement amounts, and bonus pay, if applicable.
-
-
-

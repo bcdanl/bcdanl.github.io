@@ -124,8 +124,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -1196,13 +1200,11 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>q2b <span class="ot">&lt;-</span> <span class="fu">group_by</span>(nyc_dogs, </span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>                breed_rc)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>q2b <span class="ot">&lt;-</span> <span class="fu">summarise</span>(q2b,</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">n =</span> <span class="fu">n</span>())</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>q2b <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q2b,</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>               <span class="sc">-</span>n)  <span class="co"># or desc(n)</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>q2b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>q2b <span class="ot">&lt;-</span> <span class="fu">summarise</span>(q2b,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">n =</span> <span class="fu">n</span>())</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>q2b <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q2b,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>               <span class="sc">-</span>n)  <span class="co"># or desc(n)</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>q2b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 327 × 2
    breed_rc                     n
@@ -1219,21 +1221,28 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 10 Shih Tzu Crossbreed       8098
 # … with 317 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>q2b <span class="ot">&lt;-</span> <span class="fu">group_by</span>(nyc_dogs, </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                breed_rc)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>q2b <span class="ot">&lt;-</span> <span class="fu">mutate</span>(q2b,</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">n =</span> <span class="fu">n</span>())</span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Or with pipes!</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>q2b <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(breed_rc) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>q2b <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q2b,</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>               <span class="fu">desc</span>(n))</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>q2b <span class="ot">&lt;-</span> <span class="fu">select</span>(q2b, </span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>              breed_rc, n)</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>q2b <span class="ot">&lt;-</span> <span class="fu">distinct</span>(q2b)</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>q2b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>q2b <span class="ot">&lt;-</span> <span class="fu">group_by</span>(nyc_dogs, </span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>                breed_rc)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>q2b <span class="ot">&lt;-</span> <span class="fu">mutate</span>(q2b,</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">n =</span> <span class="fu">n</span>())</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>q2b <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q2b,</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>               <span class="fu">desc</span>(n))</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>q2b <span class="ot">&lt;-</span> <span class="fu">select</span>(q2b, </span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>              breed_rc, n)</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>q2b <span class="ot">&lt;-</span> <span class="fu">distinct</span>(q2b)</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>q2b</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 327 × 2
 # Groups:   breed_rc [327]
@@ -1251,6 +1260,13 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 10 Shih Tzu Crossbreed       8098
 # … with 317 more rows</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Or with pipes!</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>q2b <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(breed_rc) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(breed_rc, n) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>1 Unknown 54586 2 Yorkshire Terrier 30379 3 Labrador (or Crossbreed) 28399 4 Shih Tzu 27407 5 Pit Bull (or Mix) 24393 6 Chihuahua 21211</p>
 <p><br><br></p>
@@ -1259,99 +1275,102 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 <h2 class="anchored" data-anchor-id="q2c">Q2c</h2>
 <p>Describe the relationship between the five popular breeds and borough using ggplot. Make a simple comment on your ggplot figure.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>q2c <span class="ot">&lt;-</span> <span class="fu">filter</span>(nyc_dogs,</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>              breed_rc <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Yorkshire Terrier"</span>, </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Labrador (or Crossbreed)"</span>,</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Shih Tzu"</span>, </span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Pit Bull (or Mix)"</span>,</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Chihuahua"</span>),</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>              <span class="sc">!</span><span class="fu">is.na</span>(borough)</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>                         )</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>q2c <span class="ot">&lt;-</span> <span class="fu">filter</span>(nyc_dogs,</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>              breed_rc <span class="sc">==</span> <span class="st">"Yorkshire Terrier"</span> <span class="sc">|</span> </span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>              breed_rc <span class="sc">==</span> <span class="st">"Labrador (or Crossbreed)"</span> <span class="sc">|</span> </span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>              breed_rc <span class="sc">==</span> <span class="st">"Shih Tzu"</span> <span class="sc">|</span> </span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>              breed_rc <span class="sc">==</span> <span class="st">"Pit Bull (or Mix)"</span> <span class="sc">|</span> </span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>              breed_rc <span class="sc">==</span> <span class="st">"Chihuahua"</span>,</span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>              <span class="sc">!</span><span class="fu">is.na</span>(borough)</span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. stacked bar charts</span></span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of `breed_rc` by `borough` </span></span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q2c) <span class="sc">+</span></span>
-<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> breed_rc, <span class="at">fill =</span> borough)) <span class="sc">+</span></span>
-<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>q2c <span class="ot">&lt;-</span> <span class="fu">filter</span>(nyc_dogs,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>              breed_rc <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Yorkshire Terrier"</span>, </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Labrador (or Crossbreed)"</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Shih Tzu"</span>, </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Pit Bull (or Mix)"</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Chihuahua"</span>),</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>              <span class="sc">!</span><span class="fu">is.na</span>(borough)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>                         )</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># or | (or) operator. </span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># IMHO, %in% (membership operator) is more convenient to use.</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>q2c <span class="ot">&lt;-</span> <span class="fu">filter</span>(nyc_dogs,</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>              breed_rc <span class="sc">==</span> <span class="st">"Yorkshire Terrier"</span> <span class="sc">|</span> </span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>              breed_rc <span class="sc">==</span> <span class="st">"Labrador (or Crossbreed)"</span> <span class="sc">|</span> </span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>              breed_rc <span class="sc">==</span> <span class="st">"Shih Tzu"</span> <span class="sc">|</span> </span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>              breed_rc <span class="sc">==</span> <span class="st">"Pit Bull (or Mix)"</span> <span class="sc">|</span> </span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>              breed_rc <span class="sc">==</span> <span class="st">"Chihuahua"</span>,</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>              <span class="sc">!</span><span class="fu">is.na</span>(borough)</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. stacked bar charts</span></span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of `breed_rc` by `borough` </span></span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q2c) <span class="sc">+</span></span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> breed_rc, <span class="at">fill =</span> borough)) <span class="sc">+</span></span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="DANL200_midterm-spring-2022-a_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="768"></p>
 </div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of `borough` by `breed_rc` </span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q2c) <span class="sc">+</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill =</span> breed_rc, <span class="at">x =</span> borough)) <span class="sc">+</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of `borough` by `breed_rc` </span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q2c) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill =</span> breed_rc, <span class="at">x =</span> borough)) <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="DANL200_midterm-spring-2022-a_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid" width="768"></p>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. stacked bar charts of relative frequencies</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of `breed_rc` by `borough` </span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q2c) <span class="sc">+</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> breed_rc, <span class="at">fill =</span> borough), </span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. stacked bar charts of relative frequencies</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of `breed_rc` by `borough` </span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q2c) <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> breed_rc, <span class="at">fill =</span> borough), </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="DANL200_midterm-spring-2022-a_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid" width="768"></p>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of `borough` by `breed_rc` </span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q2c) <span class="sc">+</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill =</span> breed_rc, <span class="at">x =</span> borough), </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of `borough` by `breed_rc` </span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q2c) <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill =</span> breed_rc, <span class="at">x =</span> borough), </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="DANL200_midterm-spring-2022-a_files/figure-html/unnamed-chunk-9-4.png" class="img-fluid" width="768"></p>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. side-by-side bar charts </span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of `breed_rc` by `borough` </span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q2c) <span class="sc">+</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> breed_rc, <span class="at">fill =</span> borough), </span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"dodge2"</span>) <span class="sc">+</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. side-by-side bar charts </span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of `breed_rc` by `borough` </span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q2c) <span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> breed_rc, <span class="at">fill =</span> borough), </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"dodge2"</span>) <span class="sc">+</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="DANL200_midterm-spring-2022-a_files/figure-html/unnamed-chunk-9-5.png" class="img-fluid" width="768"></p>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of `borough` by `breed_rc` </span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q2c) <span class="sc">+</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill =</span> breed_rc, <span class="at">x =</span> borough), </span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"dodge2"</span>) <span class="sc">+</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of `borough` by `breed_rc` </span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q2c) <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill =</span> breed_rc, <span class="at">x =</span> borough), </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"dodge2"</span>) <span class="sc">+</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="DANL200_midterm-spring-2022-a_files/figure-html/unnamed-chunk-9-6.png" class="img-fluid" width="768"></p>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. side-by-side bar charts of relative frequencies</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of `breed_rc` by `borough` </span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q2c) <span class="sc">+</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> breed_rc, <span class="at">fill =</span> borough, </span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> ..prop.., <span class="at">group =</span> borough), </span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"dodge2"</span>) <span class="sc">+</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. side-by-side bar charts of relative frequencies</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of `breed_rc` by `borough` </span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q2c) <span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> breed_rc, <span class="at">fill =</span> borough, </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> ..prop.., <span class="at">group =</span> borough), </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"dodge2"</span>) <span class="sc">+</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="DANL200_midterm-spring-2022-a_files/figure-html/unnamed-chunk-9-7.png" class="img-fluid" width="768"></p>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of `borough` by `breed_rc` </span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q2c) <span class="sc">+</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> borough, <span class="at">fill =</span> breed_rc, </span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> ..prop.., <span class="at">group =</span> breed_rc), </span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"dodge2"</span>) <span class="sc">+</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution of `borough` by `breed_rc` </span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(q2c) <span class="sc">+</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x =</span> borough, <span class="at">fill =</span> breed_rc, </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> ..prop.., <span class="at">group =</span> breed_rc), </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"dodge2"</span>) <span class="sc">+</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="DANL200_midterm-spring-2022-a_files/figure-html/unnamed-chunk-9-8.png" class="img-fluid" width="768"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What if the filtered data could not be obtained ... </span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> nyc_dogs)<span class="sc">+</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>borough))<span class="sc">+</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>breed_rc, <span class="at">ncol =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))  <span class="co"># optional</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What if the filtered data could not be obtained ... </span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> nyc_dogs)<span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>borough))<span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>breed_rc, <span class="at">ncol =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))  <span class="co"># optional</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="DANL200_midterm-spring-2022-a_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -1362,29 +1381,44 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 <h2 class="anchored" data-anchor-id="q2d">Q2d</h2>
 <p>Find the five most popular breeds for each borough in NYC.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. </span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">group_by</span>(nyc_dogs,</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>                breed_rc, borough)</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">summarize</span>(q2d,</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">n =</span> <span class="fu">n</span>())</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q2d,</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>               borough, <span class="sc">-</span>n)</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.</span></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">group_by</span>(nyc_dogs,</span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>                breed_rc, borough)</span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">mutate</span>(q2d,</span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">n =</span> <span class="fu">n</span>())</span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q2d,</span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>               <span class="sc">-</span>n)</span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">select</span>(q2d,</span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>              breed_rc, n, borough)</span>
-<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">distinct</span>(q2d)</span>
-<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a><span class="co"># filter by borough</span></span>
-<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>q2d_bronx <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2d, borough <span class="sc">==</span> <span class="st">"Bronx"</span>)</span>
-<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>q2d_bronx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. </span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">group_by</span>(nyc_dogs,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>                breed_rc, borough)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">summarize</span>(q2d,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">n =</span> <span class="fu">n</span>())</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q2d,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>               borough, <span class="sc">-</span>n)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="co"># equivalently,</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(breed_rc, borough) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(borough, <span class="sc">-</span>n)</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.</span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">group_by</span>(nyc_dogs,</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>                breed_rc, borough)</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">mutate</span>(q2d,</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>              <span class="at">n =</span> <span class="fu">n</span>())</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q2d,</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>               <span class="sc">-</span>n)</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">select</span>(q2d,</span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>              breed_rc, n, borough)</span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">distinct</span>(q2d)</span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a><span class="co"># equivalently,</span></span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(breed_rc, borough) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(breed_rc, n, borough) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a><span class="co"># filter by borough</span></span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a>q2d_bronx <span class="ot">&lt;-</span> q2d <span class="sc">%&gt;%</span> <span class="fu">filter</span>(borough <span class="sc">==</span> <span class="st">"Bronx"</span>)</span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a>q2d_bronx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 253 × 3
 # Groups:   breed_rc, borough [253]
@@ -1402,8 +1436,8 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 10 Chihuahua Crossbreed       958 Bronx  
 # … with 243 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>q2d_brooklyn <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2d, borough <span class="sc">==</span> <span class="st">"Brooklyn"</span>)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>q2d_brooklyn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>q2d_brooklyn <span class="ot">&lt;-</span> q2d <span class="sc">%&gt;%</span> <span class="fu">filter</span>(borough <span class="sc">==</span> <span class="st">"Brooklyn"</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>q2d_brooklyn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 305 × 3
 # Groups:   breed_rc, borough [305]
@@ -1421,8 +1455,8 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 10 Chihuahua Crossbreed      2108 Brooklyn
 # … with 295 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>q2d_manhattan <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2d, borough <span class="sc">==</span> <span class="st">"Manhattan"</span>)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>q2d_manhattan</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>q2d_manhattan <span class="ot">&lt;-</span> q2d <span class="sc">%&gt;%</span> <span class="fu">filter</span>(borough <span class="sc">==</span> <span class="st">"Manhattan"</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>q2d_manhattan</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 314 × 3
 # Groups:   breed_rc, borough [314]
@@ -1440,8 +1474,8 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 10 Golden Retriever          3280 Manhattan
 # … with 304 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>q2d_queens <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2d, borough <span class="sc">==</span> <span class="st">"Queens"</span>)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>q2d_queens</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>q2d_queens <span class="ot">&lt;-</span> q2d <span class="sc">%&gt;%</span> <span class="fu">filter</span>(borough <span class="sc">==</span> <span class="st">"Queens"</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>q2d_queens</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 291 × 3
 # Groups:   breed_rc, borough [291]
@@ -1459,8 +1493,8 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 10 Beagle                    2080 Queens 
 # … with 281 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>q2d_staten_island <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2d, borough <span class="sc">==</span> <span class="st">"Staten Island"</span>)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>q2d_staten_island</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>q2d_staten_island <span class="ot">&lt;-</span> q2d <span class="sc">%&gt;%</span> <span class="fu">filter</span>(borough <span class="sc">==</span> <span class="st">"Staten Island"</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>q2d_staten_island</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 248 × 3
 # Groups:   breed_rc, borough [248]
@@ -1478,95 +1512,49 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 10 Golden Retriever           739 Staten Island
 # … with 238 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">group_by</span>(nyc_dogs,</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>                breed_rc, borough)</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">mutate</span>(q2d,</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">n =</span> <span class="fu">n</span>())</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">group_by</span>(q2d,</span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>                borough)</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">mutate</span>(q2d,</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">rank =</span> <span class="fu">dense_rank</span>(<span class="fu">desc</span>(n)) )</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2d, rank <span class="sc">&lt;=</span> <span class="dv">10</span> )</span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">select</span>(q2d,</span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>              breed_rc, n, rank, borough)</span>
-<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">distinct</span>(q2d)</span>
-<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q2d,</span>
-<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>               borough,<span class="sc">-</span>n)</span>
-<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(q2d, <span class="at">n =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 60 × 4
-# Groups:   borough [6]
-   breed_rc                     n  rank borough      
-   &lt;chr&gt;                    &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
- 1 Unknown                   5071     1 Bronx        
- 2 Yorkshire Terrier         4956     2 Bronx        
- 3 Pit Bull (or Mix)         4612     3 Bronx        
- 4 Shih Tzu                  4153     4 Bronx        
- 5 Chihuahua                 2934     5 Bronx        
- 6 Labrador (or Crossbreed)  1913     6 Bronx        
- 7 Maltese                   1889     7 Bronx        
- 8 Shih Tzu Crossbreed       1301     8 Bronx        
- 9 Pomeranian                1031     9 Bronx        
-10 Chihuahua Crossbreed       958    10 Bronx        
-11 Unknown                  14007     1 Brooklyn     
-12 Yorkshire Terrier         7928     2 Brooklyn     
-13 Labrador (or Crossbreed)  7660     3 Brooklyn     
-14 Shih Tzu                  7463     4 Brooklyn     
-15 Pit Bull (or Mix)         7305     5 Brooklyn     
-16 Chihuahua                 5439     6 Brooklyn     
-17 Maltese                   3550     7 Brooklyn     
-18 Pomeranian                2440     8 Brooklyn     
-19 Shih Tzu Crossbreed       2129     9 Brooklyn     
-20 Chihuahua Crossbreed      2108    10 Brooklyn     
-21 Unknown                  17421     1 Manhattan    
-22 Labrador (or Crossbreed) 10387     2 Manhattan    
-23 Yorkshire Terrier         7517     3 Manhattan    
-24 Chihuahua                 7118     4 Manhattan    
-25 Shih Tzu                  6482     5 Manhattan    
-26 Pit Bull (or Mix)         4919     6 Manhattan    
-27 Havanese                  4727     7 Manhattan    
-28 Maltese                   4269     8 Manhattan    
-29 French Bulldog            3565     9 Manhattan    
-30 Golden Retriever          3280    10 Manhattan    
-31 Unknown                  11807     1 Queens       
-32 Yorkshire Terrier         6713     2 Queens       
-33 Shih Tzu                  6039     3 Queens       
-34 Pit Bull (or Mix)         5108     4 Queens       
-35 Labrador (or Crossbreed)  4974     5 Queens       
-36 Maltese                   4297     6 Queens       
-37 Chihuahua                 4183     7 Queens       
-38 Pomeranian                2255     8 Queens       
-39 German Shepherd Dog       2111     9 Queens       
-40 Beagle                    2080    10 Queens       
-41 Unknown                   5894     1 Staten Island
-42 Labrador (or Crossbreed)  3202     2 Staten Island
-43 Shih Tzu                  3058     3 Staten Island
-44 Yorkshire Terrier         2987     4 Staten Island
-45 Pit Bull (or Mix)         2289     5 Staten Island
-46 Maltese                   1588     6 Staten Island
-47 Chihuahua                 1375     7 Staten Island
-48 German Shepherd Dog       1127     8 Staten Island
-49 Beagle                     799     9 Staten Island
-50 Golden Retriever           739    10 Staten Island
-51 Unknown                    386     1 &lt;NA&gt;         
-52 Yorkshire Terrier          278     2 &lt;NA&gt;         
-53 Labrador (or Crossbreed)   263     3 &lt;NA&gt;         
-54 Shih Tzu                   212     4 &lt;NA&gt;         
-55 Chihuahua                  162     5 &lt;NA&gt;         
-56 Pit Bull (or Mix)          160     6 &lt;NA&gt;         
-57 French Bulldog             114     7 &lt;NA&gt;         
-58 Maltese                    108     8 &lt;NA&gt;         
-59 Pomeranian                 106     9 &lt;NA&gt;         
-60 Chihuahua Crossbreed        98    10 &lt;NA&gt;         </code></pre>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3.</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">group_by</span>(nyc_dogs,</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>                breed_rc, borough)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">mutate</span>(q2d,</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">n =</span> <span class="fu">n</span>())</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">group_by</span>(q2d,</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>                borough)</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">mutate</span>(q2d,</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">rank =</span> <span class="fu">dense_rank</span>(<span class="fu">desc</span>(n)) )</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2d, rank <span class="sc">&lt;=</span> <span class="dv">10</span> )</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">select</span>(q2d,</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>              breed_rc, n, rank, borough)</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">distinct</span>(q2d)</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q2d,</span>
+<span id="cb41-22"><a href="#cb41-22" aria-hidden="true" tabindex="-1"></a>               borough,<span class="sc">-</span>n)</span>
+<span id="cb41-23"><a href="#cb41-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-24"><a href="#cb41-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-25"><a href="#cb41-25" aria-hidden="true" tabindex="-1"></a><span class="co"># equivalently</span></span>
+<span id="cb41-26"><a href="#cb41-26" aria-hidden="true" tabindex="-1"></a>q2d <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb41-27"><a href="#cb41-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(breed_rc, borough) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-28"><a href="#cb41-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-29"><a href="#cb41-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(borough) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-30"><a href="#cb41-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">dense_rank</span>(<span class="fu">desc</span>(n)) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-31"><a href="#cb41-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rank <span class="sc">&lt;=</span> <span class="dv">10</span> ) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-32"><a href="#cb41-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(breed_rc, n, rank, borough) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-33"><a href="#cb41-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb41-34"><a href="#cb41-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(borough,<span class="sc">-</span>n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-result="asis">
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["breed_rc"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]},{"label":["rank"],"name":[3],"type":["int"],"align":["right"]},{"label":["borough"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"Unknown","2":"5071","3":"1","4":"Bronx"},{"1":"Yorkshire Terrier","2":"4956","3":"2","4":"Bronx"},{"1":"Pit Bull (or Mix)","2":"4612","3":"3","4":"Bronx"},{"1":"Shih Tzu","2":"4153","3":"4","4":"Bronx"},{"1":"Chihuahua","2":"2934","3":"5","4":"Bronx"},{"1":"Labrador (or Crossbreed)","2":"1913","3":"6","4":"Bronx"},{"1":"Maltese","2":"1889","3":"7","4":"Bronx"},{"1":"Shih Tzu Crossbreed","2":"1301","3":"8","4":"Bronx"},{"1":"Pomeranian","2":"1031","3":"9","4":"Bronx"},{"1":"Chihuahua Crossbreed","2":"958","3":"10","4":"Bronx"},{"1":"Unknown","2":"14007","3":"1","4":"Brooklyn"},{"1":"Yorkshire Terrier","2":"7928","3":"2","4":"Brooklyn"},{"1":"Labrador (or Crossbreed)","2":"7660","3":"3","4":"Brooklyn"},{"1":"Shih Tzu","2":"7463","3":"4","4":"Brooklyn"},{"1":"Pit Bull (or Mix)","2":"7305","3":"5","4":"Brooklyn"},{"1":"Chihuahua","2":"5439","3":"6","4":"Brooklyn"},{"1":"Maltese","2":"3550","3":"7","4":"Brooklyn"},{"1":"Pomeranian","2":"2440","3":"8","4":"Brooklyn"},{"1":"Shih Tzu Crossbreed","2":"2129","3":"9","4":"Brooklyn"},{"1":"Chihuahua Crossbreed","2":"2108","3":"10","4":"Brooklyn"},{"1":"Unknown","2":"17421","3":"1","4":"Manhattan"},{"1":"Labrador (or Crossbreed)","2":"10387","3":"2","4":"Manhattan"},{"1":"Yorkshire Terrier","2":"7517","3":"3","4":"Manhattan"},{"1":"Chihuahua","2":"7118","3":"4","4":"Manhattan"},{"1":"Shih Tzu","2":"6482","3":"5","4":"Manhattan"},{"1":"Pit Bull (or Mix)","2":"4919","3":"6","4":"Manhattan"},{"1":"Havanese","2":"4727","3":"7","4":"Manhattan"},{"1":"Maltese","2":"4269","3":"8","4":"Manhattan"},{"1":"French Bulldog","2":"3565","3":"9","4":"Manhattan"},{"1":"Golden Retriever","2":"3280","3":"10","4":"Manhattan"},{"1":"Unknown","2":"11807","3":"1","4":"Queens"},{"1":"Yorkshire Terrier","2":"6713","3":"2","4":"Queens"},{"1":"Shih Tzu","2":"6039","3":"3","4":"Queens"},{"1":"Pit Bull (or Mix)","2":"5108","3":"4","4":"Queens"},{"1":"Labrador (or Crossbreed)","2":"4974","3":"5","4":"Queens"},{"1":"Maltese","2":"4297","3":"6","4":"Queens"},{"1":"Chihuahua","2":"4183","3":"7","4":"Queens"},{"1":"Pomeranian","2":"2255","3":"8","4":"Queens"},{"1":"German Shepherd Dog","2":"2111","3":"9","4":"Queens"},{"1":"Beagle","2":"2080","3":"10","4":"Queens"},{"1":"Unknown","2":"5894","3":"1","4":"Staten Island"},{"1":"Labrador (or Crossbreed)","2":"3202","3":"2","4":"Staten Island"},{"1":"Shih Tzu","2":"3058","3":"3","4":"Staten Island"},{"1":"Yorkshire Terrier","2":"2987","3":"4","4":"Staten Island"},{"1":"Pit Bull (or Mix)","2":"2289","3":"5","4":"Staten Island"},{"1":"Maltese","2":"1588","3":"6","4":"Staten Island"},{"1":"Chihuahua","2":"1375","3":"7","4":"Staten Island"},{"1":"German Shepherd Dog","2":"1127","3":"8","4":"Staten Island"},{"1":"Beagle","2":"799","3":"9","4":"Staten Island"},{"1":"Golden Retriever","2":"739","3":"10","4":"Staten Island"},{"1":"Unknown","2":"386","3":"1","4":"NA"},{"1":"Yorkshire Terrier","2":"278","3":"2","4":"NA"},{"1":"Labrador (or Crossbreed)","2":"263","3":"3","4":"NA"},{"1":"Shih Tzu","2":"212","3":"4","4":"NA"},{"1":"Chihuahua","2":"162","3":"5","4":"NA"},{"1":"Pit Bull (or Mix)","2":"160","3":"6","4":"NA"},{"1":"French Bulldog","2":"114","3":"7","4":"NA"},{"1":"Maltese","2":"108","3":"8","4":"NA"},{"1":"Pomeranian","2":"106","3":"9","4":"NA"},{"1":"Chihuahua Crossbreed","2":"98","3":"10","4":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 <p><br><br></p>
@@ -1583,23 +1571,37 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 <span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>q2e <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q2e,</span>
 <span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>               animal_gender, <span class="sc">-</span>n)</span>
 <span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. </span></span>
-<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>q2e <span class="ot">&lt;-</span> <span class="fu">group_by</span>(nyc_dogs,</span>
-<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>                animal_name, animal_gender)</span>
-<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>q2e <span class="ot">&lt;-</span> <span class="fu">mutate</span>(q2e,</span>
-<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>              <span class="at">n =</span> <span class="fu">n</span>())</span>
-<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a>q2e <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q2e,</span>
-<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a>               <span class="sc">-</span>n)</span>
-<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>q2e <span class="ot">&lt;-</span> <span class="fu">select</span>(q2e,</span>
-<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>              animal_name, animal_gender, n)</span>
-<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>q2e <span class="ot">&lt;-</span> <span class="fu">distinct</span>(q2e)</span>
-<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a><span class="co"># filter by animal_gender</span></span>
-<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>q2e_F <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2e, animal_gender <span class="sc">==</span> <span class="st">"F"</span>)</span>
-<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>q2e_F</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="co"># equivalently</span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>q2e <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(animal_name, animal_gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(animal_gender, <span class="sc">-</span>n)</span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. </span></span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a>q2e <span class="ot">&lt;-</span> <span class="fu">group_by</span>(nyc_dogs,</span>
+<span id="cb42-18"><a href="#cb42-18" aria-hidden="true" tabindex="-1"></a>                animal_name, animal_gender)</span>
+<span id="cb42-19"><a href="#cb42-19" aria-hidden="true" tabindex="-1"></a>q2e <span class="ot">&lt;-</span> <span class="fu">mutate</span>(q2e,</span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a>              <span class="at">n =</span> <span class="fu">n</span>())</span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a>q2e <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q2e,</span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a>               <span class="sc">-</span>n)</span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a>q2e <span class="ot">&lt;-</span> <span class="fu">select</span>(q2e,</span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a>              animal_name, animal_gender, n)</span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a>q2e <span class="ot">&lt;-</span> <span class="fu">distinct</span>(q2e)</span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a><span class="co"># equivalently</span></span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a>q2e <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(animal_name, animal_gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(animal_name, animal_gender, n) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span>
+<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a><span class="co"># filter by animal_gender</span></span>
+<span id="cb42-38"><a href="#cb42-38" aria-hidden="true" tabindex="-1"></a>q2e_F <span class="ot">&lt;-</span> q2e <span class="sc">%&gt;%</span> <span class="fu">filter</span>(animal_gender <span class="sc">==</span> <span class="st">"F"</span>)</span>
+<span id="cb42-39"><a href="#cb42-39" aria-hidden="true" tabindex="-1"></a>q2e_F</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 14,602 × 3
 # Groups:   animal_name, animal_gender [14,602]
@@ -1617,7 +1619,7 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 10 Molly       F              1954
 # … with 14,592 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>q2e_M <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2e, animal_gender <span class="sc">==</span> <span class="st">"M"</span>)</span>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>q2e_M <span class="ot">&lt;-</span> q2e <span class="sc">%&gt;%</span> <span class="fu">filter</span>(animal_gender <span class="sc">==</span> <span class="st">"M"</span>)</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>q2e_M</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 17,018 × 3
@@ -1659,28 +1661,40 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 <span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>q2f <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q2f,</span>
 <span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>               animal_gender, <span class="sc">-</span>n)</span>
 <span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. </span></span>
-<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>q2f <span class="ot">&lt;-</span> <span class="fu">group_by</span>(nyc_dogs,</span>
-<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a>                animal_name, animal_gender, borough)</span>
-<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a>q2f <span class="ot">&lt;-</span> <span class="fu">mutate</span>(q2f,</span>
-<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a>              <span class="at">n =</span> <span class="fu">n</span>())</span>
-<span id="cb46-23"><a href="#cb46-23" aria-hidden="true" tabindex="-1"></a>q2f <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q2f,</span>
-<span id="cb46-24"><a href="#cb46-24" aria-hidden="true" tabindex="-1"></a>               <span class="sc">-</span>n)</span>
-<span id="cb46-25"><a href="#cb46-25" aria-hidden="true" tabindex="-1"></a>q2f <span class="ot">&lt;-</span> <span class="fu">select</span>(q2f,</span>
-<span id="cb46-26"><a href="#cb46-26" aria-hidden="true" tabindex="-1"></a>              animal_name, animal_gender, borough, n)</span>
-<span id="cb46-27"><a href="#cb46-27" aria-hidden="true" tabindex="-1"></a>q2f <span class="ot">&lt;-</span> <span class="fu">distinct</span>(q2f)</span>
-<span id="cb46-28"><a href="#cb46-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-29"><a href="#cb46-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-30"><a href="#cb46-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-31"><a href="#cb46-31" aria-hidden="true" tabindex="-1"></a><span class="co"># filter by animal_gender</span></span>
-<span id="cb46-32"><a href="#cb46-32" aria-hidden="true" tabindex="-1"></a>q2f_F <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2f, animal_gender <span class="sc">==</span> <span class="st">"F"</span>)</span>
-<span id="cb46-33"><a href="#cb46-33" aria-hidden="true" tabindex="-1"></a>q2f_M <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2f, animal_gender <span class="sc">==</span> <span class="st">"M"</span>)</span>
-<span id="cb46-34"><a href="#cb46-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-35"><a href="#cb46-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-36"><a href="#cb46-36" aria-hidden="true" tabindex="-1"></a><span class="co"># filter `q2f_F` by borough</span></span>
-<span id="cb46-37"><a href="#cb46-37" aria-hidden="true" tabindex="-1"></a>q2f_F_bronx <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2f_F, borough <span class="sc">==</span> <span class="st">"Bronx"</span>)</span>
-<span id="cb46-38"><a href="#cb46-38" aria-hidden="true" tabindex="-1"></a>q2f_F_bronx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a><span class="co"># equivalently,</span></span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a>q2f <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(animal_name, animal_gender, borough) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(animal_gender, <span class="sc">-</span>n)</span>
+<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-23"><a href="#cb46-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. </span></span>
+<span id="cb46-24"><a href="#cb46-24" aria-hidden="true" tabindex="-1"></a>q2f <span class="ot">&lt;-</span> <span class="fu">group_by</span>(nyc_dogs,</span>
+<span id="cb46-25"><a href="#cb46-25" aria-hidden="true" tabindex="-1"></a>                animal_name, animal_gender, borough)</span>
+<span id="cb46-26"><a href="#cb46-26" aria-hidden="true" tabindex="-1"></a>q2f <span class="ot">&lt;-</span> <span class="fu">mutate</span>(q2f,</span>
+<span id="cb46-27"><a href="#cb46-27" aria-hidden="true" tabindex="-1"></a>              <span class="at">n =</span> <span class="fu">n</span>())</span>
+<span id="cb46-28"><a href="#cb46-28" aria-hidden="true" tabindex="-1"></a>q2f <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q2f,</span>
+<span id="cb46-29"><a href="#cb46-29" aria-hidden="true" tabindex="-1"></a>               <span class="sc">-</span>n)</span>
+<span id="cb46-30"><a href="#cb46-30" aria-hidden="true" tabindex="-1"></a>q2f <span class="ot">&lt;-</span> <span class="fu">select</span>(q2f,</span>
+<span id="cb46-31"><a href="#cb46-31" aria-hidden="true" tabindex="-1"></a>              animal_name, animal_gender, borough, n)</span>
+<span id="cb46-32"><a href="#cb46-32" aria-hidden="true" tabindex="-1"></a>q2f <span class="ot">&lt;-</span> <span class="fu">distinct</span>(q2f)</span>
+<span id="cb46-33"><a href="#cb46-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-34"><a href="#cb46-34" aria-hidden="true" tabindex="-1"></a><span class="co"># equivalently</span></span>
+<span id="cb46-35"><a href="#cb46-35" aria-hidden="true" tabindex="-1"></a>q2f <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb46-36"><a href="#cb46-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(animal_name, animal_gender, borough) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-37"><a href="#cb46-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-38"><a href="#cb46-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-39"><a href="#cb46-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(animal_name, animal_gender, borough, n) <span class="sc">%&gt;%</span> </span>
+<span id="cb46-40"><a href="#cb46-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span>
+<span id="cb46-41"><a href="#cb46-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-42"><a href="#cb46-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-43"><a href="#cb46-43" aria-hidden="true" tabindex="-1"></a><span class="co"># filter by animal_gender</span></span>
+<span id="cb46-44"><a href="#cb46-44" aria-hidden="true" tabindex="-1"></a>q2f_F <span class="ot">&lt;-</span> q2f <span class="sc">%&gt;%</span> <span class="fu">filter</span>(animal_gender <span class="sc">==</span> <span class="st">"F"</span>)</span>
+<span id="cb46-45"><a href="#cb46-45" aria-hidden="true" tabindex="-1"></a>q2f_M <span class="ot">&lt;-</span> q2f <span class="sc">%&gt;%</span> <span class="fu">filter</span>(animal_gender <span class="sc">==</span> <span class="st">"M"</span>)</span>
+<span id="cb46-46"><a href="#cb46-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-47"><a href="#cb46-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-48"><a href="#cb46-48" aria-hidden="true" tabindex="-1"></a><span class="co"># filter `q2f_F` by borough</span></span>
+<span id="cb46-49"><a href="#cb46-49" aria-hidden="true" tabindex="-1"></a>q2f_F_bronx <span class="ot">&lt;-</span> q2f_F <span class="sc">%&gt;%</span> <span class="fu">filter</span>(borough <span class="sc">==</span> <span class="st">"Bronx"</span>)</span>
+<span id="cb46-50"><a href="#cb46-50" aria-hidden="true" tabindex="-1"></a>q2f_F_bronx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3,161 × 4
 # Groups:   animal_name, animal_gender, borough [3,161]
@@ -1698,7 +1712,7 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 10 Name Not Provided F             Bronx     179
 # … with 3,151 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>q2f_F_brooklyn <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2f_F, borough <span class="sc">==</span> <span class="st">"Brooklyn"</span>)</span>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>q2f_F_brooklyn <span class="ot">&lt;-</span> q2f_F <span class="sc">%&gt;%</span> <span class="fu">filter</span>(borough <span class="sc">==</span> <span class="st">"Brooklyn"</span>)</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>q2f_F_brooklyn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6,428 × 4
@@ -1717,7 +1731,7 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 10 Coco        F             Brooklyn   531
 # … with 6,418 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>q2f_F_manhattan <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2f_F, borough <span class="sc">==</span> <span class="st">"Manhattan"</span>)</span>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>q2f_F_manhattan <span class="ot">&lt;-</span> q2f_F <span class="sc">%&gt;%</span> <span class="fu">filter</span>(borough <span class="sc">==</span> <span class="st">"Manhattan"</span>)</span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>q2f_F_manhattan</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7,207 × 4
@@ -1736,7 +1750,7 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 10 Sophie      F             Manhattan   678
 # … with 7,197 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>q2f_F_queens <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2f_F, borough <span class="sc">==</span> <span class="st">"Queens"</span>)</span>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>q2f_F_queens <span class="ot">&lt;-</span> q2f_F <span class="sc">%&gt;%</span> <span class="fu">filter</span>(borough <span class="sc">==</span> <span class="st">"Queens"</span>)</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>q2f_F_queens</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4,788 × 4
@@ -1755,7 +1769,7 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 10 Unknown           F             Queens    429
 # … with 4,778 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>q2f_F_staten_island <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2f_F, borough <span class="sc">==</span> <span class="st">"Staten Island"</span>)</span>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>q2f_F_staten_island <span class="ot">&lt;-</span> q2f_F <span class="sc">%&gt;%</span> <span class="fu">filter</span>(borough <span class="sc">==</span> <span class="st">"Staten Island"</span>)</span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>q2f_F_staten_island</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,391 × 4
@@ -1775,7 +1789,7 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 # … with 2,381 more rows</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filter `q2f_M` by borough</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>q2f_M_bronx <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2f_M, borough <span class="sc">==</span> <span class="st">"Bronx"</span>)</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>q2f_M_bronx <span class="ot">&lt;-</span> q2f_M <span class="sc">%&gt;%</span> <span class="fu">filter</span>(borough <span class="sc">==</span> <span class="st">"Bronx"</span>)</span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>q2f_M_bronx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4,057 × 4
@@ -1794,7 +1808,7 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 10 Milo              M             Bronx     249
 # … with 4,047 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>q2f_M_brooklyn <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2f_M, borough <span class="sc">==</span> <span class="st">"Brooklyn"</span>)</span>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>q2f_M_brooklyn <span class="ot">&lt;-</span> q2f_M <span class="sc">%&gt;%</span> <span class="fu">filter</span>(borough <span class="sc">==</span> <span class="st">"Brooklyn"</span>)</span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>q2f_M_brooklyn</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 7,499 × 4
@@ -1813,7 +1827,7 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 10 Milo              M             Brooklyn   533
 # … with 7,489 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>q2f_M_manhattan <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2f_M, borough <span class="sc">==</span> <span class="st">"Manhattan"</span>)</span>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>q2f_M_manhattan <span class="ot">&lt;-</span> q2f_M <span class="sc">%&gt;%</span> <span class="fu">filter</span>(borough <span class="sc">==</span> <span class="st">"Manhattan"</span>)</span>
 <span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>q2f_M_manhattan</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8,103 × 4
@@ -1832,7 +1846,7 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 10 Jack        M             Manhattan   629
 # … with 8,093 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>q2f_M_queens <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2f_M, borough <span class="sc">==</span> <span class="st">"Queens"</span>)</span>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>q2f_M_queens <span class="ot">&lt;-</span> q2f_M <span class="sc">%&gt;%</span> <span class="fu">filter</span>(borough <span class="sc">==</span> <span class="st">"Queens"</span>)</span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>q2f_M_queens</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6,048 × 4
@@ -1851,7 +1865,7 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 10 Teddy             M             Queens    536
 # … with 6,038 more rows</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>q2f_M_staten_island <span class="ot">&lt;-</span> <span class="fu">filter</span>(q2f_M, borough <span class="sc">==</span> <span class="st">"Staten Island"</span>)</span>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>q2f_M_staten_island <span class="ot">&lt;-</span> q2f_M <span class="sc">%&gt;%</span> <span class="fu">filter</span>(borough <span class="sc">==</span> <span class="st">"Staten Island"</span>)</span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>q2f_M_staten_island</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2,890 × 4
@@ -1894,144 +1908,25 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 <span id="cb66-22"><a href="#cb66-22" aria-hidden="true" tabindex="-1"></a>q2f <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q2f,</span>
 <span id="cb66-23"><a href="#cb66-23" aria-hidden="true" tabindex="-1"></a>               borough, animal_gender, <span class="sc">-</span>n)</span>
 <span id="cb66-24"><a href="#cb66-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-25"><a href="#cb66-25" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(q2f, <span class="at">n =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 132 × 5
-# Groups:   animal_gender, borough [15]
-    animal_name       animal_gender     n  rank borough      
-    &lt;chr&gt;             &lt;chr&gt;         &lt;int&gt; &lt;int&gt; &lt;chr&gt;        
-  1 Bella             F               774     1 Bronx        
-  2 Princess          F               490     2 Bronx        
-  3 Luna              F               436     3 Bronx        
-  4 Lola              F               375     4 Bronx        
-  5 Coco              F               322     5 Bronx        
-  6 Mia               F               295     6 Bronx        
-  7 Daisy             F               248     7 Bronx        
-  8 Chloe             F               228     8 Bronx        
-  9 Lady              F               201     9 Bronx        
- 10 Name Not Provided F               179    10 Bronx        
- 11 Max               M               683     1 Bronx        
- 12 Rocky             M               495     2 Bronx        
- 13 Lucky             M               372     3 Bronx        
- 14 Toby              M               316     4 Bronx        
- 15 Teddy             M               312     5 Bronx        
- 16 Prince            M               295     6 Bronx        
- 17 Name Not Provided M               289     7 Bronx        
- 18 Charlie           M               288     8 Bronx        
- 19 Buddy             M               282     9 Bronx        
- 20 Milo              M               249    10 Bronx        
- 21 Unknown           F              1480     1 Brooklyn     
- 22 Bella             F              1331     2 Brooklyn     
- 23 Lola              F               836     3 Brooklyn     
- 24 Luna              F               792     4 Brooklyn     
- 25 Lucy              F               733     5 Brooklyn     
- 26 Daisy             F               636     6 Brooklyn     
- 27 Name              F               635     7 Brooklyn     
- 28 Princess          F               567     8 Brooklyn     
- 29 Chloe             F               551     9 Brooklyn     
- 30 Coco              F               531    10 Brooklyn     
- 31 Unknown           M              1937     1 Brooklyn     
- 32 Max               M              1179     2 Brooklyn     
- 33 Rocky             M               881     3 Brooklyn     
- 34 Name              M               859     4 Brooklyn     
- 35 Charlie           M               835     5 Brooklyn     
- 36 Name Not Provided M               668     6 Brooklyn     
- 37 Lucky             M               660     7 Brooklyn     
- 38 Buddy             M               627     8 Brooklyn     
- 39 Teddy             M               533     9 Brooklyn     
- 40 Milo              M               533     9 Brooklyn     
- 41 Prince            M               489    10 Brooklyn     
- 42 Cherry            &lt;NA&gt;              5     1 Brooklyn     
- 43 Shebah            &lt;NA&gt;              4     2 Brooklyn     
- 44 Sparkey           &lt;NA&gt;              3     3 Brooklyn     
- 45 Unknown           F              1555     1 Manhattan    
- 46 Lucy              F              1358     2 Manhattan    
- 47 Lola              F              1317     3 Manhattan    
- 48 Bella             F              1262     4 Manhattan    
- 49 Luna              F              1025     5 Manhattan    
- 50 Daisy             F               884     6 Manhattan    
- 51 Coco              F               783     7 Manhattan    
- 52 Stella            F               698     8 Manhattan    
- 53 Penny             F               685     9 Manhattan    
- 54 Sophie            F               678    10 Manhattan    
- 55 Unknown           M              1888     1 Manhattan    
- 56 Charlie           M              1290     2 Manhattan    
- 57 Max               M              1186     3 Manhattan    
- 58 Oliver            M               836     4 Manhattan    
- 59 Teddy             M               798     5 Manhattan    
- 60 Cooper            M               768     6 Manhattan    
- 61 Buddy             M               729     7 Manhattan    
- 62 Leo               M               665     8 Manhattan    
- 63 Rocky             M               650     9 Manhattan    
- 64 Jack              M               629    10 Manhattan    
- 65 Milo              M               629    10 Manhattan    
- 66 Bella             F              1338     1 Queens       
- 67 Name Not Provided F               780     2 Queens       
- 68 Luna              F               678     3 Queens       
- 69 Coco              F               605     4 Queens       
- 70 Lola              F               580     5 Queens       
- 71 Daisy             F               569     6 Queens       
- 72 Princess          F               549     7 Queens       
- 73 Molly             F               465     8 Queens       
- 74 Lucy              F               455     9 Queens       
- 75 Unknown           F               429    10 Queens       
- 76 Name Not Provided M              1595     1 Queens       
- 77 Max               M              1258     2 Queens       
- 78 Unknown           M              1012     3 Queens       
- 79 Rocky             M               875     4 Queens       
- 80 Charlie           M               733     5 Queens       
- 81 Buddy             M               668     6 Queens       
- 82 Lucky             M               649     7 Queens       
- 83 Toby              M               562     8 Queens       
- 84 Milo              M               541     9 Queens       
- 85 Teddy             M               536    10 Queens       
- 86 Nanuk             &lt;NA&gt;              3     1 Queens       
- 87 Sidney            &lt;NA&gt;              3     1 Queens       
- 88 Bella             F               742     1 Staten Island
- 89 Molly             F               352     2 Staten Island
- 90 Coco              F               328     3 Staten Island
- 91 Daisy             F               328     3 Staten Island
- 92 Lola              F               315     4 Staten Island
- 93 Lucy              F               247     5 Staten Island
- 94 Luna              F               238     6 Staten Island
- 95 Chloe             F               234     7 Staten Island
- 96 Mia               F               221     8 Staten Island
- 97 Unknown           F               207     9 Staten Island
- 98 Zoey              F               206    10 Staten Island
- 99 Max               M               523     1 Staten Island
-100 Rocky             M               451     2 Staten Island
-101 Buddy             M               421     3 Staten Island
-102 Charlie           M               311     4 Staten Island
-103 Unknown           M               262     5 Staten Island
-104 Teddy             M               256     6 Staten Island
-105 Name Not Provided M               230     7 Staten Island
-106 Bailey            M               205     8 Staten Island
-107 Cody              M               188     9 Staten Island
-108 Toby              M               185    10 Staten Island
-109 Buddy             &lt;NA&gt;              4     1 Staten Island
-110 Unknown           F                80     1 &lt;NA&gt;         
-111 Lola              F                55     2 &lt;NA&gt;         
-112 Bella             F                46     3 &lt;NA&gt;         
-113 Luna              F                35     4 &lt;NA&gt;         
-114 Lucy              F                33     5 &lt;NA&gt;         
-115 Penny             F                32     6 &lt;NA&gt;         
-116 Coco              F                27     7 &lt;NA&gt;         
-117 Name Not Provided F                20     8 &lt;NA&gt;         
-118 Lady              F                19     9 &lt;NA&gt;         
-119 Mia               F                17    10 &lt;NA&gt;         
-120 Unknown           M               113     1 &lt;NA&gt;         
-121 Name Not Provided M                33     2 &lt;NA&gt;         
-122 Max               M                31     3 &lt;NA&gt;         
-123 Charlie           M                28     4 &lt;NA&gt;         
-124 Name              M                24     5 &lt;NA&gt;         
-125 Henry             M                21     6 &lt;NA&gt;         
-126 Toby              M                20     7 &lt;NA&gt;         
-127 Teddy             M                18     8 &lt;NA&gt;         
-128 Oliver            M                17     9 &lt;NA&gt;         
-129 Cooper            M                15    10 &lt;NA&gt;         
-130 Rocky             M                15    10 &lt;NA&gt;         
-131 Dexter            M                15    10 &lt;NA&gt;         
-132 Milo              M                15    10 &lt;NA&gt;         </code></pre>
+<span id="cb66-25"><a href="#cb66-25" aria-hidden="true" tabindex="-1"></a><span class="co"># equivalently</span></span>
+<span id="cb66-26"><a href="#cb66-26" aria-hidden="true" tabindex="-1"></a>q2f <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb66-27"><a href="#cb66-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(animal_name, animal_gender, borough) <span class="sc">%&gt;%</span> </span>
+<span id="cb66-28"><a href="#cb66-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb66-29"><a href="#cb66-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(animal_gender, borough) <span class="sc">%&gt;%</span> </span>
+<span id="cb66-30"><a href="#cb66-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">dense_rank</span>(<span class="fu">desc</span>(n)) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb66-31"><a href="#cb66-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rank <span class="sc">&lt;=</span> <span class="dv">10</span> ) <span class="sc">%&gt;%</span> </span>
+<span id="cb66-32"><a href="#cb66-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(animal_name, animal_gender, n, rank, borough) <span class="sc">%&gt;%</span> </span>
+<span id="cb66-33"><a href="#cb66-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb66-34"><a href="#cb66-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(borough, animal_gender, <span class="sc">-</span>n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-result="asis">
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["animal_name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["animal_gender"],"name":[2],"type":["chr"],"align":["left"]},{"label":["n"],"name":[3],"type":["int"],"align":["right"]},{"label":["rank"],"name":[4],"type":["int"],"align":["right"]},{"label":["borough"],"name":[5],"type":["chr"],"align":["left"]}],"data":[{"1":"Bella","2":"F","3":"774","4":"1","5":"Bronx"},{"1":"Princess","2":"F","3":"490","4":"2","5":"Bronx"},{"1":"Luna","2":"F","3":"436","4":"3","5":"Bronx"},{"1":"Lola","2":"F","3":"375","4":"4","5":"Bronx"},{"1":"Coco","2":"F","3":"322","4":"5","5":"Bronx"},{"1":"Mia","2":"F","3":"295","4":"6","5":"Bronx"},{"1":"Daisy","2":"F","3":"248","4":"7","5":"Bronx"},{"1":"Chloe","2":"F","3":"228","4":"8","5":"Bronx"},{"1":"Lady","2":"F","3":"201","4":"9","5":"Bronx"},{"1":"Name Not Provided","2":"F","3":"179","4":"10","5":"Bronx"},{"1":"Max","2":"M","3":"683","4":"1","5":"Bronx"},{"1":"Rocky","2":"M","3":"495","4":"2","5":"Bronx"},{"1":"Lucky","2":"M","3":"372","4":"3","5":"Bronx"},{"1":"Toby","2":"M","3":"316","4":"4","5":"Bronx"},{"1":"Teddy","2":"M","3":"312","4":"5","5":"Bronx"},{"1":"Prince","2":"M","3":"295","4":"6","5":"Bronx"},{"1":"Name Not Provided","2":"M","3":"289","4":"7","5":"Bronx"},{"1":"Charlie","2":"M","3":"288","4":"8","5":"Bronx"},{"1":"Buddy","2":"M","3":"282","4":"9","5":"Bronx"},{"1":"Milo","2":"M","3":"249","4":"10","5":"Bronx"},{"1":"Unknown","2":"F","3":"1480","4":"1","5":"Brooklyn"},{"1":"Bella","2":"F","3":"1331","4":"2","5":"Brooklyn"},{"1":"Lola","2":"F","3":"836","4":"3","5":"Brooklyn"},{"1":"Luna","2":"F","3":"792","4":"4","5":"Brooklyn"},{"1":"Lucy","2":"F","3":"733","4":"5","5":"Brooklyn"},{"1":"Daisy","2":"F","3":"636","4":"6","5":"Brooklyn"},{"1":"Name","2":"F","3":"635","4":"7","5":"Brooklyn"},{"1":"Princess","2":"F","3":"567","4":"8","5":"Brooklyn"},{"1":"Chloe","2":"F","3":"551","4":"9","5":"Brooklyn"},{"1":"Coco","2":"F","3":"531","4":"10","5":"Brooklyn"},{"1":"Unknown","2":"M","3":"1937","4":"1","5":"Brooklyn"},{"1":"Max","2":"M","3":"1179","4":"2","5":"Brooklyn"},{"1":"Rocky","2":"M","3":"881","4":"3","5":"Brooklyn"},{"1":"Name","2":"M","3":"859","4":"4","5":"Brooklyn"},{"1":"Charlie","2":"M","3":"835","4":"5","5":"Brooklyn"},{"1":"Name Not Provided","2":"M","3":"668","4":"6","5":"Brooklyn"},{"1":"Lucky","2":"M","3":"660","4":"7","5":"Brooklyn"},{"1":"Buddy","2":"M","3":"627","4":"8","5":"Brooklyn"},{"1":"Teddy","2":"M","3":"533","4":"9","5":"Brooklyn"},{"1":"Milo","2":"M","3":"533","4":"9","5":"Brooklyn"},{"1":"Prince","2":"M","3":"489","4":"10","5":"Brooklyn"},{"1":"Cherry","2":"NA","3":"5","4":"1","5":"Brooklyn"},{"1":"Shebah","2":"NA","3":"4","4":"2","5":"Brooklyn"},{"1":"Sparkey","2":"NA","3":"3","4":"3","5":"Brooklyn"},{"1":"Unknown","2":"F","3":"1555","4":"1","5":"Manhattan"},{"1":"Lucy","2":"F","3":"1358","4":"2","5":"Manhattan"},{"1":"Lola","2":"F","3":"1317","4":"3","5":"Manhattan"},{"1":"Bella","2":"F","3":"1262","4":"4","5":"Manhattan"},{"1":"Luna","2":"F","3":"1025","4":"5","5":"Manhattan"},{"1":"Daisy","2":"F","3":"884","4":"6","5":"Manhattan"},{"1":"Coco","2":"F","3":"783","4":"7","5":"Manhattan"},{"1":"Stella","2":"F","3":"698","4":"8","5":"Manhattan"},{"1":"Penny","2":"F","3":"685","4":"9","5":"Manhattan"},{"1":"Sophie","2":"F","3":"678","4":"10","5":"Manhattan"},{"1":"Unknown","2":"M","3":"1888","4":"1","5":"Manhattan"},{"1":"Charlie","2":"M","3":"1290","4":"2","5":"Manhattan"},{"1":"Max","2":"M","3":"1186","4":"3","5":"Manhattan"},{"1":"Oliver","2":"M","3":"836","4":"4","5":"Manhattan"},{"1":"Teddy","2":"M","3":"798","4":"5","5":"Manhattan"},{"1":"Cooper","2":"M","3":"768","4":"6","5":"Manhattan"},{"1":"Buddy","2":"M","3":"729","4":"7","5":"Manhattan"},{"1":"Leo","2":"M","3":"665","4":"8","5":"Manhattan"},{"1":"Rocky","2":"M","3":"650","4":"9","5":"Manhattan"},{"1":"Jack","2":"M","3":"629","4":"10","5":"Manhattan"},{"1":"Milo","2":"M","3":"629","4":"10","5":"Manhattan"},{"1":"Bella","2":"F","3":"1338","4":"1","5":"Queens"},{"1":"Name Not Provided","2":"F","3":"780","4":"2","5":"Queens"},{"1":"Luna","2":"F","3":"678","4":"3","5":"Queens"},{"1":"Coco","2":"F","3":"605","4":"4","5":"Queens"},{"1":"Lola","2":"F","3":"580","4":"5","5":"Queens"},{"1":"Daisy","2":"F","3":"569","4":"6","5":"Queens"},{"1":"Princess","2":"F","3":"549","4":"7","5":"Queens"},{"1":"Molly","2":"F","3":"465","4":"8","5":"Queens"},{"1":"Lucy","2":"F","3":"455","4":"9","5":"Queens"},{"1":"Unknown","2":"F","3":"429","4":"10","5":"Queens"},{"1":"Name Not Provided","2":"M","3":"1595","4":"1","5":"Queens"},{"1":"Max","2":"M","3":"1258","4":"2","5":"Queens"},{"1":"Unknown","2":"M","3":"1012","4":"3","5":"Queens"},{"1":"Rocky","2":"M","3":"875","4":"4","5":"Queens"},{"1":"Charlie","2":"M","3":"733","4":"5","5":"Queens"},{"1":"Buddy","2":"M","3":"668","4":"6","5":"Queens"},{"1":"Lucky","2":"M","3":"649","4":"7","5":"Queens"},{"1":"Toby","2":"M","3":"562","4":"8","5":"Queens"},{"1":"Milo","2":"M","3":"541","4":"9","5":"Queens"},{"1":"Teddy","2":"M","3":"536","4":"10","5":"Queens"},{"1":"Nanuk","2":"NA","3":"3","4":"1","5":"Queens"},{"1":"Sidney","2":"NA","3":"3","4":"1","5":"Queens"},{"1":"Bella","2":"F","3":"742","4":"1","5":"Staten Island"},{"1":"Molly","2":"F","3":"352","4":"2","5":"Staten Island"},{"1":"Coco","2":"F","3":"328","4":"3","5":"Staten Island"},{"1":"Daisy","2":"F","3":"328","4":"3","5":"Staten Island"},{"1":"Lola","2":"F","3":"315","4":"4","5":"Staten Island"},{"1":"Lucy","2":"F","3":"247","4":"5","5":"Staten Island"},{"1":"Luna","2":"F","3":"238","4":"6","5":"Staten Island"},{"1":"Chloe","2":"F","3":"234","4":"7","5":"Staten Island"},{"1":"Mia","2":"F","3":"221","4":"8","5":"Staten Island"},{"1":"Unknown","2":"F","3":"207","4":"9","5":"Staten Island"},{"1":"Zoey","2":"F","3":"206","4":"10","5":"Staten Island"},{"1":"Max","2":"M","3":"523","4":"1","5":"Staten Island"},{"1":"Rocky","2":"M","3":"451","4":"2","5":"Staten Island"},{"1":"Buddy","2":"M","3":"421","4":"3","5":"Staten Island"},{"1":"Charlie","2":"M","3":"311","4":"4","5":"Staten Island"},{"1":"Unknown","2":"M","3":"262","4":"5","5":"Staten Island"},{"1":"Teddy","2":"M","3":"256","4":"6","5":"Staten Island"},{"1":"Name Not Provided","2":"M","3":"230","4":"7","5":"Staten Island"},{"1":"Bailey","2":"M","3":"205","4":"8","5":"Staten Island"},{"1":"Cody","2":"M","3":"188","4":"9","5":"Staten Island"},{"1":"Toby","2":"M","3":"185","4":"10","5":"Staten Island"},{"1":"Buddy","2":"NA","3":"4","4":"1","5":"Staten Island"},{"1":"Unknown","2":"F","3":"80","4":"1","5":"NA"},{"1":"Lola","2":"F","3":"55","4":"2","5":"NA"},{"1":"Bella","2":"F","3":"46","4":"3","5":"NA"},{"1":"Luna","2":"F","3":"35","4":"4","5":"NA"},{"1":"Lucy","2":"F","3":"33","4":"5","5":"NA"},{"1":"Penny","2":"F","3":"32","4":"6","5":"NA"},{"1":"Coco","2":"F","3":"27","4":"7","5":"NA"},{"1":"Name Not Provided","2":"F","3":"20","4":"8","5":"NA"},{"1":"Lady","2":"F","3":"19","4":"9","5":"NA"},{"1":"Mia","2":"F","3":"17","4":"10","5":"NA"},{"1":"Unknown","2":"M","3":"113","4":"1","5":"NA"},{"1":"Name Not Provided","2":"M","3":"33","4":"2","5":"NA"},{"1":"Max","2":"M","3":"31","4":"3","5":"NA"},{"1":"Charlie","2":"M","3":"28","4":"4","5":"NA"},{"1":"Name","2":"M","3":"24","4":"5","5":"NA"},{"1":"Henry","2":"M","3":"21","4":"6","5":"NA"},{"1":"Toby","2":"M","3":"20","4":"7","5":"NA"},{"1":"Teddy","2":"M","3":"18","4":"8","5":"NA"},{"1":"Oliver","2":"M","3":"17","4":"9","5":"NA"},{"1":"Cooper","2":"M","3":"15","4":"10","5":"NA"},{"1":"Rocky","2":"M","3":"15","4":"10","5":"NA"},{"1":"Dexter","2":"M","3":"15","4":"10","5":"NA"},{"1":"Milo","2":"M","3":"15","4":"10","5":"NA"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 </div>
 <p><br><br></p>
@@ -2041,31 +1936,29 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 <p>Assume that all dogs in the <code>nyc_dogs</code> data frame are alive as of today.</p>
 <p>Describe the distribution of age for each borough using ggplot. Make a simple comment on your ggplot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>nyc_dogs_age <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">age =</span> <span class="dv">2022</span> <span class="sc">-</span> animal_birth_year )</span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>nyc_dogs_age <span class="ot">&lt;-</span> <span class="fu">mutate</span>(nyc_dogs, </span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>                       <span class="at">age =</span> <span class="dv">2022</span> <span class="sc">-</span> animal_birth_year )</span>
-<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>( nyc_dogs_age ) <span class="sc">+</span></span>
-<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> age)) <span class="sc">+</span> </span>
-<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>borough)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>nyc_dogs_age <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">age =</span> <span class="dv">2022</span> <span class="sc">-</span> animal_birth_year )</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>( nyc_dogs_age ) <span class="sc">+</span></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> age)) <span class="sc">+</span> </span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>borough)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="DANL200_midterm-spring-2022-a_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="768"></p>
+<p><img src="DANL200_midterm-spring-2022-a_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="768"></p>
+</div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>( <span class="fu">filter</span>(nyc_dogs_age, </span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>               age <span class="sc">&lt;=</span> <span class="dv">25</span>, <span class="sc">!</span><span class="fu">is.na</span>(borough)) ) <span class="sc">+</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> age)) <span class="sc">+</span> </span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>borough)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="DANL200_midterm-spring-2022-a_files/figure-html/unnamed-chunk-16-2.png" class="img-fluid" width="768"></p>
 </div>
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>( <span class="fu">filter</span>(nyc_dogs_age, </span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>               age <span class="sc">&lt;=</span> <span class="dv">25</span>, <span class="sc">!</span><span class="fu">is.na</span>(borough)) ) <span class="sc">+</span></span>
-<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> age)) <span class="sc">+</span> </span>
-<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>borough)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), </span>
+<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>borough)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="DANL200_midterm-spring-2022-a_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid" width="768"></p>
-</div>
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>( <span class="fu">filter</span>(nyc_dogs_age, age <span class="sc">&lt;=</span> <span class="dv">25</span>, <span class="sc">!</span><span class="fu">is.na</span>(borough)) ) <span class="sc">+</span></span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), </span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>borough)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="DANL200_midterm-spring-2022-a_files/figure-html/unnamed-chunk-14-3.png" class="img-fluid" width="768"></p>
+<p><img src="DANL200_midterm-spring-2022-a_files/figure-html/unnamed-chunk-16-3.png" class="img-fluid" width="768"></p>
 </div>
 </div>
 <p>Add some comments here ….</p>
@@ -2076,9 +1969,9 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 <h1>Question 3</h1>
 <p>For Question 3, run the following function to read the NYC’s Citywide Payroll Data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>nyc_payroll <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
-<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'https://bcdanl.github.io/data/nyc_payroll.csv'</span></span>
-<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>nyc_payroll <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'https://bcdanl.github.io/data/nyc_payroll.csv'</span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <p>Description of variables in the nyc_payroll dataset is provided at the end of the R script.</p>
@@ -2093,8 +1986,8 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 \]</span></p>
 <p>where <code>regular_gross_paid</code> and <code>total_ot_paid</code> are variables in the <code>nyc_payroll</code> data frame.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>q3a <span class="ot">&lt;-</span>  <span class="fu">mutate</span>(nyc_payroll,</span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">payroll =</span> regular_gross_paid <span class="sc">+</span> total_ot_paid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>q3a <span class="ot">&lt;-</span>  nyc_payroll <span class="sc">%&gt;%</span> </span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">payroll =</span> regular_gross_paid <span class="sc">+</span> total_ot_paid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br><br></p>
 </section>
@@ -2102,12 +1995,18 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 <h2 class="anchored" data-anchor-id="q3b.">Q3b.</h2>
 <p>Calculate the mean of <code>payroll</code> by <code>title_description</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>q3b <span class="ot">&lt;-</span> <span class="fu">group_by</span>(q3a, </span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>                title_description)</span>
-<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>q3b <span class="ot">&lt;-</span>  <span class="fu">summarise</span>(q3b, </span>
-<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">avg_payroll =</span> <span class="fu">mean</span>(payroll, <span class="at">na.rm =</span> T))</span>
-<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>q3b <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q3b, </span>
-<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>               <span class="sc">-</span>avg_payroll)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>q3b <span class="ot">&lt;-</span> <span class="fu">group_by</span>(q3a, </span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>                title_description)</span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>q3b <span class="ot">&lt;-</span>  <span class="fu">summarise</span>(q3b, </span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">avg_payroll =</span> <span class="fu">mean</span>(payroll, <span class="at">na.rm =</span> T))</span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>q3b <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q3b, </span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>               <span class="sc">-</span>avg_payroll)</span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a><span class="co"># equivalently</span></span>
+<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a>q3b <span class="ot">&lt;-</span> q3a <span class="sc">%&gt;%</span> </span>
+<span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(title_description) <span class="sc">%&gt;%</span> </span>
+<span id="cb72-11"><a href="#cb72-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_payroll =</span> <span class="fu">mean</span>(payroll, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span> </span>
+<span id="cb72-12"><a href="#cb72-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>avg_payroll)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br><br></p>
 </section>
@@ -2115,12 +2014,18 @@ Mastiff, French (Dogue De Bordeaux)                 Mastiff, Neapolitan
 <h2 class="anchored" data-anchor-id="q3c.">Q3c.</h2>
 <p>Calculate the mean of <code>payroll</code> by <code>work_location_borough</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>q3c <span class="ot">&lt;-</span> <span class="fu">group_by</span>(q3a, </span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>                work_location_borough)</span>
-<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>q3c <span class="ot">&lt;-</span>  <span class="fu">summarise</span>(q3c, </span>
-<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">avg_payroll =</span> <span class="fu">mean</span>(payroll, <span class="at">na.rm =</span> T))</span>
-<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>q3c <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q3c, </span>
-<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a>               <span class="sc">-</span>avg_payroll)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>q3c <span class="ot">&lt;-</span> <span class="fu">group_by</span>(q3a, </span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>                work_location_borough)</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>q3c <span class="ot">&lt;-</span>  <span class="fu">summarise</span>(q3c, </span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">avg_payroll =</span> <span class="fu">mean</span>(payroll, <span class="at">na.rm =</span> T))</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>q3c <span class="ot">&lt;-</span> <span class="fu">arrange</span>(q3c, </span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>               <span class="sc">-</span>avg_payroll)</span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a><span class="co"># equivalently</span></span>
+<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a>q3c <span class="ot">&lt;-</span> q3a <span class="sc">%&gt;%</span> </span>
+<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(work_location_borough) <span class="sc">%&gt;%</span> </span>
+<span id="cb73-11"><a href="#cb73-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avg_payroll =</span> <span class="fu">mean</span>(payroll, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span> </span>
+<span id="cb73-12"><a href="#cb73-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>avg_payroll)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br><br></p>
 </section>
