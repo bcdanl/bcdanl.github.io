@@ -28,7 +28,6 @@ knitr::opts_chunk$set(
 
 Add a web-page of the team project proposal to your website. The tab menu to link the web-page must be provided.
 
-
 # Question 2
 
 Provide ggplot codes to replicate the given figure.
@@ -91,18 +90,14 @@ ggplot(data = filter(corruption, year == 2014), aes(cpi, hdi)) +
 
 ## Q2b
 
-```{r, echo = T, eval = F}
-# path name for the labor_supply.csv file in the local drive:
-path <- '/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/labor_supply.csv'
+- Download the file `labor_supply.zip` from the Data folder in the Files section in Canvas. Then, extract `labor_supply.zip`, so that you can access the `labor_supply.csv` file.
 
-cps_labor <- read_csv(path)
-```
 
-- Variable description
-  - `SEX`: 1 if Male; 2 if Female; 9 if NIU (Not in universe)
-  - `NCHLT5`: Number of own children under age 5 in a household; 9 if 9+
-  - `LABFORCE`: 0 if NIU or members of the armed forces; 1 if not in the labor force; 2 if in the labor force.
-  - `ASECWT`: sample weights
+-   Variable description in `labor_supply.csv`
+    -   `SEX`: 1 if Male; 2 if Female; 9 if NIU (Not in universe)
+    -   `NCHLT5`: Number of own children under age 5 in a household; 9 if 9+
+    -   `LABFORCE`: 0 if NIU or members of the armed forces; 1 if not in the labor force; 2 if in the labor force.
+    -   `ASECWT`: sample weights
 
 ```{r, fig.width= 8, fig.height= 8}
 path <- '/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/labor_supply.csv'
@@ -150,7 +145,6 @@ ggplot(data = cps_labor,
         axis.text.x = element_text(angle = 45))
 ```
 
-
 ## Q2c
 
 ```{r, echo = T, eval = F}
@@ -159,20 +153,19 @@ library(ggcorrplot) # to create correlation heatmaps using ggcorrplot()
 beer_mkt <- read_csv('https://bcdanl.github.io/data/beer_markets.csv')
 ```
 
-- Make a correlation heat-map with variables that are either strongly correlated or `promo`-related.
+-   Make a correlation heat-map with variables that are either strongly correlated or `promo`-related.
 
 ```{r, fig.align='center'}
 knitr::include_graphics('lec_figs/beer_cor.jpg')
 ```
 
-  - Then, make a correlation heat-map for NY markets with the same selection of variables.
+-   Then, make a correlation heat-map for NY markets with the same selection of variables.
 
 ```{r, fig.align='center'}
 knitr::include_graphics('lec_figs/beer_cor_ny.jpg')
 ```
 
-
 References:
 
-  - [Fundamentals of Data Visualization by Claus O. Wilke](https://clauswilke.com/dataviz)
-  - [Data Visualization: A practical introduction by Kieran Healy](https://socviz.co)
+-   [Fundamentals of Data Visualization by Claus O. Wilke](https://clauswilke.com/dataviz)
+-   [Data Visualization: A practical introduction by Kieran Healy](https://socviz.co)
