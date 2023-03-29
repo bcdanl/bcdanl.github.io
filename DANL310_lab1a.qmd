@@ -1,5 +1,5 @@
 ---
-title: "R Lab - Map Visualization"
+title: "R Visualization Lab 1 - Maps "
 author: "Byeong-Hak Choe"
 editor: visual
 ---
@@ -41,7 +41,6 @@ climate_opinion_long <- read_csv(
   'https://bcdanl.github.io/data/climate_opinion_2021.csv')
 ```
 
-
 ```{r, result = 'asis', echo = F, message = F, warning = F}
 rmarkdown::paged_table(climate_opinion_long) 
 ```
@@ -50,10 +49,9 @@ rmarkdown::paged_table(climate_opinion_long)
 
 ## Variable Description
 
-- `belief`: 
-  - `human`: Estimated percentage who think that global warming is caused mostly by human activities.
-  - `happening`: Estimated percentage who think that global warming is happening.
-
+-   `belief`:
+    -   `human`: Estimated percentage who think that global warming is caused mostly by human activities.
+    -   `happening`: Estimated percentage who think that global warming is happening.
 
 ```{r, echo = T, eval = T}
 climate_opinion_long <- read_csv(
@@ -62,11 +60,11 @@ climate_opinion_long <- read_csv(
 climate_opinion_long
 ```
 
-## Q1a. 
+## Q1a.
 
-- Filter `climate_opinion_long`, so that `climate_opinion_long` has only estimated percentage who think that global warming is caused mostly by human activities.
+-   Filter `climate_opinion_long`, so that `climate_opinion_long` has only estimated percentage who think that global warming is caused mostly by human activities.
 
-- Then join the two data.frames `socviz::county_map` and the resulting data.frame above.
+-   Then join the two data.frames `socviz::county_map` and the resulting data.frame above.
 
 ```{r, echo = T, eval = T, out.height= 12, out.width=8}
 
@@ -79,14 +77,12 @@ county_full <- left_join(county_map, climate_opinion_long)
 
 ```
 
-
 ## Q1b.
 
-- Replicate the following map.
-  - Do not use `coord_map(projection = "albers", lat0 = 39, lat1 = 45) `.
-  
+-   Replicate the following map.
+    -   Do not use `coord_map(projection = "albers", lat0 = 39, lat1 = 45)`.
 
-```{r, echo = T, eval = T}
+```{r, echo = T, eval = F}
 p1 <- ggplot(data = county_full) + 
   geom_polygon(mapping = aes(x = long, y = lat,
                              group = group, 
@@ -132,3 +128,8 @@ p <- p2 + labs(fill = "Percent\nBelief", title = "U.S. Climate Opinion, 2021",
 p
 ```
 
+
+
+```{r, echo = F, eval = T}
+knitr::include_graphics("lec_figs/climate-opinion-map.png")
+```

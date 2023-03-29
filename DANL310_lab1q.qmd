@@ -82,48 +82,8 @@ county_full <- left_join(county_map, climate_opinion_long)
 -   Replicate the following map.
     -   Do not use `coord_map(projection = "albers", lat0 = 39, lat1 = 45)`.
 
+
+
 ```{r, echo = F, eval = T}
-p1 <- ggplot(data = county_full) + 
-  geom_polygon(mapping = aes(x = long, y = lat,
-                             group = group, 
-                             fill = perc),
-               color = "grey60", 
-               linewidth = 0.1) 
-
-
-p2 <- p1 + scale_fill_gradient2( 
-  low = '#2E74C0',  
-  high = '#CB454A',  
-  mid = 'white', # transparent white
-  na.value = "grey80",
-  midpoint = 50,
-  breaks = c(quantile(climate_opinion_long$perc, 0, na.rm = T),
-             quantile(climate_opinion_long$perc, .25, na.rm = T),
-             quantile(climate_opinion_long$perc, .5, na.rm = T),
-             quantile(climate_opinion_long$perc, .75, na.rm = T),
-             quantile(climate_opinion_long$perc, 1, na.rm = T)),
-  labels = c(paste(round(quantile(climate_opinion_long$perc, 0, na.rm = T), 1),"\n(Min)"),
-             paste(round(quantile(climate_opinion_long$perc, .25, na.rm = T), 1),"\n(25th)"),
-             paste(round(quantile(climate_opinion_long$perc, .5, na.rm = T), 1),"\n(50th)"),
-             paste(round(quantile(climate_opinion_long$perc, .75, na.rm = T), 1),"\n(75th)"),
-             paste(round(quantile(climate_opinion_long$perc, 1, na.rm = T), 1),"\n(Max)")
-  ),
-  guide = guide_colorbar( direction = "horizontal",
-                          barwidth = 25,
-                          title.vjust = 1 )
-) 
-
-p <- p2 + labs(fill = "Percent\nBelief", title = "U.S. Climate Opinion, 2021",
-               caption = "Sources: Yale Program on Climate Change Communication\n(https://climatecommunication.yale.edu/visualizations-data/ycom-us/)") +
-  theme_map() +
-  theme(plot.margin = unit( c(1, 1, 3.85, 0.5), "cm"),
-        legend.position = c(0.5, -.15),
-        legend.justification = c(.5,.5),
-        strip.background = element_rect( colour = "black",
-                                         fill = "white",
-                                         color = "grey80" )
-  ) +
-  guides(fill = guide_colourbar(direction = "horizontal", barwidth = 25,
-                                title.vjust = 1))
-p
+knitr::include_graphics("lec_figs/climate-opinion-map.png")
 ```
