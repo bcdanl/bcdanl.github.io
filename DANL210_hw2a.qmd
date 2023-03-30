@@ -1,0 +1,302 @@
+---
+title: "DANL 210: Data Preparation and Management<br>Homework Assignment 2"
+author: "Byeong-Hak Choe"
+editor: visual
+---
+
+# Direction for Homework Assignment 2
+
+-   Write a Python code to answer each question.
+
+-   Make at least some simple comment (`# ...`) in each question.
+
+-   Import Python libraries you need here.
+
+```{python}
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+```
+
+<br><br><br>
+
+# Question 1
+
+Consider the `stock` DataFrame for Question 1.
+
+```{python}
+path = 'https://bcdanl.github.io/data/stocks2013_2023.csv'
+stock = pd.read_csv(path)
+```
+
+## Q1a
+
+What are the minimum, first quartile, median, thrid quartile, maximum, mean, and standard deviation of `Close` and `Volume` for each `company`?
+
+```{python}
+# Group stock data by company and get descriptive statistics for the Close and Volume columns
+q1a = stock.groupby('company')['Close', 'Volume'].describe()
+
+# Rename columns to have the format 'column_name'_'statistic'
+q1a.columns = q1a.columns.get_level_values(0) + '_' +\
+    q1a.columns.get_level_values(1)
+
+    
+```
+
+<br><br>
+
+## Q1b
+
+Find the 10 largest values for `Volume`. What are the `companies` and `dates` associated with those 10 largest values for `Volume`?
+
+```{python}
+# Calculate dense ranking of stock volumes and add it as a new column to a copy of the stock dataframe
+ranking = stock['Volume'].rank(method='dense', ascending=False)
+q1b = stock.copy()
+q1b['ranking'] = ranking
+
+# Sort the dataframe by ranking and select the top 10 stocks
+q1b = (
+  q1b
+  .sort_values(by='ranking')
+  .query('ranking <= 10')
+)
+
+```
+
+<br><br>
+
+## Q1c
+
+Calculate the Z-scores of `Open` and `Close` for each company using `apply()`.
+
+```{python}
+q1c = (
+  stock.set_index(['company', 'Date'])  # set company and Date as the index
+  .groupby('company')                   # group the data by company
+  .apply(lambda x: ( x - x.mean() ) / x.std() )  # standardize the Close and Volume for each company
+  .reset_index()                       # reset the index to default
+)
+
+```
+
+## Q1d
+
+Use the `transform()` method on the `stock` data to represent all the values of `Open`, `High`, `Low`, `Close`, `Adj Close`, and `Volume` in terms of the first date in the data.
+
+To do so, divide all values for each company by the values of the first date in the data for that company.
+
+```{python}
+# Set multi-index for DataFrame using 'company' and 'Date' columns
+q1d = stock.set_index(['company', 'Date'])
+
+# Divide each element of q1d by the first element of the corresponding 'company' group
+q1d = ( q1d / q1d.groupby('company').transform('first') )
+
+```
+
+## Q1e
+
+Provide both seaborn code and a simple comment to describe the daily trend of normalized values of `Close` for each company in one plot. The normalized values of `Close` are the one calculated from Q1d.
+
+```{python}
+g = sns.lineplot(q1d, # create a line plot using Seaborn
+             x = 'Date', y = 'Close', # specify x and y axes
+             hue = 'company') # specify color grouping by company
+
+import matplotlib.dates as mdates # import Matplotlib date module
+g.xaxis.set_major_locator(mdates.YearLocator()) # set x-axis ticks to show year
+plt.xticks(rotation=45) # rotate x-axis labels for better readability
+
+```
+
+## Q1f
+
+Create a box plot of `Close` for each `company` in one plot. Make a simple comment on the plot.
+
+```{python}
+sns.boxplot(stock, 
+             x = 'company', y = 'Close')
+
+```
+
+<br><br><br>
+
+# Question 2
+
+Load the DataFrfame for Question 2.
+
+```{python, eval = F}
+path = 'https://bcdanl.github.io/data/climate_finance.csv'
+climate_finance = pd.read_csv(path)
+```
+
+- Adaptation involves taking actions to reduce the actual or expected damages from climate change. 
+
+- Mitigation involves taking actions to reduce the emissions of greenhouse gases that are responsible for climate change.
+
+## Q2a
+
+How many `parties` have `provided` or `disbursed` positive funding `contributions` to other countries or regions for their `adaptation` projects for every single `year` from 2011 to 2018?
+
+```{python}
+q2a = (
+  climate_finance
+       .query('Status == "provided" or Status == "disbursed"') # Select only the rows where status is "provided" or "disbursed"
+       .query('`Type of support` == "adaptation"') # Select only the rows where the type of support is "adaptation"
+       .groupby(['Party', 'Year']) # Group the data by party and year
+       .agg({'Contribution': 'sum'}) # Calculate the sum of contributions for each party and year
+       .reset_index() # Reset the index of the dataframe
+       .query('Contribution > 0') # Select only the rows where the contribution is greater than 0
+       .groupby(['Party']) # Group the data by party
+       .size() # Count the number of rows for each party
+       .reset_index(name='n') # Reset the index of the dataframe and rename the "size" column to "n"
+       .query('n == 8') # Select only the rows where the value of "n" is 8
+       )
+
+q2a.shape[0] # Output the number of rows in the resulting dataframe
+      
+q2a
+
+```
+
+<br><br>
+
+## Q2b
+
+For each `party`, calculate the total funding `contributions` that were `disbursed` or `provided` for `mitigation` projects for each `year`.
+
+```{python}
+q2b = (
+  climate_finance
+       .query('Status == "provided" or Status == "disbursed"')
+       .query('`Type of support` == "mitigation"')
+       .groupby(['Party', 'Year'])
+       .agg({'Contribution': 'sum'})
+       .reset_index()
+       )
+
+q2b
+```
+
+<br><br>
+
+## Q2c
+
+For each `party`, calculate the ratio between `adaptation` contribution and `mitigation` contribution for each type of `Status` for each `year`.
+
+```{python}
+# Groupby Party, Year, Status, and Type of support and sum the contribution
+q2c_tmp = (
+    climate_finance
+    .groupby(['Party', 'Year', 'Status', 'Type of support'])
+    .agg({'Contribution': 'sum'})
+    .reset_index()    
+    ) 
+
+# Filter out rows where the Contribution is 0 and keep only rows with a length of 2 groups
+q2c_tmp = q2c_tmp[ q2c_tmp['Contribution'] != 0 ]
+q2c_tmp = (
+  q2c_tmp
+  .groupby(['Party', 'Year', 'Status'])
+  .filter(lambda x: len(x) == 2)
+  )
+
+# Create a separate dataframe for adaptation and mitigation contributions
+q2ca = q2c_tmp[q2c_tmp['Type of support'] == 'adaptation']
+q2cm = q2c_tmp[q2c_tmp['Type of support'] == 'mitigation']
+
+# Drop the Type of support column, rename the Contribution column, and compute the adaptation to mitigation ratio
+q2c = (
+   q2ca
+   .drop('Type of support', axis=1)
+   .rename(columns={'Contribution': 'adaptation'})
+   .assign(mitigation = q2cm['Contribution'].values,
+           am_ratio = lambda x: x['adaptation'] / x['mitigation'])
+       )
+
+
+```
+
+<br><br>
+
+## Q2d
+
+Provide both seaborn code and a simple comment to describe the distribution of the ratio between `adaptation` contribution and `mitigation` contribution, which is calculated in Q2c.
+
+```{python}
+# Graph 1
+sns.histplot(q2c, x='am_ratio', bins=100)
+plt.axvline(x=1, color='red', linestyle='--')
+```
+
+```{python}
+# Graph 2
+sns.histplot(q2c, x=np.log(q2c['am_ratio']), bins=100)
+plt.axvline(x=0, color='red', linestyle='--')
+```
+
+```{python}
+# Graph 3
+sns.kdeplot(q2c, x='am_ratio')
+plt.axvline(x=1, color='red', linestyle='--')
+```
+
+```{python}
+# Graph 4
+sns.kdeplot(q2c, x=np.log(q2c['am_ratio']))
+plt.axvline(x=0, color='red', linestyle='--')
+```
+
+<br><br>
+
+## Q2e
+
+Provide both seaborn code and a simple comment to describe how the distribution of `Contribution` varies by `Type of support` and `Status`.
+
+```{python}
+# Graph 1
+g = sns.FacetGrid(data=climate_finance, 
+                  row='Status', 
+                  hue='Type of support')
+g.map(sns.histplot, 
+      'Contribution',
+      alpha = .25)
+```
+
+```{python}
+# Log transformation
+climate_finance['log_contribution'] = np.log(climate_finance['Contribution'])
+```
+
+```{python}
+# Graph 2
+g = sns.FacetGrid(data=climate_finance, 
+                  row='Status', 
+                  hue='Type of support')
+g.map(sns.histplot, 
+      'log_contribution',
+      alpha = .25)
+      
+
+```
+
+```{python}
+# Graph 3
+g = sns.FacetGrid(data=climate_finance, 
+                  row='Status', 
+                  hue='Type of support')
+g.map(sns.kdeplot, 'Contribution')
+```
+
+```{python}
+# Graph 4
+g = sns.FacetGrid(data=climate_finance, 
+                  row='Status', 
+                  hue='Type of support')
+g.map(sns.kdeplot, 'log_contribution')
+
+
+```
