@@ -272,6 +272,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <a class="dropdown-item" href="./DANL200_midterm-spring-2023-q.html">
  <span class="dropdown-text">midterm-spring-2023-q</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_midterm-spring-2023-a.html">
+ <span class="dropdown-text">midterm-spring-2023-a</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -393,6 +397,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <li>
     <a class="dropdown-item" href="./DANL210_midterm-spring-2023-q.html">
  <span class="dropdown-text">midterm-spring-2023-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_midterm-spring-2023-a.html">
+ <span class="dropdown-text">midterm-spring-2023-a</span></a>
   </li>  
     </ul>
   </li>
@@ -609,8 +617,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>SEX</code>: 1 if Male; 2 if Female; 9 if NIU (Not in universe)</li>
 <li><code>NCHLT5</code>: Number of own children under age 5 in a household; 9 if 9+</li>
 <li><code>LABFORCE</code>: 0 if NIU or members of the armed forces; 1 if not in the labor force; 2 if in the labor force.</li>
-<li><code>ASECWT</code>: sample weights</li>
+<li><code>ASECWT</code>: sample weight</li>
 </ul></li>
+<li><p>A sample weight of each observation means how much population each observation represents.</p>
+<ul>
+<li>If you sum <code>ASECWT</code> for each year, you get the size of yearly population in the US.</li>
+</ul></li>
+<li><p>Observations with <code>LABFORCE == 0</code> is not in labor force.</p></li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
@@ -627,6 +640,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <ul>
 <li>Make a correlation heat-map with variables that are either strongly correlated or <code>promo</code>-related.</li>
+<li>The variables are selected by how high the mean value of the absolute value of correlations with the variable is (top 13-15 variables).</li>
+<li>You can start with the following data.frame:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span> beer_mkt <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>hh, <span class="sc">-</span>market) </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> beer_dummies,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>          beer_floz <span class="sc">~</span> .)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span>  <span class="fu">as.data.frame</span>(<span class="fu">model.matrix</span>(reg))[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span> <span class="fu">cbind</span>(beer_mkt<span class="sc">$</span>beer_floz ,beer_dummies)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span> beer_dummies <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">beer_floz =</span> <span class="st">`</span><span class="at">beer_mkt$beer_floz</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>To calculate a correlation between numeric variables in <code>data.frame</code>, use <code>cor(data.frame)</code></li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">

@@ -275,6 +275,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <a class="dropdown-item" href="./DANL200_midterm-spring-2023-q.html">
  <span class="dropdown-text">midterm-spring-2023-q</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_midterm-spring-2023-a.html">
+ <span class="dropdown-text">midterm-spring-2023-a</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -396,6 +400,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <li>
     <a class="dropdown-item" href="./DANL210_midterm-spring-2023-q.html">
  <span class="dropdown-text">midterm-spring-2023-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_midterm-spring-2023-a.html">
+ <span class="dropdown-text">midterm-spring-2023-a</span></a>
   </li>  
     </ul>
   </li>
@@ -608,7 +616,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>nyc_pop <span class="op">=</span> pd.read_csv(<span class="st">'https://bcdanl.github.io/data/nyc_pop_by_boro_1950-2040.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display" data-execution_count="115">
+<div class="cell-output cell-output-display" data-execution_count="3">
 
 <div>
 
@@ -1038,7 +1046,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>             x <span class="op">=</span> <span class="st">'Year'</span>,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>             y <span class="op">=</span> <span class="st">'Pop'</span>,</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>             hue <span class="op">=</span> <span class="st">'Borough'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="118">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>&lt;AxesSubplot:xlabel='Year', ylabel='Pop'&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -1539,7 +1547,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>             x <span class="op">=</span> <span class="st">'Year'</span>,</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>             y <span class="op">=</span> <span class="st">'prop'</span>,</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>             hue <span class="op">=</span> <span class="st">'Borough'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="121">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>&lt;AxesSubplot:xlabel='Year', ylabel='prop'&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -1557,7 +1565,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>restaurant <span class="op">=</span> pd.read_csv(<span class="st">'https://bcdanl.github.io/data/DOHMH_NYC_Restaurant_Inspection.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="11">
-<div class="cell-output cell-output-display" data-execution_count="123">
+<div class="cell-output cell-output-display" data-execution_count="11">
 
 <table class="dataframe table table-sm table-striped">
 
@@ -2397,8 +2405,8 @@ A
 <p>Provide both (1) pandas/seaborn code and (2) a simple comment to describe how the distribution of <code>SCORE</code> varies by <code>CRITICAL FLAG</code> when <code>GRADE</code> is <code>A</code>.</p>
 <div class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sns.displot(data <span class="op">=</span> restaurant.query(<span class="st">'GRADE == "A"'</span>), x<span class="op">=</span><span class="st">'SCORE'</span>, kind<span class="op">=</span><span class="st">'kde'</span>, row<span class="op">=</span><span class="st">'CRITICAL FLAG'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="126">
-<pre><code>&lt;seaborn.axisgrid.FacetGrid at 0x7f8498cf5a90&gt;</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>&lt;seaborn.axisgrid.FacetGrid at 0x7fe578a16430&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="DANL210_midterm-spring-2023-a_files/figure-html/cell-15-output-2.png" width="469" height="947"></p>
@@ -2406,8 +2414,8 @@ A
 </div>
 <div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sns.displot(data <span class="op">=</span> restaurant.query(<span class="st">'GRADE == "A"'</span>), x<span class="op">=</span><span class="st">'SCORE'</span>, row<span class="op">=</span><span class="st">'CRITICAL FLAG'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="127">
-<pre><code>&lt;seaborn.axisgrid.FacetGrid at 0x7f847d645880&gt;</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>&lt;seaborn.axisgrid.FacetGrid at 0x7fe579aa6df0&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="DANL210_midterm-spring-2023-a_files/figure-html/cell-16-output-2.png" width="469" height="947"></p>
@@ -2742,8 +2750,8 @@ A
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>       row <span class="op">=</span> <span class="st">'GRADE'</span>)</span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a> .<span class="bu">map</span>(sns.scatterplot, <span class="st">'CRITICAL FLAG'</span>, <span class="st">'prop'</span> )</span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="132">
-<pre><code>&lt;seaborn.axisgrid.FacetGrid at 0x7f8499ab66d0&gt;</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>&lt;seaborn.axisgrid.FacetGrid at 0x7fe579dcbdf0&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="DANL210_midterm-spring-2023-a_files/figure-html/cell-21-output-2.png" width="1430" height="851"></p>
@@ -2766,8 +2774,8 @@ A
 Using the barplot function without specifying `order` is likely to produce an incorrect plot.
 </code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="133">
-<pre><code>&lt;seaborn.axisgrid.FacetGrid at 0x7f84991b36a0&gt;</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>&lt;seaborn.axisgrid.FacetGrid at 0x7fe579d9e790&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <p><img src="DANL210_midterm-spring-2023-a_files/figure-html/cell-22-output-3.png" width="1429" height="851"></p>
