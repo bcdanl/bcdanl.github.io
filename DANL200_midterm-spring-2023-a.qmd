@@ -1,0 +1,383 @@
+---
+title: "Spring 2023, DANL 200: Introduction to Data Analytics"
+subtitle: "Midterm Exam - Example Answers"
+author: "Byeong-Hak Choe"
+---
+
+```{r setup, include = FALSE}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(ggthemes)
+library(ggtech)
+library(ggthemr)
+library(hrbrthemes)
+library(hexbin)
+library(ggforce)
+library(skimr)
+
+knitr::opts_chunk$set(fig.width=8, fig.height=5,
+                      echo = T, eval = T, message = F, warning = F)  
+
+theme_set(theme_ipsum() +
+          theme(strip.background =element_rect(fill="lightgray")))
+```
+
+### Loading R packages
+
+```{r, eval = F, echo = T}
+library(tidyverse)
+```
+
+<br><br>
+
+# Question 1
+
+Load the data.frame for Question 1.
+
+```{r}
+fao_stat <- read_csv('https://bcdanl.github.io/data/fao_stat.csv')
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(fao_stat)
+```
+
+<br>
+
+## Variable Description
+
+-   `Area`:
+    -   Country
+-   `Year`:
+    -   Year
+-   `SSA`:
+    -   `TRUE` if `Area` belongs to Sub-Saharan Africa;
+    -   `FALSE` otherwise
+-   `gdp_per_capita`:
+    -   Gross domestic product per capita, PPP, (constant 2017 international \$)
+-   `drinking_water`:
+    -   Percentage of population using at least basic drinking water services (percent)
+-   `sanitation_service`:
+    -   Percentage of population using at least basic sanitation services (percent)
+-   `children_stunted`:
+    -   Percentage of children under 5 years of age who are stunted (percent)
+    -   What does it mean stunted?
+        -   Stunting is the impaired growth and development that children experience from poor nutrition, repeated infection, and inadequate psychosocial stimulation.
+-   `children_overweight`:
+    -   Percentage of children under 5 years of age who are overweight (percent)
+-   `investment_pct`:
+    -   Investment share of gross domestic product (GDP), (percent)
+    -   `investment_pct` = 100 * I/GDP, where GDP = (Consumption) + (Investment) + (Government Expenditure) + (Net Export)
+    -   It measures how much of the new value added in the economy is invested.
+
+<br>
+
+## Q1a.
+
+-   For each `SSA` value, calculate the mean value of each numeric variable.
+
+-   For each numeric variable, how much is the difference between Sub-Saharan Africa and non-Sub-Saharan Africa in their mean values?
+
+```{r}
+library(skimr)
+q1a <- fao_stat %>% 
+  group_by(SSA) %>% 
+  skim() %>% 
+  filter(skim_type == "numeric", skim_variable != 'Year') %>% 
+  select(skim_variable, SSA, numeric.mean) %>% 
+  group_by(skim_variable) %>% 
+  mutate(diff = numeric.mean - lag(numeric.mean)) %>% 
+  filter(!is.na(diff)) %>% 
+  select(-numeric.mean, -SSA)
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(q1a)
+```
+
+<br>
+
+## Q1b
+
+Provide both (1) ggplot code and (2) a simple comment to describe how the relationship between `investment_pct` and `children_stunted` varies by `SSA`.
+
+```{r}
+ggplot(fao_stat,
+       aes(x = investment_pct , y = children_stunted)) +
+  geom_point(alpha = .25) +
+  geom_smooth() +
+  geom_smooth(method = lm, color = 'red') +
+  facet_wrap(. ~ SSA) +
+  coord_fixed()
+```
+
+-   For non-Sub-Saharan countries, `investment_pct` and `children_stunted` seem to be positively associated.
+
+-   For Sub-Saharan countries, `investment_pct` and `children_stunted` seem to be negatively associated.
+
+<br>
+
+## Q1c
+
+Provide both (1) ggplot code and (2) a simple comment to describe how the relationship between `investment_pct` and `children_stunted` varies by `SSA` and `Year`.
+
+```{r, fig.height= 24, fig.width= 8}
+ggplot(fao_stat,
+       aes(x = investment_pct , y = children_stunted)) +
+  geom_point(alpha = .25) +
+  geom_smooth() +
+  geom_smooth(method = lm, color = 'red') +
+  facet_grid(Year ~ SSA) 
+```
+
+-   For non-Sub-Saharan countries, the relationship between `investment_pct` and `children_stunted` seems to vary over the years.
+
+-   For Sub-Saharan countries, the relationship between `investment_pct` and `children_stunted` seems to be negatively associated over the years.
+
+<br>
+
+## Q1d.
+
+Provide both (1) ggplot code and (2) a simple comment to describe how overall the yearly trend of each `Area`'s `children_stunted` varies by `SSA`.
+
+```{r}
+ggplot(fao_stat,
+       aes(x = Year, y = children_stunted)) +
+  geom_line(aes(group = Area), alpha = .2) +
+  geom_smooth(method = lm) +
+  facet_grid(.~SSA)
+```
+
+-   Overall, `children_stunted` in both non-Sub-Saharan countries and Sub-Saharan countries have decreased over the years.
+
+-   Overall, `children_stunted` in Sub-Saharan countries has always been higher than in non-Sub-Saharan countries.
+
+<br><br>
+
+# Question 2
+
+Load the data.frame for Question 2.
+
+```{r}
+restaurant <- read_csv('https://bcdanl.github.io/data/DOHMH_NYC_Restaurant_Inspection.csv')
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(restaurant)
+```
+
+## Variable Description
+
+-   `CAMIS`:
+    -   This is an unique identifier for the entity (restaurant);
+    -   10-digit integer
+-   `DBA`:
+    -   This field represents the name (doing business as) of the entity (restaurant);
+    -   Public business name, may change at discretion of restaurant owner
+-   `BORO`:
+    -   Borough in which the entity (restaurant) is located.;
+    -   • `1` = MANHATTAN
+    -   • `2` = BRONX
+    -   • `3` = BROOKLYN
+    -   • `4` = QUEENS
+    -   • `5` = STATEN ISLAND
+    -   • `0` = Missing;
+-   `CUISINE DESCRIPTION`:
+    -   This field describes the entity (restaurant) cuisine.
+-   `ACTION`:
+    -   This field represents the actions that is associated with each restaurant inspection. ;
+    -   • Violations were cited in the following area(s).
+    -   • No violations were recorded at the time of this inspection.
+    -   • Establishment re-opened by DOHMH
+    -   • Establishment re-closed by DOHMH
+    -   • Establishment Closed by DOHMH.
+    -   • Violations were cited in the following area(s) and those requiring immediate action were addressed.
+-   `VIOLATION CODE`:
+    -   Violation code associated with an establishment (restaurant) inspection
+-   `VIOLATION DESCRIPTION`:
+    -   Violation description associated with an establishment (restaurant) inspection
+-   `CRITICAL FLAG`:
+    -   Indicator of critical violation;
+    -   • `Critical`
+    -   • `Not Critical`
+    -   • `Not Applicable`;
+    -   Critical violations are those most likely to contribute to food-borne illness
+-   `SCORE`:
+    -   Total score for a particular inspection;
+-   `GRADE`:
+    -   Grade associated with the inspection;
+    -   • `N` = Not Yet Graded
+    -   • `A` = Grade A
+    -   • `B` = Grade B
+    -   • `C` = Grade C
+    -   • `Z` = Grade Pending
+    -   • `P` = Grade Pending issued on re-opening following an initial inspection that resulted in a closure
+
+<br>
+
+## Q2a.
+
+What are the mean, standard deviation, first quartile, median, third quartile, and maximum of `SCORE` for each `GRADE` of restaurants?
+
+```{r}
+restaurant %>% group_by(GRADE) %>% skim(SCORE)
+```
+
+<br>
+
+## Q2b.
+
+-   How many restaurants with a `GRADE` of `A` are there in NYC?
+
+-   How much percentage of restaurants in NYC are a `GRADE` of `C`?
+
+```{r}
+freq <- as.data.frame( table(restaurant$GRADE) )
+prop <- as.data.frame( 100 * prop.table(table(restaurant$GRADE)) )
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(freq)
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(prop)
+```
+
+<br>
+
+## Q2c.
+
+Provide both (1) ggplot code and (2) a simple comment to describe how the distribution of `SCORE` varies by `GRADE` and `CRITICAL FLAG`.
+
+-   Density plots
+
+```{r}
+ggplot(restaurant) +
+  geom_density(aes(x = SCORE)) +
+  facet_grid( `CRITICAL FLAG` ~ GRADE, scales = 'free_x' )
+```
+
+-   Boxplots
+
+```{r}
+ggplot(restaurant) +
+  geom_boxplot(aes(x = SCORE, y = GRADE, fill = GRADE) ) +
+  facet_grid( `CRITICAL FLAG` ~ . )
+```
+
+-   Histograms
+
+```{r}
+ggplot(restaurant) +
+  geom_histogram(aes(x = SCORE), binwidth = 1 ) +
+  facet_grid( `CRITICAL FLAG` ~ GRADE, scales = 'free_x' )
+```
+
+-   Mostly,
+    -   The values of `SCORE` for `GRADE` `A` ranges from 0 to 13.
+    -   The values of `SCORE` for `GRADE` `B` ranges 13 to 27.
+    -   The values of `SCORE` for `GRADE` `C` ranges 24 to 75.
+-   For `Not Critical` type, two `SCORE` values around 1 and 12 are most common, while 12 is the single most common `SCORE` value for `Critical` type.
+
+<br>
+
+## Q2d.
+
+Provide both (1) ggplot code and (2) a simple comment to describe how the probability distribution of `CRITICAL FLAG` varies by `GRADE` and `BORO`.
+
+```{r}
+ggplot(restaurant) +
+  geom_bar(aes(x = `CRITICAL FLAG`,
+               y = after_stat(prop), group = 1)) +
+  facet_grid( GRADE ~ BORO )
+```
+
+-   For `GRADE` `A`, the probability distribution of `CRITICAL FLAG` are similar across `BORO`s.
+
+-   For `GRADE` `B`, the restaurants in `Staten Island` are more likely to be `Critical` than in other `BORO`s.
+
+-   For `GRADE` `C`, the restaurants in `Bronx` are more likely to be `Critical` than in other `BORO`s.
+
+<br>
+
+## Q2e.
+
+For the 10 most common `CUISINE DESCRIPTION` values, find the `CUISINE DESCRIPTION` value that has the highest proportion of `GRADE` `A`.
+
+```{r}
+q2e <- restaurant %>% 
+  group_by(`CUISINE DESCRIPTION`) %>% 
+  mutate(n = n()) %>% 
+  ungroup() %>% 
+  filter(dense_rank(-n) <= 10) %>% 
+  group_by(`CUISINE DESCRIPTION`, GRADE) %>% 
+  count() %>% 
+  group_by(`CUISINE DESCRIPTION`) %>% 
+  mutate(prop_A = n / sum(n)) %>% 
+  filter(GRADE == 'A') %>% 
+  arrange(-prop_A)
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(q2e)
+```
+
+<br>
+
+## Q2f.
+
+-   Find the 3 most common names of restaurants (`DBA`) in each `BORO`.
+    -   If the third most common `DBA` values are multiple, please include all the `DBA` values.
+-   Overall, which `DBA` value is most common in NYC?
+
+```{r}
+q2f <- restaurant %>% 
+  select(DBA, BORO) %>% 
+  group_by(BORO, DBA) %>% 
+  summarize(n = n()) %>% 
+  mutate(ranking = dense_rank(-n)) %>% 
+  filter(ranking <= 3) %>% 
+  arrange(BORO, ranking)
+
+q2f_ <- restaurant %>% 
+  group_by(DBA) %>% 
+  count() %>% 
+  arrange(-n)
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(q2f)
+rmarkdown::paged_table(q2f_)
+```
+
+-   Note that `chipotle mexican grill` and `subway` are both the third most popular franchise/chain in `Manhattan`.
+
+-   Overall, `dunkin` is the most popular franchise/chain in NYC.
+
+<br>
+
+## Q2g.
+
+For all the `DBA` values that appear in the result of Q2f, find the `DBA` value that is most likely to commit critical violation.
+
+```{r}
+q2g <- restaurant %>% 
+  filter(DBA %in% q2f$DBA) %>% 
+  group_by(DBA, `CRITICAL FLAG`) %>% 
+  count() %>% 
+  group_by(DBA) %>% 
+  mutate(lag_n = lag(n),
+         tot = sum(n),
+         prop_crit = lag_n / tot) %>% 
+  select(DBA, prop_crit) %>% 
+  filter(!is.na(prop_crit)) %>% 
+  arrange(-prop_crit)
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(q2g)
+```
+
+-   Among popular franchises/chains, `subway` is most likely to commit `Critical` violation in NYC.

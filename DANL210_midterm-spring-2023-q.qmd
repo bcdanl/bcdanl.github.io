@@ -1,0 +1,169 @@
+---
+title: "Spring 2023, DANL 210: Data Preparation and Management"
+subtitle: "Midterm Exam"
+author: "Byeong-Hak Choe"
+---
+
+## Load Libraries
+
+```{python}
+import pandas as pd
+import seaborn as sns
+```
+
+# Question 1
+Load the DataFrame for Question 1.
+
+```{python}
+#| warning: false
+#| message: false
+nyc_pop = pd.read_csv('https://bcdanl.github.io/data/nyc_pop_by_boro_1950-2040.csv')
+```
+
+```{python}
+#| warning: false
+#| message: false
+#| echo: false
+
+from IPython.display import display
+display(nyc_pop)
+```
+
+<br>
+
+## Q1a
+
+Provide both pandas/seaborn code and a simple comment to describe the trend of population for each borough.
+
+```{python}
+
+```
+
+<br>
+
+## Q1b
+
+Provide both pandas/seaborn code and a simple comment to describe the trend of the proportion of population for each borough.
+
+  - Note: The proportion of population for each borough is each borough's share of total population in NYC in each year.
+  
+```{python}
+
+```
+
+
+<br><br>
+
+# Question 2
+
+## Load DataFrame for Question 2
+
+```{python}
+restaurant = pd.read_csv('https://bcdanl.github.io/data/DOHMH_NYC_Restaurant_Inspection.csv')
+```
+
+```{python}
+#| warning: false
+#| message: false
+#| echo: false
+display(restaurant)
+```
+
+
+## Variable Description
+
+-   `CAMIS`:
+    -   This is an unique identifier for the entity (restaurant);
+    -   10-digit integer
+-   `DBA`:
+    -   This field represents the name (doing business as) of the entity (restaurant);
+    -   Public business name, may change at discretion of restaurant owner
+-   `BORO`:
+    -   Borough in which the entity (restaurant) is located.;
+    -   • `1` = MANHATTAN
+    -   • `2` = BRONX
+    -   • `3` = BROOKLYN
+    -   • `4` = QUEENS
+    -   • `5` = STATEN ISLAND
+    -   • `0` = Missing;
+-   `CUISINE DESCRIPTION`:
+    -   This field describes the entity (restaurant) cuisine.
+-   `ACTION`:
+    -   This field represents the actions that is associated with each restaurant inspection. ;
+    -   • Violations were cited in the following area(s).
+    -   • No violations were recorded at the time of this inspection.
+    -   • Establishment re-opened by DOHMH
+    -   • Establishment re-closed by DOHMH
+    -   • Establishment Closed by DOHMH.
+    -   • Violations were cited in the following area(s) and those requiring immediate action were addressed.
+-   `VIOLATION CODE`:
+    -   Violation code associated with an establishment (restaurant) inspection
+-   `VIOLATION DESCRIPTION`:
+    -   Violation description associated with an establishment (restaurant) inspection
+-   `CRITICAL FLAG`:
+    -   Indicator of critical violation;
+    -   • `Critical`
+    -   • `Not Critical`
+    -   • `Not Applicable`;
+    -   Critical violations are those most likely to contribute to food-borne illness
+-   `SCORE`:
+    -   Total score for a particular inspection;
+-   `GRADE`:
+    -   Grade associated with the inspection;
+    -   • `N` = Not Yet Graded
+    -   • `A` = Grade A
+    -   • `B` = Grade B
+    -   • `C` = Grade C
+    -   • `Z` = Grade Pending
+    -   • `P` = Grade Pending issued on re-opening following an initial inspection that resulted in a closure
+
+<br>
+
+## Q2a.
+
+What are the mean, standard deviation, first quartile, median, third quartile, and maximum of `SCORE` for each `GRADE` of restaurants?
+
+<br>
+
+
+## Q2b.
+
+Provide both (1) pandas/seaborn code and (2) a simple comment to describe how the distribution of SCORE varies by `CRITICAL FLAG` when `GRADE` is `A`.
+
+
+
+
+<br>
+
+## Q2c.
+
+- For each pair of `BORO` and `GRADE`, calculate 
+  - (1) the proportion of `Critical` violation and
+  - (2) the proportion of `Not Critical` violation.
+- Make a simple comment on how the proportions vary by `BORO` and `GRADE`.
+
+
+<br>
+
+
+## Q2d.
+
+For the 10 most common `CUISINE DESCRIPTION` values, find the `CUISINE DESCRIPTION` value that has the highest proportion of `GRADE` `A`.
+
+<br>
+
+
+## Q2e.
+
+-   Find the 3 most common names of restaurants (`DBA`) in each `BORO`.
+    -   If the third most common `DBA` values are multiple, please include all the `DBA` values.
+-   Overall, which `DBA` value is most common in NYC?
+
+
+<br>
+
+
+## Q2f.
+
+For all the `DBA` values that appear in the result of Q2f, find the `DBA` value that is most likely to commit critical violation.
+

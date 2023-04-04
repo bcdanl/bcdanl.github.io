@@ -1,7 +1,6 @@
 ---
 title: "DANL 200: Introduction to Data Analytics<br>Homework Assignment 2"
 author: "Byeong-Hak Choe"
-editor: visual
 ---
 
 ```{r setup, include = F}
@@ -43,14 +42,13 @@ ghg_emissions <- read_csv(path)
 rmarkdown::paged_table(ghg_emissions) 
 ```
 
-- LULUCF stands for Land Use, Land-Use Change and Forestry.
-
+-   LULUCF stands for Land Use, Land-Use Change and Forestry.
 
 ## Q1a
 
 Provide both ggplot code and a simple comment to describe the yearly trend of GHG emissions for each sector.
 
-- Here we can consider the yearly total GHG emissions for each sector:
+-   Here we can consider the yearly total GHG emissions for each sector:
 
 ```{r, eval = F, echo = T}
 ghg_emissions %>% 
@@ -58,7 +56,8 @@ ghg_emissions %>%
   summarise(GHG_emissions = sum(GHG_emissions, na.rm = T)) %>% # Sum GHG emissions for each sector and year
   ggplot(aes(x = Year, y = GHG_emissions)) + # Create ggplot with Year on x-axis and GHG emissions on y-axis
   geom_line(aes(color = Sector)) + # Add a line for each sector with a different color
-  geom_point(color = 'black', size = .25) # Add black points for each year
+  geom_point(color = 'black', size = .25) + # Add black points for each year
+  facet_wrap(.~ Sector, scales = 'free_y')
 
 ```
 
@@ -74,11 +73,9 @@ ghg_emissions %>%
   facet_wrap(.~ Sector, scales = 'free_y')
 ```
 
-- `scales = 'free_y'` allows the scale of `y`-axis to vary by subplots.
-- `scales = 'free_x'` allows the scale of `x`-axis to vary by subplots.
-- `scales = 'free'` allows the scale of both `x`-axis and `y`-axis to vary by subplots.
-
-
+-   `scales = 'free_y'` allows the scale of `y`-axis to vary by subplots.
+-   `scales = 'free_x'` allows the scale of `x`-axis to vary by subplots.
+-   `scales = 'free'` allows the scale of both `x`-axis and `y`-axis to vary by subplots.
 
 <br><br>
 
@@ -120,7 +117,15 @@ q1c <- ghg_emissions %>%
          # Round the percentage change to 2 decimal places
          pct2 = round(100 * pct, 2) )
 
+
+```
+
+```{r, eval = F}
 q1c
+```
+
+```{r, result = 'asis', echo = F}
+rmarkdown::paged_table(q1c) 
 ```
 
 <br><br>
@@ -136,10 +141,18 @@ q1d <- ghg_emissions %>%
   summarize(GHG_emissions = sum(GHG_emissions, na.rm = T)) %>% 
   group_by(Party) %>%  # this group_by() is not necessary
   mutate(pct = (GHG_emissions - lag(GHG_emissions)) / abs(lag(GHG_emissions)) ) %>% 
-  arrange(-pct)
+  filter(!is.na(pct)) %>% 
+  arrange(pct)
+
+```
+
+```{r, eval = F}
 q1d
 ```
 
+```{r, result = 'asis', echo = F}
+rmarkdown::paged_table(q1d) 
+```
 <br><br>
 
 ## Q1e
@@ -153,10 +166,17 @@ q1e <- ghg_emissions %>%
   summarize(GHG_emissions = sum(GHG_emissions, na.rm = T)) %>% 
   group_by(Sector) %>%  # this group_by() is not necessary
   mutate(pct = (GHG_emissions - lag(GHG_emissions)) / abs(lag(GHG_emissions)) ) %>% 
-  arrange(-pct)
+  filter(!is.na(pct)) %>% 
+  arrange(pct) 
+```
+
+```{r, eval = F}
 q1e
 ```
 
+```{r, result = 'asis', echo = F}
+rmarkdown::paged_table(q1e) 
+```
 <br><br><br>
 
 # Question 2
@@ -172,9 +192,9 @@ climate_finance <- read_csv(path)
 rmarkdown::paged_table(climate_finance) 
 ```
 
-- Adaptation involves taking actions to reduce the actual or expected damages from climate change. 
+-   Adaptation involves taking actions to reduce the actual or expected damages from climate change.
 
-- Mitigation involves taking actions to reduce the emissions of greenhouse gases that are responsible for climate change.
+-   Mitigation involves taking actions to reduce the emissions of greenhouse gases that are responsible for climate change.
 
 ## Q2a
 
@@ -190,8 +210,17 @@ q2a <- climate_finance %>%
   group_by(Party) %>%                                # group by Party (unnecessary step)
   count() %>%                                        # count number of observations
   filter(n == 8)                                     # keep Parties with 8 observations
+```
 
+```{r, eval = F}
 q2a
+```
+
+```{r, result = 'asis', echo = F}
+rmarkdown::paged_table(q2a) 
+```
+
+```{r}
 nrow(q2a)
 ```
 
@@ -207,7 +236,14 @@ q2b <- climate_finance %>%
          `Type of support` == "mitigation") %>% 
   group_by(Party, Year) %>% 
   summarise(Contribution = sum(Contribution, na.rm = T))
+```
+
+```{r, eval = F}
 q2b
+```
+
+```{r, result = 'asis', echo = F}
+rmarkdown::paged_table(q2b) 
 ```
 
 <br><br>
@@ -229,8 +265,14 @@ q2c <- climate_finance %>%
          adaptation = lag_Contribution) %>% 
   select(-`Type of support`) # remove Type of support column
 
-  
+```
+
+```{r, eval = F}
 q2c
+```
+
+```{r, result = 'asis', echo = F}
+rmarkdown::paged_table(q2c) 
 ```
 
 -   Here is another example:
@@ -243,9 +285,14 @@ q2c <- climate_finance %>%
             ) %>% 
   filter(adaptation != 0, mitigation != 0) %>% # filter out rows where either adaptation or mitigation is 0
   mutate(am_ratio = adaptation / mitigation ) # calculate the ratio of adaptation to mitigation and store it in a new column named am_ratio
+```
 
-  
+```{r, eval = F}
 q2c
+```
+
+```{r, result = 'asis', echo = F}
+rmarkdown::paged_table(q2c) 
 ```
 
 <br><br>

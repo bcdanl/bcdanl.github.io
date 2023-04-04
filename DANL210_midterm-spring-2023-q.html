@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Byeong-Hak Choe">
+
+<title>B.H. CHOE - Spring 2023, DANL 210: Data Preparation and Management</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">B.H. CHOE</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./cv.html">
+ <span class="menu-text">about</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl200-lec" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl200-lec</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl200-lec">    
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec01_20230124.html">
+ <span class="dropdown-text">lecture 01 - syllabus</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec02_20230126.html">
+ <span class="dropdown-text">lecture 02 - r basic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec03_20230131.html">
+ <span class="dropdown-text">lecture 03 - r basic, ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec04_20230202.html">
+ <span class="dropdown-text">lecture 04 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec05_20230207.html">
+ <span class="dropdown-text">lecture 05 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec06_20230209.html">
+ <span class="dropdown-text">lecture 06 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec07_20230214.html">
+ <span class="dropdown-text">lecture 07 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec08_20230216.html">
+ <span class="dropdown-text">lecture 08 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec09_20230221.html">
+ <span class="dropdown-text">lecture 09 - ggplot, visualization</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec10_20230223.html">
+ <span class="dropdown-text">lecture 10 - visualization</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec11_20230302.html">
+ <span class="dropdown-text">lecture 11 - visualization, filter</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec12_20230307.html">
+ <span class="dropdown-text">lecture 12 - filter, arrange, select</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec13_20230309.html">
+ <span class="dropdown-text">lecture 13 - select, mutate</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec14_20230321.html">
+ <span class="dropdown-text">lecture 14 - summarize, group operation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec15_20230323.html">
+ <span class="dropdown-text">lecture 15 - log transformation, summarize, group operation</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl200-lab" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl200-lab</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl200-lab">    
+        <li>
+    <a class="dropdown-item" href="./DANL200_hw1q.html">
+ <span class="dropdown-text">hw1-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_hw1a.html">
+ <span class="dropdown-text">hw1-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_lab1q.html">
+ <span class="dropdown-text">lab1-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_lab1a.html">
+ <span class="dropdown-text">lab1-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_hw2q.html">
+ <span class="dropdown-text">hw2-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_hw2a.html">
+ <span class="dropdown-text">hw2-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_lab2q.html">
+ <span class="dropdown-text">lab2-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_lab2a.html">
+ <span class="dropdown-text">lab2-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_midterm-spring-2022-q.html">
+ <span class="dropdown-text">midterm-spring-2022-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_midterm-spring-2022-a.html">
+ <span class="dropdown-text">midterm-spring-2022-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_midterm-fall-2022-q.html">
+ <span class="dropdown-text">midterm-fall-2022-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_midterm-fall-2022-a.html">
+ <span class="dropdown-text">midterm-fall-2022-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_midterm-spring-2023-q.html">
+ <span class="dropdown-text">midterm-spring-2023-q</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl210-lec" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl210-lec</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl210-lec">    
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec01_20230124.html">
+ <span class="dropdown-text">lecture 01 - syllabus</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec02_20230126.html">
+ <span class="dropdown-text">lecture 02 - python basic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec03_20230131.html">
+ <span class="dropdown-text">lecture 03 - python basic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec04_20230202.html">
+ <span class="dropdown-text">lecture 04 - python basic, pandas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec05_20230207.html">
+ <span class="dropdown-text">lecture 05 - pandas loc iloc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec06_20230209.html">
+ <span class="dropdown-text">lecture 06 - pandas boolean subsetting</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec07_20230214.html">
+ <span class="dropdown-text">lecture 07 - drop, sort, rank, assign, lambda</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec08_20230216.html">
+ <span class="dropdown-text">lecture 08 - query, drop, sort, rank, assign, lambda</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec09_20230221.html">
+ <span class="dropdown-text">lecture 09 - apply</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec10_20230223.html">
+ <span class="dropdown-text">lecture 10 - eda</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec11_20230302.html">
+ <span class="dropdown-text">lecture 11 - seaborn</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec12_20230307.html">
+ <span class="dropdown-text">lecture 12 - seaborn, agg</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec13_20230309.html">
+ <span class="dropdown-text">lecture 13 - agg, transform, filter</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec14_20230321.html">
+ <span class="dropdown-text">lecture 14 - agg, transform, filter, tidy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec15_20230323.html">
+ <span class="dropdown-text">lecture 15 - tidy, data types</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec16_20230404.html">
+ <span class="dropdown-text">lecture 16 - data types, data concatenation</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl210-lab" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl210-lab</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl210-lab">    
+        <li>
+    <a class="dropdown-item" href="./DANL210_hw1q.html">
+ <span class="dropdown-text">hw1-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_hw1a.html">
+ <span class="dropdown-text">hw1-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_lab1q_v3.html">
+ <span class="dropdown-text">lab1-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_lab1a.html">
+ <span class="dropdown-text">lab1-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_lab2q.html">
+ <span class="dropdown-text">lab2-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_lab2a.html">
+ <span class="dropdown-text">lab2-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_hw2q.html">
+ <span class="dropdown-text">hw2-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_hw2a.html">
+ <span class="dropdown-text">hw2-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_lab3q.html">
+ <span class="dropdown-text">lab3-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_lab3a.html">
+ <span class="dropdown-text">lab3-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_midterm-spring-2023-q.html">
+ <span class="dropdown-text">midterm-spring-2023-q</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl310-lec" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl310-lec</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl310-lec">    
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec01_20230124.html">
+ <span class="dropdown-text">lecture 01 - syllabus</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec02_20230126.html">
+ <span class="dropdown-text">lecture 02 - github website, rmarkdown</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec03_20230131.html">
+ <span class="dropdown-text">lecture 03 - rmarkdown</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec04_20230202.html">
+ <span class="dropdown-text">lecture 04 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec05_20230207.html">
+ <span class="dropdown-text">lecture 05 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec06_20230209.html">
+ <span class="dropdown-text">lecture 06 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec07_20230214.html">
+ <span class="dropdown-text">lecture 07 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec08_20230216.html">
+ <span class="dropdown-text">lecture 08 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec09_20230221.html">
+ <span class="dropdown-text">lecture 09 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec10_20230223.html">
+ <span class="dropdown-text">lecture 10 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec11_20230302.html">
+ <span class="dropdown-text">lecture 11 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec12_20230307.html">
+ <span class="dropdown-text">lecture 12 - work with model</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec13_20230309.html">
+ <span class="dropdown-text">lecture 13 - color, theme</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec14_20230321.html">
+ <span class="dropdown-text">lecture 14 - maps</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec15_20230323.html">
+ <span class="dropdown-text">lecture 15 - maps</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl310-lab" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl310-lab</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl310-lab">    
+        <li>
+    <a class="dropdown-item" href="./DANL310_hw1q.html">
+ <span class="dropdown-text">hw1-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_hw1a.html">
+ <span class="dropdown-text">hw1-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_hw2q.html">
+ <span class="dropdown-text">hw2-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_lab1q.html">
+ <span class="dropdown-text">lab1-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_lab1a.html">
+ <span class="dropdown-text">lab1-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_lab2q.html">
+ <span class="dropdown-text">lab2-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_lab3q.html">
+ <span class="dropdown-text">lab3-q</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-ml-lab" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">ml-lab</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-ml-lab">    
+        <li>
+    <a class="dropdown-item" href="./mba-ch1-lm.html">
+ <span class="dropdown-text">linear regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mba-ch1-logit.html">
+ <span class="dropdown-text">logistic regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mba-ch3-regularization.html">
+ <span class="dropdown-text">regularization</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mba-ch3-model-selection.html">
+ <span class="dropdown-text">model selection</span></a>
+  </li>  
+        <li class="dropdown-header">double ml</li>
+        <li class="dropdown-header">trees and forests</li>
+        <li class="dropdown-header">classification</li>
+        <li class="dropdown-header">clustering</li>
+        <li class="dropdown-header">principal component analysis</li>
+    </ul>
+  </li>
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#load-libraries" id="toc-load-libraries" class="nav-link active" data-scroll-target="#load-libraries">Load Libraries</a></li>
+  <li><a href="#question-1" id="toc-question-1" class="nav-link" data-scroll-target="#question-1">Question 1</a>
+  <ul class="collapse">
+  <li><a href="#q1a" id="toc-q1a" class="nav-link" data-scroll-target="#q1a">Q1a</a></li>
+  <li><a href="#q1b" id="toc-q1b" class="nav-link" data-scroll-target="#q1b">Q1b</a></li>
+  </ul></li>
+  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a>
+  <ul class="collapse">
+  <li><a href="#load-dataframe-for-question-2" id="toc-load-dataframe-for-question-2" class="nav-link" data-scroll-target="#load-dataframe-for-question-2">Load DataFrame for Question 2</a></li>
+  <li><a href="#variable-description" id="toc-variable-description" class="nav-link" data-scroll-target="#variable-description">Variable Description</a></li>
+  <li><a href="#q2a." id="toc-q2a." class="nav-link" data-scroll-target="#q2a.">Q2a.</a></li>
+  <li><a href="#q2b." id="toc-q2b." class="nav-link" data-scroll-target="#q2b.">Q2b.</a></li>
+  <li><a href="#q2c." id="toc-q2c." class="nav-link" data-scroll-target="#q2c.">Q2c.</a></li>
+  <li><a href="#q2d." id="toc-q2d." class="nav-link" data-scroll-target="#q2d.">Q2d.</a></li>
+  <li><a href="#q2e." id="toc-q2e." class="nav-link" data-scroll-target="#q2e.">Q2e.</a></li>
+  <li><a href="#q2f." id="toc-q2f." class="nav-link" data-scroll-target="#q2f.">Q2f.</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Spring 2023, DANL 210: Data Preparation and Management</h1>
+<p class="subtitle lead">Midterm Exam</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Byeong-Hak Choe </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="load-libraries" class="level2">
+<h2 class="anchored" data-anchor-id="load-libraries">Load Libraries</h2>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="question-1" class="level1">
+<h1>Question 1</h1>
+<p>Load the DataFrame for Question 1.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>nyc_pop <span class="op">=</span> pd.read_csv(<span class="st">'https://bcdanl.github.io/data/nyc_pop_by_boro_1950-2040.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Borough</th>
+      <th>1950</th>
+      <th>1960</th>
+      <th>1970</th>
+      <th>1980</th>
+      <th>1990</th>
+      <th>2000</th>
+      <th>2010</th>
+      <th>2020</th>
+      <th>2030</th>
+      <th>2040</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Bronx</td>
+      <td>1451277.0</td>
+      <td>1424815.0</td>
+      <td>1471701.0</td>
+      <td>1168972.0</td>
+      <td>1203789.0</td>
+      <td>1332650.0</td>
+      <td>1385108.0</td>
+      <td>1446788.0</td>
+      <td>1518998.0</td>
+      <td>1579245.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Brooklyn</td>
+      <td>2738175.0</td>
+      <td>2627319.0</td>
+      <td>2602012.0</td>
+      <td>2230936.0</td>
+      <td>2300664.0</td>
+      <td>2465326.0</td>
+      <td>2552911.0</td>
+      <td>2648452.0</td>
+      <td>2754009.0</td>
+      <td>2840525.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Manhattan</td>
+      <td>1960101.0</td>
+      <td>1698281.0</td>
+      <td>1539233.0</td>
+      <td>1428285.0</td>
+      <td>1487536.0</td>
+      <td>1537195.0</td>
+      <td>1585873.0</td>
+      <td>1638281.0</td>
+      <td>1676720.0</td>
+      <td>1691617.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Queens</td>
+      <td>1550849.0</td>
+      <td>1809578.0</td>
+      <td>1986473.0</td>
+      <td>1891325.0</td>
+      <td>1951598.0</td>
+      <td>2229379.0</td>
+      <td>2250002.0</td>
+      <td>2330295.0</td>
+      <td>2373551.0</td>
+      <td>2412649.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Staten Island</td>
+      <td>191555.0</td>
+      <td>221991.0</td>
+      <td>295443.0</td>
+      <td>352121.0</td>
+      <td>378977.0</td>
+      <td>443728.0</td>
+      <td>468730.0</td>
+      <td>487155.0</td>
+      <td>497749.0</td>
+      <td>501109.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p><br></p>
+<section id="q1a" class="level2">
+<h2 class="anchored" data-anchor-id="q1a">Q1a</h2>
+<p>Provide both pandas/seaborn code and a simple comment to describe the trend of population for each borough.</p>
+<p><br></p>
+</section>
+<section id="q1b" class="level2">
+<h2 class="anchored" data-anchor-id="q1b">Q1b</h2>
+<p>Provide both pandas/seaborn code and a simple comment to describe the trend of the proportion of population for each borough.</p>
+<ul>
+<li>Note: The proportion of population for each borough is each borough’s share of total population in NYC in each year.</li>
+</ul>
+<p><br><br></p>
+</section>
+</section>
+<section id="question-2" class="level1">
+<h1>Question 2</h1>
+<section id="load-dataframe-for-question-2" class="level2">
+<h2 class="anchored" data-anchor-id="load-dataframe-for-question-2">Load DataFrame for Question 2</h2>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>restaurant <span class="op">=</span> pd.read_csv(<span class="st">'https://bcdanl.github.io/data/DOHMH_NYC_Restaurant_Inspection.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>CAMIS</th>
+      <th>DBA</th>
+      <th>BORO</th>
+      <th>STREET</th>
+      <th>CUISINE DESCRIPTION</th>
+      <th>INSPECTION DATE</th>
+      <th>ACTION</th>
+      <th>VIOLATION CODE</th>
+      <th>VIOLATION DESCRIPTION</th>
+      <th>CRITICAL FLAG</th>
+      <th>SCORE</th>
+      <th>GRADE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>30191841</td>
+      <td>dj reynolds pub and restaurant</td>
+      <td>Manhattan</td>
+      <td>WEST   57 STREET</td>
+      <td>Irish</td>
+      <td>01/04/2022</td>
+      <td>Violations were cited in the following area(s).</td>
+      <td>10F</td>
+      <td>Non-food contact surface improperly constructe...</td>
+      <td>Not Critical</td>
+      <td>12</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>40356018</td>
+      <td>riviera caterers</td>
+      <td>Brooklyn</td>
+      <td>STILLWELL AVENUE</td>
+      <td>American</td>
+      <td>02/01/2022</td>
+      <td>Violations were cited in the following area(s).</td>
+      <td>02G</td>
+      <td>Cold food item held above 41º F (smoked fish a...</td>
+      <td>Critical</td>
+      <td>7</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>40356483</td>
+      <td>wilken's fine food</td>
+      <td>Brooklyn</td>
+      <td>AVENUE U</td>
+      <td>Sandwiches</td>
+      <td>08/19/2022</td>
+      <td>Violations were cited in the following area(s).</td>
+      <td>10F</td>
+      <td>Non-food contact surface or equipment made of ...</td>
+      <td>Not Critical</td>
+      <td>2</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>40356731</td>
+      <td>taste the tropics ice cream</td>
+      <td>Brooklyn</td>
+      <td>NOSTRAND AVENUE</td>
+      <td>Frozen Desserts</td>
+      <td>01/17/2023</td>
+      <td>Violations were cited in the following area(s).</td>
+      <td>08A</td>
+      <td>Establishment is not free of harborage or cond...</td>
+      <td>Not Critical</td>
+      <td>9</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>40357217</td>
+      <td>wild asia</td>
+      <td>Bronx</td>
+      <td>SOUTHERN BOULEVARD</td>
+      <td>American</td>
+      <td>07/28/2021</td>
+      <td>Violations were cited in the following area(s).</td>
+      <td>02G</td>
+      <td>Cold food item held above 41º F (smoked fish a...</td>
+      <td>Critical</td>
+      <td>10</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>17628</th>
+      <td>50133218</td>
+      <td>sades southern cafe llc</td>
+      <td>Bronx</td>
+      <td>EAST  233 STREET</td>
+      <td>Caribbean</td>
+      <td>03/06/2023</td>
+      <td>Violations were cited in the following area(s).</td>
+      <td>06A</td>
+      <td>Personal cleanliness is inadequate. Outer garm...</td>
+      <td>Critical</td>
+      <td>12</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>17629</th>
+      <td>50133250</td>
+      <td>red brick</td>
+      <td>Brooklyn</td>
+      <td>NOSTRAND AVENUE</td>
+      <td>Caribbean</td>
+      <td>03/22/2023</td>
+      <td>Violations were cited in the following area(s).</td>
+      <td>08A</td>
+      <td>Establishment is not free of harborage or cond...</td>
+      <td>Not Critical</td>
+      <td>4</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>17630</th>
+      <td>50133302</td>
+      <td>potbelly</td>
+      <td>Manhattan</td>
+      <td>EAST   17 STREET</td>
+      <td>Sandwiches</td>
+      <td>03/20/2023</td>
+      <td>Violations were cited in the following area(s).</td>
+      <td>06D</td>
+      <td>Food contact surface not properly washed, rins...</td>
+      <td>Critical</td>
+      <td>7</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>17631</th>
+      <td>50133309</td>
+      <td>potbelly</td>
+      <td>Manhattan</td>
+      <td>BROADWAY</td>
+      <td>Soups/Salads/Sandwiches</td>
+      <td>03/27/2023</td>
+      <td>Violations were cited in the following area(s).</td>
+      <td>10F</td>
+      <td>Non-food contact surface or equipment made of ...</td>
+      <td>Not Critical</td>
+      <td>4</td>
+      <td>A</td>
+    </tr>
+    <tr>
+      <th>17632</th>
+      <td>50133690</td>
+      <td>island shack</td>
+      <td>Brooklyn</td>
+      <td>FRANKLIN AVENUE</td>
+      <td>Caribbean</td>
+      <td>03/23/2023</td>
+      <td>Violations were cited in the following area(s).</td>
+      <td>10F</td>
+      <td>Non-food contact surface or equipment made of ...</td>
+      <td>Not Critical</td>
+      <td>12</td>
+      <td>A</td>
+    </tr>
+  </tbody>
+</table>
+<p>17633 rows × 12 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="variable-description" class="level2">
+<h2 class="anchored" data-anchor-id="variable-description">Variable Description</h2>
+<ul>
+<li><code>CAMIS</code>:
+<ul>
+<li>This is an unique identifier for the entity (restaurant);</li>
+<li>10-digit integer</li>
+</ul></li>
+<li><code>DBA</code>:
+<ul>
+<li>This field represents the name (doing business as) of the entity (restaurant);</li>
+<li>Public business name, may change at discretion of restaurant owner</li>
+</ul></li>
+<li><code>BORO</code>:
+<ul>
+<li>Borough in which the entity (restaurant) is located.;</li>
+<li>• <code>1</code> = MANHATTAN</li>
+<li>• <code>2</code> = BRONX</li>
+<li>• <code>3</code> = BROOKLYN</li>
+<li>• <code>4</code> = QUEENS</li>
+<li>• <code>5</code> = STATEN ISLAND</li>
+<li>• <code>0</code> = Missing;</li>
+</ul></li>
+<li><code>CUISINE DESCRIPTION</code>:
+<ul>
+<li>This field describes the entity (restaurant) cuisine.</li>
+</ul></li>
+<li><code>ACTION</code>:
+<ul>
+<li>This field represents the actions that is associated with each restaurant inspection. ;</li>
+<li>• Violations were cited in the following area(s).</li>
+<li>• No violations were recorded at the time of this inspection.</li>
+<li>• Establishment re-opened by DOHMH</li>
+<li>• Establishment re-closed by DOHMH</li>
+<li>• Establishment Closed by DOHMH.</li>
+<li>• Violations were cited in the following area(s) and those requiring immediate action were addressed.</li>
+</ul></li>
+<li><code>VIOLATION CODE</code>:
+<ul>
+<li>Violation code associated with an establishment (restaurant) inspection</li>
+</ul></li>
+<li><code>VIOLATION DESCRIPTION</code>:
+<ul>
+<li>Violation description associated with an establishment (restaurant) inspection</li>
+</ul></li>
+<li><code>CRITICAL FLAG</code>:
+<ul>
+<li>Indicator of critical violation;</li>
+<li>• <code>Critical</code></li>
+<li>• <code>Not Critical</code></li>
+<li>• <code>Not Applicable</code>;</li>
+<li>Critical violations are those most likely to contribute to food-borne illness</li>
+</ul></li>
+<li><code>SCORE</code>:
+<ul>
+<li>Total score for a particular inspection;</li>
+</ul></li>
+<li><code>GRADE</code>:
+<ul>
+<li>Grade associated with the inspection;</li>
+<li>• <code>N</code> = Not Yet Graded</li>
+<li>• <code>A</code> = Grade A</li>
+<li>• <code>B</code> = Grade B</li>
+<li>• <code>C</code> = Grade C</li>
+<li>• <code>Z</code> = Grade Pending</li>
+<li>• <code>P</code> = Grade Pending issued on re-opening following an initial inspection that resulted in a closure</li>
+</ul></li>
+</ul>
+<p><br></p>
+</section>
+<section id="q2a." class="level2">
+<h2 class="anchored" data-anchor-id="q2a.">Q2a.</h2>
+<p>What are the mean, standard deviation, first quartile, median, third quartile, and maximum of <code>SCORE</code> for each <code>GRADE</code> of restaurants?</p>
+<p><br></p>
+</section>
+<section id="q2b." class="level2">
+<h2 class="anchored" data-anchor-id="q2b.">Q2b.</h2>
+<p>Provide both (1) pandas/seaborn code and (2) a simple comment to describe how the distribution of SCORE varies by <code>CRITICAL FLAG</code> when <code>GRADE</code> is <code>A</code>.</p>
+<p><br></p>
+</section>
+<section id="q2c." class="level2">
+<h2 class="anchored" data-anchor-id="q2c.">Q2c.</h2>
+<ul>
+<li>For each pair of <code>BORO</code> and <code>GRADE</code>, calculate
+<ul>
+<li><ol type="1">
+<li>the proportion of <code>Critical</code> violation and</li>
+</ol></li>
+<li><ol start="2" type="1">
+<li>the proportion of <code>Not Critical</code> violation.</li>
+</ol></li>
+</ul></li>
+<li>Make a simple comment on how the proportions vary by <code>BORO</code> and <code>GRADE</code>.</li>
+</ul>
+<p><br></p>
+</section>
+<section id="q2d." class="level2">
+<h2 class="anchored" data-anchor-id="q2d.">Q2d.</h2>
+<p>For the 10 most common <code>CUISINE DESCRIPTION</code> values, find the <code>CUISINE DESCRIPTION</code> value that has the highest proportion of <code>GRADE</code> <code>A</code>.</p>
+<p><br></p>
+</section>
+<section id="q2e." class="level2">
+<h2 class="anchored" data-anchor-id="q2e.">Q2e.</h2>
+<ul>
+<li>Find the 3 most common names of restaurants (<code>DBA</code>) in each <code>BORO</code>.
+<ul>
+<li>If the third most common <code>DBA</code> values are multiple, please include all the <code>DBA</code> values.</li>
+</ul></li>
+<li>Overall, which <code>DBA</code> value is most common in NYC?</li>
+</ul>
+<p><br></p>
+</section>
+<section id="q2f." class="level2">
+<h2 class="anchored" data-anchor-id="q2f.">Q2f.</h2>
+<p>For all the <code>DBA</code> values that appear in the result of Q2f, find the <code>DBA</code> value that is most likely to commit critical violation.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script type="text/javascript" src="links.js"></script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center">powered with github, quarto, and rstudio<br>byeong-hak choe, 2023</div>
+  </div>
+</footer>
+
+
+
+</body></html>
