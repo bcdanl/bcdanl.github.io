@@ -207,6 +207,21 @@ sns.displot(data = restaurant.query('GRADE == "A"'), x='SCORE', row='CRITICAL FL
   - (2) the proportion of `Not Critical` violation.
 - Make a simple comment on how the proportions vary by `BORO` and `GRADE`.
 
+<br>
+
+- `.assign()` with `.transform()`
+```{python}
+q2c_ = (
+        restaurant
+        .groupby(['BORO', 'GRADE', 'CRITICAL FLAG'])
+        .size()
+        .reset_index(name='n')
+        .assign(tot = lambda x: x.groupby(['BORO', 'GRADE'])['n'].transform('sum'),
+                prop = lambda x: 100 * x['n'] / x['tot'])
+)
+```
+
+- `.apply()` with `.assign()`
 ```{python}
 q2c = (
        restaurant
@@ -219,6 +234,17 @@ q2c = (
 ```
 
 
+- `value_counts(normalize = True)` can be useful:
+```{python}
+
+q2c__ = (
+  restaurant
+  .groupby(['BORO', 'GRADE'])['CRITICAL FLAG']
+  .value_counts(normalize = True)
+)
+```
+
+
 ```{python}
 #| warning: false
 #| message: false
@@ -226,6 +252,7 @@ q2c = (
 display(q2c)
 ```
 
+- Visualization helps us see variations in data.
 ```{python}
 (
  sns.FacetGrid(
@@ -237,6 +264,7 @@ display(q2c)
 
 ```
 
+- `sns.barplot` would be better.
 ```{python}
 (
  sns.FacetGrid(
@@ -254,18 +282,6 @@ display(q2c)
 
 -   For `GRADE` `C`, the restaurants in `Bronx` are more likely to be `Critical` than in other `BORO`s.
 
-
-<br>
-
-- For Q2c and Q2d, `value_counts(normalize = True)` can be useful:
-```{python}
-
-(
-  restaurant
-  .groupby(['BORO', 'GRADE'])['CRITICAL FLAG']
-  .value_counts(normalize = True)
-)
-```
 
 <br>
 
