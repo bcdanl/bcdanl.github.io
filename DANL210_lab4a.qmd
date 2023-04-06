@@ -1,0 +1,156 @@
+---
+title: "Python Lab 4 - Data Concatenates and Merges\nExample Answers"
+author: "Byeong-Hak Choe"
+---
+
+## Load Libraries
+
+```{python}
+import pandas as pd
+import numpy as np
+import seaborn as sns
+```
+
+<br>
+
+# Question 1
+
+
+Consider the following example DataFrames.
+```{python}
+student_data1 = pd.DataFrame({
+        'student_id': ['S1', 'S2', 'S3', 'S4', 'S5'],
+         'name': ['Danniella Fenton', 'Ryder Storey', 'Bryce Jensen', 'Ed Bernal', 'Kwame Morin'], 
+        'marks': [200, 210, 190, 222, 199]})
+
+student_data2 = pd.DataFrame({
+        'student_id': ['S4', 'S5', 'S6', 'S7', 'S8'],
+        'name': ['Scarlette Fisher', 'Carla Williamson', 'Dante Morse', 'Kaiser William', 'Madeeha Preston'], 
+        'marks': [201, 200, 198, 219, 201]})
+```
+
+<br>
+
+## Q1a
+Write a Pandas code to join the two given DataFrames along **rows** and assign all data.
+
+```{python}
+q1a = pd.concat([student_data1, student_data2])
+
+q1a
+```
+
+<br>
+
+
+## Q1b
+Write a Pandas code to join the two given DataFrames along **columns** and assign all data.
+
+
+```{python}
+q1b = pd.concat([student_data1, student_data2], axis = 1)
+
+q1b
+```
+
+<br>
+
+## Q1c
+Consider the following Pandas Series
+```{python}
+s6 = pd.Series(['S6', 'Scarlette Fisher', 205], index=['student_id', 'name', 'marks'])
+
+```
+
+
+Write a Pandas code to `append` rows to DataFrame `student_data1` and display the combined data using
+`DATAFRAME.append(SERIES, ignore_index = True)`
+
+```{python}
+q1c = student_data1.append(s6, ignore_index = True)
+
+q1c
+```
+
+
+
+
+<br><br><br>
+
+# Question 2
+
+Download the `nyc_flights_dataset.zip` from Canvas.
+- The CSV files, or tables, are related each other.
+
+```{r, echo=FALSE, eval = T, fig.align='center'}
+knitr::include_graphics("lec_figs/relational-nycflights.png")
+```
+
+<br>
+
+## Q2a
+
+Merge `flights` with `weather`.
+
+```{python}
+path = '/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/flights.csv'
+flights = pd.read_csv(path)
+
+path = '/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/weather.csv'
+weather = pd.read_csv(path)
+
+flights.columns
+weather.columns
+
+flights = flights.merge(weather,
+                        on = ['year', 'month', 'day', 
+                              'hour', 'origin'],
+                        how = 'left')
+flights.columns
+```
+
+<br>
+
+## Q2b
+
+Find the airline that has the longest positive `dep_delay` on average.
+
+```{python}
+path = '/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/airlines.csv'
+airlines = pd.read_csv(path)
+
+
+flights = flights.merge(airlines,
+                        on = ['carrier'],
+                        how = 'left')
+
+q2b = (
+       flights
+       .query('dep_delay >0')
+       .groupby(['carrier', 'name'])['dep_delay']
+       .mean()
+       .sort_values(ascending = False)
+       )
+       
+q2b
+```
+
+<br>
+
+## Q2c
+
+Find the airline that has the largest proportion of flights with longer than 30-minute `dep_delay`.
+
+```{python}
+
+q2c = (
+       flights
+       .assign(delay = lambda x: np.where(x.dep_delay > 30, 1, 0))
+       .groupby(['carrier', 'name'])
+       .agg(prop = ('delay', lambda x: x.mean()))
+       .sort_values(by='prop', ascending=False)
+       )
+
+q2c
+```
+

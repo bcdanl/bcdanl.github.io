@@ -1,0 +1,124 @@
+---
+title: "R Lab 3 - Pivoting"
+author: "Byeong-Hak Choe"
+---
+
+```{r setup, include = FALSE}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(ggthemes)
+library(ggtech)
+library(ggthemr)
+library(hrbrthemes)
+library(hexbin)
+library(ggforce)
+library(skimr)
+
+knitr::opts_chunk$set(fig.width=8, fig.height=5)  
+
+theme_set(theme_ipsum() +
+          theme(strip.background =element_rect(fill="lightgray")))
+
+
+```
+
+## Loading R packages
+
+```{r, eval = F, echo = T}
+library(tidyverse)
+library(skimr)
+```
+
+# Question 1 - Billboard Charts
+
+The following data is for Question 1:
+
+```{r, echo = T, eval = T, message=F}
+billboard <- read_csv('https://bcdanl.github.io/data/billboard.csv')
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(billboard) 
+```
+
+<br><br>
+
+
+## Q1a
+
+-   Describe how the distribution of rating varies across week 1, week 2, and week 3 using the **faceted** histogram.
+
+```{r}
+
+```
+
+<br>
+
+## Q1b
+
+-   Which artist(s) have the most number of tracks in `billboard` data.frame?
+
+```{r}
+
+```
+
+<br><br><br>
+
+# Question 2 - Average Personal Income in NY Counties
+
+The following data is for Question 2:
+
+```{r, echo = T, eval = T, message=F}
+ny_pincp <- read_csv('https://bcdanl.github.io/data/NY_pinc_wide.csv')
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(ny_pincp) 
+```
+
+<br><br>
+
+
+## Q2a
+Make `ny_pincp` longer.
+
+```{r}
+
+```
+
+
+<br><br><br>
+
+# Question 3 - COVID-19 Cases
+
+The following data is for Question 3:
+
+```{r, echo = T, eval = T, message=F}
+covid <- read_csv('https://bcdanl.github.io/data/covid19_cases.csv')
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(covid) 
+```
+
+<br><br>
+
+
+## Q3a
+Make a wide-form data.frame of `covid` whose variable names are from `countriesAndTerritories` and values are from `cases`.
+
+```{r}
+
+```
+
+<br>
+
+## Q3b
+
+- Use the wide-form data.frame of `covid` to find the top 10 countries in terms of the correlation between their cases and the US case. 
+  - Use `cor()`
+
+```{r}
+
+```

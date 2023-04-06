@@ -2,7 +2,6 @@
 title: "Python Lab 3 - Tidy Data"
 author: "Byeong-Hak Choe"
 # include-after-body: [beer_map.html, beer_map_ny.html]
-editor: visual
 ---
 
 ## Load Libraries
@@ -117,25 +116,24 @@ corr_usa = (
 
 ```
 
-
-
 <br><br><br>
 
 # Question 2
 
 ## Load DataFrame for Q2a and Q2b
+
 ```{python}
 paidsearch = pd.read_csv('https://bcdanl.github.io/data/paidsearch.csv')
 ```
 
-- Variable description
-  - `dma`: an identification number of a designated market (DM) area `i` (e.g., Boston, Los Angeles)
-  - `treatment_period`: 0 if date is before May 22, 2012 and 1 after.
-  - `search_stays_on`: 1 if the paid-search goes off in dma `i`, 0 otherwise.
-  - `revenue`: eBay's sales revenue for dma `i` and date `t`
-
+-   Variable description
+    -   `dma`: an identification number of a designated market (DM) area `i` (e.g., Boston, Los Angeles)
+    -   `treatment_period`: 0 if date is before May 22, 2012 and 1 after.
+    -   `search_stays_on`: 1 if the paid-search goes off in dma `i`, 0 otherwise.
+    -   `revenue`: eBay's sales revenue for dma `i` and date `t`
 
 ## Q2a
+
 Summarize the mean vale of `revenue` for each group of `search_stays_on` and for each `date`.
 
 ```{python}
@@ -150,19 +148,19 @@ q2a = (
 
 <br>
 
-
 ## Q2b
+
 Calculate the log difference between mean revenues in each group of `search_stays_on`. (This is the log of the average revenue in group of search_stays_on == 1 minus the log of the average revenue in group of search_stays_on == 0.)
 
+-   For example, consider the following two observations:
 
-- For example, consider the following two observations:
 ```{python}
 # date        the daily mean vale of `revenue`   search_stays_on
 # 1-Apr-12    93650.68                           0
 # 1-Apr-12    120277.57                          1
 ```
 
-- The log difference of daily mean revenues between the two group of `search_stays_on` for date 1-Apr-12 is log(120277.57) - log(93650.68).
+-   The log difference of daily mean revenues between the two group of `search_stays_on` for date 1-Apr-12 is log(120277.57) - log(93650.68).
 
 ```{python}
 # Compute mean revenue for each group of 'search_stays_on' and 'date' in Q1b DataFrame
@@ -186,18 +184,16 @@ q2b = q2b.assign(diff_log =
 
 <br>
 
-
-
 ## Load DataFrame for Q2c, Q2d, and Q2e
+
 ```{python}
 paid_search = pd.read_csv('https://bcdanl.github.io/data/paid_search.csv')
 ```
 
 <br>
 
-
-
 ## Q2C
+
 Sort `paid_search` by `DM` and `May22_2012` in ascending order.
 
 ```{python}
@@ -208,9 +204,8 @@ paid_search = paid_search.sort_values(
 
 <br>
 
-
-
 ## Q2d
+
 For each `DM`, calculate the difference between `log_revenue` before and after `May22_2012`.
 
 ```{python}
@@ -228,14 +223,13 @@ q2d = (
 
 <br>
 
-
-
 ## Q2e
-- Consider the DataFrame from Q2d. 
 
-- For each group of `no_paid_search`, calculate the mean value of the difference between `log_revenue` before and after `May22_2012` .
+-   Consider the DataFrame from Q2d.
 
-- What is the difference in the mean values?
+-   For each group of `no_paid_search`, calculate the mean value of the difference between `log_revenue` before and after `May22_2012` .
+
+-   What is the difference in the mean values?
 
 ```{python}
 q2e = (
@@ -248,5 +242,5 @@ q2e = (
 q2e['diff'].iloc[1] - q2e['diff'].iloc[0]  # treatment effect of turning off search-engine marketing
 ```
 
-- After the paid-search went off, sales revenue decreased by 0.66% 
-  - Was eBay's paid search worth it?
+-   After the paid-search went off, sales revenue decreased by 0.66%
+    -   Was eBay's paid search worth it?
