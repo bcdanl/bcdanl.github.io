@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Byeong-Hak Choe">
+
+<title>B.H. CHOE - DANL 310: Data Visualization and PresentationHomework Assignment 2 - Example Answers -</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">B.H. CHOE</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./cv.html">
+ <span class="menu-text">about</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl200-lec" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl200-lec</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl200-lec">    
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec15_20230323.html">
+ <span class="dropdown-text">lecture 15 - log transformation, summarize, group operation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec14_20230321.html">
+ <span class="dropdown-text">lecture 14 - summarize, group operation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec13_20230309.html">
+ <span class="dropdown-text">lecture 13 - select, mutate</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec12_20230307.html">
+ <span class="dropdown-text">lecture 12 - filter, arrange, select</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec11_20230302.html">
+ <span class="dropdown-text">lecture 11 - visualization, filter</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec10_20230223.html">
+ <span class="dropdown-text">lecture 10 - visualization</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec09_20230221.html">
+ <span class="dropdown-text">lecture 09 - ggplot, visualization</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec08_20230216.html">
+ <span class="dropdown-text">lecture 08 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec07_20230214.html">
+ <span class="dropdown-text">lecture 07 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec06_20230209.html">
+ <span class="dropdown-text">lecture 06 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec05_20230207.html">
+ <span class="dropdown-text">lecture 05 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec04_20230202.html">
+ <span class="dropdown-text">lecture 04 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec03_20230131.html">
+ <span class="dropdown-text">lecture 03 - r basic, ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec02_20230126.html">
+ <span class="dropdown-text">lecture 02 - r basic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_Lec01_20230124.html">
+ <span class="dropdown-text">lecture 01 - syllabus</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl200-lab" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl200-lab</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl200-lab">    
+        <li>
+    <a class="dropdown-item" href="./DANL200_midterm-spring-2023-a.html">
+ <span class="dropdown-text">midterm-spring-2023-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_midterm-spring-2023-q.html">
+ <span class="dropdown-text">midterm-spring-2023-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_midterm-fall-2022-a.html">
+ <span class="dropdown-text">midterm-fall-2022-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_midterm-fall-2022-q.html">
+ <span class="dropdown-text">midterm-fall-2022-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_midterm-spring-2022-a.html">
+ <span class="dropdown-text">midterm-spring-2022-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_midterm-spring-2022-q.html">
+ <span class="dropdown-text">midterm-spring-2022-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_lab2a.html">
+ <span class="dropdown-text">lab2-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_lab2q.html">
+ <span class="dropdown-text">lab2-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_hw2a.html">
+ <span class="dropdown-text">hw2-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_hw2q.html">
+ <span class="dropdown-text">hw2-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_lab1a.html">
+ <span class="dropdown-text">lab1-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_lab1q.html">
+ <span class="dropdown-text">lab1-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_hw1a.html">
+ <span class="dropdown-text">hw1-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL200_hw1q.html">
+ <span class="dropdown-text">hw1-q</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl210-lec" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl210-lec</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl210-lec">    
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec16_20230404.html">
+ <span class="dropdown-text">lecture 16 - data types, data concatenation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec15_20230323.html">
+ <span class="dropdown-text">lecture 15 - tidy, data types</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec14_20230321.html">
+ <span class="dropdown-text">lecture 14 - agg, transform, filter, tidy</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec13_20230309.html">
+ <span class="dropdown-text">lecture 13 - agg, transform, filter</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec12_20230307.html">
+ <span class="dropdown-text">lecture 12 - seaborn, agg</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec11_20230302.html">
+ <span class="dropdown-text">lecture 11 - seaborn</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec10_20230223.html">
+ <span class="dropdown-text">lecture 10 - eda</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec09_20230221.html">
+ <span class="dropdown-text">lecture 09 - apply</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec08_20230216.html">
+ <span class="dropdown-text">lecture 08 - query, drop, sort, rank, assign, lambda</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec07_20230214.html">
+ <span class="dropdown-text">lecture 07 - drop, sort, rank, assign, lambda</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec06_20230209.html">
+ <span class="dropdown-text">lecture 06 - pandas boolean subsetting</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec05_20230207.html">
+ <span class="dropdown-text">lecture 05 - pandas loc iloc</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec04_20230202.html">
+ <span class="dropdown-text">lecture 04 - python basic, pandas</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec03_20230131.html">
+ <span class="dropdown-text">lecture 03 - python basic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec02_20230126.html">
+ <span class="dropdown-text">lecture 02 - python basic</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_Lec01_20230124.html">
+ <span class="dropdown-text">lecture 01 - syllabus</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl210-lab" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl210-lab</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl210-lab">    
+        <li>
+    <a class="dropdown-item" href="./DANL210_midterm-spring-2023-a.html">
+ <span class="dropdown-text">midterm-spring-2023-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_midterm-spring-2023-q.html">
+ <span class="dropdown-text">midterm-spring-2023-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_lab3a.html">
+ <span class="dropdown-text">lab3-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_lab3q.html">
+ <span class="dropdown-text">lab3-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_hw2a.html">
+ <span class="dropdown-text">hw2-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_hw2q.html">
+ <span class="dropdown-text">hw2-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_lab2a.html">
+ <span class="dropdown-text">lab2-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_lab2q.html">
+ <span class="dropdown-text">lab2-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_lab1q_v3.html">
+ <span class="dropdown-text">lab1-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_lab1a.html">
+ <span class="dropdown-text">lab1-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_hw1a.html">
+ <span class="dropdown-text">hw1-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL210_hw1q.html">
+ <span class="dropdown-text">hw1-q</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl310-lec" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl310-lec</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl310-lec">    
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec15_20230323.html">
+ <span class="dropdown-text">lecture 15 - maps</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec14_20230321.html">
+ <span class="dropdown-text">lecture 14 - maps</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec13_20230309.html">
+ <span class="dropdown-text">lecture 13 - color, theme</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec12_20230307.html">
+ <span class="dropdown-text">lecture 12 - work with model</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec11_20230302.html">
+ <span class="dropdown-text">lecture 11 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec10_20230223.html">
+ <span class="dropdown-text">lecture 10 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec09_20230221.html">
+ <span class="dropdown-text">lecture 09 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec08_20230216.html">
+ <span class="dropdown-text">lecture 08 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec07_20230214.html">
+ <span class="dropdown-text">lecture 07 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec06_20230209.html">
+ <span class="dropdown-text">lecture 06 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec05_20230207.html">
+ <span class="dropdown-text">lecture 05 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec04_20230202.html">
+ <span class="dropdown-text">lecture 04 - ggplot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec03_20230131.html">
+ <span class="dropdown-text">lecture 03 - rmarkdown</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec02_20230126.html">
+ <span class="dropdown-text">lecture 02 - github website, rmarkdown</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_Lec01_20230124.html">
+ <span class="dropdown-text">lecture 01 - syllabus</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl310-lab" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">danl310-lab</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl310-lab">    
+        <li>
+    <a class="dropdown-item" href="./DANL310_lab3a.html">
+ <span class="dropdown-text">lab3-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_lab3q.html">
+ <span class="dropdown-text">lab3-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_lab2a.html">
+ <span class="dropdown-text">lab2-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_lab2q.html">
+ <span class="dropdown-text">lab2-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_lab1a.html">
+ <span class="dropdown-text">lab1-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_lab1q.html">
+ <span class="dropdown-text">lab1-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_hw2a.html">
+ <span class="dropdown-text">hw2-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_hw2q.html">
+ <span class="dropdown-text">hw2-q</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_hw1a.html">
+ <span class="dropdown-text">hw1-a</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./DANL310_hw1q.html">
+ <span class="dropdown-text">hw1-q</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-ml-lab" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">ml-lab</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-ml-lab">    
+        <li>
+    <a class="dropdown-item" href="./mba-ch1-lm.html">
+ <span class="dropdown-text">linear regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mba-ch1-logit.html">
+ <span class="dropdown-text">logistic regression</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mba-ch3-regularization.html">
+ <span class="dropdown-text">regularization</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./mba-ch3-model-selection.html">
+ <span class="dropdown-text">model selection</span></a>
+  </li>  
+        <li class="dropdown-header">double ml</li>
+        <li class="dropdown-header">trees and forests</li>
+        <li class="dropdown-header">classification</li>
+        <li class="dropdown-header">clustering</li>
+        <li class="dropdown-header">principal component analysis</li>
+    </ul>
+  </li>
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#question-1" id="toc-question-1" class="nav-link active" data-scroll-target="#question-1">Question 1</a></li>
+  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a>
+  <ul class="collapse">
+  <li><a href="#q2a." id="toc-q2a." class="nav-link" data-scroll-target="#q2a.">Q2a.</a></li>
+  <li><a href="#q2b" id="toc-q2b" class="nav-link" data-scroll-target="#q2b">Q2b</a></li>
+  <li><a href="#q2c" id="toc-q2c" class="nav-link" data-scroll-target="#q2c">Q2c</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">DANL 310: Data Visualization and Presentation<br>Homework Assignment 2 - Example Answers -</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Byeong-Hak Choe </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="question-1" class="level1">
+<h1>Question 1</h1>
+<p>Add a web-page of the team project proposal to your website. The tab menu to link the web-page must be provided.</p>
+</section>
+<section id="question-2" class="level1">
+<h1>Question 2</h1>
+<p>Provide ggplot codes to replicate the given figure.</p>
+<section id="q2a." class="level2">
+<h2 class="anchored" data-anchor-id="q2a.">Q2a.</h2>
+<p>Use the following data.frame for Q2a, Q2b, and Q2c.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>hdi_corruption <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'https://bcdanl.github.io/data/hdi_corruption.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Use geom_smooth(method = lm, formula = "y ~ log(x)", se = F) .</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># `box.padding` option would be useful for geom_text_repel().</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>country_highlight <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Germany"</span>, <span class="st">"Norway"</span>, <span class="st">"United States"</span>, </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Greece"</span>, <span class="st">"Singapore"</span>, </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Argentina"</span>, <span class="st">"Senegal"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"China"</span>, <span class="st">"Egypt"</span>, <span class="st">"South Africa"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>corruption <span class="ot">&lt;-</span> hdi_corruption <span class="sc">%&gt;%</span> </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">ifelse</span>(country <span class="sc">%in%</span> country_highlight, country, <span class="cn">NA</span>))</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">filter</span>(corruption, year <span class="sc">==</span> <span class="dv">2014</span>), <span class="fu">aes</span>(cpi, hdi)) <span class="sc">+</span> </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">formula =</span> <span class="st">"y ~ log(x)"</span>, <span class="at">se =</span> F) <span class="sc">+</span> </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">color =</span> region, <span class="at">fill =</span> region),</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">shape =</span> <span class="dv">21</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> label), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">4</span>,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">box.padding =</span> .<span class="dv">75</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">1.05</span>), <span class="at">breaks =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.6</span>, <span class="fl">0.8</span>, <span class="fl">1.0</span>),</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Human Development Index, 2014</span><span class="sc">\n</span><span class="st">(1.0 = most developed)"</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">95</span>),</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">60</span>, <span class="dv">80</span>, <span class="dv">100</span>),</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Corruption Perceptions Index, 2014 (100 = least corrupt)"</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">unit</span>( <span class="fu">c</span>(<span class="fl">1.75</span>, .<span class="dv">75</span>, .<span class="dv">75</span>, .<span class="dv">5</span>), <span class="st">"cm"</span>),</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="fu">c</span>(.<span class="dv">5</span>, <span class="fl">1.05</span>),</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.direction =</span> <span class="st">"horizontal"</span>,</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">color =</span> <span class="st">"Region"</span>, <span class="at">fill =</span> <span class="st">"Region"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="DANL310_hw2a_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="q2b" class="level2">
+<h2 class="anchored" data-anchor-id="q2b">Q2b</h2>
+<ul>
+<li><p>Download the file <code>labor_supply.zip</code> from the Data folder in the Files section in Canvas. Then, extract <code>labor_supply.zip</code>, so that you can access the <code>labor_supply.csv</code> file.</p></li>
+<li><p>Variable description in <code>labor_supply.csv</code></p>
+<ul>
+<li><code>SEX</code>: 1 if Male; 2 if Female; 9 if NIU (Not in universe)</li>
+<li><code>NCHLT5</code>: Number of own children under age 5 in a household; 9 if 9+</li>
+<li><code>LABFORCE</code>: 0 if NIU or members of the armed forces; 1 if not in the labor force; 2 if in the labor force.</li>
+<li><code>ASECWT</code>: sample weight</li>
+</ul></li>
+<li><p>A sample weight of each observation means how much population each observation represents.</p>
+<ul>
+<li>If you sum <code>ASECWT</code> for each year, you get the size of yearly population in the US.</li>
+</ul></li>
+<li><p>Households with <code>LABFORCE == 0</code> is not in labor force.</p></li>
+<li><p>Labor force participation rate can be calculated by:</p></li>
+</ul>
+<p><span class="math display">\[
+(\text{Labor Force Participation Rate}) \, = \, \frac{(\text{Size of population in labor force})}{(\text{Size of civilian population that are not members of the armed force})}
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">'/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/labor_supply.csv'</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>cps_labor <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(path)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>cps_labor <span class="ot">&lt;-</span> cps_labor <span class="sc">%&gt;%</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(YEAR <span class="sc">&gt;=</span> <span class="dv">1982</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(LABFORCE <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">LABFORCE =</span> LABFORCE <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">labor_supply =</span> LABFORCE <span class="sc">*</span> ASECWT,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">child =</span> <span class="fu">ifelse</span>(NCHLT5 <span class="sc">==</span> <span class="dv">0</span>, </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"No Child Under Age 5 in Household"</span>, </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"Having Children Under Age 5 in Household"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(YEAR, SEX, child) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">pct =</span> <span class="fu">sum</span>(labor_supply) <span class="sc">/</span> <span class="fu">sum</span>(ASECWT, <span class="at">na.rm=</span> T) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(child))</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>label_df <span class="ot">&lt;-</span> <span class="fu">filter</span>(cps_labor, YEAR <span class="sc">==</span> <span class="dv">2022</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">ifelse</span>(SEX <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span>))</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cps_labor,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> YEAR, <span class="at">y =</span> pct, </span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="fu">factor</span>(SEX))) <span class="sc">+</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label_repel</span>(<span class="at">data =</span> label_df,</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">x =</span> YEAR, <span class="at">y =</span> pct, <span class="at">label =</span> label),</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color =</span> <span class="st">'black'</span>,</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nudge_y =</span> .<span class="dv">033</span>, <span class="at">box.padding =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>( . <span class="sc">~</span> <span class="fu">factor</span>(child)) <span class="sc">+</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>( <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1982</span>, <span class="dv">2022</span>, <span class="dv">4</span>) ) <span class="sc">+</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>( <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span>  </span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>( <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>),</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>                      <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#2E74C0"</span>, <span class="st">"#CB454A"</span>) ) <span class="sc">+</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Labor Force Participation Rate"</span>,</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Gender"</span>,</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="st">"Young Children"</span>,</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Fertility and Labor Supply in the U.S."</span>,</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"1982-2022"</span>,</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Data: IPUMS-CPS, University of Minnesota, www.ipums.org."</span>) <span class="sc">+</span>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">1.5</span>),</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">face =</span> <span class="st">'bold'</span>),</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="DANL310_hw2a_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="768"></p>
+</div>
+</div>
+</section>
+<section id="q2c" class="level2">
+<h2 class="anchored" data-anchor-id="q2c">Q2c</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot) <span class="co"># to create correlation heatmaps using ggcorrplot()</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>beer_mkt <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://bcdanl.github.io/data/beer_markets.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Make a correlation heat-map with variables that are either strongly correlated or <code>promo</code>-related.</li>
+<li>The variables are selected by how high the mean value of the absolute value of correlations with the variable is (top 13-15 variables).</li>
+<li>You can start with the following data.frame:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span> beer_mkt <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>hh, <span class="sc">-</span>market) </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> beer_dummies,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>          beer_floz <span class="sc">~</span> .)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span>  <span class="fu">as.data.frame</span>(<span class="fu">model.matrix</span>(reg))[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span> <span class="fu">cbind</span>(beer_mkt<span class="sc">$</span>beer_floz ,beer_dummies)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span> beer_dummies <span class="sc">%&gt;%</span> </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">beer_floz =</span> <span class="st">`</span><span class="at">beer_mkt$beer_floz</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>To calculate a correlation between numeric variables in <code>data.frame</code>, use <code>cor(data.frame)</code></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span> beer_dummies <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">brandBUD LIGHT</span><span class="st">`</span> <span class="ot">=</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>           <span class="fu">ifelse</span>(<span class="st">`</span><span class="at">brandBUSCH LIGHT</span><span class="st">`</span> <span class="sc">==</span> <span class="dv">1</span>  <span class="sc">|</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                     <span class="st">`</span><span class="at">brandCOORS LIGHT</span><span class="st">`</span> <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                     <span class="st">`</span><span class="at">brandMILLER LITE</span><span class="st">`</span> <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                     <span class="st">`</span><span class="at">brandNATURAL LIGHT</span><span class="st">`</span> <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(dollar_spent, <span class="fu">ends_with</span>(<span class="st">"floz"</span>), </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>         quantity, <span class="st">`</span><span class="at">brandBUD LIGHT</span><span class="st">`</span>, </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>         <span class="fu">starts_with</span>(<span class="st">"brand"</span>), <span class="fu">everything</span>())</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># the correlation matrix</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>cor_beer <span class="ot">&lt;-</span> <span class="fu">cor</span>(beer_dummies)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># to select variables with high correlations</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>cor_beer_abs <span class="ot">&lt;-</span> <span class="fu">abs</span>(cor_beer)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>cor_beer_abs <span class="ot">&lt;-</span> cor_beer_abs <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>cor_beer_mean <span class="ot">&lt;-</span> cor_beer_abs <span class="sc">%&gt;%</span> </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_if</span>(is.numeric, mean)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>cor_beer_mean <span class="ot">&lt;-</span> <span class="fu">t</span>(cor_beer_mean) <span class="co"># transpose</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>cor_beer_mean <span class="ot">&lt;-</span> <span class="fu">cbind</span>(cor_beer_mean, <span class="fu">rownames</span>(cor_beer_mean))</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>cor_beer_mean <span class="ot">&lt;-</span> cor_beer_mean <span class="sc">%&gt;%</span> </span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() </span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>cor_beer_mean <span class="ot">&lt;-</span> cor_beer_mean <span class="sc">%&gt;%</span> </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">V1 =</span> <span class="fu">as.numeric</span>(V1)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>V1)</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>cor_beer_mean <span class="ot">&lt;-</span> cor_beer_mean <span class="sc">%&gt;%</span> </span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">cor_mean =</span> V1,</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>         <span class="at">var_name =</span> V2)</span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>cor_beer_mean <span class="ot">&lt;-</span> cor_beer_mean <span class="sc">%&gt;%</span> </span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ranking =</span> <span class="fu">dense_rank</span>(<span class="sc">-</span>cor_mean))</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>cor_beer_mean_selected <span class="ot">&lt;-</span> cor_beer_mean <span class="sc">%&gt;%</span> </span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ranking <span class="sc">&lt;=</span> <span class="dv">15</span> <span class="sc">|</span> <span class="fu">str_detect</span>(var_name, <span class="st">"promo"</span>) )</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>df_cor_beer <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(cor_beer)</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>df_cor_beer <span class="ot">&lt;-</span> df_cor_beer <span class="sc">%&gt;%</span> </span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">var =</span> <span class="fu">rownames</span>(df_cor_beer))</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>cor_beer_selected <span class="ot">&lt;-</span> df_cor_beer <span class="sc">%&gt;%</span> </span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(var <span class="sc">%in%</span> cor_beer_mean_selected<span class="sc">$</span>var_name ) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>var)</span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>cor_beer_selected2 <span class="ot">&lt;-</span> <span class="fu">t</span>(cor_beer_selected)</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>cor_beer_selected2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(cor_beer_selected2) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">var =</span> <span class="fu">rownames</span>(cor_beer_selected2)) </span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>cor_beer_selected2 <span class="ot">&lt;-</span> cor_beer_selected2 <span class="sc">%&gt;%</span> </span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(var <span class="sc">%in%</span> cor_beer_mean_selected<span class="sc">$</span>var_name ) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>var)</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a><span class="co"># p values for correlation tests</span></span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a><span class="co"># p.mat &lt;- cor_pmat(cor_beer_selected2) </span></span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a><span class="co"># Tentatively trying to make correlation heatmaps </span></span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a><span class="co"># ggcorrplot( cor_beer_selected2, lab = T,</span></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a><span class="co">#             type = 'lower',</span></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a><span class="co">#             colors = c("#2E74C0", "white", "#CB454A"),</span></span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a><span class="co">#             ) </span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a><span class="co"># colnames(cor_beer_selected2)</span></span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a><span class="co"># finalizing variables</span></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>cor_beer_selected3 <span class="ot">&lt;-</span> cor_beer_selected2 <span class="sc">%&gt;%</span> </span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">"cow"</span>))</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>cor_beer_selected3 <span class="ot">&lt;-</span> <span class="fu">t</span>(cor_beer_selected3) <span class="co"># transpose</span></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>cor_beer_selected3 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(cor_beer_selected3) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">"cow"</span>))</span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a><span class="co"># rownames and colnames</span></span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>var_list <span class="ot">&lt;-</span> <span class="fu">colnames</span>(cor_beer_selected3)</span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>varlist <span class="ot">&lt;-</span> <span class="fu">rownames</span>(cor_beer_selected3) </span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>varlist <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(varlist,</span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"brand"</span>, <span class="st">""</span>)</span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>varlist <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(varlist,</span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"container"</span>, <span class="st">""</span>)</span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(cor_beer_selected3) <span class="ot">&lt;-</span> varlist</span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>varlist <span class="ot">&lt;-</span> <span class="fu">colnames</span>(cor_beer_selected3) </span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>varlist <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(varlist,</span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"brand"</span>, <span class="st">""</span>)</span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>varlist <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(varlist,</span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"container"</span>, <span class="st">""</span>)</span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cor_beer_selected3) <span class="ot">&lt;-</span> varlist</span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a><span class="co"># correlation heatmap with correlation values</span></span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggcorrplot</span>( cor_beer_selected3, <span class="at">lab =</span> T,</span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>            <span class="at">colors =</span> <span class="fu">c</span>(<span class="st">"#2E74C0"</span>, <span class="st">"white"</span>, <span class="st">"#CB454A"</span>),</span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">1.5</span>),</span>
+<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">face =</span> <span class="st">'bold'</span>))  <span class="sc">+</span> </span>
+<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_colourbar</span>(<span class="at">barheight =</span> <span class="fl">38.5</span>))</span>
+<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a>p</span>
+<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a><span class="co"># for NY ------------------------------------------------------------------</span></span>
+<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span> beer_mkt  <span class="sc">%&gt;%</span> </span>
+<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(market, <span class="st">"NY"</span>) <span class="sc">|</span> </span>
+<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_detect</span>(market, <span class="st">"NEW YORK"</span>) <span class="sc">|</span></span>
+<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_detect</span>(market, <span class="st">"ALBANY"</span>) <span class="sc">|</span></span>
+<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_detect</span>(market, <span class="st">"BUFFALO-ROCHESTER"</span>) <span class="sc">|</span></span>
+<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_detect</span>(market, <span class="st">"SYRACUSE"</span>) </span>
+<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a>           ) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>hh, <span class="sc">-</span>market)</span>
+<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> beer_dummies,</span>
+<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a>          beer_floz <span class="sc">~</span> .)</span>
+<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a>beer_mkt_NY <span class="ot">&lt;-</span> beer_mkt <span class="sc">%&gt;%</span> </span>
+<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(market, <span class="st">"NY"</span>) <span class="sc">|</span> </span>
+<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_detect</span>(market, <span class="st">"NEW YORK"</span>) <span class="sc">|</span></span>
+<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_detect</span>(market, <span class="st">"ALBANY"</span>) <span class="sc">|</span></span>
+<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_detect</span>(market, <span class="st">"BUFFALO-ROCHESTER"</span>) <span class="sc">|</span></span>
+<span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a>           <span class="fu">str_detect</span>(market, <span class="st">"SYRACUSE"</span>) </span>
+<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(beer_floz)</span>
+<span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-129"><a href="#cb6-129" aria-hidden="true" tabindex="-1"></a>beer_dummies_tmp <span class="ot">&lt;-</span>  <span class="fu">as.data.frame</span>(<span class="fu">model.matrix</span>(reg))[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb6-130"><a href="#cb6-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-131"><a href="#cb6-131" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span> <span class="fu">cbind</span>(beer_mkt_NY,</span>
+<span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a>                      beer_dummies_tmp) </span>
+<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span> beer_dummies <span class="sc">%&gt;%</span> </span>
+<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">brandBUD LIGHT</span><span class="st">`</span> <span class="ot">=</span> </span>
+<span id="cb6-136"><a href="#cb6-136" aria-hidden="true" tabindex="-1"></a>           <span class="fu">ifelse</span>(<span class="st">`</span><span class="at">brandBUSCH LIGHT</span><span class="st">`</span> <span class="sc">==</span> <span class="dv">1</span>  <span class="sc">|</span></span>
+<span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a>                    <span class="st">`</span><span class="at">brandCOORS LIGHT</span><span class="st">`</span> <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a>                    <span class="st">`</span><span class="at">brandMILLER LITE</span><span class="st">`</span> <span class="sc">==</span> <span class="dv">1</span> <span class="sc">|</span></span>
+<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a>                    <span class="st">`</span><span class="at">brandNATURAL LIGHT</span><span class="st">`</span> <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(dollar_spent, <span class="fu">ends_with</span>(<span class="st">"floz"</span>), </span>
+<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a>         quantity, <span class="st">`</span><span class="at">brandBUD LIGHT</span><span class="st">`</span>, </span>
+<span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a>         <span class="fu">starts_with</span>(<span class="st">"brand"</span>), <span class="fu">everything</span>()) </span>
+<span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a><span class="co"># the matrix of the correlation test p-values</span></span>
+<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a>cor_beer <span class="ot">&lt;-</span> <span class="fu">cor</span>(beer_dummies)</span>
+<span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a>cor_beer_abs <span class="ot">&lt;-</span> <span class="fu">abs</span>(cor_beer)</span>
+<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a>cor_beer_abs <span class="ot">&lt;-</span> cor_beer_abs <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
+<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a>cor_beer_mean <span class="ot">&lt;-</span> cor_beer_abs <span class="sc">%&gt;%</span> </span>
+<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_if</span>(is.numeric, mean)</span>
+<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a>cor_beer_mean <span class="ot">&lt;-</span> <span class="fu">t</span>(cor_beer_mean)</span>
+<span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a>cor_beer_mean <span class="ot">&lt;-</span> <span class="fu">cbind</span>(cor_beer_mean, <span class="fu">rownames</span>(cor_beer_mean))</span>
+<span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a>cor_beer_mean <span class="ot">&lt;-</span> cor_beer_mean <span class="sc">%&gt;%</span> </span>
+<span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() </span>
+<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a>cor_beer_mean <span class="ot">&lt;-</span> cor_beer_mean <span class="sc">%&gt;%</span> </span>
+<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">V1 =</span> <span class="fu">as.numeric</span>(V1)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>V1)</span>
+<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a>cor_beer_mean <span class="ot">&lt;-</span> cor_beer_mean <span class="sc">%&gt;%</span> </span>
+<span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">cor_mean =</span> V1,</span>
+<span id="cb6-163"><a href="#cb6-163" aria-hidden="true" tabindex="-1"></a>         <span class="at">var_name =</span> V2)</span>
+<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a>cor_beer_mean <span class="ot">&lt;-</span> cor_beer_mean <span class="sc">%&gt;%</span> </span>
+<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ranking =</span> <span class="fu">dense_rank</span>(<span class="sc">-</span>cor_mean))</span>
+<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a>cor_beer_mean_selected <span class="ot">&lt;-</span> cor_beer_mean <span class="sc">%&gt;%</span> </span>
+<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(var_name <span class="sc">%in%</span> var_list )</span>
+<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a>df_cor_beer <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(cor_beer)</span>
+<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a>df_cor_beer <span class="ot">&lt;-</span> df_cor_beer <span class="sc">%&gt;%</span> </span>
+<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">var =</span> <span class="fu">rownames</span>(df_cor_beer))</span>
+<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a>cor_beer_selected <span class="ot">&lt;-</span> df_cor_beer <span class="sc">%&gt;%</span> </span>
+<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(var <span class="sc">%in%</span> cor_beer_mean_selected<span class="sc">$</span>var_name ) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>var)</span>
+<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a>cor_beer_selected2 <span class="ot">&lt;-</span> <span class="fu">t</span>(cor_beer_selected)</span>
+<span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a>cor_beer_selected2 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(cor_beer_selected2) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">var =</span> <span class="fu">rownames</span>(cor_beer_selected2)) </span>
+<span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a>cor_beer_selected2 <span class="ot">&lt;-</span> cor_beer_selected2 <span class="sc">%&gt;%</span> </span>
+<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(var <span class="sc">%in%</span> cor_beer_mean_selected<span class="sc">$</span>var_name ) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>var)</span>
+<span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a><span class="co"># p values for correlation test</span></span>
+<span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a><span class="co"># p.mat &lt;- cor_pmat(cor_beer_selected2) </span></span>
+<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a><span class="co"># temporary correlation heatmap with correlation values</span></span>
+<span id="cb6-194"><a href="#cb6-194" aria-hidden="true" tabindex="-1"></a><span class="co"># ggcorrplot( cor_beer_selected2, lab = T,</span></span>
+<span id="cb6-195"><a href="#cb6-195" aria-hidden="true" tabindex="-1"></a><span class="co">#             type = 'lower',</span></span>
+<span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a><span class="co">#             colors = c("#2E74C0", "white", "#CB454A"),</span></span>
+<span id="cb6-197"><a href="#cb6-197" aria-hidden="true" tabindex="-1"></a><span class="co"># )   + </span></span>
+<span id="cb6-198"><a href="#cb6-198" aria-hidden="true" tabindex="-1"></a><span class="co">#   guides(fill = guide_colourbar(barheight = 38.5))</span></span>
+<span id="cb6-199"><a href="#cb6-199" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb6-200"><a href="#cb6-200" aria-hidden="true" tabindex="-1"></a><span class="co"># colnames(cor_beer_selected2)</span></span>
+<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a>cor_beer_selected3 <span class="ot">&lt;-</span> cor_beer_selected2 <span class="sc">%&gt;%</span> </span>
+<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">"cow"</span>))</span>
+<span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a>cor_beer_selected3 <span class="ot">&lt;-</span> <span class="fu">t</span>(cor_beer_selected3)</span>
+<span id="cb6-206"><a href="#cb6-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-207"><a href="#cb6-207" aria-hidden="true" tabindex="-1"></a>cor_beer_selected3 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(cor_beer_selected3) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-208"><a href="#cb6-208" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">starts_with</span>(<span class="st">"cow"</span>))</span>
+<span id="cb6-209"><a href="#cb6-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-210"><a href="#cb6-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-211"><a href="#cb6-211" aria-hidden="true" tabindex="-1"></a>varlist <span class="ot">&lt;-</span> <span class="fu">rownames</span>(cor_beer_selected3) </span>
+<span id="cb6-212"><a href="#cb6-212" aria-hidden="true" tabindex="-1"></a>varlist <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(varlist,</span>
+<span id="cb6-213"><a href="#cb6-213" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"brand"</span>, <span class="st">""</span>)</span>
+<span id="cb6-214"><a href="#cb6-214" aria-hidden="true" tabindex="-1"></a>varlist <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(varlist,</span>
+<span id="cb6-215"><a href="#cb6-215" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"container"</span>, <span class="st">""</span>)</span>
+<span id="cb6-216"><a href="#cb6-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-217"><a href="#cb6-217" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(cor_beer_selected3) <span class="ot">&lt;-</span> varlist</span>
+<span id="cb6-218"><a href="#cb6-218" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cor_beer_selected3)</span>
+<span id="cb6-219"><a href="#cb6-219" aria-hidden="true" tabindex="-1"></a>varlist <span class="ot">&lt;-</span> <span class="fu">colnames</span>(cor_beer_selected3) </span>
+<span id="cb6-220"><a href="#cb6-220" aria-hidden="true" tabindex="-1"></a>varlist <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(varlist,</span>
+<span id="cb6-221"><a href="#cb6-221" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"brand"</span>, <span class="st">""</span>)</span>
+<span id="cb6-222"><a href="#cb6-222" aria-hidden="true" tabindex="-1"></a>varlist <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(varlist,</span>
+<span id="cb6-223"><a href="#cb6-223" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"container"</span>, <span class="st">""</span>)</span>
+<span id="cb6-224"><a href="#cb6-224" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(cor_beer_selected3) <span class="ot">&lt;-</span> varlist</span>
+<span id="cb6-225"><a href="#cb6-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-226"><a href="#cb6-226" aria-hidden="true" tabindex="-1"></a><span class="co"># correlation heatmap with correlation values</span></span>
+<span id="cb6-227"><a href="#cb6-227" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggcorrplot</span>( cor_beer_selected3, <span class="at">lab =</span> T,</span>
+<span id="cb6-228"><a href="#cb6-228" aria-hidden="true" tabindex="-1"></a>                 <span class="at">colors =</span> <span class="fu">c</span>(<span class="st">"#2E74C0"</span>, <span class="st">"white"</span>, <span class="st">"#CB454A"</span>),</span>
+<span id="cb6-229"><a href="#cb6-229" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb6-230"><a href="#cb6-230" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">1.5</span>),</span>
+<span id="cb6-231"><a href="#cb6-231" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">face =</span> <span class="st">'bold'</span>))  <span class="sc">+</span> </span>
+<span id="cb6-232"><a href="#cb6-232" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_colourbar</span>(<span class="at">barheight =</span> <span class="fl">38.5</span>))</span>
+<span id="cb6-233"><a href="#cb6-233" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-234"><a href="#cb6-234" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-235"><a href="#cb6-235" aria-hidden="true" tabindex="-1"></a>  <span class="co"># p.values</span></span>
+<span id="cb6-236"><a href="#cb6-236" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'lec_figs/beer_cor.jpg'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lec_figs/beer_cor.jpg" class="img-fluid figure-img" width="1764"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Then, make a correlation heat-map for NY markets with the same selection of variables.</p></li>
+<li><p>NY markets are such that whose <code>market</code> value is either <code>ALBANY</code>, <code>BUFFALO-ROCHESTER</code>, <code>URBAN NY</code>, <code>SUBURBAN NY</code>, <code>EXURBAN NY</code>, <code>RURAL NEW YORK</code>, or <code>SYRACUSE</code>.</p></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'lec_figs/beer_cor_ny.jpg'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="lec_figs/beer_cor_ny.jpg" class="img-fluid figure-img" width="1765"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>References:</p>
+<ul>
+<li><a href="https://clauswilke.com/dataviz">Fundamentals of Data Visualization by Claus O. Wilke</a></li>
+<li><a href="https://socviz.co">Data Visualization: A practical introduction by Kieran Healy</a></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script type="text/javascript" src="links.js"></script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center">powered with github, quarto, and rstudio<br>byeong-hak choe, 2023</div>
+  </div>
+</footer>
+
+
+
+</body></html>
