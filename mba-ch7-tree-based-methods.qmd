@@ -2,7 +2,6 @@
 subtitle: Machine Learning Lab
 title: "Tree-based Methods"
 author: "Byeong-Hak Choe"
-editor: visual
 ---
 
 ```{r setup, include = F}
@@ -15,6 +14,13 @@ library(hrbrthemes) # additional ggplot themes and color pallets
 library(lubridate)
 library(ggridges)
 library(stargazer)
+library(rpart)
+library(ranger)
+library(randomForest)
+library(vip)
+library(pdp)
+library(caret)
+
 theme_set(theme_ipsum()) # setting the minimal theme for ggplot
 # setting default chunk options
 knitr::opts_chunk$set(
@@ -27,252 +33,517 @@ knitr::opts_chunk$set(
 
 <br><br>
 
-## Bias-Variance Tradeoff
+## Classification And Regression Tree (CART)
 
-```{r, fig.align='center'}
-knitr::include_graphics('lec_figs/bias-variance-tradeoff-1.png')
+
+```{r, fig.align='center', echo = F}
+knitr::include_graphics('lec_figs/tree_rain.png')
 ```
 
-### Decomposition of MSE
-
--   The mean squared error (MSE) of the model with unknown set of parameters $\mathbf{\theta}$ can be decomposed into *bias* and *variance*.
-
-$$
-\begin{align}
-M S E &\,=\, \frac{\sum_{i = 1}^{ n}\,(\, y_{i} - \hat{y}_{i} \,)^2}{n}\\
-&\,=\,E \,[\, y_{i} - \hat{f}(\mathbf{X}) \,]^{2}\\
-&\,=\, [\text{Bias}(\, \hat{f}(\mathbf{X}) \,)]^{2} \,+\, Var(\,\hat{f}(\mathbf{X})\,) \,+\, \text{Var}(\epsilon)
-\end{align}
-$$
-
--   In order to minimize the MSE above, we need to select a machine learning methods that simultaneously achieves low variance and low bias.
-    -   Note that both squared bias and variance are nonnegative.
-    -   The MSE can never lie below $\text{Var}(\epsilon)$, the irreducible error.
-
-```{r, fig.align='center'}
-knitr::include_graphics('lec_figs/bias-variance-tradeoff-2.png')
-```
-
--   The horizontal dashed line represents $\text{Var}(\epsilon)$, the irreducible error.
-
--   The vertical dotted line indicates the flexibility level corresponding to the smallest test MSE.
-
-```{r, fig.align='center'}
-knitr::include_graphics('lec_figs/bias-variance-tradeoff-3.png')
-```
+- Tree-logic uses a series of steps to come to a conclusion.
+- The trick is to have mini-decisions combine for good choices.
+- Each decision is a node, and the final prediction is a leaf node.
 
 <br>
 
-## Regularization
+Decision trees are useful for both classification and regression.
 
--   Regularization helps find some optimal amount of flexibility that minimizes MSE.
 
--   Regularized regression can resolve the following problems
+- Decision trees can take any type of data, numerical or categorical.
 
-    -   **Quasi-separation** in logistic regression:
-        -   The input variable yields an almost perfect prediction of the binary response variable.
-    -   **Multicolinearity** in regression:
-        -   Variables `age` and `years_of_workforce` in linear regression of `income` are too highly correlated.
 
-### Ridge Regression
+- Decision trees make fewer assumptions about the relationship between `x` and `y`. 
+  - E.g., linear model assumes the linear relationship between `x` and `y`.
+  - Decision trees naturally express certain kinds of interactions among the input variables: those of the form “IF x is true AND y is true, THEN....”
 
--   **Ridge regression** introduces a **shrinkage penalty** $\lambda \geq 0$ by minimizing:
-
-$$\sum_i^n \big(Y_i - \beta_0 -  \sum_j^p \beta_j x_{ij}\big)^2 + \lambda \sum_j^p \beta_j^2 = \text{SSE} + \lambda \sum_j^p \beta_j^2$$ - As $\lambda$ increases $\Rightarrow$ flexibility of models decreases
-
--   **increases bias, but decreases variance**
-
--   For fixed value of $\lambda$, ridge regression fits only a single model
-
-    -   need to use cross-validation to **tune** $\lambda$
-
--   For example: note how the magnitude of the coefficient for `Income` trends as $\lambda \rightarrow \infty$
-
-```{r out.width='40%', echo = FALSE, fig.align='center'}
-knitr::include_graphics('lec_figs/cmu-ridge.png')
-```
-
--   The coefficient **shrinks towards zero**, but never actually reaches it.
-    -   Ridge regression tends to average the collinear variables together.
--   `Income` is always a variable in the learned model, regardless of the value of $\lambda$.
 
 <br>
 
-### Lasso Regression
 
--   Ridge regression **keeps all variables**.
+- **Classification trees** have class probabilities at the leaves.
+  - *Probability I'll be in heavy rain is 0.9 (so take an umbrella).*
 
--   But Lasso regression gets lid of variables.
 
-    -   **Lasso** enables variable selection with $\lambda$ by minimizing:
+- **Regression trees** have a mean response at the leaves.
+  - *The expected amount of rain is 2 inches (so take an umbrella).*
 
-$$\sum_i^n \big(Y_i - \beta_0 -  \sum_j^p \beta_j X_{ij}\big)^2 + \lambda \sum_j^p\vert  \beta_j \vert = \text{SSE} + \lambda \sum_j^p \vert \beta_j \vert$$
 
--   As $\lambda$ increases $\Rightarrow$ flexibility of models decreases
-
-    -   **increases bias, but decreases variance**
-
--   Lasso can handle the $p > n$ case, i.e. more variables than observations!
-
--   Lasso regression **performs variable selection** yielding **sparse** models, which only includes a small subset of the available variables that are relevant to predicting the outcome of interest.
-
-```{r out.width='40%', echo = FALSE, fig.align='center'}
-knitr::include_graphics("lec_figs/cmu-lasso.png")
-```
-
--   The coefficient shrinks towards and **eventually equals zero** at $\lambda \approx 1000$
-
--   If the optimum value of $\lambda$ is larger, then `Income` would NOT be included in the learned model.
-
-<br>
-
-### Elastic net
-
-$$\sum_{i}^{n}\left(Y_{i}-\beta_{0}-\sum_{j}^{p} \beta_{j} X_{i j}\right)^{2}+\lambda\left[(1-\alpha)\|\beta\|_{2}^{2} / 2+\alpha\|\beta\|_{1} \right]$$ - $\vert \vert \beta \vert \vert_1$ is the $\ell_1$ norm: $\vert \vert \beta \vert \vert_1 = \sum_j^p \vert \beta_j \vert$
-
--   $\vert \vert \beta \vert \vert_2$ is the $\ell_2$, Euclidean, norm: $\vert \vert \beta \vert \vert_2 = \sqrt{\sum_j^p \beta_j^2}$
-
--   Ridge penalty: $\lambda \cdot (1 - \alpha) / 2$
-
--   Lasso penalty: $\lambda \cdot \alpha$
-
--   $\alpha$ controls the **mixing** between the two types, ranges from 0 to 1
-
-    -   $\alpha = 1$ returns lasso
-
-    -   $\alpha = 0$ return ridge
-
-<br>
-
-### Gamma Lasso Regression
-
-$$\sum_i^n \big(Y_i - \beta_0 -  \sum_j^p \beta_j X_{ij}\big)^2 + \lambda \sum_j^p\vert  \beta_j \vert = \text{SSE} + \lambda \sum_j^p \log(\, 1 + \vert \beta_j \vert\,)$$
-
-<br>
-
-## Putting a Cost on Complexity
-
--   With regularization, we put a cost on the magnitude of each $\beta_{p}$.
-
-    -   This penalizes *complexity*, because the $\beta_{p}$ coefficients are what allow our predicted $\hat{y}$ values to move around with different input $X$ values.
-
--   If we force all the $\hat{\beta}_{p}$ to be close to zero, then our $\hat{y}$ values will be shrunk toward $\bar{y}$ and when we jitter the data your predictions will not change as much as they would if we did not include a penalty term during estimation.
-
--   $\lambda$ is the penalty weight that determines the price of complexity.
-
-    -   It is a tuning parameter that needs to be selected in some data-dependent manner.
-
-    ```{r, fig.align='center'}
-    knitr::include_graphics('lec_figs/mba-3-4.png')
-    ```
-
--   The ridge penalty ($\beta^{2}$) places little penalty on small values of $\beta$.
-
--   The Lasso penalty ($\vert \beta \vert$) places a constant penalty on incremental deviations from zero.
-
--   The gamma Lasso penalty ($\log(1 + \vert \beta \vert)$) places extreme cost on the move from zero to small values of $\beta$, but for large values the rate of penalty change is small.
-
-    -   This encourages lots of zeros in our fit while allowing large betas to be estimated without any bias!
-
-<br>
-
-### Advantages of the Lasso
-
-1.  The Lasso gives the least possible amount of bias on large signals while still retaining the stability of a convex penalty like ridge (convex means that the penalty does not flatten out for large values.).
-
-2.  The Lasso will yield automatic variable screening---**model selection**---some of the $\hat{\beta}_{p}$ will be zero!
-
-```{r}
-knitr::include_graphics('lec_figs/ridge-lasso-animation.gif')
-```
-
--   Source: [Quora](https://www.quora.com/What-is-the-intuition-that-the-l-1-norm-leads-to-sparse-solutions)
-
--   Here is another [illustration of the Lasso and its path in 2D](https://twitter.com/i/status/1107625298936451073).
-
-<br>
-
-## Regularization Algorithms
-
-### Standardizing Data
-
--   For either ridge, lasso, gamma lasso or elastic net: **we should consider standardizing our data**
-
--   Common convention: within each column, compute then subtract off the sample mean, and compute the divide off the sample standard deviation:
-
-$$\tilde{x}_{ij} = \frac{x_{ij} - \bar{x}_j}{s_{x,j}}$$
-
--   [`glmnet`](https://web.stanford.edu/~hastie/glmnet/glmnet_alpha.html) and [`gamlr`](https://github.com/TaddyLab/gamlr) package do this by default and reports coefficients on the original scale
-
-    -   $\lambda$ and $\alpha$ are **tuning parameters**
-
-    -   When using `glmnet`, the `cv.glmnet()` function will perform the cross-validation for us
-
--   [`gamlr`](https://github.com/TaddyLab/gamlr) package does implements the gamma lasso algorithm.
-
-    -   When using `gamlr`, the `cv.gamlr()` function will perform the cross-validation for us.
-
--   `glmnetUtils` enables us to use a `data.frame` to provide data to the model.
-
--   `glmnet` and `gamlr` use a `sparse.matrix`, instead of a `data.frame`, to provide data to the model.
-
--   A sparse matrix is a matrix with many zero entries.
-
-    -   A sparse matrix is almost essential in big data analysis because of its lower storage costs and faster computation.
-
-```{r, caption = "An example of a sparse matrix representation"}
-knitr::include_graphics('lec_figs/sparse-matrix.png')
-```
-
-<br>
-
-### k-fold Cross-Validation
-
--   Split the data into `k` random and roughly evenly sized subsets, called **folds**. Then, for \texttt{k = 1,...,K}:
-
-    -   Step 1. Use all data except the k-th fold to train a model
-    -   Step 2. Record the error rate (e.g., MSE, $R^2$, AICc) for predictions on the left-out fold based on the fitted model (out-of-sample (OOS) deviance).
-
-```{r, caption = "Partitioning data for 3-fold corss validaation"}
-knitr::include_graphics('lec_figs/pds_fig69.png')
-```
-
--   For each candidate model, $m \in\{1, \cdots, M\}$, with $\lambda_{m}$, we do k-fold cross-validation (CV).
-
--   So k-fold CV will yield a set of `k` OOS deviances for each of our candidate models.
-
-    -   So we select the model with the best OOS performance!
-
--   How should we choose `k`?
-
-    -   More is better but only up to a point. <!-- - Note that the variance of the `k`-CV estimate of average OOS deviance is the variance on each left-out fold  -->
-    -   We can experiment on the choice of `k`.
-
-<br>
-
-### Schematic of `cv.glmnet()` and `cv.gamlr()`
-
-```{r, caption = "Partitioning data for 3-fold corss validaation"}
-knitr::include_graphics('lec_figs/pds_fig718.png')
-```
-
--   $\lambda_{.min}$: the $\lambda$ for the model with the minimum cross-validation (CV) error.
-
--   $\lambda_{1se}$: corresponds to the model with cross-validation error, which is one standard error (se) of CV error above the minimum CV error.
-
-<br>
-
-### Schematic of `cva.glmnet()`
-
-```{r, caption = "Partitioning data for 3-fold corss validaation"}
-knitr::include_graphics('lec_figs/pds_fig721.png')
-```
-
-<br>
-
-### 
+- **CART**: Classification and Regression Trees.
 
 <br><br>
+
+
+- We need a way to estimate the sequence of decisions.
+  - How many are they? 
+  - What is the order?
+
+
+- CART grows the tree through a sequence of splits:
+  1. Given any set (node) of data, we can find the optimal split (**the error minimizing split**) and divide into two child sets.
+  2. We then look at each child set, and again find the optimal split to divide it into two *homogeneous subsets*.
+  3. The children become parents, and we look again for the optimal split on their new children (the grandchildren!).
+
+
+- We stop splitting and growing when the size of the leaf nodes hits some minimum threshold (e.g., say no less than 10 observations per leaf).
+
+<br>
+
+__Objective at each split__: find the __best__ variable to partition the data into one of two regions, $R_1$ & $R_2$, to __minimize the error__ between the actual response, $y_i$, and the node's predicted constant, $c_i$
+
+
+- For regression we minimize the sum of squared errors (SSE):
+
+$$
+S S E=\sum_{i \in R_{1}}\left(y_{i}-c_{1}\right)^{2}+\sum_{i \in R_{2}}\left(y_{i}-c_{2}\right)^{2}
+$$
+
+
+
+- For classification trees we minimize the node's _impurity_ the __Gini index__
+
+  - where $p_k$ is the proportion of observations in the node belonging to class $k$ out of $K$ total classes
+  
+  - want to minimize $Gini$: small values indicate a node has primarily one class (_is more pure_)
+  
+  - Gini impurity measures the degree of a particular variable being wrongly classified when it is randomly chosen.
+
+$$
+Gini = 1 - \sum_k^K p_k^2
+$$
+
+
+<br><br>
+
+### NBC Show Data
+- The dataset (`nbc` and `demog`) is from NBC's TV pilots:
+  - Gross Ratings Points (GRP): estimated total viewership, which measures broadcast marketability.
+  - Projected Engagement (PE): a more suitable measure of audience.
+  - After watching a show, viewer is quizzed on order and detail.
+  - This measures their engagement with the show (and ads!).
+
+```{r}
+library(tidyverse)
+nbc <- read_csv('https://bcdanl.github.io/data/nbc_show.csv')
+nbc$Genre <- as.factor(nbc$Genre)
+```
+
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(nbc)
+```
+
+
+```{r}
+skim(nbc)
+```
+
+```{r}
+ggplot(nbc) +
+  geom_point(aes(x = GRP, y = PE, color = Genre),
+             alpha = .75)
+```
+
+
+- Consider a classification tree to predict `Genre` from demographics.
+  - Output from tree shows a series of decision nodes and the proportion in each `Genre` at these nodes, down to the leaves.
+
+
+```{r}
+demog <- read_csv(
+  'https://bcdanl.github.io/data/nbc_demog.csv'
+)
+```
+
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(demog)
+```
+
+
+```{r}
+skim(demog)
+```
+
+```{r}
+# install.packages(c("tree","randomForest","ranger", "rpart", "vip", "pdp", "caret"))
+library(tree)
+genretree <- tree(nbc$Genre ~ ., 
+                  data = demog[,-1], 
+                  mincut = 1)
+nbc$genrepred <- predict(genretree, 
+                         newdata = demog[,-1], 
+                         type = "class")
+```
+
+```{r}
+# tree plot (dendrogram)
+plot(genretree, col=8, lwd=2)
+text(genretree, label="yprob")
+```
+Consider predicting engagement from ratings and genre.
+
+- Leaf predictions are expected engagement.
+
+```{r}
+# mincut=1 allows for leaves containing a single show,
+# with expected engagement that single show's PE.
+nbctree <- tree(PE ~ Genre + GRP, data=nbc[,-1], mincut=1)
+nbc$PEpred <- predict(nbctree, newdata=nbc[,-1])
+
+## tree plot (dendrogram)
+plot(nbctree, col=8, lwd=2)
+text(nbctree)
+
+ggplot(nbc) +
+  geom_point(aes(x = GRP, y = PE, color = Genre) ) +
+  geom_line(aes(x = GRP, y = PEpred, color = Genre) )
+```
+
+- PE increases with GRP, but in jumps! 
+
+
+<br><br><br>
+
+## CV Tree
+
+- The biggest challenge with CART models is avoiding **overfit**.
+  - For CART, the usual solution is to rely on **cross validation** (CV).
+  - The way to cross-validate the fully fitted tree is to **prune** it by removing split rules from the bottom up:
+
+
+- At each step, remove the split that contributes least to deviance reduction.
+  - This is a reverse to CART's growth process.
+
+
+- Pruning yields candidate tree.
+  - Each prune step produces a candidate tree model, and we can compare their out-of-sample prediction performance through CV.
+
+<br><br>
+
+### Boston Housing Data
+- The `MASS` package includes the `Boston` data.frame, which has 506 observations and 14 variables. 
+  - `crim`: per capita crime rate by town.
+  - `zn`: proportion of residential land zoned for lots over 25,000 sq.ft.
+  - `indus`: proportion of non-retail business acres per town.
+  - `chas`: Charles River dummy variable (= 1 if tract bounds river; 0 otherwise).
+  - `nox`: nitrogen oxides concentration (parts per 10 million).
+  - `rm`: average number of rooms per dwelling.
+  - `age`: proportion of owner-occupied units built prior to 1940.
+  - `dis`: weighted mean of distances to five Boston employment centres.
+  - `rad`: index of accessibility to radial highways.
+  - `tax`: full-value property-tax rate per $10,000.
+  - `ptratio`: pupil-teacher ratio by town.
+  - `black`: $1000(Bk - 0.63)^2$ where $Bk$ is the proportion of blacks by town.
+  - `lstat`: lower status of the population (percent).
+  - `medv`: median value of owner-occupied homes in $1000s.
+
+
+- For more details about the data set, try `?Boston`.
+
+
+- The goal is to predict housing values.
+
+
+```{r}
+library(MASS)
+?Boston
+Boston <- MASS::Boston
+```
+
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(Boston)
+```
+
+```{r}
+skim(MASS::Boston)
+```
+
+- Spliting training and testing data
+```{r}
+set.seed(42120532)
+index <- sample(nrow(Boston),nrow(Boston)*0.80)
+Boston.train <- Boston[index,]
+Boston.test <- Boston[-index,]
+```
+
+
+- A bit of data visualization
+```{r}
+Boston_vis <- Boston %>%
+  gather(-medv, key = "var", value = "value") %>% 
+  filter(var != "chas")
+
+ggplot(Boston_vis, aes(x = value, y = medv)) +
+  geom_point(alpha = .33) +
+  geom_smooth() +
+  facet_wrap(~ var, scales = "free") 
+
+ggplot(Boston_vis, aes(y = value)) +
+  geom_boxplot(outlier.color = "red", outlier.shape = 1) +
+  facet_wrap(~ var, scales = "free") 
+
+ggplot(Boston_vis, aes(x = value)) +
+  geom_histogram() +
+  facet_wrap(~ var, scales = "free") 
+
+```
+
+- `rpart()` 
+  - Runs 10-fold CV tree to tune $\alpha$ (CP) for **pruning**.
+  - Selects the number of terminal nodes via 1-SE rule.
+```{r}
+library(rpart)
+boston_tree <- rpart(medv ~ .,
+                     data = Boston.train, method  = "anova")
+boston_tree
+```
+
+- `printcp` displays `cp` table for Fitted `rpart()` object:
+
+```{r}
+printcp(boston_tree)
+```
+
+
+- `rpart.plot()` plots the estimated tree structure from an `rpart()` object.
+```{r}
+library(rpart.plot)
+rpart.plot(boston_tree)
+```
+
+
+- `plotcp()` gives a visual representation of the cross-validation results in an `rpart()` object.
+  - The size of a decision tree is the number of leaf nodes (non-terminal nodes) in the tree.
+
+```{r}
+plotcp(boston_tree)
+```
+
+
+
+- What about the full tree? (`cp = 0`)
+  - The `control` parameter in `rpart()` allows for controlling the `rpart` fit. (see `rpart.fit`)
+    - `cp`: complexity parameter. the minimum improvement in the model needed at each node. 
+      - The higher the `cp`, the smaller the size of tree.
+    - `xval`: number of cross-validations
+```{r}
+full_boston_tree <- rpart(formula = medv ~ .,
+                       data = Boston.train, method  = "anova", 
+                       control = list(cp = 0, xval = 10))
+```
+
+```{r}
+rpart.plot(full_boston_tree)
+```
+
+- Compare the full tree with the pruned tree.
+  - Which variable is not included in the pruned tree?
+  
+  
+
+```{r}
+plotcp(full_boston_tree)
+```
+
+- We can train the CV trees with the `caret` package as well:
+
+```{r}
+library(caret)
+caret_boston_tree <- train(medv ~ .,
+                        data = Boston.train, method = "rpart",
+                        trControl = trainControl(method = "cv", number = 10),
+                        tuneLength = 20)
+ggplot(caret_boston_tree)
+```
+
+```{r}
+rpart.plot(caret_boston_tree$finalModel)
+```
+
+<br><br><br>
+
+## Random Forest
+
+### Why should we try other tree models?
+- CART automatically learns non-linear response functions and will discover interactions between variables.
+  1. Unfortunately, it is tough to avoid overfit with CART.
+  2. High variance, i.e. split a dataset in half and grow tress in each half, the result will be very different
+    - CART generally results in higher test set error rates.
+  - Real structure of the tree is not easily chosen via cross-validation (CV).
+  
+
+- One way to mitigate the shortcomings of CART is **bootstrap aggregation**, or **bagging**.
+
+<br><br>
+
+### Bagging Algorithm
+
+```{r, fig.align='center', echo = F}
+knitr::include_graphics('lec_figs/bootstrap-scheme.png')
+```
+
+- **Bootstrap** is random sampling with *replacement*.
+
+- **Aggregation** is combining the results from many trees together, each constructed with a different bootstrapped sample of the data.
+
+
+```{r, fig.align='center', echo = F}
+knitr::include_graphics('lec_figs/pds_fig10_5.png')
+```
+
+- Real structure that persists across datasets shows up in the average. 
+- A bagged *ensemble* of trees is also less likely to overfit the data.
+
+
+- To generate a prediction for a new point:
+  - Regression: take the average across the trees
+  - Classification: take the majority vote across the trees
+    - assuming each tree predicts a single class (could use probabilities instead...)
+
+
+- Bagging improves prediction accuracy via **wisdom of the crowds** but at the expense of interpretability.
+  - Easy to read one tree, but how do we read 500 trees?
+  - However, we can still use the measures of variable importance and partial dependence to summarize our models.
+
+<br><br>
+
+### Random Forest Algorithm
+- Random forests are **an extension of bagging**.
+  - At each split, the algorithm limits the variables considered to a **random subset** $m_{try}$ of the given $p$ number of variables.
+  - It introduce $m_{try}$ as a tuning parameter: typically use $p/3$ for regression or $\sqrt{p}$ for classification.
+```{r, fig.align='center', echo = F}
+knitr::include_graphics('lec_figs/pds_fig10_6.png')
+```
+
+- Split-variable randomization adds more randomness to make each tree more independent of each other.
+
+
+- The final ensemble of trees is bagged to make the random forest predictions.
+
+
+<br>
+
+- Since the trees are constructed via bootstrapped data (samples with replacements), each sample is likely to have duplicate observations.
+
+
+- **Out-of-bag (OOB)**, original observations not contained in a single bootstrap sample, can be used to make out-of-sample predictive performance of the model.
+
+
+<br>
+
+- `ranger` package is a popular & fast implementation (see `randomForest` for the original).
+  - Let's consider the estimation with `randomForest` first.
+```{r}
+library(randomForest)
+bag.boston <- randomForest(medv ~ ., data = Boston.train, 
+                           mtry=13, ntree = 50,
+                           importance =TRUE)
+bag.boston
+plot(bag.boston)
+
+```
+
+
+- Now Let's consider the estimation with `ranger`.
+
+```{r}
+library(ranger)
+bag.boston_ranger <- ranger(medv ~ ., data = Boston.train, 
+                            mtry = 13, num.trees = 50,
+                            importance = "impurity")
+bag.boston_ranger
+```
+
+
+<br><br>
+
+#### CV Tree vs. Random Forest
+- We can compare the performance of the CV CART and the RF via **MSE**.
+
+
+- MSE from CV Tree
+```{r}
+# prediction
+boston.train.pred.CART <- predict(boston_tree, Boston.train)
+boston.test.pred.CART <- predict(boston_tree, Boston.test)
+
+# MSE
+mean((Boston.test$medv - boston.test.pred.CART)^2)
+mean((Boston.train$medv - boston.train.pred.CART)^2)
+```
+
+- MSE from Random Forest
+```{r}
+# prediction
+boston.train.pred.RF <- predict(bag.boston_ranger, Boston.train)$predictions
+boston.test.pred.RF <- predict(bag.boston_ranger, Boston.test)$predictions
+
+# MSE
+mean((Boston.test$medv - boston.test.pred.RF)^2)
+mean((Boston.train$medv - boston.train.pred.RF)^2)
+```
+
+<br><br>
+
+#### Summarizing variables from the tree-based models
+
+- **Variable importance** is measured based on reduction in SSE.
+  - Mean Decrease Accuracy (% increase in MSE): This shows how much our model accuracy decreases if we leave out that variable.
+  - Mean Decrease Gini (Increase in Node Purity) : This is a measure of variable importance based on the Gini impurity index used for the calculating the splits in trees.
+
+<br>
+
+- Out-of-bag samples for datum `x1`
+```{r, echo = F}
+knitr::include_graphics('lec_figs/pds_fig10_7.png')
+```
+
+<br>
+
+- Calculating variable importance of variable `v1`
+```{r, echo = F}
+knitr::include_graphics('lec_figs/pds_fig10_8.png')
+```
+
+<br>
+
+- Since we set `importance` not to equal to `"none"` when using `rpart`, `caret`, and `ranger`, we can evaluate each model's performance on the left-out sample.
+```{r}
+vip(caret_boston_tree, geom = "point")
+```
+
+```{r}
+vip(full_boston_tree, geom = "point")
+```
+
+```{r}
+vip(boston_tree, geom = "point")
+```
+
+```{r}
+vip(bag.boston_ranger, geom = "point")
+```
+
+<br>
+
+- We can also summarize the relationship between a predictor and the predicted outcome using a **partial dependence plot**
+```{r}
+library(pdp)
+# predictor, lstat
+partial(bag.boston_ranger, pred.var = "lstat") %>% autoplot()
+```
+
+```{r}
+# predictor, rm
+partial(bag.boston_ranger, pred.var = "rm") %>% autoplot()
+```
+
+```{r}
+# predictor, rad
+partial(bag.boston_ranger, pred.var = "rad") %>% autoplot()
+```
+
 
 ## References
 
