@@ -598,6 +598,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#why-should-we-try-other-tree-models" id="toc-why-should-we-try-other-tree-models" class="nav-link" data-scroll-target="#why-should-we-try-other-tree-models">Why should we try other tree models?</a></li>
   <li><a href="#bagging-algorithm" id="toc-bagging-algorithm" class="nav-link" data-scroll-target="#bagging-algorithm">Bagging Algorithm</a></li>
   <li><a href="#random-forest-algorithm" id="toc-random-forest-algorithm" class="nav-link" data-scroll-target="#random-forest-algorithm">Random Forest Algorithm</a></li>
+  <li><a href="#variable-importance-in-the-tree-based-models" id="toc-variable-importance-in-the-tree-based-models" class="nav-link" data-scroll-target="#variable-importance-in-the-tree-based-models">Variable Importance in the Tree-based Models</a></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -2546,8 +2547,9 @@ R squared (OOB):                  0.8758446 </code></pre>
 </div>
 <p><br><br></p>
 </section>
-<section id="summarizing-variables-from-the-tree-based-models" class="level4">
-<h4 class="anchored" data-anchor-id="summarizing-variables-from-the-tree-based-models">Summarizing variables from the tree-based models</h4>
+</section>
+<section id="variable-importance-in-the-tree-based-models" class="level3">
+<h3 class="anchored" data-anchor-id="variable-importance-in-the-tree-based-models">Variable Importance in the Tree-based Models</h3>
 <ul>
 <li><strong>Variable importance</strong> is measured based on reduction in SSE.
 <ul>
@@ -2575,7 +2577,7 @@ R squared (OOB):                  0.8758446 </code></pre>
 </div>
 <p><br></p>
 <ul>
-<li>Since we set <code>importance</code> not to equal to <code>"none"</code> when using <code>rpart</code>, <code>caret</code>, and <code>ranger</code>, we can evaluate each model’s performance on the left-out sample.</li>
+<li>Since we set <code>importance</code> not to equal to <code>"none"</code> when using <code>rpart</code>, <code>caret</code>, and <code>ranger</code>, we can evaluate variable importance using the left-out sample.</li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vip</span>(caret_boston_tree, <span class="at">geom =</span> <span class="st">"point"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2627,7 +2629,6 @@ R squared (OOB):                  0.8758446 </code></pre>
 <p><img src="mba-ch7-tree-based-methods_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
 </section>
 </section>
 <section id="references" class="level2">

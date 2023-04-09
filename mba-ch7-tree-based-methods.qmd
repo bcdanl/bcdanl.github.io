@@ -497,7 +497,7 @@ mean((Boston.train$medv - boston.train.pred.RF)^2)
 
 <br><br>
 
-#### Summarizing variables from the tree-based models
+### Variable Importance in the Tree-based Models
 
 - **Variable importance** is measured based on reduction in SSE.
   - Mean Decrease Accuracy (% increase in MSE): This shows how much our model accuracy decreases if we leave out that variable.
@@ -519,7 +519,7 @@ knitr::include_graphics('lec_figs/pds_fig10_8.png')
 
 <br>
 
-- Since we set `importance` not to equal to `"none"` when using `rpart`, `caret`, and `ranger`, we can evaluate each model's performance on the left-out sample.
+- Since we set `importance` not to equal to `"none"` when using `rpart`, `caret`, and `ranger`, we can evaluate variable importance using the left-out sample.
 ```{r}
 vip(caret_boston_tree, geom = "point")
 ```
