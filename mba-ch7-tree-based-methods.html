@@ -2264,7 +2264,14 @@ n= 404
 </div>
 </div>
 <ul>
-<li><code>rpart.plot()</code> plots the estimated tree structure from an <code>rpart()</code> object.</li>
+<li><code>rpart.plot()</code> plots the estimated tree structure from an <code>rpart()</code> object.
+<ul>
+<li>Each node shows:
+<ul>
+<li>the predicted value,</li>
+<li>the percentage of observations in the node.</li>
+</ul></li>
+</ul></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rpart.plot)</span>
@@ -2273,6 +2280,15 @@ n= 404
 <p><img src="mba-ch7-tree-based-methods_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<ul>
+<li>For a model with a binary outcome variable, each node will show:
+<ul>
+<li>the predicted class,</li>
+<li>the predicted probability,</li>
+<li>the percentage of observations in the node.</li>
+</ul></li>
+</ul>
+<p><br></p>
 <ul>
 <li><code>plotcp()</code> gives a visual representation of the cross-validation results in an <code>rpart()</code> object.
 <ul>

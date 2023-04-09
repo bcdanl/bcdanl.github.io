@@ -307,11 +307,22 @@ printcp(boston_tree)
 
 
 - `rpart.plot()` plots the estimated tree structure from an `rpart()` object.
+  - Each node shows:
+    - the predicted value,
+    - the percentage of observations in the node.
 ```{r}
 library(rpart.plot)
 rpart.plot(boston_tree)
 ```
 
+
+- For a model with a binary outcome variable, each node will show:
+  - the predicted class,
+  - the predicted probability,
+  - the percentage of observations in the node.
+
+
+<br>
 
 - `plotcp()` gives a visual representation of the cross-validation results in an `rpart()` object.
   - The size of a decision tree is the number of leaf nodes (non-terminal nodes) in the tree.
