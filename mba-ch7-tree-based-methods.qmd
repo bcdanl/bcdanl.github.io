@@ -307,8 +307,8 @@ printcp(boston_tree)
 
 
 - `rpart.plot()` plots the estimated tree structure from an `rpart()` object.
-  - Each node shows:
-    - the predicted value,
+  - With `method = "anova"` (a continuous outcome variable), each node shows:
+    - the predicted value;
     - the percentage of observations in the node.
 ```{r}
 library(rpart.plot)
@@ -316,9 +316,9 @@ rpart.plot(boston_tree)
 ```
 
 
-- For a model with a binary outcome variable, each node will show:
-  - the predicted class,
-  - the predicted probability,
+- With `method = "class"` (a binary outcome variable), each node will show:
+  - the predicted class;
+  - the predicted probability;
   - the percentage of observations in the node.
 
 
