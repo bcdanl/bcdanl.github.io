@@ -617,7 +617,7 @@ pd.notnull('missing')
 ### &lt;p style="color:#00449E"&gt;  Load Data
 
 .panelset[
-.panel[.panle-name[read_csv()]
+.panel[.panel-name[read_csv()]
 - When we load the data, Pandas automatically finds the missing data cell and give us a DataFrame with the `NaN` value in the appropriate cell. 
 
 - In the `read_csv()` function, three parameters are related to reading missing values: `na_values`, `keep_default_na`, and `na_filter`.
@@ -626,7 +626,7 @@ pd.notnull('missing')
 
 ]
 
-.panel[.panle-name[(na_values)]
+.panel[.panel-name[(na_values)]
 The `na_values` parameter allows us to specify additional missing or `NaN` values. 
 
 
@@ -637,7 +637,7 @@ The `na_values` parameter allows us to specify additional missing or `NaN` value
 
 ]
 
-.panel[.panle-name[(keep_default_na)]
+.panel[.panel-name[(keep_default_na)]
 The `keep_default_na` parameter is a `bool` (i.e., `True` or `False` boolean) that allows us to specify whether any additional values need to be considered as missing. 
 
 
@@ -650,7 +650,7 @@ The `keep_default_na` parameter is a `bool` (i.e., `True` or `False` boolean) th
 ]
 
 
-.panel[.panle-name[example]
+.panel[.panel-name[example]
 - Let's read the CSV file, `survey_visited.csv`.
 
 
@@ -696,7 +696,8 @@ vs
 #  Where Can Missing Values Come From?
 ### &lt;p style="color:#00449E"&gt;  Reindexing
 
-
+.panelset[
+.panel[.panel-name[(1)]
 Another way to introduce missing values into our data is to reindex our dataframe. 
 
   - This is useful when we want to add new indices to your dataframe, but still want to retain its original values. 
@@ -708,7 +709,9 @@ gapminder = pd.read_csv('https://bcdanl.github.io/data/gapminder.tsv', sep='\t')
 life_exp = gapminder.groupby(['year'])['lifeExp'].mean()
 ```
 
+]
 
+.panel[.panel-name[(2)]
 -  We can reindex the dataframe by using the `.reindex()` method.
 
 
@@ -719,6 +722,12 @@ y2000 = life_exp[life_exp.index &gt; 2000]
 # reindexing
 y2000.reindex(range(2000, 2010))
 ```
+
+]
+
+]
+
+
 
 
 
