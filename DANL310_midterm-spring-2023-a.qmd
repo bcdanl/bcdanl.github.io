@@ -1,0 +1,404 @@
+---
+title: "DANL 310: Data Visualization and Presentation\nMidterm Exam\nExample Answers"
+author: "Byeong-Hak Choe"
+---
+
+## Loading R packages
+
+```{r, warning=F, message=F}
+library(knitr)
+library(tidyverse)
+library(lubridate)
+library(socviz)
+library(ggthemes)
+library(hrbrthemes)
+library(gapminder)
+```
+
+```{r setup, include = FALSE}
+# library(tidyverse)
+# library(knitr)
+# library(kableExtra)
+# library(ggthemes)
+# library(ggtech)
+# library(ggthemr)
+# library(ggthemes)
+# library(hrbrthemes)
+# library(hexbin)
+# library(ggforce)
+# library(skimr)
+
+knitr::opts_chunk$set(fig.width=8, fig.height=5,
+                      echo = T, eval = T, warning = F, message = F)  
+
+theme_set(theme_ipsum() +
+          theme(strip.background =element_rect(fill="lightgray")))
+```
+
+<br>
+
+I use `theme_set(theme_ipsum() + theme(strip.background =element_rect(fill="lightgray")))` in the setup R code chunk with the `include = FALSE` option
+
+<br>
+
+# Question 1
+
+The following data is for Question 1:
+
+```{r}
+gapminder <- gapminder
+```
+
+```{r, result = 'asis', echo = F}
+rmarkdown::paged_table(gapminder) 
+```
+
+<br>
+
+## Q1a
+- Replicate the following ggplot.
+  - Use the color `#0072B2` for dots.
+
+```{r, fig.height= 12, fig.width=8}
+# Set the data and filter to include only observations from 2007 and exclude Oceania
+ggplot(data = filter(gapminder, year == 2007,
+                     continent != 'Oceania'),
+
+       # Set the aesthetics (x-axis and y-axis) to life expectancy and reorder countries by life expectancy
+       aes(x = lifeExp,
+           y = fct_reorder(country, lifeExp))) +
+
+  # Add a layer of points to the plot, setting the color to blue and size to 1.75
+  geom_point(color = "#0072B2", size = 1.75) +
+
+  # Add a layer of text labels to the plot, setting the label to life expectancy, hjust to -.25, and size to 2
+  geom_text(aes(label = lifeExp), hjust = -.25,
+            size = 2) +
+
+  # Facet the plot by continent, with y-scales free
+  facet_wrap(.~continent, scales = "free_y") +
+
+  # Set the x-axis label to NULL (no name) and limit the x-axis to 35-90
+  scale_x_continuous(
+    name = NULL,
+    lim = c(35, 90)
+  ) +
+
+  # Set the y-axis label to NULL (no name)
+  scale_y_discrete(name = NULL) +
+
+  # Add a title to the plot
+  labs(title = 'Life expectancy in 2007') +
+
+  # Set the theme to minimal
+  theme_minimal() +
+
+  # Customize theme elements: set the y-axis text size, the plot title size and position, and the facet strip text size and font face
+  theme(
+    axis.text.y = element_text(size = rel(.75)),
+    plot.title = element_text(size = rel(1.5),
+                              hjust = 0.5,
+                              face = 'bold'),
+    strip.text = element_text(size = rel(1.25),
+                              face = 'bold')
+  )
+
+```
+
+## Q1b 
+- Make a simple comment on the visualization result.
+
+  - Any comment that is not made up is okay.
+
+<br><br>
+
+# Question 2
+
+The following data is for Question 2:
+
+```{r}
+n_tweets_long <- read_csv(
+  'https://bcdanl.github.io/data/n_tweets_long.csv')
+```
+
+```{r, result = 'asis', echo = F}
+rmarkdown::paged_table(n_tweets_long) 
+```
+
+<br>
+
+## Q2a 
+
+- Replicate the following ggplot.
+
+  - The following describes the `type` values:
+    - `n_ot_us`: Number of US tweets 
+    - `n_ot_wrld`: Number of worldwide tweets 
+    - `n_rt_lk_us`: Number of US retweets & likes
+    - `n_rt_lk_wrld`: Number of worldwide retweets & likes 
+  - Use the colors, `maroon` and `#428bca` properly.
+  
+
+
+```{r, fig.height = 8, fig.width=8}
+
+# The following line filters the rows of the n_tweets_long data frame that have a value of "n_ot_us" or "n_ot_wrld" in the "type" column. 
+# It then creates a new column called "type" that replaces "n_ot_us" with "US" and "n_ot_wrld" with "Worldwide".
+n_tweets_long1 <- n_tweets_long %>% 
+  filter(type %in% c("n_ot_us", "n_ot_wrld") ) %>% 
+  mutate(type = ifelse(type == "n_ot_us", "US", "Worldwide"))
+
+
+# The following line filters the rows of the n_tweets_long data frame that have a value of "n_rt_lk_us" or "n_rt_lk_wrld" in the "type" column. 
+# It then creates a new column called "type" that replaces "n_rt_lk_us" with "US" and "n_rt_lk_wrld" with "Worldwide".
+n_tweets_long2 <- n_tweets_long %>% 
+  filter(type %in% c("n_rt_lk_us", "n_rt_lk_wrld") ) %>% 
+  mutate(type = ifelse(type == "n_rt_lk_us", "US", "Worldwide"))
+  
+
+
+p2 <- ggplot(mapping = aes(x = year, y = n)) +  # Create a ggplot object with the mapping of the x-axis to the "year" variable and y-axis to the "n" variable
+  geom_col(n_tweets_long1,  # Add a column chart layer with the "n_tweets_long1" data
+           mapping = aes(fill = type),  # Map the "type" variable to the fill aesthetic of the chart
+           position = 'dodge', alpha = .67) +  # Set the position of the columns to "dodge" and the transparency to 0.67
+  geom_line(n_tweets_long2,  # Add a line chart layer with the "n_tweets_long2" data
+            mapping = aes(color = type),  # Map the "type" variable to the color aesthetic of the chart
+            size = 1.5) +  # Set the line size to 1.5
+  geom_point(data = n_tweets_long2,  # Add a point chart layer with the "n_tweets_long2" data
+             size = 2,  # Set the point size to 2
+             color = 'black')  +  # Set the point color to black
+  scale_x_continuous(breaks = seq(2012, 2017, 1)) +  # Set the x-axis breaks to the sequence from 2012 to 2017 with an interval of 1
+  scale_y_continuous(label = scales::comma) +  # Format the y-axis labels using the comma function from the scales package
+  scale_color_manual(values = c('maroon', '#428bca')) +  # Manually set the color values for the color aesthetic
+  scale_fill_manual(values = c('maroon', '#428bca')) +   # Manually set the color values for the fill aesthetic
+  guides(fill = guide_legend(reverse = TRUE,  # Customize the fill legend guide by reversing the order of the legend, positioning the labels at the bottom, and setting the number of rows to 2 and the key width to 2
+                             # title.position = "top",
+                             label.position = "bottom",
+                             keywidth = 2,
+                             nrow = 2,
+                             order = 1),
+         color = guide_legend(reverse = TRUE,  # Customize the color legend guide by reversing the order of the legend, positioning the labels at the bottom, and setting the number of rows to 2 and the key width to 2
+                             # title.position = "top",
+                             label.position = "bottom",
+                             keywidth = 2,
+                             nrow = 2,
+                             order = 2)) +
+  labs(x = "Year",  # Add x-axis label "Year"
+       y = "Number of Tweets, Retweets & Likes\n (in thousand)",  # Add y-axis label "Number of Tweets, Retweets & Likes (in thousand)"
+       fill = "Tweets",  # Add fill legend label "Tweets"
+       color = "Retweets and likes",  # Add color legend label "Retweets and likes"
+       caption = 'Source: Choe, "Social Media Campaigns, Lobbying, and Climate Change Legislation:\n Evidence from #climatechange/#globalwarming and Energy Lobbies" (2023)') +  # Add caption with source information
+  theme_ipsum() +  # Use the 'theme_ipsum' theme from the 'ggthemes' package
+  theme(
+  axis.title.y = element_text(
+    size = rel(1.5),
+    margin = margin(t = 0, r = 20, b = 0, l = 0) # set the margin for the y axis title
+  ),
+  axis.title.x = element_text(
+    size = rel(1.5),
+    margin = margin(t = 10, r = 0, b = 0, l = 0) # set the margin for the x axis title
+  ),
+  axis.text.x = element_text(
+    size = rel(1.25) # set the font size for the x axis tick labels
+  ),
+  axis.text.y = element_text(
+    size = rel(1.25) # set the font size for the y axis tick labels
+  ),
+  legend.position = 'top', # set the position of the legend
+  legend.title = element_text(
+    size = rel(1),
+    face = 'bold',
+    hjust = .5 # set the font size, face and horizontal justification for the legend title
+  ),
+  legend.text = element_text(
+    size = rel(1) # set the font size for the legend text
+  ),
+  legend.spacing.x = unit(1.25, "cm"), # set the horizontal spacing between legend items
+  plot.caption = element_text(
+    size = rel(1.25),
+    hjust = .5 # set the font size and horizontal justification for the plot caption
+  )
+)
+
+
+p2
+```
+
+## Q2b. 
+
+- Make a simple comment on the visualization result.
+
+  - Any comment that is not made up is okay.
+
+
+<br><br>
+
+# Question 3
+
+The following data set is for Question 3:
+
+```{r}
+nyc_dog_license <- read_csv(
+  'https://bcdanl.github.io/data/nyc_dog_license.csv')
+nyc_zips_coord <- read_csv(
+  'https://bcdanl.github.io/data/nyc_zips_coord.csv')
+nyc_zips_df <- read_csv(
+  'https://bcdanl.github.io/data/nyc_zips_df.csv')
+```
+
+```{r, result = 'asis', echo = F}
+rmarkdown::paged_table(nyc_dog_license) 
+```
+
+```{r, result = 'asis', echo = F}
+rmarkdown::paged_table(nyc_zips_coord) 
+```
+
+```{r, result = 'asis', echo = F}
+rmarkdown::paged_table(nyc_zips_df) 
+```
+
+<br>
+
+## Q3a
+
+- Replicate the following ggplot.
+
+  - You should calculate the proportion of `Pit Bull (or Mix)` for each zip code.
+  - You should join data.frames properly.
+  - Choose the color palette from the `viridis` scales [https://ggplot2.tidyverse.org/reference/scale_viridis.html](https://ggplot2.tidyverse.org/reference/scale_viridis.html).
+  - Use `coord_map(projection = "albers", lat0 = 39, lat1 = 45)`.
+
+
+```{r, fig.width=8, fig.height=10}
+# Joining two data frames using a common variable
+nyc_zips_df <- nyc_zips_df %>% 
+  left_join(nyc_zips_coord)
+
+# Creating a data frame of the top 5 dog breeds by count
+nyc_dogs <- nyc_dog_license %>%
+  group_by(breed_rc) %>% 
+  summarise(N = n()) %>% 
+  filter(dense_rank(-N)<=5)
+
+# Creating a data frame of dog breed frequency and percentage by zip code for the top 5 breeds
+nyc_fb <- nyc_dog_license %>%
+  group_by(zip_code, breed_rc) %>%
+  summarize(n = n()) %>%
+  mutate(freq = n / sum(n),
+         pct = round(freq*100, 2)) %>%
+  filter(breed_rc %in% nyc_dogs$breed_rc )
+
+
+# theme_nymap <- function(base_size=9, base_family="") {
+#   require(grid)
+#   theme_bw(base_size=base_size, base_family=base_family) %+replace%
+#     theme(axis.line=element_blank(),
+#           axis.text=element_blank(),
+#           axis.ticks=element_blank(),
+#           axis.title=element_blank(),
+#           panel.background=element_blank(),
+#           panel.border=element_blank(),
+#           panel.grid=element_blank(),
+#           panel.spacing=unit(0, "lines"),
+#           plot.background=element_blank(),
+#     )
+# }
+
+
+# Create a map of New York City zip codes colored by the share of Pit Bull dogs 
+# and their mixes out of all licensed dogs, based on licensing data
+fb_map <- nyc_zips_df %>% 
+  left_join(nyc_fb)
+
+# Filter for Pit Bull breeds and plot the map
+filter(fb_map, breed_rc %in% c('Pit Bull (or Mix)')) %>% 
+  ggplot(mapping = aes(x = X, y = Y, 
+                       fill = pct,
+                       group = zip_code)) +
+  geom_polygon(color = "gray80", 
+               size = 0.1) +    # draw the zip code polygons
+  scale_fill_viridis_c(option = "inferno",
+                       breaks = seq(0,24,2)) +  # set the color scale for Pit Bull share
+  labs(fill = "Pit Bull's Share of All Licensed Dogs (%)",
+       title = "New York City's Pit Bull",
+       subtitle = "By Zip Code. Based on Licensing Data") +  # set the map title and legend title
+  theme_map() +  # set the map theme
+  theme(legend.justification = c(.5,.5),
+        legend.position = 'top',
+        legend.direction = "horizontal",
+        legend.text = element_text(size= rel(1.25)),
+        legend.title = element_text(size= rel(1.25),
+                                face = 'bold',
+                                hjust = .5),
+        plot.title = element_text(hjust = .5,
+                                  vjust = .5,
+                                  face = 'bold',
+                                  size = rel(2.25)),
+        plot.subtitle = element_text(hjust = .5,
+                                     vjust = .5,
+                                     size = rel(1.25))) +  # customize the theme of the plot
+  coord_map(projection = "albers", lat0 = 39, lat1 = 45) +  # set the map projection
+  guides(fill = guide_legend(title.position = "top",
+                             label.position = "bottom",
+                             keywidth = 1, nrow = 1))  # set the legend position
+
+
+```
+
+## Q3b
+- Which `zip_code` does have the highest proportion of `Pit Bull (or Mix)`?
+
+```{r}
+q3b <- fb_map %>% 
+  select(zip_code, breed_rc, pct) %>% 
+  filter(breed_rc == 'Pit Bull (or Mix)') %>% 
+  arrange(-pct) %>% 
+  distinct()
+```
+
+```{r, result = 'asis', echo = F}
+rmarkdown::paged_table(q3b) 
+```
+
+<br><br>
+
+# Question 4 
+
+The following data is for Question 4:
+
+```{r}
+stock <- read_csv('https://bcdanl.github.io/data/stocks2013_2023.csv')
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(stock) 
+```
+
+<br>
+
+## Q4a 
+
+- Replicate the following ggplot.
+
+```{r, fig.height= 16, fig.width= 8}
+# Create a new variable year extracted from the Date column
+stock <- stock %>% 
+  mutate(year = year(Date))
+
+p <- ggplot(data = filter(stock, year >= 2019, year <= 2022 ) , 
+            aes(x = log(Volume), y = log(Close), color = company))
+
+p + 
+  geom_point(alpha = .05) +
+  geom_smooth(method = lm, color = 'black') +
+  facet_grid( company ~ year, scales = 'free' ) +
+  labs(x = 'Volume (in log)',
+       y = 'Close (in log)') +
+  guides(color = "none")
+```
+
+## Q4b 
+- In 2020, which company's stock trading `Volume` does seem to be the most insensitive to a change in `Close` price?
+  - In 2020, `TSLA`'s trading `Volume` seems to be the most insensitive to a change in `Close` price.
+  - The reason is that for a one unit increase in `log(Price)`, the least amount of `log(Volume)` changes for `TSLA`.
