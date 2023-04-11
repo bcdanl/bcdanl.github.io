@@ -7,6 +7,26 @@
     <meta name="date" content="2023-04-11" />
     <script src="libs/header-attrs-2.20/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <script src="libs/peerjs-1.3.1/peerjs.min.js"></script>
+    <script src="libs/tiny.toast-1.0.0/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast-0.2.6/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast-0.2.6/broadcast.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
     <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
   </head>
@@ -30,7 +50,8 @@ class: title-slide, left, bottom
 # Announcement
 ### &lt;p style="color:#00449E"&gt; Changes in Syllabus  &lt;/p&gt; 
 
-- There will be 5 homework assignments in total.
+- There will be 3 more homework assignments.
+  - The number of homework assignments is 5 in total.
   - The lowest homework score will be dropped when calculating the total homework score.
   - Each homework except for the homework with the lowest score accounts for 25% of the total homework score. 
 
@@ -47,9 +68,177 @@ class: inverse, center, middle
 
 ---
 # Interactive ggplot
-### &lt;p style="color:#00449E"&gt;  
+### &lt;p style="color:#00449E"&gt;  `plotly::ggplotly()`
+
+-  `plotly` is an alternative to `ggplot` with a relatively easy to learn syntax for generating many of the same kinds of plots.
+
+- `plotly` is mainly for the interactive figures of visualization.
+
+  - We will focus only on `plotly::ggplotly()`. 
+  
+  - `ggplotly()` interacts with ggplot objects to make those figures interactive.
+  
+
+```r
+# install.packages("plotly")
+library(plotly)
+dat &lt;- data.frame(cond = rep(c("A", "B"), each = 10),
+                  xvar = 1:20 + rnorm(20, sd=3),
+                  yvar = 1:20 + rnorm(20, sd=3))
+
+p &lt;- ggplot(dat, aes(x = xvar, y = yvar)) +
+  geom_point(shape=1)      # Use hollow circles
+fig &lt;- ggplotly(p)
+fig
+```
 
 
+
+
+
+---
+# Interactive ggplot
+### &lt;p style="color:#00449E"&gt;  `plotly::ggplotly()`
+
+.panelset[
+.panel[.panel-name[data]
+- Consider the static relationship between seniority and legislative effectiveness using CCES data.
+    
+  
+
+```r
+cces &lt;- read_csv(url("https://bcdanl.github.io/data/cces.csv"))
+```
+
+
+]
+.panel[.panel-name[recode()]
+
+- We can use `recode()` to create a new variable corresponding to other factor variable.
+  -  Here we summarize the number of Democrats and Republicans in a series of years.
+  -  There are usually 435 seats in total in the House of Representatives.
+
+
+-  Variable `les` is a score for legislative effectiveness.
+    - It measures how productive members of Congress are at making laws.
+    
+  
+
+```r
+cces &lt;- cces %&gt;% 
+  mutate(party = recode(dem, `1` = "Democrat", `0` = "Republican"))
+```
+
+
+]
+
+.panel[.panel-name[ggplotly]
+
+
+```r
+p &lt;- ggplot(cces, aes(x = seniority, y = les,
+                      color = party))+
+  geom_point()+
+  scale_color_manual(values=c("blue","red")) +
+  labs(x = "Seniority", y = "Leg. Effectiveness")
+
+p1 &lt;- ggplotly(p)
+```
+
+
+]
+
+]
+
+
+
+
+---
+# Interactive ggplot
+### &lt;p style="color:#00449E"&gt;  `htmlwidgets::saveWidget()`
+
+- `htmlwidgets::saveWidget()` saves the interactive ggplot object as an `*.html` file.
+
+  
+
+```r
+# install.packages("htmlwidgets")
+library(htmlwidgets)
+saveWidget(p1, "fig.html")
+```
+
+
+
+
+
+---
+# Interactive ggplot
+### &lt;p style="color:#00449E"&gt;  `ggiraph`
+
+- `ggiraph` is a R package that allows us to create dynamic ggplot graphs. 
+  - This allows us to add tooltips, hover effects and JavaScript actions to the graphics.    
+  - The package also allows the selection of graphical elements when used in `shiny` applications.
+  
+  
+
+- Interactivity is added to ggplot geometries, legends and theme elements, via the following aesthetics:
+  - `tooltip`: tooltips to be displayed when mouse is over elements.
+  - `onclick`: JavaScript function to be executed when elements are clicked.
+  - `data_id`: `id` to be associated with elements (used for hover and click actions)
+
+
+
+---
+# Interactive ggplot
+### &lt;p style="color:#00449E"&gt;  `ggiraph`
+
+.panelset[
+.panel[.panel-name[(1)]
+- The things we need to know to create a `ggiraph` interactive graphic:
+
+  - Instead of using `geom_point`, use `geom_point_interactive`.
+  - Provide at least one of the aesthetics, `tooltip`, `data_id` and/or `onclick`, to create interactive elements.
+  - Call function `girafe` with the ggplot object so that the graphic is translated as a web interactive graphics.
+  
+
+]
+
+
+.panel[.panel-name[(2)]
+
+```r
+# install.packages("ggiraph")
+library(ggiraph)
+data &lt;- mtcars
+data$carname &lt;- row.names(data)
+
+gg_point &lt;- ggplot(data = data) +
+  geom_point_interactive(aes(x = wt, y = qsec, 
+                             color = disp,
+                             tooltip = carname, 
+                             data_id = carname)) + 
+  theme_minimal()
+
+gg_point
+```
+
+]
+
+
+.panel[.panel-name[(3)]
+
+```r
+p2 &lt;- girafe(ggobj = gg_point)
+p2
+
+saveWidget(p2, "girafe_fig.html")
+```
+
+]
+
+
+]
+  
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
