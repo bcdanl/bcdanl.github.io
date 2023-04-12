@@ -5,15 +5,6 @@ author: "Byeong-Hak Choe"
 
 ## Loading R packages
 
-```{r, warning=F, message=F}
-library(knitr)
-library(tidyverse)
-library(lubridate)
-library(socviz)
-library(ggthemes)
-library(hrbrthemes)
-library(gapminder)
-```
 
 ```{r setup, include = FALSE}
 # library(tidyverse)
@@ -27,6 +18,15 @@ library(gapminder)
 # library(hexbin)
 # library(ggforce)
 # library(skimr)
+library(knitr)
+library(tidyverse)
+library(lubridate)
+library(socviz)
+library(ggthemes)
+library(hrbrthemes)
+library(gapminder)
+library(stargazer)
+library(broom)
 
 knitr::opts_chunk$set(fig.width=8, fig.height=5,
                       echo = T, eval = T, warning = F, message = F)  
@@ -35,6 +35,16 @@ theme_set(theme_ipsum() +
           theme(strip.background =element_rect(fill="lightgray")))
 ```
 
+```{r, warning=F, message=F}
+library(knitr)
+library(tidyverse)
+library(lubridate)
+library(socviz)
+library(ggthemes)
+library(hrbrthemes)
+library(gapminder)
+library(stargazer)
+```
 <br>
 
 I use `theme_set(theme_ipsum() + theme(strip.background =element_rect(fill="lightgray")))` in the setup R code chunk with the `include = FALSE` option
@@ -400,5 +410,43 @@ p +
 
 ## Q4b 
 - In 2020, which company's stock trading `Volume` does seem to be the most insensitive to a change in `Close` price?
+  
+  
+```{r, fig.height= 16, fig.width= 8}
+# Create a new variable year extracted from the Date column
+stock <- stock %>% 
+  mutate(year = year(Date))
+
+p <- ggplot(data = filter(stock, year >= 2019, year <= 2022 ) , 
+            aes(x = log(Volume), y = log(Close), color = company))
+
+p + 
+  geom_point(alpha = .05) +
+  geom_smooth(method = lm, color = 'black') +
+  facet_grid( company ~ year ) +
+  labs(x = 'Volume (in log)',
+       y = 'Close (in log)') +
+  guides(color = "none")
+```
+
   - In 2020, `TSLA`'s trading `Volume` seems to be the most insensitive to a change in `Close` price.
   - The reason is that for a one unit increase in `log(Price)`, the least amount of `log(Volume)` changes for `TSLA`.
+  
+```{r}
+reg <- lm(log(Volume) ~ log(Close) * company,
+          data = filter(stock, year == 2020))
+reg_sum <- tidy(reg, conf.int = T) %>% 
+  filter(str_detect(term, "log"), term != "log(Close)")
+
+ggplot(reg_sum,
+       aes(x = estimate, y = term,
+           xmin = conf.low, 
+           xmax = conf.high)) +
+  geom_point() +
+  geom_pointrange() +
+  geom_vline(xintercept = 0, color = 'red', lty = 2)
+```
+
+
+  
+  

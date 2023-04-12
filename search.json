@@ -970,7 +970,7 @@
     "href": "DANL310_midterm-spring-2023-a.html",
     "title": "DANL 310: Data Visualization and Presentation Midterm Exam Example Answers",
     "section": "",
-    "text": "library(knitr)\nlibrary(tidyverse)\nlibrary(lubridate)\nlibrary(socviz)\nlibrary(ggthemes)\nlibrary(hrbrthemes)\nlibrary(gapminder)\n\n\nI use theme_set(theme_ipsum() + theme(strip.background =element_rect(fill=\"lightgray\"))) in the setup R code chunk with the include = FALSE option"
+    "text": "library(knitr)\nlibrary(tidyverse)\nlibrary(lubridate)\nlibrary(socviz)\nlibrary(ggthemes)\nlibrary(hrbrthemes)\nlibrary(gapminder)\nlibrary(stargazer)\n\n\nI use theme_set(theme_ipsum() + theme(strip.background =element_rect(fill=\"lightgray\"))) in the setup R code chunk with the include = FALSE option"
   },
   {
     "objectID": "DANL310_midterm-spring-2023-a.html#q1a",
@@ -1026,7 +1026,7 @@
     "href": "DANL310_midterm-spring-2023-a.html#q4b",
     "title": "DANL 310: Data Visualization and Presentation Midterm Exam Example Answers",
     "section": "Q4b",
-    "text": "Q4b\n\nIn 2020, which company’s stock trading Volume does seem to be the most insensitive to a change in Close price?\n\nIn 2020, TSLA’s trading Volume seems to be the most insensitive to a change in Close price.\nThe reason is that for a one unit increase in log(Price), the least amount of log(Volume) changes for TSLA."
+    "text": "Q4b\n\nIn 2020, which company’s stock trading Volume does seem to be the most insensitive to a change in Close price?\n\n\n# Create a new variable year extracted from the Date column\nstock <- stock %>% \n  mutate(year = year(Date))\n\np <- ggplot(data = filter(stock, year >= 2019, year <= 2022 ) , \n            aes(x = log(Volume), y = log(Close), color = company))\n\np + \n  geom_point(alpha = .05) +\n  geom_smooth(method = lm, color = 'black') +\n  facet_grid( company ~ year ) +\n  labs(x = 'Volume (in log)',\n       y = 'Close (in log)') +\n  guides(color = \"none\")\n\n\n\n\n\nIn 2020, TSLA’s trading Volume seems to be the most insensitive to a change in Close price.\nThe reason is that for a one unit increase in log(Price), the least amount of log(Volume) changes for TSLA.\n\n\nreg <- lm(log(Volume) ~ log(Close) * company,\n          data = filter(stock, year == 2020))\nreg_sum <- tidy(reg, conf.int = T) %>% \n  filter(str_detect(term, \"log\"), term != \"log(Close)\")\n\nggplot(reg_sum,\n       aes(x = estimate, y = term,\n           xmin = conf.low, \n           xmax = conf.high)) +\n  geom_point() +\n  geom_pointrange() +\n  geom_vline(xintercept = 0, color = 'red', lty = 2)"
   },
   {
     "objectID": "DANL310_lab1a.html",
