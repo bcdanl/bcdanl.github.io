@@ -27,6 +27,8 @@
     <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
     <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
     <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
     <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
   </head>
@@ -248,7 +250,7 @@ class: inverse, center, middle
 
 
 ---
-## gganimate
+# gganimate
 - Consider the relationship between *cyl* and *mpg* from `mtcars`.
 
 
@@ -264,7 +266,7 @@ p
 
 
 ---
-## gganimate
+# gganimate
 - Let us consider how the relationship between *cyl* and *mpg* vary by *gear*.
 
 
@@ -273,7 +275,7 @@ p + facet_wrap(~gear)
 ```
 
 ---
-## gganimate
+# gganimate
 
 
 ```r
@@ -282,7 +284,7 @@ p + facet_wrap(~gear)
 
 
 ---
-## gganimate
+# gganimate
 
 - **gganimate** turn our ggplot visualizations into moving images.
 
@@ -296,8 +298,57 @@ my_anim &lt;- p +
 my_anim
 ```
 
+
 ---
-## gganimate
+# gganimate
+
+
+&lt;table class=" lightable-paper table table-hover table-condensed" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto; font-family: sans-serif, helvetica, arial; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Name.of.the.function &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Labs.variable &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; transition_components &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; frame_time &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; transition_events &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; frame_time &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; transition_filter &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; previous_filter, closest_filter, next_filter &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; transition_layer &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; previous_layer, closest_layer, next_layer, nlayers &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; transition_manual &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; previous_frame, current_frame, next_frame &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; transition_reveal &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; frame_along &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; transition_states &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; previous_state, closest_state, next_state &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; transition_time &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; frame_time &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+# gganimate
+### &lt;p style="color:#00449E"&gt;  `transition_states()`
 
 - `transition_states()` is intended to use primarily with categorical variables. 
 
@@ -316,7 +367,8 @@ my_anim2
 
 
 ---
-## Cooperative Congressional Election Survey
+# Cooperative Congressional Election Survey
+### &lt;p style="color:#00449E"&gt; 
 
 - Cooperative Congressional Election Survey (CCES) is a 50,000+ person national stratified sample survey.
 
@@ -338,14 +390,15 @@ cong_dat &lt;- cces %&gt;%
 ```
 
 ---
-## Cooperative Congressional Election Survey
+# Cooperative Congressional Election Survey
+### &lt;p style="color:#00449E"&gt; 
 
 
 ```r
 p &lt;- ggplot(cong_dat, 
             aes(x = year, y= seats, 
                 fill = party)) +
-  geom_bar(stat="identity") +
+  geom_col() +
   geom_hline(yintercept = 217) +  # threshold for having a majority of seats in the house.
   scale_fill_manual(values=c("blue","red"))
 
@@ -354,8 +407,8 @@ p
 
 
 ---
-## gganimate
-
+# gganimate
+### &lt;p style="color:#00449E"&gt; `transition_time()`
 - `transition_time()` is intended for time-series data like hours, minutes, days, weeks months, years, etc.
 
 
@@ -366,7 +419,7 @@ anim2
 ```
 
 ---
-## Cooperative Congressional Election Survey
+# Cooperative Congressional Election Survey
 - Let's consider a scatter plot of `seniority` against `all_pass`.
 
   - Variable `seniority` is about how long a member has been in Congress.
@@ -374,7 +427,7 @@ anim2
   - Variable `all_pass` is about how many bills a member passed
 
 ---
-## Cooperative Congressional Election Survey
+# Cooperative Congressional Election Survey
 
 
 ```r
@@ -401,7 +454,8 @@ p
 
 
 ---
-## gganimate
+# gganimate
+### &lt;p style="color:#00449E"&gt; `transition_layers()`
 
 - `transition_layers()` allow for building up a plot layer by layer with an animation.
 
@@ -414,9 +468,10 @@ anim2
 
 
 ---
-## gganimate
+# gganimate
+### &lt;p style="color:#00449E"&gt; `enter_*()` and `exit_*()`
 
-- `enter_*()` and `exit_*()` allow for controlling the entering and exiting in `gganimate`. 
+- `enter_*()` and `exit_*()` allow for controlling the entering and exiting in `gganimate`.
 
   - `*_fade()` will set the alpha value to zero making the elements fade in/out during the transition.
 
@@ -436,8 +491,10 @@ anim1
 ```
 
 ---
-## gganimate
-
+# gganimate
+### &lt;p style="color:#00449E"&gt; `shadow_*()`
+.panelset[
+.panel[.panel-name[(1)]
 -  `shadow_*()` allows you to retain previous or preview future frames of the animation.
 
   - `shadow_wake()` shows preceding frames with gradual falloff.
@@ -445,7 +502,11 @@ anim1
     - `wrap` should the shadow wrap around, so that the first frame will get shadows from the end of the animation.
 
   - There are also `shadow_mark()`, `shadow_null()`, and `shadow_trail()`.
-  
+
+
+]
+
+.panel[.panel-name[(2)]
 
 ```r
 p &lt;- ggplot(cong_dat,
@@ -462,6 +523,208 @@ anim3 &lt;- p + transition_time(year) +
 
 anim3
 ```
+
+]
+
+]
+  
+
+
+
+---
+# Gapminder 
+### &lt;p style="color:#00449E"&gt; 
+
+```r
+library(gapminder)
+p &lt;- gapminder %&gt;%
+  ggplot() + 
+    geom_point(aes(x = gdpPercap, y = lifeExp, 
+                   color = continent, size = pop), 
+               alpha = 0.75) + 
+  theme_minimal() + theme(legend.position = "top") + 
+  guides(size = "none") + 
+  labs(x = "GDP per Capita", y = "Life Expetancy", color = "") 
+```
+
+
+---
+# Gapminder 
+### &lt;p style="color:#00449E"&gt; 
+Here is with `transition_time()`.
+
+```r
+library(gganimate)
+p +
+  transition_time(year)
+```
+
+
+---
+# Gapminder 
+### &lt;p style="color:#00449E"&gt; `labs(title = "TIME_VARIABLE: {frame_time}")`
+
+- We can indicate the number of frame on the transition using `labs()`
+
+
+```r
+p +
+  transition_time(year) +
+  labs(title = "Year: {frame_time}")
+```
+
+---
+# Gapminder 
+### &lt;p style="color:#00449E"&gt; With `geom_text()`
+- It is much more visually fascinating to include the data on the same graph with an extra ggplot layer. 
+
+
+```r
+p +
+  geom_text(aes(x = min(gdpPercap), 
+                y = min(lifeExp), 
+                label = as.factor(year)) , 
+            hjust=-2, vjust = -0.2, alpha = 0.2,  
+            color = "gray", size = 20) +
+  transition_states(as.factor(year), state_length = 0)
+```
+
+- `state_length` allows us to control for how long will pause before changing to the new state.
+
+---
+# Gapminder 
+### &lt;p style="color:#00449E"&gt; `transition_reveal(year)`
+`transition_reveal(year)` is adding each `year` of the data on top of ‘old’ data.
+
+
+```r
+gapminder %&gt;%
+  filter(country == "United States") %&gt;%
+  ggplot(aes(x = year, y = pop)) + 
+  geom_point() + geom_line() +
+  theme_minimal() +
+  transition_reveal(year)
+```
+
+
+---
+# Gapminder 
+### &lt;p style="color:#00449E"&gt; `view_follow()`
+
+
+- If we want to better see how the variables grow, it is better to adjust the scale in each frame. 
+  - For this, we can use the `view_follow()` function.
+  
+
+```r
+gapminder %&gt;%
+  filter(country == "United States") %&gt;%
+  ggplot(aes(x = year, y = pop)) + 
+  geom_point() + geom_line() + 
+  geom_text(aes(x = min(year), y = min(pop), 
+                label = as.factor(year)) , 
+            hjust=-2, vjust = -0.2, alpha = 0.5,  
+            color = "gray", size = 20) +
+  theme_minimal() +
+  transition_reveal(year) + 
+  view_follow()
+```
+
+
+
+---
+# Gapminder 
+### &lt;p style="color:#00449E"&gt; Bar Chart Race
+
+.panelset[
+.panel[.panel-name[Rendering]
+- Frames and duration are the key for a good quality of animation.
+
+
+- We can adjust several key elements of our animations, such as:
+  - The `width` and `height` of the animation to create an animation.
+  - Duration, number of frames, and number of frames per second (`fps`): this will make us the animation see fluently.
+    - The `fps` parameter is recommended to be higher than 12.
+  - Output file format: if we don’t want to create a `gif`, you can also create a video too.
+
+
+
+]
+
+.panel[.panel-name[Ranking]
+
+- Calculate the ranking of `gdpPercap` for each `year`:
+
+```r
+gapminder_sum &lt;- gapminder %&gt;%
+  group_by(year) %&gt;%
+  arrange(year, desc(gdpPercap)) %&gt;%
+  mutate(ranking = row_number()) %&gt;%
+  filter(ranking &lt;=15)
+```
+
+
+]
+
+.panel[.panel-name[Races]
+
+
+```r
+anim &lt;- gapminder_sum %&gt;%
+  ggplot() +
+  geom_col(aes(x = ranking, y = gdpPercap, fill = country)) +
+  geom_text(aes(x = ranking, y = gdpPercap, label = round(gdpPercap, 0)), 
+            hjust=-0.1) +
+  geom_text(aes(x = ranking, y = 0 , 
+                label = country), hjust=1.1) + 
+  geom_text(aes(x = 15, 
+                y = max(gdpPercap), 
+                label = as.factor(year)), 
+            vjust = 0.2, alpha = 0.5,  color = "gray", size = 20) +
+  coord_flip(clip = "off", expand = FALSE) + 
+  scale_x_reverse() +
+  theme_minimal() + 
+  theme(
+    panel.grid = element_blank(), 
+    legend.position = "none",
+    axis.ticks.y = element_blank(),
+    axis.title.y = element_blank(),
+    axis.text.y = element_blank(),
+    plot.margin = margin(1, 4, 1, 3, "cm")
+  ) +
+  transition_states(year, state_length = 0, transition_length = 2) +
+  enter_fade() +
+  exit_fade() + 
+  ease_aes('quadratic-in-out') 
+
+p_anim &lt;- animate(anim, 
+                  width = 700, height = 432, 
+                  fps = 25, duration = 15, 
+                  rewind = FALSE)
+p_anim
+```
+
+
+.panel[.panel-name[save]
+
+- We can use `anim_save()` to save animation as gif file or video files.
+
+```r
+animation_to_save &lt;- anim_a  + exit_shrink()
+anim_save("first_saved_animation.gif", animation = p_anim)
+```
+
+]
+]
+
+]
+
+
+
+
+
+
+
 
 
     </textarea>
