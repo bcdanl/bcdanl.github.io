@@ -337,10 +337,8 @@ class: inverse, center, middle
 
 ---
 # Web Scrapping
-### &lt;p style="color:#00449E"&gt; HTML display values: **block** and **inline**
+### &lt;p style="color:#00449E"&gt; HTML display values: `&lt;div&gt;`
 
-.panelset[
-.panel[.panel-name[&lt;div&gt;]
 - A block-level element always starts on a new line and takes up the full width available. 
   - The `&lt;div&gt;` element is a block-level and is often used as a container for other HTML elements. 
   - The `&lt;div&gt;` element has no required attributes, but style, class and id are common. 
@@ -354,9 +352,10 @@ class: inverse, center, middle
 ```
 
 
-]
+---
+# Web Scrapping
+### &lt;p style="color:#00449E"&gt; HTML display values: `&lt;span&gt;`
 
-.panel[.panel-name[&lt;span&gt;]
 - An inline element does not start on a new line and it only takes up as much width as necessary. 
   - The `&lt;span&gt;` element is an inline container used to mark up a part of a text, or a part of a document. 
   - The `&lt;span&gt;` element has no required attributes, but style, class and id are common.
@@ -367,9 +366,7 @@ class: inverse, center, middle
 ```
 
 
-]
 
-]
 
 ---
 # Web Scrapping
@@ -390,7 +387,7 @@ class: inverse, center, middle
 # Web Scrapping
 ### &lt;p style="color:#00449E"&gt; DOM
 .panelset[
-.panel[.panel-name[DOM]
+.panel[.panel-name[(1)]
 - To parse HTML, it is convenient to represent our HTML document as a tree-like structure that contains information in **nodes** and links information through **branches**. 
 
 
@@ -410,7 +407,7 @@ class: inverse, center, middle
 
 ]
 
-.panel[.panel-name[DOM]
+.panel[.panel-name[(2)]
 
 &lt;img src="lec_figs/DOM.png" width="50%" style="display: block; margin: auto;" /&gt;
 
@@ -419,7 +416,7 @@ class: inverse, center, middle
 
 
 
-.panel[.panel-name[DOM]
+.panel[.panel-name[(3)]
 
 .pull-left[
 
@@ -431,7 +428,7 @@ class: inverse, center, middle
 
 .pull-right[
 
-&lt;img src="lec_figs/html-web.png" width="75%" style="display: block; margin: auto;" /&gt;
+&lt;img src="lec_figs/html-web.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -490,7 +487,7 @@ class: inverse, center, middle
 
 ]
 
-.panel[.panel-name[driver]
+.panel[.panel-name[Driver]
 
 - The **driver** is the component responsible for delegating down to the browser, and handles communication to and from Selenium WebDriver and the browser. 
 
@@ -524,13 +521,14 @@ class: inverse, center, middle
 - Selenium works by automating browsers to load the website, retrieve the required data, and even take certain actions on the website. 
 
 
-- *1*. Downloads the appropriate version of the ChromeDriver file ([https://chromedriver.chromium.org/downloads](https://chromedriver.chromium.org/downloads)) or the gecokdriver file ([https://github.com/mozilla/geckodriver/releases](https://github.com/mozilla/geckodriver/releases)) for your operating system (Windows or MacOS).
+*1*. Downloads the appropriate version of the ChromeDriver file ([https://chromedriver.chromium.org/downloads](https://chromedriver.chromium.org/downloads)) or the gecokdriver file ([https://github.com/mozilla/geckodriver/releases](https://github.com/mozilla/geckodriver/releases)) for your operating system (Windows or MacOS).
 
 ]
 
 .panel[.panel-name[(2)]
 
-- *2*. It is recommended that we place the web driver file on the main folder containing the Python codes.
+*2*. It is recommended that we place the web driver file on the main folder containing the Python codes.
+
   - Install Chrome or FireFox if you do not have either of them.
   - Install Selenium using `pip`:
     -  `pip install selenium`
@@ -662,7 +660,7 @@ driver.quit()
   - Return element(s) that have matching ID attribute values.
 
 
-- Here is the HTML code for the search button with an ID attribute value defined as `search`:
+- Here is the HTML code for main part of the web-page with an ID attribute value defined as `form1`:
 
 
 ```html
@@ -679,7 +677,7 @@ driver.quit()
 
 ```python
 form = driver.find_element(By.ID, "form1")
-form.text
+form.text  # text attribute if there is any
 ```
 
 ]
@@ -698,7 +696,7 @@ form.text
   - Return element(s) that have matching class attribute value(s).
 
 
-- Here is the HTML code for the search button with a class attribute value defined as `search`:
+- Here is the HTML code for the home button with a class attribute value defined as `homebtn`:
 
 
 ```html
@@ -737,7 +735,7 @@ driver.back() # back to the previous page
 
 
 
-- Here is the HTML code for the search button with a name attribute value defined as `home`:
+- Here is the HTML code for the home button with a name attribute value defined as `home`:
 
 
 
@@ -825,11 +823,17 @@ driver.back()
 
 .panel[.panel-name[(2)]
 
+.pull-left[
 - The following example page displays a table which has several form fields to fill in.
   -  Each form field name is implemented using an `&lt;th&gt;` or table header cell tag inside a `&lt;tr&gt;` or table row tag:
 
+]
 
-&lt;img src="lec_figs/find_tag1.png" width="50%" style="display: block; margin: auto;" /&gt;
+.pull-right[
+
+&lt;img src="lec_figs/find_tag1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
 
 
 ]
@@ -904,17 +908,17 @@ selenium_link.click()
 
 .panelset[
 .panel[.panel-name[(1)]
+- Sometimes, there can be several link texts that contain a common word in the webpage.
+
+
 - `find_element(By.PARTIAL_LINK_TEXT, "")` &amp; `find_elements(By.PARTIAL_LINK_TEXT, "")`:
   - Find link(s) using partial text. 
 
 
-- Sometimes, there can be several link texts that contain a common word in the webpage.
-  - Let us use this method to find these links using the `"qav"` text and check whether we have two of these links available on the page.
-
 ]
 
 .panel[.panel-name[(2)]
-
+- Let us use this method to find these links using the `"qav"` text and check whether we have two of these links available on the page.
 
 
 ```python
@@ -947,22 +951,31 @@ driver.back()
 ]
 
 .panel[.panel-name[(2)]
-- We can use XPath to either find the element in absolute terms or relative to an element that does have an ID or name attribute.
+- We can use *XPath* to either find the element in absolute terms or relative to an element that does have an ID or name attribute.
 
 
-- We can also use defined attributes other than the ID, name, or class with XPath queries. 
+- We can also use defined attributes other than the ID, name, or class with *XPath* queries. 
 
 
-- For example, we want to get the second table. 
-  - The body of this table consists of a series of `&lt;tr&gt;` tags, but does not have the ID, name, or class attributes defined.
-  - Also, we cannot use the `find_element(By.TAG_NAME, "")` method as there are multiple `&lt;tr&gt;` and `&lt;th&gt;` tags defined on the page.
 ]
 
 
 .panel[.panel-name[(3)]
 
+- For example, we want to get the second table. 
+
+  - The body of this table consists of a series of `&lt;tr&gt;` tags, but does not have the ID, name, or class attributes defined.
+  
+  - Also, we cannot use the `find_element(By.TAG_NAME, "")` method as there are multiple `&lt;tr&gt;` and `&lt;th&gt;` tags defined on the page.
+]
+
+
+.panel[.panel-name[(4)]
+
 - To find the XPath of this element, we `Inspect` the example site, in the Elements window, move the cursor over its DOM structure and find the desired element. 
+
   - We then right-click and choose copy XPath from the pop-up menu. 
+  
   - We obtain the following XPath of the first row and the first column of the table body:
 
 
@@ -974,7 +987,7 @@ driver.back()
 ]
 
 
-.panel[.panel-name[(4)]
+.panel[.panel-name[(5)]
 - We then pass this XPath to the `find_element(By.XPATH, "")` method as an argument:
   - Find the XPath for "Tiger Nixon" in the second table.
 
@@ -986,7 +999,7 @@ elt.text
 
 ]
 
-.panel[.panel-name[(5)]
+.panel[.panel-name[(6)]
 - We typically use the XPath method when there exists an element with a unique id on the path to the desired element. 
   - Otherwise, this method is not reliable.
 
