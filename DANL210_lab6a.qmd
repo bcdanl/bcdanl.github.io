@@ -1,0 +1,132 @@
+---
+title: "Python Lab 6 - Web-scrapping 1"
+author: "Byeong-Hak Choe"
+execute:
+  echo: true
+  eval: false
+  message: false
+  warning: false
+---
+
+## Load Libraries
+
+```{python, eval = F}
+import os
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+import pandas as pd
+```
+
+<br>
+
+## Basic Setting for Selenium Web-scrapping
+
+```{python, eval = F}
+wd_path = '/Users/byeong-hakchoe/Google Drive/suny-geneseo/spring2023/lecture_codes/' # Pathname of working directory
+os.chdir(wd_path)  
+os.getcwd() # TO CHECK WORKING DIRECTORY
+
+options = Options()
+options.add_argument("window-size=700,1200")
+
+driver_path = "/Users/byeong-hakchoe/Downloads/chromedriver_mac64 (1)/chromedriver" # Pathname of chromedriver
+driver = webdriver.Chrome(chrome_options = options, 
+                          executable_path = driver_path)
+```
+
+
+# Question 1
+
+Consider the following example webpage table for web-scrapping:
+
+[https://qavbox.github.io/demo/webtable/](https://qavbox.github.io/demo/webtable/)
+
+```{python, eval = F}
+url = "https://qavbox.github.io/demo/webtable/"
+driver.get(url)
+
+```
+
+
+<br>
+
+## Q1a
+- Get the number of rows in the second table.
+```{python, eval = F}
+nrows = driver.find_elements(By.XPATH, '//*[@id="table02"]/tbody/tr')
+nrows = len(nrows)
+```
+
+<br>
+
+
+## Q1b
+- Find the XPath for each cell in the first two rows of the second table.
+
+- XPath of "Tiger Nixon" is
+```{html}
+//*[@id="table02"]/tbody/tr[1]/td[1]
+```
+
+- XPath of "Tiger Nixon" is
+```{html}
+//*[@id="table02"]/tbody/tr[1]/td[1]
+```
+
+- XPath of "System Architect" is
+```{html}
+//*[@id="table02"]/tbody/tr[1]/td[2]
+```
+
+- XPath of "Garrett Winters" is
+```{html}
+//*[@id="table02"]/tbody/tr[2]/td[1]
+```
+
+- XPath of "Accountant" is
+```{html}
+//*[@id="table02"]/tbody/tr[2]/td[2]
+```
+
+- So, we can find the pattern from the numbers in the XPaths.
+  - Finding this pattern is essential when writing a loop code.
+
+<br>
+
+## Q1c
+- Use (1) `for`-loop, (2) `pd.DataFrame([])`, (3) `pd.concat()`, (4) `DataFrame.append()`, and (5) `DataFrame.to_csv()` to export data in the second table as the CSV file.
+
+```{python, eval = F}
+df = pd.DataFrame()
+for i in range(1, nrows+1):
+    name = driver.find_element(By.XPATH, '//*[@id="table02"]/tbody/tr['+str(i)+']/td[1]').text
+    name = pd.DataFrame([name])
+    # name.columns = ['name']  
+    position = driver.find_element(By.XPATH, '//*[@id="table02"]/tbody/tr['+str(i)+']/td[2]').text
+    position = pd.DataFrame([position])
+    office = driver.find_element(By.XPATH, '//*[@id="table02"]/tbody/tr['+str(i)+']/td[3]').text
+    office = pd.DataFrame([office])
+    age = driver.find_element(By.XPATH, '//*[@id="table02"]/tbody/tr['+str(i)+']/td[4]').text
+    age = pd.DataFrame([age])
+    start_date = driver.find_element(By.XPATH, '//*[@id="table02"]/tbody/tr['+str(i)+']/td[5]').text
+    start_date = pd.DataFrame([start_date])
+    salary = driver.find_element(By.XPATH, '//*[@id="table02"]/tbody/tr['+str(i)+']/td[6]').text
+    salary = pd.DataFrame([salary])
+    data = pd.concat([name, position, office, age, start_date, salary], axis=1) 
+    df = df.append(data)
+
+
+# table header by xpath
+ncols = driver.find_elements(By.XPATH, '//*[@id="table02"]/thead/tr/th')
+ncols = len(ncols)
+
+header = []
+for i in range(1, ncols+1):
+    head = driver.find_element(By.XPATH, '//*[@id="table02"]/thead/tr/th['+str(i)+']').text
+    header.append(head)
+
+df.columns = header
+df.to_csv("data/table_example_20230420.csv", index = False)  
+```
+

@@ -439,7 +439,7 @@ reg_sum <- tidy(reg, conf.int = T) %>%
   filter(str_detect(term, "log"), term != "log(Close)")
 
 ggplot(reg_sum,
-       aes(x = estimate, y = term,
+       aes(x = estimate, y = fct_reorder(term, estimate),
            xmin = conf.low, 
            xmax = conf.high)) +
   geom_point() +
