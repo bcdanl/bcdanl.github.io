@@ -1,0 +1,122 @@
+---
+title: "Python Lab 7 - Web-scrapping 2\nExample Answers"
+author: "Byeong-Hak Choe"
+execute:
+  echo: true
+  eval: false
+  message: false
+  warning: false
+---
+
+## Load Libraries
+
+```{python, eval = F}
+import pandas as pd
+from selenium import webdriver
+```
+
+<br>
+
+# Question 1
+
+
+Consider the following example webpage table for web-scrapping:
+
+[https://www.eia.gov/petroleum/gasdiesel/gaspump_hist.php](https://www.eia.gov/petroleum/gasdiesel/gaspump_hist.php)
+
+```{python, eval = F}
+driver = webdriver.Chrome("YOUR_PATHNAME_FOR_chromedriver")
+```
+
+
+<br>
+
+## Q1a
+
+Use (1) double `for`-loop (nested `for`-loop), (2) `pd.DataFrame([])`, (3) `pd.concat()`, (4) `DataFrame.append()`, and (5) `DataFrame.to_csv()` to export data in the table as the CSV file.
+
+
+```{python}
+# %%
+import os
+wd_path = '/Users/byeong-hakchoe/Google Drive/suny-geneseo/spring2023/lecture_codes/'
+os.chdir(wd_path)  
+os.getcwd()
+
+
+# %%
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+options = Options()
+options.add_argument("window-size=1400,1200")
+driver_path = "/Users/byeong-hakchoe/Downloads/chromedriver_mac64 (1)/chromedriver"
+driver = webdriver.Chrome(chrome_options = options, 
+                          executable_path = driver_path)
+
+
+url = "https://www.eia.gov/petroleum/gasdiesel/gaspump_hist.php"
+driver.get(url)
+table = driver.find_element(By.TAG_NAME, "tbody")
+row = table.find_elements(By.TAG_NAME, "tr")
+thead = driver.find_element(By.TAG_NAME, "thead")
+col = thead.find_elements(By.TAG_NAME, "th")
+
+# %%
+import pandas as pd
+df1 = pd.DataFrame()
+df2 = pd.DataFrame()
+data = pd.DataFrame()
+for i in range(1, len(row) + 1 ):
+    for j in range(1, len(col) + 1):
+        data = driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div/div[4]/div/div[2]/div/table/tbody/tr['+str(i)+']/td['+str(j)+']').text
+        data = pd.DataFrame([data])
+        df1 = pd.concat([df1, data], axis = 1)
+        data = pd.DataFrame()
+    df2 = df2.append(df1)
+    df1 = pd.DataFrame()
+
+coln = []
+for j in range(1, len(ncol) + 1):
+    col = driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div/div[4]/div/div[1]/div/table/thead/tr/th['+str(j)+']').text
+    coln.append(col)
+    
+
+df2.columns = coln
+df2.to_csv("data/table_eia_20230425.csv",
+           index = False)     
+```
+
+<br>
+
+## Q1b
+
+- Visualize the monthly trend of the retail oil price using seaborn.
+  - When using `to_datetime()`, please consider using `format` with the following directives:
+ 
+```{r, echo=FALSE, eval = T, fig.align='center'}
+knitr::include_graphics("lec_figs/pandas-datetime-format.png")
+```
+
+<br>
+
+```{python}
+df2.columns
+df2.dtypes
+
+df2['Mon-yr'] = pd.to_datetime(df2['Mon-yr'], format='%b-%y') # error
+
+df2['Mon-yr'] = df2['Mon-yr'].str.replace('Sept', 'Sep')
+df2['Mon-yr'] = pd.to_datetime(df2['Mon-yr'], format='%b-%y') # need to know the format 
+
+df2['Retail Price\n(Dollars per gallon)'] = pd.to_numeric(df2['Retail Price\n(Dollars per gallon)'])
+
+
+
+import seaborn as sns
+
+sns.lineplot(data = df2,
+             x = 'Mon-yr',
+             y = 'Retail Price\n(Dollars per gallon)')
+```
+

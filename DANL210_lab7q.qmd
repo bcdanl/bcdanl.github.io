@@ -1,0 +1,47 @@
+---
+title: "Python Lab 7 - Web-scrapping 2"
+author: "Byeong-Hak Choe"
+execute:
+  echo: true
+  eval: false
+  message: false
+  warning: false
+---
+
+## Load Libraries
+
+```{python, eval = F}
+import pandas as pd
+from selenium import webdriver
+```
+
+<br>
+
+# Question 1
+
+
+Consider the following example webpage table for web-scrapping:
+
+[https://www.eia.gov/petroleum/gasdiesel/gaspump_hist.php](https://www.eia.gov/petroleum/gasdiesel/gaspump_hist.php)
+
+```{python, eval = F}
+driver = webdriver.Chrome("YOUR_PATHNAME_FOR_chromedriver")
+```
+
+<br>
+
+## Q1a
+Use (1) double `for`-loop (nested `for`-loop), (2) `pd.DataFrame([])`, (3) `pd.concat()`, (4) `DataFrame.append()`, and (5) `DataFrame.to_csv()` to export data in the table as the CSV file.
+
+<br>
+
+## Q1b
+
+- Visualize the monthly trend of retail oil price using seaborn.
+  - When using `to_datetime()`, please consider using `format` with the following directives:
+  
+
+```{r, echo=FALSE, eval = T, fig.align='center'}
+knitr::include_graphics("lec_figs/pandas-datetime-format.png")
+```
+
