@@ -65,12 +65,23 @@ class: inverse, center, middle
 sale_df &lt;- read_csv("https://bcdanl.github.io/data/home_sales_nyc.csv")
 set.seed(123)
 gp &lt;- runif(nrow(sale_df)) 
-dtrain &lt;- filter(sale_df, gp &gt;= .5) 
+dtrain &lt;- filter(sale_df, gp &gt;= .5)  # 50-50 split
 dtest &lt;- filter(sale_df,  gp &lt; .5)
 ```
 
 ]
 
+.panel[.panel-name[relevel()]
+- If needed, we can consider `relevel`ing a factor-type explanatory variable.
+
+```r
+sale_df &lt;- sale_df %&gt;% 
+  mutate(borough_name = factor(borough_name), # borough_name is given as character type.
+         borough_name = relevel(borough_name,
+                                "Manhattan") )
+# do splitting again
+```
+]
 .panel[.panel-name[lm()]
 
 ```r
@@ -84,16 +95,6 @@ X &lt;- as.data.frame( model.matrix(model) )
 
 ]
 
-.panel[.panel-name[relevel()]
-- If needed, we can consider `relevel`ing a factor-type explanatory variable.
-
-```r
-dtrain &lt;- dtrain %&gt;% 
-  mutate(borough_name = factor(borough_name), # borough_name is given as character type.
-         borough_name = relevel(borough_name,
-                                "Manhattan") )
-```
-]
 
 .panel[.panel-name[summary()]
 
