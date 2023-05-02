@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DANL 310 Lecture 23</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Byeong-Hak Choe" />
+    <meta name="date" content="2023-05-02" />
+    <script src="libs/header-attrs-2.20/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <script src="libs/peerjs-1.3.1/peerjs.min.js"></script>
+    <script src="libs/tiny.toast-1.0.0/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast-0.2.6/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast-0.2.6/broadcast.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
+    <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, left, bottom
+
+# DANL 310 Lecture 23
+----
+## **DANL 310: Data Visualization and Presentation**
+### Byeong-Hak Choe
+### May 2, 2023
+
+
+---
+class: inverse, middle, center
+
+# Designing effective visualizations
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+---
+
+## Keep it simple
+
+.pull-left[
+&lt;img src="lec_figs/pie-3d.jpg" width="100%" /&gt;
+]
+.pull-right[
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/pie-to-bar-1.png" width="100%" /&gt;
+]
+
+
+
+---
+
+## Use	color	to	draw	attention
+
+.pull-left[
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-1-1.png" width="100%" /&gt;
+]
+.pull-right[
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-2-1.png" width="100%" /&gt;
+]
+
+---
+
+## Tell a story
+
+&lt;img src="lec_figs/time-series-story.png" width="100%" /&gt;
+
+.footnote[
+Credit: Angela Zoss and Eric Monson, Duke DVS
+]
+
+
+---
+class: inverse, middle, center
+
+# Principles	for	effective	visualizations
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+
+## Principles	for	effective	visualizations
+
+- Order matters
+- Put long categories on the y-axis
+- Keep	scales consistent
+- Select meaningful colors
+- Use meaningful and nonredundant labels
+
+---
+
+## Data
+
+In September 2019, YouGov survey asked 1,639 GB adults the following question:
+
+.pull-left[
+&gt; In hindsight, do you think Britain was right/wrong to vote to leave EU?
+&gt;
+&gt;- Right to leave  
+&gt;- Wrong to leave  
+&gt;- Don't know
+
+]
+.pull-right[
+
+
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-5-1.png" width="75%" /&gt;
+]
+
+.footnote[ 
+Source: [YouGov Survey Results](https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/x0msmggx08/YouGov%20-%20Brexit%20and%202019%20election.pdf), retrieved Oct 7, 2019
+]
+
+
+---
+class: inverse, middle, center
+
+# Order matters
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+
+## Alphabetical order is rarely ideal
+
+.panelset[
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-6-1.png" width="75%" /&gt;
+]
+
+.panel[.panel-name[Code]
+
+```r
+ggplot(brexit, aes(x = opinion)) +
+  geom_bar()
+```
+]
+
+]
+
+---
+
+## Order by frequency
+
+.panelset[
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-7-1.png" width="75%" /&gt;
+]
+
+.panel[.panel-name[Code]
+
+`fct_infreq`: Reorder factors' levels by frequency
+
+
+```r
+*ggplot(brexit, aes(x = fct_infreq(opinion))) +
+  geom_bar()
+```
+]
+
+]
+
+---
+
+## Clean up labels
+
+.panelset[
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-8-1.png" width="75%" /&gt;
+]
+
+.panel[.panel-name[Code]
+
+
+```r
+ggplot(brexit, aes(x = opinion)) +
+  geom_bar() +
+* labs(
+*   x = "Opinion",
+*   y = "Count"
+* )
+```
+]
+
+]
+
+---
+
+## Alphabetical order is rarely ideal
+
+.panelset[
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-9-1.png" width="75%" /&gt;
+]
+
+.panel[.panel-name[Code]
+
+
+```r
+ggplot(brexit, aes(x = region)) +
+  geom_bar()
+```
+]
+
+]
+
+---
+
+## Use inherent level order
+
+.panelset[
+
+.panel[.panel-name[Relevel]
+
+`fct_relevel`: Reorder factor levels using a custom order
+
+
+```r
+brexit &lt;- brexit %&gt;%
+  mutate(
+*   region = fct_relevel(
+      region,
+      "london", "rest_of_south", "midlands_wales", "north", "scot"
+    )
+  )
+```
+]
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-10-1.png" width="75%" /&gt;
+]
+
+]
+
+---
+
+## Clean up labels
+
+.panelset[
+
+.panel[.panel-name[Recode]
+
+`fct_recode`: Change factor levels by hand
+
+
+```r
+brexit &lt;- brexit %&gt;%
+  mutate(
+*   region = fct_recode(
+      region,
+      London = "london",
+      `Rest of South` = "rest_of_south",
+      `Midlands / Wales` = "midlands_wales",
+      North = "north",
+      Scotland = "scot"
+    )
+  )
+```
+]
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/recode-plot-1.png" width="75%" /&gt;
+]
+
+]
+
+---
+class: inverse, middle, center
+
+# Put long categories on the y-axis
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+
+## Long categories can be hard to read
+
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-11-1.png" width="75%" /&gt;
+
+---
+
+## Move them to the y-axis
+
+.panelset[
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-12-1.png" width="75%" /&gt;
+]
+
+.panel[.panel-name[Code]
+
+
+```r
+*ggplot(brexit, aes(y = region)) +
+  geom_bar()
+```
+]
+
+]
+
+---
+
+## And reverse the order of levels
+
+.panelset[
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-13-1.png" width="75%" /&gt;
+]
+
+.panel[.panel-name[Code]
+
+`fct_rev`: Reverse order of factor levels
+
+
+```r
+*ggplot(brexit, aes(y = fct_rev(region))) +
+  geom_bar()
+```
+]
+
+]
+
+---
+
+## Clean up labels
+
+.panelset[
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-14-1.png" width="75%" /&gt;
+]
+
+.panel[.panel-name[Code]
+
+
+```r
+ggplot(brexit, aes(y = fct_rev(region))) +
+  geom_bar() +
+* labs(
+*   x = "Count",
+*   y = "Region"
+* )
+```
+]
+
+]
+
+---
+class: inverse, middle, center
+
+# Pick a purpose
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+
+## Segmented bar plots can be hard to read
+
+.panelset[
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-15-1.png" width="75%" /&gt;
+]
+
+.panel[.panel-name[Code]
+
+
+```r
+*ggplot(brexit, aes(y = region, fill = opinion)) +
+  geom_bar()
+```
+]
+
+]
+
+---
+
+## Use facets
+
+.panelset[
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-16-1.png" width="90%" /&gt;
+]
+
+.panel[.panel-name[Code]
+
+
+```r
+ggplot(brexit, aes(y = opinion, fill = region)) +
+  geom_bar() +
+* facet_wrap(~region, nrow = 1)
+```
+]
+
+]
+
+---
+
+## Avoid redundancy?
+
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-17-1.png" width="90%" /&gt;
+
+---
+
+## Redundancy can help tell a story
+
+.panelset[
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-18-1.png" width="90%" /&gt;
+]
+
+.panel[.panel-name[Code]
+
+
+```r
+ggplot(brexit, aes(y = opinion, fill = opinion)) +
+  geom_bar() +
+  facet_wrap(~region, nrow = 1)
+```
+]
+
+]
+
+---
+
+## Be selective with redundancy
+
+.panelset[
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-19-1.png" width="90%" /&gt;
+]
+
+.panel[.panel-name[Code]
+
+
+```r
+ggplot(brexit, aes(y = opinion, fill = opinion)) +
+  geom_bar() +
+  facet_wrap(~region, nrow = 1) +
+* guides(fill = "none")
+```
+]
+
+]
+
+---
+
+## Use informative labels
+
+.panelset[
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-20-1.png" width="90%" /&gt;
+]
+
+.panel[.panel-name[Code]
+
+
+```r
+ggplot(brexit, aes(y = opinion, fill = opinion)) +
+  geom_bar() +
+  facet_wrap(~region, nrow = 1) +
+  guides(fill = "none") +
+  labs(
+*   title = "Was Britain right/wrong to vote to leave EU?",
+    x = NULL, y = NULL
+  )
+```
+]
+
+]
+
+---
+
+## A bit more info
+
+.panelset[
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-21-1.png" width="90%" /&gt;
+]
+
+.panel[.panel-name[Code]
+
+
+```r
+ggplot(brexit, aes(y = opinion, fill = opinion)) +
+  geom_bar() +
+  facet_wrap(~region, nrow = 1) +
+  guides(fill = "none") +
+  labs(
+    title = "Was Britain right/wrong to vote to leave EU?",
+*   subtitle = "YouGov Survey Results, 2-3 September 2019",
+*   caption = "Source: https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/x0msmggx08/YouGov%20-%20Brexit%20and%202019%20election.pdf",
+    x = NULL, y = NULL
+  )
+```
+]
+
+]
+
+---
+
+## Let's do better
+
+.panelset[
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-22-1.png" width="90%" /&gt;
+]
+
+.panel[.panel-name[Code]
+
+
+```r
+ggplot(brexit, aes(y = opinion, fill = opinion)) +
+  geom_bar() +
+  facet_wrap(~region, nrow = 1) +
+  guides(fill = "none") +
+  labs(
+    title = "Was Britain right/wrong to vote to leave EU?",
+    subtitle = "YouGov Survey Results, 2-3 September 2019",
+*   caption = "Source: bit.ly/2lCJZVg",
+    x = NULL, y = NULL
+  )
+```
+]
+
+]
+
+---
+
+## Fix up facet labels
+
+.panelset[
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-23-1.png" width="90%" /&gt;
+]
+
+.panel[.panel-name[Code]
+
+
+```r
+ggplot(brexit, aes(y = opinion, fill = opinion)) +
+  geom_bar() +
+  facet_wrap(~region,
+    nrow = 1,
+*   labeller = label_wrap_gen(width = 12)
+  ) + 
+  guides(fill = "none") +
+  labs(
+    title = "Was Britain right/wrong to vote to leave EU?",
+    subtitle = "YouGov Survey Results, 2-3 September 2019",
+    caption = "Source: bit.ly/2lCJZVg",
+    x = NULL, y = NULL
+  )
+```
+]
+
+]
+
+
+---
+class: inverse, middle, center
+
+# Select meaningful colors
+
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+
+## Rainbow colors not always the right choice
+
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-24-1.png" width="90%" /&gt;
+
+---
+
+## Manually choose colors when needed
+
+.panelset[
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-25-1.png" width="90%" /&gt;
+]
+
+.panel[.panel-name[Code]
+
+
+```r
+ggplot(brexit, aes(y = opinion, fill = opinion)) +
+  geom_bar() +
+  facet_wrap(~region, nrow = 1, labeller = label_wrap_gen(width = 12)) +
+  guides(fill = "none") +
+  labs(title = "Was Britain right/wrong to vote to leave EU?",
+       subtitle = "YouGov Survey Results, 2-3 September 2019",
+       caption = "Source: bit.ly/2lCJZVg",
+       x = NULL, y = NULL) +
+* scale_fill_manual(values = c(
+*   "Wrong" = "red",
+*   "Right" = "green",
+*   "Don't know" = "gray"
+* ))
+```
+]
+
+]
+
+---
+
+## Choosing better colors
+
+.center[.large[
+[colorbrewer2.org](https://colorbrewer2.org/)
+]]
+
+&lt;img src="lec_figs/color-brewer.png" width="60%" /&gt;
+
+---
+
+## Use better colors
+
+.panelset[
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-27-1.png" width="90%" /&gt;
+]
+
+.panel[.panel-name[Code]
+
+
+```r
+ggplot(brexit, aes(y = opinion, fill = opinion)) +
+  geom_bar() +
+  facet_wrap(~region, nrow = 1, labeller = label_wrap_gen(width = 12)) +
+  guides(fill = "none") +
+  labs(title = "Was Britain right/wrong to vote to leave EU?",
+       subtitle = "YouGov Survey Results, 2-3 September 2019",
+       caption = "Source: bit.ly/2lCJZVg",
+       x = NULL, y = NULL) +
+  scale_fill_manual(values = c(
+*   "Wrong" = "#ef8a62",
+*   "Right" = "#67a9cf",
+*   "Don't know" = "gray"
+  ))
+```
+]
+
+]
+
+---
+
+## Select theme
+
+.panelset[
+
+.panel[.panel-name[Plot]
+&lt;img src="DANL310_Lec23_20230502_files/figure-html/unnamed-chunk-28-1.png" width="90%" /&gt;
+]
+
+.panel[.panel-name[Code]
+
+
+```r
+ggplot(brexit, aes(y = opinion, fill = opinion)) +
+  geom_bar() +
+  facet_wrap(~region, nrow = 1, labeller = label_wrap_gen(width = 12)) +
+  guides(fill = "none") +
+  labs(title = "Was Britain right/wrong to vote to leave EU?",
+       subtitle = "YouGov Survey Results, 2-3 September 2019",
+       caption = "Source: bit.ly/2lCJZVg",
+       x = NULL, y = NULL) +
+  scale_fill_manual(values = c("Wrong" = "#ef8a62",
+                               "Right" = "#67a9cf",
+                               "Don't know" = "gray")) +
+* ggthemes::theme_economist() +
+  theme(plot.title = element_text(margin = margin(0, 0, 5, 0)))
+```
+]
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 66px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
