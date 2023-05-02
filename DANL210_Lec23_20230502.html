@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DANL 210 Lecture 23</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Byeong-Hak Choe" />
+    <meta name="date" content="2023-05-02" />
+    <script src="libs/header-attrs-2.20/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <script src="libs/peerjs-1.3.1/peerjs.min.js"></script>
+    <script src="libs/tiny.toast-1.0.0/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast-0.2.6/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast-0.2.6/broadcast.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
+    <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, left, bottom
+
+# DANL 210 Lecture 23
+----
+## **DANL 210: Data Preparation and Management**
+### Byeong-Hak Choe
+### May 2, 2023
+
+---
+# Grade Distribution
+
+Here is the historical distribution of letter grades from my courses in Fall 2021, Spring 2022, and Fall 2022.
+
+
+&lt;img src="lec_figs/choe_grade_hist.png" width="58%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, center, middle
+
+# Selenium Web-scrapping 
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+---
+# Web Scrapping
+### &lt;p style="color:#00449E"&gt; Locating Web Elements by `Inspect`-`find_element()`
+
+.panelset[
+.panel[.panel-name[(1)]
+- After the new Google Chrome window is loaded with the URL provided, we can find the elements that we need to act on. 
+
+  - The easiest way to identify the information is to `Inspect` pages using developer tools.
+
+]
+
+
+.panel[.panel-name[(2)]
+- Place the cursor anywhere on the webpage, right-click to open a pop-up menu, then select the `Inspect` option.
+
+
+  -  In the `Elements` window, move the cursor over the DOM structure of the page until it reaches the desired element. 
+  
+  
+  - We then need to find information such as what HTML tag is used for the element, the defined attribute, and the values for the attributes and the structure of the page.
+
+]
+
+]
+
+
+
+---
+# Locating Web Elements by `find_element()`
+### &lt;p style="color:#00449E"&gt; `find_element(By.ID, "")`
+
+.panelset[
+.panel[.panel-name[(1)]
+
+- `find_element(By.ID, "")` &amp; `find_elements(By.ID, "")`:
+  - Return element(s) that have matching ID attribute values.
+
+
+- Here is the HTML code for main part of the web-page with an ID attribute value defined as `form1`:
+
+
+```html
+&lt;form id="form1"&gt;...&lt;/form&gt;
+```
+
+]
+
+
+.panel[.panel-name[(2)]
+- Here is an example that uses the `find_element(By.ID, "")` method to find the form table.
+
+
+
+```python
+form = driver.find_element(By.ID, "form1")
+form.text  # text attribute if there is any
+```
+
+]
+
+]
+
+---
+# Locating Web Elements by `find_element()`
+### &lt;p style="color:#00449E"&gt; `find_element(By.CLASS_NAME, "")`
+
+
+.panelset[
+.panel[.panel-name[(1)]
+
+- `find_element(By.CLASS_NAME, "")` &amp; `find_elements(By.CLASS_NAME, "")`:
+  - Return element(s) that have matching class attribute value(s).
+
+
+- Here is the HTML code for the home button with a class attribute value defined as `homebtn`:
+
+
+```html
+&lt;div class="homebtn" align="center"&gt;...&lt;/div&gt;
+```
+
+]
+
+.panel[.panel-name[(2)]
+- Here is an example that uses the `find_element(By.CLASS_NAME, "")` method to find the home button.
+
+
+
+```python
+home_button = driver.find_element(By.CLASS_NAME, "homebtn")
+home_button.click() # click the home_button object
+driver.back() # back to the previous page
+```
+
+
+]
+
+
+]
+
+
+---
+# Locating Web Elements by `find_element()`
+### &lt;p style="color:#00449E"&gt; `find_element(By.NAME, "")`
+
+
+.panelset[
+.panel[.panel-name[(1)]
+- `find_element(By.NAME, "")` &amp; `find_elements(By.NAME, "")`:
+  - Return element(s) that have matching name attribute value(s).
+
+
+
+- Here is the HTML code for the home button with a name attribute value defined as `home`:
+
+
+
+```html
+&lt;input type="button" class="btn" name="home" value="Home" /&gt;
+```
+
+
+]
+
+.panel[.panel-name[(2)]
+- Here is an example that uses the `find_element(By.NAME, "")` method to find the home button.
+
+
+
+```python
+home_button2 = driver.find_element(By.NAME, "home")
+home_button2.click()
+driver.back()
+```
+
+
+]
+
+
+
+]
+
+
+
+
+
+
+
+---
+# Locating Web Elements by `find_element()`
+### &lt;p style="color:#00449E"&gt; `find_element(By.CSS_SELECTOR, "")`
+
+
+.panelset[
+.panel[.panel-name[(1)]
+
+- `find_element(By.CSS_SELECTOR, "")` &amp; `find_elements(By.CSS_SELECTOR, "")`:
+  - Return element(s) that are found by the specified CSS selector. 
+  
+  
+
+]
+
+.panel[.panel-name[(2)]
+
+- To find the CSS selector of the search button, we `Inspect` the example site, in the *Elements* window, move the cursor over its DOM structure and find the search element. 
+  - We then right-click and choose *Copy Selector* from the pop-up menu. 
+  - We obtain the following CSS selector of this element:
+  
+
+```python
+home_button3 = driver.find_element(By.CSS_SELECTOR, "body &gt; div &gt; a &gt; input")
+home_button3.click()
+driver.back()
+```
+
+]
+
+
+
+]
+
+
+
+
+
+
+---
+# Locating Web Elements by `find_element()`
+### &lt;p style="color:#00449E"&gt; `find_element(By.TAG_NAME, "")`
+
+
+.panelset[
+.panel[.panel-name[(1)]
+- `find_element(By.TAG_NAME, "")` &amp; `find_elements(By.TAG_NAME, "")`:
+  - Return element(s) that are found by the specified tag. 
+
+]
+
+.panel[.panel-name[(2)]
+
+.pull-left[
+- The following example page displays a table which has several form fields to fill in.
+  -  Each form field name is implemented using an `&lt;th&gt;` or table header cell tag inside a `&lt;tr&gt;` or table row tag:
+
+]
+
+.pull-right[
+
+&lt;img src="lec_figs/find_tag1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+]
+
+
+.panel[.panel-name[(3)]
+- Here is an example that uses the `find_element(By.TAG_NAME, "")` method to find the head of the table.
+
+
+
+```python
+table01 = driver.find_element(By.ID, "table01")
+thead = table01.find_element(By.TAG_NAME, "thead")
+thead.text
+```
+
+
+]
+
+]
+
+
+
+
+
+
+---
+# Locating Web Elements by `find_element()`
+### &lt;p style="color:#00449E"&gt; `find_element(By.LINK_TEXT, "")`
+
+.panelset[
+.panel[.panel-name[(1)]
+- `find_element(By.LINK_TEXT, "")` &amp; `find_elements(By.LINK_TEXT, "")`:
+  - Find link(s) using the text displayed for the link. 
+
+]
+
+.panel[.panel-name[(2)]
+- For example, we may want to get the **Selenium** displayed on the example site. 
+  - Here is the HTML code for the **Selenium** implemented as the `&lt;a&gt;`, or anchor tag, with text **"Selenium"**:
+
+
+
+```html
+&lt;a href="http://www.selenium.dev/"&gt;Selenium&lt;/a&gt;
+```
+
+]
+
+
+.panel[.panel-name[(3)]
+-  Here is an example that uses the `find_element(By.LINK_TEXT, "")` method to find **Selenium**.
+
+
+
+```python
+selenium_link = driver.find_element(By.LINK_TEXT, "Selenium")
+selenium_link.click()
+```
+
+
+]
+
+]
+
+
+
+---
+# Locating Web Elements by `find_element()`
+### &lt;p style="color:#00449E"&gt; `find_element(By.PARTIAL_LINK_TEXT, "")`
+
+
+.panelset[
+.panel[.panel-name[(1)]
+- Sometimes, there can be several link texts that contain a common word in the webpage.
+
+
+- `find_element(By.PARTIAL_LINK_TEXT, "")` &amp; `find_elements(By.PARTIAL_LINK_TEXT, "")`:
+  - Find link(s) using partial text. 
+
+
+]
+
+.panel[.panel-name[(2)]
+- Let us use this method to find these links using the `"qav"` text and check whether we have two of these links available on the page.
+
+
+```python
+Selen_links = driver.find_elements(By.PARTIAL_LINK_TEXT, "qav")
+print(len(Selen_links))
+Selen_links[0].click()
+driver.back()
+```
+]
+
+
+]
+
+
+---
+# Locating Web Elements by `find_element()`
+### &lt;p style="color:#00449E"&gt; `find_element(By.XPATH, "")`
+
+.panelset[
+.panel[.panel-name[(1)]
+- `find_element(By.XPATH, "")` &amp; `find_element(By.XPATH, "")`:
+  - Return element(s) that are found by the specified XPath query. 
+
+
+- XPath is a query language used to search and locate nodes in a XML document.
+  - All major web browsers support XPath. 
+  - Selenium can leverage and use powerful XPath queries to find elements on a web page. 
+  - One of the advantages of using XPath is when we can’t find a suitable ID, name, or class attribute value for the element. 
+
+]
+
+.panel[.panel-name[(2)]
+- We can use *XPath* to either find the element in absolute terms or relative to an element that does have an ID or name attribute.
+
+
+- We can also use defined attributes other than the ID, name, or class with *XPath* queries. 
+
+
+]
+
+
+.panel[.panel-name[(3)]
+
+- For example, we want to get the second table. 
+
+  - The body of this table consists of a series of `&lt;tr&gt;` tags, but does not have the ID, name, or class attributes defined.
+  
+  - Also, we cannot use the `find_element(By.TAG_NAME, "")` method as there are multiple `&lt;tr&gt;` and `&lt;th&gt;` tags defined on the page.
+]
+
+
+.panel[.panel-name[(4)]
+
+- To find the XPath of this element, we `Inspect` the example site, in the Elements window, move the cursor over its DOM structure and find the desired element. 
+
+  - We then right-click and choose copy XPath from the pop-up menu. 
+  
+  - We obtain the following XPath of the first row and the first column of the table body:
+
+
+
+```html
+//*[@id="table02"]/tbody/tr[1]/td[1]
+```
+
+]
+
+
+.panel[.panel-name[(5)]
+- We then pass this XPath to the `find_element(By.XPATH, "")` method as an argument:
+  - Find the XPath for "Tiger Nixon" in the second table.
+
+
+```python
+elt = driver.find_element(By.XPATH, '//*[@id="table02"]/tbody/tr[1]/td[1]')
+elt.text
+```
+
+]
+
+.panel[.panel-name[(6)]
+- We typically use the XPath method when there exists an element with a unique id on the path to the desired element. 
+  - Otherwise, this method is not reliable.
+
+
+]
+
+]
+
+
+
+---
+class:  center, middle
+
+# Attendance Time
+
+Let's have an attendance time.
+
+
+
+---
+class: inverse, center, middle
+
+# Filling in Web Forms
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+---
+# Filling in Web Forms
+### &lt;p style="color:#00449E"&gt; 
+.panelset[
+.panel[.panel-name[(1)]
+- Web forms are ubiquitous when surfing the internet. 
+
+
+- A web form comprises web elements such as input boxes, check boxes, radio buttons, links, drop down menus, and submit buttons to collect user data. 
+
+
+&lt;img src="lec_figs/webform.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+.panel[.panel-name[(2)]
+-  To process web forms, we need to first find these web elements and then take subsequent actions on them like selecting a value or entering some text. 
+
+
+- Selenium performs actions on the web form and interacts with the form.
+]
+]
+
+---
+# Filling in web forms
+### &lt;p style="color:#00449E"&gt; Input box
+.panelset[
+.panel[.panel-name[(1)]
+- To handle any input box, we must be able to enter information, clear information or get information from the box. 
+  -  To enter text into an input box we can use the `send_keys()` method. 
+
+
+```python
+url = "https://qavbox.github.io/demo/signup/"
+driver.get(url)
+
+driver.find_element(By.ID, 'username').send_keys("YOUR_NAME")
+```
+
+
+]
+.panel[.panel-name[(2)]
+- If we need to validate some existing text, we can fetch text already in a text box using the `get_attribute()` method:
+
+
+```python
+nameText = driver.find_element(By.ID, 'username').get_attribute("value")
+```
+
+
+
+]
+
+.panel[.panel-name[(3)]
+- To clear pre-entered text, we can use the `clear()` method. 
+
+
+```python
+driver.find_element(By.ID, 'username').clear()
+```
+
+
+]
+
+
+]
+
+
+---
+# Filling in web forms
+### &lt;p style="color:#00449E"&gt; Dropdown
+
+.panelset[
+.panel[.panel-name[(1)]
+- A dropdown provides a list of options to the user, thereby giving access to one or multiple values as per the requirement.
+
+-  The Selenium Python API provides the `Select` class, which allows us to select the element of our choice from a dropdown menu. 
+
+- Note that the `Select` class only works with tags that have `&lt;select&gt;` tags. 
+
+
+]
+.panel[.panel-name[(2)]
+- We can select a sub-element of the dropdown using:
+  1. `index`; 
+  2. `value`;
+  3. `text`.
+
+
+
+```python
+from selenium.webdriver.support.ui import Select
+gender_dropdown = Select(driver.find_element(By.NAME, "sgender"))
+gender_dropdown.select_by_index(2)
+gender_dropdown.select_by_value("female")
+gender_dropdown.select_by_visible_text("Male")
+```
+
+
+]
+
+.panel[.panel-name[(3)]
+
+- In a similar way, we can deselect any selected value from the dropdown using any of the following options: 
+  1. `deselect_by_index()` 
+  2. `deselect_by_value`
+  3. `deselect_by_visible_text` 
+
+]
+
+
+]
+
+
+
+---
+# Filling in web forms
+### &lt;p style="color:#00449E"&gt; Radio button
+
+.panelset[
+.panel[.panel-name[(1)]
+
+- A radio button is a circular element on the screen that we can select.
+  - It is only possible to select one radio button out of several choices by the `click()` method.
+
+
+]
+.panel[.panel-name[is_selected()]
+- To get the current state of the radio button we can use one of two methods: `is_selected()` or `get_attribute("checked")`
+
+
+```python
+driver.find_element(By.XPATH, '//*[@id="container"]/div[8]/input[1]').click()
+yr_exp_boolean = driver.find_element(By.XPATH, '//*[@id="container"]/div[8]/input[1]').is_selected()
+print(yr_exp_boolean)
+print(type(yr_exp_boolean))
+```
+
+]
+
+.panel[.panel-name[get_attribute("checked")]
+
+
+```python
+yr_exp_boolean2 = driver.find_element(By.XPATH, '//*[@id="container"]/div[8]/input[1]').get_attribute("checked")
+print(yr_exp_boolean2)
+print(type(yr_exp_boolean2))
+```
+
+
+]
+
+
+]
+
+
+---
+# Filling in web forms
+### &lt;p style="color:#00449E"&gt; Check box
+.panelset[
+.panel[.panel-name[(1)]
+
+- To select or check a value in a check box we use the `click()` method. 
+  - To get the current state of the check box we can use one of two methods: `is_selected()` or `get_attribute("checked")`
+  - It is also possible to de-select check boxes.
+
+
+]
+.panel[.panel-name[is_selected()]
+
+
+```python
+driver.find_element(By.XPATH, '/html/body/form/fieldset/div/div/div[9]/input[1]').click()
+skills_boolean = driver.find_element(By.XPATH, '/html/body/form/fieldset/div/div/div[9]/input[1]').is_selected()
+print(skills_boolean)
+print(type(skills_boolean))
+```
+
+
+]
+
+
+.panel[.panel-name[get_attribute("checked")]
+
+
+```python
+skills_boolean = driver.find_element(By.XPATH, '/html/body/form/fieldset/div/div/div[9]/input[4]').get_attribute("checked")
+print(skills_boolean)
+print(type(skills_boolean))
+```
+
+
+]
+
+]
+
+
+---
+# Filling in web forms
+### &lt;p style="color:#00449E"&gt; Button
+
+
+- Buttons are simply used to submit whatever information we have filled in our forms to the server. 
+  - This can be done through click actions on the button, mostly using the `click()` method:
+
+
+```python
+driver.find_element(By.ID, "submit").click()
+```
+
+
+
+---
+class: inverse, center, middle
+
+# NoSuchElementException and WebDriverWait
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+---
+# NoSuchElementException
+### &lt;p style="color:#00449E"&gt; 
+
+- When a web element is not found, it throws the `NoSuchElementException`.
+  - `try-except` can be used to avoid the termination of the selenium code.
+
+
+
+```python
+from selenium.common.exceptions import NoSuchElementException
+try:
+    elem = driver.find_element(By.XPATH, "element_xpath")
+    elem.click()
+except NoSuchElementException:
+    pass
+```
+
+
+- This solution is to address the **inconsistency** in the DOM among the seemingly same pages.
+
+
+
+---
+# NoSuchElementException
+### &lt;p style="color:#00449E"&gt; `execute_script()`
+.panelset[
+.panel[.panel-name[(1)]
+
+- When the page loads, for some reason we may be taken to the bottom of the page, but the element we need to scrape is on the top of the page and thus is out of view.
+
+- In this situation, we can locate the element in the DOM first, then use the `execute_script()` method to scroll the element into view:
+
+
+
+
+```python
+elem = driver.find_element(By.XPATH, "element_xpath")
+driver.execute_script("arguments[0].scrollIntoView();", elem)
+```
+
+
+]
+.panel[.panel-name[(2)]
+
+- In case the element has the attribute `style="display: none;"`, remove the attribute through `execute_script()` method:
+
+
+
+```python
+elem = driver.find_element(By.XPATH, "element_xpath")
+driver.execute_script("arguments[0].removeAttribute('style')", elem)
+elem.send_keys("text_to_send")
+```
+
+
+]
+
+.panel[.panel-name[(3)]
+
+- We can also simply scroll the webpage:
+
+
+```python
+# example website
+url = "https://www.ncsl.org/research/energy/energy-legislation-tracking-database.aspx"
+driver.get(url)
+
+driver.execute_script("window.scrollTo(0, 5000)") 
+driver.execute_script("window.scrollTo(0, 1000)") 
+```
+
+
+]
+
+]
+
+---
+# WebDriverWait
+### &lt;p style="color:#00449E"&gt; `WebDriverWait` with `expected_conditions`
+.panelset[
+.panel[.panel-name[(1)]
+- If the element is not present/visible in the HTML DOM immediately, induce `WebDriverWait` with `expected_conditions` set to the proper method as follows:
+
+- To wait for `presence_of_element_located`:
+
+
+```python
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+# example webpage
+url = "https://qavbox.github.io/demo/delay/"
+driver.get(url)
+```
+
+]
+
+
+
+.panel[.panel-name[(2)]
+- If the element is not present/visible in the HTML DOM immediately, induce `WebDriverWait` with `expected_conditions` set to the proper method as follows:
+
+- To wait for `presence_of_element_located`:
+
+
+```python
+element = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "element_xpath"))) # 10 is timeout in seconds when an expectation is called
+```
+
+]
+.panel[.panel-name[(3)]
+- To wait for `visibility_of_element_located`:
+
+
+```python
+element = WebDriverWait(driver, 20).until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, "element_css")))
+```
+
+
+
+]
+
+.panel[.panel-name[(4)]
+- To wait for `element_to_be_clickable`:
+
+
+```python
+element = WebDriverWait(driver, 20).until(expected_conditions.element_to_be_clickable((By.LINK_TEXT, "element_link_text")))
+```
+
+
+
+]
+
+.panel[.panel-name[(5)]
+1. Click the button with "Click me!"
+2. Locate the text element that will be displayed after 5 seconds using `WebDriverWait` with `expected_conditions.presence_of_element_located`.
+  - Its XPath is '//*[@id="two"]'
+]
+]
+
+---
+# WebDriverWait
+### &lt;p style="color:#00449E"&gt; `WebDriverWait` with `expected_conditions`
+
+-  The `time.sleep()` method is an explicit wait to set the condition to be an exact time period to wait:
+
+
+```python
+import time
+
+driver.find_element(By.XPATH, '//*[@id="one"]/input').click()
+time.sleep(5)
+element = driver.find_element(By.XPATH, '//*[@id="two"]')
+element.text
+```
+
+- A more efficient solution than `time.sleep()` would be to make `WebDriver()` wait only as long as required. 
+
+
+
+---
+# # WebDriverWait
+### &lt;p style="color:#00449E"&gt; `WebDriverWait` with `expected_conditions`
+
+- Implicit wait with `implicitly_wait()` directs the `WebDriver` to wait for a certain measure of time before throwing an exception. 
+
+- Once this time is set, `WebDriver` will wait for the element before the exception occurs.
+
+
+
+```python
+driver.find_element(By.XPATH, '//*[@id="oneMore"]/input[1]').click()
+driver.implicitly_wait(5)
+element2 = driver.find_element(By.ID, 'delay')
+```
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 66px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

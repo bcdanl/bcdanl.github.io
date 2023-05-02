@@ -1,0 +1,68 @@
+---
+title: "DANL 210: Data Preparation and Management<br>Homework Assignment 5"
+author: "Byeong-Hak Choe"
+---
+
+# Direction for Homework Assignment 5
+
+- Go to the following website about Climate Change Knowledge Portal at the World Bank
+  - [https://climateknowledgeportal.worldbank.org/download-data](https://climateknowledgeportal.worldbank.org/download-data).
+
+<br>
+
+## Q1a
+
+- Provide your Python Selenium code to log in with public login.
+  - I suggest you to sign in with your LinkedIn account.
+
+```{r, echo=FALSE, eval = T, out.width='100%', fig.align='center'}
+knitr::include_graphics("lec_figs/wb_climatechange_knowledge_selenium.gif")
+```
+
+<br>
+
+## Q1b
+- Provide your Python Selenium code to download the CSV file for `50th` PERCENTILE of `Max-Temperature` VARIABLE in the `Historical Reference Period, 1995-2014` TIME PERIOD for each country in the COUNTRY menu for each of the three SCENARIOs, `SSP1-1.9`, `SSP1-2.6`, and `SSP2-4.5`, from the `Multi-Model Ensemble` MODEL.
+
+
+- The Selenium code should do the followings:
+  1. Go to the TIMESERIES tab.
+  2. Select the proper menus.
+  3. Loop over the COUNTRY menu.
+  - In the loop, use `time.sleep(10)` for each download.
+  - Consider using `try-except` to prevent the Selenium code from getting errors.
+  
+<br>
+
+
+
+## Q1c
+- Provide your Python Selenium code to download the CSV file for `50th` PERCENTILE of `Max-Temperature` VARIABLE in the `Projections, 2015-2100` TIME PERIOD for each country in COUNTRY menu for each of the three SCENARIOs, `SSP1-1.9`, `SSP1-2.6`, and `SSP2-4.5`, from the `Multi-Model Ensemble` MODEL.
+
+
+- The Selenium code should do the followings:
+  1. Go to TIMESERIES tab.
+  2. Select the proper menus.
+  3. Loop over the COUNTRY menu and the SCENARIO menu.
+  - In the loop, use `time.sleep(10)` for each download.
+  - Always consider using `try-except` to prevent the Selenium code from getting errors.
+
+
+<br>
+
+
+## Q1d
+
+- From the downloaded CSV files, consider only the first two columns for Q1d.
+  - The first two columns in the downloaded CSV file are year and average temperature in a country.
+  - The rest of the columns in the downloaded CSV file is about temperatures in several regions in a country.
+
+
+- Create the following two DataFrames.
+  - 1. The tidy year-country level DataFrame for `Median (50th)` level of `Max-Temperature` in `Historical Reference Period, 1995-2014` for all the three SCENARIOs, `SSP1-1.9`, `SSP1-2.6`, and `SSP2-4.5`.
+  - 2. The tidy year-country level DataFrame for `Median (50th)` level of `Max-Temperature` in the time period, `Projection, 2015-2100` for all the three SCENARIOs, `SSP1-1.9`, `SSP1-2.6`, and `SSP2-4.5`.
+
+
+
+
+

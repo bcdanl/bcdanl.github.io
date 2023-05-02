@@ -1,0 +1,124 @@
+---
+title: "Python Lab 8 - Web-scrapping 3\nExample Answers"
+author: "Byeong-Hak Choe"
+execute:
+  echo: true
+  eval: false
+  message: false
+  warning: false
+---
+
+# Direction for Python Lab 8
+
+- Go to the following website for web scrapping
+  - [http://quotes.toscrape.com](http://quotes.toscrape.com)
+
+<br>
+
+## Q1a
+
+- Provide your Python Selenium code to scrape all the quotes.
+
+  - You should create the two DataFrames with the following variables: 
+  1. DataFrame about each quote
+    - `quote`
+    - `author`
+    - `tags`
+    - `about`, URL for description about each author.
+  2. DataFrame about each author
+    - `about`, URL for description about each author.
+    - `born_date`
+    - `born_location`
+    - `author_description`
+  - Save the two DataFrames in the CSV files.
+
+```{python}
+
+# %%
+# working directory
+import os
+wd_path = '/Users/byeong-hakchoe/Google Drive/suny-geneseo/spring2023/lecture_codes/'
+os.chdir(wd_path)  
+os.getcwd()
+
+```
+
+```{python}
+
+# %%
+import pandas as pd
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+
+options = Options()
+options.add_argument("window-size=1400,1200")
+driver = webdriver.Chrome(chrome_options=options, 
+                          executable_path = "chromedriver")
+# driver.quit()
+url = "http://quotes.toscrape.com/"
+driver.get(url)
+
+```
+
+```{python}
+# %%
+df = pd.DataFrame()
+while True:
+    quotes = driver.find_elements(By.CLASS_NAME,'text')
+    authors = driver.find_elements(By.CLASS_NAME,'author')
+    tags = driver.find_elements(By.CLASS_NAME,'tags')
+    abouts = driver.find_elements(By.LINK_TEXT,'(about)')
+    next_btn = driver.find_elements(By.PARTIAL_LINK_TEXT, 'Next')
+    for j in range(0, len(quotes)):
+        quote = pd.DataFrame( [quotes[j].text] ) 
+        author = pd.DataFrame( [authors[j].text] ) 
+        tag = pd.DataFrame( [tags[j].text] )
+        about = pd.DataFrame( [abouts[j].get_attribute('href')] )
+        data = pd.concat( [quote, author, tag, about], axis=1 )
+        df = df.append(data)
+    if next_btn != []:
+        next_btn[0].click()
+    else:
+        break
+
+df.columns = ['quote', 'author', 'tag', 'about']
+df.to_csv("data/webscrapping_quotes.csv")    
+```
+
+```{python}
+# %%
+
+# drop duplicate authors
+author_url = df[['about']]
+author_url = author_url.drop_duplicates()
+
+
+# changing the index of author_url for the for-loop below
+s = pd.Series(range(0,len(author_url)))
+author_url = author_url.set_index([s])  
+
+author_info = pd.DataFrame()
+for i in range(0, len(author_url)):
+    driver.get(author_url.at[i, 'about'])
+    born_date = driver.find_elements(By.CLASS_NAME,'author-born-date')
+    born_location = driver.find_elements(By.CLASS_NAME,'author-born-location')
+    author_description = driver.find_elements(By.CLASS_NAME,'author-description')
+    born_date = pd.DataFrame( [born_date[0].text] ) 
+    born_location = pd.DataFrame( [born_location[0].text] ) 
+    author_description = pd.DataFrame( [author_description[0].text] )
+    about = pd.DataFrame( [author_url.at[i, 'about']] )
+    data = pd.concat( [about, born_date, born_location, author_description], axis=1 )
+    author_info = author_info.append(data)
+    
+author_info.columns = ['about', 'born_date', 'born_location', 'author_description']
+author_info.to_csv("data/webscrapping_quotes_author_info.csv")       
+
+
+```
+
+```{python}
+
+driver.quit()
+```
+
