@@ -145,7 +145,7 @@ model_5 <- lm(formula_5, dtrain)
 stargazer(model_1, model_2, model_3, model_4, model_5, type = 'html')
 ```
 
-```{r, eval = F, echo = F}
+```{r, eval = F, echo = T}
 stargazer(model_1, model_2, model_3, model_4, model_5, type = 'text')
 ```
 
@@ -159,31 +159,31 @@ stargazer(model_1, model_2, model_3, model_4, model_5, type = 'text')
 ```{r}
 sum_model_1 <- tidy(model_1) %>% 
   filter(str_detect(term, "hr")) %>% 
-  arrange(-estimate) %>% 
+  arrange(-abs(estimate)) %>% 
   slice(1) %>% 
   mutate(model = 1) # to denote the model
 
 sum_model_2 <- tidy(model_2) %>% 
   filter(str_detect(term, "hr")) %>% 
-  arrange(-estimate) %>% 
+  arrange(-abs(estimate)) %>% 
   slice(1) %>% 
   mutate(model = 2) # to denote the model
 
 sum_model_3 <- tidy(model_3) %>% 
   filter(str_detect(term, "hr")) %>% 
-  arrange(-estimate) %>% 
+  arrange(-abs(estimate)) %>% 
   slice(1) %>% 
   mutate(model = 3) # to denote the model
 
 sum_model_4 <- tidy(model_4) %>% 
   filter(str_detect(term, "hr")) %>% 
-  arrange(-estimate) %>% 
+  arrange(-abs(estimate)) %>% 
   slice(1) %>% 
   mutate(model = 4) # to denote the model
 
 sum_model_5 <- tidy(model_5) %>% 
   filter(str_detect(term, "hr")) %>% 
-  arrange(-estimate) %>% 
+  arrange(-abs(estimate)) %>% 
   slice(1) %>% 
   mutate(model = 5) # to denote the model
 
@@ -302,7 +302,7 @@ RMSE <- dtest %>%
   summarize(rmse_1 = sqrt(mean(resid_1_sq)),
             rmse_2 = sqrt(mean(resid_2_sq)),
             rmse_3 = sqrt(mean(resid_3_sq)),
-            rmse_4 = mean(resid_4_sq),
+            rmse_4 = sqrt(mean(resid_4_sq)),
             rmse_5 = sqrt(mean(resid_5_sq))
   )
 

@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DANL 210 Lecture 25</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Byeong-Hak Choe" />
+    <meta name="date" content="2023-05-09" />
+    <script src="libs/header-attrs-2.20/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <script src="libs/peerjs-1.3.1/peerjs.min.js"></script>
+    <script src="libs/tiny.toast-1.0.0/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast-0.2.6/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast-0.2.6/broadcast.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
+    <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, left, bottom
+
+# DANL 210 Lecture 25
+----
+## **DANL 210: Data Preparation and Management**
+### Byeong-Hak Choe
+### May 9, 2023
+
+---
+class: inverse, center, middle
+
+# API
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+---
+# API
+### &lt;p style="color:#00449E"&gt; Key Concepts
+
+.panelset[
+.panel[.panel-name[(1)]
+- API stands for Application Programming Interface.
+  - It enables data transmission between client and server.
+
+
+- Server: A powerful computer that runs an API.
+
+
+- Client: A program that exchanges data with a server through an API.
+
+
+- Protocol: The “etiquette” underlying how computers talk to each other (e.g. HTTP).
+
+
+
+]
+
+
+.panel[.panel-name[(2)]
+
+
+- Methods: The “verbs” that clients use to talk with a server.
+  - The main one that we’ll be using is `GET` (i.e. ask a server to retrieve information), but other common methods are `POST`, `PUT` and `DELETE`.
+  
+  
+- Requests: What the client asks of the server.
+
+
+- Response: The server’s response, which includes 
+  - Status Code (e.g. “404” if not found, or “200” if successful);
+  - Header (i.e. meta-information about the reponse); 
+  - Body (i.e the actual content that we’re interested in.
+
+]
+
+]
+
+
+
+---
+# API
+### &lt;p style="color:#00449E"&gt; API endpoints
+- In the case of web APIs, we can access information directly from the API database if we can specify the correct URL(s).
+  - These URLs are known as an **API endpoints**.
+
+- Navigate your browser to an API endpoint and you’ll just see a load of the following format of texts:
+  - JSON (JavaScript Object Notation) or 
+  - XML (Extensible Markup Language).
+
+- We can add a JSONView, a browser extension that renders JSON output nicely in Chrome or Firefox.
+  - [https://jsonview.com/](https://jsonview.com/)
+
+
+---
+# NYC Open Data
+### &lt;p style="color:#00449E"&gt; 
+
+
+.panelset[
+.panel[.panel-name[(1)]
+
+- NYC Open Data ([https://opendata.cityofnewyork.us](https://opendata.cityofnewyork.us)) is free
+public data published by NYC agencies and other partners.
+
+
+- Los Angeles has the open data website too:
+  - [https://data.lacity.org](https://data.lacity.org)
+
+
+]
+
+.panel[.panel-name[(2)]
+- Let’s get the NYC's Payroll Data.
+  1. Open the web page
+[https://data.cityofnewyork.us/City-Government/Citywide-Payroll-Data-Fiscal-Year-/k397-673e](https://data.cityofnewyork.us/City-Government/Citywide-Payroll-Data-Fiscal-Year-/k397-673e) in your
+browser.
+  2. Click the API tab.
+  3. Copy the API endpoint that appears in the popup box.
+
+
+]
+
+.panel[.panel-name[(3)]
+
+```python
+import requests
+import pandas as pd
+endpoint = 'https://data.cityofnewyork.us/resource/ic3t-wcy2.json'  # API endpoint
+response_API = requests.get(endpoint)
+df = pd.read_json(response_API.text)
+```
+
+- The `request.get()` method sends a `GET` request to the specified url.
+
+- `pd.read_json()` automatically convert JSON data into DataFrame. 
+  - JSON objects have the same format as Python dictionaries.
+
+
+]
+
+
+
+]
+
+
+---
+# Federal Reserve Economic Data (FRED) API
+### &lt;p style="color:#00449E"&gt; 
+
+
+.panelset[
+.panel[.panel-name[(1)]
+- Most API interfaces will only let you access and download data after you have registered an API key with them.
+
+- Let’s download economic data from the FRED [https://fred.stlouisfed.org](https://fred.stlouisfed.org) using its API.
+
+- You need to create an account [https://fredaccount.stlouisfed.org/login/](https://fredaccount.stlouisfed.org/login/) to get an API key
+for your FRED account.
+
+]
+
+.panel[.panel-name[(2)]
+- As with all APIs, a good place to start is the FRED API developer docs [https://fred.stlouisfed.org/docs/api/fred/](https://fred.stlouisfed.org/docs/api/fred/).
+  - We are interested in *series/observations* [https://fred.stlouisfed.org/docs/api/fred/series_observations.html](https://fred.stlouisfed.org/docs/api/fred/series_observations.html)
+  
+  - The parameters that we will use are `api_key`, `file_type`, and `series_id`.
+  - Replace “YOUR_API_KEY” with your actual API key in the following web address: [https://api.stlouisfed.org/fred/series/observations?series_id=GNPCA&amp;api_key=YOUR_API_KEY&amp;file_type=json](https://api.stlouisfed.org/fred/series/observations?series_id=GNPCA&amp;api_key=YOUR_API_KEY&amp;file_type=json)
+]
+
+
+
+.panel[.panel-name[(3)]
+- We’re going to go through the `requests`, `json`, and `pandas` libraries.
+  - `requests` comes with a variety of features that allow us to interact more flexibly and securely with web APIs.
+  
+
+```python
+import requests
+import json
+import pandas as pd
+
+params = {
+'api_key': 'YOUR_FRED_API_KEY', ## Change to your own key
+'file_type': 'json',
+'series_id': 'GDPC1'   ## ID for US real GDP
+}
+
+endpoint = "series/observations"
+url = "https://api.stlouisfed.org/"
+response = requests.get(url + "fred/" + endpoint, params = params)
+```
+  
+  
+]
+
+
+
+.panel[.panel-name[(4)]
+- To actually extract the content (i.e. data) from of the response, we’ll use the `.content.decode('utf-8')`.
+- We can convert JSON into a Python dictionary object using then `json.loads()` function.
+  
+
+```python
+content = response.content.decode('utf-8') ## Extract the response content (i.e. text)
+fred = json.loads(content) ## Convert JSON response to Python dictionary
+observations = pd.DataFrame( fred['observations'] ) ## Extract the "observations" list element
+observations = observations.astype({'value': float}) ## Convert the "value" column to float type.
+```
+  
+]
+
+]
+
+
+
+
+---
+class: inverse, center, middle
+
+# Unofficial API
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+---
+# Unofficial API
+
+- Some developers build their own version of API, and make it open-source.
+- Here are the two examples of unofficial APIs:
+1. `yfinance` is unofficial API for [Yahoo! Finance](https://finance.yahoo.com/)
+    - [https://pypi.org/project/yfinance](https://pypi.org/project/yfinance)
+    - It offers a threaded and Pythonic way to download market data from **Yahoo Finance**.
+2. `pytrends` is unofficial API for [Google Trends](https://trends.google.com/home):
+    - [https://github.com/GeneralMills/pytrends](https://github.com/GeneralMills/pytrends)
+    - It allows simple interface for automating downloading of reports from **Google Trends**.   
+    
+
+
+```python
+pip install pytrends
+pip install yfinance
+```
+
+
+---
+class: inverse, center, middle
+
+# Unofficial API: `yfinance`
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+# Yahoo! Finance with `yfinance`
+### &lt;p style="color:#00449E"&gt; 
+
+- One of the most critical use cases of `yfinance` is the possibility to access stocks (and some cryptocurrencies’) historical data. 
+  - These include Open, High, Low, Close, Volume, and also dividend payments, and stock splits.
+
+
+```python
+import yfinance as yf
+from datetime import datetime
+# CREATE TICKER INSTANCE FOR AMAZON
+amzn = yf.Ticker("AMZN")
+
+# GET TODAYS DATE AND CONVERT IT TO A STRING WITH YYYY-MM-DD FORMAT (YFINANCE EXPECTS THAT FORMAT)
+end_date = datetime.now().strftime('%Y-%m-%d')
+amzn_hist = amzn.history(start='2023-01-01', end=end_date)
+```
+
+
+
+---
+# Yahoo! Finance with `yfinance`
+### &lt;p style="color:#00449E"&gt; 
+
+By default, `yfinance` returns daily data, but we can also set the time `interval`. 
+  - Different time interval have different limitations regarding how far back we can go in time.
+  - Requesting an interval (start – end) greater than the limitations will result in an error.
+  - We can avoid this error by only asking for the maximum allowed days of data. This is done by setting the parameter “period” to ‘max’, in addition to either “end” or “start” (but not both)
+
+
+```python
+amzn_hist_min = amzn.history(period = 'max', end = end_date, interval = '1m')
+```
+
+
+
+---
+# Yahoo! Finance with `yfinance`
+### &lt;p style="color:#00449E"&gt; 
+
+- It is also possible to retrieve historical data of more than one company's stock with a single request. 
+  - This can be done by instantiating a `Tickers` object (plural instead of singular).
+
+
+```python
+companies = ['AMZN','GOOG','WMT','TSLA','META'] 
+tickers = yf.Tickers(companies)
+tickers_hist = tickers.history(period='max',end=end_date,interval='1m',)
+tickers_hist
+```
+
+
+---
+# Yahoo! Finance with `yfinance`
+### &lt;p style="color:#00449E"&gt; 
+
+- Notice that the returned DataFrame has a `MultiLevel Index`, which is an undesired structure for most purposes.
+
+
+```python
+tickers_hist_long = (
+    tickers_hist
+    .stack() # stacking, similar to DataFrame.melt()
+    .rename_axis(['Date', 'Ticker']) # rename row index
+    .reset_index()
+)
+```
+
+
+
+---
+# Yahoo! Finance with `yfinance`
+### &lt;p style="color:#00449E"&gt; 
+
+- The `.history()` method includes several parameters, and knowing them is important in order to make most out of `yfinance`.
+
+.panelset[
+.panel[.panel-name[(1)]
+- `period`: Especially useful is the value “max”. 
+  - The following are the valid values: 1d, 5d, 1mo, 3mo, 6mo, 1y, 2y, 5y, 10y, ytd, max.
+  
+
+]
+
+
+.panel[.panel-name[(2)]
+- `interval`: Defines the size of each interval. 
+  - Smaller interval sizes have more strict limitations, and only 7 days of 1-minute data can be retrieved.
+  - The following are the valid values: 1m, 2m, 5m, 15m, 30m, 60m, 90m, 1h, 1d, 5d, 1wk, 1mo, 3mo
+
+]
+
+.panel[.panel-name[(3)]
+  - `start`: Start date. The server expects a string formatted as YYYY-MM-DD.
+  - `end`: End date. The server expects a string formatted as YYYY-MM-DD.
+
+]
+
+.panel[.panel-name[(4)]
+  - `repost`: Defines whether to include or not data not corresponding to regular trading hours. Default value is `False`
+  - `auto_adjust`: whether to adjust prices to stock splits and dividend payments. The default value is `True`.
+  
+
+]
+
+]
+
+
+  
+  
+
+---
+# Yahoo! Finance with `yfinance`
+### &lt;p style="color:#00449E"&gt; Fetch financial information
+
+- Yahoo Finance also allows fetching a multitude of financial information, such as balance sheet data, historical events, and commonly used ratios. 
+
+- However, `yfinance` does not currently work well with fetching these information.
+
+  - Let's work with [Microsoft page in Yahoo! Finance](https://finance.yahoo.com/quote/MSFT/sustainability?p=MSFT).
+
+
+---
+# Yahoo! Finance with `yfinance`
+### &lt;p style="color:#00449E"&gt; Fetch financial information about Microsoft
+
+  
+.panelset[
+
+.panel[.panel-name[(1)]
+
+```python
+msft = yf.Ticker("MSFT")
+msft.info # get all stock info
+# show meta information about the history (requires history() to be called first)
+msft.history_metadata
+```
+]
+
+.panel[.panel-name[(2)]
+
+```python
+# show actions (dividends, splits, capital gains)
+msft.actions
+msft.dividends
+msft.splits
+msft.capital_gains  # only for mutual funds &amp; etfs
+```
+]
+
+.panel[.panel-name[(3)]
+
+```python
+# show share count
+# - yearly summary:
+msft.shares
+
+# - accurate time-series count:
+msft.get_shares_full(start="2022-01-01", end=None)
+```
+]
+
+.panel[.panel-name[(4)]
+- These do not work currently.
+
+```python
+# show financials:
+# - income statement
+msft.income_stmt
+msft.quarterly_income_stmt
+```
+]
+
+.panel[.panel-name[(5)]
+- These do not work currently.
+
+```python
+# - balance sheet
+msft.balance_sheet
+msft.quarterly_balance_sheet
+```
+]
+
+
+.panel[.panel-name[(6)]
+- These do not work currently.
+
+```python
+# - cash flow statement
+msft.cashflow
+msft.quarterly_cashflow
+# see `Ticker.get_income_stmt()` for more options
+```
+]
+
+
+
+.panel[.panel-name[(7)]
+
+```python
+# show holders
+msft.major_holders
+msft.institutional_holders
+msft.mutualfund_holders
+```
+]
+.panel[.panel-name[(8)]
+- These do not work currently.
+
+```python
+# show earnings
+msft.earnings
+msft.quarterly_earnings
+```
+]
+.panel[.panel-name[(9)]
+- These do not work currently.
+
+```python
+# show sustainability
+msft.sustainability
+```
+]
+.panel[.panel-name[(10)]
+- These do not work currently.
+
+```python
+msft.recommendations # show analysts recommendations
+msft.recommendations_summary
+msft.analyst_price_target # show analysts other work
+msft.revenue_forecasts
+msft.earnings_forecasts
+msft.earnings_trend
+```
+]
+
+.panel[.panel-name[(11)]
+
+```python
+# show next event (earnings, etc)
+msft.calendar
+
+# Show future and historic earnings dates, 
+# returns at most next 4 quarters and last 8 quarters by default. 
+# Note: If more are needed use msft.get_earnings_dates(limit=XX) with increased limit argument.
+msft.earnings_dates
+msft.get_earnings_dates()
+```
+]
+
+
+.panel[.panel-name[(12)]
+
+```python
+# show ISIN code - *experimental*
+# ISIN = International Securities Identification Number
+msft.isin
+
+# show options expirations
+msft.options
+```
+]
+
+.panel[.panel-name[(13)]
+
+```python
+# show news
+msft.news
+```
+]
+
+]
+
+
+---
+class:  center, middle
+
+# Attendance Time
+
+Let's have an attendance time.
+
+
+
+
+---
+class: inverse, center, middle
+
+# Unofficial API: `pytrends`
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+# Google Trends with `pytrends`
+### &lt;p style="color:#00449E"&gt; 
+
+.panelset[
+.panel[.panel-name[TrendReq]
+- Connect to Google with `TrendReq()`.
+
+
+```python
+from pytrends.request import TrendReq
+pytrends = TrendReq(hl='en-US', tz=360)
+```
+
+- `hl`: host language for accessing Google Trends
+- `tz`: timezone. For example, US CST is '360'.
+
+]
+
+
+.panel[.panel-name[build_payload]
+- Be ready to get data with `pytrends.build_payload()`.
+
+
+```python
+keywords = ['climate change', 'global warming'] # could be just one keyword
+pytrends.build_payload(
+              kw_list = keywords,
+              cat = 0,    # all categories
+              timeframe = 'today 3-m',
+              geo = "US-NY",
+              gprop = '')
+```
+
+
+]
+
+
+.panel[.panel-name[build_payload]
+- `kw_list`:  Keywords to get data for. 
+- `cat`: [Google Trends Categories](https://github.com/pat310/google-trends-api/wiki/Google-Trends-Categories)
+- `geo`: geographic unit. (e.g., `'US-NY'` for NY state, `'US'` for United States, `'GB-ENG'` for England)
+  - Loop over `geo` is useful.
+
+]
+
+.panel[.panel-name[build_payload]
+- `timeframe`: Date to start from
+  - Defaults to last 5yrs, `'today 5-y'`.
+  - Everything `'all'`
+  - Specific dates, 'YYYY-MM-DD YYYY-MM-DD' example `'2022-01-01 2022-12-31'`
+  - By Month: `'today 3-m'` would get data from today to 3months ago
+  - By Day: `'now 7-d'` would get data from the last week
+  - By Hour: `'now 1-H'` would get data from the last hour
+- Loop over `timeframe` is useful.
+]
+
+
+.panel[.panel-name[build_payload]
+- `gprop`: 
+  - What Google property to filter to
+  - Example `'images'`
+  - Defaults to web searches
+  - Can be `images`, `news`, `youtube` or `froogle` (for Google Shopping results)
+]
+
+
+.panel[.panel-name[interest_by_region]
+
+
+```python
+pytrends.interest_by_region(resolution='CITY')
+```
+- `resolution`: 
+  - 'CITY' returns city level data
+  - 'COUNTRY' returns country level data
+  - 'DMA' returns Metro level data
+  - 'REGION' returns Region level data
+]
+
+.panel[.panel-name[etc]
+
+```python
+pytrends.related_topics()
+pytrends.related_queries()
+pytrends.top_charts(date = '2019', hl='en-US', tz=300, geo='GLOBAL')
+pytrends.realtime_trending_searches(pn='US') # realtime search trends for United States
+pytrends.trending_searches(pn='united_states') # trending searches in real time for United States
+pytrends.suggestions('climate change')
+pytrends.categories()
+```
+
+]
+]
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 66px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,12 +1,43 @@
 ---
 title: "DANL 210: Data Preparation and Management<br>Homework Assignment 5"
 author: "Byeong-Hak Choe"
+format: 
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    code-tools: true
+execute:
+  echo: true
+  eval: false
+  message: false
+  warning: false
 ---
 
 # Direction for Homework Assignment 5
 
 - Go to the following website about Climate Change Knowledge Portal at the World Bank
   - [https://climateknowledgeportal.worldbank.org/download-data](https://climateknowledgeportal.worldbank.org/download-data).
+
+<br>
+
+## Initiating the Chorme browser with the specified download folder
+```{python}
+options = webdriver.ChromeOptions()
+download_folder = "/Users/byeong-hakchoe/Google Drive/suny-geneseo/spring2023/lecture_codes/data"
+p = {"download.default_directory" : download_folder, "safebrowsing.enabled" : "false"}
+options.add_experimental_option("prefs", p)
+driver = webdriver.Chrome(chrome_options = options, 
+                          executable_path = "chromedriver")
+                          
+```
+
+<br>
+
+## Getting a list of files in a folder
+```{python}
+import os
+file_list = os.listdir(download_folder)
+```
 
 <br>
 
