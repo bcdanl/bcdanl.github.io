@@ -111,14 +111,26 @@ beer_mkts_NY <- beer_mkts %>%
                        'EXURBAN NY', 'URBAN NY') )%>% 
   filter(brand %in% c('BUD LIGHT',
                        'COORS LIGHT', 'MILLER LITE') )
+```
 
-
+```{r, fig.width=8, fig.height=12}
 ggplot(beer_mkts_NY, aes(x = log(beer_floz),
                          y = log(price_per_floz))) +
   geom_point(alpha = .2) +
   geom_smooth(method = lm) +
   facet_grid(market ~ brand)
 ```
+
+- Across the subregions, the demand for BUD LIGHT in URBAN NY seems to be the most sensitive to change in price.
+- Across the subregions, the demand for BUD LIGHT in ALBANY seems to be the least sensitive to change in price.
+
+
+- Across the subregions, the demand for COORS LIGHT in URBAN NY seems to be the most sensitive to change in price.
+- Across the subregions, the demand for COORS LIGHT in EXURBAN NY seems to be the least sensitive to change in price.
+
+
+- Across the subregions, the demand for MILLER LITE in EXURBAN NY seems to be the most sensitive to change in price.
+- Across the subregions, the demand for MILLER LITE in Albany seems to be the least sensitive to change in price.
 
 <br><br>
 
@@ -160,13 +172,21 @@ model <- lm(data = dtrain, formula)
 ```{r, echo = TRUE, eval = F}
 stargazer(model, 
           type = 'text', 
-          omit = c('market', 'container'))
+          keep = c('log(beer_floz)', 
+                   'brand',
+                   'Albany', 'NY',
+                   'Syracus', "NEW YORK"
+                   ))
 ```
 
 ```{r, echo = F, results='asis'}
 stargazer(model, 
           type = 'html', 
-          omit = c('container'))
+          keep = c('log(beer_floz)', 
+                   'brand',
+                   'Albany', 'NY',
+                   'Syracus', "NEW YORK"
+                   ))
 ```
 
 <br>
@@ -265,6 +285,6 @@ ggplot(data = dtest, aes(x = pred_log,
 
 
 - Overall, the predictions are correct.
-- There is no systematic pattern in the residual plot, implying that the statistical assumption on errors seems to hold.
+- There is no systematic pattern in the residual plot, implying that the statistical assumption on errors---$\epsilon_{i}\sim N(0, \sigma^{2})$---seems to hold.
 
 <br>
