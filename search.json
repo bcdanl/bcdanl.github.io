@@ -3561,5 +3561,89 @@
     "title": "DANL 200: Introduction to Data AnalyticsHomework Assignment 4",
     "section": "Q1e",
     "text": "Q1e\n\nCalculate the mean squared error (MSE) for each model in Q1b.\nWhich model do you prefer most? Why?"
+  },
+  {
+    "objectID": "DANL200_hw3a.html",
+    "href": "DANL200_hw3a.html",
+    "title": "DANL 200: Introduction to Data AnalyticsHomework Assignment 3",
+    "section": "",
+    "text": "Load R packages you need for Homework Assignment 3"
+  },
+  {
+    "objectID": "DANL200_hw3a.html#variable-description",
+    "href": "DANL200_hw3a.html#variable-description",
+    "title": "DANL 200: Introduction to Data AnalyticsHomework Assignment 3",
+    "section": "Variable Description",
+    "text": "Variable Description\n\nhh: an identifier of the purchasing household;\nX_purchase_desc: details on the purchased item;\nquantity: the number of items purchased;\nbrand: Bud Light, Busch Light, Coors Light, Miller Lite, or Natural Light;\nspent: total dollar value of purchase;\nbeer_floz: total volume of beer, in fluid ounces;\nprice_per_floz: price per fl.oz. (i.e., beer spent/beer floz);\ncontainer: the type of container;\npromo: Whether the item was promoted (coupon or otherwise);\nmarket: Scan-track market (or state if rural);\ndemographic data, including gender, marital status, household income, class of work, race, education, age, the size of household, and whether or not the household has a microwave or a dishwasher."
+  },
+  {
+    "objectID": "DANL200_hw3a.html#q1a",
+    "href": "DANL200_hw3a.html#q1a",
+    "title": "DANL 200: Introduction to Data AnalyticsHomework Assignment 3",
+    "section": "Q1a",
+    "text": "Q1a\nIn the data.frame, beer_mkts, keep the observations with only ‘CAN’ or ‘NON REFILLABLE BOTTLE’ type containers.\n\nbeer_mkts <- beer_mkts %>% \n  filter(container == 'CAN' | container == 'NON REFILLABLE BOTTLE')"
+  },
+  {
+    "objectID": "DANL200_hw3a.html#q1b",
+    "href": "DANL200_hw3a.html#q1b",
+    "title": "DANL 200: Introduction to Data AnalyticsHomework Assignment 3",
+    "section": "Q1b",
+    "text": "Q1b\nIn the data.frame, beer_mkts, convert the character variable, market, to the factor variable with the first level ‘BUFFALO-ROCHESTER’.\n\nbeer_mkts <- beer_mkts %>% \n  mutate(market = factor(market),\n         market = relevel(market,\n                          'BUFFALO-ROCHESTER'))"
+  },
+  {
+    "objectID": "DANL200_hw3a.html#q1c",
+    "href": "DANL200_hw3a.html#q1c",
+    "title": "DANL 200: Introduction to Data AnalyticsHomework Assignment 3",
+    "section": "Q1c",
+    "text": "Q1c\n\nCreate the data.frame, beer_mkts_NY, that include\n\nonly the following markets,\n\n\nBUFFALO-ROCHESTER;\nALBANY;\nSYRACUSE;\nSURBURBAN NY;\nEXURBAN NY;\nURBAN NY;\n\n\nonly the following beer brands\n\n\nBUD LIGHT;\nCOORS LIGHT;\nMILLER LITE.\n\nProvide both (1) ggplot with beer_mkts_NY and (2) a comment to describe how the relationship between log(price_per_floz) and log(beer_floz) varies by market and brand.\n\n\nbeer_mkts_NY <- beer_mkts %>% \n  filter(market %in% c('BUFFALO-ROCHESTER',\n                       'ALBANY', 'SYRACUSE',\n                       'SURBURBAN NY',\n                       'EXURBAN NY', 'URBAN NY') )%>% \n  filter(brand %in% c('BUD LIGHT',\n                       'COORS LIGHT', 'MILLER LITE') )\n\n\nggplot(beer_mkts_NY, aes(x = log(beer_floz),\n                         y = log(price_per_floz))) +\n  geom_point(alpha = .2) +\n  geom_smooth(method = lm) +\n  facet_grid(market ~ brand)"
+  },
+  {
+    "objectID": "DANL200_hw3a.html#q1d",
+    "href": "DANL200_hw3a.html#q1d",
+    "title": "DANL 200: Introduction to Data AnalyticsHomework Assignment 3",
+    "section": "Q1d",
+    "text": "Q1d\n\nRandomly divide the data.frame, beer_mkts, into training and test data.frames, dtrain and dtest, respectively.\nMake sure that you can replicate the randomization.\n\nApproximately 60% of observations in beer_mkts go to dtrain.\nThe rest of observations in beer_mkts go to dtest.\n\n\n\nset.seed(123)\ngp <- runif(nrow(beer_mkts))\ndtrain <- beer_mkts %>% \n  filter(gp < .6)\ndtest <- beer_mkts %>% \n  filter(gp >= .6)"
+  },
+  {
+    "objectID": "DANL200_hw3a.html#q1e",
+    "href": "DANL200_hw3a.html#q1e",
+    "title": "DANL 200: Introduction to Data AnalyticsHomework Assignment 3",
+    "section": "Q1e",
+    "text": "Q1e\nUse dtrain to train the linear regression model with the following formula.\n\nformula <- \n  log(price_per_floz) ~  \n    log(beer_floz) + market + container + brand\n\n\nProvide the summary of the linear regression.\n\n\nmodel <- lm(data = dtrain, formula)\n\n\nstargazer(model, \n          type = 'text', \n          omit = c('market', 'container'))\n\n\n\n\n\n\n\n\n\n\n\nDependent variable:\n\n\n\n\n\n\n\n\n\n\n\n\nlog(price_per_floz)\n\n\n\n\n\n\n\n\nlog(beer_floz)\n\n\n-0.141***\n\n\n\n\n\n\n(0.001)\n\n\n\n\n\n\n\n\n\n\nmarketALBANY\n\n\n0.038***\n\n\n\n\n\n\n(0.013)\n\n\n\n\n\n\n\n\n\n\nmarketATLANTA\n\n\n0.099***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketBALTIMORE\n\n\n0.092***\n\n\n\n\n\n\n(0.014)\n\n\n\n\n\n\n\n\n\n\nmarketBIRMINGHAM\n\n\n0.127***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketBOSTON\n\n\n0.125***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketCHARLOTTE\n\n\n0.029***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketCHICAGO\n\n\n-0.003\n\n\n\n\n\n\n(0.010)\n\n\n\n\n\n\n\n\n\n\nmarketCINCINNATI\n\n\n0.090***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketCLEVELAND\n\n\n0.060***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketCOLUMBUS\n\n\n0.074***\n\n\n\n\n\n\n(0.010)\n\n\n\n\n\n\n\n\n\n\nmarketDALLAS\n\n\n0.208***\n\n\n\n\n\n\n(0.010)\n\n\n\n\n\n\n\n\n\n\nmarketDENVER\n\n\n0.130***\n\n\n\n\n\n\n(0.012)\n\n\n\n\n\n\n\n\n\n\nmarketDES MOINES\n\n\n0.140***\n\n\n\n\n\n\n(0.012)\n\n\n\n\n\n\n\n\n\n\nmarketDETROIT\n\n\n0.090***\n\n\n\n\n\n\n(0.010)\n\n\n\n\n\n\n\n\n\n\nmarketEXURBAN NY\n\n\n0.193***\n\n\n\n\n\n\n(0.015)\n\n\n\n\n\n\n\n\n\n\nmarketGRAND RAPIDS\n\n\n0.091***\n\n\n\n\n\n\n(0.012)\n\n\n\n\n\n\n\n\n\n\nmarketHARTFORD-NEW HAVEN\n\n\n0.157***\n\n\n\n\n\n\n(0.014)\n\n\n\n\n\n\n\n\n\n\nmarketHOUSTON\n\n\n0.122***\n\n\n\n\n\n\n(0.010)\n\n\n\n\n\n\n\n\n\n\nmarketINDIANAPOLIS\n\n\n0.045***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketJACKSONVILLE\n\n\n0.123***\n\n\n\n\n\n\n(0.013)\n\n\n\n\n\n\n\n\n\n\nmarketKANSAS CITY\n\n\n0.086***\n\n\n\n\n\n\n(0.012)\n\n\n\n\n\n\n\n\n\n\nmarketLITTLE ROCK\n\n\n0.102***\n\n\n\n\n\n\n(0.013)\n\n\n\n\n\n\n\n\n\n\nmarketLOS ANGELES\n\n\n0.031***\n\n\n\n\n\n\n(0.010)\n\n\n\n\n\n\n\n\n\n\nmarketLOUISVILLE\n\n\n0.063***\n\n\n\n\n\n\n(0.012)\n\n\n\n\n\n\n\n\n\n\nmarketMEMPHIS\n\n\n0.137***\n\n\n\n\n\n\n(0.013)\n\n\n\n\n\n\n\n\n\n\nmarketMIAMI\n\n\n0.112***\n\n\n\n\n\n\n(0.010)\n\n\n\n\n\n\n\n\n\n\nmarketMILWAUKEE\n\n\n0.035***\n\n\n\n\n\n\n(0.012)\n\n\n\n\n\n\n\n\n\n\nmarketMINNEAPOLIS\n\n\n0.133***\n\n\n\n\n\n\n(0.012)\n\n\n\n\n\n\n\n\n\n\nmarketNASHVILLE\n\n\n0.153***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketNEW ORLEANS-MOBILE\n\n\n0.131***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketOKLAHOMA CITY-TULSA\n\n\n0.148***\n\n\n\n\n\n\n(0.012)\n\n\n\n\n\n\n\n\n\n\nmarketOMAHA\n\n\n0.139***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketORLANDO\n\n\n0.103***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketPHILADELPHIA\n\n\n0.110***\n\n\n\n\n\n\n(0.014)\n\n\n\n\n\n\n\n\n\n\nmarketPHOENIX\n\n\n0.144***\n\n\n\n\n\n\n(0.010)\n\n\n\n\n\n\n\n\n\n\nmarketPITTSBURGH\n\n\n0.092***\n\n\n\n\n\n\n(0.015)\n\n\n\n\n\n\n\n\n\n\nmarketPORTLAND, OR\n\n\n0.120***\n\n\n\n\n\n\n(0.013)\n\n\n\n\n\n\n\n\n\n\nmarketRALEIGH-DURHAM\n\n\n0.089***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketRICHMOND\n\n\n0.047***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL ALABAMA\n\n\n0.168***\n\n\n\n\n\n\n(0.015)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL ARKANSAS\n\n\n0.169***\n\n\n\n\n\n\n(0.018)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL CALIFORNIA\n\n\n0.047***\n\n\n\n\n\n\n(0.012)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL COLORADO\n\n\n0.230***\n\n\n\n\n\n\n(0.049)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL FLORIDA\n\n\n0.063***\n\n\n\n\n\n\n(0.013)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL GEORGIA\n\n\n0.142***\n\n\n\n\n\n\n(0.013)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL IDAHO\n\n\n0.147***\n\n\n\n\n\n\n(0.020)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL ILLINOIS\n\n\n0.016\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL INDIANA\n\n\n0.073***\n\n\n\n\n\n\n(0.013)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL IOWA\n\n\n0.065***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL KANSAS\n\n\n0.148***\n\n\n\n\n\n\n(0.018)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL KENTUCKY\n\n\n0.136***\n\n\n\n\n\n\n(0.017)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL LOUISIANA\n\n\n0.048***\n\n\n\n\n\n\n(0.014)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL MAINE\n\n\n0.088***\n\n\n\n\n\n\n(0.015)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL MICHIGAN\n\n\n0.084***\n\n\n\n\n\n\n(0.012)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL MINNESOTA\n\n\n0.165***\n\n\n\n\n\n\n(0.021)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL MISSISSIPPI\n\n\n0.045***\n\n\n\n\n\n\n(0.015)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL MISSOURI\n\n\n0.104***\n\n\n\n\n\n\n(0.012)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL MONTANA\n\n\n0.131***\n\n\n\n\n\n\n(0.014)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL NEBRASKA\n\n\n0.149***\n\n\n\n\n\n\n(0.021)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL NEVADA\n\n\n0.044***\n\n\n\n\n\n\n(0.013)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL NEW HAMPSHIRE\n\n\n0.066\n\n\n\n\n\n\n(0.043)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL NEW MEXICO\n\n\n0.164***\n\n\n\n\n\n\n(0.014)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL NEW YORK\n\n\n-0.050\n\n\n\n\n\n\n(0.060)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL NORTH CAROLINA\n\n\n0.011\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL NORTH DAKOTA\n\n\n0.194***\n\n\n\n\n\n\n(0.023)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL OHIO\n\n\n0.102***\n\n\n\n\n\n\n(0.017)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL OKLAHOMA\n\n\n0.145***\n\n\n\n\n\n\n(0.030)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL OREGON\n\n\n0.090**\n\n\n\n\n\n\n(0.041)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL PENNSYLVANIA\n\n\n0.129***\n\n\n\n\n\n\n(0.015)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL SOUTH CAROLINA\n\n\n0.055***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL SOUTH DAKOTA\n\n\n0.097***\n\n\n\n\n\n\n(0.020)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL TENNESSEE\n\n\n0.173***\n\n\n\n\n\n\n(0.014)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL TEXAS\n\n\n0.168***\n\n\n\n\n\n\n(0.010)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL VERMONT\n\n\n0.091***\n\n\n\n\n\n\n(0.021)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL VIRGINIA\n\n\n0.018\n\n\n\n\n\n\n(0.018)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL WASHINGTON\n\n\n0.122***\n\n\n\n\n\n\n(0.015)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL WEST VIRGINIA\n\n\n-0.018\n\n\n\n\n\n\n(0.016)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL WISCONSIN\n\n\n0.035***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketRURAL WYOMING\n\n\n0.128***\n\n\n\n\n\n\n(0.037)\n\n\n\n\n\n\n\n\n\n\nmarketSACRAMENTO\n\n\n0.042***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketSALT LAKE CITY\n\n\n0.117***\n\n\n\n\n\n\n(0.015)\n\n\n\n\n\n\n\n\n\n\nmarketSAN ANTONIO\n\n\n0.144***\n\n\n\n\n\n\n(0.010)\n\n\n\n\n\n\n\n\n\n\nmarketSAN DIEGO\n\n\n0.027**\n\n\n\n\n\n\n(0.012)\n\n\n\n\n\n\n\n\n\n\nmarketSAN FRANCISCO\n\n\n0.076***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketSEATTLE\n\n\n0.115***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketST. LOUIS\n\n\n0.049***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketSURBURBAN NY\n\n\n0.054***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nmarketSYRACUSE\n\n\n-0.037**\n\n\n\n\n\n\n(0.015)\n\n\n\n\n\n\n\n\n\n\nmarketTAMPA\n\n\n0.105***\n\n\n\n\n\n\n(0.010)\n\n\n\n\n\n\n\n\n\n\nmarketURBAN NY\n\n\n0.159***\n\n\n\n\n\n\n(0.012)\n\n\n\n\n\n\n\n\n\n\nmarketWASHINGTON DC\n\n\n0.101***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\nbrandBUSCH LIGHT\n\n\n-0.260***\n\n\n\n\n\n\n(0.003)\n\n\n\n\n\n\n\n\n\n\nbrandCOORS LIGHT\n\n\n-0.003\n\n\n\n\n\n\n(0.002)\n\n\n\n\n\n\n\n\n\n\nbrandMILLER LITE\n\n\n-0.012***\n\n\n\n\n\n\n(0.002)\n\n\n\n\n\n\n\n\n\n\nbrandNATURAL LIGHT\n\n\n-0.318***\n\n\n\n\n\n\n(0.003)\n\n\n\n\n\n\n\n\n\n\nConstant\n\n\n-2.177***\n\n\n\n\n\n\n(0.011)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nObservations\n\n\n43,508\n\n\n\n\nR2\n\n\n0.553\n\n\n\n\nAdjusted R2\n\n\n0.552\n\n\n\n\nResidual Std. Error\n\n\n0.168 (df = 43410)\n\n\n\n\nF Statistic\n\n\n553.426*** (df = 97; 43410)\n\n\n\n\n\n\n\n\nNote:\n\n\np<0.1; p<0.05; p<0.01"
+  },
+  {
+    "objectID": "DANL200_hw3a.html#q1f",
+    "href": "DANL200_hw3a.html#q1f",
+    "title": "DANL 200: Introduction to Data AnalyticsHomework Assignment 3",
+    "section": "Q1f",
+    "text": "Q1f\nFrom the result in Q1e, interpret the beta estimates of the following variables. 1. marketALBANY 2. marketEXURBAN NY 3. marketRURAL NEW YORK 4. marketSURBURBAN NY 5. marketSYRACUSE 6. marketURBAN NY 7. brandBUSCH LIGHT\n\nb <- tidy(model) %>% \n  filter(term %in% c('marketALBANY', 'marketEXURBAN NY', 'marketRURAL NEW YORK', 'marketSURBURBAN NY', 'marketSYRACUSE', 'marketURBAN NY', 'brandBUSCH LIGHT', 'log(beer_floz)')) %>% \n  mutate(star = ifelse(p.value <= .1, TRUE, FALSE),\n         exp_b_perc = (exp(estimate) - 1) * 100 ) \n\n\nAll else being equal, price_per_floz in ALBANY is greater than that in BUFFALO-ROCHESTER by 3.91%.\nAll else being equal, price_per_floz in EXURBAN NY is greater than that in BUFFALO-ROCHESTER by 21.3%.\nThe beta estimate for marketRURAL NEW YORK is not statistically significant, so that we cannot reject the null hypothesis \\(\\beta_{\\text{marketRURAL NEW YORK}} \\,=\\,0\\).\nAll else being equal, price_per_floz in SURBURBAN NY is greater than that in BUFFALO-ROCHESTER by 5.51%.\nAll else being equal, price_per_floz in SYRACUSE is smaller than that in BUFFALO-ROCHESTER by 3.64%.\nAll else being equal, price_per_floz in URBAN NY is greater than that in BUFFALO-ROCHESTER by 17.23%.\nAll else being equal, price_per_floz for BUSCH LIGHT is smaller than that for BUD LIGHT by 22.93%."
+  },
+  {
+    "objectID": "DANL200_hw3a.html#q1g",
+    "href": "DANL200_hw3a.html#q1g",
+    "title": "DANL 200: Introduction to Data AnalyticsHomework Assignment 3",
+    "section": "Q1g",
+    "text": "Q1g\nFrom the result in Q1e, interpret the beta estimate for log(beer_floz).\n\nAll else being equal, one percent increase in beer_floz is associated with a decrease in price_per_floz by 0.14%."
+  },
+  {
+    "objectID": "DANL200_hw3a.html#q1h",
+    "href": "DANL200_hw3a.html#q1h",
+    "title": "DANL 200: Introduction to Data AnalyticsHomework Assignment 3",
+    "section": "Q1h",
+    "text": "Q1h\nMake a prediction on the price of one 12 fl.oz bottle of beer using the dtest data.frame and the regression result in Q1e.\n\ndtest <- dtest %>% \n  mutate(pred_log = predict(model, newdata = dtest),\n         pred = exp(pred_log),\n         pred_12floz = 12 * pred,\n         price_12floz = 12 * price_per_floz\n         )"
+  },
+  {
+    "objectID": "DANL200_hw3a.html#q1i",
+    "href": "DANL200_hw3a.html#q1i",
+    "title": "DANL 200: Introduction to Data AnalyticsHomework Assignment 3",
+    "section": "Q1i",
+    "text": "Q1i\nProvide both (1) ggplot and (2) a simple comment to describe how the distribution of the predicted price of one 12 fl.oz bottle of beer varies by brand.\n\nggplot(dtest) +\n  geom_histogram(aes(x = pred_12floz, fill = brand),\n                 binwidth = .0125,\n                 show.legend = F) +\n  facet_grid(brand ~.)\n\n\n\n\n\nBUD LIGHT, COORS LIGHT, and MILLER LITE tend to be more expensive than BUSCH LIGHT and NATURAL LIGHT."
+  },
+  {
+    "objectID": "DANL200_hw3a.html#q1j",
+    "href": "DANL200_hw3a.html#q1j",
+    "title": "DANL 200: Introduction to Data AnalyticsHomework Assignment 3",
+    "section": "Q1j",
+    "text": "Q1j\n\nUse ggplot to draw a residual plot.\nMake a simple comment on the residual plot.\n\n\nggplot(data = dtest, aes(x = pred_log, \n                         y = log(price_per_floz) - pred_log )) +\n  geom_point(color = 'grey60', alpha = .1) +\n  geom_smooth(color = 'blue') +\n  geom_hline(aes(yintercept = 0), color = 'red')\n\n\n\n\n\nOverall, the predictions are correct.\nThere is no systematic pattern in the residual plot, implying that the statistical assumption on errors seems to hold."
   }
 ]
