@@ -1,7 +1,11 @@
 ---
 title: "DANL 200: Introduction to Data Analytics<br>Homework Assignment 1"
 author: "Byeong-Hak Choe"
-editor: visual
+format:
+  html:
+    code-fold: false
+    code-summary: "Show the code"
+    code-tools: true
 ---
 
 ```{r setup, include = F}
@@ -35,10 +39,13 @@ knitr::opts_chunk$set(
 
 ## About `NY_colleges.csv`
 
--   `NY_colleges.csv` is university-year level data about
-    -   
+-   
 
-        (1) median debt of college students,
+    ## `NY_colleges.csv` is university-year level data about
+
+    ```         
+    (1) median debt of college students,
+    ```
 
     -   
 
@@ -117,20 +124,19 @@ NY_colleges$NPT4_PRIV <- as.numeric( NY_colleges$NPT4_PRIV )
 
 ```
 
-- After converting the variables into numeric types, we can get the summary statistics for `NPT4_PUB` and `NPT4_PRIV`.
+-   After converting the variables into numeric types, we can get the summary statistics for `NPT4_PUB` and `NPT4_PRIV`.
 
 ```{r}
 skim(NY_colleges$NPT4_PUB)
 skim(NY_colleges$NPT4_PRIV)
 ```
 
+-   The following is the summary statistics for `GRAD_DEBT_MDN` and `WDRAW_DEBT_MDN`.
 
-- The following is the summary statistics for `GRAD_DEBT_MDN` and `WDRAW_DEBT_MDN`.
 ```{r}
 skim(NY_colleges$GRAD_DEBT_MDN)
 skim(NY_colleges$WDRAW_DEBT_MDN)
 ```
-
 
 <br><br>
 
@@ -167,7 +173,7 @@ ggplot( data = NY_colleges ) +
   labs(x = 'average net price', color = 'type')
 ```
 
-- Private institutions tend to have a higher average net price than public ones.
+-   Private institutions tend to have a higher average net price than public ones.
 
 <br><br>
 
@@ -192,7 +198,6 @@ ggplot( data = NY_colleges,
                method = lm ) 
 ```
 
-
 ```{r, echo = F}
 ggplot( data = NY_colleges,
         mapping = aes( y = GRAD_DEBT_MDN ) ) + 
@@ -214,9 +219,9 @@ ggplot( data = NY_colleges,
   labs(x = 'average net price', color = 'type')
 ```
 
-- The association between average net price and median debt is stronger in public than in private.
+-   The association between average net price and median debt is stronger in public than in private.
 
-- The levels of average net price and median debt tend to be lower in public than in private.
+-   The levels of average net price and median debt tend to be lower in public than in private.
 
 <br><br>
 
@@ -300,7 +305,6 @@ ggplot( data = NY_colleges,
   labs(x = 'average net price', color = 'type')
 ```
 
-
 ```{r, eval = F}
 ggplot( data = NY_colleges,
         mapping = aes( y = HI_INC_DEBT_MDN ) ) + 
@@ -339,11 +343,9 @@ ggplot( data = NY_colleges,
   labs(x = 'average net price', color = 'type')
 ```
 
+-   Regardless of the levels of family income, the association between average net price and median debt is stronger in public than in private.
 
-- Regardless of the levels of family income, the association between average net price and median debt is stronger in public than in private.
-
-- Regardless of the levels of family income, the levels of average net price and median debt tend to be lower in public than in private.
-
+-   Regardless of the levels of family income, the levels of average net price and median debt tend to be lower in public than in private.
 
 <br><br>
 
@@ -372,7 +374,6 @@ ggplot( data = NY_colleges ) +
 
 ```
 
-
 ```{r, eval = F}
 
 ggplot( data = NY_colleges ) + 
@@ -394,7 +395,7 @@ ggplot( data = NY_colleges ) +
 
 ```
 
-- Private nonprofit tends to have the larger proportion of high-income students than public and private for-profit.
+-   Private nonprofit tends to have the larger proportion of high-income students than public and private for-profit.
 
 <br><br>
 
@@ -420,7 +421,6 @@ ggplot( data = NY_colleges ) +
                              fill = factor(CIP52BACHL) ),
                 ) 
 ```
-
 
 ```{r, echo = F}
 
@@ -454,10 +454,8 @@ ggplot( data = NY_colleges ) +
   labs(fill = 'business major')
 ```
 
-- Log transformation can be useful when a distribution of a variable of interest is highly skewed.
-  - In such case, log transformation make the distribution more normal-ish.
-
-
+-   Log transformation can be useful when a distribution of a variable of interest is highly skewed.
+    -   In such case, log transformation make the distribution more normal-ish.
 
 ```{r, eval = F}
 
@@ -476,7 +474,6 @@ ggplot( data = NY_colleges ) +
                              fill = factor(CIP52BACHL) ),
                 ) 
 ```
-
 
 ```{r, echo = F}
 
@@ -509,9 +506,7 @@ ggplot( data = NY_colleges ) +
   labs(fill = 'business major')
 ```
 
-
-- Schools that offer a business major tend to have more students than schools that do not offer one.
-
+-   Schools that offer a business major tend to have more students than schools that do not offer one.
 
 <br><br>
 
@@ -570,7 +565,7 @@ ggplot( data = NY_colleges ) +
   labs(fill = 'business major')
 ```
 
-- The levels of median debt tends to be larger for schools that offers a business major online exclusively.
+-   The levels of median debt tends to be larger for schools that offers a business major online exclusively.
 
 ## Q1i
 
@@ -593,7 +588,6 @@ ggplot( NY_colleges,
   theme(axis.text.x = element_text(angle = 45))
 ```
 
-
 ```{r, eval = F}
 ggplot( NY_colleges,
               aes(x = as.factor(YEAR) ) ) +
@@ -601,7 +595,6 @@ ggplot( NY_colleges,
                aes( y = MD_INC_DEBT_MDN) ) +
   ylim(c(0,30000)) 
 ```
-
 
 ```{r, echo = F}
 ggplot( NY_colleges,
@@ -611,8 +604,6 @@ ggplot( NY_colleges,
   ylim(c(0,30000)) +
   theme(axis.text.x = element_text(angle = 45))
 ```
-
-
 
 ```{r, eval = F}
 ggplot( NY_colleges,
@@ -631,4 +622,4 @@ ggplot( NY_colleges,
   theme(axis.text.x = element_text(angle = 45))
 ```
 
-- The median debt from low-income students tends to increase less than that from median-income and high-income students.
+-   The median debt from low-income students tends to increase less than that from median-income and high-income students.

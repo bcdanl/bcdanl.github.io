@@ -2,7 +2,6 @@
 title: "Python Lab 2 - EDA with pandas and seaborn"
 author: "Byeong-Hak Choe"
 # include-after-body: [beer_map.html, beer_map_ny.html]
-editor: visual
 ---
 
 ## Load Libraries
@@ -27,20 +26,18 @@ beer_mkt = pd.read_csv('https://bcdanl.github.io/data/beer_markets.csv')
 beer_mkt.head(10)
 ```
 
-- Variable Description
-  - `hh`: An identifier of the purchasing household;
-  - `_purchase_desc`: Details on the purchased item;
-  - `quantity`: Number of items purchased;
-  - `brand`: BUD LIGHT, BUSCH LIGHT, COORS LIGHT, MILLER LITE, or NATURAL LIGHT;
-  - `spent`: Total dollar value of purchase;
-  - `beer_floz`: Total volume of beer, in fluid ounces;
-  - `price_per_floz`: Price per fl.oz. (i.e., `spent`/`beer_floz`);
-  - `container`: Type of container;
-  - `promo`: Whether the item was promoted (coupon or something else);
-  - `market`: Scan-track market (or state if rural);
-  - various demographic data, including gender, marital status, household income, class of work, race, education, age, the size of household, and whether or not the household has a microwave or a dishwasher.
-
-
+-   Variable Description
+    -   `hh`: An identifier of the purchasing household;
+    -   `_purchase_desc`: Details on the purchased item;
+    -   `quantity`: Number of items purchased;
+    -   `brand`: BUD LIGHT, BUSCH LIGHT, COORS LIGHT, MILLER LITE, or NATURAL LIGHT;
+    -   `spent`: Total dollar value of purchase;
+    -   `beer_floz`: Total volume of beer, in fluid ounces;
+    -   `price_per_floz`: Price per fl.oz. (i.e., `spent`/`beer_floz`);
+    -   `container`: Type of container;
+    -   `promo`: Whether the item was promoted (coupon or something else);
+    -   `market`: Scan-track market (or state if rural);
+    -   various demographic data, including gender, marital status, household income, class of work, race, education, age, the size of household, and whether or not the household has a microwave or a dishwasher.
 -   Summarize DataFrame `beer_mkt`.
 
 ```{python, eval = F}
@@ -67,11 +64,9 @@ beer_mkt.describe()
 beer_mkt.groupby('brand').describe()
 ```
 
-
-
 ## Q1a
 
-- Sort the DataFrame `beer_mkt` by `hh` in ascending order.
+-   Sort the DataFrame `beer_mkt` by `hh` in ascending order.
 
 ```{python}
 beer_mkt = beer_mkt.sort_values('hh')
@@ -79,7 +74,7 @@ beer_mkt = beer_mkt.sort_values('hh')
 
 ## Q1b
 
-- Find the top 5 beer markets in terms of the number of households that purchased beer.
+-   Find the top 5 beer markets in terms of the number of households that purchased beer.
 
 ```{python}
 #| warning: false
@@ -113,7 +108,7 @@ q1b = q1b.query('ranking <= 5')
 
 ## Q1c
 
-- Find the top 5 beer markets in terms of the amount of total beer consumption.
+-   Find the top 5 beer markets in terms of the amount of total beer consumption.
 
 ```{python}
 #| warning: false
@@ -135,7 +130,7 @@ q1c = q1c.query('ranking <= 5')
 
 ## Q1d
 
-- Provide (1) seaborn code and (2) a simple comment to describe how the distribution of `price_per_floz` varies by `brand`.
+-   Provide (1) seaborn code and (2) a simple comment to describe how the distribution of `price_per_floz` varies by `brand`.
 
 ```{python}
 #| warning: false
@@ -148,10 +143,9 @@ sns.displot(data = beer_mkt,
 
 ```
 
-
 ## Q1e
 
-- Provide (1) seaborn code and (2) a simple comment to describe how the relationship between `price_per_floz` and `beer_floz` varies by `brand`.
+-   Provide (1) seaborn code and (2) a simple comment to describe how the relationship between `price_per_floz` and `beer_floz` varies by `brand`.
 
 ```{python}
 #| warning: false
@@ -165,7 +159,6 @@ sns.lmplot(data = beer_mkt,
            row = 'brand')
 
 ```
-
 
 ```{python}
 #| warning: false
@@ -183,4 +176,3 @@ sns.lmplot(data = beer_mkt,
            hue = 'brand',
            row = 'brand')
 ```
-
