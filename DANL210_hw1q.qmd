@@ -1,7 +1,6 @@
 ---
 title: "DANL 210: Data Preparation and Management<br>Homework Assignment 1"
 author: "Byeong-Hak Choe"
-editor: visual
 ---
 
 ```{r setup, include = F}
@@ -23,33 +22,32 @@ knitr::opts_chunk$set(
 )
 ```
 
-
 # Direction for Homework Assignment 1
 
-- Write a Python code to answer each question.
+-   Write a Python code to answer each question.
 
-- Make at least some simple comment (`# ...`) in each question.
+-   Make at least some simple comment (`# ...`) in each question.
 
-- Use your working directory with the subfolder, `data`, so that the relative pathname of CSV files in the subfolder `data` is sufficient to import the CSV files.
+-   Use your working directory with the subfolder, `data`, so that the relative pathname of CSV files in the subfolder `data` is sufficient to import the CSV files.
 
+-   Import all the Python libraries you need here.
 
-- Import all the Python libraries you need here.
-```{python, eval = F}
+```{python}
 import pandas as pd
 ```
-
-
 
 <br><br><br>
 
 # Question 1
+
 Consider the probability of survival in `titanic_1.csv`.
-```{python, eval = F}
+
+```{python}
 titanic_1 = pd.read_csv("data/titanic_1.csv")
 ```
 
-
 ## Q1a
+
 Calculate the simple difference between the probability of survival when passengers are first-class and the probability of survival when they are not.
 
 ```{r}
@@ -72,10 +70,9 @@ How much does the probability of survival increase for first-class passengers re
 
 Consider the probability of survival in `titanic_2.csv`.
 
-```{python, eval = F}
+```{python}
 titanic_2 = pd.read_csv("data/titanic_2.csv")
 ```
-
 
 After stratifying on gender and age, what happens to the difference in the probabilities of survival between first-class passengers and non-first-class passengers.
 
@@ -85,20 +82,18 @@ Explain in your own words what stratifying on gender and age did for this differ
 
 ```
 
-
 <br><br><br>
 
 # Question 2
 
 Consider the data file, NHL-1617.csv.
 
-```{python, eval = F}
+```{python}
 nhl1617 = pd.read_csv('data/NHL-1617.csv')
 ```
 
-
-
 ## Q2a
+
 How many players have been recorded?
 
 ```{r}
@@ -107,9 +102,8 @@ How many players have been recorded?
 
 <br><br>
 
-
-
 ## Q2b
+
 A column points (`P`) is missing in the data. The number of points of a player is defined as the sum of his goals (`G`) and assists (`A`). Add the point column `P` to your DataFrame.
 
 ```{r}
@@ -118,8 +112,8 @@ A column points (`P`) is missing in the data. The number of points of a player i
 
 <br><br>
 
-
 ## Q2c
+
 Who is the top scorer in terms of points?
 
 ```{r}
@@ -129,6 +123,7 @@ Who is the top scorer in terms of points?
 <br><br>
 
 ## Q2d
+
 How many Russian (non-goalie) players had some ice time in there 2016/2017 regular season? Hint: Nationality of a player can be found in "Nat". Russians are indicated by "RUS".
 
 ```{r}
@@ -137,9 +132,9 @@ How many Russian (non-goalie) players had some ice time in there 2016/2017 regul
 
 <br><br>
 
-
 ## Q2e
-What are their names? 
+
+What are their names?
 
 ```{r}
 
@@ -147,8 +142,8 @@ What are their names?
 
 <br><br>
 
-
 ## Q2f
+
 Who performed best among the Russian players in terms of points (`P`)?
 
 ```{r}
@@ -157,8 +152,8 @@ Who performed best among the Russian players in terms of points (`P`)?
 
 <br><br>
 
-
 ## Q2g
+
 How many points (`P`) did he have?
 
 ```{r}
@@ -168,6 +163,7 @@ How many points (`P`) did he have?
 <br><br>
 
 ## Q2h
+
 How well did he perform in the entire league? Put differently, what was his rank in terms of points?
 
 ```{r}
@@ -176,8 +172,8 @@ How well did he perform in the entire league? Put differently, what was his rank
 
 <br><br>
 
-
 ## Q2i
+
 Find the top ten scorers (in terms of points) and print them including their number of point and their respective team.
 
 ```{r}
@@ -186,8 +182,8 @@ Find the top ten scorers (in terms of points) and print them including their num
 
 <br><br>
 
-
 ## Q2j
+
 What are the three countries with the most players originating from?
 
 ```{r}
@@ -196,41 +192,38 @@ What are the three countries with the most players originating from?
 
 <br><br>
 
-
-
-
 <br><br><br>
 
 # Question 3
+
 Consider the data file, `coal_production_county.csv`.
-```{python, eval = F}
+
+```{python}
 coal = pd.read_csv("data/coal_production_county.csv")
 ```
 
-
 ## Q3a
+
 For each type of mine, calculate the total coal production for each pair of state-year.
 
 ```{r}
 
 ```
 
-
 <br><br>
 
-
 ## Q3b
+
 Find the top 5 coal-producing states for each year.
 
 ```{r}
 
 ```
 
-
 <br><br>
 
-
 ## Q3c
+
 Visualize the yearly trend of the total coal production from each type of mine.
 
 ```{r}
