@@ -1,0 +1,587 @@
+---
+title: "Fall 2022 DANL 200 Final Exam 2"
+author: "Byeong-Hak Choe"
+format: 
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    code-tools: true
+execute:
+  echo: true
+  eval: true
+  message: false
+  warning: false
+---
+```{r, include=F}
+library(tidyverse)
+library(skimr)
+library(lubridate)
+library(stargazer)
+library(broom)
+library(hrbrthemes)
+theme_set(theme_ipsum())
+```
+
+
+# Load R packages
+```{r, eval=F}
+#| code-fold: false
+
+library(tidyverse)
+library(skimr)
+library(lubridate)
+library(stargazer)
+library(broom)
+```
+
+
+# Question 1
+
+The following is the data.frame for Question 1.
+
+```{r}
+#| code-fold: false
+NFL2022_stuffs <- 
+  read_csv("https://bcdanl.github.io/data/NFL2022_stuffs.csv")
+```
+
+- `NFL2022_stuffs` is the data.frame that contains information about NFL games in year 2022, in which the unit of observation is a single play for each drive in a NFL game.
+
+- cf) A drive in American football is a word used to describe what a team's offense does with the football while it is in their possession and the series of plays that follow their gaining possession of the ball. 
+
+## Variable description
+- `play_id`: Numeric play identifier that when used with `game_id` and `drive` provides the unique identifier for a single play
+- `game_id`: Ten digit identifier for NFL game.
+- `drive`: Numeric drive number in the game.
+- `week`: Season week.
+- `posteam`: String abbreviation for the team with possession.
+- `qtr`: Quarter of the game (5 is overtime).
+- `half_seconds_remaining`: Numeric seconds remaining in the half.
+- `down`: The down for the given play.
+  - Basically you get four attempts (a.k.a. downs) to move the ball 10 yards (by either running with it or passing it). 
+  - If you make 10 yards then you get another set of four downs.
+- `pass`: Binary indicator if the play was a pass play.
+- `wp`: Estimated winning probability for the `posteam` given the current situation at the start of the given play.
+
+<br>
+
+## Q1a.
+In data.frame, `NFL2022_stuffs`, remove observations for which values of `posteam` is missing.
+```{r}
+q1a <- NFL2022_stuffs %>% 
+  filter(!is.na(posteam))
+```
+
+<br>
+
+## Q1b.
+- Summarize the mean value of `pass` for each `posteam` when all the following conditions hold:
+  - (1) `wp` is greater than 20% and less than 75%;
+  - (2) `down` is less than or equal to 2; and
+  - (3) `half_seconds_remaining` is greater than 120.
+
+```{r}
+q1b <- q1a %>%
+  filter(wp > .20, wp < .75, down <= 2, qtr <= 2, 
+         half_seconds_remaining > 120) %>%
+  group_by(posteam) %>%
+  summarize(mean_pass = mean(pass), 
+            plays = n()) %>%
+  arrange(mean_pass)
+```
+
+<br>
+
+## Q1c.
+- Provide both (1) a ggplot code with `geom_point()` using the resulting data.frame in Q1b and (2) a simple comments to describe the mean value of `pass` for each `posteam`.
+
+- In the ggplot, reorder the `posteam` categories based on the mean value of `pass` in ascending or in descending order.
+
+```{r}
+ggplot(data = q1b,
+       aes( x = reorder(posteam,-mean_pass), 
+            y = mean_pass)) +
+  geom_point() +
+  coord_flip()
+```
+Comments are not provided here.
+
+<br>
+
+## Q1d.
+- Download the CSV file, NFL2022_epa.csv.
+
+- Variable description for NFL2022_epa.csv 
+  - `play_id`: Numeric play identifier that when used with `game_id` and `drive` provides the unique identifier for a single play
+  - `game_id`: Ten digit identifier for NFL game.
+  - `drive`: Numeric drive number in the game.
+  - `posteam`: String abbreviation for the team with possession.
+  - `passer`: Name of the player who passed a ball to a receiver by initially taking a three-step drop, backpedaling into the pocket to make a pass. (Mostly, the quarterbacks)
+  - `receiver`: Name of the receiver.
+  - `epa`: Expected points added (EPA) by the posteam for the given play.
+
+
+- Read the CSV file, `NFL2022_epa.csv`, as data.frame with the name, `NFL2022_epa`.
+
+- Then, create the data.frame, `NFL2022_stuffs_EPA`, that includes 
+  - (1) all the variables in the data.frame, `NFL2022_stuffs`, and
+  - (2) `passer`, `receiver`, and `epa` in the data.frame, `NFL2022_epa`
+by joining the two data.frames.
+
+
+```{r}
+NFL2022_epa <- 
+  read_csv("/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/NFL2022_epa.csv")
+q1d <- NFL2022_stuffs %>% 
+  left_join(NFL2022_epa) %>% 
+  filter(!is.na(passer))
+```
+
+<br>
+
+## Q1e.
+- Provide both (1) a single ggplot and (2) a simple comment to describe the NFL weekly trend of `week`ly mean value of `epa` for each of passers, (a) `passer == "J.Allen"` and (b) `passer == "P.Mahomes"`.
+
+```{r}
+q1e <- q1d %>%
+  filter( str_detect(passer, "J.Allen") | 
+            str_detect(passer, "P.Mahomes"))%>%
+  group_by(week, passer) %>% 
+  summarize(mean_epa = mean(epa, na.rm = TRUE))
+
+
+ggplot( q1e, 
+        aes(x = week, y = mean_epa, color = passer) ) +
+  geom_line(size = 1) + geom_point(size = 2)
+```
+
+<br>
+
+## Q1f.
+- Calculate the difference between the mean value of `epa` for `passer == "J.Allen"` the mean value of `epa` for `passer == "P.Mahomes"` for each value of `week`.
+
+```{r}
+q1f <- q1e %>% 
+  pivot_wider(values_from = mean_epa,
+              names_from = passer) %>% 
+  mutate(diff_epa = J.Allen - P.Mahomes)
+```
+
+<br>
+
+## Q1g.
+- Summarize the resulting data.frame in Q1d, with the following four variables:
+  - `posteam`: String abbreviation for the team with possession.
+  - `passer`: Name of the player who passed a ball to a receiver by initially taking a three-step drop, backpedaling into the pocket to make a pass. (Mostly, the quarterbacks)
+  - `mean_epa`: Mean value of epa in 2022 for each passer
+  - `n_pass`: Number of observations for each passer
+
+
+- Then find the top 10 NFL passers in 2022 in terms of the mean value of `epa`, conditioning that `n_pass` must be greater than or equal to the third quartile level of `n_pass`.
+
+```{r}
+q1g <- q1d %>%
+  group_by(posteam, passer) %>% 
+  summarize(mean_epa = mean(epa, na.rm = TRUE),
+            n = n()) %>% 
+  ungroup()
+skimr::skim(q1g) # to see the third quartile
+
+q1g <- q1g %>% 
+  filter(n > 355) %>% 
+  arrange(-mean_epa)
+```
+
+<br><br>
+
+# Question 2
+- The following is the description for Question 2:
+
+- The income tax exemption scheme for pension savings is a system that reduces an income tax burden, so that individuals can build up more personal pensions to help them ensure their well-being in old age.
+
+- In particular, from 2005 to 2006, the tax authority expanded the limit amount of income tax exemption for pension savings from \$2,000 to \$3,000. 
+
+- That is to say, pension savings were exempt from income tax up to \$2,000 in 2005, and increased to \$3,000 for the 2006 tax year.
+
+- The following data.frame comes from the Census and the tax authority, and covers households in years 2005-2006:
+```{r}
+#| code-fold: false
+pension_tax <- 
+  read_csv("https://bcdanl.github.io/data/pension_tax_cleaned.csv")
+
+```
+
+## Variable description
+- `hh_id`: Household Identification (ID) number.
+- `gender`: Gender (Female or Male).
+- `schooling`: Level of educational attainment.
+- `region`: City-level geographic region.
+- `year`: Year (2005 or 2006).
+- `pension_saving`: Amount of yearly pension saving  (in $).
+- `saving3000below`: TRUE if `pension_saving` in 2005 is less than $3,000; `FALSE` otherwise.
+- `family_size`: Family size (non-negative integer values).
+- `net_asset`: Net asset (in $1,000).
+- `public_pension`: `TRUE` if the type of pension is public; `FALSE` otherwise.
+- `home_owner`: `TRUE` if household owns a house; `FALSE` otherwise.
+- `age`: Age of the household member who is a main income contributor.
+- `age_sq`: Age squared.
+- `hh_expenditure`: Household expenditure.
+- `hh_income`: Household income.
+
+<br>
+
+## Q2a.
+Report (1) minimum, (2) median, (3) maximum, (4) mean, and (5) standard deviation of variable `pension_saving` for New York, NY.
+
+```{r}
+table(pension_tax$region)
+
+pension_tax %>% 
+  filter(region == "New York, NY") %>% 
+  skim(pension_saving)
+```
+
+<br>
+
+## Q2b.
+Using the given data.frame, `pension_tax`, create the data.frame, `pension_tax`, for which
+  - (1) `year` is a factor-type variable of `year` with a reference level, 2005.
+  - (2) `schooling` is a factor-type variable of `schooling` with the following order of levels, defined in the `educ` vector:
+
+```{r}
+#| code-fold: false
+educ <- c( "Bachelor's Degree", 
+           "Elementary School", 
+           "Middle School",
+           "High School Diploma", 
+           "Associate's Degree", 
+           "Master's Degree", 
+           "Ph.D. Degree" )
+```
+
+- Answer
+```{r}
+pension_tax <- pension_tax %>% 
+  mutate( year = factor(year, levels = c(2005, 2006) ),
+          schooling = factor(schooling, levels = educ )
+  )
+
+# levels(pension_tax$year)
+# levels(pension_tax$schooling)
+```
+
+
+<br>
+
+## Q2c.
+Provide both (1) ggplot and (2) simple comments to describe the trend for the mean value of `log(pension_saving)` for each group of `saving3000below`.
+```{r}
+q2c <- pension_tax %>% 
+  group_by(year, saving3000below) %>% 
+  summarise( mean_log_pension_saving = mean( log(pension_saving) ) )
+q2c
+
+ggplot(data = q2c,
+       aes(x = year, y = mean_log_pension_saving,
+           group = saving3000below, color = saving3000below) ) +
+  geom_line(aes(lty = saving3000below)  ) +
+  geom_point()
+```
+Comments are not provided here.
+
+<br>
+
+## Q2d.
+Provide both (1) ggplot and (2) simple comments to describe the trend for the distribution of `log(pension_saving)` for each group of `saving3000below`.
+
+```{r}
+ggplot(data = pension_tax,
+       aes(x = factor(year), y = log(pension_saving))) +
+  geom_boxplot( aes(fill = saving3000below ),
+                position=position_dodge(.9) ) +
+  stat_summary( aes( group = saving3000below ),
+                fun = mean,
+                position=position_dodge(.9)) +
+  geom_line(data = q2c,
+            aes(x = factor(year), y = mean_log_pension_saving,
+                group = saving3000below, color = saving3000below,
+                lty = saving3000below),
+            position=position_dodge(.9) )
+```
+
+Comments are not provided here.
+
+<br>
+
+## Q2e.
+- Remove the observations in the data.frame, pension_tax, if the number of observations for each `hh_id` is 1.
+
+- Then, randomly split the data.frame, pension_tax, into training and testing data.frames.
+
+- Approximately 75% of observations in the data.frame, pension_tax, must go to the training data.frame. 
+
+- The rest observations in the the data.frame, pension_tax, must go to the testing data.frame.
+
+- Additionally, in both training and testing data.frames, 
+  - (1) the number of observations for each `hh_id` must be 2.
+  - (2) the fraction of observations with `saving3000below` == TRUE must be approximately 75%.
+  - (3) the fraction of observations with `saving3000below` == FALSE must be approximately 25%.
+  
+```{r}
+q1c <- pension_tax %>% 
+  group_by(hh_id) %>% 
+  mutate( n = n() ) %>% 
+  filter( n == 2 )
+
+q1c_T <- q1c %>% 
+  filter( saving3000below == T )%>%  # 214
+  group_by(hh_id) %>% 
+  mutate( n = n() ) %>% 
+  filter( n == 2 ) %>%  # 214
+  ungroup()
+
+q1c_F <- q1c %>% 
+  filter( saving3000below == F )%>% # 82
+  group_by(hh_id) %>% 
+  mutate( n = n() ) %>% 
+  filter( n == 2 ) %>%  # 82
+  ungroup()
+
+
+q1c_T_05 <- q1c_T %>% 
+  filter( year == 2005 )
+q1c_T_06 <- q1c_T %>% 
+  filter( year == 2006 )
+
+q1c_F_05 <- q1c_F %>% 
+  filter( year == 2005 )
+q1c_F_06 <- q1c_F %>% 
+  filter( year == 2006 )
+
+
+set.seed(2)
+gp_T <- runif( nrow(q1c_T_05)) 
+
+set.seed(3)
+gp_F <- runif( nrow(q1c_F_05) )
+
+
+q1c_T_05_train <- q1c_T_05 %>% 
+  filter(gp_T > .25)
+q1c_T_06_train <- q1c_T_06 %>% 
+  filter(gp_T > .25)
+
+q1c_F_05_train <- q1c_F_05 %>% 
+  filter(gp_F > .25)
+q1c_F_06_train <- q1c_F_06 %>% 
+  filter(gp_F > .25)
+
+
+q1c_T_05_test <- q1c_T_05 %>% 
+  filter(gp_T <= .25)
+q1c_T_06_test <- q1c_T_06 %>% 
+  filter(gp_T <= .25)
+
+q1c_F_05_test <- q1c_F_05 %>% 
+  filter(gp_F <= .25)
+q1c_F_06_test <- q1c_F_06 %>% 
+  filter(gp_F <= .25)
+
+
+
+dtrain <- rbind(q1c_T_05_train, q1c_T_06_train,
+                q1c_F_05_train, q1c_F_06_train) %>% 
+  arrange(hh_id, year)
+
+
+dtest <- rbind(q1c_T_05_test, q1c_T_06_test,
+               q1c_F_05_test, q1c_F_06_test) %>% 
+  arrange(hh_id, year)
+
+
+skim( dtrain %>% count(hh_id) %>% select(n) )
+skim( dtest %>% count(hh_id) %>% select(n) )
+```
+
+<br>
+
+## Q2f.
+Consider the following formula for linear regression:
+```{r}
+#| code-fold: false
+formula <- log(pension_saving) ~ 
+  saving3000below * year + 
+  log(hh_income) + log(hh_expenditure) +
+  family_size + net_asset + schooling +
+  gender + age + age_sq + public_pension
+```
+
+- Train the linear regression model with the above formula.
+
+- If you could not properly split the data.frame into the training  and testing data.frames in Q2e, use the data.frame, `pension_tax`, as the training data.frame.
+
+- Report the summary of the linear regression result.
+
+```{r}
+dtrain <- dtrain %>% 
+  mutate(net_asset = net_asset / 1000)
+model <- lm( formula, 
+             data = dtrain )
+```
+
+
+```{r, eval = F}
+stargazer(model, type = 'text')
+```
+
+
+```{r, echo = F, results='asis'}
+stargazer(model, type = 'html')
+```
+
+<br>
+
+## Q2g. 
+- Visualize the confidence intervals of all the beta estimates except for the variables `(Intercept)` and `saving3000below`.
+
+- What does it mean that a confidence interval of a beta estimate contains a zero level of its beta estimate?
+
+```{r}
+sum_model <- tidy(model) %>% 
+  filter(term != "(Intercept)", term != "saving3000belowTRUE") %>% 
+  mutate(star = ifelse(p.value <= .1, T, F)) %>% 
+  select(star, everything())
+
+ggplot(sum_model) +
+  geom_pointrange( aes(x = term, 
+                       y = estimate,
+                       ymin = estimate - 2*std.error,
+                       ymax = estimate + 2*std.error ) ) +
+  geom_hline(aes(yintercept = 0), lty = 2) +
+  coord_flip()
+
+```
+
+- If `estimate == 0` belongs to a confidence interval of the beta estimate, the beta estimate may not be statistically different from zero, and there is insufficient evidence to conclude that there is a non-zero relationship between the explanatory variable and the outcome variable.
+
+<br>
+
+## Q2h. 
+Interpret the estimated beta coefficients for the following variables---
+
+  - (1) `genderMale`
+  - (2) `log(hh_income)`
+  - (3) `schoolingHigh School Diploma`
+  - (4) `net_asset`
+
+---from the model with `formula` in Q2f.
+
+- Interpretation is not provided here.
+
+<br>
+
+## Q2i. 
+
+Provide (1) the interpretation of the beta estimate corresponding to the following question---
+  - How did the tax exemption of household income affect the `pension_saving`?
+---and (2) any intuitive explanations on it.
+
+- Answer
+  - Workers who had less than $3,000 in pension savings in 2005 had an incentive to further increase their pension savings in 2006, as the upper limit of income tax deduction increases. 
+  - On the other hand, workers who had more than $3,000 in pension savings in 2005 were hardly affected by the change in the upper limit. 
+  
+<br><br>
+
+# Question 3
+
+The following is the data.frame for Question 3.
+
+```{r}
+#| code-fold: false
+
+NYComplaints <- 
+  read_csv("https://bcdanl.github.io/data/NYComplaints.csv")
+```
+
+- The data.frame, NYComplaints, contains information about complaints from New York City.
+
+## Variable description
+- `unique_key`: Complaint identifier.
+- `year_open`, `month_open`, `day_open`: Date the casework is created by staff.
+- `year_close`, `month_close`, `day_close`: Date the casework was closed. 
+  - A casework could be closed because the issue is resolved or because no further action could be taken. 
+  - `NA` if the casework is not resolved.
+- `complaint_type`: Broader category designated by staff for the constituent casework. 
+  - `complaint_type` corresponds to NYC Council Legislative Committees.
+- `descriptor`: Specific category designated by staff for the constituent casework.
+- `zip`: Zip code of the constituent.
+- `borough`: Borough of the constituent.
+- `city`: City of the constituent.
+
+<br>
+
+## Q3a.
+- Calculate the number of observations for each `complaint_type`.
+- Find the top 10 most popular complaint types.
+
+```{r}
+NYComplaints %>% 
+  count(complaint_type) %>% 
+  arrange(desc(n))
+```
+
+<br>
+
+## Q3b.
+- Calculate the number of observations for each `complaint_type` for each `borough`.
+
+- Find the top 3 most popular complaint types for each `borough`.
+
+```{r}
+NYComplaints %>% 
+  group_by(borough, complaint_type) %>% 
+  tally() %>% 
+  slice_max(order_by = n, 
+            n = 3)
+```
+
+<br>
+
+## Q3c.
+- Provide both (1) a single ggplot and (2) a simple comment to describe the monthly trend of the proportion of resolved complaints for each borough.
+
+- The proportion of resolved complaints in one borough is defined as the number of resolved complaints in one borough divided by the number of all complaints in that borough.
+
+```{r}
+q3c <- NYComplaints %>% 
+  filter(!is.na(borough)) %>% 
+  mutate( resolved = ifelse(!is.na(year_close), T, F) ) %>% 
+  count(borough, resolved, year_open, month_open) %>% 
+  mutate(opendate = make_date(year_open, month_open)) %>% 
+  arrange(opendate, borough, resolved) %>% 
+  select(-year_open, -month_open) %>% 
+  unite(tmp, borough, resolved) %>% 
+  pivot_wider(names_from = tmp,
+              values_from = n,
+              values_fill = 0) %>% 
+  mutate(prop_Bronx = 100 * Bronx_TRUE/(Bronx_TRUE + Bronx_FALSE),
+         prop_Brooklyn = 100 * Brooklyn_TRUE/(Brooklyn_TRUE + Brooklyn_FALSE),
+         prop_Manhattan = 100 * Manhattan_TRUE/(Manhattan_TRUE + Manhattan_FALSE),
+         prop_Queens = 100 * Queens_TRUE/(Queens_TRUE + Queens_FALSE),
+         prop_StatenIsland = 100 * `Staten Island_TRUE`/(`Staten Island_TRUE` + `Staten Island_FALSE`)
+  ) %>% 
+  select(opendate, starts_with("prop")) %>% 
+  pivot_longer(prop_Bronx:prop_StatenIsland,
+               names_to = 'borough',
+               values_to = 'prop') %>% 
+  mutate(borough = str_replace(borough, "prop_", ""))
+
+
+
+ggplot(q3c) +
+  geom_line(aes(x = opendate, y = prop, 
+                color = fct_reorder2(borough, opendate, prop)))
+```
+
+
+
