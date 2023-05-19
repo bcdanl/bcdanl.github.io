@@ -433,6 +433,14 @@ knitr::include_graphics('lec_figs/pds_fig10_6.png')
 - The final ensemble of trees is bagged to make the random forest predictions.
 
 
+### Intuition behind the Random Forest Algorithm
+
+- The reason Random Forest algorithm considers a random subset of features at each split in the decision tree is to increase the diversity among the individual trees in the forest. This is a method to make the model more robust and prevent overfitting.
+
+- If all the variables were considered at each split, each decision tree in the forest would look more similar, as they would likely use the same (or very similar) variables for splitting, especially the first few splits which typically have the most impact on the structure of the tree. This is because some features might be so informative that they would always be chosen for splits early in the tree construction process if all features were considered. This would make the trees in the forest correlated, which would reduce the power of the ensemble.
+
+- By considering only a random subset of the variables at each split, we increase the chance that less dominant variables are considered, leading to a more diverse set of trees. This diversity is key to the power of the Random Forest algorithm, as it allows for a more robust prediction that is less likely to overfit the training data. It also helps to reduce the variance of the predictions, as the errors of the individual trees are likely to cancel each other out when averaged (for regression) or voted on (for classification).
+
 <br>
 
 - Since the trees are constructed via bootstrapped data (samples with replacements), each sample is likely to have duplicate observations.
