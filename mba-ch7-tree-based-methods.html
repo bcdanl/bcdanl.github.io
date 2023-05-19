@@ -2582,18 +2582,29 @@ n= 404
 <li><p>Split-variable randomization adds more randomness to make each tree more independent of each other.</p></li>
 <li><p>The final ensemble of trees is bagged to make the random forest predictions.</p></li>
 </ul>
-</section>
-<section id="intuition-behind-the-random-forest-algorithm" class="level3">
-<h3 class="anchored" data-anchor-id="intuition-behind-the-random-forest-algorithm">Intuition behind the Random Forest Algorithm</h3>
-<ul>
-<li><p>The reason Random Forest algorithm considers a random subset of features at each split in the decision tree is to increase the diversity among the individual trees in the forest. This is a method to make the model more robust and prevent overfitting.</p></li>
-<li><p>If all the variables were considered at each split, each decision tree in the forest would look more similar, as they would likely use the same (or very similar) variables for splitting, especially the first few splits which typically have the most impact on the structure of the tree. This is because some features might be so informative that they would always be chosen for splits early in the tree construction process if all features were considered. This would make the trees in the forest correlated, which would reduce the power of the ensemble.</p></li>
-<li><p>By considering only a random subset of the variables at each split, we increase the chance that less dominant variables are considered, leading to a more diverse set of trees. This diversity is key to the power of the Random Forest algorithm, as it allows for a more robust prediction that is less likely to overfit the training data. It also helps to reduce the variance of the predictions, as the errors of the individual trees are likely to cancel each other out when averaged (for regression) or voted on (for classification).</p></li>
-</ul>
 <p><br></p>
 <ul>
 <li><p>Since the trees are constructed via bootstrapped data (samples with replacements), each sample is likely to have duplicate observations.</p></li>
 <li><p><strong>Out-of-bag (OOB)</strong>, original observations not contained in a single bootstrap sample, can be used to make out-of-sample predictive performance of the model.</p></li>
+</ul>
+</section>
+<section id="intuition-behind-the-random-forest-algorithm" class="level3">
+<h3 class="anchored" data-anchor-id="intuition-behind-the-random-forest-algorithm">Intuition behind the Random Forest Algorithm</h3>
+<ul>
+<li>The reason Random Forest algorithm considers a random subset of features at each split in the decision tree is to increase the diversity among the individual trees in the forest.
+<ul>
+<li>This is a method to make the model more robust and prevent overfitting.</li>
+</ul></li>
+<li>If all the variables were considered at each split, each decision tree in the forest would look more similar, as they would likely use the same (or very similar) variables for splitting, especially the first few splits which typically have the most impact on the structure of the tree.
+<ul>
+<li>This is because some features might be so informative that they would always be chosen for splits early in the tree construction process if all features were considered.</li>
+<li>This would make the trees in the forest correlated, which would reduce the power of the ensemble.</li>
+</ul></li>
+<li>By considering only a random subset of the variables at each split, we increase the chance that less dominant variables are considered, leading to a more diverse set of trees.
+<ul>
+<li>This diversity is key to the power of the Random Forest algorithm, as it allows for a more robust prediction that is less likely to overfit the training data.</li>
+<li>It also helps to reduce the variance of the predictions, as the errors of the individual trees are likely to cancel each other out when averaged (for regression) or voted on (for classification).</li>
+</ul></li>
 </ul>
 <p><br></p>
 <ul>
