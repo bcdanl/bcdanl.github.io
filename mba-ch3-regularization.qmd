@@ -185,6 +185,26 @@ $$\sum_i^n \big(Y_i - \beta_0 -  \sum_j^p \beta_j X_{ij}\big)^2 + \lambda \sum_j
   - If a particular variable is not informative, meaning it doesn't contribute much to the model's ability to predict the target variable, then the lasso penalty will shrink its coefficient towards zero.
   -  If the variable is not informative at all, its coefficient will become exactly zero. This is how Lasso performs variable selection – variables with coefficients of zero after the penalty has been applied are considered to be non-informative and are effectively removed from the model.
   - This is achieved by applying a penalty to the absolute size of the regression coefficients, hence it is often used when dealing with **high dimensional data** (`p >> n` problem, where `p` is the number of variables and `n` is the number of observations).
+  
+  
+3. The Lasso can be useful in addressing multicollinearity when dealing with a large number of variables in a dataset.
+  - Multicollinearity refers to a situation in which two or more explanatory variables in a regression model are highly related. 
+  - Multicollinearity can cause problems when trying to fit the model, because it inflates the variance of the estimated regression coefficients, making them unstable and difficult to interpret.
+  - Lasso can reduce the impact of correlated predictors. If a group of variables are highly correlated, Lasso will tend to select one variable from a group and ignore the others. 
+    - This helps to reduce the variance of your model, at the cost of introducing some bias. This trade-off can result in a model that generalizes better to unseen data and avoids overfitting.
+    - However, it's important to note that Lasso doesn't necessarily "solve" multicollinearity.
+    - It might be worth considering other strategies such as removing highly correlated variables, using variance inflation factors (VIFs, measuring the severity of multicolinearity), or using Ridge Regression or Elastic Net.
+
+
+cf) Here is how you calculate the VIF for a specific predictor:
+
+1. Run a linear regression using the predictor of interest as the dependent variable and all other predictors as independent variables.
+2. Calculate the R-squared of this regression model.
+3. The VIF for the predictor is then calculated as 1 / (1 - R-squared).
+
+- If the VIF is equal to 1, there is no multicollinearity between the predictor of interest and the other variables. As a rule of thumb, a VIF value that exceeds 5 or 10 indicates a problematic amount of multicollinearity.
+
+
 
 ```{r}
 knitr::include_graphics('lec_figs/ridge-lasso-animation.gif')

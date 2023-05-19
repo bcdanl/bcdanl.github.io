@@ -978,6 +978,28 @@ M S E &amp;\,=\, \frac{\sum_{i = 1}^{ n}\,(\, y_{i} - \hat{y}_{i} \,)^2}{n}\\
 <li>This is achieved by applying a penalty to the absolute size of the regression coefficients, hence it is often used when dealing with <strong>high dimensional data</strong> (<code>p &gt;&gt; n</code> problem, where <code>p</code> is the number of variables and <code>n</code> is the number of observations).</li>
 </ul></li>
 </ul>
+<ol start="3" type="1">
+<li>The Lasso can be useful in addressing multicollinearity when dealing with a large number of variables in a dataset.</li>
+</ol>
+<ul>
+<li>Multicollinearity refers to a situation in which two or more explanatory variables in a regression model are highly related.</li>
+<li>Multicollinearity can cause problems when trying to fit the model, because it inflates the variance of the estimated regression coefficients, making them unstable and difficult to interpret.</li>
+<li>Lasso can reduce the impact of correlated predictors. If a group of variables are highly correlated, Lasso will tend to select one variable from a group and ignore the others.
+<ul>
+<li>This helps to reduce the variance of your model, at the cost of introducing some bias. This trade-off can result in a model that generalizes better to unseen data and avoids overfitting.</li>
+<li>However, it’s important to note that Lasso doesn’t necessarily “solve” multicollinearity.</li>
+<li>It might be worth considering other strategies such as removing highly correlated variables, using variance inflation factors (VIFs, measuring the severity of multicolinearity), or using Ridge Regression or Elastic Net.</li>
+</ul></li>
+</ul>
+<p>cf) Here is how you calculate the VIF for a specific predictor:</p>
+<ol type="1">
+<li>Run a linear regression using the predictor of interest as the dependent variable and all other predictors as independent variables.</li>
+<li>Calculate the R-squared of this regression model.</li>
+<li>The VIF for the predictor is then calculated as 1 / (1 - R-squared).</li>
+</ol>
+<ul>
+<li>If the VIF is equal to 1, there is no multicollinearity between the predictor of interest and the other variables. As a rule of thumb, a VIF value that exceeds 5 or 10 indicates a problematic amount of multicollinearity.</li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'lec_figs/ridge-lasso-animation.gif'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
