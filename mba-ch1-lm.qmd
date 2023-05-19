@@ -372,14 +372,14 @@ autoplot(fit_1, ncol = 1)
 -   If there exists the fixed effect in the data and we do not control the fixed effect in the model, the model will have a biased result in estimation.
 
 - We often control unobserved characteristics across countries/individuals/firms/counties/US states by including dummy variables of those entities in the model.
-  - For example, some unobserved characteristics across countries in the world (like governance effectiveness, investment in electricity grid, etc.) can be associated with variable of access to electricity.
-  - If we do not control such unobserved characteristics and want to identify the impact of access to electricity on food safety, we will have a biased result.
-  - This is because one of the most crucial assumptions in regression---errors are not correlated with explanatory variables $E[\,\epsilon_{i} | X\,] \,=\, 0$---does not hold without controlling such unobserved characteristics.
+  - For example, some unobserved characteristics across countries in the world (like governance effectiveness, investment in electricity grid, etc.) is likely to be associated with variable of access to electricity.
+  - If such unobserved characteristics are not controlled in the model, the model result will be likely to be biased. 
+  - This is because one of the most crucial assumptions in regression---errors are not correlated with explanatory variables $E[\,\epsilon_{i} | X\,] \,=\, 0$---is not likely to hold without controlling such unobserved characteristics.
   - The following is the OLS estimator $\hat{\beta}$ for the true beta $\beta$ in a matrix form.
   
 $$\begin{align} \hat{\beta} \,=\,& \beta + E[\,(X'X)^{-1}X'\epsilon\,]\\
 \,\neq\,& \beta \qquad \text{ if } E[\,\epsilon_{i} | X\,] \,\neq\, 0\end{align}$$  
-- Without controlling such unobserved characteristics, the beta estimate cannot be the same as the true beta at all.
+- Without controlling such unobserved characteristics, the beta estimator cannot be the same as the true beta at all.
 
 ## Exercise
 

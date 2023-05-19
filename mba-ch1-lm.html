@@ -1999,20 +1999,20 @@ Unbiased Conditional
 female
 </td>
 <td>
--2.935<sup>***</sup>
+-3.038<sup>***</sup>
 </td>
 <td>
-0.640<sup>***</sup>
+0.544<sup>***</sup>
 </td>
 <td>
--0.972<sup>***</sup>
+-1.011<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.084)
+(0.085)
 </td>
 <td>
 (0.029)
@@ -2038,10 +2038,10 @@ occupation
 <td>
 </td>
 <td>
-1.804<sup>***</sup>
+1.792<sup>***</sup>
 </td>
 <td>
-1.010<sup>***</sup>
+1.008<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -2075,7 +2075,7 @@ ability
 <td>
 </td>
 <td>
-1.973<sup>***</sup>
+1.981<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -2104,23 +2104,23 @@ ability
 Constant
 </td>
 <td>
-1.963<sup>***</sup>
+2.027<sup>***</sup>
 </td>
 <td>
-0.164<sup>***</sup>
+0.224<sup>***</sup>
 </td>
 <td>
-0.984<sup>***</sup>
+0.997<sup>***</sup>
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.059)
+(0.060)
 </td>
 <td>
-(0.019)
+(0.020)
 </td>
 <td>
 (0.017)
@@ -2159,13 +2159,13 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.109
+0.113
 </td>
 <td>
 0.914
 </td>
 <td>
-0.951
+0.952
 </td>
 </tr>
 <tr>
@@ -2173,13 +2173,13 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.109
+0.113
 </td>
 <td>
 0.914
 </td>
 <td>
-0.951
+0.952
 </td>
 </tr>
 <tr>
@@ -2187,13 +2187,13 @@ Adjusted R<sup>2</sup>
 Residual Std. Error
 </td>
 <td>
-4.203 (df = 9998)
+4.252 (df = 9998)
 </td>
 <td>
-1.309 (df = 9997)
+1.325 (df = 9997)
 </td>
 <td>
-0.984 (df = 9996)
+0.992 (df = 9996)
 </td>
 </tr>
 <tr>
@@ -2201,13 +2201,13 @@ Residual Std. Error
 F Statistic
 </td>
 <td>
-1,218.703<sup>***</sup> (df = 1; 9998)
+1,276.405<sup>***</sup> (df = 1; 9998)
 </td>
 <td>
-52,800.150<sup>***</sup> (df = 2; 9997)
+53,037.040<sup>***</sup> (df = 2; 9997)
 </td>
 <td>
-64,852.940<sup>***</sup> (df = 3; 9996)
+65,661.350<sup>***</sup> (df = 3; 9996)
 </td>
 </tr>
 <tr>
@@ -2268,15 +2268,15 @@ F Statistic
 <li><p>If there exists the fixed effect in the data and we do not control the fixed effect in the model, the model will have a biased result in estimation.</p></li>
 <li><p>We often control unobserved characteristics across countries/individuals/firms/counties/US states by including dummy variables of those entities in the model.</p>
 <ul>
-<li>For example, some unobserved characteristics across countries in the world (like governance effectiveness, investment in electricity grid, etc.) can be associated with variable of access to electricity.</li>
-<li>If we do not control such unobserved characteristics and want to identify the impact of access to electricity on food safety, we will have a biased result.</li>
-<li>This is because one of the most crucial assumptions in regression—errors are not correlated with explanatory variables <span class="math inline">\(E[\,\epsilon_{i} | X\,] \,=\, 0\)</span>—does not hold without controlling such unobserved characteristics.</li>
+<li>For example, some unobserved characteristics across countries in the world (like governance effectiveness, investment in electricity grid, etc.) is likely to be associated with variable of access to electricity.</li>
+<li>If such unobserved characteristics are not controlled in the model, the model result will be likely to be biased.</li>
+<li>This is because one of the most crucial assumptions in regression—errors are not correlated with explanatory variables <span class="math inline">\(E[\,\epsilon_{i} | X\,] \,=\, 0\)</span>—is not likely to hold without controlling such unobserved characteristics.</li>
 <li>The following is the OLS estimator <span class="math inline">\(\hat{\beta}\)</span> for the true beta <span class="math inline">\(\beta\)</span> in a matrix form.</li>
 </ul></li>
 </ul>
 <p><span class="math display">\[\begin{align} \hat{\beta} \,=\,&amp; \beta + E[\,(X'X)^{-1}X'\epsilon\,]\\
 \,\neq\,&amp; \beta \qquad \text{ if } E[\,\epsilon_{i} | X\,] \,\neq\, 0\end{align}\]</span><br>
-- Without controlling such unobserved characteristics, the beta estimate cannot be the same as the true beta at all.</p>
+- Without controlling such unobserved characteristics, the beta estimator cannot be the same as the true beta at all.</p>
 </section>
 <section id="exercise" class="level2">
 <h2 class="anchored" data-anchor-id="exercise">Exercise</h2>
