@@ -2,7 +2,6 @@
 subtitle: Machine Learning Lab
 title: "Linear Regression"
 author: "Byeong-Hak Choe"
-editor: visual
 ---
 
 ```{r setup, include = F}
@@ -299,6 +298,8 @@ round( coef(resid_fit)[2], digit = 3 )
 
 <br>
 
+
+
 ### Controls in Linear Regression
 
 -   **Omitted variable bias** is a type of bias that can occur in linear regression when an important variable that is related to both the outcome variable and the input variable(s) is not included in the model.
@@ -362,6 +363,23 @@ autoplot(fit_1, ncol = 1)
     -   Conversely, an observation with a large residual but low leverage may also not be influential.
 
 <br><br>
+
+
+## Fixed effects
+
+-   Unobserved characteristics that is *associated* with at least one explanatory variable is called a "**fixed effect**".
+
+-   If there exists the fixed effect in the data and we do not control the fixed effect in the model, the model will have a biased result in estimation.
+
+- We often control unobserved characteristics across countries/individuals/firms/counties/US states by including dummy variables of those entities in the model.
+  - For example, some unobserved characteristics across countries in the world (like governance effectiveness, investment in electricity grid, etc.) can be associated with variable of access to electricity.
+  - If we do not control such unobserved characteristics and want to identify the impact of access to electricity on food safety, we will have a biased result.
+  - This is because one of the most crucial assumptions in regression---errors are not correlated with explanatory variables $E[\,\epsilon_{i} | X\,] \,=\, 0$---does not hold without controlling such unobserved characteristics.
+  - The following is the OLS estimator $\hat{\beta}$ for the true beta $\beta$ in a matrix form.
+  
+$$\begin{align} \hat{\beta} \,=\,& \beta + E[\,(X'X)^{-1}X'\epsilon\,]\\
+\,\neq\,& \beta \qquad \text{ if } E[\,\epsilon_{i} | X\,] \,\neq\, 0\end{align}$$  
+- Without controlling such unobserved characteristics, the beta estimate cannot be the same as the true beta at all.
 
 ## Exercise
 

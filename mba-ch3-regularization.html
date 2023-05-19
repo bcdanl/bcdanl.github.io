@@ -970,6 +970,14 @@ M S E &amp;\,=\, \frac{\sum_{i = 1}^{ n}\,(\, y_{i} - \hat{y}_{i} \,)^2}{n}\\
 <li><p>The Lasso gives the least possible amount of bias on large signals while still retaining the stability of a convex penalty like ridge (convex means that the penalty does not flatten out for large values.).</p></li>
 <li><p>The Lasso will yield automatic variable screening—<strong>model selection</strong>—some of the <span class="math inline">\(\hat{\beta}_{p}\)</span> will be zero!</p></li>
 </ol>
+<ul>
+<li>Basically, lasso regression can be used for variable selection, as it can force the coefficients of non-informative variables to be exactly zero.
+<ul>
+<li>If a particular variable is not informative, meaning it doesn’t contribute much to the model’s ability to predict the target variable, then the lasso penalty will shrink its coefficient towards zero.</li>
+<li>If the variable is not informative at all, its coefficient will become exactly zero. This is how Lasso performs variable selection – variables with coefficients of zero after the penalty has been applied are considered to be non-informative and are effectively removed from the model.</li>
+<li>This is achieved by applying a penalty to the absolute size of the regression coefficients, hence it is often used when dealing with <strong>high dimensional data</strong> (<code>p &gt;&gt; n</code> problem, where <code>p</code> is the number of variables and <code>n</code> is the number of observations).</li>
+</ul></li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'lec_figs/ridge-lasso-animation.gif'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">

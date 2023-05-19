@@ -2,7 +2,6 @@
 subtitle: Machine Learning Lab
 title: "Regularized Regression"
 author: "Byeong-Hak Choe"
-editor: visual
 ---
 
 ```{r setup, include = F}
@@ -181,6 +180,11 @@ $$\sum_i^n \big(Y_i - \beta_0 -  \sum_j^p \beta_j X_{ij}\big)^2 + \lambda \sum_j
 1.  The Lasso gives the least possible amount of bias on large signals while still retaining the stability of a convex penalty like ridge (convex means that the penalty does not flatten out for large values.).
 
 2.  The Lasso will yield automatic variable screening---**model selection**---some of the $\hat{\beta}_{p}$ will be zero!
+
+- Basically, lasso regression can be used for variable selection, as it can force the coefficients of non-informative variables to be exactly zero.
+  - If a particular variable is not informative, meaning it doesn't contribute much to the model's ability to predict the target variable, then the lasso penalty will shrink its coefficient towards zero.
+  -  If the variable is not informative at all, its coefficient will become exactly zero. This is how Lasso performs variable selection – variables with coefficients of zero after the penalty has been applied are considered to be non-informative and are effectively removed from the model.
+  - This is achieved by applying a penalty to the absolute size of the regression coefficients, hence it is often used when dealing with **high dimensional data** (`p >> n` problem, where `p` is the number of variables and `n` is the number of observations).
 
 ```{r}
 knitr::include_graphics('lec_figs/ridge-lasso-animation.gif')
