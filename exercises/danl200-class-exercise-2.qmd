@@ -1,0 +1,82 @@
+---
+title: "DANL 200: Class Exercise 2"
+date: 2023-09-09
+execute: 
+  echo: false
+---
+```{r}
+#| include: false
+
+library(knitr)
+library(rmarkdown)
+library(tidyverse)
+```
+
+## Question 1. Data Visualization - First Steps
+
+Load the following data.frame, `mpg`.
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+
+library(tidyverse)
+mpg <- ggplot2::mpg
+```
+
+
+```{r}
+#| eval: true
+
+paged_table(mpg, 
+            options = list(rows.print = 10,
+                           cols.print = 3) )
+```
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+
+library(skimr)
+skim(mpg)
+```
+
+
+
+### Q1a. 
+Run `ggplot(data = mpg)`. What do you see?
+```{r}
+ggplot(data = mpg)
+```
+
+<br>
+
+### Q1b.
+How many rows are in `mpg`? How many columns?
+```{r}
+nrow(mpg)
+ncol(mpg)
+```
+
+<br>
+
+
+### Q1c.
+Make a scatterplot of `hwy` vs. `cyl`.
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = hwy, y = cyl))
+```
+
+<br>
+
+### Q1d.
+What happens if you make a scatterplot of `class` vs. `drv`? Why is the plot not useful?
+
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = class, y = drv))
+```

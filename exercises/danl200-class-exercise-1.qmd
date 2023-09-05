@@ -1,0 +1,94 @@
+---
+title: "DANL 200: Class Exercise 1"
+date: 2023-09-07
+execute: 
+  echo: false
+---
+```{r}
+#| include: false
+
+library(knitr)
+library(rmarkdown)
+```
+
+## Question 1. Working with `data.frame`
+
+Load the following data.frame, `tvshows`.
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+
+library(tidyverse)
+tvshows <- read_csv(
+		'https://bcdanl.github.io/data/tvshows.csv')
+```
+
+
+```{r}
+#| eval: true
+
+paged_table(tvshows, 
+            options = list(rows.print = 10,
+                           cols.print = 3) )
+```
+
+### Q1a. 
+Provide the R code to return the shows whose `Duration` values are `30`.
+
+```{r}
+q1a <- tvshows[tvshows$Duration == 30, ]
+```
+
+```{r}
+q1a_indices <- which(tvshows$Duration == 30)
+q1a <- tvshows[ q1a_indices, ]
+```
+
+```{r}
+#| eval: true
+paged_table(q1a, 
+            options = list(rows.print = 10,
+                           cols.print = 3) )
+```
+
+The number of shows whose `Duration` is 30 is `r nrow(q1a)`.
+
+<br>
+
+### Q1b.
+Provide the R code to return the shows whose `GRP` values are greater than the mean value of `GRP` in all the shows in the `tvshows` data.frame.
+
+
+Hint: We can calculate the mean value of numeric vector `x` using the `mean(x)` function.
+```{r}
+q1b <- tvshows[tvshows$GRP > mean(tvshows$GRP), ]
+```
+
+The mean value of `GRP` is `r mean(tvshows$GRP)`.
+
+```{r}
+#| eval: true
+paged_table(q1b, 
+            options = list(rows.print = 10,
+                           cols.print = 3) )
+```
+
+
+<br>
+
+### Q1c.
+Provide the R code to return the data.frame with only three variables---`Show`, `PE`, and `GRP`---for which `PE` values are greater than the mean value of `PE`.
+
+```{r}
+q1c <- tvshows[tvshows$PE > mean(tvshows$PE), ]
+q1c <- q1c[ , c("Show", "PE", "GRP")]
+```
+
+```{r}
+#| eval: true
+paged_table(q1c, 
+            options = list(rows.print = 10,
+                           cols.print = 3) )
+```
+
