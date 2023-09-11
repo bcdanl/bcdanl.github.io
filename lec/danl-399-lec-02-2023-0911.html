@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DANL 399 Lecture 2</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Byeong-Hak Choe" />
+    <meta name="date" content="2023-09-11" />
+    <script src="libs/header-attrs-2.24/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <script src="libs/peerjs-1.3.1/peerjs.min.js"></script>
+    <script src="libs/tiny.toast-1.0.0/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast-0.2.6/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast-0.2.6/broadcast.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet-1.3.1/leaflet.js"></script>
+    <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+    <script src="libs/proj4-2.6.2/proj4.min.js"></script>
+    <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+    <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+    <script src="libs/leaflet-binding-2.2.0/leaflet.js"></script>
+    <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
+    <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, left, bottom
+
+# DANL 399 Lecture 2
+----
+## **DANL 399: Data Visualization and Presentation**
+### Byeong-Hak Choe
+### September 11, 2023
+
+---
+class: inverse, center, middle
+
+# Creating a Personal Website using Quarto, Git, and GitHub
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+---
+# Creating a Personal Website
+### &lt;p style="color:#00449E"&gt; Updating Your Website &lt;/p&gt;
+
+- *1*. Modify `index.qmd` as follows:
+
+  - Add the following in `index.qmd`
+
+```r
+- *Name*: YOUR_NAME
+- *Ocupation*: Student
+- *Hobbies*: Blogging data analytics. 
+
+Here is a super cool photo. 
+
+&lt;br&gt;
+
+![](img/geneseo-logo-vertical.png){width=50%}
+```
+
+- *2.* Knit it using the shortcut (**Ctrl** (**command** for Mac user) + **Shift** + **K**)
+
+
+---
+# Creating a Personal Website
+### &lt;p style="color:#00449E"&gt; Updating Your Website &lt;/p&gt;
+
+
+*3*. In Terminal within RStudio, run the following lines:
+
+```default
+git add .
+git commit -m "ANY MESSAGE"
+git push -u origin main
+```
+
+
+*4*. Go to your website 😄
+  1. View `index.html` in web browser.
+  2. Go to `https://YOUR_GITHUB_NAME.github.io` . 
+  
+
+---
+class: inverse, center, middle
+
+# Getting Started with Quarto and HTML
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+---
+# Getting Started with Quarto
+### &lt;p style="color:#00449E"&gt; Basics &lt;/p&gt;
+
+- Quarto provides an authoring framework for data science. 
+
+
+- We can use a single Quarto file to both
+  - save and execute programming codes, and
+  - generate high quality reports that can be shared with an audience.
+
+
+- Quarto was designed for easier reproducibility.
+  - Both the computing code and narratives are in the same document.
+  - Results are automatically generated from the source code.
+  - It supports output formats, such as static/interactive HTML, PDF, and Word.
+  - It supports not only R but also other programming languages, such as Python and SQL.
+
+
+
+---
+# Getting Started with Quarto
+### &lt;p style="color:#00449E"&gt; Workflow &lt;/p&gt;
+
+- Keep the PDF files of "Quarto Reference Guide" and "Quarto" Cheatsheet".
+
+- Must-know shortcuts
+
+- **option+command+I** or **Alt+Ctrl+I** : to create a R chunk
+- **command+shift+return** or **Ctrl+Shift+Enter** : to run the code in the R chunk
+- **command + shift + K** or **Ctrl + Shift + K**: to knit the Quarto file
+- **command + shift + C** or **Ctrl + Shift + C**: to (de-)comment out a line in the Quarto file (**&lt;!-- YOUR_WORDS_IN_Rmd --&gt;** is used for commenting out `YOUR_WORDS_IN_Rmd`.)
+
+
+---
+# Getting Started with Quarto
+### &lt;p style="color:#00449E"&gt; Basics &lt;/p&gt;
+
+- In R Studio, we can create a new Quarto file from the menu, File -&gt; New File -&gt; Quarto.
+
+- Open the Quarto file, `basic_example.qmd`, from your GitHub website local folder.
+
+- The following syntax is YAML metadata in `basic_example.qmd`.
+
+
+```r
+---
+title: "Hello Quarto"
+author: "Awesome Me"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: html_document
+---
+```
+
+
+---
+# Getting Started with Quarto
+### &lt;p style="color:#00449E"&gt; YAML &lt;/p&gt;
+
+
+.left-column[
+&lt;img src="lec_figs/dvpi_fig2_1.png" width="164" /&gt;
+
+]
+
+
+.right-column[
+- An YAML (yet another markup language) header surrounded by `---`.
+  - It is commonly used for configuration files (e.g., title, author, date, ...).
+  
+  
+- Chunks of R code surrounded by three backticks, `\(\text{```}\)`.
+]
+
+
+
+---
+# Getting Started with Quarto
+### &lt;p style="color:#00449E"&gt; Knitting &lt;/p&gt;
+
+- When we knit the document, Quarto sends the `.qmd` file to **knitr**, which executes all of the code chunks and creates a new markdown (`.md`) document which includes the code and its output. 
+
+- The markdown file generated by **knitr** is then processed by **pandoc**, which is responsible for creating the output file.
+
+&lt;img src="lec_figs/rmarkdownflow.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+# Getting Started with Quarto
+### &lt;p style="color:#00449E"&gt; Other language engines &lt;/p&gt;
+
+- Quarto supports not only R but also Python, Julia, C++, SQL, and more. 
+
+
+- The support comes from the `knitr` package, which has provided a large number of language engines. 
+
+
+&lt;img src="lec_figs/rmarkdown-prog-language.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+# Getting Started with Quarto
+### &lt;p style="color:#00449E"&gt; Python engines &lt;/p&gt;
+
+- The support for the interaction between R and Python comes from the `reticulate` package.
+  - Choose Python or interpreter from Tools -&gt; Global Options -&gt; Python -&gt; Select.
+  - Choose Python Interpreter from Conda Environment.
+
+
+---
+# Getting Started with Quarto
+### &lt;p style="color:#00449E"&gt; Python Interpreter in RStudio &lt;/p&gt;
+
+&lt;img src="lec_figs/rstudio-py-setting.gif" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Getting Started with Quarto
+### &lt;p style="color:#00449E"&gt; Python &lt;/p&gt;
+
+- Install the `reticulate` package.
+
+```r
+install.packages("reticulate")
+```
+ 
+- Try the following with python code with python code chunk ( `\(\text{```}\)` `{python}` PYTHON CODES HERE `\(\text{```}\)` )
+
+
+```python
+import pandas as pd
+x = 'hello, python world!'
+print(x.split(' '))
+```
+
+
+---
+# Getting Started with Quarto
+### &lt;p style="color:#00449E"&gt; Interactive Map &lt;/p&gt;
+- `leaflet` is one of the most popular open-source JavaScript libraries for interactive maps.
+
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-2d01476427eb66aa63a8" style="width:95%;height:50%;"></div>
+<script type="application/json" data-for="htmlwidget-2d01476427eb66aa63a8">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addMarkers","args":[42.7953,-77.821,null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addPopups","args":[42.7953,-77.821,"Here is the <b>School of Business<\/b>, SUNY Geneseo",null,null,{"maxWidth":300,"minWidth":50,"autoPan":true,"keepInView":false,"closeButton":true,"className":""}]}],"setView":[[42.7953,-77.821],18,[]],"limits":{"lat":[42.7953,42.7953],"lng":[-77.821,-77.821]}},"evals":[],"jsHooks":[]}</script>
+
+
+
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; Markdown, Quarto, and HTML &lt;/p&gt;
+
+- The very original version of **Markdown** was invented mainly to write HTML content more easily.
+  - `- SOME_TEXT` in "\*.md" is equivalent to `&lt;ul&gt;&lt;li&gt; SOME_TEXT &lt;/li&gt;` in "\*.html"
+  
+  
+- Pandoc makes it possible to convert a Markdown document to a large variety of output formats, such as HTML.
+
+
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; YAML &lt;/p&gt;
+
+- To create an HTML document from Quarto, we specify the `html_document` output format in the YAML metadata of our document:
+
+
+- Open an empty Quarto file.
+  - Copy and paste the following YAML metadata to the empty Quarto file.
+
+
+```default
+---
+title: "Habits"
+author: YOUR_NAME
+date: January 26, 2023
+output: 
+  html_document
+---
+```
+
+
+
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; Document Body &lt;/p&gt;
+
+- Below the YAML, we provide the document body:
+
+.pull-left[
+
+
+````default
+# Title
+
+## Section X
+
+This is my introduction.
+
+```{r chunk-x}  # We can name the chunk.
+x &lt;- 1
+print(x)
+````
+
+```
+
+]
+.pull-right[
+
+
+```default
+      
+# Section 1
+Wake up
+## Section 1.1
+Drink water
+## Section 1.2
+Sleep again
+
+# Section 2
+Wake up
+```
+
+]
+
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; Floating TOC &lt;/p&gt;
+
+- We can specify the `toc_float` option to float the table of contents to the left of the main document content. 
+
+- The floating table of contents will always be visible. 
+
+
+```default
+---
+title: "Habits"
+author: YOUR_NAME
+date: January 31, 2023
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+```
+
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; Floating TOC &lt;/p&gt;
+
+- We may optionally specify a list of options for the `toc_float` parameter which control its behavior. 
+
+  - `collapsed` (defaults to TRUE) controls whether the TOC appears with only the top-level (e.g., H2) headers. 
+  
+  - If collapsed initially, the TOC is automatically expanded inline when necessary.
+  
+  - `smooth_scroll` (defaults to TRUE) controls whether page scrolls are animated when TOC items are navigated to via mouse clicks.
+
+
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; Floating TOC &lt;/p&gt;
+
+
+```default
+---
+title: "Habits"
+output:
+  html_document:
+    toc: true
+    toc_float: true      
+      collapsed: false
+      smooth_scroll: false
+---
+```
+
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; Section Numbering &lt;/p&gt;
+
+- We can add section numbering to headers using the `number_sections` option.
+  - We may also use `{.unnumbered}` to unnumber sections.
+
+```default
+---
+title: "Habits"
+output:
+  html_document:
+    toc: true
+    number_sections: true
+---
+## Next Steps
+
+## Next Next Steps {.unnumbered}
+```
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; Tabbed sections &lt;/p&gt;
+- We can organize content using tabs by applying the `.tabset` class attribute to headers within a document. 
+  - This will cause all sub-headers of the header with the `.tabset` attribute to appear within tabs rather than as standalone sections. 
+  
+
+```default
+## Quarterly Results {.tabset}
+
+### By Product
+
+(tab content)
+
+### By Region
+
+(tab content)
+```
+  
+
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; Tabbed sections &lt;/p&gt;
+
+- The `.tabset-fade` attribute causes the tabs to fade in and out when switching between tabs. 
+
+- The `.tabset-pills` attribute causes the visual appearance of the tabs to be "pill" rather than traditional tabs.
+
+
+
+
+```default
+## Quarterly Results {.tabset .tabset-fade .tabset-pills}
+```
+
+
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; Appearance and Style &lt;/p&gt;
+
+- `theme` specifies the Bootstrap theme to use for the page (themes are drawn from the [Bootswatch](https://bootswatch.com) theme library).
+  - Valid themes include `default`, `bootstrap`, `cerulean`, `cosmo`, `darkly`, `flatly`, `journal`, `lumen`, `paper`, `readable`, `sandstone`, `simplex`, `spacelab`, `united`, and `yeti`. 
+  - Pass `null` for no theme (we can use the `css` file to add our own styles).
+  
+  
+- `highlight` specifies the syntax highlighting style. 
+  - Supported styles include `default`, `tango`, `pygments`, `kate`, `monochrome`, `espresso`, `zenburn`, `haddock`, `breezedark`, and `textmate`. 
+  - Pass `null` to prevent syntax highlighting.
+
+
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; Appearance and Style &lt;/p&gt;
+
+
+
+```default
+---
+title: "Habits"
+output:
+  html_document:
+    theme: united
+    highlight: tango
+---
+```
+
+- Choose the values for `theme` and `highlight` in the `style.css` file for your website .
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; Custom CSS &lt;/p&gt;
+- Cascading Style Sheets (CSS) is used to format the layout of a webpage (color, font, text size, background, display, etc.). 
+  - HTML will format the architecture of the house;
+  - CSS will be the carpet and walls to decorate the house;
+  - JavaScript adds interactive elements in the house, such as opening doors and lighting.
+  
+
+```default
+---
+title: "Habits"
+output:
+  html_document:
+    css: style.css
+---
+```
+  
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; Custom CSS &lt;/p&gt;
+
+- We can also target specific sections of documents with custom CSS by adding ids or classes to section headers within your document. 
+
+
+```default
+## Next Steps {#nextsteps .emphasized}
+```
+
+- The following CSS would enable us to apply CSS to all of its content using either of the following CSS selectors:
+
+
+```default
+#nextsteps {
+   color: blue;
+}
+.emphasized {
+   font-size: 1.2em; }
+```
+
+
+
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; Figure options &lt;/p&gt;
+
+.pull-left[
+- There are a number of options that affect the output of figures within HTML documents:
+
+  - `fig_width` and `fig_height` control figure width and height (7x5 is used by default).
+
+  - `fig_caption` controls whether figures are rendered with captions.
+]
+
+.pull-right[
+
+```default
+---
+title: "Habits"
+output:
+  html_document:
+    fig_width: 7
+    fig_height: 6
+    fig_caption: true
+---
+```
+]
+
+
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; Figure options &lt;/p&gt;
+
+- There are a variety of ways to add images to our Quarto HTML document!
+
+
+.panelset[
+
+.panel[.panel-name[Markdown]
+
+```markdown
+![](img/geneseo-logo-vertical.png){width=25%}
+```
+
+- simple
+- not very flexible
+]
+
+.panel[.panel-name[HTML]
+
+```html
+&lt;img src="img/geneseo-logo-vertical.png" width="90%"/&gt;
+```
+- most flexible
+- takes time to get used to syntax
+]
+
+
+.panel[.panel-name[HTML+Markdown]
+
+```html
+&lt;div style="width:25%"&gt;
+![](img/geneseo-logo-vertical.png)
+&lt;/div&gt;
+```
+
+]
+
+.panel[.panel-name[knitr]
+
+
+````default
+
+```{r}
+knitr::include_graphics("img/geneseo-logo-vertical.png")
+```
+````
+- pretty flexible
+- a little bulky
+
+]
+]
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; Data frame printing &lt;/p&gt;
+
+.pull-left[
+- We can change the default display of data frames via the `df_print` option. 
+
+  - `default` 
+  - `kable`
+  - `tibble`
+  - `paged`
+]
+
+.pull-right[
+
+````default
+---
+title: "Habits"
+output:
+  html_document:
+      df_print: paged
+---
+  
+```{r}
+ggplot2::mpg
+```
+````
+
+]
+
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; Data frame printing &lt;/p&gt;
+
+.pull-left[
+- There are various options for paged tables.
+  - `max.print`:	The number of rows to print.
+  - `rows.print`:	The number of rows to display.
+  - `cols.print`:	The number of columns to display.
+  - `cols.min.print`:	The minimum number of columns to display.
+  
+]
+
+.pull-right[
+  - `pages.print`:	The number of pages to display under page navigation.
+  - `paged.print`:	When set to `FALSE` turns off paged tables.
+  - `rownames.print`:	When set to `FALSE` turns off row names.
+  
+
+````default
+
+```{r cols.print=3, rows.print=3}
+ggplot2::mpg
+```
+
+````
+]
+
+
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; Code Folding &lt;/p&gt;
+
+
+- The `code_folding: hide` option enables us to include R code but have it hidden by default.
+
+
+```default
+---
+title: "Habits"
+output:
+  html_document:
+    code_folding: hide
+---
+```
+
+- We can specify `code_folding: show` to still show all programming codes by default but then allow users to hide the codes if they wish.
+
+
+
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; Update the Date Automatically &lt;/p&gt;
+
+- We can use `Sys.Date()` to the date field in YAML to set the date today.
+
+
+- We can also change the time format:
+  - %B %Y: November 2023
+  - %d/%m/%y: 02/01/23
+  - %a/%d/%b: Thu 07 Jan
+
+
+
+```default
+title: "Hello Quarto"
+date: "`r Sys.Date()`"
+output: 
+  html_document
+```
+
+
+
+---
+# Getting Started with Quarto and HTML
+### &lt;p style="color:#00449E"&gt; Update the Date Automatically &lt;/p&gt;
+
+- We can also use `Sys.time()` to the date field in YAML to set the date today.
+
+
+- We can also change the time format:
+  - %B %Y: November 2023
+  - %d/%m/%y: 02/01/23
+  - %a/%d/%b: Thu 07 Jan
+
+
+
+```default
+title: "Hello Quarto"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  html_document
+```
+
+
+
+
+---
+class: inverse, center, middle
+
+# Get Started with `ggplot` visualization
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+---
+# Get Started with `ggplot` visualization
+### &lt;p style="color:#00449E"&gt; Make a Plot &lt;/p&gt;
+
+- Before we start visualzation, set the R packages and default chunk options using `include = F` chunk option.
+
+````default
+```{r setup, include = F}
+library(tidyverse)
+library(skimr)   # a better summary of data.frame
+library(scales)  # scales for ggplot
+library(ggthemes)  # additional ggplot themes
+theme_set(theme_minimal()) # setting the minimal theme for ggplot
+
+# setting default chunk options
+knitr::opts_chunk$set(echo = T, eval = T,
+                      message=F, warning = F) 
+```
+````
+
+
+---
+# Get Started with `ggplot` visualization
+### &lt;p style="color:#00449E"&gt; ggplot Themes &lt;/p&gt;
+
+- Use `theme()` if you want to tweak the display of an existing theme.  
+
+- The following lists basic `ggplot` themes:  
+
+theme            | theme
+-----------------|-----------------
+theme_grey()     | theme_gray()
+theme_bw()       | theme_linedraw()
+theme_light()    | theme_dark()
+theme_minimal()  | theme_classic()
+theme_void()     | theme_test()
+
+
+
+---
+# Get Started with `ggplot` visualization
+### &lt;p style="color:#00449E"&gt; ggplot Themes &lt;/p&gt;
+
+- `ggthemes` package provides the following themes:
+  - `theme_economist()`, `theme_wsj()`, `theme_fivethirtyeight()`, `theme_gdocs()`, `theme_map()`
+
+
+- `hrbrthemes` package provides the following themes:
+  - `theme_ipsum()`, `theme_ipsum_rc()`, `theme_ft_rc()`, and more.
+  
+  
+---
+# Get Started with `ggplot` visualization
+### &lt;p style="color:#00449E"&gt; `gapminder` data &lt;/p&gt;
+
+- The `gapminder` package include the `gapminder` data frame.
+
+
+```r
+library(gapminder)
+gapminder
+skim(gapminder)
+```
+
+
+
+---
+# Get Started with `ggplot` visualization
+### &lt;p style="color:#00449E"&gt; Mappings link data to things we see  &lt;/p&gt;
+
+- First, we tell the core `ggplot` function what our data is and what our aesthetic mapping is:
+
+```r
+p &lt;- ggplot(data = gapminder)
+p &lt;- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y = lifeExp))
+```
+
+
+- We can then add the geometric object (`geom_*()`) to the `ggplot()`.
+
+
+```r
+p + geom_point() 
+```
+
+
+
+
+
+---
+# Get Started with `ggplot` visualization
+
+*1*. Tell the `ggplot()` function what our **tidy** data is. 
+  - `ggplot(data = ...)`
+
+
+*2*. Tell `ggplot()` what relationships we want to see.
+  - The `ggplot(mapping = aes(...))` 
+  - `p &lt;- ggplot(data = ... , aes(...))`
+  
+  
+*3*. Tell `ggplot()` how we want to see the relationships in our data.
+  - Choose a `geom_*()`.
+  
+  
+*4*. Layer on `geoms` as needed, by adding them to the `p` object one at a time.
+
+
+*5*. Use some additional functions to adjust scales, labels, tick marks, titles, etc.
+
+
+
+---
+# Get Started with `ggplot` visualization
+### &lt;p style="color:#00449E"&gt; Build your plots layer by layer &lt;/p&gt;
+
+
+```r
+p + geom_point() + geom_smooth() 
+p + geom_point() + geom_smooth(method = "lm") 
+p + geom_point() +
+    geom_smooth(method = "lm")
+```
+
+
+
+```r
+p + geom_point() +
+    geom_smooth(method = "gam")
+```
+
+
+---
+# Get Started with `ggplot` visualization
+### &lt;p style="color:#00449E"&gt; Mapping aesthetics vs setting them &lt;/p&gt;
+
+- In the following, we map `color` to `continent` in the `aes()` function:
+
+```r
+p1 &lt;-  ggplot(data = gapminder,
+             mapping = aes(x = gdpPercap, y = lifeExp,
+                           color = continent))
+```
+
+- We then add geoms.
+
+```r
+p1 + geom_point() +
+     geom_smooth(method = "lm") 
+```
+
+
+
+
+---
+# Get Started with `ggplot` visualization
+### &lt;p style="color:#00449E"&gt; Mapping aesthetics vs setting them &lt;/p&gt;
+
+- In the following, we map `color` to `"purple"` outside of the `aes()` function:
+
+
+```r
+p2 &lt;- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap, y = lifeExp))
+```
+
+- We then add geoms, manually set aethetics, and then adjust scales.
+
+```r
+p2 + geom_point(color = "purple") +
+     geom_smooth(method = "lm")
+```
+
+
+
+---
+# Get Started with `ggplot` visualization
+### &lt;p style="color:#00449E"&gt; Mapping aesthetics vs setting them &lt;/p&gt;
+
+- Here are another exmaples that set aesthetic mapping manually outside `aes()` function and inside `geom_*()` function.
+
+```r
+p &lt;- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y = lifeExp))
+
+p + geom_point(color = "purple") +
+    geom_smooth(method = "loess") 
+
+p + geom_point(alpha = 0.3) +
+    geom_smooth(color = "orange", se = F, size = 8, method = "lm") 
+```
+
+
+---
+# Get Started with `ggplot` visualization
+### &lt;p style="color:#00449E"&gt; Mapping aesthetics vs setting them &lt;/p&gt;
+
+- Let's add `scale_*()` and `labs()` functions to `ggplot()`
+
+
+```r
+p + geom_point(alpha = 0.3) +
+    geom_smooth(method = "gam") +
+    scale_x_log10(labels = scales::dollar) +
+    labs(x = "GDP Per Capita", y = "Life Expectancy in Years",
+         title = "Economic Growth and Life Expectancy",
+         subtitle = "Data points are country-years",
+         caption = "Source: Gapminder.")
+```
+
+- **Q**. Is it really the best way to display this country-year data? 
+  - What are we gaining and losing by ignoring the temporal and country-level structure of the data? How could we do better? 
+
+---
+# Get Started with `ggplot` visualization
+### &lt;p style="color:#00449E"&gt; Aesthetics can be mapped per geom &lt;/p&gt;
+
+- We can have different aesthetic mappings across different geoms:
+
+```r
+p &lt;- ggplot(data = gapminder, 
+            mapping = aes(x = gdpPercap, y = lifeExp))
+
+p + geom_point(mapping = aes(color = continent)) +
+    geom_smooth(method = "loess")  +
+    scale_x_continuous(trans = scales::log_trans())  # natural log
+```
+
+
+
+---
+# Get Started with `ggplot` visualization
+### &lt;p style="color:#00449E"&gt; Save your work &lt;/p&gt;
+
+- We can use `ggsave()` to save ggplot output as a *.png or *.pdf file.
+
+```r
+ggsave(filename = "my_figure.png")
+```
+
+- We can put our recent plot into an object called p_out and then tell `ggave()` that we want to save that object.
+
+
+```r
+p_out &lt;- p + geom_point() +
+    geom_smooth(method = "loess") +
+    scale_x_log10()
+ggsave("my_figure.pdf", plot = p_out)
+```
+
+
+---
+# Get Started with `ggplot` visualization
+### &lt;p style="color:#00449E"&gt; Save your work &lt;/p&gt;
+
+
+- We can set the size of ggplot figue:
+
+
+```r
+ggsave("lifexp_vs_gdp_gradient.pdf",
+       plot = p_out, height = 8, width = 10, units = "in")
+```
+
+
+
+
+---
+# Get Started with `ggplot` visualization
+### &lt;p style="color:#00449E"&gt; Work a little more with `gapminder` data &lt;/p&gt;
+
+- What happens when you put the `geom_smooth()` function before `geom_point()` instead of after it? 
+  - What does this tell you about how the plot is drawn? Think about how this might be useful when drawing plots.
+  
+
+
+---
+# Get Started with `ggplot` visualization
+### &lt;p style="color:#00449E"&gt; Work a little more with `gapminder` data &lt;/p&gt;
+
+- Change the mappings in the `aes()` function so that you plot Life Expectancy against population (`pop`) rather than per capita GDP. 
+  - What does that look like? 
+  - What does it tell you about the unit of observation in the dataset?
+  
+
+
+---
+# Get Started with `ggplot` visualization
+### &lt;p style="color:#00449E"&gt; Work a little more with `gapminder` data &lt;/p&gt;
+- What happens if you map color to `year` instead of `continent`? 
+  - Is the result what you expected? 
+  - Think about what class of object year is. 
+  - Remember you can get a quick look at the top of the data, which includes some shorthand information on the class of each variable, by typing `gapminder`.
+  - Instead of mapping `color = year`, what happens if you try `color = factor(year)`?
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Grouped data and the `group` aesthetic &lt;/p&gt;
+
+- Let's get a line plot that draws the trajectory of life expectancy over time for each country in the `gapminder` data.frame. 
+
+
+```r
+p &lt;- ggplot(data = gapminder,
+            mapping = aes( x = year,
+                           y = gdpPercap ) )
+
+p + geom_line() 
+```
+
+- What happened?
+
+- `geom_line()` joins up all the lines for each particular year in the order they appear in the dataset.
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Grouped data and the `group` aesthetic &lt;/p&gt;
+
+
+- Without group related parameters, `ggplot()` does not know that the yearly observations in the data are grouped by country.
+
+
+```r
+p &lt;- ggplot(data = gapminder,
+            mapping = aes( x = year,
+                           y = gdpPercap ) )
+
+p + geom_line( aes( group = country ) ) 
+```
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Grouped data and the `group` aesthetic &lt;/p&gt;
+
+
+- The `group` aesthetic is usually only needed when the grouping information we need to tell `ggplot()` about is not built-in to the variables being mapped.
+
+  - How about `color` aesthetic, instead of `group`?
+
+
+```r
+p &lt;- ggplot(data = gapminder,
+            mapping = aes( x = year,
+                           y = gdpPercap ) )
+
+p + geom_line( aes( color = country ) ) 
+```
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Facet to make small multiples &lt;/p&gt;
+- Making a “small multiple” plot by faceting data based on a caterigorical variable allows a lot of information to be presented compactly, and in a consistently comparable way. 
+  - `facet_wrap( VAR1 ~ . )` or `facet_wrap( . ~ VAR1 )`
+  - `facet_grid( VAR1 ~ . )`: row-wise split
+  - `facet_grid( . ~ VAR1 )`: colum-wise split
+  - `facet_grid( VAR1 ~ VAR2 )` 
+
+
+```r
+p + geom_line( aes( group = country ) ) + 
+  facet_wrap(~ continent)
+```
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Facet to make small multiples &lt;/p&gt;
+
+- Let's have all the facetted plots in a single row:
+
+```r
+p + geom_line(color="gray70", aes(group = country)) +
+    geom_smooth(size = 1.1, method = "loess", se = FALSE) +
+    facet_[?] +
+    scale_y_log10(labels=scales::dollar) + 
+    theme(axis.text.x = element_text(angle = 45),
+          axis.title.x = element_text(margin = margin(t = 25))) +
+    labs(x = "Year", y = "GDP per capita",
+         title = "GDP per capita on Five Continents")
+```
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; The 2016 General Social Survey data &lt;/p&gt;
+
+- The `socviz` package includes the `gss_sm` data frame.
+  - `gss_sm` is a dataset containing an extract from the 2016 General Social Survey.
+
+
+```r
+install.packages("socviz")
+library(socviz)
+?gss_sm
+glimpse(gss_sm)
+skimr::skim(gss_sm)
+gss_sm &lt;- gss_sm
+```
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Facet to make small multiples &lt;/p&gt;
+
+- Describe the relationship between the age of the respondent and the number of children they have using a scatterplot and a fitted curve.
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes( x = age, y = childs ))
+
+p + [?](alpha = 0.2) +
+    [?]() 
+```
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Facet to make small multiples &lt;/p&gt;
+
+- Describe how the relationship between the age of the respondent and the number of children they have varies by `sex` and `race`.
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes( x = age, y = childs ))
+
+p + geom_point(alpha = 0.2) +
+    geom_smooth() +
+    [?]
+```
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Facet to make small multiples &lt;/p&gt;
+
+- The `facet_grid()` function is best used when you cross-classify some data by two categorical variables.
+
+  - e.g., the relationship between the age and the number of children by sex and race
+
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes( x = age, y = childs ))
+
+p + geom_point(alpha = 0.2) +
+    geom_smooth() +
+    facet_grid(sex ~ race + degree)
+```
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Geoms can transform data &lt;/p&gt;
+
+- Let's plot a bar char:
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion))
+p + geom_bar()
+```
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Geoms can transform data &lt;/p&gt;
+
+
+- Where does count come from? 
+
+  - Bar charts, histograms, and frequency polygons bin your data and then plot bin counts, the number of points that fall in each bin.
+
+  - Smoothers fit a model to your data and then plot predictions from the model.
+
+  - Boxplots compute a robust summary of the distribution and then display a specially formatted box.
+
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Geoms can transform data &lt;/p&gt;
+
+
+- If we want a chart of relative frequencies rather than counts, we will need to get the `prop` statistic instead.
+
+- Our call to statistic from the `aes()` function generically looks like this: `&lt;mapping&gt; = &lt;..statistic..&gt;`. 
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion))
+p + geom_bar(mapping = aes(y = ..prop..))
+```
+
+- What happened?
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Geoms can transform data &lt;/p&gt;
+
+- We need to tell ggplot to ignore the x-categories when calculating denominator of the proportion, and use the total number observations instead.
+
+  - To do so we specify `group = 1` inside the `aes()` call. 
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion))
+p + geom_bar(mapping = aes(y = ..prop.., group = 1)) 
+```
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Geoms can transform data &lt;/p&gt;
+
+- Let’s look at another question from the survey. The `gss_sm` data contains a religion variable derived from a question asking:
+
+  - “What is your religious preference? Is it Protestant, Catholic, Jewish, some other religion, or no religion?”
+
+
+```r
+table(gss_sm$religion)
+```
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Geoms can transform data &lt;/p&gt;
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = religion, color = religion))
+p + geom_bar()
+```
+
+- If we map religion to `color`, only the border lines of the bars will be assigned colors, and the insides will remain gray.
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Geoms can transform data &lt;/p&gt;
+
+-  If the gray bars look boring and we want to fill them with color instead, we can map the religion variable to `fill` in addition to mapping it to `x`.
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = religion, fill = religion))
+p + geom_bar() + guides( fill = "none" )
+```
+
+-  If we set `guides(fill = "none")`, the legend about the `fill` mapping is removed.
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Frequency plots the slightly awkward way &lt;/p&gt;
+
+- A more appropriate use of the `fill` aesthetic with `geom_bar()` is to cross-classify two categorical variables. 
+
+  - The default output of such `geom_bar()` is a stacked bar chart, with counts on the y-axis.
+
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion, fill = religion))
+p + geom_bar(position = "fill")
+```
+- An alternative choice is to set the position argument to `"fill"`.
+  - It is to compare proportions across groups.
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Frequency plots the slightly awkward way &lt;/p&gt;
+
+- We can use `position = "dodge"` to make the bars within each region of the country appear side by side.
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion, fill = religion))
+p + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop..))
+```
+
+- What happened?
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Frequency plots the slightly awkward way &lt;/p&gt;
+
+- In this case we should consider grouping variable, `religion`, so we map `religion` to the `group` aesthetic.
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion, fill = religion))
+p + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop.., group = religion))
+```
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Frequency plots the slightly awkward way &lt;/p&gt;
+
+- How can we have a proportional bar chart such that the sum of all bars in each bigregion is 1?
+
+  - There are various ways to do so, and faceting is one of them.
+  - The proportions are calculated within each panel, which is the breakdown we wanted.
+
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = religion))
+p + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop.., group = bigregion)) +
+    facet_wrap(~ bigregion, ncol = 1)
+```
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Histograms and density plots &lt;/p&gt;
+
+- ggplot comes with a dataset, `midwest`, containing information on counties in several midwestern states of the USA. 
+
+
+```r
+?midwest
+glimpse(midwest)
+skim(midwest)
+view(midwest)
+```
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Histograms and density plots &lt;/p&gt;
+
+- By default, the `geom_histogram()` function will choose a bin size for us based on a rule of thumb.
+
+
+```r
+p &lt;- ggplot(data = midwest,
+            mapping = aes(x = area))
+p + geom_histogram()
+```
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Histograms and density plots &lt;/p&gt;
+
+- When drawing histograms it is worth experimenting with `bins` and also optionally the `origin` of the x-axis. 
+
+```r
+p &lt;- ggplot(data = midwest,
+            mapping = aes(x = area))
+p + geom_histogram(bins = 10)
+```
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 66px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
