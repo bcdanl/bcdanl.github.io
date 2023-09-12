@@ -1,0 +1,187 @@
+---
+title: "DANL 200: Homework Assignment 1"
+date: 2023-09-12
+execute: 
+  echo: false
+  eval: false
+---
+```{r}
+#| include: false
+
+library(knitr)
+library(rmarkdown)
+library(tidyverse)
+library(skimr)
+```
+
+# Question 1. Data Analytics Survey
+
+- Complete the following survey:
+  - [https://forms.gle/Ya2HbPgHynkAp5e28](https://forms.gle/Ya2HbPgHynkAp5e28)
+  
+
+<br><br><br>
+
+# Question 2. Working with `data.frame`
+
+## Q2a.
+- Download the CSV file, `starwars.csv`, from the Brightspace. 
+
+- Read the data file, `starwars.csv`, as the data.frame object with the name, `starwars`, using (1) the `read_csv()` function and (2) the absolute path name of the file `starwars.csv` from your local hard disk drive in your laptop.
+
+```{r}
+#| echo: true
+#| warning: false
+#| message: false
+
+library(tidyverse)
+path_starwars <- 'PATHNAME_OF_THE_CSV_FILE, starwars.csv'
+starwars <- read_csv(path_starwars)
+```
+
+<br>
+
+## Variable Description
+
+The following describes the variables in the `starwars` data.frame.
+
+
+- `films`
+List of films the character appeared in
+
+- `name`
+Name of the character
+
+- `species`
+Name of species
+
+- `height`
+Height (cm)
+
+- `mass`
+Weight (kg)
+
+- `hair_color`, `skin_color`, `eye_color`
+Hair, skin, and eye colors
+
+- `birth_year`
+Year born (BBY = Before Battle of Yavin)
+
+- `sex`
+The biological sex of the character, namely male, female, hermaphroditic, or none (as in the case for Droids).
+
+- `gender`
+The gender role or gender identity of the character as determined by their personality or the way they were programmed (as in the case for Droids).
+
+- `homeworld`
+Name of homeworld
+
+
+<br>
+
+## Q2b.
+- Provide the R code to find how many characters are `Droid` `species`.
+
+```{r}
+library(skimr)
+
+# The following gives not only Droid but also NA
+# q2a <- starwars[starwars$species == 'Droid', ]
+
+droid <- which(starwars$species == 'Droid')
+q2a <- starwars[droid,]
+
+nrow(
+  q2a
+)
+```
+
+<br>
+
+## Q2c.
+- Provide the R code to find which `Droid` character did appear most in the Star Wars `films`.
+
+```{r}
+q2b <- q2a[ , c('name','films')]
+```
+
+
+<br>
+
+## Q2d.
+- Provide the R code to find the minimum, first quartile, median, third quartile, and the maximum of `height`.
+
+- [Statistics] Explain why the median value is different from the mean value.
+  - When is the median value greater than the mean value?
+  - When is the median value less than the mean value?
+
+```{r}
+skim(starwars$height)
+```
+
+<br>
+
+## Q2e.
+- Provide the R code to find the number of unique/distinct `homeworld` values.
+
+
+```{r}
+skim(starwars$homeworld)
+```
+
+
+<br><br><br>
+
+# Question 3. Data Visualization
+
+## Q3a.
+Provide the R code to install the R package, `gapminder`.
+
+```{r}
+install.packages("gapminder")
+```
+
+<br>
+
+## Q3b.
+Load the `gapminder` data.frame provided by the R package, `gapminder`.
+
+- The following describe the variables in the `gapminder` data.frame.
+
+  - `country`
+  factor with 142 levels
+  
+  - `continent`
+  factor with 5 levels
+  
+  - `year`
+  ranges from 1952 to 2007 in increments of 5 years
+  
+  - `lifeExp`
+  life expectancy at birth, in years
+  
+  - `pop`
+  population
+  
+  `gdpPercap`
+  GDP per capita (US$, inflation-adjusted)
+
+
+```{r}
+library(gapminder)
+gapminder
+?gapminder
+```
+
+
+<br>
+
+## Q3c.
+Provide ggplot code and comments to describe the relationship between `gdpPercap` and `lifeExp`.
+
+<br>
+
+## Q3d.
+Provide ggplot code and comments to describe how the relationship between `gdpPercap` and `lifeExp` varies by `continent`.
+
+<br>
