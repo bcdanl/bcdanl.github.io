@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DANL 200 Lecture 9</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Byeong-Hak Choe" />
+    <meta name="date" content="2023-09-18" />
+    <script src="libs/header-attrs-2.24/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <script src="libs/peerjs-1.3.1/peerjs.min.js"></script>
+    <script src="libs/tiny.toast-1.0.0/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast-0.2.6/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast-0.2.6/broadcast.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
+    <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, left, bottom
+
+# DANL 200 Lecture 9
+----
+## **DANL 200: Introduction to Data Analytics**
+### Byeong-Hak Choe
+### September 18, 2023
+
+
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; Cleaning R Environment and Console &lt;/p&gt;
+
+- `rm(OBJECT)` removes OBJECT.
+  - `rm(list = ls())` removes all the objects from the R environment.
+  - You can also click the broom button at the top right coner in the Environment Pane.
+  
+
+```r
+rm(list = ls())
+```
+
+- **Ctrl + L** cleans the R console.
+
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; Code and comment style &lt;/p&gt;
+- The two main principles for coding and managing data are:
+  - Make things easier for your future self.
+  - Don't trust your future self.
+
+- Consider using block commenting for separating code sections.
+  - `# TITLE ----` or `# TITLE ####` defines a coding block.
+  
+
+- Break down long lines and long algebraic expressions.
+
+
+
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; Shortcuts for RStudio and RScript &lt;/p&gt;
+
+.pull-left[
+**Mac**
+
+- **command + shift + N** opens a new RScript.
+- **command + S** saves the current RScript.
+- **command + O** is to open a RScript or any other text file.
+
+]
+
+.pull-right[
+**Windows**
+
+- **Ctrl + Shift + N** opens a new RScript.
+- **Ctrl + S** saves the current RScript.
+- **Ctrl + O** is to open a RScript or any other text file.
+]
+
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; Shortcuts for RStudio and RScript &lt;/p&gt;
+
+.pull-left[
+**Mac**
+
+- **command + shift + C** is the shortcut for # (commenting).
+- **command + shift + R** is the shortcut for coding block.
+- **command + return** runs a current line or selected lines.
+- **option + - ** is the shortcut for `&lt;-`.
+
+]
+
+.pull-right[
+**Windows**
+
+- **Ctrl + Shift + C** is the shortcut for # (commenting).
+- **Ctrl + Shift + R** is the shortcut for coding block.
+- **Ctrl + return** runs a current line or selected lines.
+- **Alt + - ** is the shortcut for `&lt;-`.
+]
+
+
+
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; Shortcuts for RStudio and RScript &lt;/p&gt;
+
+.pull-left[
+**Mac**
+
+- **command +** <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg> / <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg> moves the blinking cursor bar to the beginning/End of the line.
+
+- **command + shift + **<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg> / <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg> selects chunks from the blinking cursor to the beginning/End of the line.
+
+
+
+]
+
+.pull-right[
+**Windows**
+
+- **Ctrl +** <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg> / <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg> moves the blinking cursor bar to the beginning/End of the line.
+
+- **Ctrl + Shift + **<svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg> / <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg> selects chunks from the blinking cursor to the beginning/End of the line.
+
+]
+
+
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; Shortcuts for RStudio and RScript &lt;/p&gt;
+
+.pull-left[
+**Mac**
+
+- **fn +** <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/></svg> / <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>: Page Up/Down.
+
+- **fn + shift + **<svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/></svg> / <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>: Page Up/Down with selecting lines 
+
+
+
+]
+
+.pull-right[
+**Windows**
+
+- **Fn +** <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/></svg> / <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>: Page Up/Down 
+
+- **Fn + Shift + **<svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/></svg> / <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>: Page Up/Down with selecting lines 
+
+]
+
+
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+- When adding the quotation marks to a word,
+  - Step 1. Double click the word where you want to add the quotation marks
+  - Step 2. Type the quotation mark only once.
+  
+
+.pull-left[
+**Mac**
+
+- **command + Z** undoes the previous action.
+
+- **command + shift + Z** redoes when undo is executed.
+
+- **command + Q** closes the current app.
+
+]
+.pull-right[
+**Windows**
+
+- **Crtl + Z** undoes the previous action.
+
+- **Crtl + Shift + Z** redoes when undo is executed.
+
+- **Alt + F4** closes the current app.
+]
+
+---
+# Workflow
+### &lt;p style="color:#00449E"&gt; Shortcuts for RStudio and RScript &lt;/p&gt;
+
+.pull-left[
+**Mac**
+
+- **command + tab** switches to other apps that currently run.
+  - Hitting **tab** selects the next app.
+
+
+- On a web browser, **control + tab** switches to other browser tab.
+
+
+- On RStudio, **control + tab** switches to other RScript.
+
+
+
+]
+
+.pull-right[
+**Windows**
+
+- **Alt + tab** switches to other apps that currently run.
+  - Hitting **tab** selects the next app.
+
+
+- On a web browser, **Ctrl + tab** switches to other browser tab.
+
+
+- On RStudio, **control + tab** switches to other RScript.
+
+]
+
+
+---
+# Working with Lecture Slides
+
+- **o** overviews the slides (with a tile view).
+
+- <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/></svg> / <svg aria-hidden="true" role="img" viewBox="0 0 384 512" style="height:1em;width:0.75em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>  goes to the previous/next slide. 
+
+- <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg> / <svg aria-hidden="true" role="img" viewBox="0 0 448 512" style="height:1em;width:0.88em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"/></svg> goes to the previous/next slide (or tab). 
+
+- **Space** goes to the next slide.
+
+
+
+
+---
+# Exploratory Data Analysis 
+### &lt;p style="color:#00449E"&gt; Categorical vs. Continuous Variables &lt;/p&gt;
+
+.panelset[
+.panel[.panel-name[Categorical]
+- A **categorical variable** is a variable whose value is obtained by *counting*.
+  - Number of red marbles in a jar
+  - Number of heads when flipping three coins 
+  - Students’ letter grade
+  - US state/county
+  
+  
+- Categorical variables should be `factor` or `character`.
+  - We can use `as.factor(variable)` to make a variable `factor`.
+]
+
+.panel[.panel-name[Continuous]
+- A **continuous variable** is a variable whose value is obtained by *measuring*  and can have a decimal or fractional value.
+  - Height/weight of students
+  - Time it takes to get to school
+  - Fuel efficiency of a vehicle (e.g., miles per gallon)
+
+
+- Continuous variables should be `numeric`.
+  - We can use `as.numeric(variable)` to make a variable `numeric`.
+
+]
+
+.panel[.panel-name[Integer]
+
+- For data visualization, `integer`-type variables could be treated as either categorical or continuous, depending on the context of analysis.
+
+
+- If the values of an integer-type variable means an intensity or an order, the integer variable could be continuous.
+  - A variable of age integers (18, 19, 20, 21, ...) could be considered continuous.
+  - A variable of integer-valued MPG (27, 28, 29, 30, ...) could be considered continuous.
+  
+  
+- If not, the integer variable is categorical.
+  - A variable of month integers (1, ,2, ..., 12) is categorical.
+  
+
+]
+]
+
+
+
+
+---
+# Exploratory Data Analysis
+
+&lt;img src="lec_figs/data-science-explore.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+
+- In data visualization, you'll turn data into plots.
+
+- In data transformation, you'll learn the key verbs that allow you to select important variables, filter out key observations, create new variables, and compute summaries.
+
+- In **exploratory data analysis**, you'll combine summary statistics (`skim()`), visualization, and transformation with your curiosity and skepticism to ask and answer interesting questions about data.
+
+
+---
+# Making Discoveries from a Data Set
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+.panelset[
+
+.panel[.panel-name[Summary]
+
+- Use `skimr::skim(data.frame)` or `skimr::skim(data.frame$VARIABLE)` to summarize data:
+  - Mean (Average, Expected Value);
+  - Standard Deviation (SD)
+  - Minimum, First Quartile (Q1), Median (Q2), Third Quartile (Q3), and Maximum.
+
+
+
+]
+
+.panel[.panel-name[Correlation]
+- Correlation ( `\(\rho \in [-1, 1]\)` ) describes the extent to which two variables change together. 
+  - If one variable tends to go up when the other goes up, there is a positive correlation between them. 
+  - If one variable tends to go down when the other goes up, there is a negative correlation. 
+  - If there are no such patterns, the variables are not correlated or independent with each other.
+- `cor(data.frame$VARIABLE_1, data.frame$VARIABLE_2)` calculates the correlation between the two variables.
+
+
+]
+
+
+.panel[.panel-name[Relationship]
+- From the plots with two or more variables, we want to see **co-variation**, the tendency for the values of two or more variables to vary together in a **related** way. 
+
+
+- What type of **co-variation** occurs between variables?
+  - Are they positively associated?
+  - Are they negatively associated?
+  - Are there no association between them?
+
+]
+
+
+.panel[.panel-name[Distribution]
+- A **distribution** of a variable refers to the way its values are spread or arranged across a data.frame. 
+  - What type of **variation** occurs within a variable?
+
+
+- **Variation** is the tendency of the values of a variable to change from measurement to measurement. 
+  - We can see variation easily in real life; if we measure any continuous variable twice, we will be likely to get two different values.
+  - Which values are the most common? Why?
+  - Which values are rare? Why? Does that match your expectations?
+]
+
+.panel[.panel-name[Time trend]
+- A **time trend** plot, (also known as a *time series* plot), is used to visualize trends, patterns, and fluctuations in a variable over a specific time period. 
+
+  - The x-axis typically represents time, while the y-axis represents the variable being measured. 
+
+
+- We can check the overall direction in which the time-series variable are moving—upwards, downwards, or staying relatively constant over time.
+
+
+]
+
+
+]
+
+
+---
+# Exploratory Data Analysis 
+### &lt;p style="color:#00449E"&gt; Key Points in Data Visualization &lt;/p&gt;
+
+
+- A graphic should display as much information as it can, with the lowest possible cognitive strain to the viewer.
+
+
+- Strive for clarity. 
+  - Make the data stand out. Specific tips for increasing clarity include these:
+    - Avoid too many superimposed elements, such as too many curves in the same graphing space.
+    - Avoid having the data all skewed to one side or the other of your graph.
+
+
+- Visualization is an iterative process. 
+  - We should try making data visualization informative as much as we can.
+
+
+
+---
+class: inverse, center, middle
+
+# Data Visualization with `ggplot()`
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+---
+# Data Visualization - First Steps
+### &lt;p style="color:#00449E"&gt; Graphing Template &lt;/p&gt;
+- To make a ggplot plot, replace the bracketed sections in the code below with a `data.frame`, a `geom` function, or a collection of mappings such as `x = VAR_1` and `y = VAR_2`.
+
+
+```r
+ggplot(data = &lt;DATA&gt;) + 
+  &lt;GEOM_FUNCTION&gt;(mapping = aes(&lt;MAPPINGS&gt;))
+```
+
+---
+# Data Visualization - First Steps
+
+- Q. Do cars with big engines use more fuel than cars with small engines?
+
+  -  What does the relationship between engine size and fuel efficiency look like?
+
+  - `displ`: a car's engine size, in liters.
+  
+  - `hwy`: a car's fuel efficiency on the highway, in miles per gallon (mpg). 
+
+
+
+---
+class: inverse, center, middle
+
+# Aesthetic Mappings
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+# Aesthetic Mappings
+
+- In the plot below, one group of points (highlighted in red) seems to fall outside of the linear trend. 
+
+&lt;img src="lec_figs/r4s_330_1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+  - How can you explain these cars? Are those hybrids?
+
+
+---
+# Aesthetic Mappings
+
+- An aesthetic is a visual property (e.g., `size`, `shape`, `color`) of the objects (e.g., `class`) in your plot.
+
+- You can display a point in different ways by changing the values of its aesthetic properties. 
+
+
+&lt;img src="lec_figs/r4s_330_2.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Aesthetic Mappings
+### &lt;p style="color:#00449E"&gt; Adding a `color` to the plot &lt;/p&gt;
+
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, 
+*                          color = class) )
+```
+
+
+--
+### &lt;p style="color:#00449E"&gt; Adding a `shape` to the plot &lt;/p&gt;
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, 
+*                          shape = class) )
+```
+
+
+
+---
+# Aesthetic Mappings
+### &lt;p style="color:#00449E"&gt; Adding a `size` to the plot &lt;/p&gt;
+
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, 
+*                          size = class) )
+```
+
+
+--
+### &lt;p style="color:#00449E"&gt; Adding an `alpha` (transparency) to the plot &lt;/p&gt;
+
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy, 
+*                          alpha = class) )
+```
+
+
+
+---
+# Aesthetic Mappings
+
+- To set an aesthetic manually, set the aesthetic by name as an argument of your `geom_` function; i.e. it goes outside of `aes()`. 
+
+  - You'll need to pick a level that makes sense for that aesthetic:
+
+    - The name of a `color` as a *character string*.
+  
+    - The `size` of a point in *mm*.
+  
+    - The `shape` of a point as a *number*, as shown below.
+  
+&lt;img src="lec_figs/r4s_330_3.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Aesthetic Mappings
+### &lt;p style="color:#00449E"&gt; Specifying a `color` to the plot &lt;/p&gt;
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), 
+*            color = "blue")
+```
+
+
+---
+# Aesthetic Mappings
+### &lt;p style="color:#00449E"&gt; Specifying a `color` to the plot? &lt;/p&gt;
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point( mapping = aes(x = displ, y = hwy, 
+*                           color = "blue") )
+```
+
+
+---
+# Common problems in `ggplot()`
+
+- One common problem when creating `ggplot2` graphics is to put the `+` in the wrong place.
+
+
+```r
+ggplot(data = mpg) 
+*+ geom_point( mapping = aes(x = displ, y = hwy) )
+```
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 66px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
