@@ -1,8 +1,11 @@
 ---
 title: "DANL 200: Classwork 1"
 date: 2023-09-06
-execute: 
-  echo: false
+format:
+  html:
+    code-fold: true
+    code-summary: "Show the code"
+    # highlight-style: espresso
 ---
 ```{r}
 #| include: false
@@ -27,6 +30,7 @@ tvshows <- read_csv(
 
 ```{r}
 #| eval: true
+#| echo: false
 paged_table(tvshows, 
             options = list(rows.print = 10,
                            cols.print = 3) )
@@ -46,6 +50,7 @@ q1a <- tvshows[ q1a_indices, ]
 
 ```{r}
 #| eval: true
+#| echo: false
 paged_table(q1a, 
             options = list(rows.print = 10,
                            cols.print = 3) )
@@ -68,6 +73,7 @@ The mean value of `GRP` is `r mean(tvshows$GRP)`.
 
 ```{r}
 #| eval: true
+#| echo: false
 paged_table(q1b, 
             options = list(rows.print = 10,
                            cols.print = 3) )
@@ -86,6 +92,7 @@ q1c <- q1c[ , c("Show", "PE", "GRP")]
 
 ```{r}
 #| eval: true
+#| echo: false
 paged_table(q1c, 
             options = list(rows.print = 10,
                            cols.print = 3) )

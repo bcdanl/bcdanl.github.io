@@ -433,9 +433,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="question-1.-working-with-data.frame">Question 1. Working with <code>data.frame</code></h2>
 <p>Load the following data.frame, <code>tvshows</code>.</p>
 <div class="cell">
+<details>
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tvshows <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">'https://bcdanl.github.io/data/tvshows.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -451,10 +454,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="q1a.">Q1a.</h3>
 <p>Provide the R code to return the shows whose <code>Duration</code> values are <code>30</code>.</p>
 <div class="cell">
-
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>q1a <span class="ot">&lt;-</span> tvshows[tvshows<span class="sc">$</span>Duration <span class="sc">==</span> <span class="dv">30</span>, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
-
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>q1a_indices <span class="ot">&lt;-</span> <span class="fu">which</span>(tvshows<span class="sc">$</span>Duration <span class="sc">==</span> <span class="dv">30</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>q1a <span class="ot">&lt;-</span> tvshows[ q1a_indices, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -474,7 +484,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Provide the R code to return the shows whose <code>GRP</code> values are greater than the mean value of <code>GRP</code> in all the shows in the <code>tvshows</code> data.frame.</p>
 <p>Hint: We can calculate the mean value of numeric vector <code>x</code> using the <code>mean(x)</code> function.</p>
 <div class="cell">
-
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>q1b <span class="ot">&lt;-</span> tvshows[tvshows<span class="sc">$</span>GRP <span class="sc">&gt;</span> <span class="fu">mean</span>(tvshows<span class="sc">$</span>GRP), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <p>The mean value of <code>GRP</code> is 823.905.</p>
 <div class="cell">
@@ -493,7 +506,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="q1c.">Q1c.</h3>
 <p>Provide the R code to return the data.frame with only three variables—<code>Show</code>, <code>PE</code>, and <code>GRP</code>—for which <code>PE</code> values are greater than the mean value of <code>PE</code>.</p>
 <div class="cell">
-
+<details>
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>q1c <span class="ot">&lt;-</span> tvshows[tvshows<span class="sc">$</span>PE <span class="sc">&gt;</span> <span class="fu">mean</span>(tvshows<span class="sc">$</span>PE), ]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>q1c <span class="ot">&lt;-</span> q1c[ , <span class="fu">c</span>(<span class="st">"Show"</span>, <span class="st">"PE"</span>, <span class="st">"GRP"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
 <div class="cell-output-display">
