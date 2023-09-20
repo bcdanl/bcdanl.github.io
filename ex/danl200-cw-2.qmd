@@ -1,6 +1,6 @@
 ---
-title: "DANL 200: Classwork 2"
-date: 2023-09-08
+title: "DANL 200: Classwork 2 - Data Visualization"
+date: 2023-09-20
 execute: 
   echo: false
 ---
@@ -10,9 +10,10 @@ execute:
 library(knitr)
 library(rmarkdown)
 library(tidyverse)
+library(skimr)
 ```
 
-## Question 1. Data Visualization - First Steps
+# Question 1. First Steps
 
 Load the following data.frame, `mpg`.
 ```{r}
@@ -44,67 +45,138 @@ skim(mpg)
 
 
 
-### Q1a. 
+## Q1a. 
 Run `ggplot(data = mpg)`. What do you see?
-```{r}
+```{r, eval = F}
 ggplot(data = mpg)
 ```
 
 <br>
 
-### Q1b.
-How many rows are in `mpg`? How many columns?
-```{r}
-nrow(mpg)
-ncol(mpg)
-```
 
-<br>
+## Q1b.
+Write a ggplot code to make a scatterplot of `hwy` vs. `cyl`.
 
-
-### Q1c.
-Make a scatterplot of `hwy` vs. `cyl`.
-
-```{r}
+```{r, eval = F}
 ggplot(data = mpg) +
   geom_point(mapping = aes(x = hwy, y = cyl))
 ```
 
 <br>
 
-### Q1d.
-What happens if you make a scatterplot of `class` vs. `drv`? Why is the plot not useful?
+## Q1c.
+- What happens if you make a scatterplot of `class` vs. `drv`? 
+  - Why is the plot not useful?
 
 
-```{r}
+```{r, eval = F}
 ggplot(data = mpg) +
   geom_point(mapping = aes(x = class, y = drv))
 ```
 
+<br><br><br>
+
+# Question 2. Aethetic Mapping
+
+
+## Q2a.
+- Which variables in `mpg` are categorical? 
+- Which variables are continuous?
+
 <br>
 
-### Q1e.
-What’s gone wrong with this code? Why are the points not blue?
+## Q2b.
+- Map a continuous variable to `color`, `size`, and `shape`. 
+- How do these aesthetics behave differently for categorical vs. continuous variables?
 
-```{r}
-#| echo: true
+<br>
+
+## Q2d.
+What happens if you map an aesthetic to something other than a variable name, like `aes(color = displ < 5)`? 
+
+
+<br><br><br>
+
+
+# Question 3. Facets
+
+## Q3a.
+What happens if you facet on a continuous variable?
+
+<br>
+
+## Q3b.
+- What do the empty cells in the scatterplot of `displ` vs. `hwy` with `facet_grid(drv ~ cyl)` mean? 
+  - How do they relate to this plot?
+```{r, echo = T, eval = T}
 ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
+  geom_point(mapping = aes(x = drv, y = cyl))
 ```
 
 <br>
 
-### Q1f.
-Which variables in `mpg` are categorical? Which variables are continuous?
+## Q3c.
+What plots does the following code make? What does `.` do?
+```{r, echo = T, eval = F}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy),
+             alpha = .5) +
+  facet_grid(drv ~ .)
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy),
+             alpha = .5) +
+  facet_grid(drv ~ .)
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy),
+             alpha = .5) +
+  facet_grid(. ~ cyl)
+```
 
 <br>
 
-### Q1g.
-Map a continuous variable to `color`, `size`, and `shape`. How do these aesthetics behave differently for categorical vs. continuous variables?
+## Q3d.
+Consider the following faceted plot:
+```{r, echo = T, eval = F}
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy),
+             alpha = .5) + 
+  facet_wrap(~ class, nrow = 2)
+```
+  - What are the advantages to using faceting instead of the color aesthetic? 
+  - What are the disadvantages? 
+  - How might the balance change if you had a larger dataset?
+  
+<br>
+
+## Q3e.
+- Read `?facet_wrap`. 
+  - What does `nrow` do? 
+  - What does `ncol` do? 
+  - What other options control the layout of the individual panels? 
+  - Why doesn’t `facet_grid()` have `nrow` and `ncol` arguments?
 
 <br>
 
-### Q1h.
-What happens if you map an aesthetic to something other than a variable name, like `aes(color = displ < 5)`? 
+## Q3f.
+When using `facet_grid()`, you should usually put the variable with more unique levels in the columns. Why?
 
+<br>
+
+## Q3g.
+Use the following data.frame.
+
+```{r, eval = F, echo = T}
+tvshows_web <- read_csv(
+		'https://bcdanl.github.io/data/tvshows.csv')
+```
+
+- Describe the relationship between audience size (`GRP`) and audience engagement (`PE`) using `ggplot`. 
+
+- Explain the relationship in words. 
+
+
+<br>
 

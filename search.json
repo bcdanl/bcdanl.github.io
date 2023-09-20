@@ -114,9 +114,79 @@
   {
     "objectID": "ex/danl200-cw-2.html",
     "href": "ex/danl200-cw-2.html",
-    "title": "DANL 200: Classwork 2",
+    "title": "DANL 200: Classwork 2 - Data Visualization",
     "section": "",
-    "text": "Load the following data.frame, mpg.\n\nlibrary(tidyverse)\nmpg <- ggplot2::mpg\n\n\n\n\n\n  \n\n\n\n\nlibrary(skimr)\nskim(mpg)\n\n\nData summary\n\n\nName\nmpg\n\n\nNumber of rows\n234\n\n\nNumber of columns\n11\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n6\n\n\nnumeric\n5\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\nmanufacturer\n0\n1\n4\n10\n0\n15\n0\n\n\nmodel\n0\n1\n2\n22\n0\n38\n0\n\n\ntrans\n0\n1\n8\n10\n0\n10\n0\n\n\ndrv\n0\n1\n1\n1\n0\n3\n0\n\n\nfl\n0\n1\n1\n1\n0\n5\n0\n\n\nclass\n0\n1\n3\n10\n0\n7\n0\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\ndispl\n0\n1\n3.47\n1.29\n1.6\n2.4\n3.3\n4.6\n7\n▇▆▆▃▁\n\n\nyear\n0\n1\n2003.50\n4.51\n1999.0\n1999.0\n2003.5\n2008.0\n2008\n▇▁▁▁▇\n\n\ncyl\n0\n1\n5.89\n1.61\n4.0\n4.0\n6.0\n8.0\n8\n▇▁▇▁▇\n\n\ncty\n0\n1\n16.86\n4.26\n9.0\n14.0\n17.0\n19.0\n35\n▆▇▃▁▁\n\n\nhwy\n0\n1\n23.44\n5.95\n12.0\n18.0\n24.0\n27.0\n44\n▅▅▇▁▁\n\n\n\n\n\n\n\nRun ggplot(data = mpg). What do you see?\n\n\n\n\n\n\n\n\n\nHow many rows are in mpg? How many columns?\n\n\n[1] 234\n\n\n[1] 11\n\n\n\n\n\n\nMake a scatterplot of hwy vs. cyl.\n\n\n\n\n\n\n\n\n\nWhat happens if you make a scatterplot of class vs. drv? Why is the plot not useful?\n\n\n\n\n\n\n\n\n\nWhat’s gone wrong with this code? Why are the points not blue?\n\nggplot(data = mpg) + \n  geom_point(mapping = aes(x = displ, y = hwy, color = \"blue\"))\n\n\n\n\n\n\n\n\nWhich variables in mpg are categorical? Which variables are continuous?\n\n\n\n\nMap a continuous variable to color, size, and shape. How do these aesthetics behave differently for categorical vs. continuous variables?\n\n\n\n\nWhat happens if you map an aesthetic to something other than a variable name, like aes(color = displ < 5)?"
+    "text": "Load the following data.frame, mpg.\n\nlibrary(tidyverse)\nmpg <- ggplot2::mpg\n\n\n\n\n\n  \n\n\n\n\nlibrary(skimr)\nskim(mpg)\n\n\nData summary\n\n\nName\nmpg\n\n\nNumber of rows\n234\n\n\nNumber of columns\n11\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n6\n\n\nnumeric\n5\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\nmanufacturer\n0\n1\n4\n10\n0\n15\n0\n\n\nmodel\n0\n1\n2\n22\n0\n38\n0\n\n\ntrans\n0\n1\n8\n10\n0\n10\n0\n\n\ndrv\n0\n1\n1\n1\n0\n3\n0\n\n\nfl\n0\n1\n1\n1\n0\n5\n0\n\n\nclass\n0\n1\n3\n10\n0\n7\n0\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\ndispl\n0\n1\n3.47\n1.29\n1.6\n2.4\n3.3\n4.6\n7\n▇▆▆▃▁\n\n\nyear\n0\n1\n2003.50\n4.51\n1999.0\n1999.0\n2003.5\n2008.0\n2008\n▇▁▁▁▇\n\n\ncyl\n0\n1\n5.89\n1.61\n4.0\n4.0\n6.0\n8.0\n8\n▇▁▇▁▇\n\n\ncty\n0\n1\n16.86\n4.26\n9.0\n14.0\n17.0\n19.0\n35\n▆▇▃▁▁\n\n\nhwy\n0\n1\n23.44\n5.95\n12.0\n18.0\n24.0\n27.0\n44\n▅▅▇▁▁\n\n\n\n\n\n\n\nRun ggplot(data = mpg). What do you see?\n\n\n\n\n\n\n\nWrite a ggplot code to make a scatterplot of hwy vs. cyl.\n\n\n\n\n\n\n\n\nWhat happens if you make a scatterplot of class vs. drv?\n\nWhy is the plot not useful?"
+  },
+  {
+    "objectID": "ex/danl200-cw-2.html#q2a.",
+    "href": "ex/danl200-cw-2.html#q2a.",
+    "title": "DANL 200: Classwork 2 - Data Visualization",
+    "section": "Q2a.",
+    "text": "Q2a.\n\nWhich variables in mpg are categorical?\nWhich variables are continuous?"
+  },
+  {
+    "objectID": "ex/danl200-cw-2.html#q2b.",
+    "href": "ex/danl200-cw-2.html#q2b.",
+    "title": "DANL 200: Classwork 2 - Data Visualization",
+    "section": "Q2b.",
+    "text": "Q2b.\n\nMap a continuous variable to color, size, and shape.\nHow do these aesthetics behave differently for categorical vs. continuous variables?"
+  },
+  {
+    "objectID": "ex/danl200-cw-2.html#q2d.",
+    "href": "ex/danl200-cw-2.html#q2d.",
+    "title": "DANL 200: Classwork 2 - Data Visualization",
+    "section": "Q2d.",
+    "text": "Q2d.\nWhat happens if you map an aesthetic to something other than a variable name, like aes(color = displ < 5)?"
+  },
+  {
+    "objectID": "ex/danl200-cw-2.html#q3a.",
+    "href": "ex/danl200-cw-2.html#q3a.",
+    "title": "DANL 200: Classwork 2 - Data Visualization",
+    "section": "Q3a.",
+    "text": "Q3a.\nWhat happens if you facet on a continuous variable?"
+  },
+  {
+    "objectID": "ex/danl200-cw-2.html#q3b.",
+    "href": "ex/danl200-cw-2.html#q3b.",
+    "title": "DANL 200: Classwork 2 - Data Visualization",
+    "section": "Q3b.",
+    "text": "Q3b.\n\nWhat do the empty cells in the scatterplot of displ vs. hwy with facet_grid(drv ~ cyl) mean?\n\nHow do they relate to this plot?\n\n\n\nggplot(data = mpg) + \n  geom_point(mapping = aes(x = drv, y = cyl))"
+  },
+  {
+    "objectID": "ex/danl200-cw-2.html#q3c.",
+    "href": "ex/danl200-cw-2.html#q3c.",
+    "title": "DANL 200: Classwork 2 - Data Visualization",
+    "section": "Q3c.",
+    "text": "Q3c.\nWhat plots does the following code make? What does . do?\n\nggplot(data = mpg) + \n  geom_point(mapping = aes(x = displ, y = hwy),\n             alpha = .5) +\n  facet_grid(drv ~ .)\n\nggplot(data = mpg) + \n  geom_point(mapping = aes(x = displ, y = hwy),\n             alpha = .5) +\n  facet_grid(drv ~ .)\n\nggplot(data = mpg) + \n  geom_point(mapping = aes(x = displ, y = hwy),\n             alpha = .5) +\n  facet_grid(. ~ cyl)"
+  },
+  {
+    "objectID": "ex/danl200-cw-2.html#q3d.",
+    "href": "ex/danl200-cw-2.html#q3d.",
+    "title": "DANL 200: Classwork 2 - Data Visualization",
+    "section": "Q3d.",
+    "text": "Q3d.\nConsider the following faceted plot:\n\nggplot(data = mpg) + \n  geom_point(mapping = aes(x = displ, y = hwy),\n             alpha = .5) + \n  facet_wrap(~ class, nrow = 2)\n\n\nWhat are the advantages to using faceting instead of the color aesthetic?\nWhat are the disadvantages?\nHow might the balance change if you had a larger dataset?"
+  },
+  {
+    "objectID": "ex/danl200-cw-2.html#q3e.",
+    "href": "ex/danl200-cw-2.html#q3e.",
+    "title": "DANL 200: Classwork 2 - Data Visualization",
+    "section": "Q3e.",
+    "text": "Q3e.\n\nRead ?facet_wrap.\n\nWhat does nrow do?\nWhat does ncol do?\nWhat other options control the layout of the individual panels?\nWhy doesn’t facet_grid() have nrow and ncol arguments?"
+  },
+  {
+    "objectID": "ex/danl200-cw-2.html#q3f.",
+    "href": "ex/danl200-cw-2.html#q3f.",
+    "title": "DANL 200: Classwork 2 - Data Visualization",
+    "section": "Q3f.",
+    "text": "Q3f.\nWhen using facet_grid(), you should usually put the variable with more unique levels in the columns. Why?"
+  },
+  {
+    "objectID": "ex/danl200-cw-2.html#q3g.",
+    "href": "ex/danl200-cw-2.html#q3g.",
+    "title": "DANL 200: Classwork 2 - Data Visualization",
+    "section": "Q3g.",
+    "text": "Q3g.\nUse the following data.frame.\n\ntvshows_web <- read_csv(\n        'https://bcdanl.github.io/data/tvshows.csv')\n\n\nDescribe the relationship between audience size (GRP) and audience engagement (PE) using ggplot.\nExplain the relationship in words."
   },
   {
     "objectID": "ex/econ340-cw-3.html",
@@ -131,6 +201,13 @@
     "title": "ECON 340: Classwork 2",
     "section": "",
     "text": "The Cobb-Douglas utility function is\n\\[\n\\begin{align}\nu(x_{1}, x_{2}) = x_{1}^{\\alpha}x_{2}^{\\beta}.\n\\end{align}\n\\] Since utility functions are only defined up to a monotonic transformation, it is convenient to take logs of this expression and work with:\n\\[\n\\begin{align}\n\\log u(x_{1}, x_{2}) = \\alpha \\log x_{1} + \\beta \\log x_{2}.\n\\end{align}\n\\]\n\nBy the way, a monotonic transformation is a way of transforming one set of numbers into another set of numbers in a way that the order of the numbers is preserved.\n\nTherefore, a monotonic transformation of a utility function preserves the order of the utility values.\nIf bundle \\(A\\) is preferred to bundle \\(B\\), then a monotonic transformation of the utility function will still show that \\(A\\) is preferred to \\(B\\).\n\n\nLet’s find the demand functions for \\(x_1\\) and \\(x_2\\) for the Cobb-Douglas utility function. The problem we want to solve is\n\\[\n\\begin{align}\n\\max_{x_{1}, x_{2}}&\\; \\log u(x_{1}, x_{2}) = \\alpha \\log x_{1} + \\beta \\log x_{2} \\tag{1}\\\\\n\\text{such that}&\\quad Y \\;\\geq\\; p_{1}x_{1} + p_{2}x_{2} \\tag{2}\n\\end{align}\n\\]\nThere are at least two ways to solve this problem.\n\n\nSince “the more, the better” holds for this consumer, the budget constraint holds with equality at the optimum. Using this fact, we can then substitute out \\(x_{2}\\) in problem (1) using the budget constraint (2) with equality.\n\\[\n\\begin{align}\n\\max_{x_{1}}&\\; \\log u(x_{1}) = \\alpha \\log x_{1} + \\beta \\log \\left(\\frac{Y - p_{1}x_{1}}{p_{2}}\\right) \\tag{3}\n\\end{align}\n\\] The first order condition for problem (3) is\n\\[\n\\begin{align}\n\\frac{\\alpha}{x_{1}} + \\frac{\\beta}{\\left(\\frac{Y - p_{1}x_{1}}{p_{2}}\\right)}\\left(-\\frac{p_{1}}{p_{2}}\\right) \\,=\\, 0.  \\tag{4}\n\\end{align}\n\\] Re-arranging the first-order condition (4) and the budget constraint (2) with equality gives the demand for \\(x_{1}\\) and \\(x_{2}\\):\n\\[\n\\begin{align}\nx_{1}^{*} = \\frac{\\alpha}{\\alpha + \\beta} \\frac{Y}{p_{1}},\\\\\nx_{2}^{*} = \\frac{\\beta}{\\alpha + \\beta} \\frac{Y}{p_{2}}.\n\\end{align}\n\\]\n\n\n\nNow for Lagrange’s method for the problem (1) with constraint (2). Set up the Lagrangian: \\[\n\\mathcal{L} = \\alpha\\log x_{1} + \\beta\\log x_{2} + \\lambda(Y - p_{1}x_{1} - p_{2}x_{2}). \\tag{5}\n\\] Differentiate (5) with respect to each of the choice variables, \\(x_{1}, x_{2}\\), and \\(\\lambda\\) to get the three first-order conditions:\n\\[\n\\begin{align}\n\\frac{\\partial\\mathcal{L}}{\\partial x_{1}} &= \\frac{\\alpha}{x_{1}} - \\lambda p_{1} = 0, \\tag{6}\\\\\n\\frac{\\partial\\mathcal{L}}{\\partial x_{2}} &= \\frac{\\beta}{x_{2}} - \\lambda p_{2} = 0, \\tag{7}\\\\\n\\frac{\\partial\\mathcal{L}}{\\partial x_{1}} &= Y - p_{1}x_{1} - p_{2}x_{2} = 0. \\tag{8}\\\\\n\\end{align}\n\\] Now we are to solve the system of equations—three unknowns (\\(x_{1}, x_{2}\\), and \\(\\lambda\\)), three equations (6), (7), and (8).\nRearranging (6) and (7) gives: \\[\n\\begin{align}\nx_{1} = \\frac{\\alpha}{\\lambda p_{1}},\\tag{8}\\\\\nx_{2} = \\frac{\\beta}{\\lambda p_{2}}.\\tag{9}\n\\end{align}\n\\]\nNow we need to find \\(\\lambda\\).\nRearranging (6) and (7) also gives: \\[\n\\begin{align}\n\\alpha  &= \\lambda p_{1}x_{1},\\\\\n\\beta  &= \\lambda p_{2}x_{2}.\n\\end{align}\n\\] Adding the equations above gives:\n\\[\n\\alpha + \\beta = \\lambda(p_{1}x_{1} + p_{2}x_{2}) = \\lambda Y,\n\\] which gives us\n\\[\n\\lambda = \\frac{\\alpha + \\beta}{Y}.\\tag{10}\n\\]\nSubstitute (10) back into (8) and (9) and solve for \\(x_{1}\\) and \\(x_{2}\\) to get\n\\[\n\\begin{align}\nx_{1}^{*} = \\frac{\\alpha}{\\alpha + \\beta} \\frac{Y}{p_{1}},\\\\\nx_{2}^{*} = \\frac{\\beta}{\\alpha + \\beta} \\frac{Y}{p_{2}},\n\\end{align}\n\\]\njust as before."
+  },
+  {
+    "objectID": "ex/danl200-cw-3.html",
+    "href": "ex/danl200-cw-3.html",
+    "title": "DANL 200: Classwork 3",
+    "section": "",
+    "text": "What happens if you facet on a continuous variable?\n\n\n\n\nWhat do the empty cells in plot with facet_grid(drv ~ cyl) mean? How do they relate to this plot?\n\nggplot(data = mpg) + \n  geom_point(mapping = aes(x = drv, y = cyl))\n\n\n\n\n\n\n\n\nWhat plots does the following code make? What does . do?\n\nggplot(data = mpg) + \n  geom_point(mapping = aes(x = displ, y = hwy)) +\n  facet_grid(drv ~ .)\n\nggplot(data = mpg) + \n  geom_point(mapping = aes(x = displ, y = hwy)) +\n  facet_grid(drv ~ .)\n\nggplot(data = mpg) + \n  geom_point(mapping = aes(x = displ, y = hwy)) +\n  facet_grid(. ~ cyl)\n\n\n\n\n\nConsider the following faceted plot:\n\nggplot(data = mpg) + \n  geom_point(mapping = aes(x = displ, y = hwy)) + \n  facet_wrap(~ class, nrow = 2)\n\n\nWhat are the advantages to using faceting instead of the color aesthetic?\nWhat are the disadvantages?\nHow might the balance change if you had a larger dataset?\n\n\n\n\n\nRead ?facet_wrap. - What does nrow do? - What does ncol do? - What other options control the layout of the individual panels? - Why doesn’t facet_grid() have nrow and ncol arguments?\n\n\n\n\nWhen using facet_grid, you should usually put the variable with more unique levels in the columns. Why?\n\n\n\n\nUse the following data.frame.\n\ntvshows_web <- read_csv(\n        'https://bcdanl.github.io/data/tvshows.csv')\n\n\nDescribe the relationship between audience size (GRP) and audience engagement (PE) using ggplot.\nExplain the relationship in words."
   },
   {
     "objectID": "ex/danl200-cw-1.html",
@@ -159,6 +236,13 @@
     "title": "ECON 340: Classwork 1",
     "section": "Q2b.",
     "text": "Q2b.\nRank the solutions in terms of safety. Explain your reasoning."
+  },
+  {
+    "objectID": "ex/econ340-cw-5.html",
+    "href": "ex/econ340-cw-5.html",
+    "title": "ECON 340: Classwork 5",
+    "section": "",
+    "text": "Let’s find the demand functions for \\(x_1\\) and \\(x_2\\) for the quasi-linear utility function. The problem we want to solve is\n\\[\n\\begin{align}\n\\max_{x_{1}, x_{2}}&\\; u(x_{1}, x_{2}) = x_{1} + \\log(x_{2}) \\tag{1}\\\\\n\\text{such that}&\\quad Y \\;\\geq\\; p_{1}x_{1} + p_{2}x_{2} \\tag{2}\n\\end{align}\n\\]\nNow for Lagrange’s method for the problem (1) with constraint (2).\nAt the optimum of \\(x_{1}\\) and \\(x_{2}\\), the budget constraint (2) binds. So, instead, we can solve:\n\\[\n\\begin{align}\n\\max_{x_{1}, x_{2}}&\\; u(x_{1}, x_{2}) = x_{1} + \\log(x_{2}) \\tag{1}\\\\\n\\text{such that}&\\quad Y \\;=\\; p_{1}x_{1} + p_{2}x_{2} \\tag{3}\n\\end{align}\n\\]\nStep 1. Set up the Lagrangian: \\[\n\\mathcal{L} = x_{1} + \\log(x_{2}) + \\lambda(Y - p_{1}x_{1} - p_{2}x_{2}). \\tag{4}\n\\] Step 2. Derive the first order conditions: \\[\n\\begin{align}\n\\frac{\\partial\\mathcal{L}}{\\partial x_{1}} &= 1 - \\lambda p_{1} = 0, \\tag{5}\\\\\n\\frac{\\partial\\mathcal{L}}{\\partial x_{2}} &= \\frac{1}{x_{2}} - \\lambda p_{2} = 0, \\tag{6}\\\\\n\\frac{\\partial\\mathcal{L}}{\\partial x_{1}} &= Y - p_{1}x_{1} - p_{2}x_{2} = 0. \\tag{7}\\\\\n\\end{align}\n\\] Step 3. Solve the system of equations from the first-order conditions.\n\\[\n\\begin{align}\n\\lambda^{*} &= \\frac{1}{p_{1}},\\\\\nx_{2}^{*} &= \\frac{p_{1}}{p_{2}},\\\\\nx_{1}^{*} &= \\frac{Y}{p_{1}} - 1.\n\\end{align}\n\\] Notice that \\(x_{2}^{*}\\) does not depend on the income level at all!\n\n\n\n\nLet the constraints \\(h_{1}(x, y, z), h_{2}(x, y, z)\\), and the objective \\(f(x, y, z)\\) be differentible functions of 3 variables, \\(x, y\\), and \\(z\\). Consider the problem of maximizing \\(f(x, y, z)\\) on the constraints\n\\[\n\\begin{align}\nh_{1}(x, y, z) &= a_{1}\\\\\nh_{2}(x, y, z) &= a_{2}\n\\end{align}\n\\] Step 1. Set up the Lagrangian. - If possible, substitute the constraint into the objective function \\(f(x,y,z)\\).\n\\[\n\\mathcal{L} = f(x, y, z) - \\lambda_{1}(h_{1}(x, y, z) - a_{1})  - \\lambda_{2}(h_{2}(x, y, z) - a_{2})\n\\]\nStep 2. Derive the first order conditions:\n\\[\n\\begin{align}\n\\frac{\\partial\\mathcal{L}}{\\partial x} &= 0,\\\\\n\\frac{\\partial\\mathcal{L}}{\\partial y} &= 0,\\\\\n\\frac{\\partial\\mathcal{L}}{\\partial z} &= 0,\\\\\n\\frac{\\partial\\mathcal{L}}{\\partial \\lambda_{1}} &= 0,\\\\\n\\frac{\\partial\\mathcal{L}}{\\partial \\lambda_{2}} &= 0.\\\\\n\\end{align}\n\\]\nStep 3. Solve the system of equations from the first-order conditions.\n\n\n\nMaximize \\(f(x,y,z) = yz + xz\\) subject to \\(y^{2} + z^{2} = 1\\) and \\(xz = 3\\)."
   },
   {
     "objectID": "ex/econ340-cw-4.html",

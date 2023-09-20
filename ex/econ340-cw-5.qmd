@@ -1,0 +1,90 @@
+---
+title: "ECON 340: Classwork 5"
+date: 2023-09-20
+---
+
+# Lagrange-multiplier method
+
+## Example: Utility Maximization
+
+Let’s find the demand functions for $x_1$ and $x_2$ for the quasi-linear utility function. The problem we want to solve is
+
+$$
+\begin{align}
+\max_{x_{1}, x_{2}}&\; u(x_{1}, x_{2}) = x_{1} + \log(x_{2}) \tag{1}\\
+\text{such that}&\quad Y \;\geq\; p_{1}x_{1} + p_{2}x_{2} \tag{2}
+\end{align}
+$$
+
+Now for Lagrange’s method for the problem (1) with constraint (2). 
+
+At the optimum of $x_{1}$ and $x_{2}$, the budget constraint (2) binds. So, instead, we can solve:
+
+$$
+\begin{align}
+\max_{x_{1}, x_{2}}&\; u(x_{1}, x_{2}) = x_{1} + \log(x_{2}) \tag{1}\\
+\text{such that}&\quad Y \;=\; p_{1}x_{1} + p_{2}x_{2} \tag{3}
+\end{align}
+$$
+
+Step 1. Set up the Lagrangian:
+$$
+\mathcal{L} = x_{1} + \log(x_{2}) + \lambda(Y - p_{1}x_{1} - p_{2}x_{2}). \tag{4}
+$$
+Step 2. Derive the first order conditions:
+$$
+\begin{align}
+\frac{\partial\mathcal{L}}{\partial x_{1}} &= 1 - \lambda p_{1} = 0, \tag{5}\\
+\frac{\partial\mathcal{L}}{\partial x_{2}} &= \frac{1}{x_{2}} - \lambda p_{2} = 0, \tag{6}\\
+\frac{\partial\mathcal{L}}{\partial x_{1}} &= Y - p_{1}x_{1} - p_{2}x_{2} = 0. \tag{7}\\
+\end{align}
+$$
+Step 3. Solve the system of equations from the first-order conditions.
+
+$$
+\begin{align}
+\lambda^{*} &= \frac{1}{p_{1}},\\
+x_{2}^{*} &= \frac{p_{1}}{p_{2}},\\
+x_{1}^{*} &= \frac{Y}{p_{1}} - 1.
+\end{align}
+$$
+Notice that $x_{2}^{*}$ does not depend on the income level at all!
+
+<br>
+
+## Constrained Maximization with Multiple Equality Constraints.
+
+Let the constraints $h_{1}(x, y, z), h_{2}(x, y, z)$, and the objective $f(x, y, z)$ be differentible functions of 3 variables, $x, y$, and $z$. Consider the problem of maximizing $f(x, y, z)$ on the constraints
+
+$$
+\begin{align}
+h_{1}(x, y, z) &= a_{1}\\
+h_{2}(x, y, z) &= a_{2}
+\end{align}
+$$
+Step 1. Set up the Lagrangian. 
+  - If possible, substitute the constraint into the objective function $f(x,y,z)$.
+
+$$
+\mathcal{L} = f(x, y, z) - \lambda_{1}(h_{1}(x, y, z) - a_{1})  - \lambda_{2}(h_{2}(x, y, z) - a_{2})
+$$
+
+Step 2. Derive the first order conditions:
+
+$$
+\begin{align}
+\frac{\partial\mathcal{L}}{\partial x} &= 0,\\
+\frac{\partial\mathcal{L}}{\partial y} &= 0,\\
+\frac{\partial\mathcal{L}}{\partial z} &= 0,\\
+\frac{\partial\mathcal{L}}{\partial \lambda_{1}} &= 0,\\
+\frac{\partial\mathcal{L}}{\partial \lambda_{2}} &= 0.\\
+\end{align}
+$$
+
+Step 3. Solve the system of equations from the first-order conditions.
+
+
+## Exercise
+Maximize $f(x,y,z) = yz + xz$ subject to $y^{2} + z^{2} = 1$ and $xz = 3$.
+
+<br>

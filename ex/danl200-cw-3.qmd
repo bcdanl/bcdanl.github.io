@@ -1,0 +1,92 @@
+---
+title: "DANL 200: Classwork 3"
+date: 2023-09-20
+execute: 
+  echo: false
+---
+```{r}
+#| include: false
+
+library(knitr)
+library(rmarkdown)
+library(tidyverse)
+library(skimr)
+```
+
+# Question 1. Data Visualization - Facets
+
+## Q1a.
+What happens if you facet on a continuous variable?
+
+<br>
+
+## Q1b.
+What do the empty cells in plot with `facet_grid(drv ~ cyl)` mean? How do they relate to this plot?
+```{r, echo = T, eval = T}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = drv, y = cyl))
+```
+
+<br>
+
+## Q1c.
+What plots does the following code make? What does `.` do?
+```{r, echo = T, eval = F}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ .)
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ .)
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  facet_grid(. ~ cyl)
+```
+
+<br>
+
+## Q1d.
+Consider the following faceted plot:
+```{r, echo = T, eval = F}
+
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy)) + 
+  facet_wrap(~ class, nrow = 2)
+```
+  - What are the advantages to using faceting instead of the color aesthetic? 
+  - What are the disadvantages? 
+  - How might the balance change if you had a larger dataset?
+  
+<br>
+
+## Q1e.
+Read `?facet_wrap`. 
+  - What does `nrow` do? 
+  - What does `ncol` do? 
+  - What other options control the layout of the individual panels? 
+  - Why doesn’t `facet_grid()` have `nrow` and `ncol` arguments?
+
+<br>
+
+## Q1f.
+When using `facet_grid`, you should usually put the variable with more unique levels in the columns. Why?
+
+<br>
+
+## Q1g.
+Use the following data.frame.
+
+```{r, eval = F, echo = T}
+tvshows_web <- read_csv(
+		'https://bcdanl.github.io/data/tvshows.csv')
+```
+
+- Describe the relationship between audience size (`GRP`) and audience engagement (`PE`) using `ggplot`. 
+
+- Explain the relationship in words. 
+
+
+<br>
+
