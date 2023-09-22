@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2023-09-20">
+<meta name="dcterms.date" content="2023-09-22">
 
-<title>B.H. CHOE - DANL 200: Classwork 3</title>
+<title>B.H. CHOE - DANL 200: Classwork 2 - Data Visualization</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -154,6 +154,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-danl-200---lecture">    
         <li>
+    <a class="dropdown-item" href="../lec/danl-200-lec-11-2023-0922.html">
+ <span class="dropdown-text">11 - facets, geoms</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../lec/danl-200-lec-10-2023-0920.html">
  <span class="dropdown-text">10 - aesthetic mapping, facets, geoms</span></a>
   </li>  
@@ -219,6 +223,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  <span class="menu-text">ECON 340 - Lecture</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-econ-340---lecture">    
+        <li class="dropdown-header">11 - hw 1 review</li>
         <li>
     <a class="dropdown-item" href="../lec/econ-340-lec-10-2023-0920.html">
  <span class="dropdown-text">10 - marginal analysis</span></a>
@@ -271,7 +276,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">DANL 200: Classwork 3</h1>
+      <h1 class="quarto-secondary-nav-title">DANL 200: Classwork 2 - Data Visualization</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -295,12 +300,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false"><font size="4">Data Analytics 200   </font></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true"><font size="4">Data Analytics 200   </font></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../ex/danl200-cw-3.html" class="sidebar-item-text sidebar-link active">03 - ggplot - geometric objects</a>
+  </div>
+</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../ex/danl200-cw-2.html" class="sidebar-item-text sidebar-link">02 - ggplot - first step, aethetic mapping, facets</a>
@@ -404,15 +414,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#question-1.-data-visualization---facets" id="toc-question-1.-data-visualization---facets" class="nav-link active" data-scroll-target="#question-1.-data-visualization---facets">Question 1. Data Visualization - Facets</a>
+  <li><a href="#question-1.-data-visualization---geometric-objects" id="toc-question-1.-data-visualization---geometric-objects" class="nav-link active" data-scroll-target="#question-1.-data-visualization---geometric-objects">Question 1. Data Visualization - Geometric Objects</a>
   <ul class="collapse">
   <li><a href="#q1a." id="toc-q1a." class="nav-link" data-scroll-target="#q1a.">Q1a.</a></li>
   <li><a href="#q1b." id="toc-q1b." class="nav-link" data-scroll-target="#q1b.">Q1b.</a></li>
-  <li><a href="#q1c." id="toc-q1c." class="nav-link" data-scroll-target="#q1c.">Q1c.</a></li>
-  <li><a href="#q1d." id="toc-q1d." class="nav-link" data-scroll-target="#q1d.">Q1d.</a></li>
-  <li><a href="#q1e." id="toc-q1e." class="nav-link" data-scroll-target="#q1e.">Q1e.</a></li>
-  <li><a href="#q1f." id="toc-q1f." class="nav-link" data-scroll-target="#q1f.">Q1f.</a></li>
-  <li><a href="#q1g." id="toc-q1g." class="nav-link" data-scroll-target="#q1g.">Q1g.</a></li>
+  <li><a href="#q1c." id="toc-q1c." class="nav-link" data-scroll-target="#q1c.">Q1c.</a>
+  <ul class="collapse">
+  <li><a href="#a" id="toc-a" class="nav-link" data-scroll-target="#a">(a)</a></li>
+  <li><a href="#b" id="toc-b" class="nav-link" data-scroll-target="#b">(b)</a></li>
+  <li><a href="#c" id="toc-c" class="nav-link" data-scroll-target="#c">(c)</a></li>
+  <li><a href="#d" id="toc-d" class="nav-link" data-scroll-target="#d">(d)</a></li>
+  <li><a href="#e" id="toc-e" class="nav-link" data-scroll-target="#e">(e)</a></li>
+  <li><a href="#f" id="toc-f" class="nav-link" data-scroll-target="#f">(f)</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -422,7 +436,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">DANL 200: Classwork 3</h1>
+<h1 class="title d-none d-lg-block">DANL 200: Classwork 2 - Data Visualization</h1>
 </div>
 
 
@@ -433,7 +447,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 20, 2023</p>
+      <p class="date">September 22, 2023</p>
     </div>
   </div>
   
@@ -443,82 +457,84 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="question-1.-data-visualization---facets" class="level1">
-<h1>Question 1. Data Visualization - Facets</h1>
+<section id="question-1.-data-visualization---geometric-objects" class="level1">
+<h1>Question 1. Data Visualization - Geometric Objects</h1>
 <section id="q1a." class="level2">
 <h2 class="anchored" data-anchor-id="q1a.">Q1a.</h2>
-<p>What happens if you facet on a continuous variable?</p>
+<p>Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">color =</span> drv)) <span class="sc">+</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p><br></p>
 </section>
 <section id="q1b." class="level2">
 <h2 class="anchored" data-anchor-id="q1b.">Q1b.</h2>
-<p>What do the empty cells in plot with <code>facet_grid(drv ~ cyl)</code> mean? How do they relate to this plot?</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> drv, <span class="at">y =</span> cyl))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="danl200-cw-3_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
+<p>What does <code>show.legend = FALSE</code> do? What happens if you remove it? Why do you think I used it earlier in the lecture?</p>
 <p><br></p>
 </section>
 <section id="q1c." class="level2">
 <h2 class="anchored" data-anchor-id="q1c.">Q1c.</h2>
-<p>What plots does the following code make? What does <code>.</code> do?</p>
+<p>Recreate the R code necessary to generate the following graphs.</p>
+<section id="a" class="level3">
+<h3 class="anchored" data-anchor-id="a">(a)</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(drv <span class="sc">~</span> .)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(drv <span class="sc">~</span> .)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(. <span class="sc">~</span> cyl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="danl200-cw-3_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 <p><br></p>
 </section>
-<section id="q1d." class="level2">
-<h2 class="anchored" data-anchor-id="q1d.">Q1d.</h2>
-<p>Consider the following faceted plot:</p>
+<section id="b" class="level3">
+<h3 class="anchored" data-anchor-id="b">(b)</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> class, <span class="at">nrow =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="danl200-cw-3_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
-<ul>
-<li>What are the advantages to using faceting instead of the color aesthetic?</li>
-<li>What are the disadvantages?</li>
-<li>How might the balance change if you had a larger dataset?</li>
-</ul>
+</div>
 <p><br></p>
 </section>
-<section id="q1e." class="level2">
-<h2 class="anchored" data-anchor-id="q1e.">Q1e.</h2>
-<p>Read <code>?facet_wrap</code>. - What does <code>nrow</code> do? - What does <code>ncol</code> do? - What other options control the layout of the individual panels? - Why doesn’t <code>facet_grid()</code> have <code>nrow</code> and <code>ncol</code> arguments?</p>
-<p><br></p>
-</section>
-<section id="q1f." class="level2">
-<h2 class="anchored" data-anchor-id="q1f.">Q1f.</h2>
-<p>When using <code>facet_grid</code>, you should usually put the variable with more unique levels in the columns. Why?</p>
-<p><br></p>
-</section>
-<section id="q1g." class="level2">
-<h2 class="anchored" data-anchor-id="q1g.">Q1g.</h2>
-<p>Use the following data.frame.</p>
+<section id="c" class="level3">
+<h3 class="anchored" data-anchor-id="c">(c)</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tvshows_web <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">'https://bcdanl.github.io/data/tvshows.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="danl200-cw-3_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
-<ul>
-<li><p>Describe the relationship between audience size (<code>GRP</code>) and audience engagement (<code>PE</code>) using <code>ggplot</code>.</p></li>
-<li><p>Explain the relationship in words.</p></li>
-</ul>
+</div>
+<p><br></p>
+</section>
+<section id="d" class="level3">
+<h3 class="anchored" data-anchor-id="d">(d)</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="danl200-cw-3_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="e" class="level3">
+<h3 class="anchored" data-anchor-id="e">(e)</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="danl200-cw-3_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><br></p>
+</section>
+<section id="f" class="level3">
+<h3 class="anchored" data-anchor-id="f">(f)</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="danl200-cw-3_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p><br></p>
 
 
+</section>
 </section>
 </section>
 

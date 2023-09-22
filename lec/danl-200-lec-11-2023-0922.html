@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DANL 200 Lecture 11</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Byeong-Hak Choe" />
+    <meta name="date" content="2023-09-22" />
+    <script src="libs/header-attrs-2.24/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <script src="libs/peerjs-1.3.1/peerjs.min.js"></script>
+    <script src="libs/tiny.toast-1.0.0/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast-0.2.6/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast-0.2.6/broadcast.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
+    <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, left, bottom
+
+# DANL 200 Lecture 11
+----
+## **DANL 200: Introduction to Data Analytics**
+### Byeong-Hak Choe
+### September 22, 2023
+
+
+---
+# Announcement
+### &lt;p style="color:#00449E"&gt; TA and DANL Tutors &lt;/p&gt;
+
+
+- Location for TA/tutoring sessions is DANL Lab (South Hall 321).
+  - It might change sometimes.
+
+
+- Weekly TA/Tutoring sessions will be available from this Sunday.
+
+
+.panelset[
+
+.panel[.panel-name[Reo]
+- Reo Sakida [sr30@geneseo.edu](sr30@geneseo.edu):
+	- Wednesdays 6:30 P.M.-8:30 P.M.
+
+
+- Reo is Choe's TA in this semester.
+
+]
+
+.panel[.panel-name[Zach]
+- Zachary Gauronski [zdg1@geneseo.edu](zdg1@geneseo.edu):
+	- Sundays 3:00 P.M.-4:00 P.M.
+	- Mondays 1:00 P.M.-2:00 P.M.
+
+]
+
+.panel[.panel-name[Marcus]
+
+- Marcus Kautzman [mak33@geneseo.edu](mak33@geneseo.edu): 
+	- Tuesdays 1:00 P.M.-2:00 P.M.
+	- Thursdays 1:00 P.M.-2:00 P.M.
+]
+
+.panel[.panel-name[Lindsey]
+
+- Lindsey Matthews [lmm101@geneseo.edu](lmm101@geneseo.edu): 
+	- Mondays 11:30 A.M.-12:30 P.M.
+	- Fridays 11:30 A.M.-12:30 P.M.
+]
+
+.panel[.panel-name[Dominic]
+
+- Dominic Rodriguez-Donohue [der7@geneseo.edu](der7@geneseo.edu): 
+	- Mondays 3:45 P.M.-4:45 P.M.
+	- Wednesdays 3:45 P.M.-4:45 P.M.
+
+]
+
+
+
+]
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Data Visualization with `ggplot()`
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+---
+# Data Visualization - First Steps
+### &lt;p style="color:#00449E"&gt; Graphing Template &lt;/p&gt;
+- To make a ggplot plot, replace the bracketed sections in the code below with a `data.frame`, a `geom` function, or a collection of mappings such as `x = VAR_1` and `y = VAR_2`.
+
+
+```r
+ggplot(data = &lt;DATA.FRAME&gt;) + 
+  &lt;geom_FUNCTION&gt;(mapping = aes(&lt;MAPPINGS&gt;))
+```
+
+
+
+---
+# Common problems in `ggplot()`
+
+- One common error when creating `ggplot2` graphics is to put the `+` in the wrong place.
+
+
+```r
+ggplot(data = mpg) 
+*+ geom_point( mapping = aes(x = displ, y = hwy) )
+```
+
+
+- Do not forget adding `+` when adding a new line.
+
+
+```r
+ggplot(data = mpg) +
+  geom_point( mapping = aes(x = displ, y = hwy),
+              alpha = .3)
+  facet_wrap( class ~.)
+```
+
+---
+# Aesthetic Mappings
+### &lt;p style="color:#00449E"&gt; Overplotting problem &lt;/p&gt;
+
+- Many points overlap each other. 
+  - This problem is known as **overplotting**. 
+
+
+- When points overlap, it's hard to know how many data points are at a particular location. 
+
+
+- Overplotting can obscure patterns and outliers, leading to potentially misleading conclusions. 
+
+
+---
+# Aesthetic Mappings
+### &lt;p style="color:#00449E"&gt; Overplotting and `alpha` &lt;/p&gt;
+
+- We can set a transparency level (`alpha`) between 0 (full transparency) and 1 (no transparency).
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy),
+             alpha = .2)
+```
+
+- We can also consider setting `size` smaller than 1.
+
+---
+class: inverse, center, middle
+
+# Facets
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+---
+# Facets 
+
+- One way to add a variable, particularly useful for categorical variables, is to use **facets** to split our plot into facets, subplots that each display one subset of the data.
+
+- To facet our plot by a *single variable*, use `facet_wrap()`.
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy), 
+             alpha = .5) + 
+* facet_wrap( . ~ class, nrow = 2)
+```
+
+
+
+---
+# Facets 
+
+- To facet our plot on the combination of *two variables*, add `facet_grid( VAR_ROW ~ VAR_COL )` to our plot call.
+
+
+- The first argument of `facet_grid()` is also a formula. 
+  - This time the formula should contain two variable names separated by a `~`.
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy),
+             alpha = .5) + 
+* facet_grid(drv ~ cyl)
+```
+
+
+
+---
+# Facets 
+
+- Option `scales` in `facet_*()` is whether scales is 
+  - fixed (`"fixed"`, the default),
+  - free in one dimension (`"free_x"`, `"free_y"`), or
+  - free in two dimensions (`"free"`).
+
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy),
+             alpha = .5) + 
+  facet_grid(drv ~ cyl, 
+*            scales = "free_x")
+```
+
+
+
+
+---
+class: inverse, center, middle
+
+# Geometric Objects
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+---
+# Geometric Objects
+
+How are these two plots similar?
+
+.pull-left[
+&lt;img src="lec_figs/r4s_360_1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="lec_figs/r4s_360_2.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+# Geometric Objects
+
+- A `geom_*()` is the geometrical object that a plot uses to represent data.
+  - Bar charts use `geom_bar()`;
+  - Line charts use `geom_line()`; 
+  - Boxplots use the `geom_boxplot()`; 
+  - Scatterplots use the `geom_point()`; 
+  - Fitted lines use the `geom_smooth()`;
+  - and many more!
+
+- We can use different `geom_*()` to plot the same data.
+
+
+---
+# Geometric Objects
+
+
+- To change the geom in our plot, change the geom function that we add to `ggplot()`. 
+
+.panelset[
+
+.panel[.panel-name[Scatterplot]
+.pull-left[
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = 
+               aes(x = displ, 
+                   y = hwy),
+             alpha = .3)
+```
+]
+.pull-right[
+![](danl-200-lec-11-2023-0922_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+]
+
+] &lt;!----&gt;
+
+
+.panel[.panel-name[Fitted lines]
+.pull-left[
+
+```r
+ggplot(data = mpg) + 
+  geom_smooth(mapping = 
+                aes(x = displ, 
+                    y = hwy))
+```
+]
+.pull-right[
+![](danl-200-lec-11-2023-0922_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+]
+
+] &lt;!----&gt;
+
+
+]
+
+
+
+
+
+---
+# Geometric Objects
+
+
+- Every geom function in `ggplot2` takes a mapping argument.
+
+- However, not every aesthetic works with every `geom`. 
+  - We could set the `shape` of a point, but you couldn't set the `shape` of a line;
+  - We could set the `linetype` of a line.
+
+
+
+```r
+ggplot( data = mpg ) + 
+  geom_smooth( mapping = aes( x = displ, y = hwy, 
+*                             linetype = drv) )
+```
+
+
+---
+# Geometric Objects
+
+- Setting `method = lm` manually in `geom_smooth()` gives a straight line that fits into data points.
+
+
+```r
+ggplot( data = mpg ) + 
+  geom_smooth( mapping = aes( x = displ, y = hwy),
+               method = lm)
+```
+
+
+---
+# Geometric Objects
+- We can set the `group` aesthetic to a *categorical variable* to draw multiple objects. 
+
+- `ggplot2` will draw a separate object for each unique value of the grouping variable. 
+
+
+
+```r
+ggplot(data = mpg) +
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+              
+ggplot(data = mpg) +
+  geom_smooth(mapping = aes(x = displ, y = hwy, 
+*                           group = drv))
+```
+
+---
+# Geometric Objects
+- In practice, `ggplot2` will automatically group the data for these `geoms` whenever we map an aesthetic to a discrete variable (as in the `linetype` example). 
+
+
+```r
+ggplot(data = mpg) +
+  geom_smooth(
+    mapping = aes(x = displ, y = hwy, 
+*                 color = drv),
+    show.legend = FALSE
+  )
+```
+
+
+
+
+
+---
+# Geometric Objects
+
+- To display multiple geometric objects in the same plot, add multiple `geom_*()` functions to `ggplot()`:
+
+
+```r
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy),
+             alpha = .3) +
+  geom_smooth(mapping = aes(x = displ, y = hwy)) +
+  geom_smooth(mapping = aes(x = displ, y = hwy), 
+              method = lm, color = 'red')
+```
+
+- Using `geom_point()`, `geom_smooth()`, and `geom_smooth(method = lm)` together is an excellent option to visualize the relationship between the two variables.
+
+---
+# Geometric Objects
+
+- If we place mappings in a geom function, `ggplot2` will treat them as local mappings for the layer. 
+
+
+```r
+ggplot(data = mpg, 
+*      mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class),
+             alpha = .3) + 
+  geom_smooth()
+```
+
+
+---
+# Geometric Objects
+
+
+
+```r
+ggplot(data = mpg, 
+       mapping = aes(x = displ, y = hwy)) + 
+  geom_point(mapping = aes(color = class), alpha = .3) + 
+  geom_smooth(data = filter(mpg, class == "subcompact"), 
+              se = FALSE)
+```
+
+.panelset[
+.panel[.panel-name[(1)]
+- We can use the same idea to specify different data for each layer. 
+
+
+- Here, our smooth line displays just a subset of the `mpg` data.frame, the `subcompact` cars.
+  - `filter()` is the tidyverse-way to filter observations in a data.frame.
+]
+
+.panel[.panel-name[(2)]
+- The local data argument in `geom_smooth()` overrides the global data argument in `ggplot()` for that layer only.
+
+]
+
+.panel[.panel-name[(3)]
+- The standard error (`se`) tells us how much the predicted values from a model might differ from the actual values we're trying to predict. 
+  - It's a way to measure how good a quality of prediction is.
+]
+]
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 66px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
