@@ -2,7 +2,6 @@
 title: "DANL 200: Classwork 3 - Data Visualization"
 date: 2023-09-22
 execute: 
-  echo: false
   warning: false
   message: false
 ---
@@ -40,6 +39,26 @@ What does `show.legend = FALSE` do? What happens if you remove it? Why do you th
 
 
 <br>
+
+**Answer:** `show.legend = FALSE` turns off the legend in ggplot. 
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = drv),
+             alpha = .5,
+             show.legend = FALSE)
+```
+
+The default is `show.legend = TRUE`:
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = drv),
+             alpha = .5,
+             show.legend = TRUE)
+```
+
+Sometimes, we do not need to have a separate legend in ggplot, for example, `geom_boxplot()` with `fill` mapping.
+
 
 ## Q1c.
 Recreate the R code necessary to generate the following graphs.
@@ -101,6 +120,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ### (f)
 ```{r}
+#| echo: false
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(size = 4, color = "white") +
   geom_point(aes(color = drv), alpha = .4)
@@ -109,30 +129,30 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 <br>
 
 
-# Question 2. Statistical Transformation and Position Adjustment
+<!-- # Question 2. Statistical Transformation and Position Adjustment -->
 
-## Q2a.
-What does `geom_col()` do? How is it different to `geom_bar()`?
-
-
-```{r}
-#| echo: true
-#| eval: false
-
-ggplot(data = mpg, 
-       mapping = aes(x = displ, y = hwy, 
-                     color = drv)) +
-  geom_point(alpha = .4) +
-  geom_smooth(se = FALSE)
-
-```
+<!-- ## Q2a. -->
+<!-- What does `geom_col()` do? How is it different to `geom_bar()`? -->
 
 
-<br>
+<!-- ```{r} -->
+<!-- #| echo: true -->
+<!-- #| eval: false -->
 
-## Q2b.
-What’s the default position adjustment for `geom_boxplot()`? Create a visualization of the `mpg` dataset that demonstrates it.
+<!-- ggplot(data = mpg,  -->
+<!--        mapping = aes(x = displ, y = hwy,  -->
+<!--                      color = drv)) + -->
+<!--   geom_point(alpha = .4) + -->
+<!--   geom_smooth(se = FALSE) -->
+
+<!-- ``` -->
 
 
-<br>
+<!-- <br> -->
+
+<!-- ## Q2b. -->
+<!-- What’s the default position adjustment for `geom_boxplot()`? Create a visualization of the `mpg` dataset that demonstrates it. -->
+
+
+<!-- <br> -->
 
