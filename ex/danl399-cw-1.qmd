@@ -1,0 +1,42 @@
+---
+title: "DANL 399: Classwork 1 - Data Visualization"
+date: 2023-09-22
+execute: 
+  warning: false
+  message: false
+---
+```{r}
+#| include: false
+
+library(knitr)
+library(rmarkdown)
+library(tidyverse)
+library(skimr)
+```
+
+# Question 1. Show the Right Numbers
+
+## Q1a.
+- Revisit the `gapminder` plots and experiment with different ways to facet the data. 
+
+- Try plotting population and per capita GDP while faceting on year, or even on country. 
+
+- Experiment changing the height and width of the figure.
+
+<br>
+
+## Q1b.
+- Investigate the difference between a formula written as `facet_grid(sex ~ race)` versus one written as `facet_grid(~ sex + race)` using the `socviz::gss_sm` data.frame.
+
+<br>
+
+## Q1c.
+- The `geom_bin2d()` function takes two mappings, `x` and `y`.
+  - It divides your plot into a grid and colors the bins by the count of observations in them. 
+
+
+- Try using it on the `gapminder` data to plot life expectancy versus per capita GDP. 
+  - Like a histogram, we can vary the number or width of the bins for both `x` or `y`, (e.g., `bins = c(20, 50)`). 
+  - If we specify `bindwith` instead, we will need to pick values that are on the same scale as the variable we are mapping.
+
+<br>
