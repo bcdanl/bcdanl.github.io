@@ -231,6 +231,27 @@
     "text": "Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.\n\nggplot(data = mpg, \n       mapping = aes(x = displ, y = hwy, \n                     color = drv)) +\n  geom_point(alpha = .4) +\n  geom_smooth(se = FALSE)\n\n\n\n\n\nWhat does show.legend = FALSE do? What happens if you remove it? Why do you think I used it earlier in the lecture?\n\nAnswer: show.legend = FALSE turns off the legend in ggplot.\n\nggplot(data = mpg) +\n  geom_point(mapping = aes(x = displ, y = hwy, \n                           color = drv),\n             alpha = .5,\n             show.legend = FALSE)\n\n\n\n\nThe default is show.legend = TRUE:\n\nggplot(data = mpg) +\n  geom_point(mapping = aes(x = displ, y = hwy, \n                           color = drv),\n             alpha = .5,\n             show.legend = TRUE)\n\n\n\n\nSometimes, we do not need to have a separate legend in ggplot, for example, geom_boxplot() with fill mapping.\n\n\n\nRecreate the R code necessary to generate the following graphs.\n\n\n\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(alpha = .4) +\n  geom_smooth(se = FALSE)\n\n\n\n\n\n\n\n\n\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_smooth(mapping = aes(group = drv), \n              se = FALSE) +\n  geom_point(alpha = .4)\n\n\n\n\n\n\n\n\n\nggplot(mpg, aes(x = displ, y = hwy, \n                color = drv)) +\n  geom_point(alpha = .4) +\n  geom_smooth(se = FALSE)\n\n\n\n\n\n\n\n\n\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(aes(color = drv), alpha = .4) +\n  geom_smooth(se = FALSE)\n\n\n\n\n\n\n\n\n\nggplot(mpg, aes(x = displ, y = hwy)) +\n  geom_point(aes(color = drv), alpha = .4) +\n  geom_smooth(aes(linetype = drv), se = FALSE)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUse the data.frame, organdata_simple to visualize the yearly trend of the variable donors for each country.\n\n\norgandata_simple <- read_csv('https://bcdanl.github.io/data/organdata_simple.csv')"
   },
   {
+    "objectID": "ex/danl200-cw-3.html#q2a.",
+    "href": "ex/danl200-cw-3.html#q2a.",
+    "title": "DANL 200: Classwork 3 - Data Visualization",
+    "section": "Q2a.",
+    "text": "Q2a.\nWhat does geom_col() do? How is it different to geom_bar()?"
+  },
+  {
+    "objectID": "ex/danl200-cw-3.html#q2b.",
+    "href": "ex/danl200-cw-3.html#q2b.",
+    "title": "DANL 200: Classwork 3 - Data Visualization",
+    "section": "Q2b.",
+    "text": "Q2b.\n\nInstall the R package, nycflights13, which provides the flights data.frame.\nflights includes on-time data for all flights that departed NYC (i.e. JFK, LGA or EWR) in 2013.\n\nA unit of observation is flight.\n\nVisualize the distribution of carrier.\nVisualize how the distribution of carrier varies by origin."
+  },
+  {
+    "objectID": "ex/danl200-cw-3.html#q2c.",
+    "href": "ex/danl200-cw-3.html#q2c.",
+    "title": "DANL 200: Classwork 3 - Data Visualization",
+    "section": "Q2c.",
+    "text": "Q2c.\nWhat’s the default position adjustment for geom_boxplot()? Create a visualization of the mpg dataset that demonstrates it."
+  },
+  {
     "objectID": "ex/danl200-cw-1.html",
     "href": "ex/danl200-cw-1.html",
     "title": "DANL 200: Classwork 1",
@@ -341,19 +362,5 @@
     "title": "B.H. CHOE",
     "section": "Memberships",
     "text": "Memberships\n\n\n\n\n\n  \n    2022—present \n    Southern Economic Association \n  \n  \n    2018—present \n    Association of Environmental and Resource Economists \n  \n  \n    2017—present \n    American Economic Association \n  \n  \n    2017—2019 \n    Econometric Society"
-  },
-  {
-    "objectID": "ex/danl200-cw-3.html#q2a.",
-    "href": "ex/danl200-cw-3.html#q2a.",
-    "title": "DANL 200: Classwork 3 - Data Visualization",
-    "section": "Q2a.",
-    "text": "Q2a.\nWhat does geom_col() do? How is it different to geom_bar()?"
-  },
-  {
-    "objectID": "ex/danl200-cw-3.html#q2b.",
-    "href": "ex/danl200-cw-3.html#q2b.",
-    "title": "DANL 200: Classwork 3 - Data Visualization",
-    "section": "Q2b.",
-    "text": "Q2b.\nWhat’s the default position adjustment for geom_boxplot()? Create a visualization of the mpg dataset that demonstrates it."
   }
 ]
