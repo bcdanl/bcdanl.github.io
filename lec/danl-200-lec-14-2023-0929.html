@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DANL 200 Lecture 14</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Byeong-Hak Choe" />
+    <meta name="date" content="2023-09-29" />
+    <script src="libs/header-attrs-2.24/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <script src="libs/peerjs-1.3.1/peerjs.min.js"></script>
+    <script src="libs/tiny.toast-1.0.0/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast-0.2.6/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast-0.2.6/broadcast.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
+    <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, left, bottom
+
+# DANL 200 Lecture 14
+----
+## **DANL 200: Introduction to Data Analytics**
+### Byeong-Hak Choe
+### September 29, 2023
+
+
+
+---
+# Exploratory Data Analysis 
+### &lt;p style="color:#00449E"&gt; Making Discoveries from a Data Set &lt;/p&gt;
+
+.panelset[
+.panel[.panel-name[skim()]
+
+- Use `skimr::skim(DATA.FRAME)` or `skimr::skim(DATA.FRAME$VARIABLE)` to know:
+
+  - Mean (Average, Expected Value);
+  
+  - Standard Deviation (SD);
+  
+  - Minimum, First Quartile (Q1), Median (Q2), Third Quartile (Q3), and Maximum;
+  
+  - And more.
+
+]
+
+.panel[.panel-name[cor()]
+- Correlation ( `\(\rho \in [-1, 1]\)` ) describes the extent to which two variables change together. 
+  - If one variable tends to go up when the other goes up, there is a positive correlation between them. 
+  - If one variable tends to go down when the other goes up, there is a negative correlation. 
+  - If there are no such patterns, the variables are not linearly correlated or independent with each other.
+- `cor(data.frame$VARIABLE_1, data.frame$VARIABLE_2)` is used.
+
+
+]
+
+.panel[.panel-name[Distribution]
+- A **distribution** of a variable refers to the way its values are spread or arranged across a data.frame. 
+  - What type of **variation** occurs within a variable?
+
+
+- **Variation** is the tendency of the values of a variable to change from measurement to measurement. 
+  - We can see variation easily in real life; if we measure any continuous variable twice, we will be likely to get two different values.
+  - Which values are the most common? Why?
+  - Which values are rare? Why? Does that match your expectations?
+]
+
+.panel[.panel-name[Relationship]
+- **Co-variation** is the tendency for the values of two or more variables to vary together in a related way. 
+
+
+- What type of **co-variation** occurs between variables?
+
+]
+
+.panel[.panel-name[Time trend]
+- A **time trend** plot, (also known as a *time series* plot), is used to visualize trends, patterns, and fluctuations in a variable over a specific time period. 
+
+  - The x-axis typically represents time, while the y-axis represents the variable being measured. 
+
+
+- We can check the overall direction in which the time-series variable are moving—upwards, downwards, or staying relatively constant over time.
+]
+
+]
+
+
+---
+# Data Visualization with `ggplot()`
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+.panelset[
+
+
+.panel[.panel-name[Steps]
+
+- Step 1. Figure out whether variables of interests are **categorical** or **continuous**.
+
+- Step 2. Think which **geometric objects**, **aesthetic mappings**, and **faceting** are appropriate to visualize *distributions* and *relationships*.
+
+- Step 3. If needed, transform a given `data.frame` (e.g., *filtered observations*, new variables, summarized data) and try new visualizations.
+
+]
+
+.panel[.panel-name[Geoms]
+
+  - A distribution of a categorical variable (e.g., `geom_bar()` and more)
+  - A distribution of a continuous variable (e.g., `geom_histogram()` and more)
+  - A relationship between two categorical variables (e.g., `geom_bar()` and more)
+  - A relationship between two continuous variables (e.g., `geom_point()` with `geom_smooth()` and more)
+  - A relationship between a categorical variable and a continuous variable (e.g., `geom_boxplot()` and more)
+  - A time trend of a categorical variable (e.g., `geom_bar()` and more)
+  - A time trend of a continuous variable (e.g., `geom_line()` and more)
+  
+]
+
+]
+
+
+
+
+---
+class: inverse, center, middle
+
+# Statistical Transformation
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+---
+# Statistical Transformations
+
+
+- Many graphs, including bar charts, calculate new values to plot:
+
+  - `geom_bar()`, `geom_histogram()`, and `geom_freqpoly()` bin our data and then plot bin counts, the number of observations that fall in each bin.
+  
+  - `geom_boxplot()` computes a summary of the distribution and then display a specially formatted box.
+  
+  - `geom_smooth()` fits a model to our data and then plot predictions from the model.
+
+
+
+
+---
+# Statistical Transformations
+### &lt;p style="color:#00449E"&gt; 
+
+- A histogram `geom_histogram()` is a continuous version of a bar chart.
+  - A frequency polygon `geom_freqpoly()` is a line version of a histogram.
+
+
+```r
+ggplot(diamonds) +
+  geom_histogram(aes(x = price))
+
+ggplot(diamonds) +
+  geom_freqpoly(aes(x = price))
+```
+
+- When using `geom_histogram()`, we should experiment on either `bins` or `binwidth`.
+
+
+```r
+ggplot(diamonds) +
+  geom_histogram(aes(x = price), bins = 200)
+```
+
+---
+# A Little Bit of Math for `log()`
+### &lt;p style="color:#00449E"&gt; 
+
+.panelset[
+
+.panel[.panel-name[log functions]
+
+- The logarithm function, `\(y = \log_{b}\,(\,x\,)\)`, looks like ....
+
+&lt;img src="lec_figs/logarithm_plots.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+
+.panel[.panel-name[log examples]
+- `\(\log_{10}\,(\,100\,)\)`: the base `\(10\)` logarithm of `\(100\)` is `\(2\)`, because `\(10^{2} = 100\)`
+
+- `\(\log_{e}\,(\,x\,)\)`: the base `\(e\)` logarithm is called the natural log, where `\(e = 2.718\cdots\)` is the mathematical constant,  the Euler's number.
+
+- `\(\log\,(\,x\,)\)` or `\(\ln\,(\,x\,)\)`: the natural log of `\(x\)` .
+
+- `\(\log_{e}\,(\,7.389\cdots\,)\)`: the natural log of `\(7.389\cdots\)` is `\(2\)`, because `\(e^{2} = 7.389\cdots\)`.
+]
+
+]
+
+
+---
+# Statistical Transformations
+### &lt;p style="color:#00449E"&gt; The use of `log()` &lt;/p&gt;
+.panelset[
+.panel[.panel-name[NYC Housing Sales]
+
+```r
+library(tidyverse)
+sale_df &lt;- read_csv(
+  "https://bcdanl.github.io/data/home_sales_nyc.csv")
+```
+
+- `sale_df` contains data for residential property sales from September 2017 and August 2018 in NYC.
+  - Let's focus on `sale.price`, a property's sales price.
+]
+
+.panel[.panel-name[Percentage Change]
+**1**. We should consider using a logarithmic scale when percent change, or change in orders of magnitude, is more important than changes in absolute units.
+
+  - For small changes in variable `\(x\)` from `\(x_{0}\)` to `\(x_{1}\)`, the following can be shown: 
+  
+`$$\Delta \log(x) \,= \, \log(x_{1}) \,-\, \log(x_{0}) 
+\approx\, \frac{x_{1} \,-\, x_{0}}{x_{0}} 
+\,=\, \frac{\Delta\, x}{x_{0}}.$$`
+
+- For example, a difference in `sale.price` of $10,000 means something very different across people with different income/wealth levels.
+
+
+]
+
+.panel[.panel-name[Wide Range of Skewed Data]
+**2**. We should consider using a log scale when a variable is heavily skewed.
+  - It can help visualize both small and large values effectively.
+
+.pull-left[
+
+```r
+ggplot(sale_df, 
+       aes(x = sale.price), 
+       bins = 500) +
+  geom_histogram()
+```
+
+]
+.pull-right[
+
+
+```r
+ggplot(sale_df, 
+       aes(x = log(sale.price)), 
+       bins = 500) +
+  geom_histogram()
+```
+
+]
+
+
+]
+
+]
+
+
+---
+# Statistical Transformations
+
+
+- Bar charts seem simple, but they are interesting because they reveal something subtle about plots. 
+
+- Consider a basic bar chart, as drawn with `geom_bar()`. 
+
+- The following bar chart displays the total number of diamonds in the `ggplot2::diamonds` data.frame, grouped by `cut`. 
+
+
+```r
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut))
+```
+
+- The `diamonds` data.frame comes in `ggplot2` and contains information about ~54,000 diamonds, including the `price`, `carat`, `color`, `clarity`, and `cut` of each diamond. 
+
+- `geom_bar()` bins our data and then plot bin counts, the number of observations that fall in each bin.
+
+
+---
+# Statistical Transformations
+
+- The algorithm used to calculate new values for a graph is called a `stat`, short for statistical transformation. 
+
+- The figure below describes how this process works with `geom_bar()`.
+
+
+&lt;img src="lec_figs/r4s_370_1.png" width="97%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Statistical Transformations
+### &lt;p style="color:#00449E"&gt; Observed Value vs. Number of Observations
+- There are three reasons we might need to use a `stat` explicitly:
+  -  *1*. We might want to override the default stat. 
+
+
+```r
+demo &lt;- tribble(         # to make a simple data.frame
+  ~cut,         ~freq,
+  "Fair",       1610,
+  "Good",       4906,
+  "Very Good",  12082,
+  "Premium",    13791,
+  "Ideal",      21551 )
+
+ggplot(data = demo) +
+  geom_bar(mapping = aes(x = cut, y = freq), 
+*          stat = "identity")
+```
+
+
+
+
+
+
+---
+# Statistical Transformations
+### &lt;p style="color:#00449E"&gt; Count vs. Proportion
+- There are three reasons we might need to use a `stat` explicitly:
+  - *2*. We might want to override the default mapping from transformed variables to aesthetics. 
+
+
+
+```r
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, y = stat(prop), 
+*                        group = 1))
+```
+
+
+
+```r
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, y = stat(prop) ) )
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, y = stat(prop), 
+*                        fill = color ) )
+```
+
+
+
+
+---
+# Statistical Transformations
+### &lt;p style="color:#00449E"&gt; Stat summary
+- There are three reasons we might need to use a `stat` explicitly:
+  - *3*. We might want to draw greater attention to the statistical transformation in our code.  
+
+
+
+```r
+ggplot(data = diamonds) + 
+  stat_summary(
+    mapping = aes(x = cut, y = depth),
+    fun.min = min,
+    fun.max = max,
+    fun = median
+  )
+```
+
+
+
+
+---
+class: inverse, center, middle
+
+# Position Adjustment
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+---
+# Position Adjustments
+### &lt;p style="color:#00449E"&gt; `color` and `fill` aesthetic
+
+
+- We can color a bar chart using either the `color` aesthetic, or, more usefully, `fill`:
+
+.panelset[
+.panel[.panel-name[`color`]
+
+.pull-left[
+
+```r
+ggplot(data = diamonds) + 
+  geom_bar(mapping = 
+             aes(x = cut, 
+*                [?] = cut))
+```
+]
+.pull-right[
+![](danl-200-lec-14-2023-0929_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+]
+
+]
+.panel[.panel-name[`fill`]
+.pull-left[
+
+```r
+ggplot(data = diamonds) + 
+  geom_bar(mapping = 
+             aes(x = cut, 
+*                [?] = cut))
+```
+]
+.pull-right[
+![](danl-200-lec-14-2023-0929_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+]
+]
+
+]
+
+---
+# Position Adjustments
+### &lt;p style="color:#00449E"&gt; Stacked bar charts with `fill` aesthetic
+
+
+- Note that the bars are automatically stacked if we map the `fill` aesthetic to another variable.
+
+.pull-left[
+
+```r
+ggplot(data = diamonds) + 
+  geom_bar(mapping = 
+             aes(x = cut, 
+*                fill = clarity) )
+```
+]
+.pull-right[
+![](danl-200-lec-14-2023-0929_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+]
+
+
+---
+# Position Adjustments
+### &lt;p style="color:#00449E"&gt; Stacked bar charts with `fill` aesthetic
+
+- The `stack`ing is performed automatically by the **position adjustment** specified by the `position` argument. 
+
+.pull-left[
+
+```r
+ggplot(data = diamonds) + 
+  geom_bar(mapping = 
+             aes(x = cut, 
+                 fill = clarity),
+*          position = "stack")
+```
+]
+.pull-right[
+![](danl-200-lec-14-2023-0929_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+]
+
+
+
+
+---
+# Position Adjustments
+### &lt;p style="color:#00449E"&gt;  `position = "fill"` and `position = "dodge"`  
+
+- If we don't want a stacked bar chart with counts, we can use one of two other `position` options: `fill` or `dodge`.
+
+
+.panelset[
+
+.panel[.panel-name[`position = "fill"`]
+
+- `position = "fill"` works like stacking, but makes each set of stacked bars the same height. 
+
+    - This makes it easier to compare proportions across groups.
+
+
+```r
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = [?])
+```
+
+
+
+] &lt;!----&gt;
+
+
+.panel[.panel-name[`position = "dodge"`]
+
+- `position = "dodge"` places overlapping objects directly beside one another. 
+
+
+```r
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = clarity), position = [?])
+```
+
+] &lt;!----&gt;
+
+]
+
+
+
+---
+# Coordinate Systems
+### &lt;p style="color:#00449E"&gt; `coord_flip()`
+
+- `coord_flip()` switches the `x` and `y` axes. 
+
+- This is useful (for example), if we want horizontal boxplots. 
+
+- It's also useful for long labels: it's hard to get them to fit without overlapping on the `x`-axis.
+
+
+```r
+ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + 
+  geom_boxplot()
+
+ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + 
+  geom_boxplot() +
+* coord_flip()
+```
+
+
+
+
+
+---
+# Coordinate Systems
+### &lt;p style="color:#00449E"&gt; `coord_fixed()`
+
+- `coord_fixed()` fixes the ratio of length on the x and y axes.
+
+.pull-left[
+
+```r
+ggplot(data = mpg, 
+       mapping = aes(x = cty, y = hwy)) + 
+  geom_point() + 
+  geom_abline()
+```
+
+- What does `geom_abline()` do?
+
+]
+
+.pull-right[
+
+```r
+ggplot(data = mpg, 
+       mapping = aes(x = cty, y = hwy)) + 
+  geom_point() + 
+  geom_abline() +
+*  coord_fixed()
+```
+
+- What does `coord_fixed()` do? 
+
+]
+
+
+
+---
+class: inverse, center, middle
+
+# `ggplot` Grammar
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+---
+# The Layered Grammar of Graphics
+
+- Let's add position adjustments, stats, coordinate systems, and faceting to our code template.
+
+
+
+```r
+ggplot(data = &lt;DATA&gt;) + 
+  &lt;GEOM_FUNCTION&gt;(
+     mapping = aes(&lt;MAPPINGS&gt;),
+     stat = &lt;STAT&gt;, 
+     position = &lt;POSITION&gt;) +
+  &lt;COORDINATE_FUNCTION&gt; +
+  &lt;FACET_FUNCTION&gt;
+```
+
+- The seven parameters---(1) a data.frame, (2) a geom, (3) a set of mappings, (4) a stat, (5) a position adjustment, (6) a coordinate system, and (7) a faceting scheme---in the template compose the **grammar of graphics**, a formal system for building plots. 
+
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 66px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
