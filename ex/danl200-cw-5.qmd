@@ -1,0 +1,1295 @@
+---
+title: "Fall 2022, DANL 200: Introduction to Data Analytics<br>Homework Assignment 1"
+author: "Byeong-Hak Choe"
+execute: 
+  warning: false
+  message: false
+  code-fold: true
+---
+
+```{r setup, include = FALSE}
+library(tidyverse)
+library(skimr)
+library(knitr)
+library(kableExtra)
+library(ggthemes)
+library(ggthemr)
+library(hrbrthemes)
+library(ggforce)
+knitr::opts_chunk$set(fig.width=8, fig.height=5)  
+
+theme_set(theme_ipsum() +
+          theme(strip.background =element_rect(fill="lightgray")))
+
+
+url <- 'https://bcdanl.github.io/data/bikeshare_cleaned.csv'
+bikeshare <- read_csv(url)
+
+url2 <- 'https://bcdanl.github.io/data/NY_school_enrollment_socioecon.csv'
+ny_school_enrollment_socio <- read_csv(url2)
+```
+
+
+### Loading R packages for Homework Assignment 1
+
+```{r, eval = F, echo = T}
+library(tidyverse)
+library(skimr)
+```
+
+
+<br><br>
+
+
+# Question 1
+
+## Q1a
+
+Read the data file, `bikeshare_cleaned.csv`, as the data.frame object with the name, `bikeshare`, using (1) the `read_csv()` function and (2) its URL, `https://bcdanl.github.io/data/bikeshare_cleaned.csv`.
+
+**Answer:**
+
+```{r, echo = T, eval = F, warning=F, message=F}
+#| code-fold: true
+url <- 'https://bcdanl.github.io/data/bikeshare_cleaned.csv'
+bikeshare <- read_csv(url)
+
+View(bikeshare)
+summary(bikeshare)
+skim(bikeshare)
+
+table(bikeshare$wkday)
+table(bikeshare$month)
+table(bikeshare$seasons)
+table(bikeshare$weather_cond)
+
+prop.table( table( bikeshare$wkday ) )
+prop.table( table( bikeshare$month ) )
+prop.table( table( bikeshare$seasons ) )
+prop.table( table( bikeshare$weather_cond ) )
+```
+
+<br>
+
+- We can view the data.frame `bikeshare`:
+<br>
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+url <- 'https://bcdanl.github.io/data/bikeshare_cleaned.csv'
+bikeshare <- read_csv(url)
+rmarkdown::paged_table(bikeshare)
+```
+
+<br>
+
+- The following summarizes the data.frame `bikeshare`:
+
+<br>
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+bikeshare$month <- as.factor(bikeshare$month)
+bikeshare$date <- as.factor(bikeshare$date)
+bikeshare$wkday <- as.factor(bikeshare$wkday)
+bikeshare$seasons <- as.factor(bikeshare$seasons)
+bikeshare$weather_cond <- as.factor(bikeshare$weather_cond)
+
+wkday_levels <- c("monday", "tuesday", "wednesday", 
+                  "thursday", "friday", "saturday", 
+                  "sunday")
+bikeshare$wkday <- factor(bikeshare$wkday, levels = wkday_levels)
+
+seasons_levels <- c("spring", "summer", "fall", "winter")
+bikeshare$seasons <- factor(bikeshare$seasons, levels = seasons_levels)
+
+
+skim(bikeshare)
+```
+
+
+
+<br><br>
+
+Use the data.frame `bikeshare` for the rest of questions in Question 2.
+
+### Description of variables in the data file, `bikeshare_cleaned.csv`
+
+The data set, `bikeshare_cleaned.csv`, includes 17376 observations of hourly counts from 2011 to 2012 for bike rides (rentals) in Washington D.C.
+
+<br>
+
+- `cnt`: count of total bikes rented out
+- `year`: year
+- `month`: month
+- `date`: date
+- `hr`: hours 
+- `wkday`: week day
+- `holiday`: holiday if holiday == 1; non-holiday otherwise
+- `seasons`: season
+- `weather_cond`: weather condition
+- `temp`: temperature, measured in standard deviations from average.
+- `hum`: humidity, measured in standard deviations from average.
+- `windspeed`: wind speed, measured in standard deviations from average.
+
+
+
+<br><br>
+
+## Q1b
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the distribution of `cnt`.
+
+**Answer:**
+
+
+```{r, echo = T, eval = F, message = F, warning = F}
+#| code-fold: true
+ggplot(bikeshare) +
+  geom_histogram(aes(x = cnt),
+                 binwidth = 5) 
+```
+
+
+```{r, echo = F, eval = T, message = F, warning = F}
+ggplot(bikeshare) +
+  geom_histogram(aes(x = cnt), binwidth = 5) +
+  labs(x = "Count of total bikes rented out",
+       y = "Number of observations") +
+  theme(axis.text = element_text(size = 12),
+        axis.title = element_text(face = "bold",
+                                  size = 18) )
+```
+
+<br><br>
+
+- The distribution of `cnt` is right-skewed.
+- The most common values for `cnt` range from 0 to 50.
+
+## Q1c
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the distribution of `cnt` by `year` and `month`.
+
+**Answer:**
+
+
+```{r, echo = T, eval = F, fig.height = 14}
+#| code-fold: true
+# histogram
+ggplot(bikeshare) +
+  geom_histogram( aes(x = cnt, fill = month),
+                  binwidth = 10,
+                  color = NA,
+                  show.legend = F) +
+  facet_grid(month~year) 
+
+# boxplot
+ggplot(bikeshare) +
+  geom_boxplot( aes(x = cnt, y = month, 
+                    fill = month),
+                  show.legend = F) 
+```
+
+```{r, echo = F, eval = T, fig.height = 14}
+ggplot(bikeshare) +
+  geom_histogram( aes(x = cnt, fill = month),
+                  binwidth = 10,
+                color = NA,
+                show.legend = F)+
+  facet_grid(month~year, switch = "y") +
+  theme(strip.text.y.left = element_text(angle = 0)) +
+  labs(x = "Count of total bikes rented out",
+       y = "Number of observations") +
+  theme(axis.text = element_text(size = 12),
+        axis.title = element_text(face = "bold",
+                                  size = 18) )
+```
+
+
+```{r, echo = F, eval = T, fig.height = 14}
+ggplot(bikeshare) +
+  geom_boxplot( aes(x = cnt, y = month, 
+                    fill = month),
+                show.legend = F)+
+  facet_grid(.~year) +
+  scale_y_discrete(limits=rev) +
+  labs(x = "Count of total bikes rented out",
+       y = "Month") +
+  theme(axis.text = element_text(size = 12),
+        axis.title = element_text(face = "bold",
+                                  size = 18) )
+```
+
+- Overall, the demand for bike rentals tends to be higher in 2012 than in 2011.
+- Overall, the demand for bike rentals tends to be lower in winter.
+
+
+<br><br>
+
+
+## Q1d
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the distribution of `temp` by `year` and `month`.
+
+**Answer:**
+
+
+```{r, echo = T, eval = F, message = F, warning = F}
+#| code-fold: true
+ggplot(bikeshare) +
+  geom_histogram(aes(x = temp, fill = month),
+                  binwidth = .1,
+                 show.legend = F) +
+  geom_vline(xintercept = 0, color = 'red') + 
+  facet_grid(month ~ year) 
+```
+
+```{r, echo = F, eval = T,  fig.height = 14}
+ggplot(bikeshare) +
+  geom_histogram( aes(x = temp, fill = month),
+                  binwidth = .1,
+                  color = NA,
+                  show.legend = F)+
+  geom_vline(xintercept = 0, color = 'red') + 
+  facet_grid(month~year, switch = "y") +
+  labs(x = "Temperature, deviation from the average",
+       y = "Number of observations") +
+  theme(strip.text.y.left = element_text(angle = 0),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(face = "bold",
+                                  size = 18) )
+```
+
+- We observe the four seasons when it comes to temperature.
+- January tends to be the coldest and July is the hottest.
+- The distribution of temperature across months looks similar across years 2011-2012.
+
+
+<br><br>
+
+## Q1e
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the distribution of `hum` by `year` and `month`.
+
+
+**Answer:**
+
+
+```{r, echo = T, eval = F, message = F, warning = F}
+#| code-fold: true
+ggplot(bikeshare) +
+  geom_histogram(aes(x = hum, fill = month),
+                binwidth = .1,
+                show.legend = F) +
+  geom_vline(xintercept = 0, color = 'red') + 
+  facet_grid(month ~ year) 
+```
+
+
+```{r, echo = F, eval = T,  fig.height = 14}
+ggplot(bikeshare) +
+  geom_histogram(aes(x = hum, fill = month),
+                binwidth = .1,
+                show.legend = F,
+                color = NA) +
+  geom_vline(xintercept = 0, color = 'red') + 
+  facet_grid(month~year, switch = "y") +
+  labs(x = "Humidity, measured in standard deviations from average",
+       y = "Number of observations") +
+  theme(strip.text.y.left = element_text(angle = 0),
+        axis.text.x = 
+          element_text(angle = 90, 
+                       vjust = 0.5, hjust=1),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(face = "bold",
+                                  size = 18) )
+  
+```
+
+- In years 2011-2012 in Washington D.C., May, August, and September tend to be more humid than other months.
+- In years 2011-2012 in Washington D.C., January and February tend to be less humid than other months.
+- Overall, the distribution of humidity across months looks similar across years 2011-2012 in Washington D.C.
+
+
+<br><br>
+
+## Q1f
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the distribution of `windspeed` by `year` and `month`.
+
+**Answer:**
+
+
+```{r, echo = T, eval = F, message = F, warning = F}
+ggplot(bikeshare) +
+  geom_histogram(aes(x = windspeed), bins = 100) +
+  geom_vline(xintercept = 0, color = 'red') + 
+  facet_grid(month ~ year) 
+```
+
+```{r, echo = F, eval = T,  fig.height = 14}
+ggplot(bikeshare) +
+  geom_histogram(aes(x = windspeed, fill = month),
+               show.legend = F,
+                 color = NA, bins = 100) +
+  geom_vline(xintercept = 0, color = 'red') + 
+  facet_grid(month~year, switch = "y") +
+  labs(x = "Wind speed, measured in standard deviations from average",
+       y = "Density") +
+  theme(strip.text.y.left = element_text(angle = 0),
+        axis.text.x = 
+          element_text(angle = 90, 
+                       vjust = 0.5, hjust=1),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(face = "bold",
+                                  size = 18) )
+  
+```
+
+- Overall, the monthly distribution of wind speed looks similar across years 2011-2012 in Washington D.C.
+- In years 2011-2012 in Washington D.C., noticeably slow wind speed, -1.5, which is a deviation from the standardized mean of wind speed 0, is observed throughout all months.
+
+
+<br><br>
+
+## Q1g
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the relationship between `temp` and `cnt`.
+
+**Answer:**
+
+
+```{r, echo = T, eval = F, message = F, warning = F}
+#| code-fold: true
+ggplot(bikeshare,
+       aes(x = temp, y = cnt)) +
+  geom_hex() +
+  geom_smooth(color = 'red') +
+  geom_smooth(method = lm) 
+```
+
+```{r, echo = F, eval = T, message = F, warning = F}
+ggplot(bikeshare, aes(x = temp, y = cnt )) +
+    geom_hex()  +
+    geom_smooth(aes(color = "Linear"),
+                method = lm,
+                fill = "orchid")  +
+    geom_smooth(aes(color = "Nonlinear"),
+                fill = "orchid")  +
+    scale_fill_gradient2(
+      name = "Number of observations",
+      low = 'purple',  
+      high = 'purple4',  
+      na.value = "grey80") +
+    scale_colour_manual(name = "Model Prediction", values=c("royalblue", "red3")) +
+  labs(x = "Temperature, deviation from the average",
+       y = "Count of bikes rented out") +
+  theme(axis.text = element_text(size = 12),
+        axis.title = element_text(face = "bold",
+                                  size = 18),
+        legend.position="right", legend.box = "vertical")
+```
+
+- `temp` and `cnt` are positively associated with each other.
+- Too high `temp` (above 1.5) may lead to lower `cnt`.
+
+<br><br>
+
+## Q1h
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the relationship between `temp` and `cnt` by `year` and `month`.
+
+**Answer:**
+
+
+```{r, echo = T, eval = F,  fig.height = 14, warning= F, message = F}
+#| code-fold: true
+ggplot(bikeshare, aes(x = temp, y = cnt )) +
+    geom_point(alpha = .1)  +
+    geom_smooth(color = "red3",
+                fill = "orchid",
+                method = lm)  +
+    geom_smooth(color = "royalblue",
+                fill = "orchid")  +
+  facet_grid(month~year)
+```
+
+```{r, echo = F, eval = T,  fig.height = 14, warning= F, message = F}
+ggplot(bikeshare, aes(x = temp, y = cnt )) +
+    geom_point(alpha = .1)  +
+    geom_smooth(color = "red3",
+                fill = "orchid",
+                method = lm)  +
+    geom_smooth(color = "royalblue",
+                fill = "orchid")  +
+  facet_grid(month~year, switch = "y")   +
+  labs(x = "Temperature, deviation from the average",
+       y = "Count of bikes rented out") +
+  theme(strip.text.y.left = element_text(angle = 0),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(face = "bold",
+                                  size = 18) )
+```
+
+- Overall, `temp` and `cnt` are positively associated with each other.
+- In June, July, and August, the association between `temp` and `cnt` switches from positive to negative at which `temp` is around 1.5.
+
+<br><br>
+
+## Q1i
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the relationship between `weather_cond` and `cnt`.
+
+**Answer:**
+
+
+```{r, echo = T, eval = F, message = F, warning = F}
+#| code-fold: true
+ggplot(bikeshare) +
+  geom_histogram(aes(x = cnt),
+                 binwidth = 5) + 
+  facet_grid(. ~ weather_cond) 
+```
+
+```{r, echo = F, eval = T, warning= F, message = F}
+ggplot(bikeshare) +
+  geom_histogram(aes(x = cnt),
+                 binwidth = 5) + 
+  facet_grid(. ~ weather_cond) +
+  labs(x = "Count of bikes rented out",
+       y = "Number of observations")  +
+  theme(axis.text = element_text(size = 12),
+        axis.title = element_text(face = "bold",
+                                  size = 18) )
+
+ggplot(bikeshare) +
+  geom_density(aes(x = cnt) ) + 
+  facet_grid(. ~ weather_cond) +
+  labs(x = "Count of bikes rented out",
+       y = "Density")  +
+  theme(axis.text = element_text(size = 12),
+        axis.title = element_text(face = "bold",
+                                  size = 18) )
+```
+
+- In 2012-2013 in Washington D.C., people rented out bikes more often when `weather_cond` is `Clear or Few Cloudy`.
+- The most common values for `cnt` are around 50 across all values of `weather_cond`.
+- When `weather_cond` is `Light Snow or Light Rain`, people are more likely to rent less number of bikes.
+
+
+<br><br>
+
+## Q1j
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the relationship between `weather_cond` and `cnt` by `hr`.
+
+**Answer:**
+
+
+```{r, echo = T, eval = F}
+#| code-fold: true
+ggplot(bikeshare) +
+  geom_freqpoly(aes(x = cnt, color = as.factor(hr)),
+               show.legend = F) + 
+  facet_grid(hr ~ weather_cond, scale = "free_y") 
+```
+
+
+```{r, echo = F, eval = T, fig.height = 28}
+ggplot(bikeshare) +
+  geom_freqpoly(aes(x = cnt, color = as.factor(hr)),
+               show.legend = F) + 
+  facet_grid(hr ~ weather_cond, scale = "free_y", switch = "y") +
+  labs(x = "Count of bikes rented out",
+       y = "Density")   +
+  theme(strip.text.y.left = element_text(angle = 0),
+        axis.text.x = 
+          element_text(angle = 90, 
+                       vjust = 0.5, hjust=1),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(face = "bold",
+                                  size = 18) )
+```
+
+- The values of `cnt` during commuting hours (`hr` 7:00 A.M.-8:59 A.M. and 5:00 P.M.-7:59 P.M.) are often larger than other commuting hours.
+  - It implies that a shortage of rental bikes is more likely to happen during these hours.
+
+
+<br><br>
+
+## Q1k
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the relationship between `wkday` and `cnt`.
+
+**Answer:**
+
+
+```{r, echo = T, eval = F}
+#| code-fold: true
+ggplot(bikeshare) +
+  geom_histogram(aes(x = cnt,
+                   fill = as.factor(wkday)),
+                 binwidth = 10,
+               color = NA,
+               show.legend = F) + 
+  facet_grid(. ~ wkday)
+
+
+ggplot(bikeshare,
+       aes(x = wkday, y = cnt)) +
+  geom_boxplot( aes(fill = wkday),
+                show.legend = F ) +
+  stat_summary(fun = mean)
+```
+
+```{r, echo = F, eval = T, warning= F, message = F}
+ggplot(bikeshare) +
+  geom_histogram(aes(x = cnt,
+                   fill = as.factor(wkday)),
+               binwidth = 10,
+               color = NA,
+               show.legend = F) + 
+  facet_grid(. ~ wkday, switch = "y") + 
+  labs(x = "Count of bikes rented out",
+       y = "Number of observations")  +
+  theme(axis.text = element_text(size = 12),
+        axis.title = element_text(face = "bold",
+                                  size = 18),
+        axis.text.x = 
+          element_text(angle = 90, 
+                       vjust = 0.5, hjust=1) ) 
+
+
+ggplot(bikeshare,
+       aes(x = cnt, y = wkday)) +
+  geom_boxplot( aes(fill = wkday),
+                show.legend = F ) +
+  stat_summary(fun = mean) + 
+  labs(x = "Count of bikes rented out",
+       y = "Weekday")  
+
+```
+
+- The distribution of `cnt` is right-skewed, and looks similar across all values of `wkday`.
+
+<br><br>
+
+## Q1l
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the relationship between `wkday` and `cnt` by `hr`.
+
+**Answer:**
+
+
+```{r, echo = T, eval = F, message = F, warning = F}
+#| code-fold: true
+ggplot(bikeshare) +
+  geom_histogram(aes(x = cnt,
+                     fill = as.factor(hr)),
+                 binwidth = 10,
+               color = NA, 
+               show.legend = F) + 
+  facet_grid(hr~wkday, scale = "free_y") 
+```
+
+```{r, echo = T, eval = F, message = F, warning = F}
+#| code-fold: true
+ggplot(bikeshare) +
+  geom_boxplot(aes(x = cnt,
+                   y = as.factor(hr),
+                   fill = as.factor(hr)),
+               show.legend = F) + 
+  facet_grid(.~wkday, scale = "free_y") 
+```
+
+
+
+```{r, echo = F, eval = T, fig.height = 28}
+ggplot(bikeshare) +
+  geom_histogram(aes(x = cnt,
+                   fill = as.factor(hr)),
+                 binwidth = 10,
+               color = NA,
+               show.legend = F) +
+  facet_grid(hr ~ wkday, scale = "free_y", switch = "y") + 
+  labs(x = "Count of bikes rented out",
+       y = "Number of observations")   +
+  theme(strip.text.y.left = element_text(angle = 0),
+        axis.text.x = 
+          element_text(angle = 90, 
+                       vjust = 0.5, hjust=1),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(face = "bold",
+                                  size = 18) )
+```
+
+
+```{r, echo = F, eval = T, fig.height = 16}
+ggplot(bikeshare) +
+  geom_boxplot(aes(x = cnt,
+                   y = as.factor(hr),
+                   fill = as.factor(hr)),
+               show.legend = F) + 
+  facet_grid(.~wkday, scale = "free_y") + 
+  scale_y_discrete(limits=rev) +
+  labs(x = "Count of bikes rented out",
+       y = "Hour") +
+  theme(strip.text.y.left = element_text(angle = 0),
+        axis.text.x = 
+          element_text(angle = 90, 
+                       vjust = 0.5, hjust=1),
+        axis.text = element_text(size = 12),
+        axis.title = element_text(face = "bold",
+                                  size = 18) )
+```
+
+- During hours from 10 to 15, people tend to rent out bikes more on Saturday and Sunday than on other week days.
+- During the morning commuting hours, people tend to rent out bikes less on Saturday and Sunday than on other week days.
+
+
+
+<br><br><br>
+
+# Question 2
+## Q2a
+Read the data file, `NY_school_enrollment_socioecon.csv`, as the data.frame object with the name, `NY_school_enrollment_socioecon`, using (1) the `read_csv()` function and (2) its URL, `https://bcdanl.github.io/data/NY_school_enrollment_socioecon.csv`.
+
+**Answer:**
+
+
+```{r, echo = T, eval = F}
+#| code-fold: true
+url2 <- 'https://bcdanl.github.io/data/NY_school_enrollment_socioecon.csv'
+NY_school_enrollment_socioecon <- read_csv(url2)
+View(ny_school_enrollment_socio)
+```
+
+
+- We can view the data.frame `NY_school_enrollment_socioecon`:
+<br>
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+url2 <- 'https://bcdanl.github.io/data/NY_school_enrollment_socioecon.csv'
+NY_school_enrollment_socioecon <- read_csv(url2)
+rmarkdown::paged_table(NY_school_enrollment_socioecon)
+```
+
+<br><br>
+
+For description of variables in `NY_school_enrollment_socioecon`, refer to the file, `ny_school_enrollment_socioecon_description.csv`, which is in the Files section in our Brightspace web-page. (I recommend you to open the file, **ny_school_enrollment_socioecon_description.csv**, using Excel or Numbers.)
+
+
+- Here are some details about the data.frame, `NY_school_enrollment_socioecon`:
+
+- The geographic and time units of observation (row) in the data.frame, `NY_school_enrollment_socioecon`, are *New York county* and *year*.
+
+```{r, echo=F, eval=T}
+text_tbl <- data.frame(
+  FIPS = c(36001),
+  year = c(2015),
+  county_name = c("Albany"),
+  pincp = c(55793),
+  c01_001 = c(84463),
+  c02_002 = c(4.7)
+  )
+
+kbl(text_tbl) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T) %>%
+  column_spec(2, bold = T) %>%
+  column_spec(3, bold = T) %>%
+  kable_paper("hover", full_width = F)
+
+```
+
+- For example, the observation above means that in Albany county in year 2015 ...
+  - Average personal income of people is $55,793.
+  - Population 3 years and over enrolled in school is 84,463.
+  - Percent of population 3 years and over enrolled in nursery school and preschool is 4.7%.
+  
+<br><br>
+
+- The following is sample observations from Bronx and Livingston counties:
+
+```{r, echo=FALSE, out.width = '100%', fig.align='center'}
+knitr::include_graphics("danl200-hw1-sample-data.png")
+```
+
+- The following describes the variables:
+
+  - `c01_010`:  *Total!!Population enrolled in college or graduate school*
+  - So, `c01_010` is total population enrolled in college or graduate school;
+  
+  - `c02_010`:  *Percent!!Population enrolled in college or graduate school*
+  - So, `c02_010` is a *percent* of total population enrolled in college or graduate school;
+  
+  - In which county is more likely for a person to be enrolled in a college or graduate school? 
+  
+<br><br>
+
+-  A county's college enrollment level can be represented by an *overall* tendency of that county's residents to be enrolled in college (as long as we are interested in analyzing how human behaves overall).
+
+
+- The size of a county's population enrolled in college or graduate school (`c01_010`) may *not* be appropriate to represent a county's college enrollment level. 
+
+  - A county's larger size of population enrolled in college does not necessarily mean people in people in that county are likely to be enrolled in college.
+
+- Consider the following example:
+
+```{r, echo=F, eval=T}
+text_tbl <- data.frame(
+  `County` = c("A", "B"),
+  `Total Population` = c("100,000", "1,000"),
+  `Bachelor's Degree` = c("1,000", "999"),
+  `High School` = c("99,000", "1"),
+  `Percent of Bachelor's Degree` = c("1.0%", "99.9%"),
+  `Percent of High School` = c("99.0%", "0.1%")
+  )
+kbl(text_tbl) %>%
+  kable_paper(full_width = F) %>%
+  column_spec(1, bold = T) %>%
+  kable_paper("hover", full_width = F)
+```
+
+  - Although County A has the larger number of people that have bachelor's degrees than County B, it is more appropriate to say that people in County B have a higher college enrollment than people in County A.
+  
+  - This is because the overall tendency of County B's people to attend college is stronger than that of County A's people.
+
+- Similarly, to represent a standard of living of people in a country, we do not use a country's gross domestic product (*GDP*) but its *GDP per capita* (GDP per capita is GDP devided by population).
+
+  - For example, China records the second largest GDP in the world as of now. However, World Bank still considers China a middle-income country, because of its relatively low level of GDP per capita. 
+  
+
+<br><br>
+
+## Q2b
+Provide both (1) `ggplot` codes and (2) a couple of sentences to describe the relationship between college enrollment and educational attainment of population 45 to 64 years, and how such relationship varies by the type (public or private) of colleges.
+
+
+**Answer:**
+
+
+
+- To represent a level of educational attainment of population 45 to 64 years in a county, I choose variable, `100 - d01_024`, a **percent** of population 45 to 64 years **without** bachelor's degree.
+
+- To represent a level of college enrollment of population in a county, I choose variable, `c02_010`, a **percent** of population enrolled in college or graduate school.
+
+- To represent a level of **public** college's enrollment of population in a county, I choose variable, `c04_010`, a **percent** of population enrolled in **public** college or graduate school.
+
+- To represent a level of **private** college's enrollment of population in a county, I choose variable, `c06_010`, a **percent** of population enrolled in **private** college or graduate school.
+
+
+- The following ggplot describes the relationship between college enrollment and educational attainment of population 45 to 64 years:
+
+```{r, echo = T, eval = F, message = F, warning = F}
+#| code-fold: true
+ggplot(NY_school_enrollment_socioecon,
+       aes(x = 100 - d01_024, y = c02_010)) +
+  geom_hex()  +
+  geom_smooth(method = lm)  +
+  geom_smooth(color = 'red') +
+  coord_fixed()
+```
+
+
+```{r, echo = F, eval = T, warning= F, message= F}
+ggplot(NY_school_enrollment_socioecon, aes(x = 100-d01_024, 
+                                       y = c02_010 )) +
+    geom_hex()  +
+    geom_smooth(aes(color = "Linear"),
+                method = lm,
+                fill = "orchid")  +
+    geom_smooth(aes(color = "Nonlinear"),
+                fill = "orchid")  +
+    scale_fill_gradient2(
+      breaks=c(3, 5, 7),
+      low = 'purple',  
+      high = 'purple4',  
+      na.value = "grey80") +
+    scale_colour_manual(values=c("royalblue", "red3")) +
+    labs( x = "Population 45 to 64 Years without Bachelor's degree (%)",
+          y = "Population enrolled in College or Graduate School (%)",
+          fill = "Number of Observations",
+          color = "Model Prediction") +
+    theme( plot.title = element_text(hjust = 0.5,
+                                     face = "bold",
+                                     size = 16),
+           plot.subtitle = element_text(hjust = 0.5),
+           axis.text = element_text(size = 12),
+           axis.title = element_text(face = "bold",
+                                     size = 18),
+           legend.title = element_text(face = "bold",
+                                       size = 12),
+           legend.position="right", legend.box = "vertical") +
+    coord_fixed()
+```
+
+- The percentage of population 45 to 64 years without Bachelor's degree is negatively associated with the percentage of population enrolled in college or graduate school.
+
+- The following ggplot describes the relationship between college enrollment in **public** schools and educational attainment of population 45 to 64 years:
+
+
+```{r, echo = T, eval = F, message = F, warning = F}
+#| code-fold: true
+ggplot(NY_school_enrollment_socioecon,
+       aes(x = 100 - d01_024, y = c04_010)) +
+  geom_hex()  +
+  geom_smooth(method = lm)  +
+  geom_smooth(color = 'red') +
+  coord_fixed()
+```
+
+
+```{r, echo = F, eval = T, warning= F, message= F}
+ggplot(NY_school_enrollment_socioecon, aes(x = 100 - d01_024, 
+                                       y = c04_010 )) +
+    geom_hex()  +
+    geom_smooth(aes(color = "Linear"),
+                method = lm,
+                fill = "orchid")  +
+    geom_smooth(aes(color = "Nonlinear"),
+                fill = "orchid")  +
+    scale_fill_gradient2( 
+      breaks=c(3, 5, 7),
+      low = 'purple',  
+      high = 'purple4',  
+      na.value = "grey80") +
+    scale_colour_manual(values=c("royalblue", "red3")) +
+    labs( x = "Population 45 to 64 Years without Bachelor's degree (%)",
+          y = "Population enrolled in Public College or Graduate School (%)",
+          fill = "Number of Observations",
+          color = "Model Prediction") +
+    theme( plot.title = element_text(hjust = 0.5,
+                                     face = "bold",
+                                     size = 16),
+           plot.subtitle = element_text(hjust = 0.5),
+           axis.text = element_text(size = 12),
+           axis.title = element_text(face = "bold",
+                                     size = 18),
+           legend.title = element_text(face = "bold",
+                                       size = 12),
+           legend.position="right", legend.box = "vertical") +
+    coord_fixed()
+```
+
+- The following ggplot describes the relationship between college enrollment in **private** schools and educational attainment of population 45 to 64 years:
+
+```{r, echo = T, eval = F, message = F, warning = F}
+#| code-fold: true
+ggplot(NY_school_enrollment_socioecon,
+       aes(x = 100 - d01_024, y = c06_010)) +
+  geom_hex()  +
+  geom_smooth(method = lm)  +
+  geom_smooth(color = 'red') +
+  coord_fixed()
+```
+
+
+```{r, echo = F, eval = T, warning= F, message= F}
+ggplot(NY_school_enrollment_socioecon, aes(x = 100 - d01_024, 
+                                       y = c06_010 )) +
+    geom_hex()  +
+    geom_smooth(aes(color = "Linear"),
+                method = lm,
+                fill = "orchid")  +
+    geom_smooth(aes(color = "Nonlinear"),
+                fill = "orchid")  +
+    scale_fill_gradient2( 
+      low = 'purple',  
+      high = 'purple4',  
+      na.value = "grey80") +
+    scale_colour_manual(values=c("royalblue", "red3")) +
+    labs( x = "Population 45 to 64 Years without Bachelor's degree (%)",
+          y = "Population enrolled in Private College or Graduate School (%)",
+          fill = "Number of Observations",
+          color = "Model Prediction") +
+    theme( plot.title = element_text(hjust = 0.5,
+                                     face = "bold",
+                                     size = 16),
+           plot.subtitle = element_text(hjust = 0.5),
+           axis.text = element_text(size = 12),
+           axis.title = element_text(face = "bold",
+                                     size = 18),
+           legend.title = element_text(face = "bold",
+                                       size = 12),
+           legend.position="right", legend.box = "vertical") +
+    coord_fixed()
+```
+
+
+- The percentage of population 45 to 64 years without Bachelor's degree is **positively** associated with the percentage of population enrolled in **public** college or graduate school.
+
+- The percentage of population 45 to 64 years without Bachelor's degree is **negatively** associated with the percentage of population enrolled in **private** college or graduate school.
+
+
+<br><br>
+
+## Q2c 
+Provide both (1) `ggplot` codes and  (2) a couple of sentences to describe how the relationships described in Q3b vary by gender of population 45 to 64 years.
+
+**Answer:**
+
+
+
+- To represent a level of educational attainment of **male** population 45 to 64 years in a county, I choose variable, `100 - d03_024`, a percent of **male** population 45 to 64 years **without** bachelor's degree.
+
+- To represent a level of educational attainment of **female** population 45 to 64 years in a county, I choose variable, `100 - d05_024`, a percent of **female** population 45 to 64 years **without** bachelor's degree.
+
+
+- The following ggplot describes the relationship between college enrollment and educational attainment of **male**/**female** populations 45 to 64 years:
+
+```{r, echo = T, eval = F, message = F, warning = F}
+#| code-fold: true
+ggplot(NY_school_enrollment_socioecon) +
+  geom_point(aes(x = 100 - d03_024, y = c02_010),
+             color = 'blue')  +
+  geom_point(aes(x = 100 - d05_024, y = c02_010),
+             color = 'red')  +
+  geom_smooth(aes(x = 100 - d03_024, y = c02_010),
+              color = 'blue',  
+              method = lm)  +
+  geom_smooth(aes(x = 100 - d05_024, y = c02_010),
+              color = 'red',
+              method = lm) 
+```
+
+
+```{r, echo = F, eval = T, warning= F, message= F}
+colors <- c("Male" = "royalblue",
+            "Female" = "red3")
+
+ggplot(NY_school_enrollment_socioecon) +
+  geom_smooth(aes(x = 100 - d03_024, y = c02_010,
+                  color = "Male"),
+              method = lm)  +
+  geom_smooth(aes(x = 100 - d05_024, y = c02_010,
+                  color = "Female"),
+              method = lm)  +
+  geom_point(aes(x = 100 - d03_024, y = c02_010,
+                 color = 'Male'),
+             alpha = .25)  +
+  geom_point(aes(x = 100 - d05_024, y = c02_010,
+                 color = 'Female'),
+             alpha = .25)  +
+    scale_color_manual(values=colors) +
+    labs( x = "Population 45 to 64 Years without Bachelor's degree (%)",
+          y = "Population enrolled in College or Graduate School (%)",
+          color = "Gender of 45-64 years") +
+    theme( plot.title = element_text(hjust = 0.5,
+                                     face = "bold",
+                                     size = 16),
+           plot.subtitle = element_text(hjust = 0.5),
+           axis.text = element_text(size = 12),
+           axis.title = element_text(face = "bold",
+                                     size = 18),
+           legend.title = element_text(face = "bold",
+                                       size = 12),
+           legend.position="right", legend.box = "vertical") 
+```
+
+- Regardless of a gender of population 45 to 64 years, the percentage of population 45 to 64 years without Bachelor's degree is **negatively** associated with the percentage of population enrolled in college or graduate school.
+
+- Given the same level of the percentage of population enrolled in college or graduate school, **male** population 45 to 64 years without bachelor's degree tends to be higher than **female** population 45 to 64 years without bachelor's degree.
+
+
+<br>
+
+- The following ggplot describes the relationship between **public** college enrollment and educational attainment of **male**/**female** populations 45 to 64 years:
+
+```{r, echo = T, eval = F, message = F, warning = F}
+#| code-fold: true
+ggplot(NY_school_enrollment_socioecon) +
+  geom_point(aes(x = 100 - d03_024, y = c04_010),
+             color = 'blue')  +
+  geom_point(aes(x = 100 - d05_024, y = c04_010),
+             color = 'red')  +
+  geom_smooth(aes(x = 100 - d03_024, y = c04_010),
+              color = 'blue',  
+              method = lm)  +
+  geom_smooth(aes(x = 100 - d05_024, y = c04_010),
+              color = 'red',
+              method = lm) 
+```
+
+
+```{r, echo = F, eval = T, warning= F, message= F}
+colors <- c("Male" = "royalblue",
+            "Female" = "red3")
+
+ggplot(NY_school_enrollment_socioecon) +
+  geom_smooth(aes(x = 100 - d03_024, y = c04_010,
+                  color = "Male"),
+              method = lm)  +
+  geom_smooth(aes(x = 100 - d05_024, y = c04_010,
+                  color = "Female"),
+              method = lm)  +
+  geom_point(aes(x = 100 - d03_024, y = c04_010,
+                 color = 'Male'),
+             alpha = .25)  +
+  geom_point(aes(x = 100 - d05_024, y = c04_010,
+                 color = 'Female'),
+             alpha = .25)  +
+    scale_color_manual(values=colors) +
+    labs( x = "Population 45 to 64 Years without Bachelor's degree (%)",
+          y = "Population enrolled in Public College or Graduate School (%)",
+          color = "Gender of 45-64 years") +
+    theme( plot.title = element_text(hjust = 0.5,
+                                     face = "bold",
+                                     size = 16),
+           plot.subtitle = element_text(hjust = 0.5),
+           axis.text = element_text(size = 12),
+           axis.title = element_text(face = "bold",
+                                     size = 18),
+           legend.title = element_text(face = "bold",
+                                       size = 12),
+           legend.position="right", legend.box = "vertical")
+```
+
+
+- Regardless of a gender of population 45 to 64 years, the percentage of population 45 to 64 years without Bachelor's degree is **positively** associated with the percentage of population enrolled in **public** college or graduate school.
+
+- For the same level of the percentage of population 45 to 64 years without Bachelor's degree, a level of educational attainment of **female** population 45 to 64 years may be associated with a higher level of **public** college enrollment than that of **male** population 45 to 64 years.
+
+- Given the same level of the percentage of population enrolled in **public** college or graduate school, **male** population 45 to 64 years without bachelor's degree tends to be higher than **female** population 45 to 64 years without bachelor's degree.
+
+
+<br>
+
+
+- The following ggplot describes the relationship between **private** college enrollment and educational attainment of **male**/**female** populations 45 to 64 years:
+
+```{r, echo = T, eval = F, message = F, warning = F}
+#| code-fold: true
+ggplot(NY_school_enrollment_socioecon) +
+  geom_point(aes(x = 100 - d03_024, y = c06_010),
+             color = 'blue')  +
+  geom_point(aes(x = 100 - d05_024, y = c06_010),
+             color = 'red')  +
+  geom_smooth(aes(x = 100 - d03_024, y = c06_010),
+              color = 'blue',  
+              method = lm)  +
+  geom_smooth(aes(x = 100 - d05_024, y = c06_010),
+              color = 'red',
+              method = lm) 
+```
+
+
+```{r, echo = F, eval = T, warning= F, message= F}
+colors <- c("Male" = "royalblue",
+            "Female" = "red3")
+
+ggplot(NY_school_enrollment_socioecon) +
+  geom_smooth(aes(x = 100 - d03_024, y = c06_010,
+                  color = "Male"),
+              method = lm)  +
+  geom_smooth(aes(x = 100 - d05_024, y = c06_010,
+                  color = "Female"),
+              method = lm)  +
+  geom_point(aes(x = 100 - d03_024, y = c06_010,
+                 color = 'Male'),
+             alpha = .25)  +
+  geom_point(aes(x = 100 - d05_024, y = c06_010,
+                 color = 'Female'),
+             alpha = .25)  +
+    scale_color_manual(values=colors) +
+    labs( x = "Population 45 to 64 Years without Bachelor's degree (%)",
+          y = "Population enrolled in Private College or Graduate School (%)",
+          color = "Gender of 45-64 years") +
+    theme( plot.title = element_text(hjust = 0.5,
+                                     face = "bold",
+                                     size = 16),
+           plot.subtitle = element_text(hjust = 0.5),
+           axis.text = element_text(size = 12),
+           axis.title = element_text(face = "bold",
+                                     size = 18),
+           legend.title = element_text(face = "bold",
+                                       size = 12),
+           legend.position="right", legend.box = "vertical") 
+```
+
+
+- Regardless of a gender of population 45 to 64 years, the percentage of population 45 to 64 years without Bachelor's degree is **negatively** associated with the percentage of population enrolled in **private** college or graduate school.
+
+- Given the same level of the percentage of population enrolled in **private** college or graduate school, **male** population 45 to 64 years without bachelor's degree tends to be higher than **female** population 45 to 64 years without bachelor's degree.
+
+
+<br><br>
+
+## Q2d
+Provide both (1) `ggplot` codes and  (2) a couple of sentences to describe how the relationships described in Q3b vary by gender of college enrollment.
+
+**Answer:**
+
+
+- To represent a level of **male** college enrollment of population in a county, I choose variable, `c02_011`, a percent of **male** population enrolled in college or graduate school.
+
+- To represent a level of **female** college enrollment of population in a county, I choose variable, `c02_012`, a percent of **female** population enrolled in college or graduate school.
+
+
+- The following ggplot describes the relationship between **male**/**female** college enrollment and educational attainment of populations 45 to 64 years:
+
+```{r, echo = T, eval = F, message = F, warning = F}
+#| code-fold: true
+ggplot(NY_school_enrollment_socioecon) +
+  geom_point(aes(x = 100-d01_024, y = c02_011), 
+             color = 'blue')  +
+  geom_point(aes(x = 100-d01_024, y = c02_012), 
+             color = 'red')  +
+  geom_smooth(aes(x = 100-d01_024, y = c02_011), 
+              color = 'blue',
+              method = lm) +
+  geom_smooth(aes(x = 100-d01_024, y = c02_012), 
+              color = 'red',
+              method = lm) 
+```
+
+
+```{r, echo = F, eval = T, warning= F, message= F}
+colors <- c("Male" = "royalblue",
+            "Female" = "red3")
+
+ggplot(NY_school_enrollment_socioecon) +
+  geom_smooth(aes(x = 100 - d01_024, y = c02_011,
+                  color = "Male"),
+              method = lm)  +
+  geom_smooth(aes(x = 100 - d01_024, y = c02_012,
+                  color = "Female"),
+              method = lm)  +
+  geom_point(aes(x = 100 - d01_024, y = c02_011,
+                 color = 'Male'),
+             alpha = .25)  +
+  geom_point(aes(x = 100 - d01_024, y = c02_012,
+                 color = 'Female'),
+             alpha = .25)  +
+    scale_color_manual(values=colors) +
+    labs( x = "Population 45 to 64 Years without Bachelor's degree (%)",
+          y = "Population enrolled in College or Graduate School (%)",
+          color = "Gender of College Enrollment") +
+    theme( plot.title = element_text(hjust = 0.5,
+                                     face = "bold",
+                                     size = 16),
+           plot.subtitle = element_text(hjust = 0.5),
+           axis.text = element_text(size = 12),
+           axis.title = element_text(face = "bold",
+                                     size = 18),
+           legend.title = element_text(face = "bold",
+                                       size = 12),
+           legend.position="right", legend.box = "vertical") 
+```
+
+
+- Regardless of a gender of college enrollment, the percentage of population 45 to 64 years without Bachelor's degree is **negatively** associated with the percentage of population enrolled in college or graduate school.
+
+- For the same level of the percentage of population 45 to 64 years without Bachelor's degree, a level of educational attainment of population 45 to 64 years may be associated with a higher level of **female** college enrollment than that of **male** college enrollment.
+
+- Given the same level of the percentage of population 45 to 64 years without bachelor's degree, **male** population enrolled in college or graduate schools tends to be lower than **female** population enrolled in college or graduate schools.
+
+
+
+<br>
+
+
+- To represent a level of **male** **public** college enrollment of population in a county, I choose variable, `c04_011`, a percent of **male** population enrolled in **public** college or graduate school.
+
+- To represent a level of **female** **public** college enrollment of population in a county, I choose variable, `c04_012`, a percent of **female** population enrolled in **public** college or graduate school.
+
+
+- The following ggplot describes the relationship between **male**/**female** **public** college enrollment and educational attainment of populations 45 to 64 years:
+
+```{r, echo = T, eval = F, message = F, warning = F}
+#| code-fold: true
+ggplot(NY_school_enrollment_socioecon) +
+  geom_point(aes(x = 100-d01_024, y = c04_011), 
+             color = 'blue')  +
+  geom_point(aes(x = 100-d01_024, y = c04_012), 
+             color = 'red')  +
+  geom_smooth(aes(x = 100-d01_024, y = c04_011), 
+              color = 'blue',
+              method = lm) +
+  geom_smooth(aes(x = 100-d01_024, y = c04_012), 
+              color = 'red',
+              method = lm) 
+```
+
+
+```{r, echo = F, eval = T, warning= F, message= F}
+colors <- c("Male" = "royalblue",
+            "Female" = "red3")
+
+ggplot(NY_school_enrollment_socioecon) +
+  geom_smooth(aes(x = 100 - d01_024, y = c04_011,
+                  color = "Male"),
+              method = lm)  +
+  geom_smooth(aes(x = 100 - d01_024, y = c04_012,
+                  color = "Female"),
+              method = lm)  +
+  geom_point(aes(x = 100 - d01_024, y = c04_011,
+                 color = 'Male'),
+             alpha = .25)  +
+  geom_point(aes(x = 100 - d01_024, y = c04_012,
+                 color = 'Female'),
+             alpha = .25)  +
+    scale_color_manual(values=colors) +
+    labs( x = "Population 45 to 64 Years without Bachelor's degree (%)",
+          y = "Population enrolled in Public College or Graduate School (%)",
+          color = "Gender of Public College Enrollment") +
+    theme( plot.title = element_text(hjust = 0.5,
+                                     face = "bold",
+                                     size = 16),
+           plot.subtitle = element_text(hjust = 0.5),
+           axis.text = element_text(size = 12),
+           axis.title = element_text(face = "bold",
+                                     size = 18),
+           legend.title = element_text(face = "bold",
+                                       size = 12),
+           legend.position="right", legend.box = "vertical")
+```
+
+
+- To represent a level of **male** **private** college enrollment of population in a county, I choose variable, `c06_011`, a percent of **male** population enrolled in **private** college or graduate school.
+
+- To represent a level of **female** **private** college enrollment of population in a county, I choose variable, `c06_012`, a percent of **female** population enrolled in **private** college or graduate school.
+
+
+- The following ggplot describes the relationship between **male**/**female** **public** college enrollment and educational attainment of populations 45 to 64 years:
+
+```{r, echo = T, eval = F, message = F, warning = F}
+#| code-fold: true
+ggplot(NY_school_enrollment_socioecon) +
+  geom_point(aes(x = 100-d01_024, y = c06_011), 
+             color = 'blue')  +
+  geom_point(aes(x = 100-d01_024, y = c06_012), 
+             color = 'red')  +
+  geom_smooth(aes(x = 100-d01_024, y = c06_011), 
+              color = 'blue',
+              method = lm) +
+  geom_smooth(aes(x = 100-d01_024, y = c06_012), 
+              color = 'red',
+              method = lm) 
+```
+
+
+```{r, echo = F, eval = T, warning= F, message= F}
+colors <- c("Male" = "royalblue",
+            "Female" = "red3")
+
+ggplot(NY_school_enrollment_socioecon) +
+  geom_smooth(aes(x = 100 - d01_024, y = c06_011,
+                  color = "Male"),
+              method = lm)  +
+  geom_smooth(aes(x = 100 - d01_024, y = c06_012,
+                  color = "Female"),
+              method = lm)  +
+  geom_point(aes(x = 100 - d01_024, y = c06_011,
+                 color = 'Male'),
+             alpha = .25)  +
+  geom_point(aes(x = 100 - d01_024, y = c06_012,
+                 color = 'Female'),
+             alpha = .25)  +
+    scale_color_manual(values=colors) +
+    labs( x = "Population 45 to 64 Years without Bachelor's degree (%)",
+          y = "Population enrolled in Private College or Graduate School (%)",
+          color = "Gender of Private College Enrollment") +
+    theme( plot.title = element_text(hjust = 0.5,
+                                     face = "bold",
+                                     size = 16),
+           plot.subtitle = element_text(hjust = 0.5),
+           axis.text = element_text(size = 12),
+           axis.title = element_text(face = "bold",
+                                     size = 18),
+           legend.title = element_text(face = "bold",
+                                       size = 12),
+           legend.position="right", legend.box = "vertical") 
+```
+
+- Regardless of a gender of college enrollment, the percentage of population 45 to 64 years without Bachelor's degree is **positively** associated with the percentage of population enrolled in **public** college or graduate school.
+
+- Regardless of a gender of college enrollment, the percentage of population 45 to 64 years without Bachelor's degree is **negatively** associated with the percentage of population enrolled in **private** college or graduate school.
+

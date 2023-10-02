@@ -1,17 +1,616 @@
 ---
-title: "DANL 200: Classwork 3 - Data Visualization"
-date: 2023-09-22
+title: "Spring 2023, DANL 200: Introduction to Data Analytics<br>Homework Assignment 1"
+author: "Byeong-Hak Choe"
 execute: 
-  echo: false
   warning: false
   message: false
+  code-fold: true
 ---
-```{r}
-#| include: false
 
-library(knitr)
-library(rmarkdown)
+```{r setup, include = F}
 library(tidyverse)
-library(skimr)
+library(gapminder)
+library(skimr)   # a better summary of data.frame
+library(scales)  # scales for ggplot
+library(ggthemes)  # additional ggplot themes
+library(hrbrthemes) # additional ggplot themes and color pallets
+library(lubridate)
+library(ggridges)
+theme_set(theme_minimal()) # setting the minimal theme for ggplot
+# setting default chunk options
+knitr::opts_chunk$set(
+	eval = T,
+	echo = T,
+	message = FALSE,
+	warning = FALSE
+)
 ```
 
+# Direction for Spring 2023, DANL 200 Homework Assignment 1 
+
+## Files
+
+- Download the yaml file, `ny_colleges.yaml`, and the xlsx file, `ny_colleges_vars.xlsx` from our Brightspace.
+
+
+<br><br>
+
+## About `NY_colleges.csv`
+
+-   
+
+    ## `NY_colleges.csv` is university-year level data about
+
+    ```         
+    (1) median debt of college students,
+    ```
+
+    -   
+
+        (2) net price of college
+
+    -   
+
+        (3) number of college students,
+
+    -   
+
+        (4) college majors
+
+with a variety of segmentation.
+
+-   A description of each variable in `NY_colleges.csv` is provided in `ny_colleges.yaml`, which we can open in RStudio or other text editors.
+
+-   A description of values of each variable in `NY_colleges.csv` is provided in columns, `VARIABLE_NAME`, `VALUE`, and `LABEL`, in `ny_colleges_vars.xlsx`, which we can open in Microsoft Excel.
+
+-   Using **Ctrl + F** (**cmd + F** for mac users) would be useful to find the variable description.
+
+-   I recommend you to copy and paste the description of the variable you use in your R code to your R script with a comment (# ...).
+
+-   From the file, `ny_colleges_vars.xlsx`, we can find that
+
+    -   `CIP**BACHL`, whose value is either `0`, `1`, or `2`, indicates whether a university offers a bachelor's degree in SOME MAJOR.
+        -   `0`: Program not offered
+        -   `1`: Program offered
+        -   `2`: Program offered through an exclusively distance-education program
+
+<br><br><br>
+
+# Question 1
+
+## Q1a
+
+Read the data file, `NY_colleges.csv`, as the data.frame object with the name, `NY_colleges`, using (1) the `read_csv()` function and (2) the absolute path name of the file `NY_colleges.csv` from the web URL, `'https://bcdanl.github.io/data/NY_colleges.csv'`.
+
+**Answer:**
+
+```{r}
+#| code-fold: true
+path <- 'https://bcdanl.github.io/data/NY_colleges.csv'
+NY_colleges <- read_csv(path)
+```
+
+<br><br>
+
+## Q1b
+
+What are the mean, median1, minimum, maximum, and standard deviation for each of the following variables?
+
+-   
+
+    (1) average net price of public institution;
+
+-   
+
+    (2) average net price of private institution;
+
+-   
+
+    (3) median debt for students who have completed;
+
+-   
+
+    (4) median debt for students who have not completed.
+
+**Answer:**
+
+
+```{r}
+#| code-fold: true
+library(skimr)
+skim(NY_colleges$NPT4_PUB) # it does not give us a meaningful summary.
+                           # this is because NPT4_PUB is character type.
+
+
+```
+
+-   After converting the variables into numeric types, we can get the summary statistics for `NPT4_PUB` and `NPT4_PRIV`.
+
+```{r}
+#| code-fold: true
+# Base-R way to add a new variable to data.frame!
+  # as.numeric() can convert any variable type into a numeric type.
+NY_colleges$NPT4_PUB <- as.numeric( NY_colleges$NPT4_PUB ) 
+NY_colleges$NPT4_PRIV <- as.numeric( NY_colleges$NPT4_PRIV )
+
+skim(NY_colleges$NPT4_PUB)
+skim(NY_colleges$NPT4_PRIV)
+```
+
+-   The following is the summary statistics for `GRAD_DEBT_MDN` and `WDRAW_DEBT_MDN`.
+
+```{r}
+#| code-fold: true
+skim(NY_colleges$GRAD_DEBT_MDN)
+skim(NY_colleges$WDRAW_DEBT_MDN)
+```
+
+<br><br>
+
+## Instruction for Q1c-Q1i
+
+From Q1c to Q1g, provide both (1) ggplot codes and (2) a couple of sentences to answer the questions.
+
+<br><br>
+
+## Q1c
+
+Compare between public institutions and private institutions in terms of the distribution of average net price.
+
+**Answer:**
+
+
+```{r, eval= F}
+#| code-fold: true
+ggplot( data = NY_colleges ) + 
+  geom_freqpoly( mapping = aes( x = NPT4_PUB),
+                 color = "blue",
+                 bins = 50 ) +   # blue for public type
+  geom_freqpoly( mapping = aes( x = NPT4_PRIV),
+                 color = "red",
+                 bins = 50  ) +  # red for private type
+
+```
+
+```{r, echo = F}
+ggplot( data = NY_colleges ) + 
+  geom_freqpoly( mapping = aes( x = NPT4_PUB,
+                                color = "public"),
+                 bins = 50 ) +   
+  geom_freqpoly( mapping = aes( x = NPT4_PRIV,
+                                color = "private"),
+                 bins = 50  ) +  
+  scale_color_manual(values = c("public" = 'blue', "private" = 'red')) +
+  labs(x = 'average net price', color = 'type')
+```
+
+-   Private institutions tend to have a higher average net price than public ones.
+
+<br><br>
+
+## Q1d
+
+Compare between public institutions and private institutions in terms of the relationship between (1) average net price and (2) median debt for students who have completed.
+
+**Answer:**
+
+
+```{r, eval = F}
+#| code-fold: true
+ggplot( data = NY_colleges,
+        mapping = aes( y = GRAD_DEBT_MDN ) ) + 
+  geom_point( mapping = aes( x = NPT4_PUB ),
+              color = "blue",
+              alpha = .2 ) +   # blue for public type+
+  geom_smooth( mapping = aes( x = NPT4_PUB ),
+               color = "blue", 
+               method = lm ) +   # blue for public type
+  geom_point( mapping = aes( x = NPT4_PRIV),
+              color = "red",
+              alpha = .2  ) +  # red for private type
+  geom_smooth( mapping = aes( x = NPT4_PRIV),
+               color = "red", 
+               method = lm ) 
+```
+
+```{r, echo = F}
+ggplot( data = NY_colleges,
+        mapping = aes( y = GRAD_DEBT_MDN ) ) + 
+  geom_point( mapping = aes( x = NPT4_PUB, 
+                             color = "public" ),
+              alpha = .2 ) +   # blue for public type+
+  geom_smooth( mapping = aes( x = NPT4_PUB,
+                              color = "public"), 
+               method = lm
+                ) +   # blue for public type
+  geom_point( mapping = aes( x = NPT4_PRIV,
+                             color = "private"),
+              alpha = .2  ) +  # red for private type
+  geom_smooth( mapping = aes( x = NPT4_PRIV,
+                              color = "private"), 
+               method = lm
+                ) +
+  scale_color_manual(values = c("public" = 'blue', "private" = 'red')) +
+  labs(x = 'average net price', color = 'type')
+```
+
+-   The association between average net price and median debt is stronger in public than in private.
+
+-   The levels of average net price and median debt tend to be lower in public than in private.
+
+<br><br>
+
+## Q1e
+
+How does the relationship between (1) average net price and (2) median debt for students who have completed vary by levels of family income?
+
+**Answer:**
+
+
+```{r, eval = F}
+#| code-fold: true
+ggplot( data = NY_colleges,
+        mapping = aes( y = LO_INC_DEBT_MDN ) ) + 
+  geom_point( mapping = aes( x = NPT4_PUB ),
+              color = "blue",
+              alpha = .2 ) +   # blue for public type+
+  geom_smooth( mapping = aes( x = NPT4_PUB ),
+               color = "blue", 
+               method = lm ) +   # blue for public type
+  geom_point( mapping = aes( x = NPT4_PRIV),
+              color = "red",
+              alpha = .2  ) +  # red for private type
+  geom_smooth( mapping = aes( x = NPT4_PRIV),
+               color = "red", 
+               method = lm )
+```
+
+```{r, echo = F}
+#| code-fold: true
+ggplot( data = NY_colleges,
+        mapping = aes( y = LO_INC_DEBT_MDN ) ) + 
+  geom_point( mapping = aes( x = NPT4_PUB,
+                             color = 'public'),
+              alpha = .2 ) +   # blue for public type+
+  geom_smooth( mapping = aes( x = NPT4_PUB,
+                             color = 'public' ), 
+               method = lm
+               ) +   # blue for public type
+  geom_point( mapping = aes( x = NPT4_PRIV,
+                             color = 'private'),
+              alpha = .2  ) +  # red for private type
+  geom_smooth( mapping = aes( x = NPT4_PRIV,
+                             color = 'private'), 
+               method = lm
+               ) +
+  scale_color_manual(values = c("public" = 'blue', "private" = 'red')) +
+  labs(x = 'average net price', color = 'type')
+```
+
+```{r, eval = F}
+#| code-fold: true
+ggplot( data = NY_colleges,
+        mapping = aes( y = MD_INC_DEBT_MDN ) ) + 
+  geom_point( mapping = aes( x = NPT4_PUB ),
+              color = "blue",
+              alpha = .2 ) +   # blue for public type+
+  geom_smooth( mapping = aes( x = NPT4_PUB ),
+               color = "blue", 
+               method = lm ) +   # blue for public type
+  geom_point( mapping = aes( x = NPT4_PRIV),
+              color = "red",
+              alpha = .2  ) +  # red for private type
+  geom_smooth( mapping = aes( x = NPT4_PRIV),
+               color = "red", 
+               method = lm )
+```
+
+```{r, echo = F}
+ggplot( data = NY_colleges,
+        mapping = aes( y = MD_INC_DEBT_MDN ) ) + 
+  geom_point( mapping = aes( x = NPT4_PUB,
+                             color = 'public'),
+              alpha = .2 ) +   # blue for public type+
+  geom_smooth( mapping = aes( x = NPT4_PUB,
+                              color = 'public' ), 
+               method = lm
+  ) +   # blue for public type
+  geom_point( mapping = aes( x = NPT4_PRIV,
+                             color = 'private'),
+              alpha = .2  ) +  # red for private type
+  geom_smooth( mapping = aes( x = NPT4_PRIV,
+                              color = 'private'), 
+               method = lm
+  ) +
+  scale_color_manual(values = c("public" = 'blue', "private" = 'red')) +
+  labs(x = 'average net price', color = 'type')
+```
+
+```{r, eval = F}
+#| code-fold: true
+ggplot( data = NY_colleges,
+        mapping = aes( y = HI_INC_DEBT_MDN ) ) + 
+  geom_point( mapping = aes( x = NPT4_PUB ),
+              color = "blue",
+              alpha = .2 ) +   # blue for public type+
+  geom_smooth( mapping = aes( x = NPT4_PUB ),
+               color = "blue", 
+               method = lm ) +   # blue for public type
+  geom_point( mapping = aes( x = NPT4_PRIV),
+              color = "red",
+              alpha = .2  ) +  # red for private type
+  geom_smooth( mapping = aes( x = NPT4_PRIV),
+               color = "red", 
+               method = lm )
+```
+
+```{r, echo = F}
+ggplot( data = NY_colleges,
+        mapping = aes( y = HI_INC_DEBT_MDN ) ) + 
+  geom_point( mapping = aes( x = NPT4_PUB,
+                             color = 'public'),
+              alpha = .2 ) +   # blue for public type+
+  geom_smooth( mapping = aes( x = NPT4_PUB,
+                              color = 'public' ), 
+               method = lm
+  ) +   # blue for public type
+  geom_point( mapping = aes( x = NPT4_PRIV,
+                             color = 'private'),
+              alpha = .2  ) +  # red for private type
+  geom_smooth( mapping = aes( x = NPT4_PRIV,
+                              color = 'private'), 
+               method = lm
+  ) +
+  scale_color_manual(values = c("public" = 'blue', "private" = 'red')) +
+  labs(x = 'average net price', color = 'type')
+```
+
+-   Regardless of the levels of family income, the association between average net price and median debt is stronger in public than in private.
+
+-   Regardless of the levels of family income, the levels of average net price and median debt tend to be lower in public than in private.
+
+<br><br>
+
+## Q1f
+
+Compare between public institutions and private institutions in terms of the proportion of high-income students.
+
+**Answer:**
+
+
+```{r, eval = F}
+#| code-fold: true
+ggplot( data = NY_colleges ) + 
+  geom_histogram( mapping = aes( x = HI_INC_YR4_N / OVERALL_YR4_N ),
+                  binwidth = .015 ) +
+  facet_wrap( .~ as.factor(CONTROL) )
+
+```
+
+```{r, echo = F}
+prop.labs <- c("public", "private nonprofit", "private for-profit")
+names(prop.labs) <- c("1", "2", "3")
+NY_colleges <- NY_colleges %>% mutate(CONTROL = as.factor(CONTROL))
+
+ggplot( data = NY_colleges ) + 
+  geom_histogram( mapping = aes( x = HI_INC_YR4_N / OVERALL_YR4_N ),
+                  binwidth = .015 ) +
+  facet_wrap( .~ CONTROL, labeller = labeller(CONTROL = prop.labs)  )
+
+```
+
+-   Private nonprofit tends to have the larger proportion of high-income students than public and private for-profit.
+
+<br><br>
+
+## Q1g
+
+Describe how the number of students in a college varies by whether or not a college offers bachelor's degree in Business, Management, Marketing, and Related Support Services.
+
+**Answer:**
+
+
+```{r, eval = F}
+#| code-fold: true
+ggplot( data = NY_colleges) +
+  geom_histogram( mapping = aes(x = OVERALL_YR4_N ),
+                  binwidth = 200 ) +
+  facet_grid( factor(CIP52BACHL) ~ .)
+
+
+ggplot( data = NY_colleges ) +
+  geom_boxplot(mapping = aes(y = factor(CIP52BACHL),
+                             x = OVERALL_YR4_N,
+                             fill = factor(CIP52BACHL) ),
+                ) 
+```
+
+```{r, echo = F}
+
+cip.labs <- c("not offered", "offered", "offered online")
+names(cip.labs) <- c("0", "1", "2")
+
+NY_colleges <- NY_colleges %>% 
+  mutate(CIP52BACHL = factor(CIP52BACHL),
+         CIP52BACHL_lab = case_when(CIP52BACHL == "0" ~ "not offered",
+                                    CIP52BACHL == "1" ~ "offered",
+                                    CIP52BACHL == "2" ~ "offered online"
+                                    ))
+
+ggplot( data = NY_colleges) +
+  geom_histogram( mapping = aes(x = OVERALL_YR4_N ),
+                  binwidth = 200 ) +
+  facet_grid( CIP52BACHL ~ .,
+              labeller = labeller(CIP52BACHL = cip.labs))
+
+
+ggplot( data = NY_colleges ) +
+  geom_boxplot(mapping = aes(y = CIP52BACHL,
+                             x = OVERALL_YR4_N,
+                             fill = CIP52BACHL_lab ),
+                ) +
+  labs(fill = 'business major')
+```
+
+-   Log transformation can be useful when a distribution of a variable of interest is highly skewed.
+    -   In such case, log transformation make the distribution more normal-ish.
+
+```{r, eval = F}
+#| code-fold: true
+ggplot( data = NY_colleges) +
+  geom_histogram( mapping = aes(x = log(OVERALL_YR4_N) ) ) +
+  facet_grid( factor(CIP52BACHL) ~ .)
+
+
+ggplot( data = NY_colleges ) +
+  geom_boxplot(mapping = aes(y = factor(CIP52BACHL),
+                             x = log(OVERALL_YR4_N),
+                             fill = factor(CIP52BACHL) ),
+                ) 
+```
+
+```{r, echo = F}
+
+cip.labs <- c("not offered", "offered", "offered online")
+names(cip.labs) <- c("0", "1", "2")
+
+NY_colleges <- NY_colleges %>% 
+  mutate(CIP52BACHL = factor(CIP52BACHL),
+         CIP52BACHL_lab = case_when(CIP52BACHL == "0" ~ "not offered",
+                                    CIP52BACHL == "1" ~ "offered",
+                                    CIP52BACHL == "2" ~ "offered online"
+                                    ))
+
+ggplot( data = NY_colleges) +
+  geom_histogram( mapping = aes(x = log(OVERALL_YR4_N) )  ) +
+  facet_grid( CIP52BACHL ~ .,
+              labeller = labeller(CIP52BACHL = cip.labs))
+
+
+ggplot( data = NY_colleges ) +
+  geom_boxplot(mapping = aes(y = CIP52BACHL,
+                             x = log(OVERALL_YR4_N),
+                             fill = CIP52BACHL_lab ),
+                ) +
+  labs(fill = 'business major')
+```
+
+-   Schools that offer a business major tend to have more students than schools that do not offer one.
+
+<br><br>
+
+## Q1h
+
+Describe how the median debt for students who have completed varies by whether or not a college offers bachelor's degree in Business, Management, Marketing, and Related Support Services.
+
+**Answer:**
+
+
+```{r, eval = F}
+#| code-fold: true
+ggplot( data = NY_colleges) +
+  geom_histogram( mapping = aes(x = GRAD_DEBT_MDN ),
+                  binwidth = 200 ) +
+  facet_grid( factor(CIP52BACHL) ~ .)
+
+
+ggplot( data = NY_colleges ) +
+  geom_boxplot(mapping = aes(y = factor(CIP52BACHL),
+                             x = GRAD_DEBT_MDN,
+                             fill = factor(CIP52BACHL) ),
+               ) 
+```
+
+```{r, echo = F}
+
+cip.labs <- c("not offered", "offered", "offered online")
+names(cip.labs) <- c("0", "1", "2")
+
+NY_colleges <- NY_colleges %>% 
+  mutate(CIP52BACHL = factor(CIP52BACHL),
+         CIP52BACHL_lab = case_when(CIP52BACHL == "0" ~ "not offered",
+                                    CIP52BACHL == "1" ~ "offered",
+                                    CIP52BACHL == "2" ~ "offered online"
+                                    ))
+
+ggplot( data = NY_colleges) +
+  geom_histogram( mapping = aes(x = GRAD_DEBT_MDN ),
+                  binwidth = 200 ) +
+  facet_grid( CIP52BACHL ~ ., 
+              labeller = labeller(CIP52BACHL = cip.labs))
+
+
+ggplot( data = NY_colleges ) +
+  geom_boxplot(mapping = aes(y = CIP52BACHL,
+                             x = GRAD_DEBT_MDN,
+                             fill = CIP52BACHL_lab ),
+                ) +
+  labs(fill = 'business major')
+```
+
+-   The levels of median debt tends to be larger for schools that offers a business major online exclusively.
+
+<br><br>
+
+## Q1i
+
+Describe how the yearly trend of the median debt for students varies by levels of family income.
+
+**Answer:**
+
+
+```{r, eval = F}
+#| code-fold: true
+ggplot( NY_colleges,
+              aes(x = as.factor(YEAR) ) ) +
+  geom_boxplot(fill = 'red',
+               aes( y = LO_INC_DEBT_MDN) ) +
+  ylim(c(0,30000))
+```
+
+```{r, echo = F}
+ggplot( NY_colleges,
+              aes(x = as.factor(YEAR) ) ) +
+  geom_boxplot(fill = 'red',
+               aes( y = LO_INC_DEBT_MDN) ) +
+  ylim(c(0,30000)) +
+  theme(axis.text.x = element_text(angle = 45))
+```
+
+```{r, eval = F}
+#| code-fold: true
+ggplot( NY_colleges,
+              aes(x = as.factor(YEAR) ) ) +
+  geom_boxplot(fill = 'green',
+               aes( y = MD_INC_DEBT_MDN) ) +
+  ylim(c(0,30000)) 
+```
+
+```{r, echo = F}
+ggplot( NY_colleges,
+              aes(x = as.factor(YEAR) ) ) +
+  geom_boxplot(fill = 'green',
+               aes( y = MD_INC_DEBT_MDN) ) +
+  ylim(c(0,30000)) +
+  theme(axis.text.x = element_text(angle = 45))
+```
+
+```{r, eval = F}
+#| code-fold: true
+ggplot( NY_colleges,
+              aes(x = as.factor(YEAR) ) ) +
+  geom_boxplot(fill = 'blue',
+               aes( y = HI_INC_DEBT_MDN) ) +
+  ylim(c(0,30000)) 
+```
+
+```{r, echo = F}
+ggplot( NY_colleges,
+              aes(x = as.factor(YEAR) ) ) +
+  geom_boxplot(fill = 'blue',
+               aes( y = HI_INC_DEBT_MDN) ) +
+  ylim(c(0,30000)) +
+  theme(axis.text.x = element_text(angle = 45))
+```
+
+-   The median debt from low-income students tends to increase less than that from median-income and high-income students.
