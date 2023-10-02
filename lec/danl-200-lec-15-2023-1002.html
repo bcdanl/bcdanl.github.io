@@ -46,6 +46,45 @@ class: title-slide, left, bottom
 
 
 ---
+# Announcement
+### &lt;p style="color:#00449E"&gt; Change in Syllabus &lt;/p&gt;
+
+- There will be a team project, for which we will discuss its details later.
+
+
+- There will be five homework assignment.
+  - It was previously six in total.
+
+
+- You are allowed up to 10 absences without penalty.
+  - It was previously 7 absences.
+  
+  
+- A new grading scheme is as follows:
+
+$$
+`\begin{align}
+(\text{Total Percentage Grade}) =&amp;\quad\;\; 0.05\times(\text{Total Attendance Score})\\&amp; \,+\, 0.25\times(\text{Total Homework Score})\notag\\ &amp; \,+\, 0.15\times(\text{Project Score}) \,+\, 0.60\times(\text{Total Exam Score}).\notag
+\end{align}`
+$$
+
+
+
+---
+# Announcement
+### &lt;p style="color:#00449E"&gt; Change in Syllabus &lt;/p&gt;
+
+- The midterm exam score is the maximum between (1) the simple average of the midterm exam I score and the midterm exam II score, and (2) the weighted average of them with one-fourth weight on the midterm exam I score and three-fourth weight on the midterm exam II score:
+$$
+`\begin{align}
+&amp;\quad (\text{Midterm Exam Score}) \,\\ &amp;= \text{max}\,\left\{0.50\times(\text{Midterm Exam I Score}) \,+\, 0.50\times(\text{Midterm Exam II Score})\right.,\notag\\ 
+&amp;\qquad\qquad\left.0.25\times(\text{Midterm Exam I Score}) \,+\, 0.75\times(\text{Midterm Exam II Score})\right\}.\notag
+\end{align}`
+$$
+- The revised syllabus will be posted in Brightspace after the midterm exam I.
+
+
+---
 # `ggplot` Workflow
 ### &lt;p style="color:#00449E"&gt; `facet_*_paginate()` &lt;/p&gt;
 - The `ggforce` package allows us to see a part of faceted plots:
@@ -137,7 +176,7 @@ ggplot(mpg) +
 ```r
 ggplot(mpg) +
   geom_hex(aes(x = displ, y = hwy)) +
-*  geom_hline(aes(yintercept = 30))
+* geom_hline(aes(yintercept = 30))
 ```
 
 ]
@@ -151,7 +190,7 @@ ggplot(mpg) +
 ```r
 ggplot(mpg) +
   geom_hex(aes(x = displ, y = hwy)) +
-*  geom_vline(aes(xintercept = 4))
+* geom_vline(aes(xintercept = 4))
 ```
 ]
 
@@ -161,6 +200,23 @@ class: inverse, center, middle
 
 # Statistical Transformation
 &lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+---
+# Statistical Transformations
+### &lt;p style="color:#00449E"&gt; `geom_boxplot()`
+
+- `geom_boxplot()` is used to create box plots (also known as box-and-whisker plots). 
+  - Box plots provide a visual summary of the distribution of a variable, showing the median, quartiles, and potential outliers .
+
+
+```r
+ggplot(mpg, 
+       aes(x=class, y=hwy)) +
+  geom_boxplot()
+```
+
 
 ---
 # Statistical Transformations
@@ -258,7 +314,7 @@ ggplot(data = diamonds) +
 ```
 ]
 .pull-right[
-![](danl-200-lec-15-2023-1002_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+![](danl-200-lec-15-2023-1002_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
 ]
 
 ]
@@ -273,7 +329,7 @@ ggplot(data = diamonds) +
 ```
 ]
 .pull-right[
-![](danl-200-lec-15-2023-1002_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+![](danl-200-lec-15-2023-1002_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
 ]
 ]
 
@@ -296,7 +352,7 @@ ggplot(data = diamonds) +
 ```
 ]
 .pull-right[
-![](danl-200-lec-15-2023-1002_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+![](danl-200-lec-15-2023-1002_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
 ]
 
 
@@ -317,7 +373,7 @@ ggplot(data = diamonds) +
 ```
 ]
 .pull-right[
-![](danl-200-lec-15-2023-1002_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+![](danl-200-lec-15-2023-1002_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
 ]
 
 
@@ -415,7 +471,7 @@ ggplot(data = mpg,
        mapping = aes(x = cty, y = hwy)) + 
   geom_point() + 
   geom_abline() +
-*  coord_fixed()
+* coord_fixed()
 ```
 
 ]
