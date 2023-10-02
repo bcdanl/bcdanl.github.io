@@ -76,6 +76,7 @@ Recreate the R code necessary to generate the following graphs.
 
 ### (a)
 ```{r}
+#| code-fold: true
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(alpha = .4) +
   geom_smooth(se = FALSE)
@@ -85,7 +86,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ### (b)
 ```{r}
-
+#| code-fold: true
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_smooth(mapping = aes(group = drv), 
               se = FALSE) +
@@ -98,7 +99,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ### (c)
 ```{r}
-
+#| code-fold: true
 ggplot(mpg, aes(x = displ, y = hwy, 
                 color = drv)) +
   geom_point(alpha = .4) +
@@ -111,7 +112,7 @@ ggplot(mpg, aes(x = displ, y = hwy,
 
 ### (d)
 ```{r}
-
+#| code-fold: true
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = drv), alpha = .4) +
   geom_smooth(se = FALSE)
@@ -122,7 +123,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ### (e)
 ```{r}
-
+#| code-fold: true
 ggplot(mpg, aes(x = displ, y = hwy)) +
   geom_point(aes(color = drv), alpha = .4) +
   geom_smooth(aes(linetype = drv), se = FALSE)
@@ -133,7 +134,7 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 
 ### (f)
 ```{r}
-#| echo: false
+#| code-fold: true
 ggplot(mpg, 
        aes(x = displ, y = hwy)) +
   geom_point(size = 4, color = "white") +
@@ -158,19 +159,6 @@ organdata_simple <- read_csv('https://bcdanl.github.io/data/organdata_simple.csv
 What does `geom_col()` do? How is it different to `geom_bar()`?
 
 
-```{r}
-#| echo: false
-#| eval: false
-
-ggplot(data = mpg,
-       mapping = aes(x = displ, y = hwy,
-                     color = drv)) +
-  geom_point(alpha = .4) +
-  geom_smooth(se = FALSE)
-
-```
-
-
 <br>
 
 ## Q2b.
@@ -183,13 +171,6 @@ ggplot(data = mpg,
 
 - Visualize the distribution of `carrier`.
 - Visualize how the distribution of `carrier` varies by `origin`.
-
-<br>
-
-
-## Q2c.
-What’s the default position adjustment for `geom_boxplot()`? Create a visualization of the `mpg` dataset that demonstrates it.
-
 
 <br>
 
