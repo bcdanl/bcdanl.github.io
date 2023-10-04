@@ -690,19 +690,105 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="q2a." class="level2">
 <h2 class="anchored" data-anchor-id="q2a.">Q2a.</h2>
 <p>What does <code>geom_col()</code> do? How is it different to <code>geom_bar()</code>?</p>
+<p><strong>Answer</strong>:</p>
+<p>Let’s consider the bar chart for the distribution of <code>manufacturer</code> in the <code>mpg</code> data.frame.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg) <span class="sc">+</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> manufacturer))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="danl200-cw-3_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>To compare between <code>geom_bar()</code> and <code>geom_col()</code>, create the data.frame, <code>q2a</code> that is the data.frame of <code>table(mpg$manufacturer)</code>:</p>
+<div class="cell">
+
+</div>
+<p><code>q2a</code> has the two variables, <code>Var1</code> and <code>Freq</code>.</p>
+<div class="cell">
+
+</div>
+<!-- `colnames(q2a)` gives the vector of variable names in `q2a` -->
+<p><code>geom_bar(aes(y = ... , x = ... ))</code> causes error:</p>
+<div class="cell">
+
+</div>
+<p><code>geom_bar(aes(y = Var1, x = Freq), stat = "identity")</code> will directly use the values of <code>Freq</code> to visualize a bar height for each category of <code>Var1</code>:</p>
+<div class="cell">
+
+</div>
+<p>We can do the same with <code>geom_col(aes(y = Var1, x = Freq))</code>:</p>
+<div class="cell">
+
+</div>
 <p><br></p>
 </section>
 <section id="q2b." class="level2">
 <h2 class="anchored" data-anchor-id="q2b.">Q2b.</h2>
 <ul>
-<li><p>Install the R package, <code>nycflights13</code>, which provides the <code>flights</code> data.frame.</p></li>
-<li><p><code>flights</code> includes on-time data for all flights that departed NYC (i.e.&nbsp;JFK, LGA or EWR) in 2013.</p>
+<li>Install the R package, <code>nycflights13</code>, which provides the <code>flights</code> data.frame.</li>
+</ul>
+<p><strong>Answer</strong>:</p>
+<div class="cell">
+
+</div>
+<p><br></p>
+<ul>
+<li><code>nycflights13::flights</code> includes on-time data for all flights that departed NYC (i.e.&nbsp;JFK, LGA or EWR) in 2013.
 <ul>
 <li>A unit of observation is flight.</li>
 </ul></li>
-<li><p>Visualize the distribution of <code>carrier</code>.</p></li>
-<li><p>Visualize how the distribution of <code>carrier</code> varies by <code>origin</code>.</p></li>
 </ul>
+<div class="cell">
+
+</div>
+<ul>
+<li>Visualize the distribution of <code>carrier</code>.</li>
+</ul>
+<p><strong>Answer</strong>:</p>
+<ul>
+<li>Bar chart</li>
+</ul>
+<div class="cell">
+
+</div>
+<ul>
+<li>Proportional bar chart</li>
+</ul>
+<div class="cell">
+
+</div>
+<p><br></p>
+<ul>
+<li>Visualize how the distribution of <code>carrier</code> varies by <code>origin</code>.</li>
+</ul>
+<p><strong>Answer</strong>:</p>
+<ul>
+<li>Facet</li>
+</ul>
+<div class="cell">
+
+</div>
+<ul>
+<li>Stacked bar chart</li>
+</ul>
+<div class="cell">
+
+</div>
+<ul>
+<li>Stacked proportional bar chart</li>
+</ul>
+<div class="cell">
+
+</div>
+<ul>
+<li>Side-by-side bar chart</li>
+</ul>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
 <p><br></p>
 
 

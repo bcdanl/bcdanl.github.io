@@ -158,19 +158,163 @@ organdata_simple <- read_csv('https://bcdanl.github.io/data/organdata_simple.csv
 ## Q2a.
 What does `geom_col()` do? How is it different to `geom_bar()`?
 
+**Answer**:
+
+Let's consider the bar chart for the distribution of `manufacturer` in the `mpg` data.frame.
+```{r}
+ggplot(mpg) +
+  geom_bar(aes(y = manufacturer))
+```
+
+To compare between `geom_bar()` and `geom_col()`, create the data.frame, `q2a` that is the data.frame of `table(mpg$manufacturer)`:
+```{r}
+#| echo: false
+#| eval: false
+
+# we can use as.data.frame() 
+# to convert to data.frame from table or vectors 
+q2a <- as.data.frame(
+  table(mpg$manufacturer)
+  )
+
+```
+
+`q2a` has the two variables, `Var1` and `Freq`.
+```{r}
+#| echo: false
+#| eval: false
+
+q2a
+```
+
+<!-- `colnames(q2a)` gives the vector of variable names in `q2a` -->
+
+`geom_bar(aes(y = ... , x = ... ))` causes error:
+```{r}
+#| echo: false
+#| eval: false
+ggplot(q2a) +
+  geom_bar(aes(y = Var1, x = Freq))
+```
+
+`geom_bar(aes(y = Var1, x = Freq), stat = "identity")` will directly use the values of `Freq` to visualize a bar height for each category of `Var1`:
+```{r}
+#| echo: false
+#| eval: false
+
+ggplot(q2a) +
+  geom_bar(aes(y = Var1, x = Freq),
+           stat = "identity")
+```
+
+We can do the same with `geom_col(aes(y = Var1, x = Freq))`:
+```{r}
+#| echo: false
+#| eval: false
+
+ggplot(q2a) +
+  geom_col(aes(y = Var1, x = Freq))
+
+```
+
 
 <br>
 
 ## Q2b.
 - Install the R package, `nycflights13`, which provides the `flights` data.frame.
 
+**Answer**:
+```{r}
+#| echo: false
+#| eval: false
+install.packages("nycflights13")
+```
 
-- `flights` includes on-time data for all flights that departed NYC (i.e. JFK, LGA or EWR) in 2013.
+<br>
+
+- `nycflights13::flights` includes on-time data for all flights that departed NYC (i.e. JFK, LGA or EWR) in 2013.
   - A unit of observation is flight.
+
+```{r}
+#| echo: false
+#| eval: false
+library(nycflights13)
+head(flights)
+```
 
 
 - Visualize the distribution of `carrier`.
+
+**Answer**:
+
+- Bar chart
+```{r}
+#| echo: false
+#| eval: false
+library(nycflights13)
+ggplot(flights) +
+  geom_bar(aes(y = carrier))
+```
+
+- Proportional bar chart
+```{r}
+#| echo: false
+#| eval: false
+ggplot(flights) +
+  geom_bar(aes(y = carrier, 
+               x = stat(prop), group = 1))
+```
+
+<br>
+
 - Visualize how the distribution of `carrier` varies by `origin`.
+
+**Answer**:
+
+- Facet
+```{r}
+#| echo: false
+#| eval: false
+ggplot(flights) +
+  geom_bar(aes(y = carrier)) +
+  facet_wrap( . ~ origin)
+```
+
+
+- Stacked bar chart
+```{r}
+#| echo: false
+#| eval: false
+ggplot(flights) +
+  geom_bar(aes(y = carrier, fill = origin)) 
+```
+
+- Stacked proportional bar chart
+```{r}
+#| echo: false
+#| eval: false
+ggplot(flights) +
+  geom_bar(aes(y = carrier, fill = origin),
+           position = "fill") 
+```
+
+- Side-by-side bar chart
+```{r}
+#| echo: false
+#| eval: false
+ggplot(flights) +
+  geom_bar(aes(y = carrier, fill = origin),
+           position = "dodge") 
+```
+
+```{r}
+#| echo: false
+#| eval: false
+ggplot(flights) +
+  geom_bar(aes(y = origin, fill = carrier),
+           position = "dodge") 
+```
+
 
 <br>
 
