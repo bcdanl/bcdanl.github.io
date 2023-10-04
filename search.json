@@ -25,14 +25,14 @@
     "href": "ex/danl200-hw-1-a.html#q2b.",
     "title": "B.H. CHOE",
     "section": "Q2b.",
-    "text": "Q2b.\n\nProvide the R code to find how many characters are Droid species.\n\nAnswer:\n\nlibrary(skimr)\n\n# The following gives not only Droid but also NA\n# q2a <- starwars[starwars$species == 'Droid', ]\n\ndroid <- which(starwars$species == 'Droid')\nq2a <- starwars[droid,]\n\nnrow(\n  q2a\n)\n\n[1] 18"
+    "text": "Q2b.\n\nProvide the R code to find how many characters are Droid species.\n\nAnswer:\n\nlibrary(skimr)\n\n# The following gives not only Droid but also NA\n# q2a <- starwars[starwars$species == 'Droid', ]\n\ndroid <- which(starwars$species == 'Droid')\nq2a <- starwars[droid,]\n\nnrow(\n  q2a\n)\n\n[1] 18\n\n\n\nlibrary(skimr)\n\n# The following gives not only Droid but also NA\n# q2a <- starwars[starwars$species == 'Droid', ]\n\ndroid <- which(starwars$species == 'Droid')\nq2a <- starwars[droid,]\n\nlength(unique(q2a$name))\n\n[1] 6"
   },
   {
     "objectID": "ex/danl200-hw-1-a.html#q2c.",
     "href": "ex/danl200-hw-1-a.html#q2c.",
     "title": "B.H. CHOE",
     "section": "Q2c.",
-    "text": "Q2c.\n\nProvide the R code to find which Droid character did appear most in the Star Wars films.\n\nAnswer:\n\nq2b <- q2a[ , c('name','films')]"
+    "text": "Q2c.\n\nProvide the R code to find which Droid character did appear most in the Star Wars films.\n\nAnswer:\n\nq2b <- q2a[ , c('name','films')]\n\ntable(q2a$name)\n\n\n   BB8  C-3PO  IG-88  R2-D2 R4-P17  R5-D4 \n     1      6      1      7      2      1"
   },
   {
     "objectID": "ex/danl200-hw-1-a.html#q2d.",

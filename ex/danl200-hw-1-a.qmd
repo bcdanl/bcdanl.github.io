@@ -102,6 +102,18 @@ nrow(
 )
 ```
 
+```{r}
+library(skimr)
+
+# The following gives not only Droid but also NA
+# q2a <- starwars[starwars$species == 'Droid', ]
+
+droid <- which(starwars$species == 'Droid')
+q2a <- starwars[droid,]
+
+length(unique(q2a$name))
+```
+
 <br>
 
 ## Q2c.
@@ -112,6 +124,9 @@ nrow(
 
 ```{r}
 q2b <- q2a[ , c('name','films')]
+
+table(q2a$name)
+
 ```
 
 
