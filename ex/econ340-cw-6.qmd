@@ -1,17 +1,572 @@
 ---
 title: "ECON 340: Classwork 6 - Mockup Questions"
 date: 2023-10-04
+execute: 
+  echo: false
+  eval: true
+  warning: false
+  message: false
 ---
 
 # Question 1.
 
 ## Q1a 
-- Redo Q1a-Q1d in Homework Assignment 1 under the safety standard with the constant weight $\omega > 0$.
+- Redo Q1a-Q1d in Homework Assignment 1 under the safety standard with the constant weight $\omega > 1$.
   - That is, the Social Planner uses the following social welfare function, $SW$:
 
 $$
 SW = U_{1}(x_{1},\, h) + U_{2}(x_{2},\, \omega \times h).
 $$
+**Answer:**
+
+### Q1a.
+- Under the *safety standard*, what is the socially optimal level of $h^{os}$?
+
+**Answer:**
+
+The social welfare function is
+$$
+\begin{align}
+SW &= U_{1}(x_{1}, h) + U_{2}(x_{2}, \omega h)\\
+&= x_{1} + x_{2} + h(4-h) - \omega^{2}h^{2}.
+\end{align}
+$$
+<br>
+
+To derive the socially optimal level of $h^{os}$, we should consider the Social Planner's problem. In Classwork 4, we discussed what the Social Planner does:
+
+>Social planner maximizes social welfare subject to resource constraint.
+
+The Social Planner's problem refers to a scenario where a central authority (the Social Planner) seeks to allocate resources in a way that maximizes social welfare, subject to available resources, which is described by the resource constraint. 
+
+The optimal allocation of resources obtained from the Social Planner's problem plays an important role in making public policy work. It is a benchmark that the government wants to achieve by implementing public policy.
+
+<br>
+
+The socially optimal level of $h^{os}$ alongside the socially optimal levels of $x_{1}^{os}$ and $x_{2}^{os}$ maximizes $SW^{os} = SW(x_{1}^{os},x_{2}^{os},h^{os})$.
+
+The Social Planner solves problem (SP-1) subject to resource constraint (RC):
+
+$$
+\begin{align}
+\max_{x_{1}, x_{2}, h} \;&SW = x_{1} + x_{2} + h(4-h) - \omega^{2} h^{2}\tag{SP-1}\\
+\text{subject to}\quad &Y_{1} + Y_{2} = x_{1} + x_{2}\tag{RC}
+\end{align}
+$$
+
+Substituting $x_{1} + x_{2}$ in the $SW$ using (RC) gives:
+
+$$
+\begin{align}
+\max_{h} \;SW &= Y_{1} + Y_{2} + h(4-h) - \omega^{2}h^{2}\tag{SP-2}
+\end{align}
+$$
+
+first-order condition for problem (SP-2) is
+
+$$
+\frac{d SW}{d h} = 4 - 2h - 2\omega^{2}h = 0
+$$
+Therefore, $h^{os} = \frac{2}{1+\omega^{2}}$ and $\{(x_{1}^{os}, x_{2}^{os}): Y_{1} + Y_{2} = x_{1}^{os} + x_{2}^{os}\}$.
+
+
+
+<br><br>
+
+- Plot graphs in $(h, \$)$ space, both total and average/marginal, to illustrate the solution.
+
+**Answer:**
+
+- For drawing graphs, let $\omega = 2$ without loss of generality.
+
+- Dividing $SW(h)$ into benefit ( $B(h) = h(4-h)$ ) and cost ( $C(h) = \omega^{2} h^{2}$ ) is useful: 
+
+$$ 
+SW(h) = B(h) - C(h).
+$$
+Here we disregard numeraire goods and incomes.
+
+```{r}
+library(tidyverse)
+library(hrbrthemes)
+omega <- 2
+hos <- 2/(1+omega^2)
+h <- seq(0, 2.25, .05)
+b <- h*(4-h)
+c <- omega^2 * h^2
+sw <- b - c
+mb <- 4 - 2*h
+mc <- 2* omega^2 *h
+th <- ((4*omega^2)/(1+omega^2))*h
+msw <- mb - mc
+bth <- b - th
+mbth <- mb - ((4*omega^2)/(1+omega^2))
+
+df <- data.frame(
+  h = h, SW = sw, Benefit = b, Cost = c, 
+  MB = mb, MC = mc, MSW = msw, th = th, 
+  Bth = bth, MBth = mbth
+)
+
+df_long <- df %>% 
+  pivot_longer(cols = SW:MBth,
+               names_to = 'fn',
+               values_to = 'val')
+
+```
+
+```{r, message=F, warning=F}
+# u = 3.2 * (.2 - .4) + .2*(4-.2) - omega^2 * .04
+df_sw <- data.frame(
+  x = c(.25, .55),
+  y = c(0.8000, 0.8000)
+)
+
+df_b <- data.frame(
+  x = c(.225, .575),
+  y = c(3.2*(.225 - .4) + 1.475, 
+        3.2*(.575 - .4) + 1.475)
+) 
+
+df_c <- data.frame(
+  x = c(.225, .575),
+  y = c(3.2*(.225 - .4) + 0.64, 
+        3.2*(.575 - .4) + 0.64)
+) 
+
+
+p1 <- ggplot(df_long %>% filter(fn %in% c("Benefit", "Cost", "SW"))) +
+  geom_hline(yintercept = 0, lindwidth = 2) +
+  geom_vline(xintercept = 0, lindwidth = 2) +
+  geom_line(aes(x = h, y = val, color = fn)) +
+  geom_line(data = df_sw,
+            aes(x = x, y = y),
+            linetype = 2) +
+  geom_line(data = df_b,
+            aes(x = x, y = y),
+            linetype = 2) +
+  geom_line(data = df_c,
+            aes(x = x, y = y),
+            linetype = 2) +
+  geom_vline(xintercept = hos, linetype = 3) +
+  scale_y_continuous(limits = c(0,5)) +
+  scale_x_continuous(limits = c(0,1), breaks = seq(0,2.25,.5*hos),
+                     ) +  
+  guides(color = guide_legend(
+    label.position = "bottom")) +
+  scale_color_manual(values = c('blue', 'red', 'darkgreen')) +
+  labs(color = "Totals", y = "Utilities") +
+  theme_ipsum() + 
+  theme(aspect.ratio = .75, 
+        legend.position = 'top')
+
+p1
+  
+p2 <- ggplot(df_long %>% filter(fn %in% c("MB", "MC"))) +
+  geom_hline(yintercept = 0, lindwidth = 2) +
+  geom_vline(xintercept = 0, lindwidth = 2) +
+  geom_line(aes(x = h, y = val, color = fn)) +
+  geom_vline(xintercept = hos, linetype = 3) +
+  scale_y_continuous(limits = c(0,5)) +
+  scale_x_continuous(limits = c(0,1), breaks = seq(0,2.25,.5*hos),
+                     ) +
+  guides(color = guide_legend(
+    label.position = "bottom")) +
+  scale_color_manual(values = c('blue', 'red')) +
+  labs(color = "Marginals", y = "Utilities") +
+  theme_ipsum() + 
+  theme(aspect.ratio = .75, 
+        legend.position = 'bottom')
+
+p2
+```
+
+At $h = h^{os} = 0.4$, where $MB(h^{os}) = MC(h^{os})$, $SW(h^{os})$ is maximized.
+
+<br><br><br>
+
+
+### Q1b.
+- Derive the market level $h^{*}$ of the activity that results if choosing it is left up to consumer 1, and show that this level differs from $h^{os}$. 
+
+**Answer:**
+
+Same as Q1b in HW 1.
+
+<br><br>
+
+- Add $h^{*}$ to your graphs.
+
+**Answer:**
+
+
+```{r, message=F, warning=F}
+# u = 3.2 * (.2 - .4) + .2*(4-.2) - omega^2 * .04
+df_sw <- data.frame(
+  x = c(.25, .55),
+  y = c(0.8000, 0.8000)
+)
+
+df_b <- data.frame(
+  x = c(.225, .575),
+  y = c(3.2*(.225 - .4) + 1.475, 
+        3.2*(.575 - .4) + 1.475)
+) 
+
+df_c <- data.frame(
+  x = c(.225, .575),
+  y = c(3.2*(.225 - .4) + 0.64, 
+        3.2*(.575 - .4) + 0.64)
+) 
+
+df_bmax <- data.frame(
+  x = c(1.75, 2.25),
+  y = c(4, 4)
+)
+
+p1 <- ggplot(df_long %>% filter(fn %in% c("Benefit", "Cost", "SW"))) +
+  geom_hline(yintercept = 0, lindwidth = 2) +
+  geom_vline(xintercept = 0, lindwidth = 2) +
+  geom_line(aes(x = h, y = val, color = fn)) +
+  geom_line(data = df_sw,
+            aes(x = x, y = y),
+            linetype = 2) +
+  geom_line(data = df_b,
+            aes(x = x, y = y),
+            linetype = 2) +
+  geom_line(data = df_c,
+            aes(x = x, y = y),
+            linetype = 2) +
+  geom_line(data = df_bmax,
+            aes(x = x, y = y),
+            linetype = 2) +
+  geom_vline(xintercept = hos, linetype = 3) +
+  geom_vline(xintercept = 2, linetype = 3) +
+  scale_y_continuous(limits = c(0,5)) +
+  scale_x_continuous(limits = c(0,2.25), breaks = seq(0,2.25,.5*hos),
+                     ) +  
+  guides(color = guide_legend(
+    label.position = "bottom")) +
+  scale_color_manual(values = c('blue', 'red', 'darkgreen')) +
+  labs(color = "Totals", y = "Utilities") +
+  theme_ipsum() + 
+  theme(aspect.ratio = .75, legend.position = 'top')
+
+p1
+  
+p2 <- ggplot(df_long %>% filter(fn %in% c("MB", "MC"))) +
+  geom_hline(yintercept = 0, lindwidth = 2) +
+  geom_vline(xintercept = 0, lindwidth = 2) +
+  geom_line(aes(x = h, y = val, color = fn)) +
+  geom_vline(xintercept = hos, linetype = 3) +
+  geom_vline(xintercept = 2, linetype = 3) +
+  scale_y_continuous(limits = c(0,5)) +
+  scale_x_continuous(limits = c(0,2.25), breaks = seq(0,2.25,.5*hos),
+                     ) +
+  guides(color = guide_legend(
+    label.position = "bottom")) +
+  scale_color_manual(values = c('blue', 'red')) +
+  labs(color = "Marginals", y = "Utilities") +
+  theme_ipsum() + 
+  theme(aspect.ratio = .75, legend.position = 'bottom',
+        )
+
+p2
+```
+
+<br><br><br>
+
+### Q1c.
+Suppose now that the government intervenes in the situation by imposing a tax on $h$. 
+
+
+- Here is what happens with the tax revenue:
+  - Government forces consumer 1 to pay a per-unit tax $t$ on $h$, and to distribute the tax revenue $th$ in some "lump-sum" fashion across both consumers, giving $L_{1}$ to consumer 1 and $L_{2}$ to consumer 2.
+
+
+- Derive the optimal level of the tax---the level that will induce consumer 1 to choose $h^{os}$ rather than $h^{*}$. 
+  - Assume that the government anticipates consumer 1's response to the tax.
+
+
+**Answer:**
+
+When designing an *optimal tax* scheme to maximize the social welfare, government should anticipate how consumers would respond to tax. This consumer's behavior is characterized by the first-order conditions in consumers' utility maximization problems. To derive the optimal level of the tax, we therefore should consider each consumer's maximization problem before determining the optimal tax.
+
+<br>
+
+Given tax $t$ and lump-sum windfall $L_{1}$, consumer 1 solves problem (C-1-cons-t) subject to budget constraint (BC-1-t):
+
+$$
+\begin{align}
+\max_{x_{1}, h} \;&U_{1} = x_{1} + h(4-h) \tag{C-1-cons-t}\\
+\text{subject to} \quad &Y_{1} + L_{1} = x_{1} + th \tag{BC-1-t}
+\end{align}
+$$
+
+Substituting $x_{1}$ in the $U_{1}$ using (BC-1-t) gives:
+
+$$
+\begin{align}
+\max_{h} \;U_{1} &= Y_{1} + L_{1} - th + h(4-h) \tag{C-1-uncons-t}
+\end{align}
+$$
+
+First-order condition for problem (C-1-uncons-t) is
+
+$$
+\frac{d U_{1}}{d h} = 4 - 2h - t = 0\tag{FOC-C-1-h-t}
+$$
+Therefore, $h^{**} = 2 - \frac{t}{2}$ and $x_{1}^{**} = Y_{1} + L_{1} - t(2 - \frac{t}{2})$.
+
+
+<br>
+
+Given lump-sum windfall $L_{2}$, consumer 2 solves problem (C-2-cons-t) subject to budget constraint (BC-2-t):
+
+$$
+\begin{align}
+\max_{x_{2}} \;&U_{2} =  x_{2} - h^{2} \tag{C-2-cons-t}\\
+\text{subject to}\quad &Y_{2} + L_{2} = x_{2} \tag{BC-2-t}
+\end{align}
+$$
+
+Substituting $x_{2}$ in the $U_{2}$ using (BC-2-t) gives $x_{2}^{**} = Y_{2} + L_{2}$
+
+<br>
+
+Taking into account how consumer 1 and consumer 2 behave, government solves problem (G-t) subject to government's budget constraint (BC-G-t):
+
+$$
+\begin{align}
+\max_{x_{1}, x_{2}, h, t, L_{1}, L_{2}} \;&SW = x_{1} + x_{2} + h(4-h) - \omega^{2}h^{2}\tag{G-t}\\
+\text{subject to}\quad &Y_{1} + L_{1} = x_{1} + t h\tag{BC-1-t}\\
+&Y_{2} + L_{2} = x_{2} \tag{BC-2-t}\\
+&L_{1} + L_{2} = th \tag{BC-G-t}\\
+&\!\!\!\!\!\!4 - 2h - t = 0\tag{FOC-C-1-h-t}
+\end{align}
+$$
+Substituting in (BC-1-t) and (BC-2-t) to eliminate $x_{1}$ and $x_{2}$ simplifies the problem (G-t) to
+
+
+$$
+\begin{align}
+\max_{h, t, L_{1}, L_{2}} \;&SW = Y_{1} + Y_{2} + L_{1} + L_{2} - th\\&\qquad\quad + h(4-h) - \omega^{2}h^{2}\tag{G-t-v2}\\
+\text{subject to}\quad &L_{1} + L_{2} = th \tag{BC-G-t}\\
+&\!\!\!\!\!\!4 - 2h - t = 0\tag{FOC-C-1-h-t}
+\end{align}
+$$
+
+Substituting in (BC-G-t) to eliminate $L_{1}$ and $L_{2}$ simplifies the problem (G-t-v2) to
+
+$$
+\begin{align}
+\max_{h, t} \;&SW = Y_{1} + Y_{2} + h(4-h) - \omega^{2}h^{2}\tag{G-t-v3}\\
+\text{subject to}\quad &4 - 2h - t = 0\tag{FOC-C-1-h-t}
+\end{align}
+$$
+
+Lagrangian function for problem (G-t-v3) is
+
+$$
+\mathcal{L} = Y_{1} + Y_{2} + h(4-h) - \omega^{2}h^{2} -\lambda(4 - 2h - t)\tag{G-t-L}
+$$
+First-order conditions for problem (G-t-L) are
+
+$$
+\begin{align}
+\frac{d \mathcal{L}}{d h} &= 4 - 2h - 2\omega^{2}h + 2\lambda  = 0 \tag{FOC-G-h}\\
+\frac{d \mathcal{L}}{d t} &= \lambda = 0 \tag{FOC-G-t}\\
+\frac{d \mathcal{L}}{d \lambda} &= 4 - 2h - t = 0 \tag{FOC-G-$\lambda$}\\
+\end{align}
+$$
+
+
+Therefore, $h^{**} = \frac{2}{1+\omega^{2}} = h^{os}$ and $t^{**} = \frac{4\omega^{2}}{1+\omega^{2}}$. Accordingly, $x_{1}^{**} = Y_{1} + L_{1}^{**} - t^{**}h^{*os**}$ and $x_{2}^{**} = Y_{2} + L_{2}^{**}$.
+
+<br><br>
+
+- Modify both your graphs from question Q1b to show the effects of the tax.
+
+**Answer:**
+
+```{r, message=F, warning=F}
+# u = 3.2 * (.2 - .4) + .2*(4-.2) - omega^2 * .04
+df_swt <- data.frame(
+  x = c(.25, .55),
+  y = c(0.8000, 0.8000)
+)
+
+df_b <- data.frame(
+  x = c(.225, .575),
+  y = c(3.2*(.225 - .4) + 1.475, 
+        3.2*(.575 - .4) + 1.475)
+) 
+
+df_c <- data.frame(
+  x = c(.225, .575),
+  y = c(3.2*(.225 - .4) + 0.64, 
+        3.2*(.575 - .4) + 0.64)
+) 
+
+df_bmax <- data.frame(
+  x = c(1.75, 2.25),
+  y = c(4, 4)
+)
+
+df_bthmax <- data.frame(
+  x = c(.25, .55),
+  y = c(0.1600, 0.1600
+)
+)
+
+p1 <- ggplot(df_long %>% filter(fn %in% c("Benefit", "Cost", "SW", "Bth"))) +
+  geom_hline(yintercept = 0, lindwidth = 2) +
+  geom_vline(xintercept = 0, lindwidth = 2) +
+  geom_line(aes(x = h, y = val, color = fn)) +
+  geom_line(data = df_sw,
+            aes(x = x, y = y),
+            linetype = 2) +
+  geom_line(data = df_b,
+            aes(x = x, y = y),
+            linetype = 2) +
+  geom_line(data = df_c,
+            aes(x = x, y = y),
+            linetype = 2) +
+  geom_line(data = df_bmax,
+            aes(x = x, y = y),
+            linetype = 2) +
+  geom_line(data = df_bthmax,
+            aes(x = x, y = y),
+            linetype = 2) +
+  geom_vline(xintercept = hos, linetype = 3) +
+  geom_vline(xintercept = 2, linetype = 3) +
+  scale_y_continuous(limits = c(0,5)) +
+  scale_x_continuous(limits = c(0,2.25), breaks = seq(0,2.25,.5*hos),
+                     ) +  
+  guides(color = guide_legend(
+    label.position = "bottom")) +
+  scale_color_manual(labels = c("Benefit", "Benefit - t*h", "Cost", "SW"), values = c('blue', 'lightblue', 'red', 'darkgreen')) +
+  labs(color = "Totals", y = "Utilities") +
+  theme_ipsum() + 
+  theme(aspect.ratio = .75, legend.position = 'top',
+        )
+
+p1
+  
+p2 <- ggplot(df_long %>% filter(fn %in% c("MB", "MBth",  "MC"))) +
+  geom_hline(yintercept = 0, lindwidth = 2) +
+  geom_vline(xintercept = 0, lindwidth = 2) +
+  geom_line(aes(x = h, y = val, color = fn)) +
+  geom_vline(xintercept = hos, linetype = 3) +
+  geom_vline(xintercept = 2, linetype = 3) +
+  scale_y_continuous(limits = c(0,5)) +
+  scale_x_continuous(limits = c(0,2.25), breaks = seq(0,2.25,.5*hos),
+                     ) +
+  guides(color = guide_legend(
+    label.position = "bottom")) +
+    scale_color_manual(labels = c("MB", "MB - t", "MC"), values = c('blue', 'lightblue', 'red')) +
+  labs(color = "Marginals", y = "Utilities") +
+  theme_ipsum() + 
+  theme(aspect.ratio = .75, legend.position = 'bottom',
+        )
+
+p2
+
+```
+
+- At $h = h^{**} = 1 = h^{os}$, where $MB(h^{**}) - t^{**}h^{**} = 0$, consumer 1's benefit with tax payment $B(h^{*}) = h^{*}(4-h^{*}) - t^{**}h^{**}$ is maximized.
+  - When $h < 1$, consumer 1 has incentive to increase $h$, as the marginal benefit of $h$ is positive.
+  - When $h > 1$, consumer 1 has incentive to decrease $h$, as the marginal benefit of $h$ is negative.
+
+<br>
+
+An optimal tax imposed to correct for a negative externality is commonly referred to as a "**Pigovian**" tax, after the English economist Arthur Pigou (1877-1959). Another common phrase used in this context is that the tax forces consumer 1 to "internalize" the externality she imposes on consumer 2.
+
+<br><br><br>
+
+### Q1d.
+Same question as Q1c, but now the government introduces a per-unit subsidy $s$ paid to consumer 1 for every unit by which she reduces $h$ below some level, for example, her optimal level $h^{*}$ without government intervention.
+
+
+- Here is how the government prepares the budget for the total amount of subsidy:
+  -  Government forces consumers 1 and 2 to pay some amount of "lump-sum" taxes, $L_{1}$ paid by consumer 1 and $L_{2}$ paid by consumer 2, so that the subsidy can be given to consumer 1.
+
+
+- Derive the optimal level of the per-unit subsidy $s^{os}$---the level that will induce consumer 1 to choose $h^{os}$ rather than $h^{*}$. 
+  - Assume that the government anticipates consumer 1's response to the per-unit subsidy $s$.
+
+**Answer:**
+
+Consumer 1 solves problem (C-1-cons-s) subject to budget constraint (BC-1-s):
+
+$$
+\begin{align}
+\max_{x_{1}, h} \;&U_{1} = x_{1} + h(4-h) \tag{C-1-cons-s}\\
+\text{subject to} \quad &Y_{1} + s(h^{*} - h) - L_{1} = x_{1} \tag{BC-1-s}
+\end{align}
+$$
+
+Substituting $x_{1}$ in the $U_{1}$ using (BC-1-s) gives:
+
+$$
+\begin{align}
+\max_{h} \;U_{1} &= Y_{1} - L_{1} + s(h^{*} - h) + h(4-h) \tag{C-1-uncons-s}
+\end{align}
+$$
+
+First-order condition for problem (C-1-uncons-s) is
+
+$$
+\frac{d U_{1}}{d h} = 4 - 2h - s = 0\tag{FOC-C-1-h-s}
+$$
+Therefore, $h^{***} = 2 - \frac{s}{2}$ and $x_{1}^{***} = Y_{1} - L_{1} + s(h^{*} - 2 + \frac{s}{2})$.
+
+
+<br>
+
+Consumer 2 solves problem (C-2-cons-s) subject to budget constraint (BC-2-s):
+
+$$
+\begin{align}
+\max_{x_{2}} \;&U_{2} =  x_{2} - h^{2} \tag{C-2-cons-s}\\
+\text{subject to}\quad &Y_{2} - L_{2} = x_{2} \tag{BC-2-s}
+\end{align}
+$$
+
+Substituting $x_{2}$ in the $U_{2}$ using (BC-2-s) gives $x_{2}^{***} = Y_{2} - L_{2}$
+
+Taking into account how consumer 1 and consumer 2 behave, government solves problem (G-s)
+
+$$
+\begin{align}
+\max_{x_{1}, x_{2}, h, s, L_{1}, L_{2}} \;&SW = x_{1} + x_{2} + h(4-h) - \omega^{2}h^{2}\tag{G-t}\\
+\text{subject to}\quad &Y_{1} - L_{1} + s(h^{*} - h) = x_{1}\tag{BC-1-s}\\
+&Y_{2} - L_{2} = x_{2} \tag{BC-2-s}\\
+&L_{1} + L_{2} = s(h^{*} - h) \tag{BC-G-s}\\
+&\!\!\!\!\!\!4 - 2h - s = 0\tag{FOC-C-1-h-s}
+\end{align}
+$$
+Substituting in (BC-1-s) and (BC-2-s) to eliminate $x_{1}$ and $x_{2}$ simplifies the problem (G-s) to
+
+
+$$
+\begin{align}
+\max_{h, s, L_{1}, L_{2}} \;&SW = Y_{1} + Y_{2} - L_{1} - L_{2} + s(h^{*} - h)\\&\qquad\quad  + h(4-h) - \omega^{2}h^{2}\tag{G-s-v2}\\
+\text{subject to}\quad &L_{1} + L_{2} = s(h^{*} - h) \tag{BC-G-s}\\
+&\!\!\!\!\!\!4 - 2h - s = 0\tag{FOC-C-1-h-s}
+\end{align}
+$$
+Substituting in (BC-G-s) to eliminate $L_{1}$ and $L_{2}$ simplifies the problem (G-s-v2) to
+
+$$
+\begin{align}
+\max_{h, t} \;&SW = Y_{1} + Y_{2} + h(4-h) - \omega^{2}h^{2}\tag{G-s-v3}\\
+\text{subject to}\quad &4 - 2h - s = 0\tag{FOC-C-1-h-s}
+\end{align}
+$$
+
+Problem (G-s-v3) is equivalent to (G-t-v3). Therefore, $s^{***} = \frac{2}{1+\omega^{2}}$ and $h^{***} = 1 = h^{os}$.  Accordingly, $x_{1}^{***} = Y_{1} + s^{***}(h^{*} - h^{***}) - L_{1}^{***}$ and $x_{2}^{***} = Y_{2} - L_{2}^{***}$.
+
 
 <br>
 
@@ -27,8 +582,59 @@ $$
 
 - Show that the scheme will **NOT** achieve the socially optimal outcome under the safety standard.
 
+**Answer:**
+
+The example answer for this question is exactly the same as Q1e in HW2. In the permit market equilibrium, the price and the quantity at are $p_{h}^{*} = 2$ and $h_{s}^{*} = h_{d}^{*} = h^{o} = 1 \neq h^{os}$, NOT achieving the socially optimal outcome under the safety standard $h^{os}$ . 
+
+<br>
 
 - What government policy can make the permit scheme achieve the socially optimal outcome $h$ under the safety standard?
+
+**Answer:**
+
+Government can consider setting the **price ceiling** below the equilibrium level. 
+
+It leads to shortages. At the ceiling price, the quantity demanded by consumer 1 (consumers) exceeds the quantity supplied by consumer 2  (producers).
+
+At the ceiling price $p_{h}^{ceiling}$, the quantity of permits supplied is $h_{s}(p_{h}^{ceiling}) = \frac{1}{2}p_{h}^{ceiling}$.
+
+Setting the ceiling price $p_{h}^{ceiling} = \frac{4}{1+\omega^{2}}$ leads to the quantity of permits supplied to be:
+
+
+$$
+\begin{align}
+h_{s}(p_{h}^{ceiling}) &= \frac{1}{2}p_{h}^{ceiling}\\
+&= \frac{1}{2}\frac{4}{1+\omega^{2}}\\
+&= \frac{2}{1+\omega^{2}}
+\end{align}
+$$
+
+```{r}
+x <- seq(0,2,.01)
+dp <- 4 - 2*x
+sp <- 2*x
+df <- data.frame(h = x,
+                 D = dp, S = sp,
+                 Ceiling = .8)
+df_long <- df %>% 
+  pivot_longer(cols = D:Ceiling,
+               values_to = 'val',
+               names_to = 'fn')
+ggplot(df_long) +
+  geom_line(aes(x = h, y = val, color = fn)) +
+  geom_vline(aes(xintercept = .4), linetype = 2) +
+  scale_y_continuous(limits = c(0,5)) +
+  scale_x_continuous(limits = c(0,2), breaks = seq(0,2,.2),
+                     ) +
+  guides(color = guide_legend(
+    label.position = "bottom")) +
+  scale_color_manual(values = c("black", 'blue', 'red')) +
+  labs(color = "", y = "Price") +
+  theme_ipsum() +
+  theme(legend.position = "top",
+        aspect.ratio = .75)
+```
+
 
 <br><br><br>
 
@@ -46,11 +652,99 @@ It is possible to rent a clean-air machine that reduces smoke in the air by 50 p
 
 - Use this diagram to determine the efficient number of cigars reduced if machine rental or relocation is not allowed.
 
+**Answer:**
+
+The efficient level of cigars reduced $x^{o}$ will occur where $MC(x^{o}) = MB(x^{o})$:
+
+$$
+\begin{align}
+MB(x) &= 12 - x\\
+MC(x) &= x
+\end{align}
+$$
+Therefore $x^{o} = 6$.
+
+```{r}
+x <- seq(0, 12, .01)
+mb <- 12 - x
+mc <- x
+df <- data.frame(
+  x = x,
+  MB = mb,
+  MC = mc
+)
+
+df_long <- df %>% 
+  pivot_longer(cols = MB:MC,
+               names_to = 'fn',
+               values_to = 'val')
+
+ggplot(df_long) +
+  geom_line(aes(x = x, y = val, color = fn)) +
+  geom_vline(aes(xintercept = 6), linetype = 3) +
+  scale_x_continuous(breaks = seq(0,12,2)) +
+  scale_y_continuous(breaks = seq(0,12,2)) +
+  scale_color_manual(values = c("blue", 'red') ) +
+  labs(x = "Cigars Reduced", 
+       y = "MB, MC",
+       color = "") +
+  theme_ipsum() + 
+  theme(aspect.ratio = .75
+        )
+
+```
+
+
 <br>
 
 ## Q2b.
 
 - Suppose that the clean-air machine is installed. What is the efficient number of cigars reduced now? [Hint: The marginal benefits of reduction fall to $\$(6 − \frac{x}{2})$.]
+
+
+**Answer:**
+
+The new MB schedule is MB=6-x/2, 
+$$
+\begin{align}
+MB(x) &= 6 - \frac{x}{2}\\
+MC(x) &= x
+\end{align}
+$$
+Therefore $x^{o,n} = 4$.
+
+```{r}
+x <- seq(0, 12, .01)
+mb <- 12 - x
+mbn <- 6 - .5*x
+mc <- x
+df <- data.frame(
+  x = x,
+  MB = mb,
+  MB_new = mbn,
+  MC = mc
+)
+
+df_long <- df %>% 
+  pivot_longer(cols = MB:MC,
+               names_to = 'fn',
+               values_to = 'val')
+
+ggplot(df_long) +
+  geom_line(aes(x = x, y = val, color = fn)) +
+  geom_vline(aes(xintercept = 6), linetype = 3) +
+  geom_vline(aes(xintercept = 4), linetype = 3) +
+  scale_x_continuous(breaks = seq(0,12,2)) +
+  scale_y_continuous(breaks = seq(0,12,2)) +
+  scale_color_manual(values = c("blue", 'lightblue' ,'red') ) +
+  labs(x = "Cigars Reduced", 
+       y = "MB, MC",
+       color = "") +
+  theme_ipsum() + 
+  theme(aspect.ratio = .75
+        )
+
+```
 
 <br>
 
@@ -58,11 +752,38 @@ It is possible to rent a clean-air machine that reduces smoke in the air by 50 p
 
 - Recall that Groucho begins by smoking 12 cigars a day. Is it more efficient to rent the machine or relocate Groucho to another room?
 
+**Answer:**
+
+We know that with machine rental, 4 cigars will be reduced.
+
+Suppose Groucho has the right to smoke, and so the status quo has him smoking 12 a day. Harpo has three choices:
+
+1. Do not rent the machine and do not relocate Groucho, but pay Groucho not to smoke.
+2. Rent the machine and then pay Groucho not to smoke. 
+3. Pay to relocate Groucho. 
+
+Which would Harpo choose? 
+
+Not renting the machine requires Harpo to compensate Groucho for the MC of reducing cigars: $1+2+3+4+5+6= \$21$ in costs. Harpo’s benefits are $12+11+10+9+8+7=\$57$, so net benefits are $57-21=\$36$.
+
+Machine rental costs $\$10$, plus Harpo has to pay Groucho at least his MC of reduction for the first four cigarettes. The costs of machine rental are thus: $10+1+2+3+4=\$20$. Relative to the status quo of 12 cigars smoked, the benefits of machine rental have two components. First, Harpo gets the full benefits of seeing 4 cigarettes reduced: $12+11+10+9=\$42$. Second, she gets the 50% improvement in air quality for the remaining 8 cigars that are smoked: $4+3.5+3+2.5+2+1.5+1+.5=\$18$. So, net benefits are $42+18-20= \$40$.
+
+Finally, relocation costs $\$40$, and brings Harpo the total area under the MB curve in benefits. (Since Groucho can smoke all he wants after relocation, he bears no costs). Therefore, the net benefits to Harpo of paying for relocation are: $(12+11+10+9+8+7+6+5+4+3+2+1)-40 =\$38$.
+
+Therefore, the efficient choice is the option 2.
+
+
 <br>
 
 ## Q2d.
 
 - This problem has no transaction costs or free riding. The Coase theorem says that, in this kind of simple example, the efficient outcome should be achieved through negotiation even if Harpo has the power to banish Groucho to another office at Groucho’s expense. Explain why.
+
+**Answer:**
+
+Rather than be banished, Groucho would rent the machine, then pay Harpo to allow him to stay and smoke 8 cigars. If Groucho rents the machine, he would pay the following costs: $\$10$ for machine rental, plus $1+2+3+4=\$10$ in nicotine withdrawals on 4 cigars given up, plus $4+3.5+3+2.5+2+1.5+1+.5=\$18$ in bribes to Harpo to allow him to smoke $8$ cigarettes. The total is $\$38$, less than the $\$40$ required to relocate. So rather than banish Groucho, Harpo could come out ahead by demanding a little more than the $\$18$ just necessary for him to allow Groucho to smoke his 8 cigars.
+
+This again demonstates the Coase theorem: in the absence of transaction costs, efficient outcomes will be achieved regardless of the initial distribution of property rights.
 
 <br><br><br>
 
@@ -70,23 +791,26 @@ It is possible to rent a clean-air machine that reduces smoke in the air by 50 p
 
 
 ## Q3a.
-<p>The <span style="border-bottom: 1px solid black; padding-left: 100px;"></span> standard says social welfare does not rise if increases in consumption today, on balance, reduce the well-being of future generations below the level enjoyed today.</p>
+The <u>sustainability</u> standard says social welfare does not rise if increases in consumption today, on balance, reduce the well-being of future generations below the level enjoyed today.
 
 ## Q3b
-<p> Open access to common property results in resource use that is inefficient, unsustainable, or both?  <span style="border-bottom: 1px solid black; padding-left: 100px;"></span>   </p>
+Open access to common property results in resource use that is inefficient, unsustainable, or both? <u>Both</u>
 
 
 ## Q3c
-<p>   A <span style="border-bottom: 1px solid black; padding-left: 100px;"></span>  policy is one that actually makes all parties better off. </p>
+A <u>Pareto-improving</u> policy is one that actually makes all parties better off.
 
 
 ## Q3d
 At an efficient level of environmental protection
 
-a. The marginal benefits of reducing pollution exceed the marginal
- costs by a large margin.
-b. The difference between the total benefits and total costs of
- pollution reduction are maximized.
-c. The net benefits of pollution reduction are zero.
-d. No one suffers from exposure to pollution.
-e. Social welfare is maximized.
+
+*a*. The marginal benefits of reducing pollution exceed the marginal costs by a large margin.
+
+**b**. The difference between the total benefits and total costs of pollution reduction are maximized.
+
+*c*. The net benefits of pollution reduction are zero.
+
+*d*. No one suffers from exposure to pollution.
+
+*e*. Social welfare is maximized.
