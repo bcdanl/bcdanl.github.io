@@ -1,0 +1,509 @@
+---
+title: "Fall 2023 DANL 200 Midterm Exam 1"
+# subtitle: "Version 1"
+author: "Byeong-Hak Choe"
+institute: "SUNY Geneseo"
+date: "2023-10-06"
+format: 
+  html
+    # toc: true
+    # toc-depth: 2
+    # toc-expand: true
+    # toc-title: Contents
+
+execute:
+  echo: true
+  eval: true
+  message: false
+  warning: false
+---
+```{r, include=F}
+library(tidyverse)
+library(skimr)
+library(lubridate)
+library(stargazer)
+library(broom)
+library(hrbrthemes)
+# theme_set(theme_ipsum())
+
+knitr::opts_chunk$set(fig.width=8, fig.height=5)  
+
+theme_set(theme_ipsum() +
+          theme(strip.background =element_rect(fill="lightgray"),
+                axis.title.x = element_text(size = rel(1.5) ),
+                axis.title.y = element_text(size = rel(1.5) ))
+          )
+
+```
+# Honor Pledges
+
+I solemnly swear that I will not cheat or engage in any form of academic dishonesty during this exam. 
+
+I will not communicate with other students or use unauthorized materials. 
+
+I will uphold the integrity of this exam and demonstrate my own knowledge and abilities.
+
+By taking this pledge, I acknowledge that academic dishonesty undermines the academic process and is a violation of the trust placed in me as a student. 
+
+I accept the consequences of any violation of this promise.
+
+- Student's Name: 
+- Student's ID: 
+- Student's Signature: 
+
+
+
+# Load R packages
+- Here we are loading all the R packages we need for the Midterm Exam I, so that you do not need to load the R packages in your code.
+```{r, echo = T}
+library(tidyverse)
+library(skimr)
+```
+
+
+<br><br>
+
+# Question 1
+
+The following describes the context of the data.frame, `close_elections`.
+
+- Let's think about the following questions: 
+  - How do voters influence government policies? Do voters affect or elect government policies?
+
+- The *convergence theory* states that heterogeneous voter ideology forces each candidate to moderate his or her position:
+
+> Competition for votes can force even the most partisan Republicans and Democrats to moderate their policy choices. In the extreme case, competition may be so strong that it leads to “full policy convergence”: opposing parties are forced to adopt identical policies. 
+
+
+- *Divergence theory* is a slightly more commonsense view of political actors. When partisan politicians cannot credibly commit to certain policies, then convergence is undermined and the result can be full policy “divergence.” 
+  - Divergence is when the winning candidate, after taking office, simply pursues her most-preferred policy. In this extreme case, voters fail to compel candidates to reach any kind of policy compromise.
+
+
+
+
+- The following is the data frames for Question 2.
+
+```{r, echo = T}
+close_elections <- read_csv('https://bcdanl.github.io/data/close_elections.csv')
+close_elections_mean <- read_csv('https://bcdanl.github.io/data/close_elections_mean.csv')
+```
+
+## Variable description
+- `state`: US state code 
+  - E.g., `1` is Alabama; `2` is Alaska; ...; `36` is New York; ...;`56` is Wyoming. 
+
+
+- `district`: Congressional district code
+
+
+- `year`: Year of election ranging from 1948 to 1990
+
+
+- `id`: ID for Democrat or Republican candidate in a Election in a year 
+  
+
+- `score`: Americans for Democratic Action's (ADA) voting score 
+  - For each Congress, the ADA chooses about twenty high-profile roll-call votes, and creates an index that varies between 0 and 100 for each Representative of the House.
+  - A higher value of `score` corresponds to a more “liberal” voting record.
+  - A lower value of `score` corresponds to a more “conservative” voting record.
+
+
+- `demvoteshare`: Democrat's share of the vote
+
+
+- `democrat`: 
+  - `0`: Republican candidate won the current election.
+  - `1`: Democrat candidate won the current election.
+  - A candidate wins if his/her share of the vote is larger than 0.5.
+
+
+- `lagdemocrat`: Lagged Democratic victory
+  - `0`: Republican candidate won the previous election (lagged).
+  - `1`: Democrat candidate won the previous election (lagged).
+
+
+- `lagdemvoteshare`: Lagged democratic share of the vote
+  - Democratic vote share in the previous election (lagged).
+  
+
+
+<br>
+
+
+- The following is the data.frame, `close_elections`.
+```{r, results = 'asis', echo = F}
+rmarkdown::paged_table(close_elections %>% 
+                         select(state:score),
+                       options = list(rows.print = 20,
+                                      cols.print = 5,
+                                      pages.print = 0,
+                                      paged.print = F
+                                      )) 
+```
+
+
+
+```{r, echo = T}
+nrow(close_elections)
+ncol(close_elections)
+```
+
+
+
+- The following is the data.frame, `close_elections_mean`.
+
+```{r, results = 'asis', echo = F}
+rmarkdown::paged_table(close_elections_mean,
+                       options = list(rows.print = 20,
+                                      cols.print = 5,
+                                      pages.print = 0,
+                                      paged.print = F
+                                      )) 
+```
+
+
+```{r, echo = T}
+nrow(close_elections_mean)
+ncol(close_elections_mean)
+```
+
+
+
+## Variable description
+- `score`: the average ADA score within 0.01 intervals of the Democrat vote share, 
+  - This is calculated using the `close_elections` data.frame.
+
+
+- `lagdemvoteshare`: Lagged value of the Democrat share of the vote
+
+
+- `range_voteshare`: Intervals of the Democrat vote share.
+
+<br>
+
+
+# Q1a
+- Provide your R code to create a new data.frame, `Q1a`, which contains all the observations with only the following two variables---`score` and `democrat`---in the data.frame `close_elections`.
+
+<br>
+
+
+
+```{r}
+#| eval: false
+Q1a <- close_elections[ , c('score', 'democrat') ]
+
+```
+
+<br><br><br><br><br><br>
+
+
+# Q1b
+- Provide your R code to calculate the median, mean, and standard deviation of the variable `score` for each value of `democrat`.
+
+<br>
+
+
+
+```{r}
+#| eval: false
+q1a_0 <- close_elections[close_elections$democrat == 0, ]
+q1a_1 <- close_elections[close_elections$democrat == 1, ]
+
+skim(q1a_0$score)
+skim(q1a_1$score)
+```
+
+<br><br><br><br><br><br><br>
+
+
+
+# Q1c.
+- Provide the ggplot code to replicate the following ggplot figure that describes how the distribution of `score` varies by `lagdemocrat`.
+
+
+```{r, fig.height=5, fig.width==8}
+ggplot(close_elections) +
+  geom_freqpoly(aes(x = score, color = factor(democrat)),
+                bins = 50) 
+```
+
+<br>
+
+
+
+<br><br><br><br><br><br><br>
+
+# Q1d.
+- Provide the ggplot code to replicate the following ggplot figure that describes how the relationship between `lagdemvoteshare` and `score` varies by `lagdemocrat`.
+  - The curves in the figure fit into data points of `lagdemvoteshare` and `score` in data.frame `close_elections` grouped by `lagdemocrat`.
+  - The points in the figure are from data.frame `close_elections_mean`.
+
+```{r, echo = T, eval = F}
+ggplot(close_elections, 
+       aes(x = lagdemvoteshare, y = score)) +
+  geom_point(data = close_elections_mean,
+             aes(x = lagdemvoteshare, y = score), 
+             size = .75) +
+  geom_smooth(aes(group = lagdemocrat), 
+              method = "loess") +
+  geom_smooth(aes(group = lagdemocrat), 
+              method = "lm", color = "red") +
+  geom_vline(xintercept = 0.5) +
+  xlim(0,1) + ylim(0,100) 
+```
+
+```{r, echo = F, eval = T}
+ggplot(close_elections, 
+       aes(x = lagdemvoteshare, y = score)) +
+  geom_point(data = close_elections_mean,
+             aes(x = lagdemvoteshare, y = score), 
+             size = .75) +
+  geom_smooth(aes(group = lagdemocrat), 
+              method = "loess") +
+  geom_smooth(aes(group = lagdemocrat), 
+              method = "lm", color = "red") +
+  geom_vline(xintercept = 0.5) +
+  xlim(0,1) + ylim(0,100) 
+```
+
+<br>
+
+
+
+<br><br><br><br><br><br><br><br><br>
+
+
+
+# Q1e.
+
+- Let's focus on the margins of a close election race (`lagdemvoteshare` around `50`).
+  - That is, compare a district where the Democrat candidate barely lost at time `t-1` (for example, vote share of 49.5 percent), with a district where the Democrat candidate barely won at time `t-1` (for example, vote share of 50.5 percent).
+
+
+- Considering the context of the data.frame, `close_elections`, make a detailed comment on the following questions:
+  - What does the discontinuity in the visualization mean? What source would contribute to this gap?
+  - Who are driving policy making? Voters or politicians?
+
+<br>
+
+
+
+<br><br><br><br><br><br><br>
+
+
+
+
+# Question 2
+
+The following is the data.frame for Question 2.
+
+```{r, echo = T}
+scorecard_SUNY <- read_csv('/Users/byeong-hakchoe/Documents/website/bcdanl.github.io/data/scorecard_SUNY.csv')
+```
+
+## Variable description
+- `inst_name`: Name of the SUNY college or university
+
+
+- `geneseo`
+  - `TRUE` if the value of `inst_name` is `Geneseo`; 
+  - `FALSE` otherwise.
+
+
+- `year`: Year in which outcomes are measured.
+
+
+- `earnings_med`: Median earnings among students (a) who received federal financial aid, (b) who began as undergraduates at the institution ten years prior, (c) with positive yearly earnings.
+
+<br>
+
+
+- The following is the data.frame, `scorecard_SUNY`.
+
+```{r, results = 'asis', echo = F}
+rmarkdown::paged_table(scorecard_SUNY,
+                       options = list(rows.print = 20,
+                                      cols.print = 5,
+                                      pages.print = 0,
+                                      paged.print = F
+                                      )) 
+```
+
+```{r, echo = T}
+nrow(scorecard_SUNY)
+ncol(scorecard_SUNY)
+table(scorecard_SUNY$inst_name)
+table(scorecard_SUNY$geneseo)
+table(scorecard_SUNY$year)
+```
+
+<br><br><br><br><br><br><br><br><br><br><br>
+
+## Q2a.
+- Provide ggplot code to replicate the following visualization that describes how the time trend of `earnings_med` varies by `inst_name`.
+
+```{r, fig.height=10, fig.width=10, eval = F, echo = T}
+ggplot(data = scorecard_SUNY,
+       mapping = aes(x = year, 
+                       y = earnings_med)) +
+  geom_line(mapping = aes(color = geneseo),
+            show.legend = F,
+            linewidth = 3) +
+  geom_point(size = 1.5) +
+  geom_vline(aes(xintercept = 2012), 
+             linetype = 3,
+             color = 'red') +
+  facet_wrap(. ~ inst_name, nrow = 5) +
+  theme(strip.text = element_text(size = rel(1)),
+        axis.text.x = element_text(angle = 45,
+                                   size = rel(1)))
+```
+
+```{r, fig.height=10, fig.width=10, eval = T, echo = F}
+scorecard_SUNY %>% 
+  mutate(inst_name = str_replace_all(inst_name," ", "\n"),
+         inst_name = str_replace_all(inst_name,"\nand\n", " and "),
+         inst_name = str_replace_all(inst_name,"at\n", "at "),
+         inst_name = str_replace_all(inst_name,"\nof", "of"),
+         inst_name = str_replace_all(inst_name,"Collegeof", "College of"),
+         ) %>% 
+  ggplot(mapping = aes(x = year, 
+                       y = earnings_med)) +
+  geom_line(mapping = aes(color = geneseo),
+            show.legend = F,
+            linewidth = 3) +
+  geom_point(size = 1.5) +
+  geom_vline(aes(xintercept = 2012), 
+             linetype = 3,
+             color = 'red') +
+  facet_wrap(. ~ inst_name, nrow = 5) +
+  theme(strip.text = element_text(size = rel(1)),
+        axis.text.x = element_text(angle = 45,
+                                   size = rel(1)))
+```
+
+<br>
+
+
+
+<br><br><br><br><br><br><br><br>
+
+## Q2b.
+- Interpret the visualization in Q2a.
+
+<br>
+
+
+
+<br><br><br><br><br><br><br>
+
+
+
+
+# Question 3
+
+The following is the data.frame for Question 3.
+
+```{r, echo = T}
+sales_df_sum <- read_csv("/Users/byeong-hakchoe/Documents/website/bcdanl.github.io/data/sales_df_sum.csv")
+```
+
+
+## Variable description
+
+- `borough`: The name of the NYC borough in which the property is located.
+
+- `year`: Year the property sold.
+
+- `n`: The number of the properties sold in a borough in a year.
+
+- `sale_price`: Average price paid for the properties.
+
+<br>
+
+- The following is the data.frame, `sales_df`.
+
+```{r, results = 'asis', echo = F}
+rmarkdown::paged_table(sales_df_sum,
+                       options = list(rows.print = 20,
+                                      cols.print = 5,
+                                      pages.print = 0,
+                                      paged.print = F
+                                      )) 
+```
+
+```{r, echo = T}
+nrow(sales_df_sum)
+ncol(sales_df_sum)
+table(sales_df_sum$borough)
+```
+
+<br>
+
+## Q3a.
+- Provide ggplot code to replicate the following visualization that describes the yearly trend of `n`.
+
+```{r, fig.height=4, fig.width=8, eval = F, echo = T}
+ggplot(data = sales_df_sum) +
+  geom_col(aes(x = year, y = n)) 
+```
+
+```{r, fig.height=4, fig.width=8, eval = T, echo = F}
+ggplot(data = sales_df_sum) +
+  geom_col(aes(x = year, y = n)) +
+  scale_x_continuous(breaks = seq(2005, 2022)) 
+```
+
+<br>
+
+
+
+<br><br><br><br><br><br><br><br><br>
+
+## Q3b.
+- Provide ggplot code to replicate the following visualization that describes how the yearly trend of `sale_price` varies by `borough`.
+
+```{r, eval = F, echo= T}
+ggplot(data = sales_df_sum,
+       aes(x = year, y = sale_price)) +
+  geom_bar(aes(fill = borough),
+           stat = "identity",
+           position = "dodge",
+           show.legend = F) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(borough ~., scales = "free_y") 
+```
+
+```{r, eval = T, echo= F}
+ggplot(data = sales_df_sum,
+       aes(x = year, y = sale_price)) +
+  geom_bar(aes(fill = borough),
+           stat = "identity",
+           position = "dodge",
+           show.legend = F) +
+  geom_line() +
+  geom_point() +
+  scale_y_comma() +
+  scale_x_continuous(breaks = seq(2005, 2022, 2)) +
+  facet_wrap(borough ~., scales = "free_y") +
+  theme(axis.text.x = element_text(angle = 45,
+                                   size = rel(.75),
+                                   margin = margin(5,0,0,0)))
+```
+
+<br>
+
+
+
+<br><br><br><br><br><br><br>
+
+
+## Q3c.
+
+Make a comment on the visualization in Q3a and Q3b.
+
+
+
+<br><br><br><br><br><br><br><br><br>
