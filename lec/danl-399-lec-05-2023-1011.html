@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DANL 399 Lecture 5</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Byeong-Hak Choe" />
+    <meta name="date" content="2023-10-11" />
+    <script src="libs/header-attrs-2.25/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <script src="libs/peerjs-1.3.1/peerjs.min.js"></script>
+    <script src="libs/tiny.toast-1.0.0/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast-0.2.6/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast-0.2.6/broadcast.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
+    <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, left, bottom
+
+# DANL 399 Lecture 5
+----
+## **DANL 399: Data Visualization and Presentation**
+### Byeong-Hak Choe
+### October 11, 2023
+
+
+
+
+---
+class: inverse, center, middle
+
+# Show the right number
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Geoms can transform data &lt;/p&gt;
+
+- Let's plot a bar char:
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion))
+p + geom_bar()
+```
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Geoms can transform data &lt;/p&gt;
+
+
+- Where does count come from? 
+
+  - Bar charts, histograms, and frequency polygons bin your data and then plot bin counts, the number of points that fall in each bin.
+
+  - Smoothers fit a model to your data and then plot predictions from the model.
+
+  - Boxplots compute a robust summary of the distribution and then display a specially formatted box.
+
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Geoms can transform data &lt;/p&gt;
+
+
+- If we want a chart of relative frequencies rather than counts, we will need to get the `prop` statistic instead.
+
+- Our call to statistic from the `aes()` function generically looks like this: `&lt;mapping&gt; = &lt;..statistic..&gt;`. 
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion))
+p + geom_bar(mapping = aes(y = ..prop..))
+```
+
+- What happened?
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Geoms can transform data &lt;/p&gt;
+
+- We need to tell ggplot to ignore the x-categories when calculating denominator of the proportion, and use the total number observations instead.
+
+  - To do so we specify `group = 1` inside the `aes()` call. 
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion))
+p + geom_bar(mapping = aes(y = ..prop.., group = 1)) 
+```
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Geoms can transform data &lt;/p&gt;
+
+- Let’s look at another question from the survey. The `gss_sm` data contains a religion variable derived from a question asking:
+
+  - “What is your religious preference? Is it Protestant, Catholic, Jewish, some other religion, or no religion?”
+
+
+```r
+table(gss_sm$religion)
+```
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Geoms can transform data &lt;/p&gt;
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = religion, color = religion))
+p + geom_bar()
+```
+
+- If we map religion to `color`, only the border lines of the bars will be assigned colors, and the insides will remain gray.
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Geoms can transform data &lt;/p&gt;
+
+-  If the gray bars look boring and we want to fill them with color instead, we can map the religion variable to `fill` in addition to mapping it to `x`.
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = religion, fill = religion))
+p + geom_bar() + guides( fill = "none" )
+```
+
+-  If we set `guides(fill = "none")`, the legend about the `fill` mapping is removed.
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Frequency plots the slightly awkward way &lt;/p&gt;
+
+- A more appropriate use of the `fill` aesthetic with `geom_bar()` is to cross-classify two categorical variables. 
+
+  - The default output of such `geom_bar()` is a stacked bar chart, with counts on the y-axis.
+
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion, fill = religion))
+p + geom_bar(position = "fill")
+```
+- An alternative choice is to set the position argument to `"fill"`.
+  - It is to compare proportions across groups.
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Frequency plots the slightly awkward way &lt;/p&gt;
+
+- We can use `position = "dodge"` to make the bars within each region of the country appear side by side.
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion, fill = religion))
+p + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop..))
+```
+
+- What happened?
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Frequency plots the slightly awkward way &lt;/p&gt;
+
+- In this case we should consider grouping variable, `religion`, so we map `religion` to the `group` aesthetic.
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = bigregion, fill = religion))
+p + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop.., group = religion))
+```
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Frequency plots the slightly awkward way &lt;/p&gt;
+
+- How can we have a proportional bar chart such that the sum of all bars in each bigregion is 1?
+
+  - There are various ways to do so, and faceting is one of them.
+  - The proportions are calculated within each panel, which is the breakdown we wanted.
+
+
+
+```r
+p &lt;- ggplot(data = gss_sm,
+            mapping = aes(x = religion))
+p + geom_bar(position = "dodge",
+             mapping = aes(y = ..prop.., group = bigregion)) +
+    facet_wrap(~ bigregion, ncol = 1)
+```
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Histograms and density plots &lt;/p&gt;
+
+- ggplot comes with a dataset, `midwest`, containing information on counties in several midwestern states of the USA. 
+
+
+```r
+?midwest
+glimpse(midwest)
+skim(midwest)
+view(midwest)
+```
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Histograms and density plots &lt;/p&gt;
+
+- By default, the `geom_histogram()` function will choose a bin size for us based on a rule of thumb.
+
+
+```r
+p &lt;- ggplot(data = midwest,
+            mapping = aes(x = area))
+p + geom_histogram()
+```
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Histograms and density plots &lt;/p&gt;
+
+- When drawing histograms it is worth experimenting with `bins` and also optionally the `origin` of the x-axis. 
+
+```r
+p &lt;- ggplot(data = midwest,
+            mapping = aes(x = area))
+p + geom_histogram(bins = 10)
+```
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Histograms and density plots &lt;/p&gt;
+
+
+- While histograms summarize single variables, it’s also possible to use several at once to compare distributions. 
+  - We can facet histograms by some variable of interest.
+  - We can also compare them in the same plot using the fill mapping.
+
+
+```r
+oh_wi &lt;- c("OH", "WI")
+
+p &lt;- ggplot(data = filter(midwest, 
+                          state %in% oh_wi),
+            mapping = aes(x = percollege, fill = state) )
+p + geom_histogram(alpha = 0.4, bins = 20)
+```
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Histograms and density plots &lt;/p&gt;
+
+- When working with a continuous variable, an alternative to binning the data and making a histogram is to calculate a kernel density estimate of the underlying distribution with `geom_density()`.
+
+
+```r
+p &lt;- ggplot(data = midwest,
+            mapping = aes(x = area))
+p + geom_density()
+```
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Histograms and density plots &lt;/p&gt;
+
+- Here we can use `color` (for the lines) and `fill` (for the body of the density curve) for aesthetic mappings. 
+
+
+```r
+p &lt;- ggplot(data = midwest,
+            mapping = aes(x = area, fill = state, color = state))
+p + geom_density(alpha = 0.3)
+```
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Histograms and density plots &lt;/p&gt;
+
+- For `geom_density()`, the `stat_density()` function can return its default `after_stat(density)` statistic, or `after_stat(scaled)`, which will give a proportional density estimate.
+
+
+```r
+p &lt;- ggplot(data = filter(midwest, state %in% oh_wi),
+            mapping = aes(x = area, fill = state, color = state))
+p + geom_density( alpha = 0.3, mapping =  aes(y = after_stat(scaled) )  )
+```
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Avoid transformations when necessary &lt;/p&gt;
+
+- When we call `geom_bar()`, it does its calculations on the fly using `stat_count()` behind the scenes to produce the **counts** or **proportions** it displays. 
+
+
+
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Avoid transformations when necessary &lt;/p&gt;
+
+- But often, our data is in effect already a summary table. 
+
+- Let's consider the `socviz::titanic` data.frame.
+
+```r
+socviz::titanic
+```
+
+- Should we avoid transforming data if we want to describe the relationship between `fate` and `percent`?
+
+
+```r
+p &lt;- ggplot(data = titanic,
+            mapping = aes(x = fate, y = percent, fill = sex))
+p + geom_bar(position = "dodge", stat = "identity") +
+  theme(legend.position = "top")
+```
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Avoid transformations when necessary &lt;/p&gt;
+
+- `geom_col()` has exactly the same as `geom_bar()` except that it assumes that `stat = "identity"`. 
+
+- Let's consider `socviz::oecd_sum` data.frame.
+  - It contains information on average life expectancy at birth within the United States, and across other OECD countries.
+
+
+```r
+oecd_sum
+```
+
+- Let's draw the bar chart that describe the `diff`erence over time using `color = hi_lo`.
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Avoid transformations when necessary &lt;/p&gt;
+
+
+&lt;img src="danl-399-lec-05-2023-1011_files/figure-html/unnamed-chunk-22-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Show the right number
+### &lt;p style="color:#00449E"&gt; Bar plots as an alternative to line plots &lt;/p&gt;
+-  Just as `stat = "identity"` means “don’t do any summary calculations”, `position = "identity"` means “just plot the values as given”. 
+  - This allows us to do things like, for example, plot a flow of positive and negative values in a bar chart. 
+  - This sort of graph is an alternative to a line plot and is often seen in public policy settings where changes relative to some threshold level or baseline are of interest.
+  
+  
+  
+  
+
+
+---
+class: inverse, center, middle
+
+# Graph tables, add labels, make notes
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+---
+# Graph tables, add labels, make notes
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+- We will learn about how to transform `data.frame` before we send it to `ggplot` to be turned into a figure. 
+  - We will learn how to use some of `dplyr`'s “action verbs” to `filter`, `select`, `group`, `mutate`, `summarize` and transform our data.
+
+
+- We will expand the number of geoms we know about, and learn more about how to choose between them. 
+  - Different geoms potentially requires different aesthetic mappings.
+
+
+
+---
+# Get Started with `ggplot` visualization
+
+- We will discuss how to customize the scale, guide, and theme functions in ggplot.
+
+  - These techniques will allow us to produce very sophisticated graphs in a systematic, comprehensible way.
+  
+  - [ggThemeAssist](https://github.com/calligross/ggthemeassist) can be helpful.
+  
+  - [https://ggplot2tor.com/scales](https://ggplot2tor.com/scales) provides a complete guide to `scale`s.
+  
+  - [https://ggplot2tor.com/theme](https://ggplot2tor.com/theme) provides a complete guide to `theme`s.
+  
+  - [https://ggplot2tor.com/aesthetics](https://ggplot2tor.com/aesthetics) finds available aesthetics for each geom.
+  
+
+---
+# Graph tables, add labels, make notes
+### &lt;p style="color:#00449E"&gt; Use pipes to summarize data &lt;/p&gt;
+- Let's describe how the distribution of religious preferences varies by regions in the US using the `socviz::gss_sm` data.frame.
+
+
+
+
+
+---
+# Graph tables, add labels, make notes
+### &lt;p style="color:#00449E"&gt; Use pipes to summarize data &lt;/p&gt;
+
+- Group the data into the nested structure we want for our summary, such as “Religion by Region” or “Authors by Publications by Year”.
+
+
+- Filter or select pieces of the data by row, column, or both. 
+
+
+- Mutate the data by creating new variables at the current level of grouping.    - This adds new columns to the table without aggregating it.
+
+
+- Summarize or aggregate the grouped data. 
+  - This creates new variables (e.g., means with `mean()`, sums with `sum()`, and counts with `n()`) at a higher level of grouping.
+
+
+---
+# Graph tables, add labels, make notes
+### &lt;p style="color:#00449E"&gt; Use pipes to summarize data &lt;/p&gt;
+
+- We use the dplyr functions, `group_by()`, `filter()`, `select()`, `mutate()`, and `summarize()`, to carry out these data transformation tasks within our pipeline (`%&gt;%`, **Ctrl/Cmd + Shift + M**). 
+
+- Let's create a new data.frame called `rel_by_region`.
+
+
+```r
+library(socviz)
+rel_by_region &lt;- gss_sm %&gt;%
+    group_by( bigregion, religion ) %&gt;%
+    summarize( N = n() ) %&gt;%
+    mutate( freq = N / sum(N),
+            pct = round( (freq*100), 0) )
+
+rel_by_region
+```
+
+
+
+
+---
+# Graph tables, add labels, make notes
+### &lt;p style="color:#00449E"&gt; Use pipes to summarize data &lt;/p&gt;
+
+- Now that we are working directly with percentage values in a summary table, we can use `geom_col()` instead of `geom_bar()`.
+
+
+
+.pull-left[
+
+```r
+p &lt;- ggplot( rel_by_region, 
+             aes( x = bigregion, 
+                  y = pct, 
+                  fill = religion))
+
+p + geom_col( position = "dodge2" ) +
+    labs(x = "Region", 
+         y = "Percent", 
+         fill = "Religion") +
+    theme(legend.position 
+            = "top") 
+```
+]
+.pull-right[
+![](danl-399-lec-05-2023-1011_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+]
+
+
+
+---
+# Graph tables, add labels, make notes
+### &lt;p style="color:#00449E"&gt; Use pipes to summarize data &lt;/p&gt;
+
+- Let's replicate the following bar chart:
+
+&lt;img src="danl-399-lec-05-2023-1011_files/figure-html/unnamed-chunk-28-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Graph tables, add labels, make notes
+### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
+
+
+.panelset[
+.panel[.panel-name[(1)]
+
+- Let’s move to a new dataset, the `socviz::organdata` data.frame. 
+
+
+```r
+organdata
+skimr::skim(organdata)
+```
+]
+
+.panel[.panel-name[(2)]
+
+- We can take a look at a simple scatterplot of donors vs year.
+
+&lt;img src="danl-399-lec-05-2023-1011_files/figure-html/unnamed-chunk-30-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+]
+
+.panel[.panel-name[(3)]
+
+- Let's draw a yearly trend of `donors` for each country.
+
+&lt;img src="danl-399-lec-05-2023-1011_files/figure-html/unnamed-chunk-31-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+]
+
+]
+
+---
+# Graph tables, add labels, make notes
+### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
+
+
+.panelset[
+
+.panel[.panel-name[(1)]
+
+- Let’s focus on the country-level variation of `donors` using `geom_boxplot()`, but without paying attention to the time trend.
+
+&lt;img src="danl-399-lec-05-2023-1011_files/figure-html/unnamed-chunk-32-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+]
+
+.panel[.panel-name[(2)]
+
+
+- We can reorder the levels using `fct_reorder(f, x, fun)`, which can take three arguments.
+  - `f`: the factor whose levels we want to modify.
+  - `x`: a numeric vector that we want to use to reorder the levels.
+  - Optionally, `fun`: a function that's used if there are multiple values of `x` for each value of `f`. The default value is *median*.
+
+
+
+```r
+levels(organdata$country)
+organdata &lt;- organdata %&gt;%
+  mutate(country = fct_reorder(country, tvhours, na.rm = T) ) 
+```
+
+]
+
+
+
+.panel[.panel-name[(3)]
+
+
+- We can reorder the levels using `fct_reorder(f, x, fun)`, which can take three arguments.
+  - `f`: the factor whose levels we want to modify.
+  - `x`: a numeric vector that we want to use to reorder the levels.
+  - Optionally, `fun`: a function that's used if there are multiple values of `x` for each value of `f`. The default value is *median*.
+
+
+
+```r
+p &lt;- ggplot(data = organdata,
+            mapping = aes(x = country, y = donors))
+p + geom_boxplot() + labs(x = NULL) + coord_flip()
+```
+
+]
+
+
+
+.panel[.panel-name[(4)]
+
+- Let’s replicate the following boxplot:
+
+&lt;img src="danl-399-lec-05-2023-1011_files/figure-html/unnamed-chunk-35-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+]
+]
+
+---
+# Graph tables, add labels, make notes
+### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
+
+
+.panelset[
+
+.panel[.panel-name[(1)]
+
+- Sometimes it is better to sort the data with a categorical variable when plotting a bar chart or a Cleveland dotplot.
+
+]
+
+.panel[.panel-name[(2)]
+- Summarize the data.frame `organdata` to calculate the mean and the standard deviation of each numeric variable for each `consent_law`-`country` pair.
+
+
+```r
+by_country &lt;- organdata %&gt;% group_by(consent_law, country) %&gt;%
+    summarize(donors_mean= mean(donors, na.rm = TRUE),
+              donors_sd = sd(donors, na.rm = TRUE),
+              gdp_mean = mean(gdp, na.rm = TRUE),
+              health_mean = mean(health, na.rm = TRUE),
+              roads_mean = mean(roads, na.rm = TRUE),
+              cerebvas_mean = mean(cerebvas, na.rm = TRUE))
+```
+
+- Would there be a simpler way to do the task above?
+]
+
+
+.panel[.panel-name[(3)]
+- What we would like to do is apply the `mean()` and `sd()` functions to every numerical variable in `organdata`, but only the numerical ones. 
+
+  - `summarize_if( is.numeric, lst(mean, sd), na.rm = T)` works really well.
+
+
+```r
+by_country &lt;- organdata %&gt;% group_by(consent_law, country) %&gt;%
+  summarize_if(is.numeric, lst(mean, sd), na.rm = TRUE) %&gt;%
+  ungroup()
+```
+
+]
+
+.panel[.panel-name[(4)]
+- Let's draw the following dot plot.
+
+&lt;img src="danl-399-lec-05-2023-1011_files/figure-html/unnamed-chunk-38-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+]
+
+]
+
+---
+# Graph tables, add labels, make notes
+### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
+
+
+
+.panelset[
+
+.panel[.panel-name[(1)]
+
+- Let's draw the following faceted dot plot.
+
+
+&lt;img src="danl-399-lec-05-2023-1011_files/figure-html/unnamed-chunk-39-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+.panel[.panel-name[(2)]
+
+- Cleveland dotplots are generally preferred to bar or column charts.
+  - When making them, put the categories on the y-axis and order them in the way that is most relevant to the numerical summary you are providing.
+  - This sort of plot is also an excellent way to summarize model results or any data with **error ranges**. 
+  
+  
+]
+
+.panel[.panel-name[(3)]
+
+  
+- Using `geom_pointrange()`, we can tell ggplot to show us a point estimate and a range around it.
+  -  With `geom_pointrange()`, we map our `x` and `y` variables as usual, but the function needs a little more information than `geom_point()`, for example (`ymin`, `ymax`) or (`xmin`, `xmax`). 
+  
+]
+
+.panel[.panel-name[(4)]
+
+
+- Let's draw the following dot-and-whisker plot.
+
+&lt;img src="danl-399-lec-05-2023-1011_files/figure-html/unnamed-chunk-40-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+]
+
+]
+
+
+
+---
+class: inverse, center, middle
+
+# Understanding Scales, Guides, and Themes
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+# Understanding Scales, Guides, and Themes
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+- We have used `scale_x_log10()`, `scale_x_continuous()` and other` scale_*_*()` functions to adjust axis labels. 
+
+- We used the `guides()` function to remove the legends for a color mapping and a `label` mapping. 
+
+- We also used the `theme()` function to move the position of a legend from the side to the top of a figure.
+
+- What are the differences between the `scale_*_*()` functions, the `guides()` function, and the `theme()` function? 
+
+- When do we know to use one rather than the other? Why are there so many `scale_*_*()` functions? How can we tell which one we need?
+
+
+---
+# Understanding Scales, Guides, and Themes
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+
+- Here is a rough and ready starting point:
+
+.panelset[
+.panel[.panel-name[scale]
+
+- Every aesthetic mapping has a scale. 
+
+  - If we want to adjust how that scale is marked or graduated, then we use a `scale_*_*()` function.
+
+]
+
+.panel[.panel-name[guides]
+- Many scales come with a *legend* or key to help the reader interpret the graph. These are called `guides`. 
+
+  - We can make adjustments to them with the `guides()` function. 
+
+  - Perhaps the most common use case is to make the legend disappear.
+
+  - Another is to adjust the arrangement of the key in *legends* and *colorbars*.
+  
+  - `guides` is also one of the parameters in `scales_*_*()`.
+
+]
+
+.panel[.panel-name[theme]
+- Graphs have other features not strictly connected to the logical structure of the data being displayed. 
+
+  - These include things like their background color, the typeface used for labels, or the placement of the legend on the graph. 
+  
+  - To adjust these, use the `theme()` function.
+
+
+]
+
+]
+
+
+
+
+
+---
+# Understanding Scales, Guides, and Themes
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+  
+- `scale_*_*()` and `guides()` are closely connected.
+  - The `guides()` provides information about the `scale`, such as in a **legend** or **colorbar**.
+  - So, it is possible to make adjustments to guides from inside the various `scale_*_*()` functions.
+
+
+```r
+p &lt;- ggplot(data = organdata,
+            mapping = aes(x = roads, y = donors, color = world))
+p + geom_point()
+```
+- The `x` and `y` scales are both **continuous**.
+- The `color` scale is **discrete**.
+  - A `color` or `fill` mapping can also be a *continuous* quantity (*colorbar*).
+  
+  
+  
+---
+# Understanding Scales, Guides, and Themes
+### &lt;p style="color:#00449E"&gt; `scale_&lt;MAPPING&gt;_&lt;KIND&gt;` &lt;/p&gt;
+
+- Because we have several potential mappings, and each mapping might be to one of several different scales, we end up with a lot of individual `scale_*_*` functions. 
+  - Each deals with one combination of mapping and scale. Too many to memorize. 
+  - They are named according to a consistent logic:
+  
+&lt;img src="lec_figs/scale_mapping_kind.png" width="50%" style="display: block; margin: auto;" /&gt;
+ 
+- [https://ggplot2tor.com/scales](https://ggplot2tor.com/scales) provides a complete guide to scales.
+  - This app makes it easy for you to find the right scales and arguments for your variable types and aesthetics.
+
+
+
+---
+# Understanding Scales, Guides, and Themes
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+.panelset[
+.panel[.panel-name[(1)]
+- Let's replicate the following:
+  &lt;!-- - Use the `log10` scale on x-axis. --&gt;
+  &lt;!-- - Break y-axis at `c(5, 15, 25)`, and label them as `c("Five", "Fifteen", "Twenty Five")`. --&gt;
+
+&lt;img src="danl-399-lec-05-2023-1011_files/figure-html/unnamed-chunk-43-1.png" width="75%" /&gt;
+
+]
+
+
+.panel[.panel-name[(2)]
+- Let's replicate the following:
+  &lt;!-- - Label colors to `c("Corporatist", "Liberal", "Social Democratic", "Unclassified")` --&gt;
+  &lt;!-- - Label `x`-axis, `y`-axis, and a title of `color` legend using `labs()`. --&gt;
+
+&lt;img src="danl-399-lec-05-2023-1011_files/figure-html/unnamed-chunk-44-1.png" width="75%" /&gt;
+
+]
+
+.panel[.panel-name[(3)]
+- Let's replicate the following:
+  &lt;!-- - Use the `log10` scale on x-axis. --&gt;
+  &lt;!-- - Break y-axis at `c(5, 15, 25)`, and label them as `c("Five", "Fifteen", "Twenty Five")`. --&gt;
+
+&lt;img src="danl-399-lec-05-2023-1011_files/figure-html/unnamed-chunk-45-1.png" width="75%" /&gt;
+
+]
+
+
+.panel[.panel-name[(4)]
+- Let's replicate the following using `theme()`:
+  &lt;!-- - Use the `log10` scale on x-axis. --&gt;
+  &lt;!-- - Break y-axis at `c(5, 15, 25)`, and label them as `c("Five", "Fifteen", "Twenty Five")`. --&gt;
+
+&lt;img src="danl-399-lec-05-2023-1011_files/figure-html/unnamed-chunk-46-1.png" width="70%" /&gt;
+
+]
+
+]
+
+---
+class: inverse, center, middle
+
+# Add Labels and Make Notes
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+# Add Labels and Make Notes
+### &lt;p style="color:#00449E"&gt; Plot text directly &lt;/p&gt;
+
+- It can sometimes be useful to plot the labels along with the points in a scatterplot, or just plot informative labels directly.
+  - We can do this with `geom_text()`.
+  
+
+```r
+p &lt;- ggplot(data = by_country,
+            mapping = aes(x = roads_mean, y = donors_mean))
+p + geom_point() + geom_text(mapping = aes(label = country))
+```
+
+- By default, the text is plotted right on top of the points.
+- Setting `hjust = 0` will left justify the label; `hjust = 1` will right justify it.
+
+
+```r
+p + geom_point() + geom_text(mapping = aes(label = country), hjust = 0)
+```
+
+
+
+
+
+---
+# Add Labels and Make Notes
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+&lt;img src="danl-399-lec-05-2023-1011_files/figure-html/unnamed-chunk-49-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Add Labels and Make Notes
+### &lt;p style="color:#00449E"&gt; Plot text directly &lt;/p&gt;
+
+- Instead of wrestling any further with `geom_text()`, we can use `ggrepel::geom_text_repel()` instead. 
+
+
+```r
+install.packages("ggrepel")
+library(ggrepel)
+```
+
+- Let's use some historical U.S. presidential election data provided in the `socviz` library.
+
+```r
+socviz::elections_historic %&gt;% select(2:7) 
+```
+
+---
+# Add Labels and Make Notes
+### &lt;p style="color:#00449E"&gt; Plot text directly &lt;/p&gt;
+
+.panelset[
+.panel[.panel-name[Step 1]
+- Let's map aethetics to variables
+
+```r
+p &lt;- ggplot(elections_historic, aes(x = popular_pct, y = ec_pct,
+                                    label = winner_label))
+```
+
+]
+
+.panel[.panel-name[Step 2]
+- Then, add geometric objects to ggplot.
+
+```r
+p &lt;- p + 
+    geom_hline(yintercept = 0.5, linewidth = 1.4, color = "gray80") +
+    geom_vline(xintercept = 0.5, linewidth = 1.4, color = "gray80") +
+    geom_point() +
+    geom_text_repel()
+p
+```
+- We use two new geoms, `geom_hline(yintercept = NUMBER)` and `geom_vline(xintercept = NUMBER)` to make the lines.
+]
+
+
+
+.panel[.panel-name[Step 3]
+- Let's set the scales for `x` and `y`.
+
+```r
+p &lt;- p + 
+     scale_x_continuous(labels = scales::percent) +
+     scale_y_continuous(labels = scales::percent) 
+p
+```
+
+]
+
+
+.panel[.panel-name[Step 4]
+- Let's set the labels.
+
+```r
+p_title &lt;- "Presidential Elections: Popular &amp; Electoral College Margins"
+p_subtitle &lt;- "1824-2016"
+p_caption &lt;- "Data for 2016 are provisional."
+x_label &lt;- "Winner's share of Popular Vote"
+y_label &lt;- "Winner's share of Electoral College Votes"
+
+p + labs(x = x_label, y = y_label, 
+         title = p_title, subtitle = p_subtitle,
+         caption = p_caption)
+```
+
+]
+
+
+]
+
+
+
+---
+# Add Labels and Make Notes
+### &lt;p style="color:#00449E"&gt; Label Outliers &lt;/p&gt;
+
+- Sometimes we want to pick out some points of interest in the data without labeling every single item. 
+  -  We do this using the `filter()` function.
+
+.panelset[
+.panel[.panel-name[(1)]
+
+```r
+p &lt;- ggplot(data = by_country,
+            mapping = aes(x = gdp_mean, y = health_mean))
+
+p + geom_point() +
+    geom_text_repel(data = subset(by_country, gdp_mean &gt; 25000),
+                    mapping = aes(label = country))
+```
+]
+
+.panel[.panel-name[(2)]
+
+```r
+p &lt;- ggplot(data = by_country,
+            mapping = aes(x = gdp_mean, y = health_mean))
+p + geom_point() +
+    geom_text_repel(data = filter(by_country,
+                                  gdp_mean &gt; 25000 | health_mean &lt; 1500 |
+                                  country %in% "Belgium"),
+                    mapping = aes(label = country))
+```
+]
+
+
+
+]
+
+
+
+---
+# Add Labels and Make Notes
+### &lt;p style="color:#00449E"&gt; Label Outliers &lt;/p&gt;
+
+- We can also add a logical variable (either `TRUE` or `FALSE`) to label specific points using `filter()`.
+
+
+```r
+# creating a dummy variable in the data set for labels
+organdata$ind &lt;- organdata$ccode %in% c("Ita", "Spa") &amp; organdata$year &gt; 1998   
+
+p &lt;- ggplot(data = organdata,
+            mapping = aes(x = roads, y = donors, 
+                          color = ind))
+p + geom_point() +
+    geom_text_repel(data = filter(organdata, ind),
+                    mapping = aes(label = ccode)) +
+    guides(label = "none", color = "none")
+```
+
+
+
+
+---
+# Add Labels and Make Notes
+### &lt;p style="color:#00449E"&gt; Label Outliers &lt;/p&gt;
+
+- Let's replicate the following using `ggplot::mtcars`:
+&lt;img src="danl-399-lec-05-2023-1011_files/figure-html/unnamed-chunk-59-1.png" width="75%" /&gt;
+
+
+---
+# Add Labels and Make Notes
+### &lt;p style="color:#00449E"&gt; Write and draw in the plot area &lt;/p&gt;
+
+- We can use `annotate()` to annotate the figure directly. 
+  &lt;!-- - Maybe we sometimes need to point out something important that is not mapped to a variable.  --&gt;
+
+.panelset[
+.panel[.panel-name[text]
+
+```r
+p &lt;- ggplot(data = organdata, mapping = aes(x = roads, y = donors))
+p + geom_point() + annotate(geom = "text", x = 91, y = 33,
+                            label = "A surprisingly high \n recovery rate.",
+                            hjust = 0)
+```
+]
+
+.panel[.panel-name[rect]
+
+```r
+p &lt;- ggplot(data = organdata,
+            mapping = aes(x = roads, y = donors))
+p + geom_point() +
+    annotate(geom = "rect", xmin = 125, xmax = 155,
+             ymin = 30, ymax = 35, fill = "red", alpha = 0.2) + 
+    annotate(geom = "text", x = 157, y = 33,
+             label = "A surprisingly high \n recovery rate.", hjust = 0)
+```
+
+]
+
+.panel[.panel-name[point]
+
+```r
+p &lt;- ggplot(mpg, aes(displ, hwy)) +
+  geom_point(
+    data = filter(mpg, manufacturer == "subaru"), color = "orange", size = 3) +
+  geom_point() 
+
+p + 
+  annotate(geom = "point", x = 5.5, y = 40, colour = "orange", size = 3) + 
+  annotate(geom = "point", x = 5.5, y = 40) + 
+  annotate(geom = "text", x = 5.6, y = 40, label = "subaru", hjust = "left")
+```
+
+]
+
+.panel[.panel-name[curve]
+
+```r
+p + 
+  annotate(
+    geom = "curve", x = 4, y = 35, xend = 2.65, yend = 27, 
+    curvature = .3, arrow = arrow(length = unit(2, "mm"))
+  ) +
+  annotate(geom = "text", x = 4.1, y = 35, label = "subaru", hjust = "left")
+```
+
+]
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 66px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
