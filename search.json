@@ -1194,63 +1194,63 @@
     "href": "ex/danl399-hw-1.html",
     "title": "DANL 399: Data Visualization and PresentationHomework Assignment 1",
     "section": "",
-    "text": "Renovate your personal website on GitHub using Quarto.\n\nFAQ about Quarto for R Markdown users are provided below: https://quarto.org/docs/faq/rmarkdown.html\nA guide for creating a Quarto website is provided in the following webpage: https://quarto.org/docs/websites/."
+    "text": "Summarize each class and post it as a webpage under a new menu, “Classwork”, in your personal website on GitHub using Quarto.\n\nSummary does not need to be formal and comprehensive!\nFAQ about Quarto for R Markdown users are provided below: https://quarto.org/docs/faq/rmarkdown.html\nA guide for creating a Quarto website is provided in the following webpage: https://quarto.org/docs/websites/."
   },
   {
     "objectID": "ex/danl399-hw-1.html#q2a.",
     "href": "ex/danl399-hw-1.html#q2a.",
     "title": "DANL 399: Data Visualization and PresentationHomework Assignment 1",
     "section": "Q2a.",
-    "text": "Q2a.\nUse the following data.frame for Q2a, Q2b, and Q2c.\n\nncdc_temp <- read_csv(\n  'https://bcdanl.github.io/data/ncdc_temp_cleaned.csv')\n\n\nncdc_temp <- read_csv(\n  'https://bcdanl.github.io/data/ncdc_temp_cleaned.csv')\n\nggplot(ncdc_temp, aes(x = date, y = temperature, color = location)) +\n\ngeom_line(size = 1) + # Adds a layer to the ggplot object with a line plot of the temperature data, with a size of 1.\n\nscale_x_date(name = \"month\", limits = c(ymd(\"0000-01-01\"), ymd(\"0001-01-04\")), # Adds a scale to the x-axis with the label \"month\" and limits of Jan 1, 0000 to Jan 4, 0001, and breaks at the beginning of each quarter (Jan, Apr, Jul, Oct), with corresponding labels.\nbreaks = c(ymd(\"0000-01-01\"), ymd(\"0000-04-01\"), ymd(\"0000-07-01\"),\nymd(\"0000-10-01\"), ymd(\"0001-01-01\")),\nlabels = c(\"Jan\", \"Apr\", \"Jul\", \"Oct\", \"Jan\"), expand = c(1/366, 0)) +\n\nscale_y_continuous(limits = c(19.9, 107), # Adds a scale to the y-axis with limits of 19.9 to 107, breaks at every 20 units, and label \"temperature (°F)\".\nbreaks = seq(20, 100, by = 20),\nname = \"temperature (°F)\") +\n\ntheme(legend.title.align = 0.5) # Adjusts the alignment of the legend title to be centered."
+    "text": "Q2a.\nUse the following data.frame for Q2a, Q2b, and Q2c.\n\nncdc_temp <- read_csv(\n  'https://bcdanl.github.io/data/ncdc_temp_cleaned.csv')"
   },
   {
     "objectID": "ex/danl399-hw-1.html#q2b",
     "href": "ex/danl399-hw-1.html#q2b",
     "title": "DANL 399: Data Visualization and PresentationHomework Assignment 1",
     "section": "Q2b",
-    "text": "Q2b\n\nncdc_temp <- read_csv(\n  'https://bcdanl.github.io/data/ncdc_temp_cleaned.csv')\n\np <- ggplot(ncdc_temp, aes(x = month, y = temperature)) \n\n  # add a box plot with grey fill\np + geom_boxplot(fill = 'grey90') + \n  # add labels for x and y axes\n  labs(x = \"month\",\n       y = \"mean temperature (°F)\") +\n  # apply a custom theme to the plot\n  theme_clean()"
+    "text": "Q2b"
   },
   {
     "objectID": "ex/danl399-hw-1.html#q2c",
     "href": "ex/danl399-hw-1.html#q2c",
     "title": "DANL 399: Data Visualization and PresentationHomework Assignment 1",
     "section": "Q2c",
-    "text": "Q2c\nUse ggridges::geom_density_ridges() for Q2c.\n\nncdc_temp <- read_csv(\n  'https://bcdanl.github.io/data/ncdc_temp_cleaned.csv')\n\np <- ggplot(ncdc_temp, aes(x = temperature, y = month)) \n\np + geom_density_ridges( # Adds a layer to the ggplot object with a smoothed density plot of the temperature data using the 'ridgeline' plot type.\n  scale = 3, rel_min_height = 0.01, # Sets the scaling and minimum relative height for the plot.\n  bandwidth = 3.4, fill = \"#56B4E9\", color = \"white\" # Sets the bandwidth for the plot, as well as the fill and color for the plot elements.\n) +\n\nscale_x_continuous( # Adds a scale to the x-axis for continuous values.\n  name = \"mean temperature (°F)\", # Sets the label for the x-axis.\n  expand = c(0, 0), breaks = c(0, 25, 50, 75) # Sets the expansion and the break points for the x-axis.\n) +\n\nscale_y_discrete(\n  name = \"month\", expand = c(0, .2, 0, 2.6)) + # Adds a scale to the y-axis for discrete (categorical) values, with a label and a custom expansion.\n\ntheme( # Applies a custom theme to the ggplot object.\n  plot.margin = margin(3, 7, 3, 1.5) # Sets the margin of the plot.\n)"
+    "text": "Q2c\nUse ggridges::geom_density_ridges() for Q2c."
   },
   {
     "objectID": "ex/danl399-hw-1.html#q2d",
     "href": "ex/danl399-hw-1.html#q2d",
     "title": "DANL 399: Data Visualization and PresentationHomework Assignment 1",
     "section": "Q2d",
-    "text": "Q2d\nUse ggplot::mtcars for Q2d.\n\nm <- ggplot(data = mtcars, aes(x = disp, y = mpg, color = hp)) \n\nm + geom_point(aes(color = hp)) + # add scatter plot with color mapped to \"hp\" variable\n  labs(x = \"displacement(cu. in.)\", y = \"fuel efficiency(mpg)\")+ # add labels to x and y axes\n  scale_color_gradient()+ # add color gradient scale legend\n  scale_fill_brewer(palette = \"Emrld\") # add fill color palette with \"Emrld\" scheme to the legend"
+    "text": "Q2d\nUse ggplot::mtcars for Q2d."
   },
   {
     "objectID": "ex/danl399-hw-1.html#q2e",
     "href": "ex/danl399-hw-1.html#q2e",
     "title": "DANL 399: Data Visualization and PresentationHomework Assignment 1",
     "section": "Q2e",
-    "text": "Q2e\nUse the following data.frame for Q2e.\n\npopgrowth_df <- read_csv(\n  'https://bcdanl.github.io/data/popgrowth.csv')\n\n\np <- ggplot(popgrowth_df, \n            aes(x = reorder(state, popgrowth), \n                y = 100*popgrowth, \n                fill = region))\np + geom_col() + # Add the geom for the columns\n  scale_y_continuous(\n    limits = c(-.6, 37.5), expand = c(0, 0), # Set y axis limits and expansion\n    labels = scales::percent_format(accuracy = 1, scale = 1), # Set percent labels for y axis\n    name = \"population growth, 2000 to 2010\" # Set name for y axis\n    ) +\n  coord_flip() + # Flip the x and y axis\n  theme(legend.position = c(.67, .4), # Set legend position\n        axis.text.y = element_text( size = 6, \n                                    margin = margin(t = 0, r = 0, b = 0, l = 0) )) # Adjust the size and margin for y axis text"
+    "text": "Q2e\nUse the following data.frame for Q2e.\n\npopgrowth_df <- read_csv(\n  'https://bcdanl.github.io/data/popgrowth.csv')"
   },
   {
     "objectID": "ex/danl399-hw-1.html#q2f",
     "href": "ex/danl399-hw-1.html#q2f",
     "title": "DANL 399: Data Visualization and PresentationHomework Assignment 1",
     "section": "Q2f",
-    "text": "Q2f\nUse the following data.frame for Q2f.\n\nmale_Aus <- read_csv(\n  'https://bcdanl.github.io/data/aus_athletics_male.csv')\n\n\n# Define color and fill vectors for use in plot\ncolors <- c(\"#BD3828\", rep(\"#808080\", 4))\nfills <- c(\"#BD3828D0\", rep(\"#80808080\", 4))\n\np <- ggplot(male_Aus, aes(x=height, y=pcBfat, shape=sport, color = sport, fill = sport))\n\n# Add geom_point layer with custom size\np + geom_point(size = 3) +\n\n# Set shape values for different sports\n  scale_shape_manual(values = 21:25) +\n\n# Set color values for different sports\n  scale_color_manual(values = colors) +\n\n# Set fill values for different sports\n  scale_fill_manual(values = fills) +\n\n# Set x and y axis labels\n  labs(x = \"height (cm)\",\n       y = \"% body fat\" )"
+    "text": "Q2f\nUse the following data.frame for Q2f.\n\nmale_Aus <- read_csv(\n  'https://bcdanl.github.io/data/aus_athletics_male.csv')"
   },
   {
     "objectID": "ex/danl399-hw-1.html#q2g",
     "href": "ex/danl399-hw-1.html#q2g",
     "title": "DANL 399: Data Visualization and PresentationHomework Assignment 1",
     "section": "Q2g",
-    "text": "Q2g\nUse the following data.frame for Q2g.\n\ntitanic <- read_csv(\n  'https://bcdanl.github.io/data/titanic_cleaned.csv')\n\n\np <- ggplot(titanic, aes(x = age, y = after_stat(count) ) ) \n\n# Add a density line plot for all passengers with transparent color, and fill legend with \"all passengers\"\np + geom_density_line(\n    data = select(titanic, -sex), \n    aes(fill = \"all passengers\"),\n    color = \"transparent\"\n  ) + \n  # Add another density line plot for each sex with transparent color, and fill legend with sex\n  geom_density_line(aes(fill = sex), bw = 2, color = \"transparent\") +\n  # Set the x-axis limits, name, and expand arguments\n  scale_x_continuous(limits = c(0, 75), name = \"passenger age (years)\", expand = c(0, 0)) +\n  # Set the y-axis limits, name, and expand arguments\n  scale_y_continuous(limits = c(0, 26), name = \"count\", expand = c(0, 0)) +\n  # Set the manual color and fill values, breaks, and labels for the legend\n  scale_fill_manual(\n    values = c(\"#b3b3b3a0\", \"#0072B2\", \"#D55E00\"), \n    breaks = c(\"all passengers\", \"male\", \"female\"),\n    labels = c(\"all passengers  \", \"males  \", \"females\"),\n    name = NULL,\n    guide = guide_legend(direction = \"horizontal\")\n  ) +\n  # Set the Cartesian coordinate system to allow for data points to fall outside the plot limits\n  coord_cartesian(clip = \"off\") +\n  # Create separate density line plots for male and female passengers\n  facet_wrap(~sex) +\n  # Set the x-axis line to blank, increase the strip text size, and set the legend position and margin\n  theme(\n    axis.line.x = element_blank(),\n    strip.text = element_text(size = 14, margin = margin(0, 0, 0.2, 0, \"cm\")),\n    legend.position = \"bottom\",\n    legend.justification = \"right\",\n    legend.margin = margin(4.5, 0, 1.5, 0, \"pt\"),\n    legend.spacing.x = grid::unit(4.5, \"pt\"),\n    legend.spacing.y = grid::unit(0, \"pt\"),\n    legend.box.spacing = grid::unit(0, \"cm\")\n  )"
+    "text": "Q2g\nUse the following data.frame for Q2g.\n\ntitanic <- read_csv(\n  'https://bcdanl.github.io/data/titanic_cleaned.csv')"
   },
   {
     "objectID": "ex/danl399-hw-1.html#q2h",
     "href": "ex/danl399-hw-1.html#q2h",
     "title": "DANL 399: Data Visualization and PresentationHomework Assignment 1",
     "section": "Q2h",
-    "text": "Q2h\nUse the following data.frame for Q2h.\n\ncows_filtered <- read_csv(\n  'https://bcdanl.github.io/data/cows_filtered.csv')\n\n\np <- ggplot(cows_filtered, aes(x = butterfat, color = breed, fill = breed))\n\n# add a density line for each breed with some transparency\np + geom_density_line(alpha = .2) +\n\n# set x-axis properties\nscale_x_continuous(\n  expand = c(0, 0), # remove padding from axis limits\n  labels = scales::percent_format(accuracy = 1, scale = 1), # format axis labels as percentages with 1 decimal point\n  name = \"butterfat contents\" # set axis label\n) +\n\n# set y-axis properties\nscale_y_continuous(limits = c(0, 1.99), expand = c(0, 0)) +\n\n# set plot area properties\ncoord_cartesian(clip = \"off\") + # allow density lines to extend beyond axis limits\ntheme(axis.line.x = element_blank()) # remove x-axis line\n\n\n\n\n\n\nReference: Fundamentals of Data Visualization by Claus O. Wilke"
+    "text": "Q2h\nUse the following data.frame for Q2h.\n\ncows_filtered <- read_csv(\n  'https://bcdanl.github.io/data/cows_filtered.csv')"
   },
   {
     "objectID": "index.html",

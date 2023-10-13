@@ -1,10 +1,14 @@
 ---
 title: "DANL 399: Data Visualization and Presentation<br>Homework Assignment 1"
 author: "Byeong-Hak Choe"
-
+execute: 
+  echo: false
+  eval: true
 ---
 
-```{r setup, include = F}
+```{r setup}
+#| include: false
+
 library(tidyverse)
 library(gapminder)
 library(skimr)   # a better summary of data.frame
@@ -15,17 +19,17 @@ library(lubridate)
 library(ggridges)
 theme_set(theme_minimal()) # setting the minimal theme for ggplot
 # setting default chunk options
-knitr::opts_chunk$set(
-	eval = T,
-	echo = T,
-	message = FALSE,
-	warning = FALSE
-)
+
+knitr::opts_chunk$set(fig.width=8, fig.height=5,
+                      echo = T, eval = T, 
+                      message=F, warning = F, fig.cap = " ")  
 ```
 
 # Question 1
 
-Renovate your personal website on GitHub using Quarto.
+Summarize each class and post it as a webpage under a new menu, "Classwork", in your personal website on GitHub using Quarto.
+
+-   Summary does not need to be formal and comprehensive!
 
 -   FAQ about Quarto for R Markdown users are provided below: <https://quarto.org/docs/faq/rmarkdown.html>
 
@@ -42,16 +46,20 @@ Provide ggplot codes to replicate the given figure.
 
 Use the following data.frame for Q2a, Q2b, and Q2c.
 
-```{r, echo = T, eval = F}
+```{r}
+#| echo: true
+#| eval: false
 ncdc_temp <- read_csv(
   'https://bcdanl.github.io/data/ncdc_temp_cleaned.csv')
 ```
 
 ```{r}
+#| echo: false
+#| eval: true
 ncdc_temp <- read_csv(
   'https://bcdanl.github.io/data/ncdc_temp_cleaned.csv')
 
-ggplot(ncdc_temp, aes(x = date, y = temperature, color = location)) +
+ggplot(ncdc_temp, aes(x = date, y= temperature, color = location)) +
 
 geom_line(size = 1) + # Adds a layer to the ggplot object with a line plot of the temperature data, with a size of 1.
 
@@ -70,10 +78,12 @@ theme(legend.title.align = 0.5) # Adjusts the alignment of the legend title to b
 ## Q2b
 
 ```{r}
+#| echo: false
+#| eval: true
 ncdc_temp <- read_csv(
   'https://bcdanl.github.io/data/ncdc_temp_cleaned.csv')
 
-p <- ggplot(ncdc_temp, aes(x = month, y = temperature)) 
+p <- ggplot(ncdc_temp, aes(x = month, y= temperature)) 
 
   # add a box plot with grey fill
 p + geom_boxplot(fill = 'grey90') + 
@@ -90,6 +100,8 @@ p + geom_boxplot(fill = 'grey90') +
 Use `ggridges::geom_density_ridges()` for Q2c.
 
 ```{r}
+#| echo: false
+#| eval: true
 ncdc_temp <- read_csv(
   'https://bcdanl.github.io/data/ncdc_temp_cleaned.csv')
 
@@ -118,6 +130,8 @@ theme( # Applies a custom theme to the ggplot object.
 Use `ggplot::mtcars` for Q2d.
 
 ```{r}
+#| echo: false
+#| eval: true
 m <- ggplot(data = mtcars, aes(x = disp, y = mpg, color = hp)) 
 
 m + geom_point(aes(color = hp)) + # add scatter plot with color mapped to "hp" variable
@@ -131,12 +145,16 @@ m + geom_point(aes(color = hp)) + # add scatter plot with color mapped to "hp" v
 
 Use the following data.frame for Q2e.
 
-```{r, echo = T, eval = T}
+```{r}
+#| echo: true
+#| eval: true
 popgrowth_df <- read_csv(
   'https://bcdanl.github.io/data/popgrowth.csv')
 ```
 
 ```{r}
+#| echo: false
+#| eval: true
 p <- ggplot(popgrowth_df, 
             aes(x = reorder(state, popgrowth), 
                 y = 100*popgrowth, 
@@ -157,12 +175,16 @@ p + geom_col() + # Add the geom for the columns
 
 Use the following data.frame for Q2f.
 
-```{r, echo = T, eval = T}
+```{r}
+#| echo: true
+#| eval: true
 male_Aus <- read_csv(
   'https://bcdanl.github.io/data/aus_athletics_male.csv')
 ```
 
 ```{r}
+#| echo: false
+#| eval: true
 # Define color and fill vectors for use in plot
 colors <- c("#BD3828", rep("#808080", 4))
 fills <- c("#BD3828D0", rep("#80808080", 4))
@@ -190,12 +212,16 @@ p + geom_point(size = 3) +
 
 Use the following data.frame for Q2g.
 
-```{r, echo = T, eval = T}
+```{r}
+#| echo: true
+#| eval: true
 titanic <- read_csv(
   'https://bcdanl.github.io/data/titanic_cleaned.csv')
 ```
 
 ```{r}
+#| echo: false
+#| eval: true
 p <- ggplot(titanic, aes(x = age, y = after_stat(count) ) ) 
 
 # Add a density line plot for all passengers with transparent color, and fill legend with "all passengers"
@@ -239,12 +265,16 @@ p + geom_density_line(
 
 Use the following data.frame for Q2h.
 
-```{r, echo = T, eval = T}
+```{r}
+#| echo: true
+#| eval: true
 cows_filtered <- read_csv(
   'https://bcdanl.github.io/data/cows_filtered.csv')
 ```
 
 ```{r}
+#| echo: false
+#| eval: true
 p <- ggplot(cows_filtered, aes(x = butterfat, color = breed, fill = breed))
 
 # add a density line for each breed with some transparency
@@ -267,4 +297,4 @@ theme(axis.line.x = element_blank()) # remove x-axis line
 
 <br>
 
-<p>Reference: [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/) by Claus O. Wilke</p>
+<!-- <p>Reference: [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/) by Claus O. Wilke</p> -->
