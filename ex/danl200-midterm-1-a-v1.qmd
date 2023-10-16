@@ -31,7 +31,8 @@ knitr::opts_chunk$set(fig.width=8, fig.height=5)
 theme_set(theme_ipsum() +
           theme(strip.background =element_rect(fill="lightgray"),
                 axis.title.x = element_text(size = rel(1.5) ),
-                axis.title.y = element_text(size = rel(1.5) ))
+                axis.title.y = element_text(size = rel(1.5),
+                                            angle = 0))
           )
 
 ```
@@ -245,8 +246,7 @@ ggplot(close_elections,
   geom_point(data = close_elections_mean,
              aes(x = lagdemvoteshare, y = score), 
              size = .75) +
-  geom_smooth(aes(group = lagdemocrat), 
-              method = "loess") +
+  geom_smooth(aes(group = lagdemocrat)) +
   geom_smooth(aes(group = lagdemocrat), 
               method = "lm", color = "red") +
   geom_vline(xintercept = 0.5) +
@@ -259,8 +259,7 @@ ggplot(close_elections,
   geom_point(data = close_elections_mean,
              aes(x = lagdemvoteshare, y = score), 
              size = .75) +
-  geom_smooth(aes(group = lagdemocrat), 
-              method = "loess") +
+  geom_smooth(aes(group = lagdemocrat)) +
   geom_smooth(aes(group = lagdemocrat), 
               method = "lm", color = "red") +
   geom_vline(xintercept = 0.5) +
@@ -469,7 +468,6 @@ ggplot(data = sales_df_sum,
        aes(x = year, y = sale_price)) +
   geom_bar(aes(fill = borough),
            stat = "identity",
-           position = "dodge",
            show.legend = F) +
   geom_line() +
   geom_point() +
