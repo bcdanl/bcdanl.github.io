@@ -812,214 +812,67 @@
     "text": "Q3d.\nProvide ggplot code and comments to describe how the relationship between gdpPercap and lifeExp varies by continent."
   },
   {
-    "objectID": "ex/danl200-hw-2.html",
-    "href": "ex/danl200-hw-2.html",
-    "title": "DANL 200: Homework Assignment 2",
+    "objectID": "ex/econ340-hw-2.html",
+    "href": "ex/econ340-hw-2.html",
+    "title": "ECON 340: Homework Assignment 2",
     "section": "",
-    "text": "Read the data file, custdata_rev.csv, as the data.frame object with the name, health_cust:\n\nlibrary(tidyverse)\nlibrary(skimr)\n\nhealth_cust &lt;- read_csv(\n  'https://bcdanl.github.io/data/custdata_rev.csv'\n)\n\n\n\nThe following describes the variables in the health_cust data.frame.\n\ncustid: ID of customer\nsex: Sex\nis_employed: Employment status\n\nNA: Unknown or not applicable\nTRUE: Employed\nFALSE: Unemployed\n\nincome: Income (in $)\nmarital_status: Marital status\nhousing_type: Housing type\nrecent_move:\n\nTRUE: Recently moved\nFALSE: Not recently moved\n\nage: Age\nstate_of_res: State of residence\ngas_usage: Gas usage\n\nNA: Unknown or not applicable\n001: Included in rent or condo fee\n002: Included in electricity payment\n003: No charge or gas not used\n004-999: $4 to $999 (rounded and top-coded)\n\nhealth_ins: Health insuarance status\n\nTRUE: customer with health insuarance\nFALSE: customer without health insuarance\n\n\n\n\n\n\nReport summary statistics including a mean value for each logical variable in health_cust.\n\n\n\n\nUse health_cust data.frame to create a new data.frame, health_cust2, in which (1) age is greater than 0 and less than 100; and (2) income is positive.\n\n\n\n\nProvide ggplot code and comments to describe the distribution of income.\n\n\n\n\nProvide ggplot code and comments to describe the distribution of marital_status.\n\n\n\n\nSuppose you randomly pick one customer’s observation from each state in data.frame health_cust.\nUse ggplot code to find: (1) in which state a customer is most likely to have a health insurance; and (2) in which state a customer is least likely to have a health insurance.\n\n\n\n\nProvide ggplot code and comments to describe the relationship between age and income.\n\n\n\n\nProvide ggplot code and comments to describe the relationship between age and health_ins.\n\n\n\n\nProvide ggplot code and comments to describe the relationship between marital_status and health_ins.\n\n\n\n\nProvide ggplot code and comments to describe the relationship between marital_status and housing_type."
+    "text": "Consider a society with just two consumers. Consumer 1 can get positive utility from a positive amount of some activity \\(h\\) that she chooses the level of, but consumer 2 gets negative utility from that activity. We can think of \\(h\\) as some non-market good, for example, “hours” of loud music played by consumer 1, disturbing consumer 2’s peace and quiet. Consumer 1 therefore imposes a negative externality on consumer 2. Assume there is no other cost associated with the activity.\nAssume that both consumers gain utilities from consuming a numeraire good \\(x\\), whose price is 1, but may have different incomes \\(Y_{1}\\) and \\(Y_{2}\\).\n\nConsumer 1’s utility is \\(U_{1} = x_{1} + h(4-h)\\).\nConsumer 2’s utility is \\(U_{2} = x_{2} - h^{2}\\).\n\n\n\n\n\nSuppose that, instead of a tax or a subsidy, the government introduces a marketable-permit scheme.\n\nIt gives consumer 2 a bunch of pieces of paper called “permits,” each of which states that the holder of the permit has the legal right to “produce” one unit of \\(h\\).\nIt then allows consumer 2 to sell those permits to consumer 1 at some uniform price \\(p_{h}\\).\n\nAssume that the permit market is competitive.\n\nThis means that each consumer takes the price \\(p_{h}\\) as given.\nYou can think of each consumer as “representing” a large number of consumers of the same type.\n\nShow that the scheme will also achieve the socially optimal outcome \\(h^{o}\\).\n\n\n\n\n\n\nSame question as Q1e, but now the government introduces a marketable-permit scheme that gives a bunch of permits to consumer 1, and then gives consumer 2 an opportunity to buy them away from consumer 1 and “retire” them.\n\n\n\n\n\n\nSuppose that, instead of trying to intervene in the market, the government just passes a law giving consumer 2 a clearly defined right to have \\(h = 0\\) (e.g., it imposes a noise ordinance that forbids consumer 1 from playing loud music), but then allows consumer 1 to effectively “bribe” consumer 2 to give up some of that right (i.e., allow some music playing) in exchange for a lump-sum transfer \\(T\\).\nShow that this, too, will restore social optimality.\n\n\n\n\n\n\nSame question as Q1g, but now the government gives consumer 1 a clear legal right to \\(h^{*}\\) (i.e., in our example, a right to play as much loud music as she likes), and then allows consumer 2 to effectively “bribe” consumer 1 to give up some of that right (i.e., cut back on her music playing) in exchange for a lump-sum transfer \\(T\\)."
   },
   {
-    "objectID": "ex/danl200-hw-2.html#variable-description-for-health_cust",
-    "href": "ex/danl200-hw-2.html#variable-description-for-health_cust",
-    "title": "DANL 200: Homework Assignment 2",
+    "objectID": "ex/econ340-hw-2.html#q1e.",
+    "href": "ex/econ340-hw-2.html#q1e.",
+    "title": "ECON 340: Homework Assignment 2",
     "section": "",
-    "text": "The following describes the variables in the health_cust data.frame.\n\ncustid: ID of customer\nsex: Sex\nis_employed: Employment status\n\nNA: Unknown or not applicable\nTRUE: Employed\nFALSE: Unemployed\n\nincome: Income (in $)\nmarital_status: Marital status\nhousing_type: Housing type\nrecent_move:\n\nTRUE: Recently moved\nFALSE: Not recently moved\n\nage: Age\nstate_of_res: State of residence\ngas_usage: Gas usage\n\nNA: Unknown or not applicable\n001: Included in rent or condo fee\n002: Included in electricity payment\n003: No charge or gas not used\n004-999: $4 to $999 (rounded and top-coded)\n\nhealth_ins: Health insuarance status\n\nTRUE: customer with health insuarance\nFALSE: customer without health insuarance"
+    "text": "Suppose that, instead of a tax or a subsidy, the government introduces a marketable-permit scheme.\n\nIt gives consumer 2 a bunch of pieces of paper called “permits,” each of which states that the holder of the permit has the legal right to “produce” one unit of \\(h\\).\nIt then allows consumer 2 to sell those permits to consumer 1 at some uniform price \\(p_{h}\\).\n\nAssume that the permit market is competitive.\n\nThis means that each consumer takes the price \\(p_{h}\\) as given.\nYou can think of each consumer as “representing” a large number of consumers of the same type.\n\nShow that the scheme will also achieve the socially optimal outcome \\(h^{o}\\)."
   },
   {
-    "objectID": "ex/danl200-hw-2.html#q1a",
-    "href": "ex/danl200-hw-2.html#q1a",
-    "title": "DANL 200: Homework Assignment 2",
+    "objectID": "ex/econ340-hw-2.html#q1f.",
+    "href": "ex/econ340-hw-2.html#q1f.",
+    "title": "ECON 340: Homework Assignment 2",
     "section": "",
-    "text": "Report summary statistics including a mean value for each logical variable in health_cust."
+    "text": "Same question as Q1e, but now the government introduces a marketable-permit scheme that gives a bunch of permits to consumer 1, and then gives consumer 2 an opportunity to buy them away from consumer 1 and “retire” them."
   },
   {
-    "objectID": "ex/danl200-hw-2.html#q1b",
-    "href": "ex/danl200-hw-2.html#q1b",
-    "title": "DANL 200: Homework Assignment 2",
+    "objectID": "ex/econ340-hw-2.html#q1g.",
+    "href": "ex/econ340-hw-2.html#q1g.",
+    "title": "ECON 340: Homework Assignment 2",
     "section": "",
-    "text": "Use health_cust data.frame to create a new data.frame, health_cust2, in which (1) age is greater than 0 and less than 100; and (2) income is positive."
+    "text": "Suppose that, instead of trying to intervene in the market, the government just passes a law giving consumer 2 a clearly defined right to have \\(h = 0\\) (e.g., it imposes a noise ordinance that forbids consumer 1 from playing loud music), but then allows consumer 1 to effectively “bribe” consumer 2 to give up some of that right (i.e., allow some music playing) in exchange for a lump-sum transfer \\(T\\).\nShow that this, too, will restore social optimality."
   },
   {
-    "objectID": "ex/danl200-hw-2.html#q1c",
-    "href": "ex/danl200-hw-2.html#q1c",
-    "title": "DANL 200: Homework Assignment 2",
+    "objectID": "ex/econ340-hw-2.html#q1h.",
+    "href": "ex/econ340-hw-2.html#q1h.",
+    "title": "ECON 340: Homework Assignment 2",
     "section": "",
-    "text": "Provide ggplot code and comments to describe the distribution of income."
+    "text": "Same question as Q1g, but now the government gives consumer 1 a clear legal right to \\(h^{*}\\) (i.e., in our example, a right to play as much loud music as she likes), and then allows consumer 2 to effectively “bribe” consumer 1 to give up some of that right (i.e., cut back on her music playing) in exchange for a lump-sum transfer \\(T\\)."
   },
   {
-    "objectID": "ex/danl200-hw-2.html#q1d",
-    "href": "ex/danl200-hw-2.html#q1d",
-    "title": "DANL 200: Homework Assignment 2",
-    "section": "",
-    "text": "Provide ggplot code and comments to describe the distribution of marital_status."
-  },
-  {
-    "objectID": "ex/danl200-hw-2.html#q1e",
-    "href": "ex/danl200-hw-2.html#q1e",
-    "title": "DANL 200: Homework Assignment 2",
-    "section": "",
-    "text": "Suppose you randomly pick one customer’s observation from each state in data.frame health_cust.\nUse ggplot code to find: (1) in which state a customer is most likely to have a health insurance; and (2) in which state a customer is least likely to have a health insurance."
-  },
-  {
-    "objectID": "ex/danl200-hw-2.html#q1f",
-    "href": "ex/danl200-hw-2.html#q1f",
-    "title": "DANL 200: Homework Assignment 2",
-    "section": "",
-    "text": "Provide ggplot code and comments to describe the relationship between age and income."
-  },
-  {
-    "objectID": "ex/danl200-hw-2.html#q1g",
-    "href": "ex/danl200-hw-2.html#q1g",
-    "title": "DANL 200: Homework Assignment 2",
-    "section": "",
-    "text": "Provide ggplot code and comments to describe the relationship between age and health_ins."
-  },
-  {
-    "objectID": "ex/danl200-hw-2.html#q1h",
-    "href": "ex/danl200-hw-2.html#q1h",
-    "title": "DANL 200: Homework Assignment 2",
-    "section": "",
-    "text": "Provide ggplot code and comments to describe the relationship between marital_status and health_ins."
-  },
-  {
-    "objectID": "ex/danl200-hw-2.html#q1i",
-    "href": "ex/danl200-hw-2.html#q1i",
-    "title": "DANL 200: Homework Assignment 2",
-    "section": "",
-    "text": "Provide ggplot code and comments to describe the relationship between marital_status and housing_type."
-  },
-  {
-    "objectID": "ex/econ340-exam-1.html",
-    "href": "ex/econ340-exam-1.html",
-    "title": "ECON 340: Envrionmental Economics Midterm Exam 1",
-    "section": "",
-    "text": "Let’s consider a Public Goods Game with deforestation.\n\n\nA village is located near a dense forest. The forest provides essential resources to the village, such as wood for fuel, fruits, and medicinal herbs. However, the forest also acts as a carbon sink, absorbing carbon dioxide and helping to regulate the climate. If too many trees are cut down, not only will the forest’s resources be depleted, but the local climate may also become more unstable, leading to long-term consequences for the village.\n\n\n\n\nPlayers: Each player represents a household in the village. Every household relies on the forest for resources but also understands the long-term benefits of conservation.\nInitial Endowment: Each household starts with 100 units of currency.\nDecision: Each round, households decide how many trees to cut down. Each tree cut down gives immediate benefits (e.g., 10 units of currency per tree). However, if the total number of trees cut by all households exceeds a certain threshold, the forest will degrade, leading to negative consequences for all players in subsequent rounds.\nPublic Pot: Instead of cutting trees, households can choose to contribute some of their currency to a public pot, which represents a community fund for forest conservation and sustainable resource management.\nMultiplication and Distribution: At the end of each round, contributions to the public pot are used for reforestation and sustainable initiatives. For every unit of currency in the pot, the community fund plants new trees or invests in sustainable practices, multiplying the pot’s value by a factor 1.5. The benefits (like a stable climate, continued access to forest resources) are then equally distributed among all households, irrespective of individual contributions.\n\nSuppose there are four households. In the first round:\n\nHousehold A cuts 3 trees, earning 30 units.\nHousehold B cuts 2 trees, earning 20 units, and contributes 20 units to the public pot.\nHousehold C cuts 0 trees (choosing conservation) and contributes 50 units to the public pot.\nHousehold D cuts 4 trees, earning 40 units.\n\n\n\nWhat is the total contribution to the public pot in the first round?\n\n\n\n\nHow much units of\n\n\n\n\n\n\n\n\n\nThe total contribution to the public pot is (20 + 50 = 70) units. This amount is multiplied by 1.5 (for reforestation efforts), resulting in 105 units of environmental benefit distributed equally among the households.\n\n\n\n\nIf too many trees are cut collectively, the forest degrades, leading to reduced benefits in subsequent rounds.\nHouseholds face the dilemma of gaining immediate benefits from cutting trees versus the long-term communal benefits of conservation.\nThe game illustrates the tension between individual short-term gains and collective long-term benefits, mirroring real-world environmental challenges like deforestation, overfishing, and pollution.\n\nThis game can be used to study how communities balance immediate needs with long-term sustainability and the factors that influence cooperative behavior in environmental conservation."
-  },
-  {
-    "objectID": "ex/econ340-exam-1.html#context",
-    "href": "ex/econ340-exam-1.html#context",
-    "title": "ECON 340: Envrionmental Economics Midterm Exam 1",
-    "section": "",
-    "text": "A village is located near a dense forest. The forest provides essential resources to the village, such as wood for fuel, fruits, and medicinal herbs. However, the forest also acts as a carbon sink, absorbing carbon dioxide and helping to regulate the climate. If too many trees are cut down, not only will the forest’s resources be depleted, but the local climate may also become more unstable, leading to long-term consequences for the village."
-  },
-  {
-    "objectID": "ex/econ340-exam-1.html#the-game",
-    "href": "ex/econ340-exam-1.html#the-game",
-    "title": "ECON 340: Envrionmental Economics Midterm Exam 1",
-    "section": "",
-    "text": "Players: Each player represents a household in the village. Every household relies on the forest for resources but also understands the long-term benefits of conservation.\nInitial Endowment: Each household starts with 100 units of currency.\nDecision: Each round, households decide how many trees to cut down. Each tree cut down gives immediate benefits (e.g., 10 units of currency per tree). However, if the total number of trees cut by all households exceeds a certain threshold, the forest will degrade, leading to negative consequences for all players in subsequent rounds.\nPublic Pot: Instead of cutting trees, households can choose to contribute some of their currency to a public pot, which represents a community fund for forest conservation and sustainable resource management.\nMultiplication and Distribution: At the end of each round, contributions to the public pot are used for reforestation and sustainable initiatives. For every unit of currency in the pot, the community fund plants new trees or invests in sustainable practices, multiplying the pot’s value by a factor 1.5. The benefits (like a stable climate, continued access to forest resources) are then equally distributed among all households, irrespective of individual contributions.\n\nSuppose there are four households. In the first round:\n\nHousehold A cuts 3 trees, earning 30 units.\nHousehold B cuts 2 trees, earning 20 units, and contributes 20 units to the public pot.\nHousehold C cuts 0 trees (choosing conservation) and contributes 50 units to the public pot.\nHousehold D cuts 4 trees, earning 40 units.\n\n\n\nWhat is the total contribution to the public pot in the first round?\n\n\n\n\nHow much units of\n\n\n\n\n\n\n\n\n\nThe total contribution to the public pot is (20 + 50 = 70) units. This amount is multiplied by 1.5 (for reforestation efforts), resulting in 105 units of environmental benefit distributed equally among the households.\n\n\n\n\nIf too many trees are cut collectively, the forest degrades, leading to reduced benefits in subsequent rounds.\nHouseholds face the dilemma of gaining immediate benefits from cutting trees versus the long-term communal benefits of conservation.\nThe game illustrates the tension between individual short-term gains and collective long-term benefits, mirroring real-world environmental challenges like deforestation, overfishing, and pollution.\n\nThis game can be used to study how communities balance immediate needs with long-term sustainability and the factors that influence cooperative behavior in environmental conservation."
-  },
-  {
-    "objectID": "ex/danl200-hw-1-a.html",
-    "href": "ex/danl200-hw-1-a.html",
-    "title": "Question 1. Data Analytics Survey",
-    "section": "",
-    "text": "Complete the following survey:\n\nhttps://forms.gle/Ya2HbPgHynkAp5e28"
-  },
-  {
-    "objectID": "ex/danl200-hw-1-a.html#q2a.",
-    "href": "ex/danl200-hw-1-a.html#q2a.",
-    "title": "Question 1. Data Analytics Survey",
+    "objectID": "ex/econ340-hw-2.html#q2a.",
+    "href": "ex/econ340-hw-2.html#q2a.",
+    "title": "ECON 340: Homework Assignment 2",
     "section": "Q2a.",
-    "text": "Q2a.\n\nDownload the CSV file, starwars.csv, from the Brightspace.\nRead the data file, starwars.csv, as the data.frame object with the name, starwars, using (1) the read_csv() function and (2) the absolute path name of the file starwars.csv from your local hard disk drive in your laptop.\n\nAnswer:\n\nlibrary(tidyverse)\npath_name &lt;- \"/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/starwars.csv\"\nstarwars &lt;- read_csv(path_name)\n\nRows: 173 Columns: 12\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (9): films, name, species, hair_color, skin_color, eye_color, sex, gende...\ndbl (3): height, mass, birth_year\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
+    "text": "Q2a.\n\nWhat amount is Amazon willing to pay (WTP) to expand the forest area to four times its current size?\nWhat compensation is Amazon willing to accept (WTA) to forego the “Quadrupling the Amazon Forest” project?"
   },
   {
-    "objectID": "ex/danl200-hw-1-a.html#variable-description-for-starwars-data.frame",
-    "href": "ex/danl200-hw-1-a.html#variable-description-for-starwars-data.frame",
-    "title": "Question 1. Data Analytics Survey",
-    "section": "Variable Description for starwars data.frame",
-    "text": "Variable Description for starwars data.frame\nThe following describes the variables in the starwars data.frame.\n\nfilms List of films the character appeared in\nname Name of the character\nspecies Name of species\nheight Height (cm)\nmass Weight (kg)\nhair_color, skin_color, eye_color Hair, skin, and eye colors\nbirth_year Year born (BBY = Before Battle of Yavin)\nsex The biological sex of the character, namely male, female, hermaphroditic, or none (as in the case for Droids).\ngender The gender role or gender identity of the character as determined by their personality or the way they were programmed (as in the case for Droids).\nhomeworld Name of homeworld"
-  },
-  {
-    "objectID": "ex/danl200-hw-1-a.html#q2b.",
-    "href": "ex/danl200-hw-1-a.html#q2b.",
-    "title": "Question 1. Data Analytics Survey",
+    "objectID": "ex/econ340-hw-2.html#q2b.",
+    "href": "ex/econ340-hw-2.html#q2b.",
+    "title": "ECON 340: Homework Assignment 2",
     "section": "Q2b.",
-    "text": "Q2b.\n\nProvide the R code to find how many characters are Droid species.\n\nAnswer:\n\nlibrary(skimr)\n\n# The following gives not only Droid but also NA\n# q2a &lt;- starwars[starwars$species == 'Droid', ]\n\ndroid &lt;- which(starwars$species == 'Droid')\nq2a &lt;- starwars[droid,]\n\nnrow(\n  q2a\n)\n\n[1] 18\n\n\n\nlibrary(skimr)\n\n# The following gives not only Droid but also NA\n# q2a &lt;- starwars[starwars$species == 'Droid', ]\n\ndroid &lt;- which(starwars$species == 'Droid')\nq2a &lt;- starwars[droid,]\n\nlength(unique(q2a$name))\n\n[1] 6"
+    "text": "Q2b.\nAre your calculations for WTP and WTA identical or do they differ? Please explain the reasons behind your assessment of their similarity or difference."
   },
   {
-    "objectID": "ex/danl200-hw-1-a.html#q2c.",
-    "href": "ex/danl200-hw-1-a.html#q2c.",
-    "title": "Question 1. Data Analytics Survey",
-    "section": "Q2c.",
-    "text": "Q2c.\n\nProvide the R code to find which Droid character did appear most in the Star Wars films.\n\nAnswer:\n\nq2b &lt;- q2a[ , c('name','films')]\n\ntable(q2a$name)\n\n\n   BB8  C-3PO  IG-88  R2-D2 R4-P17  R5-D4 \n     1      6      1      7      2      1"
-  },
-  {
-    "objectID": "ex/danl200-hw-1-a.html#q2d.",
-    "href": "ex/danl200-hw-1-a.html#q2d.",
-    "title": "Question 1. Data Analytics Survey",
-    "section": "Q2d.",
-    "text": "Q2d.\n\nProvide the R code to find the minimum, first quartile, median, third quartile, and the maximum of height.\n\nAnswer:\n\nskim(starwars$height)\n\n\nData summary\n\n\nName\nstarwars$height\n\n\nNumber of rows\n173\n\n\nNumber of columns\n1\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\nnumeric\n1\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\ndata\n6\n0.97\n171.31\n35.58\n66\n167\n178\n188\n264\n▂▁▇▅▁\n\n\n\n\n\n\n[Statistics] Explain why the median value is different from the mean value.\n\nWhen is the median value greater than the mean value?\nWhen is the median value less than the mean value?\n\n\nAnswer:\nIn statistics, the median and the mean are both measures of central tendency, but they are calculated differently and can have different properties. The median is the middle value in a data set when the numbers are all arranged in order, while the mean is the average of all the numbers.\n\nWhen is the Median Greater than the Mean?\nThe median is likely to be greater than the mean in a data set that is “skewed to the left” or “negatively skewed.” In such a data set, there are more low-value outliers pulling the mean down, while the median remains relatively unaffected.\n\nCharacteristics of a Left-Skewed Distribution:\n\nLong Tail on the Left: The distribution has a long tail on the left side.\nMean &lt; Median: The mean is less than the median.\nOutliers on the Left: There are more low-value outliers.\n\n\n\n\nWhen is the Median Less than the Mean?\nThe median is likely to be less than the mean in a data set that is “skewed to the right” or “positively skewed.” In such a data set, there are more large-value outliers pulling the mean up, while the median remains relatively unaffected.\n\nCharacteristics of a Left-Skewed Distribution:\n\nLong Tail on the Right: The distribution has a long tail on the left side.\nMean &gt; Median: The mean is greater than the median.\nOutliers on the Right: There are more large-value outliers."
-  },
-  {
-    "objectID": "ex/danl200-hw-1-a.html#q2e.",
-    "href": "ex/danl200-hw-1-a.html#q2e.",
-    "title": "Question 1. Data Analytics Survey",
-    "section": "Q2e.",
-    "text": "Q2e.\n\nProvide the R code to find the number of unique/distinct homeworld values.\n\nAnswer:\n\nskim(starwars$homeworld)\n\n\nData summary\n\n\nName\nstarwars$homeworld\n\n\nNumber of rows\n173\n\n\nNumber of columns\n1\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n1\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\ndata\n15\n0.91\n4\n14\n0\n48\n0\n\n\n\n\nlength(unique(starwars$homeworld))\n\n[1] 49"
-  },
-  {
-    "objectID": "ex/danl200-hw-1-a.html#q3a.",
-    "href": "ex/danl200-hw-1-a.html#q3a.",
-    "title": "Question 1. Data Analytics Survey",
+    "objectID": "ex/econ340-hw-2.html#q3a.",
+    "href": "ex/econ340-hw-2.html#q3a.",
+    "title": "ECON 340: Homework Assignment 2",
     "section": "Q3a.",
-    "text": "Q3a.\nProvide the R code to install the R package, gapminder.\nAnswer:\n\ninstall.packages(\"gapminder\")"
+    "text": "Q3a.\n\nGraph the demand curve for hiking trips as a function of the “price”—the travel cost."
   },
   {
-    "objectID": "ex/danl200-hw-1-a.html#q3b.",
-    "href": "ex/danl200-hw-1-a.html#q3b.",
-    "title": "Question 1. Data Analytics Survey",
+    "objectID": "ex/econ340-hw-2.html#q3b.",
+    "href": "ex/econ340-hw-2.html#q3b.",
+    "title": "ECON 340: Homework Assignment 2",
     "section": "Q3b.",
-    "text": "Q3b.\nLoad the gapminder data.frame provided by the R package, gapminder.\nAnswer:\n\nlibrary(gapminder)\ngapminder &lt;- gapminder::gapminder\n# ?gapminder"
-  },
-  {
-    "objectID": "ex/danl200-hw-1-a.html#variable-description-for-gapminder-data.frame",
-    "href": "ex/danl200-hw-1-a.html#variable-description-for-gapminder-data.frame",
-    "title": "Question 1. Data Analytics Survey",
-    "section": "Variable Description for gapminder data.frame",
-    "text": "Variable Description for gapminder data.frame\n\nThe following describe the variables in the gapminder data.frame.\n\ncountry factor with 142 levels\ncontinent factor with 5 levels\nyear ranges from 1952 to 2007 in increments of 5 years\nlifeExp life expectancy at birth, in years\npop population\ngdpPercap GDP per capita (US$, inflation-adjusted)"
-  },
-  {
-    "objectID": "ex/danl200-hw-1-a.html#q3c.",
-    "href": "ex/danl200-hw-1-a.html#q3c.",
-    "title": "Question 1. Data Analytics Survey",
-    "section": "Q3c.",
-    "text": "Q3c.\nProvide ggplot code and comments to describe the relationship between gdpPercap and lifeExp.\nAnswers\n\nggplot(data = gapminder) +\n  geom_point(mapping = aes(x = gdpPercap, y = lifeExp),\n             alpha = .15, size = .5) \n\n\n\nggplot(data = gapminder) +\n  geom_point(mapping = aes(x = log(gdpPercap), y = log(lifeExp)),\n             alpha = .15, size = .5) \n\n\n\n\n\ngdpPercap and lifeExp are positively associated."
-  },
-  {
-    "objectID": "ex/danl200-hw-1-a.html#q3d.",
-    "href": "ex/danl200-hw-1-a.html#q3d.",
-    "title": "Question 1. Data Analytics Survey",
-    "section": "Q3d.",
-    "text": "Q3d.\nProvide ggplot code and comments to describe how the relationship between gdpPercap and lifeExp varies by continent.\nAnswers\n\nggplot(data = gapminder) +\n  geom_point(mapping = aes(x = gdpPercap, y = lifeExp,\n                           color = continent),\n             alpha = .15, size = .5) \n\n\n\nggplot(data = gapminder) +\n  geom_point(mapping = aes(x = log(gdpPercap), y = log(lifeExp),\n                           color = continent),\n             alpha = .15, size = .5) \n\n\n\nggplot(data = gapminder) +\n  geom_point(mapping = aes(x = gdpPercap, y = lifeExp,\n                           color = continent),\n             alpha = .3, size = .5) +\n  facet_wrap(. ~ continent)\n\n\n\nggplot(data = gapminder) +\n  geom_point(mapping = aes(x = log(gdpPercap), y = log(lifeExp),\n                           color = continent),\n             alpha = .3, size = .5) +\n  facet_wrap(. ~ continent) \n\n\n\nggplot(data = gapminder,\n       mapping = aes(x = log(gdpPercap), y = log(lifeExp)\n                     )\n       ) +\n  geom_point(mapping = aes(color = continent),\n            alpha = .4, size = .5) +\n  geom_smooth() +\n  geom_smooth(method = lm,\n              color = 'red') +\n  facet_grid(. ~ continent) \n\n`geom_smooth()` using method = 'loess' and formula = 'y ~ x'\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\ngdpPercap and lifeExp are positively associated.\n\nThis does hold across continent."
-  },
-  {
-    "objectID": "ex/danl399-cw-1.html",
-    "href": "ex/danl399-cw-1.html",
-    "title": "DANL 399: Classwork 1 - Data Visualization",
-    "section": "",
-    "text": "Revisit the gapminder plots and experiment with different ways to facet the data.\nTry plotting population and per capita GDP while faceting on year, or even on country.\nExperiment changing the height and width of the figure.\n\n\n\n\n\n\nInvestigate the difference between a formula written as facet_grid(sex ~ race) versus one written as facet_grid(~ sex + race) using the socviz::gss_sm data.frame.\n\n\n\n\n\n\nThe geom_bin2d() function takes two mappings, x and y.\n\nIt divides your plot into a grid and colors the bins by the count of observations in them.\n\nTry using it on the gapminder data to plot life expectancy versus per capita GDP.\n\nLike a histogram, we can vary the number or width of the bins for both x or y, (e.g., bins = c(20, 50)).\nIf we specify bindwith instead, we will need to pick values that are on the same scale as the variable we are mapping."
-  },
-  {
-    "objectID": "ex/danl399-cw-1.html#q1a.",
-    "href": "ex/danl399-cw-1.html#q1a.",
-    "title": "DANL 399: Classwork 1 - Data Visualization",
-    "section": "",
-    "text": "Revisit the gapminder plots and experiment with different ways to facet the data.\nTry plotting population and per capita GDP while faceting on year, or even on country.\nExperiment changing the height and width of the figure."
-  },
-  {
-    "objectID": "ex/danl399-cw-1.html#q1b.",
-    "href": "ex/danl399-cw-1.html#q1b.",
-    "title": "DANL 399: Classwork 1 - Data Visualization",
-    "section": "",
-    "text": "Investigate the difference between a formula written as facet_grid(sex ~ race) versus one written as facet_grid(~ sex + race) using the socviz::gss_sm data.frame."
-  },
-  {
-    "objectID": "ex/danl399-cw-1.html#q1c.",
-    "href": "ex/danl399-cw-1.html#q1c.",
-    "title": "DANL 399: Classwork 1 - Data Visualization",
-    "section": "",
-    "text": "The geom_bin2d() function takes two mappings, x and y.\n\nIt divides your plot into a grid and colors the bins by the count of observations in them.\n\nTry using it on the gapminder data to plot life expectancy versus per capita GDP.\n\nLike a histogram, we can vary the number or width of the bins for both x or y, (e.g., bins = c(20, 50)).\nIf we specify bindwith instead, we will need to pick values that are on the same scale as the variable we are mapping."
+    "text": "Q3b.\n\nBased on demographic information about the people living in the vicinity of the proposed park, you have estimated that 50,000 people will take an average of 4 hiking trips per year.\nFor the average person, calculate:\n\nThe consumer surplus for a single visit to the new park by a visitor with travel costs of $20;\nThe total consumer surplus for an average visitor (hint: the area of a triangle is \\(\\frac{1}{2}(B*H)\\) ); and\nThe total expected consumer surplus per year from the proposed park."
   },
   {
     "objectID": "ex/econ340-midterm-1-q.html",
@@ -1141,67 +994,221 @@
     "text": "Q3c.\nWhat is the socially optimal level of \\(g_{i}\\), for which the Social Planner chooses?\nAnswer:"
   },
   {
-    "objectID": "ex/econ340-hw-2.html",
-    "href": "ex/econ340-hw-2.html",
-    "title": "ECON 340: Homework Assignment 2",
+    "objectID": "ex/danl399-cw-1.html",
+    "href": "ex/danl399-cw-1.html",
+    "title": "DANL 399: Classwork 1 - Data Visualization",
     "section": "",
-    "text": "Consider a society with just two consumers. Consumer 1 can get positive utility from a positive amount of some activity \\(h\\) that she chooses the level of, but consumer 2 gets negative utility from that activity. We can think of \\(h\\) as some non-market good, for example, “hours” of loud music played by consumer 1, disturbing consumer 2’s peace and quiet. Consumer 1 therefore imposes a negative externality on consumer 2. Assume there is no other cost associated with the activity.\nAssume that both consumers gain utilities from consuming a numeraire good \\(x\\), whose price is 1, but may have different incomes \\(Y_{1}\\) and \\(Y_{2}\\).\n\nConsumer 1’s utility is \\(U_{1} = x_{1} + h(4-h)\\).\nConsumer 2’s utility is \\(U_{2} = x_{2} - h^{2}\\).\n\n\n\n\n\nSuppose that, instead of a tax or a subsidy, the government introduces a marketable-permit scheme.\n\nIt gives consumer 2 a bunch of pieces of paper called “permits,” each of which states that the holder of the permit has the legal right to “produce” one unit of \\(h\\).\nIt then allows consumer 2 to sell those permits to consumer 1 at some uniform price \\(p_{h}\\).\n\nAssume that the permit market is competitive.\n\nThis means that each consumer takes the price \\(p_{h}\\) as given.\nYou can think of each consumer as “representing” a large number of consumers of the same type.\n\nShow that the scheme will also achieve the socially optimal outcome \\(h^{o}\\).\n\n\n\n\n\n\nSame question as Q1e, but now the government introduces a marketable-permit scheme that gives a bunch of permits to consumer 1, and then gives consumer 2 an opportunity to buy them away from consumer 1 and “retire” them.\n\n\n\n\n\n\nSuppose that, instead of trying to intervene in the market, the government just passes a law giving consumer 2 a clearly defined right to have \\(h = 0\\) (e.g., it imposes a noise ordinance that forbids consumer 1 from playing loud music), but then allows consumer 1 to effectively “bribe” consumer 2 to give up some of that right (i.e., allow some music playing) in exchange for a lump-sum transfer \\(T\\).\nShow that this, too, will restore social optimality.\n\n\n\n\n\n\nSame question as Q1g, but now the government gives consumer 1 a clear legal right to \\(h^{*}\\) (i.e., in our example, a right to play as much loud music as she likes), and then allows consumer 2 to effectively “bribe” consumer 1 to give up some of that right (i.e., cut back on her music playing) in exchange for a lump-sum transfer \\(T\\)."
+    "text": "Revisit the gapminder plots and experiment with different ways to facet the data.\nTry plotting population and per capita GDP while faceting on year, or even on country.\nExperiment changing the height and width of the figure.\n\n\n\n\n\n\nInvestigate the difference between a formula written as facet_grid(sex ~ race) versus one written as facet_grid(~ sex + race) using the socviz::gss_sm data.frame.\n\n\n\n\n\n\nThe geom_bin2d() function takes two mappings, x and y.\n\nIt divides your plot into a grid and colors the bins by the count of observations in them.\n\nTry using it on the gapminder data to plot life expectancy versus per capita GDP.\n\nLike a histogram, we can vary the number or width of the bins for both x or y, (e.g., bins = c(20, 50)).\nIf we specify bindwith instead, we will need to pick values that are on the same scale as the variable we are mapping."
   },
   {
-    "objectID": "ex/econ340-hw-2.html#q1e.",
-    "href": "ex/econ340-hw-2.html#q1e.",
-    "title": "ECON 340: Homework Assignment 2",
+    "objectID": "ex/danl399-cw-1.html#q1a.",
+    "href": "ex/danl399-cw-1.html#q1a.",
+    "title": "DANL 399: Classwork 1 - Data Visualization",
     "section": "",
-    "text": "Suppose that, instead of a tax or a subsidy, the government introduces a marketable-permit scheme.\n\nIt gives consumer 2 a bunch of pieces of paper called “permits,” each of which states that the holder of the permit has the legal right to “produce” one unit of \\(h\\).\nIt then allows consumer 2 to sell those permits to consumer 1 at some uniform price \\(p_{h}\\).\n\nAssume that the permit market is competitive.\n\nThis means that each consumer takes the price \\(p_{h}\\) as given.\nYou can think of each consumer as “representing” a large number of consumers of the same type.\n\nShow that the scheme will also achieve the socially optimal outcome \\(h^{o}\\)."
+    "text": "Revisit the gapminder plots and experiment with different ways to facet the data.\nTry plotting population and per capita GDP while faceting on year, or even on country.\nExperiment changing the height and width of the figure."
   },
   {
-    "objectID": "ex/econ340-hw-2.html#q1f.",
-    "href": "ex/econ340-hw-2.html#q1f.",
-    "title": "ECON 340: Homework Assignment 2",
+    "objectID": "ex/danl399-cw-1.html#q1b.",
+    "href": "ex/danl399-cw-1.html#q1b.",
+    "title": "DANL 399: Classwork 1 - Data Visualization",
     "section": "",
-    "text": "Same question as Q1e, but now the government introduces a marketable-permit scheme that gives a bunch of permits to consumer 1, and then gives consumer 2 an opportunity to buy them away from consumer 1 and “retire” them."
+    "text": "Investigate the difference between a formula written as facet_grid(sex ~ race) versus one written as facet_grid(~ sex + race) using the socviz::gss_sm data.frame."
   },
   {
-    "objectID": "ex/econ340-hw-2.html#q1g.",
-    "href": "ex/econ340-hw-2.html#q1g.",
-    "title": "ECON 340: Homework Assignment 2",
+    "objectID": "ex/danl399-cw-1.html#q1c.",
+    "href": "ex/danl399-cw-1.html#q1c.",
+    "title": "DANL 399: Classwork 1 - Data Visualization",
     "section": "",
-    "text": "Suppose that, instead of trying to intervene in the market, the government just passes a law giving consumer 2 a clearly defined right to have \\(h = 0\\) (e.g., it imposes a noise ordinance that forbids consumer 1 from playing loud music), but then allows consumer 1 to effectively “bribe” consumer 2 to give up some of that right (i.e., allow some music playing) in exchange for a lump-sum transfer \\(T\\).\nShow that this, too, will restore social optimality."
+    "text": "The geom_bin2d() function takes two mappings, x and y.\n\nIt divides your plot into a grid and colors the bins by the count of observations in them.\n\nTry using it on the gapminder data to plot life expectancy versus per capita GDP.\n\nLike a histogram, we can vary the number or width of the bins for both x or y, (e.g., bins = c(20, 50)).\nIf we specify bindwith instead, we will need to pick values that are on the same scale as the variable we are mapping."
   },
   {
-    "objectID": "ex/econ340-hw-2.html#q1h.",
-    "href": "ex/econ340-hw-2.html#q1h.",
-    "title": "ECON 340: Homework Assignment 2",
+    "objectID": "ex/danl200-hw-1-a.html",
+    "href": "ex/danl200-hw-1-a.html",
+    "title": "Question 1. Data Analytics Survey",
     "section": "",
-    "text": "Same question as Q1g, but now the government gives consumer 1 a clear legal right to \\(h^{*}\\) (i.e., in our example, a right to play as much loud music as she likes), and then allows consumer 2 to effectively “bribe” consumer 1 to give up some of that right (i.e., cut back on her music playing) in exchange for a lump-sum transfer \\(T\\)."
+    "text": "Complete the following survey:\n\nhttps://forms.gle/Ya2HbPgHynkAp5e28"
   },
   {
-    "objectID": "ex/econ340-hw-2.html#q2a.",
-    "href": "ex/econ340-hw-2.html#q2a.",
-    "title": "ECON 340: Homework Assignment 2",
+    "objectID": "ex/danl200-hw-1-a.html#q2a.",
+    "href": "ex/danl200-hw-1-a.html#q2a.",
+    "title": "Question 1. Data Analytics Survey",
     "section": "Q2a.",
-    "text": "Q2a.\n\nWhat amount is Amazon willing to pay (WTP) to expand the forest area to four times its current size?\nWhat compensation is Amazon willing to accept (WTA) to forego the “Quadrupling the Amazon Forest” project?"
+    "text": "Q2a.\n\nDownload the CSV file, starwars.csv, from the Brightspace.\nRead the data file, starwars.csv, as the data.frame object with the name, starwars, using (1) the read_csv() function and (2) the absolute path name of the file starwars.csv from your local hard disk drive in your laptop.\n\nAnswer:\n\nlibrary(tidyverse)\npath_name &lt;- \"/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/starwars.csv\"\nstarwars &lt;- read_csv(path_name)\n\nRows: 173 Columns: 12\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (9): films, name, species, hair_color, skin_color, eye_color, sex, gende...\ndbl (3): height, mass, birth_year\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
   },
   {
-    "objectID": "ex/econ340-hw-2.html#q2b.",
-    "href": "ex/econ340-hw-2.html#q2b.",
-    "title": "ECON 340: Homework Assignment 2",
+    "objectID": "ex/danl200-hw-1-a.html#variable-description-for-starwars-data.frame",
+    "href": "ex/danl200-hw-1-a.html#variable-description-for-starwars-data.frame",
+    "title": "Question 1. Data Analytics Survey",
+    "section": "Variable Description for starwars data.frame",
+    "text": "Variable Description for starwars data.frame\nThe following describes the variables in the starwars data.frame.\n\nfilms List of films the character appeared in\nname Name of the character\nspecies Name of species\nheight Height (cm)\nmass Weight (kg)\nhair_color, skin_color, eye_color Hair, skin, and eye colors\nbirth_year Year born (BBY = Before Battle of Yavin)\nsex The biological sex of the character, namely male, female, hermaphroditic, or none (as in the case for Droids).\ngender The gender role or gender identity of the character as determined by their personality or the way they were programmed (as in the case for Droids).\nhomeworld Name of homeworld"
+  },
+  {
+    "objectID": "ex/danl200-hw-1-a.html#q2b.",
+    "href": "ex/danl200-hw-1-a.html#q2b.",
+    "title": "Question 1. Data Analytics Survey",
     "section": "Q2b.",
-    "text": "Q2b.\nAre your calculations for WTP and WTA identical or do they differ? Please explain the reasons behind your assessment of their similarity or difference."
+    "text": "Q2b.\n\nProvide the R code to find how many characters are Droid species.\n\nAnswer:\n\nlibrary(skimr)\n\n# The following gives not only Droid but also NA\n# q2a &lt;- starwars[starwars$species == 'Droid', ]\n\ndroid &lt;- which(starwars$species == 'Droid')\nq2a &lt;- starwars[droid,]\n\nnrow(\n  q2a\n)\n\n[1] 18\n\n\n\nlibrary(skimr)\n\n# The following gives not only Droid but also NA\n# q2a &lt;- starwars[starwars$species == 'Droid', ]\n\ndroid &lt;- which(starwars$species == 'Droid')\nq2a &lt;- starwars[droid,]\n\nlength(unique(q2a$name))\n\n[1] 6"
   },
   {
-    "objectID": "ex/econ340-hw-2.html#q3a.",
-    "href": "ex/econ340-hw-2.html#q3a.",
-    "title": "ECON 340: Homework Assignment 2",
+    "objectID": "ex/danl200-hw-1-a.html#q2c.",
+    "href": "ex/danl200-hw-1-a.html#q2c.",
+    "title": "Question 1. Data Analytics Survey",
+    "section": "Q2c.",
+    "text": "Q2c.\n\nProvide the R code to find which Droid character did appear most in the Star Wars films.\n\nAnswer:\n\nq2b &lt;- q2a[ , c('name','films')]\n\ntable(q2a$name)\n\n\n   BB8  C-3PO  IG-88  R2-D2 R4-P17  R5-D4 \n     1      6      1      7      2      1"
+  },
+  {
+    "objectID": "ex/danl200-hw-1-a.html#q2d.",
+    "href": "ex/danl200-hw-1-a.html#q2d.",
+    "title": "Question 1. Data Analytics Survey",
+    "section": "Q2d.",
+    "text": "Q2d.\n\nProvide the R code to find the minimum, first quartile, median, third quartile, and the maximum of height.\n\nAnswer:\n\nskim(starwars$height)\n\n\nData summary\n\n\nName\nstarwars$height\n\n\nNumber of rows\n173\n\n\nNumber of columns\n1\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\nnumeric\n1\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\ndata\n6\n0.97\n171.31\n35.58\n66\n167\n178\n188\n264\n▂▁▇▅▁\n\n\n\n\n\n\n[Statistics] Explain why the median value is different from the mean value.\n\nWhen is the median value greater than the mean value?\nWhen is the median value less than the mean value?\n\n\nAnswer:\nIn statistics, the median and the mean are both measures of central tendency, but they are calculated differently and can have different properties. The median is the middle value in a data set when the numbers are all arranged in order, while the mean is the average of all the numbers.\n\nWhen is the Median Greater than the Mean?\nThe median is likely to be greater than the mean in a data set that is “skewed to the left” or “negatively skewed.” In such a data set, there are more low-value outliers pulling the mean down, while the median remains relatively unaffected.\n\nCharacteristics of a Left-Skewed Distribution:\n\nLong Tail on the Left: The distribution has a long tail on the left side.\nMean &lt; Median: The mean is less than the median.\nOutliers on the Left: There are more low-value outliers.\n\n\n\n\nWhen is the Median Less than the Mean?\nThe median is likely to be less than the mean in a data set that is “skewed to the right” or “positively skewed.” In such a data set, there are more large-value outliers pulling the mean up, while the median remains relatively unaffected.\n\nCharacteristics of a Left-Skewed Distribution:\n\nLong Tail on the Right: The distribution has a long tail on the left side.\nMean &gt; Median: The mean is greater than the median.\nOutliers on the Right: There are more large-value outliers."
+  },
+  {
+    "objectID": "ex/danl200-hw-1-a.html#q2e.",
+    "href": "ex/danl200-hw-1-a.html#q2e.",
+    "title": "Question 1. Data Analytics Survey",
+    "section": "Q2e.",
+    "text": "Q2e.\n\nProvide the R code to find the number of unique/distinct homeworld values.\n\nAnswer:\n\nskim(starwars$homeworld)\n\n\nData summary\n\n\nName\nstarwars$homeworld\n\n\nNumber of rows\n173\n\n\nNumber of columns\n1\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\ncharacter\n1\n\n\n________________________\n\n\n\nGroup variables\nNone\n\n\n\nVariable type: character\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nn_missing\ncomplete_rate\nmin\nmax\nempty\nn_unique\nwhitespace\n\n\n\n\ndata\n15\n0.91\n4\n14\n0\n48\n0\n\n\n\n\nlength(unique(starwars$homeworld))\n\n[1] 49"
+  },
+  {
+    "objectID": "ex/danl200-hw-1-a.html#q3a.",
+    "href": "ex/danl200-hw-1-a.html#q3a.",
+    "title": "Question 1. Data Analytics Survey",
     "section": "Q3a.",
-    "text": "Q3a.\n\nGraph the demand curve for hiking trips as a function of the “price”—the travel cost."
+    "text": "Q3a.\nProvide the R code to install the R package, gapminder.\nAnswer:\n\ninstall.packages(\"gapminder\")"
   },
   {
-    "objectID": "ex/econ340-hw-2.html#q3b.",
-    "href": "ex/econ340-hw-2.html#q3b.",
-    "title": "ECON 340: Homework Assignment 2",
+    "objectID": "ex/danl200-hw-1-a.html#q3b.",
+    "href": "ex/danl200-hw-1-a.html#q3b.",
+    "title": "Question 1. Data Analytics Survey",
     "section": "Q3b.",
-    "text": "Q3b.\n\nBased on demographic information about the people living in the vicinity of the proposed park, you have estimated that 50,000 people will take an average of 4 hiking trips per year.\nFor the average person, calculate:\n\nThe consumer surplus for a single visit to the new park by a visitor with travel costs of $20;\nThe total consumer surplus for an average visitor (hint: the area of a triangle is \\(\\frac{1}{2}(B*H)\\) ); and\nThe total expected consumer surplus per year from the proposed park."
+    "text": "Q3b.\nLoad the gapminder data.frame provided by the R package, gapminder.\nAnswer:\n\nlibrary(gapminder)\ngapminder &lt;- gapminder::gapminder\n# ?gapminder"
+  },
+  {
+    "objectID": "ex/danl200-hw-1-a.html#variable-description-for-gapminder-data.frame",
+    "href": "ex/danl200-hw-1-a.html#variable-description-for-gapminder-data.frame",
+    "title": "Question 1. Data Analytics Survey",
+    "section": "Variable Description for gapminder data.frame",
+    "text": "Variable Description for gapminder data.frame\n\nThe following describe the variables in the gapminder data.frame.\n\ncountry factor with 142 levels\ncontinent factor with 5 levels\nyear ranges from 1952 to 2007 in increments of 5 years\nlifeExp life expectancy at birth, in years\npop population\ngdpPercap GDP per capita (US$, inflation-adjusted)"
+  },
+  {
+    "objectID": "ex/danl200-hw-1-a.html#q3c.",
+    "href": "ex/danl200-hw-1-a.html#q3c.",
+    "title": "Question 1. Data Analytics Survey",
+    "section": "Q3c.",
+    "text": "Q3c.\nProvide ggplot code and comments to describe the relationship between gdpPercap and lifeExp.\nAnswers\n\nggplot(data = gapminder) +\n  geom_point(mapping = aes(x = gdpPercap, y = lifeExp),\n             alpha = .15, size = .5) \n\n\n\nggplot(data = gapminder) +\n  geom_point(mapping = aes(x = log(gdpPercap), y = log(lifeExp)),\n             alpha = .15, size = .5) \n\n\n\n\n\ngdpPercap and lifeExp are positively associated."
+  },
+  {
+    "objectID": "ex/danl200-hw-1-a.html#q3d.",
+    "href": "ex/danl200-hw-1-a.html#q3d.",
+    "title": "Question 1. Data Analytics Survey",
+    "section": "Q3d.",
+    "text": "Q3d.\nProvide ggplot code and comments to describe how the relationship between gdpPercap and lifeExp varies by continent.\nAnswers\n\nggplot(data = gapminder) +\n  geom_point(mapping = aes(x = gdpPercap, y = lifeExp,\n                           color = continent),\n             alpha = .15, size = .5) \n\n\n\nggplot(data = gapminder) +\n  geom_point(mapping = aes(x = log(gdpPercap), y = log(lifeExp),\n                           color = continent),\n             alpha = .15, size = .5) \n\n\n\nggplot(data = gapminder) +\n  geom_point(mapping = aes(x = gdpPercap, y = lifeExp,\n                           color = continent),\n             alpha = .3, size = .5) +\n  facet_wrap(. ~ continent)\n\n\n\nggplot(data = gapminder) +\n  geom_point(mapping = aes(x = log(gdpPercap), y = log(lifeExp),\n                           color = continent),\n             alpha = .3, size = .5) +\n  facet_wrap(. ~ continent) \n\n\n\nggplot(data = gapminder,\n       mapping = aes(x = log(gdpPercap), y = log(lifeExp)\n                     )\n       ) +\n  geom_point(mapping = aes(color = continent),\n            alpha = .4, size = .5) +\n  geom_smooth() +\n  geom_smooth(method = lm,\n              color = 'red') +\n  facet_grid(. ~ continent) \n\n`geom_smooth()` using method = 'loess' and formula = 'y ~ x'\n`geom_smooth()` using formula = 'y ~ x'\n\n\n\n\n\n\ngdpPercap and lifeExp are positively associated.\n\nThis does hold across continent."
+  },
+  {
+    "objectID": "ex/econ340-exam-1.html",
+    "href": "ex/econ340-exam-1.html",
+    "title": "ECON 340: Envrionmental Economics Midterm Exam 1",
+    "section": "",
+    "text": "Let’s consider a Public Goods Game with deforestation.\n\n\nA village is located near a dense forest. The forest provides essential resources to the village, such as wood for fuel, fruits, and medicinal herbs. However, the forest also acts as a carbon sink, absorbing carbon dioxide and helping to regulate the climate. If too many trees are cut down, not only will the forest’s resources be depleted, but the local climate may also become more unstable, leading to long-term consequences for the village.\n\n\n\n\nPlayers: Each player represents a household in the village. Every household relies on the forest for resources but also understands the long-term benefits of conservation.\nInitial Endowment: Each household starts with 100 units of currency.\nDecision: Each round, households decide how many trees to cut down. Each tree cut down gives immediate benefits (e.g., 10 units of currency per tree). However, if the total number of trees cut by all households exceeds a certain threshold, the forest will degrade, leading to negative consequences for all players in subsequent rounds.\nPublic Pot: Instead of cutting trees, households can choose to contribute some of their currency to a public pot, which represents a community fund for forest conservation and sustainable resource management.\nMultiplication and Distribution: At the end of each round, contributions to the public pot are used for reforestation and sustainable initiatives. For every unit of currency in the pot, the community fund plants new trees or invests in sustainable practices, multiplying the pot’s value by a factor 1.5. The benefits (like a stable climate, continued access to forest resources) are then equally distributed among all households, irrespective of individual contributions.\n\nSuppose there are four households. In the first round:\n\nHousehold A cuts 3 trees, earning 30 units.\nHousehold B cuts 2 trees, earning 20 units, and contributes 20 units to the public pot.\nHousehold C cuts 0 trees (choosing conservation) and contributes 50 units to the public pot.\nHousehold D cuts 4 trees, earning 40 units.\n\n\n\nWhat is the total contribution to the public pot in the first round?\n\n\n\n\nHow much units of\n\n\n\n\n\n\n\n\n\nThe total contribution to the public pot is (20 + 50 = 70) units. This amount is multiplied by 1.5 (for reforestation efforts), resulting in 105 units of environmental benefit distributed equally among the households.\n\n\n\n\nIf too many trees are cut collectively, the forest degrades, leading to reduced benefits in subsequent rounds.\nHouseholds face the dilemma of gaining immediate benefits from cutting trees versus the long-term communal benefits of conservation.\nThe game illustrates the tension between individual short-term gains and collective long-term benefits, mirroring real-world environmental challenges like deforestation, overfishing, and pollution.\n\nThis game can be used to study how communities balance immediate needs with long-term sustainability and the factors that influence cooperative behavior in environmental conservation."
+  },
+  {
+    "objectID": "ex/econ340-exam-1.html#context",
+    "href": "ex/econ340-exam-1.html#context",
+    "title": "ECON 340: Envrionmental Economics Midterm Exam 1",
+    "section": "",
+    "text": "A village is located near a dense forest. The forest provides essential resources to the village, such as wood for fuel, fruits, and medicinal herbs. However, the forest also acts as a carbon sink, absorbing carbon dioxide and helping to regulate the climate. If too many trees are cut down, not only will the forest’s resources be depleted, but the local climate may also become more unstable, leading to long-term consequences for the village."
+  },
+  {
+    "objectID": "ex/econ340-exam-1.html#the-game",
+    "href": "ex/econ340-exam-1.html#the-game",
+    "title": "ECON 340: Envrionmental Economics Midterm Exam 1",
+    "section": "",
+    "text": "Players: Each player represents a household in the village. Every household relies on the forest for resources but also understands the long-term benefits of conservation.\nInitial Endowment: Each household starts with 100 units of currency.\nDecision: Each round, households decide how many trees to cut down. Each tree cut down gives immediate benefits (e.g., 10 units of currency per tree). However, if the total number of trees cut by all households exceeds a certain threshold, the forest will degrade, leading to negative consequences for all players in subsequent rounds.\nPublic Pot: Instead of cutting trees, households can choose to contribute some of their currency to a public pot, which represents a community fund for forest conservation and sustainable resource management.\nMultiplication and Distribution: At the end of each round, contributions to the public pot are used for reforestation and sustainable initiatives. For every unit of currency in the pot, the community fund plants new trees or invests in sustainable practices, multiplying the pot’s value by a factor 1.5. The benefits (like a stable climate, continued access to forest resources) are then equally distributed among all households, irrespective of individual contributions.\n\nSuppose there are four households. In the first round:\n\nHousehold A cuts 3 trees, earning 30 units.\nHousehold B cuts 2 trees, earning 20 units, and contributes 20 units to the public pot.\nHousehold C cuts 0 trees (choosing conservation) and contributes 50 units to the public pot.\nHousehold D cuts 4 trees, earning 40 units.\n\n\n\nWhat is the total contribution to the public pot in the first round?\n\n\n\n\nHow much units of\n\n\n\n\n\n\n\n\n\nThe total contribution to the public pot is (20 + 50 = 70) units. This amount is multiplied by 1.5 (for reforestation efforts), resulting in 105 units of environmental benefit distributed equally among the households.\n\n\n\n\nIf too many trees are cut collectively, the forest degrades, leading to reduced benefits in subsequent rounds.\nHouseholds face the dilemma of gaining immediate benefits from cutting trees versus the long-term communal benefits of conservation.\nThe game illustrates the tension between individual short-term gains and collective long-term benefits, mirroring real-world environmental challenges like deforestation, overfishing, and pollution.\n\nThis game can be used to study how communities balance immediate needs with long-term sustainability and the factors that influence cooperative behavior in environmental conservation."
+  },
+  {
+    "objectID": "ex/danl200-hw-2.html",
+    "href": "ex/danl200-hw-2.html",
+    "title": "DANL 200: Homework Assignment 2",
+    "section": "",
+    "text": "Read the data file, custdata_rev.csv, as the data.frame object with the name, health_cust:\n\nlibrary(tidyverse)\nlibrary(skimr)\n\nhealth_cust &lt;- read_csv(\n  'https://bcdanl.github.io/data/custdata_rev.csv'\n)\n\n\n\nThe following describes the variables in the health_cust data.frame.\n\ncustid: ID of customer\nsex: Sex\nis_employed: Employment status\n\nNA: Unknown or not applicable\nTRUE: Employed\nFALSE: Unemployed\n\nincome: Income (in $)\nmarital_status: Marital status\nhousing_type: Housing type\nrecent_move:\n\nTRUE: Recently moved\nFALSE: Not recently moved\n\nage: Age\nstate_of_res: State of residence\ngas_usage: Gas usage\n\nNA: Unknown or not applicable\n001: Included in rent or condo fee\n002: Included in electricity payment\n003: No charge or gas not used\n004-999: $4 to $999 (rounded and top-coded)\n\nhealth_ins: Health insuarance status\n\nTRUE: customer with health insuarance\nFALSE: customer without health insuarance\n\n\n\n\n\n\nReport summary statistics including a mean value for each logical variable in health_cust.\n\n\n\n\nUse health_cust data.frame to create a new data.frame, health_cust2, in which (1) age is greater than 0 and less than 100; and (2) income is positive.\n\n\n\n\nProvide ggplot code and comments to describe the distribution of income.\n\n\n\n\nProvide ggplot code and comments to describe the distribution of marital_status.\n\n\n\n\nSuppose you randomly pick one customer’s observation from each state in data.frame health_cust.\nUse ggplot code to find: (1) in which state a customer is most likely to have a health insurance; and (2) in which state a customer is least likely to have a health insurance.\n\n\n\n\nProvide ggplot code and comments to describe the relationship between age and income.\n\n\n\n\nProvide ggplot code and comments to describe the relationship between age and health_ins.\n\n\n\n\nProvide ggplot code and comments to describe the relationship between marital_status and health_ins.\n\n\n\n\nProvide ggplot code and comments to describe the relationship between marital_status and housing_type."
+  },
+  {
+    "objectID": "ex/danl200-hw-2.html#variable-description-for-health_cust",
+    "href": "ex/danl200-hw-2.html#variable-description-for-health_cust",
+    "title": "DANL 200: Homework Assignment 2",
+    "section": "",
+    "text": "The following describes the variables in the health_cust data.frame.\n\ncustid: ID of customer\nsex: Sex\nis_employed: Employment status\n\nNA: Unknown or not applicable\nTRUE: Employed\nFALSE: Unemployed\n\nincome: Income (in $)\nmarital_status: Marital status\nhousing_type: Housing type\nrecent_move:\n\nTRUE: Recently moved\nFALSE: Not recently moved\n\nage: Age\nstate_of_res: State of residence\ngas_usage: Gas usage\n\nNA: Unknown or not applicable\n001: Included in rent or condo fee\n002: Included in electricity payment\n003: No charge or gas not used\n004-999: $4 to $999 (rounded and top-coded)\n\nhealth_ins: Health insuarance status\n\nTRUE: customer with health insuarance\nFALSE: customer without health insuarance"
+  },
+  {
+    "objectID": "ex/danl200-hw-2.html#q1a",
+    "href": "ex/danl200-hw-2.html#q1a",
+    "title": "DANL 200: Homework Assignment 2",
+    "section": "",
+    "text": "Report summary statistics including a mean value for each logical variable in health_cust."
+  },
+  {
+    "objectID": "ex/danl200-hw-2.html#q1b",
+    "href": "ex/danl200-hw-2.html#q1b",
+    "title": "DANL 200: Homework Assignment 2",
+    "section": "",
+    "text": "Use health_cust data.frame to create a new data.frame, health_cust2, in which (1) age is greater than 0 and less than 100; and (2) income is positive."
+  },
+  {
+    "objectID": "ex/danl200-hw-2.html#q1c",
+    "href": "ex/danl200-hw-2.html#q1c",
+    "title": "DANL 200: Homework Assignment 2",
+    "section": "",
+    "text": "Provide ggplot code and comments to describe the distribution of income."
+  },
+  {
+    "objectID": "ex/danl200-hw-2.html#q1d",
+    "href": "ex/danl200-hw-2.html#q1d",
+    "title": "DANL 200: Homework Assignment 2",
+    "section": "",
+    "text": "Provide ggplot code and comments to describe the distribution of marital_status."
+  },
+  {
+    "objectID": "ex/danl200-hw-2.html#q1e",
+    "href": "ex/danl200-hw-2.html#q1e",
+    "title": "DANL 200: Homework Assignment 2",
+    "section": "",
+    "text": "Suppose you randomly pick one customer’s observation from each state in data.frame health_cust.\nUse ggplot code to find: (1) in which state a customer is most likely to have a health insurance; and (2) in which state a customer is least likely to have a health insurance."
+  },
+  {
+    "objectID": "ex/danl200-hw-2.html#q1f",
+    "href": "ex/danl200-hw-2.html#q1f",
+    "title": "DANL 200: Homework Assignment 2",
+    "section": "",
+    "text": "Provide ggplot code and comments to describe the relationship between age and income."
+  },
+  {
+    "objectID": "ex/danl200-hw-2.html#q1g",
+    "href": "ex/danl200-hw-2.html#q1g",
+    "title": "DANL 200: Homework Assignment 2",
+    "section": "",
+    "text": "Provide ggplot code and comments to describe the relationship between age and health_ins."
+  },
+  {
+    "objectID": "ex/danl200-hw-2.html#q1h",
+    "href": "ex/danl200-hw-2.html#q1h",
+    "title": "DANL 200: Homework Assignment 2",
+    "section": "",
+    "text": "Provide ggplot code and comments to describe the relationship between marital_status and health_ins."
+  },
+  {
+    "objectID": "ex/danl200-hw-2.html#q1i",
+    "href": "ex/danl200-hw-2.html#q1i",
+    "title": "DANL 200: Homework Assignment 2",
+    "section": "",
+    "text": "Provide ggplot code and comments to describe the relationship between marital_status and housing_type."
+  },
+  {
+    "objectID": "ex/econ340-cw-9.html",
+    "href": "ex/econ340-cw-9.html",
+    "title": "ECON 340: Classwork 9 - Double Dividend",
+    "section": "",
+    "text": "Taxing Labor and Pollution\nConsider an economy with the representative consumer and the representative firm that produces a polluting good \\(Q\\) with government that finances its budget \\(G\\) by taxing on the consumer’s labor income and the firm’s pollution.\nThe representative consumer is endowed with time \\(\\overline{L}\\), for which the consumer allocates to leisure ( \\(N\\) ) and labor ( \\(\\overline{L} - N\\) ). The representative consumer gets paid with a wage rate \\(w\\), and pays a proportional labor tax \\(m\\).\nThe representative consumer values consumption of numeraire good \\(X\\), polluting good \\(Q\\) and leisure \\(N\\), so that her utility function is:\n\\[\n\\begin{align}\nU &= U(X, Q, N) \\\\\n&= \\left(\\alpha Q - \\beta\\frac{Q^{2}}{2}\\right) + \\left(\\gamma N - \\phi\\frac{N^{2}}{2}\\right) +\\eta Q N + X.\n\\end{align}\n\\]\nNote that if \\(\\eta&gt;0\\), consumption of the polluting good and leisure are substitutes, which we refer to as the normal case. When \\(\\eta&lt;0\\) leisure and the polluting good are complements.\nThe price of the polluting good \\(Q\\) is \\(p\\). The government transfer the tax revenue \\(G\\) to the consumer in a lump-sum fashion. The representative consumer’s budget constraint is: \\[\n(1-m)w(\\overline{L}-N) + G = X + pQ.\n\\]\nThe firm’s cost of producing the quantity of output \\(Q\\) is defined as \\[\nC(Q) = \\frac{c}{2}Q^{2}.\n\\]\nThe firm pays the per-unit tax \\(\\tau\\) on each unit of the goods produced.\nThe government tax revenue \\(G\\) balances:\n\\[\nG = wm(\\overline{L} - N) + \\tau Q.\n\\]\nThe external cost of pollution is\n\\[\nD(Q) = \\frac{d}{2}Q^{2}\n\\]\n\n\n\na.\nTaking the price \\(p\\), the wage \\(w\\), and the labor tax \\(m\\) as given, solve the consumer’s utility maximization problem.\n\n\n\nb.\nTaking the price \\(p\\) and the per-unit pollution tax \\(\\tau\\) as given, solve the firm’s profit maximization problem.\n\n\n\nc.\nTaking the consumer’s budget constraint, the government budget balance condition as given, solve the Social planner’s social welfare maximization problem.\n\nSocial welfare is the sum of the consumer’s utility and the firm’s cost minus the external cost.\n\n\n\n\nd.\n\nUsing the first-order conditions in the consumer’s utility maximization problem and the firm’s profit maximization problem, characterize the equilibrium allocation \\((Q^{*}, N^{*})\\) and the equilibrium price \\(P\\) in terms of exogenous parameters \\((\\alpha, \\beta, c, d, w, \\gamma, \\phi, \\eta)\\) and tax rates \\((m, \\tau)\\).\nHow do the equilibrium levels of polluting good and leisure change with the pollution tax?"
   },
   {
     "objectID": "ex/danl200-hw-2-a.html",
