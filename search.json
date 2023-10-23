@@ -35,34 +35,6 @@
     "text": "Memberships\n\n\n\n\n\n2022—present\nSouthern Economic Association\n\n\n2018—present\nAssociation of Environmental and Resource Economists\n\n\n2017—present\nAmerican Economic Association\n\n\n2017—2019\nEconometric Society"
   },
   {
-    "objectID": "ex/danl399-hw-2.html",
-    "href": "ex/danl399-hw-2.html",
-    "title": "DANL 310: Data Visualization and PresentationHomework Assignment 2",
-    "section": "",
-    "text": "Add a web-page of the project proposal to your website."
-  },
-  {
-    "objectID": "ex/danl399-hw-2.html#q2a.",
-    "href": "ex/danl399-hw-2.html#q2a.",
-    "title": "DANL 310: Data Visualization and PresentationHomework Assignment 2",
-    "section": "Q2a.",
-    "text": "Q2a.\nUse the following data.frame for Q2a, Q2b, and Q2c.\n\nhdi_corruption &lt;- read_csv(\n  'https://bcdanl.github.io/data/hdi_corruption.csv')"
-  },
-  {
-    "objectID": "ex/danl399-hw-2.html#q2b",
-    "href": "ex/danl399-hw-2.html#q2b",
-    "title": "DANL 310: Data Visualization and PresentationHomework Assignment 2",
-    "section": "Q2b",
-    "text": "Q2b\n\nDownload the file labor_supply.zip from the Google Drive. Then, extract labor_supply.zip, so that you can access the labor_supply.csv file.\nVariable description in labor_supply.csv\n\nSEX: 1 if Male; 2 if Female; 9 if NIU (Not in universe)\nNCHLT5: Number of own children under age 5 in a household; 9 if 9+\nLABFORCE: 0 if NIU or members of the armed forces; 1 if not in the labor force; 2 if in the labor force.\nASECWT: sample weight\n\nA sample weight of each observation means how much population each observation represents.\n\nIf you sum ASECWT for each year, you get the size of yearly population in the US.\n\nHouseholds with LABFORCE == 0 is not in labor force.\nLabor force participation rate can be calculated by:\n\n\\[\n(\\text{Labor Force Participation Rate}) \\, = \\, \\frac{(\\text{Size of population in labor force})}{(\\text{Size of civilian population that are not members of the armed force})}\n\\]"
-  },
-  {
-    "objectID": "ex/danl399-hw-2.html#q2c",
-    "href": "ex/danl399-hw-2.html#q2c",
-    "title": "DANL 310: Data Visualization and PresentationHomework Assignment 2",
-    "section": "Q2c",
-    "text": "Q2c\n\nlibrary(ggcorrplot) # to create correlation heatmaps using ggcorrplot()\n\nbeer_mkt &lt;- read_csv('https://bcdanl.github.io/data/beer_markets.csv')\n\n\nMake a correlation heat-map with variables that are either strongly correlated or promo-related.\nThe variables are selected by how high the mean value of the absolute value of correlations with the variable is (top 13-15 variables).\nYou can start with the data.frame, beer_dummies:\n\n\nbeer_dummies &lt;- beer_mkt %&gt;% select(-hh, -market) \nreg &lt;- lm(data = beer_dummies,\n          beer_floz ~ .)\nbeer_dummies &lt;-  as.data.frame(model.matrix(reg))[, -1]\nbeer_dummies &lt;- cbind(beer_mkt$beer_floz ,beer_dummies)\nbeer_dummies &lt;- beer_dummies %&gt;% \n  rename(beer_floz = `beer_mkt$beer_floz`)\n\n\nTo calculate a correlation between numeric variables in data.frame, use cor(data.frame)\n\n\n\n\n\n\n\n\n\n\n\nThen, make a correlation heat-map for NY markets with the same selection of variables.\nNY markets are such that whose market value is either ALBANY, BUFFALO-ROCHESTER, URBAN NY, SUBURBAN NY, EXURBAN NY, RURAL NEW YORK, or SYRACUSE."
-  },
-  {
     "objectID": "ex/danl200-midterm-1-q-v1.html",
     "href": "ex/danl200-midterm-1-q-v1.html",
     "title": "Fall 2023 DANL 200 Midterm Exam 1",
