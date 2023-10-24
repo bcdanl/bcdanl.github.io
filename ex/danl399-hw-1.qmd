@@ -2,7 +2,7 @@
 title: "DANL 399: Data Visualization and Presentation<br>Homework Assignment 1"
 author: "Byeong-Hak Choe"
 execute: 
-  echo: false
+  echo: true
   eval: true
 ---
 
@@ -54,14 +54,16 @@ ncdc_temp <- read_csv(
 ```
 
 ```{r}
-#| echo: false
+#| echo: true
 #| eval: true
 ncdc_temp <- read_csv(
   'https://bcdanl.github.io/data/ncdc_temp_cleaned.csv')
 
-ggplot(ncdc_temp, aes(x = date, y= temperature, color = location)) +
+ggplot(ncdc_temp, aes(x = date, y= temperature)) +
 
-geom_line(size = 1) + # Adds a layer to the ggplot object with a line plot of the temperature data, with a size of 1.
+geom_line(aes(color = location), size = 1) + geom_point(data = filter(ncdc_temp,
+                                                                      month %in% c("01", "04", "07", "10"),
+                                                                      day == 1)) + # Adds a layer to the ggplot object with a line plot of the temperature data, with a size of 1.
 
 scale_x_date(name = "month", limits = c(ymd("0000-01-01"), ymd("0001-01-04")), # Adds a scale to the x-axis with the label "month" and limits of Jan 1, 0000 to Jan 4, 0001, and breaks at the beginning of each quarter (Jan, Apr, Jul, Oct), with corresponding labels.
 breaks = c(ymd("0000-01-01"), ymd("0000-04-01"), ymd("0000-07-01"),
@@ -78,7 +80,7 @@ theme(legend.title.align = 0.5) # Adjusts the alignment of the legend title to b
 ## Q2b
 
 ```{r}
-#| echo: false
+#| echo: true
 #| eval: true
 ncdc_temp <- read_csv(
   'https://bcdanl.github.io/data/ncdc_temp_cleaned.csv')
@@ -100,7 +102,7 @@ p + geom_boxplot(fill = 'grey90') +
 Use `ggridges::geom_density_ridges()` for Q2c.
 
 ```{r}
-#| echo: false
+#| echo: true
 #| eval: true
 ncdc_temp <- read_csv(
   'https://bcdanl.github.io/data/ncdc_temp_cleaned.csv')
@@ -130,7 +132,7 @@ theme( # Applies a custom theme to the ggplot object.
 Use `ggplot::mtcars` for Q2d.
 
 ```{r}
-#| echo: false
+#| echo: true
 #| eval: true
 m <- ggplot(data = mtcars, aes(x = disp, y = mpg, color = hp)) 
 
@@ -153,7 +155,7 @@ popgrowth_df <- read_csv(
 ```
 
 ```{r}
-#| echo: false
+#| echo: true
 #| eval: true
 p <- ggplot(popgrowth_df, 
             aes(x = reorder(state, popgrowth), 
@@ -183,7 +185,7 @@ male_Aus <- read_csv(
 ```
 
 ```{r}
-#| echo: false
+#| echo: true
 #| eval: true
 # Define color and fill vectors for use in plot
 colors <- c("#BD3828", rep("#808080", 4))
@@ -220,7 +222,7 @@ titanic <- read_csv(
 ```
 
 ```{r}
-#| echo: false
+#| echo: true
 #| eval: true
 p <- ggplot(titanic, aes(x = age, y = after_stat(count) ) ) 
 
@@ -273,7 +275,7 @@ cows_filtered <- read_csv(
 ```
 
 ```{r}
-#| echo: false
+#| echo: true
 #| eval: true
 p <- ggplot(cows_filtered, aes(x = butterfat, color = breed, fill = breed))
 

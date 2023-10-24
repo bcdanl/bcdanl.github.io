@@ -1,0 +1,130 @@
+---
+title: "DANL 200: Classwork 7 - summarize and group oeprations"
+date: 2023-10-13
+execute: 
+  warning: false
+  message: false
+---
+```{r}
+#| include: false
+
+library(knitr)
+library(rmarkdown)
+library(tidyverse)
+library(skimr)
+library(ggthemes)
+library(hrbrthemes)
+
+theme_set(theme_ipsum() +
+          theme(strip.background =element_rect(fill="lightgray"),
+                axis.title.x = element_text(size = rel(1.5)),
+                axis.title.y = element_text(size = rel(1.5)),
+                legend.title = element_text(size=rel(1.25))
+                ))
+```
+
+# Question 1. Grouped summaries with `summarize()`
+
+## Q1a.
+- Brainstorm at least 5 different ways to assess the typical delay characteristics of a group of flights. Consider the following scenarios:
+  
+  - A flight is 15 minutes early 50% of the time, and 15 minutes late 50% of the time.
+
+  - A flight is always 10 minutes late.
+
+  - A flight is 30 minutes early 50% of the time, and 30 minutes late 50% of the time.
+
+  - 99% of the time a flight is on time. 1% of the time it’s 2 hours late.
+
+
+- Which is more important: arrival delay or departure delay?
+  
+  
+
+<br>
+  
+  
+## Q1b. 
+
+- Come up with another approach that will give you the same output as `not_cancelled` `%>%` `count(dest)` and `not_cancelled %>% count(tailnum, wt = distance)` (without using `count()`).
+
+<br>
+
+## Q1c.
+
+- Our definition of cancelled flights (`is.na(dep_delay) | is.na(arr_delay)` ) is slightly suboptimal. Why? Which is the most important column?
+
+<br>
+
+## Q1d.
+  
+  - Look at the number of cancelled flights per day. Is there a pattern? Is the proportion of cancelled flights related to the average delay?
+  
+
+<br>
+
+## Q1e.
+
+  - Which carrier has the worst delays? Challenge: can you disentangle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about `flights %>% group_by(carrier, dest) %>% summarize(n())`)
+
+<br>
+
+## Q1f.
+
+- What does the sort argument to `count()` do. When might you use it?
+
+
+<br><br><br>
+  
+# Question 2. Grouped mutates (and filters)
+
+## Q2a.
+
+- Which plane (`tailnum`) has the worst on-time record?
+
+<br>
+
+## Q2b.
+  
+- What time of day should you fly if you want to avoid delays as much as possible?
+  
+<br>
+
+## Q2c.
+  
+- For each destination, compute the total minutes of delay. For each flight, compute the proportion of the total delay for its destination.
+
+
+
+<br>
+
+## Q2d.
+  
+- Delays are typically temporally correlated: even once the problem that caused the initial delay has been resolved, later flights are delayed to allow earlier flights to leave. 
+
+- Using `lag()`, explore how the delay of a flight is related to the delay of the immediately preceding flight.
+
+<br>
+
+## Q2e.
+  
+- Look at each destination. Can you find flights that are suspiciously fast? (i.e. flights that represent a potential data entry error). 
+
+- Compute the air time of a flight relative to the shortest flight to that destination. Which flights were most delayed in the air?
+  
+
+<br>
+
+## Q2f.
+  
+- Find all destinations that are flown by at least two carriers. Use that information to rank the carriers.
+
+<br>
+
+## Q2g.
+  
+- For each plane, count the number of flights before the first delay of greater than 1 hour.
+
+<br>
+
+
