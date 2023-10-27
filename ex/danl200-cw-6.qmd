@@ -14,6 +14,7 @@ library(tidyverse)
 library(skimr)
 library(ggthemes)
 library(hrbrthemes)
+library(nycflights13)
 
 theme_set(theme_ipsum() +
           theme(strip.background =element_rect(fill="lightgray"),
@@ -113,8 +114,25 @@ select(flights, contains("TIME"))
 
 ## Q4a.
  
-- Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to compute with because they’re not really continuous numbers. 
-  - Convert them to a more convenient representation of number of minutes since midnight.
+- Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to compute with because their values are represented with format HHMM or HMM (H for hour and M for minute).
+  - Convert them to a more convenient representation of number of **minutes** since midnight.
+
+```{r}
+#| echo: false
+q4a <- flights %>% 
+  select(dep_time, sched_dep_time, dep_delay)  %>% 
+  mutate(dep_time = ifelse(dep_time == 2400, 0, dep_time),
+         sched_dep_time = ifelse(sched_dep_time == 2400, 0, sched_dep_time)
+         ) %>% 
+  mutate(dep_time_hour = dep_time %/% 100,
+         dep_time_minute = dep_time %% 100,
+         dep_time_new = dep_time_hour * 60 + dep_time_minute,
+         .after = dep_time) %>% 
+  mutate(sched_dep_time_hour = sched_dep_time %/% 100,
+         sched_dep_time_minute = sched_dep_time %% 100,
+         sched_dep_time_new = sched_dep_time_hour * 60 + sched_dep_time_minute,
+         .after = sched_dep_time)
+```
 
 <br>
 
@@ -122,13 +140,97 @@ select(flights, contains("TIME"))
 
 - Compare `air_time` with `arr_time - dep_time`. What do you expect to see? What do you see? What do you need to do to fix it?
 
-- Compare `dep_time`, `sched_dep_time`, and `dep_delay.` How would you expect those three numbers to be related?
+```{r}
+#| echo: false
+q4b <- flights %>% 
+  select(air_time, arr_time, dep_time) %>% 
+  mutate(dep_time = ifelse(dep_time == 2400, 0, dep_time),
+         arr_time = ifelse(dep_time == 2400, 0, arr_time),
+         ) %>% 
+  mutate(dep_time_hour = dep_time %/% 100,
+         dep_time_minute = dep_time %% 100,
+         dep_time = dep_time_hour * 60 + dep_time_minute,
+         .after = dep_time) %>% 
+  mutate(arr_time_hour = arr_time %/% 100,
+         arr_time_minute = arr_time %% 100,
+         arr_time = arr_time_hour * 60 + arr_time_minute,
+         .after = arr_time) %>% 
+  mutate(air_time2 = arr_time - dep_time,
+         diff_air_time = air_time - air_time2) %>% 
+  relocate(diff_air_time, arr_time, air_time2)
+
+# The flight passes midnight, so arr_time < dep_time. In these cases, the difference in airtime should be by 24 hours (1,440 minutes).
+
+# The flight crosses time zones, and the total air time will be off by hours (multiples of 60). All flights in flights departed from New York City and are domestic flights in the US. This means that flights will all be to the same or more westerly time zones. Given the time-zones in the US, the differences due to time-zone should be 60 minutes (Central) 120 minutes (Mountain), 180 minutes (Pacific), 240 minutes (Alaska), or 300 minutes (Hawaii).
+```
+
+```{r}
+#| echo: false
+#| eval: false
+ggplot(q4b) +
+  geom_histogram(aes(x = diff_air_time), binwidth = 1)
+
+# there are many flights in which the difference between air time and local arrival and departure times is not divisible by 60.
+
+# To fix these time-zone issues, I would want to convert all the times to a date-time to handle overnight flights, and from local time to a common time zone, most likely UTC, to handle flights crossing time-zones. 
+
+
+# What else might be going on? There seem to be too many problems for this to be data entry problems.
+
+# It appears that the air_time variable refers to flight time, which is defined as the time between wheels-off (take-off) and wheels-in (landing).
+# But the flight time (dep_time, arr_time) does not include time spent on the runway taxiing to and from gates.
+  # air_time <= arr_time - dep_time
+
+```
 
 <br>
 
 ## Q4c.
 
-- Find the 10 most delayed flights using a ranking function. How do you want to handle ties? 
+- Compare `dep_time`, `sched_dep_time`, and `dep_delay`. How would you expect those three numbers to be related?
+
+```{r}
+#| echo: false
+q4c <- q4a %>% 
+  mutate(dep_delay_new = dep_time_new - sched_dep_time_new,
+         diff_dep_delay = dep_delay - dep_delay_new,
+         .before = 1) %>% 
+  relocate(dep_delay)
+
+# All of these discrepancies are exactly equal to 1440 (24 hours), and the flights with these discrepancies were scheduled to depart later in the day.
+```
 
 <br>
+
+## Q4d.
+
+- Find the 20 most delayed flights using a ranking function. How do you want to handle ties? 
+
+```{r}
+#| echo: false
+q4d <- flights %>% 
+  mutate(rank_min = min_rank(-dep_delay),
+         rank_dense = dense_rank(-dep_delay),
+         rank_rownum = row_number(-dep_delay)
+         ) %>% 
+  filter( rank_min <= 20 | rank_dense <= 20 | rank_rownum <= 20 ) %>% 
+  select(dep_delay, rank_min, rank_dense, rank_rownum) %>% 
+  arrange(-dep_delay)
+```
+
+<br>
+
+## Q4e.
+- Read the following CSV file as a data.frame with the name `TSLA.csv`:
+```{r}
+#| echo: true
+# | eval: false
+tsla <- read_csv("https://bcdanl.github.io/data/TSLA_2022_2023.csv")
+```
+
+- Describe the distribution of the percentage change in `Close` price of Tesla stock.
+
+- Describe the daily trend of total `Volume` of Tesla stock for each year.
+
+
 

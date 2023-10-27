@@ -668,6 +668,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#q4a." id="toc-q4a." class="nav-link" data-scroll-target="#q4a.">Q4a.</a></li>
   <li><a href="#q4b." id="toc-q4b." class="nav-link" data-scroll-target="#q4b.">Q4b.</a></li>
   <li><a href="#q4c." id="toc-q4c." class="nav-link" data-scroll-target="#q4c.">Q4c.</a></li>
+  <li><a href="#q4d." id="toc-q4d." class="nav-link" data-scroll-target="#q4d.">Q4d.</a></li>
+  <li><a href="#q4e." id="toc-q4e." class="nav-link" data-scroll-target="#q4e.">Q4e.</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -798,27 +800,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="q4a." class="level2">
 <h2 class="anchored" data-anchor-id="q4a.">Q4a.</h2>
 <ul>
-<li>Currently <code>dep_time</code> and <code>sched_dep_time</code> are convenient to look at, but hard to compute with because they’re not really continuous numbers.
+<li>Currently <code>dep_time</code> and <code>sched_dep_time</code> are convenient to look at, but hard to compute with because their values are represented with format HHMM or HMM (H for hour and M for minute).
 <ul>
-<li>Convert them to a more convenient representation of number of minutes since midnight.</li>
+<li>Convert them to a more convenient representation of number of <strong>minutes</strong> since midnight.</li>
 </ul></li>
 </ul>
+<div class="cell">
+
+</div>
 <p><br></p>
 </section>
 <section id="q4b." class="level2">
 <h2 class="anchored" data-anchor-id="q4b.">Q4b.</h2>
 <ul>
-<li><p>Compare <code>air_time</code> with <code>arr_time - dep_time</code>. What do you expect to see? What do you see? What do you need to do to fix it?</p></li>
-<li><p>Compare <code>dep_time</code>, <code>sched_dep_time</code>, and <code>dep_delay.</code> How would you expect those three numbers to be related?</p></li>
+<li>Compare <code>air_time</code> with <code>arr_time - dep_time</code>. What do you expect to see? What do you see? What do you need to do to fix it?</li>
 </ul>
+<div class="cell">
+
+</div>
+<div class="cell">
+
+</div>
 <p><br></p>
 </section>
 <section id="q4c." class="level2">
 <h2 class="anchored" data-anchor-id="q4c.">Q4c.</h2>
 <ul>
-<li>Find the 10 most delayed flights using a ranking function. How do you want to handle ties?</li>
+<li>Compare <code>dep_time</code>, <code>sched_dep_time</code>, and <code>dep_delay</code>. How would you expect those three numbers to be related?</li>
 </ul>
+<div class="cell">
+
+</div>
 <p><br></p>
+</section>
+<section id="q4d." class="level2">
+<h2 class="anchored" data-anchor-id="q4d.">Q4d.</h2>
+<ul>
+<li>Find the 20 most delayed flights using a ranking function. How do you want to handle ties?</li>
+</ul>
+<div class="cell">
+
+</div>
+<p><br></p>
+</section>
+<section id="q4e." class="level2">
+<h2 class="anchored" data-anchor-id="q4e.">Q4e.</h2>
+<ul>
+<li>Read the following CSV file as a data.frame with the name <code>TSLA.csv</code>:</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tsla <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"/Users/byeong-hakchoe/Documents/website/bcdanl.github.io/data/TSLA.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p>Calculate the percentage change in <code>Close</code> price of Tesla stock.</p></li>
+<li><p>Describe the daily trend of total <code>Volume</code> of Tesla stock.</p></li>
+</ul>
 
 
 </section>
