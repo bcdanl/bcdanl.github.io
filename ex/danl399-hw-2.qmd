@@ -1,9 +1,13 @@
 ---
 title: "DANL 310: Data Visualization and Presentation<br>Homework Assignment 2"
 author: "Byeong-Hak Choe"
+execute: 
+  echo: true
+  eval: true
 ---
 
-```{r setup, include = F}
+```{r setup}
+#| include: false
 library(tidyverse)
 library(gapminder)
 library(skimr)   # a better summary of data.frame
@@ -16,8 +20,8 @@ library(ggrepel)
 theme_set(theme_minimal()) # setting the minimal theme for ggplot
 # setting default chunk options
 knitr::opts_chunk$set(
-	eval = T,
-	echo = F,
+	# eval = T,
+	# echo = F,
 	message = FALSE,
 	warning = FALSE
 )
@@ -37,7 +41,7 @@ Provide ggplot codes to replicate the given figure.
 
 Use the following data.frame for Q2a, Q2b, and Q2c.
 
-```{r, echo = T, eval = F}
+```{r}
 hdi_corruption <- read_csv(
   'https://bcdanl.github.io/data/hdi_corruption.csv')
 ```
@@ -186,9 +190,62 @@ beer_dummies <- beer_dummies %>%
   rename(beer_floz = `beer_mkt$beer_floz`)
 ```
 
+
+```{r}
+
+library(tidyverse)
+library(ggfortify) # to create regression-related plots
+library(ggcorrplot) # to create correlation heatmaps
+library(fastDummies) # to create dummy variables
+beer_mkt <- read.csv('https://bcdanl.github.io/data/beer_markets.csv')
+results <- fastDummies::dummy_cols(beer_mkt %>% select(-hh, -market) )
+colnames(results)
+
+results <- results %>% 
+  select(dollar_spent,
+         beer_floz,
+         price_per_floz,
+         starts_with("brand_"),
+         `container_NON REFILLABLE BOTTLE`,
+         starts_with("promo"),
+         buyertype_married,
+         children6to17,
+         `age_50+`,
+         employment_none) %>% 
+  mutate(promo = as.integer(promo),
+         children6to17 = as.integer(children6to17)) %>% 
+  rename(`NON REFILLABLE BOTTLE` = `container_NON REFILLABLE BOTTLE`)
+
+colnames(results) <- str_replace_all(colnames(results), 
+                                     "brand_", "") 
+colnames(results)
+
+cor_beer <- cor(results)
+class(cor_beer)
+
+cor_beer <- as.data.frame(cor_beer)
+
+```
+
+
+```{r}
+p <- ggcorrplot( cor_beer, lab = T,
+            colors = c("#2E74C0", "white", "#CB454A"),
+) +
+  theme(axis.text = element_text(size = rel(1.5),
+                                 face = 'bold'))  + 
+  guides(fill = guide_colourbar(barheight = 38.5))
+
+p
+
+```
+
+
+
 - To calculate a correlation between numeric variables in `data.frame`, use `cor(data.frame)`
 
 ```{r, fig.align='center'}
+#| echo: false
 knitr::include_graphics('beer_cor.jpg')
 ```
 
@@ -196,6 +253,7 @@ knitr::include_graphics('beer_cor.jpg')
 
 - NY markets are such that whose `market` value is either `ALBANY`, `BUFFALO-ROCHESTER`, `URBAN NY`, `SUBURBAN NY`, `EXURBAN NY`, `RURAL NEW YORK`, or `SYRACUSE`.
 ```{r, fig.align='center'}
+#| echo: false
 knitr::include_graphics('beer_cor_ny.jpg')
 ```
 

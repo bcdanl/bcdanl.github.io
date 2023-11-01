@@ -26,53 +26,20 @@ theme_set(theme_ipsum() +
 # Question 1. Grouped summaries with `summarize()`
 
 ## Q1a.
-- Brainstorm at least 5 different ways to assess the typical delay characteristics of a group of flights. Consider the following scenarios:
+- Describe the relationship between a plane's flight frequency and a plane's arrival delay time. 
   
-  - A flight is 15 minutes early 50% of the time, and 15 minutes late 50% of the time.
-
-  - A flight is always 10 minutes late.
-
-  - A flight is 30 minutes early 50% of the time, and 30 minutes late 50% of the time.
-
-  - 99% of the time a flight is on time. 1% of the time it’s 2 hours late.
-
-
-- Which is more important: arrival delay or departure delay?
-  
-  
-
 <br>
-  
-  
-## Q1b. 
 
-- Come up with another approach that will give you the same output as `not_cancelled` `%>%` `count(dest)` and `not_cancelled %>% count(tailnum, wt = distance)` (without using `count()`).
+## Q1b.
+  
+- Look at the number of cancelled flights per day. Is there a pattern? Is the proportion of cancelled flights related to the average delay?
+  
 
 <br>
 
 ## Q1c.
 
-- Our definition of cancelled flights (`is.na(dep_delay) | is.na(arr_delay)` ) is slightly suboptimal. Why? Which is the most important column?
-
-<br>
-
-## Q1d.
-  
-  - Look at the number of cancelled flights per day. Is there a pattern? Is the proportion of cancelled flights related to the average delay?
-  
-
-<br>
-
-## Q1e.
-
-  - Which carrier has the worst delays? Challenge: can you disentangle the effects of bad airports vs. bad carriers? Why/why not? (Hint: think about `flights %>% group_by(carrier, dest) %>% summarize(n())`)
-
-<br>
-
-## Q1f.
-
-- What does the sort argument to `count()` do. When might you use it?
-
+- Which carrier has the worst delays? Challenge: can you disentangle the effects of bad airports vs. bad carriers? Why/why not?
 
 <br><br><br>
   

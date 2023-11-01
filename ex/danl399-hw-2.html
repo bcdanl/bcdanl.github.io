@@ -156,6 +156,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-danl-200---lecture">    
         <li>
+    <a class="dropdown-item" href="../lec/danl-200-lec-26-2023-1101.html">
+ <span class="dropdown-text">26 - summarize</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../lec/danl-200-lec-25-2023-1030.html">
  <span class="dropdown-text">25 - summarize</span></a>
   </li>  
@@ -263,6 +267,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-danl-399---lecture">    
         <li>
+    <a class="dropdown-item" href="../lec/danl-399-lec-08-2023-1030.html">
+ <span class="dropdown-text">08 - add labels, make notes, refine your plots</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../lec/danl-399-lec-07-2023-1023.html">
  <span class="dropdown-text">07 - graph tables, add labels, make notes, refine your plots</span></a>
   </li>  
@@ -297,6 +305,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  <span class="menu-text">ECON 340 - Lecture</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-econ-340---lecture">    
+        <li>
+    <a class="dropdown-item" href="../lec/econ-340-lec-26-2023-1101.html">
+ <span class="dropdown-text">26 - safety standard</span></a>
+  </li>  
         <li>
     <a class="dropdown-item" href="../lec/econ-340-lec-25-2023-1030.html">
  <span class="dropdown-text">25 - safety standard</span></a>
@@ -718,6 +730,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'https://bcdanl.github.io/data/hdi_corruption.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>hdi_corruption <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">'https://bcdanl.github.io/data/hdi_corruption.csv'</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use geom_smooth(method = lm, formula = "y ~ log(x)", se = F) .</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># `box.padding` option would be useful for geom_text_repel().</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>country_highlight <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Germany"</span>, <span class="st">"Norway"</span>, <span class="st">"United States"</span>, </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Greece"</span>, <span class="st">"Singapore"</span>, </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Argentina"</span>, <span class="st">"Senegal"</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"China"</span>, <span class="st">"Egypt"</span>, <span class="st">"South Africa"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>corruption <span class="ot">&lt;-</span> hdi_corruption <span class="sc">%&gt;%</span> </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">ifelse</span>(country <span class="sc">%in%</span> country_highlight, country, <span class="cn">NA</span>))</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">filter</span>(corruption, year <span class="sc">==</span> <span class="dv">2014</span>), <span class="fu">aes</span>(cpi, hdi)) <span class="sc">+</span> </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm, <span class="at">formula =</span> <span class="st">"y ~ log(x)"</span>, <span class="at">se =</span> F) <span class="sc">+</span> </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">color =</span> region, <span class="at">fill =</span> region),</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">2.5</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">shape =</span> <span class="dv">21</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text_repel</span>(</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> label), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">4</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">box.padding =</span> .<span class="dv">75</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">1.05</span>), <span class="at">breaks =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="fl">0.6</span>, <span class="fl">0.8</span>, <span class="fl">1.0</span>),</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Human Development Index, 2014</span><span class="sc">\n</span><span class="st">(1.0 = most developed)"</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">95</span>),</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">40</span>, <span class="dv">60</span>, <span class="dv">80</span>, <span class="dv">100</span>),</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Corruption Perceptions Index, 2014 (100 = least corrupt)"</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">unit</span>( <span class="fu">c</span>(<span class="fl">1.75</span>, .<span class="dv">75</span>, .<span class="dv">75</span>, .<span class="dv">5</span>), <span class="st">"cm"</span>),</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="fu">c</span>(.<span class="dv">5</span>, <span class="fl">1.05</span>),</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.direction =</span> <span class="st">"horizontal"</span>,</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">color =</span> <span class="st">"Region"</span>, <span class="at">fill =</span> <span class="st">"Region"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="danl399-hw-2_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -746,6 +801,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 (\text{Labor Force Participation Rate}) \, = \, \frac{(\text{Size of population in labor force})}{(\text{Size of civilian population that are not members of the armed force})}
 \]</span></p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="st">'/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/labor_supply.csv'</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>cps_labor <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(path)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>cps_labor <span class="ot">&lt;-</span> cps_labor <span class="sc">%&gt;%</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(YEAR <span class="sc">&gt;=</span> <span class="dv">1982</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(LABFORCE <span class="sc">!=</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">LABFORCE =</span> LABFORCE <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">labor_supply =</span> LABFORCE <span class="sc">*</span> ASECWT,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">child =</span> <span class="fu">ifelse</span>(NCHLT5 <span class="sc">==</span> <span class="dv">0</span>, </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"No Child Under Age 5 in Household"</span>, </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"Having Children Under Age 5 in Household"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(YEAR, SEX, child) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">pct =</span> <span class="fu">sum</span>(labor_supply) <span class="sc">/</span> <span class="fu">sum</span>(ASECWT, <span class="at">na.rm=</span> T) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(child))</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>label_df <span class="ot">&lt;-</span> <span class="fu">filter</span>(cps_labor, YEAR <span class="sc">==</span> <span class="dv">2022</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">ifelse</span>(SEX <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span>))</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> cps_labor,</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> YEAR, <span class="at">y =</span> pct, </span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="fu">factor</span>(SEX))) <span class="sc">+</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label_repel</span>(<span class="at">data =</span> label_df,</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">aes</span>(<span class="at">x =</span> YEAR, <span class="at">y =</span> pct, <span class="at">label =</span> label),</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>                  <span class="at">color =</span> <span class="st">'black'</span>,</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nudge_y =</span> .<span class="dv">033</span>, <span class="at">box.padding =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>( . <span class="sc">~</span> <span class="fu">factor</span>(child)) <span class="sc">+</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>( <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1982</span>, <span class="dv">2022</span>, <span class="dv">4</span>) ) <span class="sc">+</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>( <span class="at">labels =</span> scales<span class="sc">::</span>percent) <span class="sc">+</span>  </span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>( <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Male"</span>, <span class="st">"Female"</span>),</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>                      <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#2E74C0"</span>, <span class="st">"#CB454A"</span>) ) <span class="sc">+</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Labor Force Participation Rate"</span>,</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Gender"</span>,</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>       <span class="at">lty =</span> <span class="st">"Young Children"</span>,</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Fertility and Labor Supply in the U.S."</span>,</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"1982-2022"</span>,</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Data: IPUMS-CPS, University of Minnesota, www.ipums.org."</span>) <span class="sc">+</span>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">1.5</span>),</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">face =</span> <span class="st">'bold'</span>),</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="danl399-hw-2_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="768"></p>
 </div>
@@ -755,9 +853,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="q2c" class="level2">
 <h2 class="anchored" data-anchor-id="q2c">Q2c</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot) <span class="co"># to create correlation heatmaps using ggcorrplot()</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>beer_mkt <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://bcdanl.github.io/data/beer_markets.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot) <span class="co"># to create correlation heatmaps using ggcorrplot()</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>beer_mkt <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://bcdanl.github.io/data/beer_markets.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Make a correlation heat-map with variables that are either strongly correlated or <code>promo</code>-related.</li>
@@ -765,13 +863,253 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>You can start with the data.frame, <code>beer_dummies</code>:</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span> beer_mkt <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>hh, <span class="sc">-</span>market) </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> beer_dummies,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>          beer_floz <span class="sc">~</span> .)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span>  <span class="fu">as.data.frame</span>(<span class="fu">model.matrix</span>(reg))[, <span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span> <span class="fu">cbind</span>(beer_mkt<span class="sc">$</span>beer_floz ,beer_dummies)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span> beer_dummies <span class="sc">%&gt;%</span> </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">beer_floz =</span> <span class="st">`</span><span class="at">beer_mkt$beer_floz</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span> beer_mkt <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>hh, <span class="sc">-</span>market) </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>reg <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">data =</span> beer_dummies,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>          beer_floz <span class="sc">~</span> .)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span>  <span class="fu">as.data.frame</span>(<span class="fu">model.matrix</span>(reg))[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span> <span class="fu">cbind</span>(beer_mkt<span class="sc">$</span>beer_floz ,beer_dummies)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>beer_dummies <span class="ot">&lt;-</span> beer_dummies <span class="sc">%&gt;%</span> </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">beer_floz =</span> <span class="st">`</span><span class="at">beer_mkt$beer_floz</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfortify) <span class="co"># to create regression-related plots</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot) <span class="co"># to create correlation heatmaps</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fastDummies) <span class="co"># to create dummy variables</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>beer_mkt <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'https://bcdanl.github.io/data/beer_markets.csv'</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> fastDummies<span class="sc">::</span><span class="fu">dummy_cols</span>(beer_mkt <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>hh, <span class="sc">-</span>market) )</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] "X_purchase_desc"                              
+  [2] "quantity"                                     
+  [3] "brand"                                        
+  [4] "dollar_spent"                                 
+  [5] "beer_floz"                                    
+  [6] "price_per_floz"                               
+  [7] "container"                                    
+  [8] "promo"                                        
+  [9] "buyertype"                                    
+ [10] "income"                                       
+ [11] "childrenUnder6"                               
+ [12] "children6to17"                                
+ [13] "age"                                          
+ [14] "employment"                                   
+ [15] "degree"                                       
+ [16] "cow"                                          
+ [17] "race"                                         
+ [18] "microwave"                                    
+ [19] "dishwasher"                                   
+ [20] "tvcable"                                      
+ [21] "singlefamilyhome"                             
+ [22] "npeople"                                      
+ [23] "X_purchase_desc_BUD LT BR CN"                 
+ [24] "X_purchase_desc_BUD LT BR CN 3P"              
+ [25] "X_purchase_desc_BUD LT BR CN 4P"              
+ [26] "X_purchase_desc_BUD LT BR CN 6P"              
+ [27] "X_purchase_desc_BUD LT BR CN 8P"              
+ [28] "X_purchase_desc_BUD LT BR CN 9P"              
+ [29] "X_purchase_desc_BUD LT BR CN 12P"             
+ [30] "X_purchase_desc_BUD LT BR CN 15P"             
+ [31] "X_purchase_desc_BUD LT BR CN 18P"             
+ [32] "X_purchase_desc_BUD LT BR CN 20P"             
+ [33] "X_purchase_desc_BUD LT BR CN 24P"             
+ [34] "X_purchase_desc_BUD LT BR CN 30P"             
+ [35] "X_purchase_desc_BUD LT BR CN 36P"             
+ [36] "X_purchase_desc_BUD LT BR CN F-V 18P"         
+ [37] "X_purchase_desc_BUD LT BR KG"                 
+ [38] "X_purchase_desc_BUD LT BR KG 1/2"             
+ [39] "X_purchase_desc_BUD LT BR NRB"                
+ [40] "X_purchase_desc_BUD LT BR NRB 4P"             
+ [41] "X_purchase_desc_BUD LT BR NRB 6P"             
+ [42] "X_purchase_desc_BUD LT BR NRB 8P"             
+ [43] "X_purchase_desc_BUD LT BR NRB 12P"            
+ [44] "X_purchase_desc_BUD LT BR NRB AL"             
+ [45] "X_purchase_desc_BUD LT BR NRB AL 4P"          
+ [46] "X_purchase_desc_BUD LT BR NRB AL 15P"         
+ [47] "X_purchase_desc_BUD LT BR NRB AL 24P"         
+ [48] "X_purchase_desc_BUD LT BR NRB LN"             
+ [49] "X_purchase_desc_BUD LT BR NRB LN 6P"          
+ [50] "X_purchase_desc_BUD LT BR NRB LN 12P"         
+ [51] "X_purchase_desc_BUD LT BR NRB LN 15P"         
+ [52] "X_purchase_desc_BUD LT BR NRB LN 18P"         
+ [53] "X_purchase_desc_BUD LT BR NRB LN 20P"         
+ [54] "X_purchase_desc_BUD LT BR NRB LN 24P"         
+ [55] "X_purchase_desc_BUD LT BR NRBP 6P"            
+ [56] "X_purchase_desc_BUD LT BR NRBP 24P"           
+ [57] "X_purchase_desc_BUD LT BR NRBP LN"            
+ [58] "X_purchase_desc_BUD LT BR RB LN"              
+ [59] "X_purchase_desc_BUD LT BR RB LN 12P"          
+ [60] "X_purchase_desc_BUD LT DFT BR KG BALL"        
+ [61] "X_purchase_desc_BUSCH LIGHT BR CN"            
+ [62] "X_purchase_desc_BUSCH LIGHT BR CN 4P"         
+ [63] "X_purchase_desc_BUSCH LIGHT BR CN 6P"         
+ [64] "X_purchase_desc_BUSCH LIGHT BR CN 12P"        
+ [65] "X_purchase_desc_BUSCH LIGHT BR CN 18P"        
+ [66] "X_purchase_desc_BUSCH LIGHT BR CN 24P"        
+ [67] "X_purchase_desc_BUSCH LIGHT BR CN 30P"        
+ [68] "X_purchase_desc_BUSCH LIGHT BR KG"            
+ [69] "X_purchase_desc_BUSCH LIGHT BR NRB"           
+ [70] "X_purchase_desc_BUSCH LIGHT BR NRB LN"        
+ [71] "X_purchase_desc_BUSCH LIGHT BR NRB LN 6P"     
+ [72] "X_purchase_desc_BUSCH LIGHT BR NRB LN 12P"    
+ [73] "X_purchase_desc_BUSCH LIGHT BR NRB LN 18P"    
+ [74] "X_purchase_desc_BUSCH LIGHT BR NRB LN 20P"    
+ [75] "X_purchase_desc_BUSCH LIGHT BR NRB LN 24P"    
+ [76] "X_purchase_desc_CRS LT BR CN"                 
+ [77] "X_purchase_desc_CRS LT BR CN 6P"              
+ [78] "X_purchase_desc_CRS LT BR CN 12P"             
+ [79] "X_purchase_desc_CRS LT BR CN 18P"             
+ [80] "X_purchase_desc_CRS LT BR CN 24P"             
+ [81] "X_purchase_desc_CRS LT BR CN 30P"             
+ [82] "X_purchase_desc_CRS LT BR CN 36P"             
+ [83] "X_purchase_desc_CRS LT BR CN C-B 36P"         
+ [84] "X_purchase_desc_CRS LT BR CN FBL 24P"         
+ [85] "X_purchase_desc_CRS LT BR KG"                 
+ [86] "X_purchase_desc_CRS LT BR KG 1/2"             
+ [87] "X_purchase_desc_CRS LT BR KG BALL"            
+ [88] "X_purchase_desc_CRS LT BR NRB"                
+ [89] "X_purchase_desc_CRS LT BR NRB LN"             
+ [90] "X_purchase_desc_CRS LT BR NRB LN 6P"          
+ [91] "X_purchase_desc_CRS LT BR NRB LN 12P"         
+ [92] "X_purchase_desc_CRS LT BR NRB LN 18P"         
+ [93] "X_purchase_desc_CRS LT BR NRB LN 20P"         
+ [94] "X_purchase_desc_CRS LT BR NRB LN 24P"         
+ [95] "X_purchase_desc_CRS LT BR NRBP LN"            
+ [96] "X_purchase_desc_CRS LT BR NRBP LN INSLT-B 6P" 
+ [97] "X_purchase_desc_CRS LT BR NRBP LN INSLT-B 18P"
+ [98] "X_purchase_desc_CRS LT LB BR NRB"             
+ [99] "X_purchase_desc_MLR LITE BR CN"               
+[100] "X_purchase_desc_MLR LITE BR CN 2P"            
+[101] "X_purchase_desc_MLR LITE BR CN 4P"            
+[102] "X_purchase_desc_MLR LITE BR CN 6P"            
+[103] "X_purchase_desc_MLR LITE BR CN 12P"           
+[104] "X_purchase_desc_MLR LITE BR CN 18P"           
+[105] "X_purchase_desc_MLR LITE BR CN 24P"           
+[106] "X_purchase_desc_MLR LITE BR CN 30P"           
+[107] "X_purchase_desc_MLR LITE BR CN 36P"           
+[108] "X_purchase_desc_MLR LITE BR KG 1/2"           
+[109] "X_purchase_desc_MLR LITE BR KG 1/4"           
+[110] "X_purchase_desc_MLR LITE BR NRB"              
+[111] "X_purchase_desc_MLR LITE BR NRB 8P"           
+[112] "X_purchase_desc_MLR LITE BR NRB 24P"          
+[113] "X_purchase_desc_MLR LITE BR NRB AL 9P"        
+[114] "X_purchase_desc_MLR LITE BR NRB LN"           
+[115] "X_purchase_desc_MLR LITE BR NRB LN 6P"        
+[116] "X_purchase_desc_MLR LITE BR NRB LN 18P"       
+[117] "X_purchase_desc_MLR LITE BR NRB LN 20P"       
+[118] "X_purchase_desc_MLR LITE BR NRB LN 24P"       
+[119] "X_purchase_desc_MLR LITE BR NRB LN F-P 12P"   
+[120] "X_purchase_desc_MLR LITE BR NRBP"             
+[121] "X_purchase_desc_MLR LITE BR NRBP LN 6P"       
+[122] "X_purchase_desc_MLR LITE BR NRBP LN 24P"      
+[123] "X_purchase_desc_MLR LITE BR NRBP LN ES-C 24P" 
+[124] "X_purchase_desc_NATURAL LT BR CN"             
+[125] "X_purchase_desc_NATURAL LT BR CN 3P"          
+[126] "X_purchase_desc_NATURAL LT BR CN 4P"          
+[127] "X_purchase_desc_NATURAL LT BR CN 6P"          
+[128] "X_purchase_desc_NATURAL LT BR CN 12P"         
+[129] "X_purchase_desc_NATURAL LT BR CN 18P"         
+[130] "X_purchase_desc_NATURAL LT BR CN 24P"         
+[131] "X_purchase_desc_NATURAL LT BR CN 30P"         
+[132] "X_purchase_desc_NATURAL LT BR NRB"            
+[133] "X_purchase_desc_NATURAL LT BR NRB 12P"        
+[134] "X_purchase_desc_NATURAL LT BR NRB LN"         
+[135] "X_purchase_desc_NATURAL LT BR NRB LN 6P"      
+[136] "X_purchase_desc_NATURAL LT BR NRB LN 12P"     
+[137] "X_purchase_desc_NATURAL LT BR NRB LN 20P"     
+[138] "brand_BUD LIGHT"                              
+[139] "brand_BUSCH LIGHT"                            
+[140] "brand_COORS LIGHT"                            
+[141] "brand_MILLER LITE"                            
+[142] "brand_NATURAL LIGHT"                          
+[143] "container_CAN"                                
+[144] "container_KEG"                                
+[145] "container_KEG BALL"                           
+[146] "container_NON REFILLABLE BOTTLE"              
+[147] "container_NON REFILLABLE BOTTLE ALUMINUM"     
+[148] "container_NON REFILLABLE BOTTLE PLASTIC"      
+[149] "container_REFILLABLE BOTTLE"                  
+[150] "buyertype_female"                             
+[151] "buyertype_male"                               
+[152] "buyertype_married"                            
+[153] "income_20-60k"                                
+[154] "income_60-100k"                               
+[155] "income_100-200k"                              
+[156] "income_200k+"                                 
+[157] "income_under20k"                              
+[158] "age_&lt;30"                                      
+[159] "age_30-39"                                    
+[160] "age_40-49"                                    
+[161] "age_50+"                                      
+[162] "employment_full"                              
+[163] "employment_none"                              
+[164] "employment_part"                              
+[165] "degree_College"                               
+[166] "degree_Grad"                                  
+[167] "degree_HS"                                    
+[168] "degree_none"                                  
+[169] "cow_clerical/sales/service"                   
+[170] "cow_labor/craft/military/farm"                
+[171] "cow_none/retired/student"                     
+[172] "cow_prof"                                     
+[173] "race_asian"                                   
+[174] "race_black"                                   
+[175] "race_hispanic"                                
+[176] "race_other"                                   
+[177] "race_white"                                   
+[178] "tvcable_basic"                                
+[179] "tvcable_none"                                 
+[180] "tvcable_premium"                              
+[181] "npeople_1"                                    
+[182] "npeople_2"                                    
+[183] "npeople_3"                                    
+[184] "npeople_4"                                    
+[185] "npeople_5plus"                                </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> results <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(dollar_spent,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>         beer_floz,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>         price_per_floz,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>         <span class="fu">starts_with</span>(<span class="st">"brand_"</span>),</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">container_NON REFILLABLE BOTTLE</span><span class="st">`</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>         <span class="fu">starts_with</span>(<span class="st">"promo"</span>),</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>         buyertype_married,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>         children6to17,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">age_50+</span><span class="st">`</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>         employment_none) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">promo =</span> <span class="fu">as.integer</span>(promo),</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">children6to17 =</span> <span class="fu">as.integer</span>(children6to17)) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">`</span><span class="at">NON REFILLABLE BOTTLE</span><span class="st">`</span> <span class="ot">=</span> <span class="st">`</span><span class="at">container_NON REFILLABLE BOTTLE</span><span class="st">`</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(results) <span class="ot">&lt;-</span> <span class="fu">str_replace_all</span>(<span class="fu">colnames</span>(results), </span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"brand_"</span>, <span class="st">""</span>) </span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "dollar_spent"          "beer_floz"             "price_per_floz"       
+ [4] "BUD LIGHT"             "BUSCH LIGHT"           "COORS LIGHT"          
+ [7] "MILLER LITE"           "NATURAL LIGHT"         "NON REFILLABLE BOTTLE"
+[10] "promo"                 "buyertype_married"     "children6to17"        
+[13] "age_50+"               "employment_none"      </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cor_beer <span class="ot">&lt;-</span> <span class="fu">cor</span>(results)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(cor_beer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "matrix" "array" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cor_beer <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(cor_beer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggcorrplot</span>( cor_beer, <span class="at">lab =</span> T,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">colors =</span> <span class="fu">c</span>(<span class="st">"#2E74C0"</span>, <span class="st">"white"</span>, <span class="st">"#CB454A"</span>),</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="fu">rel</span>(<span class="fl">1.5</span>),</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">face =</span> <span class="st">'bold'</span>))  <span class="sc">+</span> </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="fu">guide_colourbar</span>(<span class="at">barheight =</span> <span class="fl">38.5</span>))</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="danl399-hw-2_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 <ul>
 <li>To calculate a correlation between numeric variables in <code>data.frame</code>, use <code>cor(data.frame)</code></li>

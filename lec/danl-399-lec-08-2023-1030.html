@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>DANL 399 Lecture 7</title>
+    <title>DANL 399 Lecture 8</title>
     <meta charset="utf-8" />
     <meta name="author" content="Byeong-Hak Choe" />
-    <meta name="date" content="2023-10-23" />
+    <meta name="date" content="2023-10-30" />
     <script src="libs/header-attrs-2.25/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
@@ -38,11 +38,11 @@
 
 class: title-slide, left, bottom
 
-# DANL 399 Lecture 7
+# DANL 399 Lecture 8
 ----
 ## **DANL 399: Data Visualization and Presentation**
 ### Byeong-Hak Choe
-### October 23, 2023
+### October 30, 2023
 
 
 
@@ -83,479 +83,6 @@ class: inverse, center, middle
   - Group a data.frame by a categorical variable (`group_by()`).
 
 
----
-# Data Transformation
-&lt;!-- ### &lt;p style="color:#00449E"&gt; `dplyr` basics &lt;/p&gt; --&gt;
-
-- Because the first argument is a `data.frame` and the output is a `data.frame`, `dplyr` verbs work well with the **pipe**, `%&gt;%` 
-  - **Ctrl + Shift + M** for Windows; **command + Shift + M** for Mac. 
-
-
-- The **pipe** (`%&gt;%`) takes the thing on its left and passes it along to the function on its right so that
-  - `f(x, y)` is equivalent to `x %&gt;% f(y)`. 
-  - e.g., `filter(DATA_FRAME, LOGICAL_STATEMENT)` is equivalent to `DATA_FRAME %&gt;%  filter(LOGICAL_STATEMENT)`.
-
-
-- The easiest way to pronounce the **pipe** (`%&gt;%`) is “**then**”. 
-  - The **pipe** (`%&gt;%`) is super useful when we have &lt;u&gt;*a chain of data transforming operations*&lt;/u&gt; to do.
-
-
----
-# Data Transformation
-### &lt;p style="color:#00449E"&gt; `dplyr` basics &lt;/p&gt;
-
-- `DATA_FRAME %&gt;% filter(LOGICAL_CONDITIONS)`
-- `DATA_FRAME %&gt;% arrange(VARIABLES)`
-- `DATA_FRAME %&gt;% select(VARIABLES)`
-- `DATA_FRAME %&gt;% rename(NEW_VARIABLE = EXISTING_VARIABLE)`
-- `DATA_FRAME %&gt;% mutate(NEW_VARIABLE = ... )`
-- `DATA_FRAME %&gt;% relocate(VARIABLES)`
-- `DATA_FRAME %&gt;% group_by(VARIABLES)`
-- `DATA_FRAME %&gt;% summarize(NEW_VARIABLE = ...)`
-
-
-- The subsequent arguments describe what to do with the data.frame, mostly using the variable names.
-- The result is a **data.frame**.
-
-
-
-
----
-# Graph tables, add labels, make notes
-### &lt;p style="color:#00449E"&gt; Use pipes to summarize data &lt;/p&gt;
-- Let's describe how the distribution of religious preferences varies by regions in the US using the `socviz::gss_sm` data.frame.
-
-
-
-
----
-# Graph tables, add labels, make notes
-### &lt;p style="color:#00449E"&gt; Use pipes to summarize data &lt;/p&gt;
-
-- Group the data into the nested structure we want for our summary, such as “Religion by Region” or “Authors by Publications by Year”.
-
-
-- Filter or select pieces of the data by row, column, or both. 
-
-
-- Mutate the data by creating new variables at the current level of grouping.    
-  - This adds new columns to the table without aggregating it.
-
-
-- Summarize or aggregate the grouped data. 
-  - This creates new variables (e.g., means with `mean()`, sums with `sum()`, and counts with `n()`) at a higher level of grouping.
-
-
-
-
----
-# Graph tables, add labels, make notes
-### &lt;p style="color:#00449E"&gt; Use pipes to summarize data &lt;/p&gt;
-
-- We use the dplyr functions, `group_by()`, `filter()`, `select()`, `mutate()`, and `summarize()`, to carry out these data transformation tasks within our pipeline (`%&gt;%`, **Ctrl/Cmd + Shift + M**). 
-
-- Let's create a new data.frame called `rel_by_region`.
-
-
-```r
-library(socviz)
-rel_by_region &lt;- gss_sm %&gt;%
-    group_by( bigregion, religion ) %&gt;%
-    summarize( N = n() ) %&gt;%
-    mutate( freq = N / sum(N),
-            pct = round( (freq*100), 0) )
-
-rel_by_region
-```
-
-
-
-
----
-# Graph tables, add labels, make notes
-### &lt;p style="color:#00449E"&gt; Use pipes to summarize data &lt;/p&gt;
-
-- Now that we are working directly with percentage values in a summary table, we can use `geom_col()` instead of `geom_bar()`.
-
-
-
-.pull-left[
-
-```r
-p &lt;- ggplot( rel_by_region, 
-             aes( x = bigregion, 
-                  y = pct, 
-                  fill = religion))
-
-p + geom_col( position = "dodge2" ) +
-    labs(x = "Region", 
-         y = "Percent", 
-         fill = "Religion") +
-    theme(legend.position 
-            = "top") 
-```
-]
-.pull-right[
-![](danl-399-lec-07-2023-1023_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
-]
-
-
-
----
-# Graph tables, add labels, make notes
-### &lt;p style="color:#00449E"&gt; Use pipes to summarize data &lt;/p&gt;
-
-- Let's replicate the following bar chart:
-
-&lt;img src="danl-399-lec-07-2023-1023_files/figure-html/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" /&gt;
-
-
-
----
-# Graph tables, add labels, make notes
-### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
-
-
-.panelset[
-.panel[.panel-name[(1)]
-
-- Let’s move to a new dataset, the `socviz::organdata` data.frame. 
-
-
-```r
-organdata
-skimr::skim(organdata)
-```
-]
-
-.panel[.panel-name[(2)]
-
-- We can take a look at a simple scatterplot of donors vs year.
-
-&lt;img src="danl-399-lec-07-2023-1023_files/figure-html/unnamed-chunk-8-1.png" width="55%" style="display: block; margin: auto;" /&gt;
-]
-
-.panel[.panel-name[(3)]
-
-- Let's draw a yearly trend of `donors` for each country.
-
-&lt;img src="danl-399-lec-07-2023-1023_files/figure-html/unnamed-chunk-9-1.png" width="55%" style="display: block; margin: auto;" /&gt;
-
-]
-
-]
-
----
-# Graph tables, add labels, make notes
-### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
-
-
-.panelset[
-
-.panel[.panel-name[(1)]
-
-- Let’s focus on the country-level variation of `donors` using `geom_boxplot()`, but without paying attention to the time trend.
-
-&lt;img src="danl-399-lec-07-2023-1023_files/figure-html/unnamed-chunk-10-1.png" width="55%" style="display: block; margin: auto;" /&gt;
-
-]
-
-.panel[.panel-name[(2)]
-
-
-- We can reorder the levels using `fct_reorder(f, x, fun)`, which can take three arguments.
-  - `f`: the factor whose levels we want to modify.
-  - `x`: a numeric vector that we want to use to reorder the levels.
-  - Optionally, `fun`: a function that's used if there are multiple values of `x` for each value of `f`. The default value is *median*.
-
-
-
-```r
-levels(organdata$country)
-organdata &lt;- organdata %&gt;%
-  mutate(country = fct_reorder(country, tvhours, na.rm = T) ) 
-```
-
-]
-
-
-
-.panel[.panel-name[(3)]
-
-
-- We can reorder the levels using `fct_reorder(f, x, fun)`, which can take three arguments.
-  - `f`: the factor whose levels we want to modify.
-  - `x`: a numeric vector that we want to use to reorder the levels.
-  - Optionally, `fun`: a function that's used if there are multiple values of `x` for each value of `f`. The default value is *median*.
-
-
-
-```r
-p &lt;- ggplot(data = organdata,
-            mapping = aes(x = country, y = donors))
-p + geom_boxplot() + labs(x = NULL) + coord_flip()
-```
-
-]
-
-
-
-.panel[.panel-name[(4)]
-
-- Let’s replicate the following boxplot:
-
-&lt;img src="danl-399-lec-07-2023-1023_files/figure-html/unnamed-chunk-13-1.png" width="55%" style="display: block; margin: auto;" /&gt;
-
-]
-]
-
----
-# Graph tables, add labels, make notes
-### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
-
-
-.panelset[
-
-.panel[.panel-name[(1)]
-
-- Sometimes it is better to sort the data with a categorical variable when plotting a bar chart or a Cleveland dotplot.
-
-]
-
-.panel[.panel-name[(2)]
-- Summarize the data.frame `organdata` to calculate the mean and the standard deviation of each numeric variable for each `consent_law`-`country` pair.
-
-
-```r
-by_country &lt;- organdata %&gt;% group_by(consent_law, country) %&gt;%
-    summarize(donors_mean= mean(donors, na.rm = TRUE),
-              donors_sd = sd(donors, na.rm = TRUE),
-              gdp_mean = mean(gdp, na.rm = TRUE),
-              health_mean = mean(health, na.rm = TRUE),
-              roads_mean = mean(roads, na.rm = TRUE),
-              cerebvas_mean = mean(cerebvas, na.rm = TRUE))
-```
-
-- Would there be a simpler way to do the task above?
-]
-
-
-.panel[.panel-name[(3)]
-- What we would like to do is apply the `mean()` and `sd()` functions to every numerical variable in `organdata`, but only the numerical ones. 
-
-  - `summarize_if( is.numeric, lst(mean, sd), na.rm = T)` works really well.
-
-
-```r
-by_country &lt;- organdata %&gt;% group_by(consent_law, country) %&gt;%
-  summarize_if(is.numeric, lst(mean, sd), na.rm = TRUE) %&gt;%
-  ungroup()
-```
-
-]
-
-.panel[.panel-name[(4)]
-- Let's draw the following dot plot.
-
-&lt;img src="danl-399-lec-07-2023-1023_files/figure-html/unnamed-chunk-16-1.png" width="55%" style="display: block; margin: auto;" /&gt;
-
-]
-
-]
-
----
-# Graph tables, add labels, make notes
-### &lt;p style="color:#00449E"&gt; Continuous variables by group or category &lt;/p&gt;
-
-
-
-.panelset[
-
-.panel[.panel-name[(1)]
-
-- Let's draw the following faceted dot plot.
-
-
-&lt;img src="danl-399-lec-07-2023-1023_files/figure-html/unnamed-chunk-17-1.png" width="55%" style="display: block; margin: auto;" /&gt;
-
-]
-
-
-.panel[.panel-name[(2)]
-
-- Cleveland dotplots are generally preferred to bar or column charts.
-  - When making them, put the categories on the y-axis and order them in the way that is most relevant to the numerical summary you are providing.
-  - This sort of plot is also an excellent way to summarize model results or any data with **error ranges**. 
-  
-  
-]
-
-.panel[.panel-name[(3)]
-
-  
-- Using `geom_pointrange()`, we can tell ggplot to show us a point estimate and a range around it.
-  -  With `geom_pointrange()`, we map our `x` and `y` variables as usual, but the function needs a little more information than `geom_point()`, for example (`ymin`, `ymax`) or (`xmin`, `xmax`). 
-  
-]
-
-.panel[.panel-name[(4)]
-
-
-- Let's draw the following dot-and-whisker plot.
-
-&lt;img src="danl-399-lec-07-2023-1023_files/figure-html/unnamed-chunk-18-1.png" width="55%" style="display: block; margin: auto;" /&gt;
-
-]
-
-]
-
-
-
----
-class: inverse, center, middle
-
-# Understanding Scales, Guides, and Themes
-&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
-
----
-# Understanding Scales, Guides, and Themes
-### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
-
-- We have used `scale_x_log10()`, `scale_x_continuous()` and other` scale_*_*()` functions to adjust axis labels. 
-
-- We used the `guides()` function to remove the legends for a color mapping and a `label` mapping. 
-
-- We also used the `theme()` function to move the position of a legend from the side to the top of a figure.
-
-- What are the differences between the `scale_*_*()` functions, the `guides()` function, and the `theme()` function? 
-
-- When do we know to use one rather than the other? Why are there so many `scale_*_*()` functions? How can we tell which one we need?
-
-
----
-# Understanding Scales, Guides, and Themes
-### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
-
-
-- Here is a rough and ready starting point:
-
-.panelset[
-.panel[.panel-name[scale]
-
-- Every aesthetic mapping has a scale. 
-
-  - If we want to adjust how that scale is marked or graduated, then we use a `scale_*_*()` function.
-
-]
-
-.panel[.panel-name[guides]
-- Many scales come with a *legend* or key to help the reader interpret the graph. These are called `guides`. 
-
-  - We can make adjustments to them with the `guides()` function. 
-
-  - Perhaps the most common use case is to make the legend disappear.
-
-  - Another is to adjust the arrangement of the key in *legends* and *colorbars*.
-  
-  - `guides` is also one of the parameters in `scales_*_*()`.
-
-]
-
-.panel[.panel-name[theme]
-- Graphs have other features not strictly connected to the logical structure of the data being displayed. 
-
-  - These include things like their background color, the typeface used for labels, or the placement of the legend on the graph. 
-  
-  - To adjust these, use the `theme()` function.
-
-
-]
-
-]
-
-
-
-
-
----
-# Understanding Scales, Guides, and Themes
-### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
-  
-- `scale_*_*()` and `guides()` are closely connected.
-  - The `guides()` provides information about the `scale`, such as in a **legend** or **colorbar**.
-  - So, it is possible to make adjustments to guides from inside the various `scale_*_*()` functions.
-
-
-```r
-p &lt;- ggplot(data = organdata,
-            mapping = aes(x = roads, y = donors, color = world))
-p + geom_point()
-```
-- The `x` and `y` scales are both **continuous**.
-- The `color` scale is **discrete**.
-  - A `color` or `fill` mapping can also be a *continuous* quantity (*colorbar*).
-  
-  
-  
----
-# Understanding Scales, Guides, and Themes
-### &lt;p style="color:#00449E"&gt; `scale_&lt;MAPPING&gt;_&lt;KIND&gt;` &lt;/p&gt;
-
-- Because we have several potential mappings, and each mapping might be to one of several different scales, we end up with a lot of individual `scale_*_*` functions. 
-  - Each deals with one combination of mapping and scale. Too many to memorize. 
-  - They are named according to a consistent logic:
-  
-&lt;img src="lec_figs/scale_mapping_kind.png" width="50%" style="display: block; margin: auto;" /&gt;
- 
-- [https://ggplot2tor.com/scales](https://ggplot2tor.com/scales) provides a complete guide to scales.
-  - This app makes it easy for you to find the right scales and arguments for your variable types and aesthetics.
-
-
-
----
-# Understanding Scales, Guides, and Themes
-### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
-
-.panelset[
-.panel[.panel-name[(1)]
-- Let's replicate the following:
-  &lt;!-- - Use the `log10` scale on x-axis. --&gt;
-  &lt;!-- - Break y-axis at `c(5, 15, 25)`, and label them as `c("Five", "Fifteen", "Twenty Five")`. --&gt;
-
-&lt;img src="danl-399-lec-07-2023-1023_files/figure-html/unnamed-chunk-21-1.png" width="75%" /&gt;
-
-]
-
-
-.panel[.panel-name[(2)]
-- Let's replicate the following:
-  &lt;!-- - Label colors to `c("Corporatist", "Liberal", "Social Democratic", "Unclassified")` --&gt;
-  &lt;!-- - Label `x`-axis, `y`-axis, and a title of `color` legend using `labs()`. --&gt;
-
-&lt;img src="danl-399-lec-07-2023-1023_files/figure-html/unnamed-chunk-22-1.png" width="75%" /&gt;
-
-]
-
-.panel[.panel-name[(3)]
-- Let's replicate the following:
-  &lt;!-- - Use the `log10` scale on x-axis. --&gt;
-  &lt;!-- - Break y-axis at `c(5, 15, 25)`, and label them as `c("Five", "Fifteen", "Twenty Five")`. --&gt;
-
-&lt;img src="danl-399-lec-07-2023-1023_files/figure-html/unnamed-chunk-23-1.png" width="75%" /&gt;
-
-]
-
-
-.panel[.panel-name[(4)]
-- Let's replicate the following using `theme()`:
-  &lt;!-- - Use the `log10` scale on x-axis. --&gt;
-  &lt;!-- - Break y-axis at `c(5, 15, 25)`, and label them as `c("Five", "Fifteen", "Twenty Five")`. --&gt;
-
-&lt;img src="danl-399-lec-07-2023-1023_files/figure-html/unnamed-chunk-24-1.png" width="70%" /&gt;
-
-]
-
-]
 
 ---
 class: inverse, center, middle
@@ -593,7 +120,7 @@ p + geom_point() + geom_text(mapping = aes(label = country), hjust = 0)
 # Add Labels and Make Notes
 ### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
 
-&lt;img src="danl-399-lec-07-2023-1023_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="danl-399-lec-08-2023-1030_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -748,7 +275,7 @@ p + geom_point() +
 ### &lt;p style="color:#00449E"&gt; Label Outliers &lt;/p&gt;
 
 - Let's replicate the following using `ggplot::mtcars`:
-&lt;img src="danl-399-lec-07-2023-1023_files/figure-html/unnamed-chunk-37-1.png" width="75%" /&gt;
+&lt;img src="danl-399-lec-08-2023-1030_files/figure-html/unnamed-chunk-13-1.png" width="75%" /&gt;
 
 
 ---
@@ -951,7 +478,7 @@ color_table
 
 .panel[.panel-name[(3)]
 
-&lt;img src="danl-399-lec-07-2023-1023_files/figure-html/unnamed-chunk-51-1.png" width="90%" height="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="danl-399-lec-08-2023-1030_files/figure-html/unnamed-chunk-27-1.png" width="90%" height="90%" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -1249,7 +776,7 @@ studebt
 # Refine your plots
 ### &lt;p style="color:#00449E"&gt; Advanced Bar Chart 1 &lt;/p&gt;
 
-![](danl-399-lec-07-2023-1023_files/figure-html/unnamed-chunk-70-1.png)&lt;!-- --&gt;
+![](danl-399-lec-08-2023-1030_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
 
 
 
@@ -1315,7 +842,7 @@ p + geom_bar(stat = "identity") +
 # Refine your plots
 ### &lt;p style="color:#00449E"&gt; Advanced Bar Chart 2 &lt;/p&gt;
 
-![](danl-399-lec-07-2023-1023_files/figure-html/unnamed-chunk-73-1.png)&lt;!-- --&gt;
+![](danl-399-lec-08-2023-1030_files/figure-html/unnamed-chunk-49-1.png)&lt;!-- --&gt;
 
 
 
