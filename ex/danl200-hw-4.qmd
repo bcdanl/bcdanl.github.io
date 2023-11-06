@@ -1,0 +1,158 @@
+---
+title: "DANL 200: Homework Assignment 4"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+execute: 
+  echo: false
+  eval: false
+
+---
+```{r}
+#| eval: true
+#| include: false
+
+library(knitr)
+library(rmarkdown)
+library(tidyverse)
+library(skimr)
+```
+
+# Question 1
+
+For Question 1, run the following R command to read the music data file.
+
+```{r, echo = T, eval = T, warning= F, message= F}
+spotify_all <- read_csv('https://bcdanl.github.io/data/spotify_all.csv')
+```
+
+```{r, echo = F, eval = T, warning= F, message= F}
+rmarkdown::paged_table(spotify_all)
+```
+
+## Variable Description
+
+-   `pid`: playlist id
+-   `playlist_name`: the name of the playlist
+-   `pos`: the position of the track in the playlist (zero-based)
+-   `artist_name`: the name of the track's primary artist
+-   `track_name`: the name of the track
+-   `duration_ms`: the duration of the track in milliseconds
+-   `album_name`: the name of the track's album
+
+<br>
+
+## Q1a
+
+- Find the ten most popular song.
+  - A value of a song is defined as a combination of `artist_name` and `track_name` values. 
+  - Who are artists for those ten most popular song?
+
+```{r, echo = F, eval = F, warning= F, message= F}
+Q1a <- spotify_all %>% 
+  count(artist_name, track_name) %>% 
+  arrange(-n) %>% 
+  head(10)
+
+Q1a
+```
+
+<!-- -   This example assumes that the most popular song is the song---a combination of `artist_name` and `track_name`---that most frequently appears in the data.frame `spotify_all`. -->
+
+<br><br>
+
+## Q1b
+
+-   Find the five most popular artist in terms of the number of occurrences in the data.frame, `spotify_all`.
+-   What is the most popular song for each of the five most popular artist?
+
+```{r, echo = F, eval = F, warning= F, message= F}
+Q1b <- spotify_all %>% 
+  group_by(artist_name) %>% 
+  mutate(n_popular_artist = n()) %>% 
+  ungroup() %>% 
+  mutate( artist_ranking = dense_rank( desc(n_popular_artist) ) ) %>% 
+  filter( artist_ranking <= 5) %>% 
+  group_by(artist_name, track_name) %>% 
+  mutate(n_popular_track = n()) %>% 
+  group_by(artist_name) %>% 
+  mutate(track_ranking = dense_rank( desc(n_popular_track) ) ) %>% 
+  filter( track_ranking <= 2) %>%   # I just wanted to see the top two tracks for each artist
+  select(artist_name, artist_ranking, n_popular_artist, track_name, track_ranking, n_popular_track) %>% 
+  distinct() %>% 
+  arrange(artist_ranking, track_ranking)
+
+Q1b
+```
+
+<!-- -   This example assumes that the most popular artist is the artist---the value of `artist_name`---that most frequently appears in the data.frame `spotify_all`. -->
+
+<!-- -   This example assumes that the most popular song is the song---a combination of `artist_name` and `track_name`---that most frequently appears in the data.frame `spotify_all`. -->
+
+<br><br>
+
+## Q1c
+
+Provide both (1) ggplot codes and (2) a couple of sentences to describe the relationship between `pos` and the ten most popular artists.
+
+```{r, echo = F, eval = F, warning= F, message= F, fig.height= 10}
+Q1c <- spotify_all %>% 
+  group_by(artist_name) %>% 
+  mutate(n_popular_artist = n()) %>% 
+  ungroup() %>% 
+  mutate( artist_ranking = dense_rank( desc(n_popular_artist) ) ) %>% 
+  filter( artist_ranking <= 10) 
+  
+# boxplot
+ggplot(Q1c,
+       aes(x = pos, y = fct_reorder(artist_name, -artist_ranking)) ) +
+  geom_boxplot() +
+  stat_summary(
+    fun = mean,
+    color = 'red'
+  )
+
+# histogram
+ggplot(Q1c) +
+  geom_histogram(aes(x = pos), binwidth = 1) + 
+  facet_grid(fct_reorder(artist_name, artist_ranking) ~ .  , switch = "y") +
+  theme(strip.text.y.left = element_text(angle = 0))
+```
+
+<!-- -   The relationship between `pos` and the ten most popular artists can be described by how the distribution of `pos` varies across the ten most popular artists. -->
+
+<!-- -   The distribution of `pos` does not seem to vary a lot across the ten most popular artists. -->
+
+<!-- All are skewed right -->
+
+<!-- -   Anything noticeable can be mentioned. -->
+
+<br><br>
+
+## Q1d
+
+Create the data.frame with `pid`-`artist` level of observations with the following four variables:
+
+-   `pid`: playlist id
+-   `playlist_name`: the name of the playlist
+-   `artist`: the name of the track's primary artist, which appears only once within a playlist
+-   `n_artist`: the number of occurrences of artist within a playlist
+
+```{r, echo = F, eval = T, warning= F, message= F}
+Q1d <- spotify_all %>% 
+  count(pid, playlist_name, artist_name) %>% 
+  rename(n_artist = n) %>% 
+  arrange(pid, -n_artist, artist_name)
+
+```
+
+For example, the resulting data.frame for this question looks as follows:
+```{r, echo = F, eval = T, warning= F, message= F}
+rmarkdown::paged_table(Q1d)
+```
+
+
+<br><br><br>
+
+
+# Question 2
+
+For Question 2, run the following R command to read the beer market data.
