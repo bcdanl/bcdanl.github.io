@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DANL 200 Lecture 28</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Byeong-Hak Choe" />
+    <meta name="date" content="2023-11-06" />
+    <script src="libs/header-attrs-2.25/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <script src="libs/peerjs-1.3.1/peerjs.min.js"></script>
+    <script src="libs/tiny.toast-1.0.0/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast-0.2.6/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast-0.2.6/broadcast.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
+    <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, left, bottom
+
+# DANL 200 Lecture 28
+----
+## **DANL 200: Introduction to Data Analytics**
+### Byeong-Hak Choe
+### November 06, 2023
+
+
+---
+class: inverse, center, middle
+
+# Grouped summaries with `summarize()`
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+  
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Example Exercises
+
+
+.panelset[
+.panel[.panel-name[(1)]
+- Describe the relationship between (1) the average distance from airports in New York City to a destination airport and (2) the average arrival dealy experienced on flights to that specific airport.
+
+
+- Describe the distribution of a plane's average arrival delay.
+  - How long is the longest average arrival delay?
+  
+  
+- Calculate the average arrival delay for each date.
+  - Given that the arrival delay is positive, calculate the average arrival delay for each date.
+  
+
+]
+
+.panel[.panel-name[(2)]
+- Why is distance to some destinations more variable than to others?
+
+- When do the first and last flights leave each day?
+
+- Which destinations have the most carriers?
+
+- Which destination have the most number of flights?
+
+- Which destination have the most number of cancelled flights?
+
+
+]
+
+
+.panel[.panel-name[(3)]
+- Which airplane flew the longest cumulative distance?
+
+- How can we calculate the height of bars in a histogram?
+
+- For each date, how many flights left before 5am? 
+
+- For each date, what proportion of flights are delayed by more than an hour?
+
+- For each airline, how many flights are cancelled?
+]
+
+]
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Example 1
+
+**Q**. Describe the relationship between (1) the average distance from airports in New York City to a destination airport and (2) the average arrival dealy experienced on flights to that specific airport.
+
+
+.panelset[
+.panel[.panel-name[Step 1]
+- Make the data.frame we need:
+
+```r
+by_dest &lt;- flights %&gt;% 
+  group_by(dest) %&gt;% 
+  summarize( count = n(),
+    dist = mean(distance, na.rm = TRUE),
+    delay = mean(arr_delay, na.rm = TRUE) )
+```
+]
+
+.panel[.panel-name[Step 2]
+- Make data visualization
+
+```r
+ggplot(data = by_dest, 
+       mapping = aes(x = dist, y = delay)) +
+  geom_point(aes(size = count), alpha = 1/3) +
+  geom_smooth(se = FALSE)
+```
+]
+
+.panel[.panel-name[Step 3]
+- Consider removing outliers.
+  - It is not uncommon to remove outliers to see an "average" or "typical" relationship.
+  
+
+```r
+by_dest2 &lt;- by_dest %&gt;% 
+  filter(count &gt; 20, 
+         dest != "HNL")
+```
+]
+
+.panel[.panel-name[Step 4]
+- Do data visualization again without outliers.
+  
+
+```r
+ggplot(data = by_dest2, 
+       mapping = aes(x = dist, y = delay)) +
+  geom_point(aes(size = count), alpha = 1/3) +
+  geom_smooth(se = FALSE)
+```
+]
+
+
+]
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Example 2
+
+
+.panelset[
+
+
+.panel[.panel-name[(0)]
+
+- Suppose missing values (`NA`) in `dep_delay` or `arr_delay` represent cancelled flights.
+
+  **Q**. Use `filter()` to create the data.frame `not_cancelled` that includes all observations in `flights` except for those with cancelled flights.
+
+
+```r
+not_cancelled &lt;- flights %&gt;% 
+  filter( !( is.na(dep_delay) | is.na(arr_delay) ) )
+```
+]
+
+.panel[.panel-name[(1)]
+**Q**. Describe the distribution of a plane's average arrival delay.
+  - Airplanes are identified by their tail number (`tailnum`)
+
+.pull-left[
+
+```r
+delays &lt;- not_cancelled %&gt;% 
+  group_by(tailnum) %&gt;% 
+  summarize(
+    delay = mean(arr_delay)
+  )
+```
+
+]
+
+.pull-right[
+
+```r
+ggplot(data = delays, 
+       mapping = aes(x = delay)) + 
+  geom_freqpoly(binwidth = 10)
+```
+
+]
+
+]
+
+.panel[.panel-name[(2)]
+**Q**. How long is the longest average arrival delay?
+
+```r
+delays %&gt;% 
+  arrange(-delay)
+```
+
+]
+
+]
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Example 3
+
+**Q**. Calculate the average arrival delay for each date.
+
+**Q**. Given that the arrival delay is positive, calculate the average arrival delay for each date.
+
+
+
+```r
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize(avg_delay1 = mean(arr_delay),
+            avg_delay2 = mean(arr_delay[arr_delay &gt; 0]) ) 
+```
+
+- `x[Logical condition regarding x]` lets us filter observations from variable `x` when calculating summary (e.g. `mean()`, `sum()`).
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Example 4
+
+**Q**. Why is distance to some destinations more variable than to others?
+  - We can use `sd(x)` to measure how much variation a variable `x` has.
+
+
+```r
+not_cancelled %&gt;% 
+  group_by(dest) %&gt;% 
+  summarize(distance_sd = sd(distance)) %&gt;% 
+  arrange(desc(distance_sd))
+```
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Example 5
+
+
+**Q**. When do the first and last flights leave each day?
+
+.panelset[
+
+.panel[.panel-name[min() and max()]
+
+
+```r
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize(first = min(dep_time), 
+            last = max(dep_time) )
+```
+]
+
+
+.panel[.panel-name[first() and last()]
+- `first(x)` and `last(x)` returns the first and last element of `x`:
+  - `nth(x, 2)` returns the second element of `x`
+
+
+```r
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize(first_dep = first(dep_time),
+            last_dep = last(dep_time) )
+```
+]
+
+.panel[.panel-name[range()]
+- `range()` returns a vector containing the minimum and maximum of a variable:
+
+
+```r
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  mutate(r = min_rank(desc(dep_time))) %&gt;% 
+  filter(r %in% range(r) )
+```
+]
+
+]
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Example 6 - Counts
+
+.panelset[
+
+.panel[.panel-name[n_distinct()]
+
+**Q**. Which destinations have the most carriers?
+
+  - We can use `n_distinct()` to count the number of unique/distinct values 
+
+
+```r
+not_cancelled %&gt;% 
+  group_by(dest) %&gt;% 
+  summarise(n_carriers = n_distinct(carrier)) %&gt;% 
+  arrange(-n_carriers)
+```
+
+]
+
+.panel[.panel-name[count()]
+**Q**. Which destination have the most number of flights?
+
+  - `count(x)` counts the number of observations for each value in variable `x`:
+  - `df %&gt;% count(x)` is equivalent to `df %&gt;% group_by(x) %&gt;% summarise(n = n())`
+
+
+
+```r
+not_cancelled %&gt;% 
+  count(dest)
+```
+
+  &lt;!-- - `sort = TRUE` will show the largest groups at the top. --&gt;
+]
+
+.panel[.panel-name[count(x, wt = ...)]
+
+**Q**. Which airplane flew the longest cumulative distance?
+
+  - We can use `count(x, wt = NUMERIC_VARIABLE)` to calculate the sum of values in `NUMERIC_VARIABLE` for each group of `x`:
+
+
+```r
+not_cancelled %&gt;% 
+  count(tailnum, wt = distance)
+```
+
+]
+
+
+.panel[.panel-name[`count()` with `cut_width()`]
+
+**Q**. How can we calculate the height of bars in a histogram?
+
+  - We can do so by combining `count()` and `cut_width()`:
+
+
+.pull-left[
+
+```r
+ggplot(diamonds) +
+  geom_histogram(aes(x = carat), 
+                 binwidth = 0.5)
+```
+
+]
+
+.pull-right[
+
+```r
+diamonds %&gt;% 
+  count(cut_width(carat, 0.5))
+```
+
+]
+]
+
+]
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; `sum()` and `mean()` of logical values
+
+
+- Counts and proportions of logical values can be useful: 
+  - E.g., `sum(!is.na(x))`, `sum(y &gt; 10)`, `mean(z == 0)`.
+
+.panelset[
+
+.panel[.panel-name[(1)]
+**Q**. For each date, how many flights left before 5am? 
+
+
+```r
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize(n_early = sum(dep_time &lt; 500))
+```
+]
+
+.panel[.panel-name[(2)]
+**Q**. For each date, what proportion of flights are delayed by more than an hour?
+
+
+```r
+not_cancelled %&gt;% 
+  group_by(year, month, day) %&gt;% 
+  summarize(hour_prop = mean(arr_delay &gt; 60))
+```
+]
+
+.panel[.panel-name[(3)]
+**Q**. For each airline, how many flights are cancelled?
+
+
+```r
+flights %&gt;% 
+  group_by(carrier) %&gt;% 
+  summarise( n_missing = sum(is.na(dep_time) | is.na(arr_time)))
+```
+]
+
+]
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Grouping by multiple variables
+
+
+- When we group by multiple variables, each summary peels off one level of the grouping.
+
+
+```r
+daily &lt;- flights %&gt;% 
+  group_by(year, month, day)
+
+per_day &lt;- daily %&gt;% 
+  summarize(flights = n())
+
+per_month &lt;- per_day %&gt;% 
+  summarize(flights = sum(flights))
+
+per_year  &lt;- per_month %&gt;% 
+  summarize(flights = sum(flights))
+```
+
+
+
+---
+# Grouped summaries with `summarize()`
+### &lt;p style="color:#00449E"&gt; Ungrouping
+
+
+- If we need to remove grouping, and return to operations on ungrouped data, we can use `ungroup()`.
+
+
+
+```r
+daily &lt;- flights %&gt;% 
+  group(year, month, day)
+
+daily %&gt;% 
+  ungroup() %&gt;%             # no longer grouped by date
+  summarize(flights = n())  # all flights
+```
+
+
+
+---
+class: inverse, center, middle
+
+# Grouped mutates
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+  
+
+---
+# Grouped mutates (and filters)
+### &lt;p style="color:#00449E"&gt; 
+
+- Grouping is most useful in conjunction with `summarize()`, but you can also do convenient operations with `mutate()` and `filter()`.
+
+.panelset[
+
+.panel[.panel-name[worst]
+- Find the worst members of each group:
+
+
+```r
+flights %&gt;% 
+  group_by(year, month, day) %&gt;%
+  filter(rank(desc(arr_delay)) &lt; 10)
+```
+]
+
+
+.panel[.panel-name[threshold]
+- Find all groups bigger than a threshold:
+
+
+```r
+popular_dests &lt;- flights %&gt;% 
+  group_by(dest) %&gt;% 
+  filter(n() &gt; 17250)
+popular_dests
+```
+]
+
+.panel[.panel-name[per group metrics]
+- We can compute per group metrics:
+
+
+```r
+popular_dests %&gt;% 
+  filter(arr_delay &gt; 0) %&gt;% 
+  mutate(prop_delay = arr_delay / sum(arr_delay)) %&gt;% 
+  select(year:day, dest, arr_delay, prop_delay)
+```
+]
+
+]
+
+
+---
+class: inverse, center, middle
+
+# `slice()`
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+  
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 66px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

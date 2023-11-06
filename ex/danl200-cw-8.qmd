@@ -1,0 +1,191 @@
+---
+title: "DANL 200: Classwork 8 - Data visualization and transformation"
+date: 2023-11-06
+execute: 
+  warning: false
+  message: false
+  echo: false
+  eval: false
+---
+```{r}
+#| eval: true
+#| include: false
+
+library(knitr)
+library(rmarkdown)
+library(tidyverse)
+library(skimr)
+library(ggthemes)
+library(hrbrthemes)
+
+theme_set(theme_ipsum() +
+          theme(strip.background =element_rect(fill="lightgray"),
+                axis.title.x = element_text(size = rel(1.5)),
+                axis.title.y = element_text(size = rel(1.5)),
+                legend.title = element_text(size=rel(1.25))
+                ))
+```
+
+# Question 1. Climate Finance
+
+- Climate finance refers to local, national or transnational financing—drawn from public, private and alternative sources of financing—that seeks to support mitigation and adaptation actions that will address climate change ([https://unfccc.int/topics/introduction-to-climate-finance](https://unfccc.int/topics/introduction-to-climate-finance)).
+
+  - Mitigation involves reducing the flow of heat-trapping greenhouse gases into the atmosphere;
+  - Adaptation involves adjusting to actual or expected future climate ([https://climate.nasa.gov/solutions/adaptation-mitigation](https://climate.nasa.gov/solutions/adaptation-mitigation)).
+
+
+- Load the data.frame for Question 1.
+
+```{r}
+#| eval: true
+path <- 'https://bcdanl.github.io/data/climate_finance.csv'
+climate_finance <- read_csv(path)
+```
+
+
+```{r}
+#| eval: true
+#| results: asis
+rmarkdown::paged_table(climate_finance) 
+```
+
+
+## Q1a
+
+How many `parties` have made positive financial `contributions` to other `countries/regions` for `adaptation` projects for every year between 2011 and 2018?
+
+
+```{r}
+Q1a <- climate_finance %>% 
+  filter(Status == "provided" | Status == "disbursed",  # filter by provided or disbursed status
+         `Type of support` == "adaptation") %>%       # filter by adaptation type
+  group_by(Party, Year) %>%                          # group by Party and Year
+  summarise(Contribution = sum(Contribution, na.rm = T)) %>%  # calculate total contribution
+  filter(Contribution > 0) %>%                       # keep rows with non-zero contribution
+  group_by(Party) %>%                                # group by Party (unnecessary step)
+  count() %>%                                        # count number of observations
+  filter(n == 8)                                     # keep Parties with 8 observations
+```
+
+```{r, }
+Q1a
+```
+
+```{r, result = 'asis', echo = F}
+rmarkdown::paged_table(Q1a) 
+```
+
+```{r}
+nrow(Q1a)
+```
+
+<br><br>
+
+## Q1b
+
+For each `party`, calculate the total funding `contributions` that were `disbursed` or `provided` for `mitigation` projects for each `year`.
+
+```{r}
+Q1b <- climate_finance %>% 
+  filter(Status == "provided" | Status == "disbursed",
+         `Type of support` == "mitigation") %>% 
+  group_by(Party, Year) %>% 
+  summarise(Contribution = sum(Contribution, na.rm = T))
+```
+
+```{r, }
+Q1b
+```
+
+```{r, result = 'asis', echo = F}
+rmarkdown::paged_table(Q1b) 
+```
+
+<br><br>
+
+## Q1c
+
+For each `party`, calculate the ratio between `adaptation` contribution and `mitigation` contribution for each type of `Status` for each `year`.
+
+```{r}
+Q1c <- climate_finance %>% 
+  group_by(Party, Year, Status, `Type of support`) %>% 
+  summarise(Contribution = sum(Contribution, na.rm = T)) %>% 
+  filter(Contribution != 0) %>% 
+  group_by(Party, Year, Status) %>% # this group_by() is not necessary, but it doesn't hurt
+  mutate(lag_Contribution = lag(Contribution), # calculate lagged Contribution
+         am_ratio = lag_Contribution / Contribution ) %>% # calculate adaptation/mitigation ratio
+  filter(!is.na(am_ratio)) %>% # remove rows with missing values in am_ratio
+  rename(mitigation = Contribution, # rename columns for clarity
+         adaptation = lag_Contribution) %>% 
+  select(-`Type of support`) # remove Type of support column
+
+```
+
+```{r, }
+Q1c
+```
+
+```{r, result = 'asis', echo = F}
+rmarkdown::paged_table(Q1c) 
+```
+
+-   Here is another example:
+
+```{r}
+Q1c <- climate_finance %>% 
+  group_by(Party, Year, Status) %>%  # group by Party, Year and Status
+  summarise(adaptation = sum(Contribution[`Type of support` == 'adaptation'], na.rm = T), # sum the contributions where the Type of support is adaptation
+            mitigation = sum(Contribution[`Type of support` == 'mitigation'], na.rm = T) # sum the contributions where the Type of support is mitigation
+            ) %>% 
+  filter(adaptation != 0, mitigation != 0) %>% # filter out rows where either adaptation or mitigation is 0
+  mutate(am_ratio = adaptation / mitigation ) # calculate the ratio of adaptation to mitigation and store it in a new column named am_ratio
+```
+
+
+```{r, result = 'asis', echo = F}
+rmarkdown::paged_table(Q1c) 
+```
+
+<br><br>
+
+## Q1d
+
+Provide both ggplot code and a simple comment to describe the distribution of the ratio between `adaptation` contribution and `mitigation` contribution, which is calculated in Q1c.
+
+```{r}
+ggplot(Q1c, aes(x = am_ratio)) +
+  geom_histogram(bins = 100) +
+  geom_vline(xintercept = 1, color = 'red', lty = 2)
+```
+
+```{r}
+ggplot(Q1c, aes(x = log(am_ratio))) +
+  geom_histogram(bins = 100) +
+  geom_vline(xintercept = 0, color = 'red', lty = 2)
+```
+
+
+<br><br>
+
+## Q1e
+
+Provide both ggplot code and a simple comment to describe how the distribution of `Contribution` varies by `Type of support` and `Status`.
+
+
+```{r, }
+ggplot(climate_finance,
+       aes(color = `Type of support`, x = log(Contribution))) +
+  geom_freqpoly() +
+  facet_wrap(.~ Status)
+```
+
+```{r}
+ggplot(climate_finance,
+       aes(color = `Type of support`, x = log(Contribution))) +
+  geom_freqpoly() +
+  facet_wrap(.~ Status) +
+  theme(legend.position = 'top')
+```
+
+<br><br>
