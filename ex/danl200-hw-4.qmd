@@ -4,6 +4,8 @@ date: "`r format(Sys.time(), '%B %d, %Y')`"
 execute: 
   echo: false
   eval: false
+  warning: false
+  message: false
 
 ---
 ```{r}
@@ -18,35 +20,40 @@ library(skimr)
 
 # Question 1
 
-For Question 1, run the following R command to read the music data file.
+For Question 1, run the following R command to read the CSV file, `spotify_all.csv` as data.frame, `spotify_all`:
 
-```{r, echo = T, eval = T, warning= F, message= F}
+```{r}
+#| echo: true
+#| eval: true
+#| warning: false
+#| message: false
 spotify_all <- read_csv('https://bcdanl.github.io/data/spotify_all.csv')
 ```
 
-```{r, echo = F, eval = T, warning= F, message= F}
+```{r}
+#| eval: true
 rmarkdown::paged_table(spotify_all)
 ```
 
 ## Variable Description
-
--   `pid`: playlist id
--   `playlist_name`: the name of the playlist
--   `pos`: the position of the track in the playlist (zero-based)
--   `artist_name`: the name of the track's primary artist
--   `track_name`: the name of the track
--   `duration_ms`: the duration of the track in milliseconds
--   `album_name`: the name of the track's album
+The data.frame `spotify_all` includes information about Spotify users' playlists
+  -   `pid`: playlist ID; unique ID for playlist
+  -   `playlist_name`: a name of playlist
+  -   `pos`: a position of the track within a playlist (zero-based)
+  -   `artist_name`: name of the track's primary artist
+  -   `track_name`: name of the track
+  -   `duration_ms`: duration of the track in milliseconds
+  -   `album_name`: name of the track's album
 
 <br>
 
 ## Q1a
 
 - Find the ten most popular song.
-  - A value of a song is defined as a combination of `artist_name` and `track_name` values. 
+  - A value of a song is defined as a combination of a `artist_name` value and a `track_name` value. 
   - Who are artists for those ten most popular song?
 
-```{r, echo = F, eval = F, warning= F, message= F}
+```{r}
 Q1a <- spotify_all %>% 
   count(artist_name, track_name) %>% 
   arrange(-n) %>% 
@@ -64,7 +71,7 @@ Q1a
 -   Find the five most popular artist in terms of the number of occurrences in the data.frame, `spotify_all`.
 -   What is the most popular song for each of the five most popular artist?
 
-```{r, echo = F, eval = F, warning= F, message= F}
+```{r}
 Q1b <- spotify_all %>% 
   group_by(artist_name) %>% 
   mutate(n_popular_artist = n()) %>% 
@@ -93,7 +100,7 @@ Q1b
 
 Provide both (1) ggplot codes and (2) a couple of sentences to describe the relationship between `pos` and the ten most popular artists.
 
-```{r, echo = F, eval = F, warning= F, message= F, fig.height= 10}
+```{r, fig.height= 10}
 Q1c <- spotify_all %>% 
   group_by(artist_name) %>% 
   mutate(n_popular_artist = n()) %>% 
@@ -132,11 +139,12 @@ ggplot(Q1c) +
 Create the data.frame with `pid`-`artist` level of observations with the following four variables:
 
 -   `pid`: playlist id
--   `playlist_name`: the name of the playlist
--   `artist`: the name of the track's primary artist, which appears only once within a playlist
--   `n_artist`: the number of occurrences of artist within a playlist
+-   `playlist_name`: name of playlist
+-   `artist`: name of the track's primary artist, which appears only once within a playlist
+-   `n_artist`: number of occurrences of artist within a playlist
 
-```{r, echo = F, eval = T, warning= F, message= F}
+```{r}
+#| eval: true
 Q1d <- spotify_all %>% 
   count(pid, playlist_name, artist_name) %>% 
   rename(n_artist = n) %>% 
@@ -145,7 +153,8 @@ Q1d <- spotify_all %>%
 ```
 
 For example, the resulting data.frame for this question looks as follows:
-```{r, echo = F, eval = T, warning= F, message= F}
+```{r}
+#| eval: true
 rmarkdown::paged_table(Q1d)
 ```
 
@@ -156,3 +165,230 @@ rmarkdown::paged_table(Q1d)
 # Question 2
 
 For Question 2, run the following R command to read the beer market data.
+
+
+```{r}
+#| echo: true
+#| eval: true
+#| warning: false
+#| message: false
+beer_mkts <- read_csv('https://bcdanl.github.io/data/beer_markets.csv')
+```
+
+```{r}
+#| eval: true
+rmarkdown::paged_table(beer_mkts)
+```
+
+<br>
+
+- Each observation in `beer_mkts` is a household-level transaction record for a purchase of beer.
+
+## Variable Description
+
+
+<br>
+
+- `hh`: an identifier of the household;
+- `X_purchase_desc`: details on the purchased item;
+- `quantity`: the number of items purchased;
+- `brand`: Bud Light, Busch Light, Coors Light, Miller Lite, or Natural Light;
+- `dollar_spent`: total dollar value of purchase;
+- `beer_floz`: total volume of beer, in fluid ounces;
+- `price_per_floz`: price per fl.oz. (i.e., beer spent/beer floz);
+- `container`: the type of container;
+- `promo`: Whether the item was promoted (coupon or otherwise);
+- `market`: Scan-track market (or state if rural);
+- demographic data, including gender, marital status, household income, class of work, race, education, age, the size of household, and whether or not the household has a microwave or a dishwasher.
+
+<br><br>
+
+
+## Q2a
+- Find the top 5 markets in terms of the total `beer_floz`.
+- Find the top 5 markets in terms of the total `beer_floz` of *BUD LIGHT*.
+- Find the top 5 markets in terms of the total `beer_floz` of *BUSCH LIGHT*.
+- Find the top 5 markets in terms of the total `beer_floz` of *COORS LIGHT*.
+- Find the top 5 markets in terms of the total `beer_floz` of *MILLER LITE*.
+- Find the top 5 markets in terms of the total `beer_floz` of *NATURAL LIGHT*.
+
+
+```{r}
+Q2a1 <- beer_mkts %>% 
+   group_by(market) %>% 
+   summarize(beer_floz_tot = sum(beer_floz, na.rm = T)) %>% 
+   arrange(-beer_floz_tot) %>% 
+   slice(1:5)
+
+Q2a_bud <- beer_mkts %>% 
+  filter(brand == "BUD LIGHT") %>% 
+  group_by(market) %>% 
+  summarize(beer_floz_tot = sum(beer_floz, na.rm = T)) %>% 
+  arrange(-beer_floz_tot) %>% 
+  slice(1:5)
+
+Q2a_busch <- beer_mkts %>% 
+  filter(brand == "BUSCH LIGHT") %>% 
+  group_by(market) %>% 
+  summarize(beer_floz_tot = sum(beer_floz, na.rm = T)) %>% 
+  arrange(-beer_floz_tot) %>% 
+  slice(1:5)
+
+Q2a_coors <- beer_mkts %>% 
+  filter(brand == "COORS LIGHT") %>% 
+  group_by(market) %>% 
+  summarize(beer_floz_tot = sum(beer_floz, na.rm = T)) %>% 
+  arrange(-beer_floz_tot) %>% 
+  slice(1:5)
+
+Q2a_miller <- beer_mkts %>% 
+  filter(brand == "MILLER LITE") %>% 
+  group_by(market) %>% 
+  summarize(beer_floz_tot = sum(beer_floz, na.rm = T)) %>% 
+  arrange(-beer_floz_tot) %>% 
+  slice(1:5)
+
+Q2a_natural <- beer_mkts %>% 
+  filter(brand == "NATURAL LIGHT") %>% 
+  group_by(market) %>% 
+  summarize(beer_floz_tot = sum(beer_floz, na.rm = T)) %>% 
+  arrange(-beer_floz_tot) %>% 
+  slice(1:5)
+
+
+```
+
+
+<br><br>
+
+
+
+## Q2b
+- For households that purchased *BUD LIGHT* at least once, what fraction of households did purchase only *BUD LIGHT*?
+
+- For households that purchased *BUSCH LIGHT* at least once, what fraction of households did purchase only *BUSCH LIGHT*?
+
+- For households that purchased *COORS LIGHT* at least once, what fraction of households did purchase only *COORS LIGHT*?
+
+- For households that purchased *MILLER LITE* at least once, what fraction of households did purchase only *MILLER LITE*?
+
+- For households that purchased *NATURAL LIGHT* at least once, what fraction of households did purchase only *NATURAL LIGHT*?
+
+- Which beer brand does have the largest base of such loyal consumers?
+
+
+
+```{r}
+beer_mkts <- beer_mkts %>% 
+  mutate(bud = ifelse(brand=="BUD LIGHT", 1, 0),
+         busch = ifelse(brand=="BUSCH LIGHT", 1, 0),
+         coors = ifelse(brand=="COORS LIGHT", 1, 0),
+         miller = ifelse(brand=="MILLER LITE", 1, 0),
+         natural = ifelse(brand=="NATURAL LIGHT", 1, 0) )
+
+Q2b_bud <- beer_mkts %>%
+  select(hh, bud) %>%
+  arrange(hh, -bud) %>%
+  group_by(hh) %>%
+  filter(sum(bud) > 0) %>% 
+  mutate(frac_bud = sum(bud)/n(),
+         loyal_bud = ifelse(frac_bud == 1, 1, 0)) %>%
+  select(hh, frac_bud, loyal_bud) %>% 
+  unique() %>% 
+  ungroup() %>% 
+  mutate(n_hh_bud = n()) %>%
+  group_by(loyal_bud, n_hh_bud) %>% 
+  summarise(n_obs = n()) %>% 
+  ungroup() %>% 
+  mutate(n_frac = n_obs/n_hh_bud )  # 0.6600816
+
+
+Q2b_busch <- beer_mkts %>%
+  select(hh, busch) %>%
+  arrange(hh, -busch) %>%
+  group_by(hh) %>%
+  filter(sum(busch) > 0) %>% 
+  mutate(frac_busch = sum(busch)/n(),
+         loyal_busch = ifelse(frac_busch == 1, 1, 0)) %>%
+  select(hh, frac_busch, loyal_busch) %>% 
+  unique() %>% 
+  ungroup() %>% 
+  mutate(n_hh_busch = n()) %>%
+  group_by(loyal_busch, n_hh_busch) %>% 
+  summarise(n_obs = n()) %>% 
+  ungroup() %>% 
+  mutate(n_frac = n_obs/n_hh_busch )  # 0.472973
+
+
+Q2b_coors <- beer_mkts %>%
+  select(hh, coors) %>%
+  arrange(hh, -coors) %>%
+  group_by(hh) %>%
+  filter(sum(coors) > 0) %>% 
+  mutate(frac_coors = sum(coors)/n(),
+         loyal_coors = ifelse(frac_coors == 1, 1, 0)) %>%
+  select(hh, frac_coors, loyal_coors) %>% 
+  unique() %>% 
+  ungroup() %>% 
+  mutate(n_hh_coors = n()) %>%
+  group_by(loyal_coors, n_hh_coors) %>% 
+  summarise(n_obs = n()) %>% 
+  ungroup() %>% 
+  mutate(n_frac = n_obs/n_hh_coors )  # 0.6390805
+
+
+Q2b_miller <- beer_mkts %>%
+  select(hh, miller) %>%
+  arrange(hh, -miller) %>%
+  group_by(hh) %>%
+  filter(sum(miller) > 0) %>% 
+  mutate(frac_miller = sum(miller)/n(),
+         loyal_miller = ifelse(frac_miller == 1, 1, 0)) %>%
+  select(hh, frac_miller, loyal_miller) %>% 
+  unique() %>% 
+  ungroup() %>% 
+  mutate(n_hh_miller = n()) %>%
+  group_by(loyal_miller, n_hh_miller) %>% 
+  summarise(n_obs = n()) %>% 
+  ungroup() %>% 
+  mutate(n_frac = n_obs/n_hh_miller )  # 0.6312989
+
+Q2b_natural <- beer_mkts %>%
+  select(hh, natural) %>%
+  arrange(hh, -natural) %>%
+  group_by(hh) %>%
+  filter(sum(natural) > 0) %>% 
+  mutate(frac_natural = sum(natural)/n(),
+         loyal_natural = ifelse(frac_natural == 1, 1, 0)) %>%
+  select(hh, frac_natural, loyal_natural) %>% 
+  unique() %>% 
+  ungroup() %>% 
+  mutate(n_hh_natural = n()) %>%
+  group_by(loyal_natural, n_hh_natural) %>% 
+  summarise(n_obs = n()) %>% 
+  ungroup() %>% 
+  mutate(n_frac = n_obs/n_hh_natural )  # 0.5096234
+
+# Here I do not provide any comments on the result.
+
+```
+
+
+
+<br><br>
+
+## Q2c
+- For each household, calculate the number of beer transactions. 
+- For each household, calculate the proportion of each beer brand choice.
+
+```{r}
+Q2c <- beer_mkts %>% 
+  count(hh, brand) %>% 
+  group_by(hh) %>% 
+  mutate(n_tot = sum(n)) %>% 
+  arrange(hh, brand) %>% 
+  mutate( prop = n / n_tot )
+
+```
+
+<br><br>
