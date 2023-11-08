@@ -788,11 +788,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </script>
 </div>
 </div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Type of support"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"adaptation","2":"11885"},{"1":"mitigation","2":"9483"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+<div class="cell-output-display">
+
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Status"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"committed","2":"10682"},{"1":"disbursed","2":"7549"},{"1":"provided","2":"3137"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
 <section id="q1a" class="level2">
 <h2 class="anchored" data-anchor-id="q1a">Q1a</h2>
 <p>How many <code>parties</code> have made positive financial <code>contributions</code> to other <code>countries/regions</code> for <code>adaptation</code> projects for every year between 2011 and 2018?</p>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Q1a <span class="ot">&lt;-</span> climate_finance <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Status <span class="sc">==</span> <span class="st">"provided"</span> <span class="sc">|</span> Status <span class="sc">==</span> <span class="st">"disbursed"</span>,  <span class="co"># filter by provided or disbursed status</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Type of support</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"adaptation"</span>) <span class="sc">%&gt;%</span>       <span class="co"># filter by adaptation type</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Party, Year) <span class="sc">%&gt;%</span>                          <span class="co"># group by Party and Year</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Contribution =</span> <span class="fu">sum</span>(Contribution, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span>  <span class="co"># calculate total contribution</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Contribution <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span>                       <span class="co"># keep rows with non-zero contribution</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Party) <span class="sc">%&gt;%</span>                                <span class="co"># group by Party (unnecessary step)</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">%&gt;%</span>                                        <span class="co"># count number of observations</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">==</span> <span class="dv">2018</span> <span class="sc">-</span> <span class="dv">2011</span> <span class="sc">+</span> <span class="dv">1</span>)                       <span class="co"># keep Parties with 8 observations</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 
@@ -844,7 +868,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="q1d" class="level2">
 <h2 class="anchored" data-anchor-id="q1d">Q1d</h2>
-<p>Provide both ggplot code and a simple comment to describe the distribution of the ratio between <code>adaptation</code> contribution and <code>mitigation</code> contribution, which is calculated in Q1c.</p>
+<p>Provide both (1) ggplot code and (2) a simple comment to describe the distribution of the ratio between <code>adaptation</code> contribution and <code>mitigation</code> contribution, which is calculated in Q1c.</p>
 <div class="cell">
 
 </div>
@@ -855,7 +879,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="q1e" class="level2">
 <h2 class="anchored" data-anchor-id="q1e">Q1e</h2>
-<p>Provide both ggplot code and a simple comment to describe how the distribution of <code>Contribution</code> varies by <code>Type of support</code> and <code>Status</code>.</p>
+<p>Provide both (1) ggplot code and (2) a simple comment to describe how the distribution of <code>Contribution</code> varies by <code>Type of support</code> and <code>Status</code>.</p>
 <div class="cell">
 
 </div>

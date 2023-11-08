@@ -51,12 +51,27 @@ rmarkdown::paged_table(climate_finance)
 ```
 
 
+```{r}
+#| eval: true
+#| results: asis
+rmarkdown::paged_table(climate_finance %>% count(`Type of support`) ) 
+```
+
+
+```{r}
+#| eval: true
+#| results: asis
+rmarkdown::paged_table(climate_finance %>% count(Status) ) 
+```
+
+
 ## Q1a
 
 How many `parties` have made positive financial `contributions` to other `countries/regions` for `adaptation` projects for every year between 2011 and 2018?
 
 
 ```{r}
+#| echo: true
 Q1a <- climate_finance %>% 
   filter(Status == "provided" | Status == "disbursed",  # filter by provided or disbursed status
          `Type of support` == "adaptation") %>%       # filter by adaptation type
@@ -65,7 +80,7 @@ Q1a <- climate_finance %>%
   filter(Contribution > 0) %>%                       # keep rows with non-zero contribution
   group_by(Party) %>%                                # group by Party (unnecessary step)
   count() %>%                                        # count number of observations
-  filter(n == 8)                                     # keep Parties with 8 observations
+  filter(n == 2018 - 2011 + 1)                       # keep Parties with 8 observations
 ```
 
 ```{r, }
@@ -152,7 +167,7 @@ rmarkdown::paged_table(Q1c)
 
 ## Q1d
 
-Provide both ggplot code and a simple comment to describe the distribution of the ratio between `adaptation` contribution and `mitigation` contribution, which is calculated in Q1c.
+Provide both (1) ggplot code and (2) a simple comment to describe the distribution of the ratio between `adaptation` contribution and `mitigation` contribution, which is calculated in Q1c.
 
 ```{r}
 ggplot(Q1c, aes(x = am_ratio)) +
@@ -171,7 +186,7 @@ ggplot(Q1c, aes(x = log(am_ratio))) +
 
 ## Q1e
 
-Provide both ggplot code and a simple comment to describe how the distribution of `Contribution` varies by `Type of support` and `Status`.
+Provide both (1) ggplot code and (2) a simple comment to describe how the distribution of `Contribution` varies by `Type of support` and `Status`.
 
 
 ```{r, }
