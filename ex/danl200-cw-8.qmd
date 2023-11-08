@@ -4,8 +4,10 @@ date: 2023-11-06
 execute: 
   warning: false
   message: false
-  echo: true
-  eval: true
+  echo: false
+  eval: false
+  fig-width: 9
+
 ---
 ```{r}
 #| eval: true
@@ -120,11 +122,29 @@ nrow(Q1a)
 
 ## Q1b
 
+Provide both (1) ggplot code and (2) a simple comment to describe how the yearly trend of total funding `Contribution` varies by `Energy` and `Status`.
+
+```{r}
+climate_finance %>% 
+  group_by(Energy, Status, Year) %>% 
+  summarise(funding_tot = sum(Contribution, na.rm = T)) %>% 
+  ggplot(aes(x = Year, y = funding_tot)) +
+  geom_line(aes(color = Status)) +
+  geom_point() +
+  facet_wrap(Energy ~.)
+
+
+```
+
+<br><br>
+
+## Q1b
+
 For each `party`, calculate the total funding `contributions` that were `provided` for `mitigation` projects for each `year`.
 
 ```{r}
 Q1b <- climate_finance %>% 
-  filter(Status == "provided" | Status == "disbursed",
+  filter(Status == "provided",
          `Type of support` == "mitigation") %>% 
   group_by(Party, Year) %>% 
   summarise(Contribution = sum(Contribution, na.rm = T))
@@ -184,13 +204,13 @@ Provide both (1) ggplot code and (2) a simple comment to describe the distributi
 
 ```{r}
 ggplot(Q1c, aes(x = am_ratio)) +
-  geom_histogram(bins = 100) +
+  geom_histogram(bins = 75) +
   geom_vline(xintercept = 1, color = 'red', lty = 2)
 ```
 
 ```{r}
 ggplot(Q1c, aes(x = log(am_ratio))) +
-  geom_histogram(bins = 100) +
+  geom_histogram(bins = 75) +
   geom_vline(xintercept = 0, color = 'red', lty = 2)
 ```
 
@@ -218,21 +238,4 @@ ggplot(climate_finance,
 ```
 
 
-<br><br>
-
-## Q1f
-
-Provide both (1) ggplot code and (2) a simple comment to describe how the yearly trend of total `Contribution` varies by `Energy` and `Status`.
-
-```{r}
-climate_finance %>% 
-  group_by(Energy, Status, Year) %>% 
-  summarise(tot = sum(Contribution, na.rm = T)) %>% 
-  ggplot(aes(x = Year, y = tot)) +
-  geom_line(aes(color = Status)) +
-  geom_point() +
-  facet_wrap(Energy ~.)
-
-
-```
 

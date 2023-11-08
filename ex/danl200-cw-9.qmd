@@ -48,8 +48,7 @@ rmarkdown::paged_table(nyc_dogs)
 
 ## Q1a
 
-- Provide a ggplot code to describe the distribution of `animal_gender`
-- Make a simple comment on your ggplot figure.
+- Provide both (1) ggplot code and (2) a simple comment to describe the distribution of `animal_gender`
 
 ```{r}
 ggplot(nyc_dogs) +
@@ -83,8 +82,7 @@ q1b <- nyc_dogs %>%
 
 ## Q1c
 
-- Provide a ggplot code to describe the relationship between the five popular breeds and `borough`. 
-- Make a simple comment on your ggplot figure.
+- Provide both (1) ggplot code and (2) a simple comment to describe the relationship between the five popular breeds and `borough`. 
 
 ```{r}
 q1c <- nyc_dogs %>% 
@@ -142,7 +140,6 @@ q1d <- nyc_dogs %>%
   summarize(n = n()) %>% 
   arrange(borough, -n)
 
-# equivalently
 Q1d <- nyc_dogs %>% 
   group_by(breed_rc, borough) %>% 
   mutate(n = n()) %>% 
@@ -211,8 +208,7 @@ rmarkdown::paged_table(Q1f)
 ## Q1g
 
 - Assume that all dogs in the `nyc_dogs` data frame are alive as of today.
-- Provide a ggplot code to describe the distribution of age for each `borough`.
-- Make a simple comment on your ggplot.
+  - Provide both (1) ggplot code and (2) a simple comment to describe the distribution of age for each `borough`.
 
 ```{r}
 nyc_dogs <- nyc_dogs %>% 
