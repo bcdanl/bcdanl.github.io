@@ -4,8 +4,8 @@ date: 2023-11-06
 execute: 
   warning: false
   message: false
-  echo: false
-  eval: false
+  echo: true
+  eval: true
 ---
 ```{r}
 #| eval: true
@@ -33,13 +33,12 @@ theme_set(theme_ipsum() +
   - Mitigation involves taking actions to reduce the emissions of greenhouse gases that are responsible for climate change.
   - Adaptation involves taking actions to reduce the actual or expected damages from climate change ([https://climate.nasa.gov/solutions/adaptation-mitigation](https://climate.nasa.gov/solutions/adaptation-mitigation)).
 
-
 - Load the data.frame for Question 1.
 
 ```{r}
 #| eval: true
 #| echo: true
-path <- 'https://bcdanl.github.io/data/climate_finance.csv'
+path <- 'https://bcdanl.github.io/data/climate_finance_energy.csv'
 climate_finance <- read_csv(path)
 ```
 
@@ -53,56 +52,67 @@ rmarkdown::paged_table(climate_finance)
 
 <br>
 
-```{r}
-#| eval: true
-#| results: asis
-rmarkdown::paged_table(climate_finance %>% count(`Type of support`) ) 
-```
+- A unit of observation in `climate_finance` data.frame is a climate change project.
 
 <br>
 
-```{r}
-#| eval: true
-#| results: asis
-rmarkdown::paged_table(climate_finance %>% count(Status) ) 
-```
+## Variable Description
 
-<br>
+- `Party`: a party (country) that provides a funding contribution to recipient country/region for their cliamte change project.
 
-- `Status == committed` means that a Party committed to providing a funding for a climate change project in a developing country, but has not actually provided the funding for the project yet.
+- `Recipient country/region`:  Recipient country or region
 
-- `Status == committed` means that a Party committed to providing a funding for a climate change project in a developing country, but has not actually provided the funding for the project yet.
+- `Project/programme/activity`:  Details in the climate change project
 
+- `Type of support`:  
+  - `adaptation` if the climate change project is related to adaptation project.
+  - `mitigation` if the climate change project is related to mitigation project.
+  
+- `Year`: Year that funding contribution is committed or provided.
 
-<br>
+- `Contribution`: An amount of funding contribution for the climate change project (in USD).
+
+- `Status`: 
+  - `committed` if a party commits to providing the funding contribution for the climate change project, but the funding contribution is NOT actually provided.
+  - `provided` if the funding contribution was provided for the climate change project.
+  
+- `Energy`: 
+  - `TRUE` if the project is energy-related; 
+  - `FALSE` otherwise.
+
 
 ## Q1a
 
-How many `parties` have made positive financial `contributions` to other `countries/regions` for `adaptation` projects for every year between 2011 and 2018?
+How many `parties` have provided positive financial `contributions` to other `countries/regions` for their `adaptation` projects for every year between 2011 and 2018?
 
 
 ```{r}
 #| echo: true
+#| eval: true
 Q1a <- climate_finance %>% 
-  filter(Status == "provided" | Status == "disbursed",  # filter by provided or disbursed status
-         `Type of support` == "adaptation") %>%       # filter by adaptation type
+  filter(Status == "provided",                       # filter by provided status
+         `Type of support` == "adaptation") %>%      # filter by adaptation type
   group_by(Party, Year) %>%                          # group by Party and Year
   summarise(Contribution = sum(Contribution, na.rm = T)) %>%  # calculate total contribution
   filter(Contribution > 0) %>%                       # keep rows with non-zero contribution
   group_by(Party) %>%                                # group by Party (unnecessary step)
   count() %>%                                        # count number of observations
-  filter(n == 2018 - 2011 + 1)                       # keep Parties with 8 observations
+  filter(n == 2018 - 2011 + 1)  %>%                  # keep Parties with 8 observations
+  select(Party) %>% 
+  distinct()    # Remove duplicate observations in a data.frame
 ```
 
-```{r, }
-Q1a
-```
 
 ```{r, result = 'asis', echo = F}
+#| results: asis
+#| echo: false
+#| eval: true
 rmarkdown::paged_table(Q1a) 
 ```
 
 ```{r}
+#| echo: true
+#| eval: true
 nrow(Q1a)
 ```
 
@@ -110,7 +120,7 @@ nrow(Q1a)
 
 ## Q1b
 
-For each `party`, calculate the total funding `contributions` that were `disbursed` or `provided` for `mitigation` projects for each `year`.
+For each `party`, calculate the total funding `contributions` that were `provided` for `mitigation` projects for each `year`.
 
 ```{r}
 Q1b <- climate_finance %>% 
@@ -118,10 +128,6 @@ Q1b <- climate_finance %>%
          `Type of support` == "mitigation") %>% 
   group_by(Party, Year) %>% 
   summarise(Contribution = sum(Contribution, na.rm = T))
-```
-
-```{r, }
-Q1b
 ```
 
 ```{r, result = 'asis', echo = F}
@@ -147,10 +153,6 @@ Q1c <- climate_finance %>%
          adaptation = lag_Contribution) %>% 
   select(-`Type of support`) # remove Type of support column
 
-```
-
-```{r, }
-Q1c
 ```
 
 ```{r, result = 'asis', echo = F}
@@ -200,7 +202,7 @@ ggplot(Q1c, aes(x = log(am_ratio))) +
 Provide both (1) ggplot code and (2) a simple comment to describe how the distribution of `Contribution` varies by `Type of support` and `Status`.
 
 
-```{r, }
+```{r}
 ggplot(climate_finance,
        aes(color = `Type of support`, x = log(Contribution))) +
   geom_freqpoly() +
@@ -215,4 +217,22 @@ ggplot(climate_finance,
   theme(legend.position = 'top')
 ```
 
+
 <br><br>
+
+## Q1f
+
+Provide both (1) ggplot code and (2) a simple comment to describe how the yearly trend of total `Contribution` varies by `Energy` and `Status`.
+
+```{r}
+climate_finance %>% 
+  group_by(Energy, Status, Year) %>% 
+  summarise(tot = sum(Contribution, na.rm = T)) %>% 
+  ggplot(aes(x = Year, y = tot)) +
+  geom_line(aes(color = Status)) +
+  geom_point() +
+  facet_wrap(Energy ~.)
+
+
+```
+
