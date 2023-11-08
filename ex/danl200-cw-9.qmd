@@ -28,7 +28,7 @@ theme_set(theme_ipsum() +
 
 # Question 1. NYC dogs
 
-- For Question 1, run the following R command to read the `nyc_dogs.csv` file.
+- For Question 1, run the following R command to read the `nyc_dogs_cleaned.csv` file.
 
 ```{r}
 #| eval: true
@@ -48,14 +48,14 @@ rmarkdown::paged_table(nyc_dogs)
 
 ## Q1a
 
-- Provide both (1) ggplot code and (2) a simple comment to describe the distribution of `animal_gender`
+- Provide both (1) ggplot code and (2) a simple comment to describe the distribution of `gender`.
 
 ```{r}
 ggplot(nyc_dogs) +
-  geom_bar(aes(x = animal_gender))
+  geom_bar(aes(x = gender))
 
 ggplot(nyc_dogs) +
-  geom_boxplot(aes(x = animal_gender))
+  geom_boxplot(aes(x = gender))
 ```
 
 <!-- -   There are more male dogs than female dogs. -->
@@ -66,12 +66,12 @@ ggplot(nyc_dogs) +
 
 ## Q1b
 
-- Find the five most popular breeds in NYC.
+- Find the five most popular `breed`s.
 
 ```{r}
 q1b <- nyc_dogs %>% 
-  filter(!is.na(breed_rc)) %>% 
-  group_by(breed_rc) %>% 
+  filter(!is.na(breed)) %>% 
+  group_by(breed) %>% 
   summarise(n = n()) %>% 
   arrange(-n) 
 
@@ -83,40 +83,40 @@ q1b <- nyc_dogs %>%
 
 ## Q1c
 
-- Provide both (1) ggplot code and (2) a simple comment to describe the relationship between the five popular breeds and `borough`. 
+- Provide both (1) ggplot code and (2) a simple comment to describe the relationship between the five popular `breed`s and `borough`. 
 
 ```{r}
 q1c <- nyc_dogs %>% 
-  filter(breed_rc %in% q1b$breed_rc[1:5],
-         !is.na(breed_rc) ) 
+  filter(breed %in% q1b$breed[1:5],
+         !is.na(breed) ) 
   
 ggplot(data = q1c) +
-  geom_bar(aes(y = breed_rc, fill = breed_rc),
+  geom_bar(aes(y = breed, fill = breed),
            show.legend = F) +
   facet_wrap(.~borough)
 
 
 ggplot(data = q1c) +
-  geom_bar(aes(y = breed_rc, fill = breed_rc),
+  geom_bar(aes(y = breed, fill = breed),
            position = "dodge",
            show.legend = F) +
   facet_wrap(.~borough)
 
 ggplot(data = q1c) +
-  geom_bar(aes(y = breed_rc, fill = breed_rc),
+  geom_bar(aes(y = breed, fill = breed),
            position = "fill",
            show.legend = F) +
   facet_wrap(.~borough)
 
 
 ggplot(data = q1c) +
-  geom_bar(aes(y = breed_rc, fill = borough, 
+  geom_bar(aes(y = breed, fill = borough, 
                x = stat(prop), group = borough), 
            position = "dodge") 
 
 ggplot(data = q1c) +
-  geom_bar(aes(y = borough, fill = breed_rc, 
-               x = stat(prop), group = breed_rc), 
+  geom_bar(aes(y = borough, fill = breed, 
+               x = stat(prop), group = breed), 
            position = "dodge")
 
 ```
@@ -125,7 +125,7 @@ ggplot(data = q1c) +
 # What if the filtered data could not be obtained ... 
 ggplot(data = nyc_dogs)+
   geom_bar(mapping = aes(x=borough))+
-  facet_wrap(~breed_rc, ncol = 4) +
+  facet_wrap(~breed, ncol = 4) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))  # optional
 ```
 
@@ -133,23 +133,23 @@ ggplot(data = nyc_dogs)+
 
 ## Q1d
 
-- Find the five most popular breeds for each borough in NYC.
+- Find the five most popular `breed`s in each `borough`.
 
 ```{r}
 q1d <- nyc_dogs %>% 
-  filter(!is.na(breed_rc)) %>% 
-  group_by(breed_rc, borough) %>% 
+  filter(!is.na(breed)) %>% 
+  group_by(breed, borough) %>% 
   summarize(n = n()) %>% 
   arrange(borough, -n)
 
 Q1d <- nyc_dogs %>% 
-  filter(!is.na(breed_rc)) %>% 
-  group_by(breed_rc, borough) %>% 
+  filter(!is.na(breed)) %>% 
+  group_by(breed, borough) %>% 
   mutate(n = n()) %>% 
   group_by(borough) %>% 
   mutate(rank = dense_rank(-n) ) %>% 
   filter(rank <= 10 ) %>% 
-  select(breed_rc, n, rank, borough) %>% 
+  select(breed, n, rank, borough) %>% 
   distinct() %>% 
   arrange(borough,-n)
 ```
@@ -162,18 +162,18 @@ rmarkdown::paged_table(Q1d)
 
 ## Q1e
 
-- Find the five most popular dog names for each gender in NYC.
+- Find the five most popular dog `name`s for each `gender`.
 
 ```{r}
 q1e <- nyc_dogs %>% 
-  group_by(animal_gender, animal_name) %>% 
+  group_by(gender, name) %>% 
   summarise(n = n()) %>% 
-  arrange(animal_gender, -n) %>% 
+  arrange(gender, -n) %>% 
   slice_head(5)
 
 
 Q1e <- nyc_dogs %>% 
-  group_by(animal_gender, animal_name) %>% 
+  group_by(gender, name) %>% 
   summarise(n = n()) %>% 
   mutate(ranking = dense_rank(-n)) %>% 
   filter(ranking <= 5)
@@ -185,16 +185,16 @@ Q1e <- nyc_dogs %>%
 
 ## Q1f
 
-- Find the five most popular dog names for each gender for each borough in NYC.
+- Find the five most popular dog `name`s for each `gender` in each `borough`.
 
 ```{r}
 q1f <- nyc_dogs %>% 
-  group_by(borough, animal_gender, animal_name) %>% 
+  group_by(borough, gender, name) %>% 
   summarise(n = n()) %>% 
-  arrange(animal_gender, -n)
+  arrange(gender, -n)
 
 Q1f <- nyc_dogs %>% 
-  group_by(borough, animal_gender, animal_name) %>% 
+  group_by(borough, gender, name) %>% 
   summarise(n = n()) %>% 
   mutate(ranking = dense_rank(-n)) %>% 
   filter(ranking <= 5)
