@@ -70,6 +70,7 @@ ggplot(nyc_dogs) +
 
 ```{r}
 q1b <- nyc_dogs %>% 
+  filter(!is.na(breed_rc)) %>% 
   group_by(breed_rc) %>% 
   summarise(n = n()) %>% 
   arrange(-n) 
@@ -87,7 +88,7 @@ q1b <- nyc_dogs %>%
 ```{r}
 q1c <- nyc_dogs %>% 
   filter(breed_rc %in% q1b$breed_rc[1:5],
-         !is.na(borough) ) 
+         !is.na(breed_rc) ) 
   
 ggplot(data = q1c) +
   geom_bar(aes(y = breed_rc, fill = breed_rc),
@@ -120,7 +121,7 @@ ggplot(data = q1c) +
 
 ```
 
-```{r, fig.width= 8, fig.height= 120}
+```{r, fig.width= 9, fig.height= 120}
 # What if the filtered data could not be obtained ... 
 ggplot(data = nyc_dogs)+
   geom_bar(mapping = aes(x=borough))+
@@ -136,11 +137,13 @@ ggplot(data = nyc_dogs)+
 
 ```{r}
 q1d <- nyc_dogs %>% 
+  filter(!is.na(breed_rc)) %>% 
   group_by(breed_rc, borough) %>% 
   summarize(n = n()) %>% 
   arrange(borough, -n)
 
 Q1d <- nyc_dogs %>% 
+  filter(!is.na(breed_rc)) %>% 
   group_by(breed_rc, borough) %>% 
   mutate(n = n()) %>% 
   group_by(borough) %>% 
