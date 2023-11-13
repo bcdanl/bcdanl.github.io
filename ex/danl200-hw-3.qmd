@@ -2,8 +2,8 @@
 title: "DANL 200: Homework Assignment 3"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 execute: 
-  echo: false
-  eval: false
+  echo: true
+  eval: true
 
 ---
 ```{r}
@@ -27,8 +27,7 @@ restaurant <- read_csv('https://bcdanl.github.io/data/DOHMH_NYC_Restaurant_Inspe
 ```
 
 ```{r, result = 'asis', message = F, warning = F}
-#| echo: true
-#| eval: true
+#| echo: false
 rmarkdown::paged_table(restaurant)
 ```
 
@@ -103,10 +102,12 @@ prop <- as.data.frame( 100 * prop.table(table(restaurant$GRADE)) )
 ```
 
 ```{r, result = 'asis', echo = F, message = F, warning = F}
+#| echo: false
 rmarkdown::paged_table(freq)
 ```
 
 ```{r, result = 'asis', echo = F, message = F, warning = F}
+#| echo: false
 rmarkdown::paged_table(prop)
 ```
 
@@ -117,7 +118,7 @@ rmarkdown::paged_table(prop)
 Provide both (1) ggplot code and (2) a simple comment to describe how the distribution of `SCORE` varies by `GRADE` and `CRITICAL FLAG`.
 
 
-<!-- -   Boxplots -->
+-   Boxplots
 
 ```{r}
 ggplot(restaurant) +
@@ -125,7 +126,7 @@ ggplot(restaurant) +
   facet_grid( `CRITICAL FLAG` ~ . )
 ```
 
-<!-- -   Histograms -->
+-   Histograms
 
 ```{r}
 ggplot(restaurant) +
@@ -133,11 +134,11 @@ ggplot(restaurant) +
   facet_grid( `CRITICAL FLAG` ~ GRADE, scales = 'free_x' )
 ```
 
-<!-- -   Mostly, -->
-<!--     -   The values of `SCORE` for `GRADE` `A` ranges from 0 to 13. -->
-<!--     -   The values of `SCORE` for `GRADE` `B` ranges 13 to 27. -->
-<!--     -   The values of `SCORE` for `GRADE` `C` ranges 24 to 75. -->
-<!-- -   For `Not Critical` type, two `SCORE` values around 1 and 12 are most common, while 12 is the single most common `SCORE` value for `Critical` type. -->
+-   Mostly,
+    -   The values of `SCORE` for `GRADE` `A` ranges from 0 to 13.
+    -   The values of `SCORE` for `GRADE` `B` ranges 13 to 27.
+    -   The values of `SCORE` for `GRADE` `C` ranges 24 to 75.
+-   For `Not Critical` type, two `SCORE` values around 1 and 12 are most common, while 12 is the single most common `SCORE` value for `Critical` type.
 
 <br>
 
@@ -152,11 +153,11 @@ ggplot(restaurant) +
   facet_grid( GRADE ~ BORO )
 ```
 
-<!-- -   For `GRADE` `A`, the probability distribution of `CRITICAL FLAG` are similar across `BORO`s. -->
+-   For `GRADE` `A`, the probability distribution of `CRITICAL FLAG` are similar across `BORO`s.
 
-<!-- -   For `GRADE` `B`, the restaurants in `Staten Island` are more likely to be `Critical` than in other `BORO`s. -->
+-   For `GRADE` `B`, the restaurants in `Staten Island` are more likely to be `Critical` than in other `BORO`s.
 
-<!-- -   For `GRADE` `C`, the restaurants in `Bronx` are more likely to be `Critical` than in other `BORO`s. -->
+-   For `GRADE` `C`, the restaurants in `Bronx` are more likely to be `Critical` than in other `BORO`s.
 
 <br>
 
@@ -210,9 +211,9 @@ rmarkdown::paged_table(q2f)
 rmarkdown::paged_table(q2f_)
 ```
 
-<!-- -   Note that `chipotle mexican grill` and `subway` are both the third most popular franchise/chain in `Manhattan`. -->
+-   Note that `chipotle mexican grill` and `subway` are both the third most popular franchise/chain in `Manhattan`.
 
-<!-- -   Overall, `dunkin` is the most popular franchise/chain in NYC. -->
+-   Overall, `dunkin` is the most popular franchise/chain in NYC.
 
 <br>
 
@@ -238,4 +239,4 @@ q2g <- restaurant %>%
 rmarkdown::paged_table(q2g)
 ```
 
-<!-- -   Among popular franchises/chains, `subway` is most likely to commit `Critical` violation in NYC. -->
+-   Among popular franchises/chains, `subway` is most likely to commit `Critical` violation in NYC.

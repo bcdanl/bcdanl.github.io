@@ -11,7 +11,7 @@
     "href": "ex/danl200-hw-1-a.html#q2a.",
     "title": "B.H. CHOE",
     "section": "Q2a.",
-    "text": "Q2a.\n\nDownload the CSV file, starwars.csv, from the Brightspace.\nRead the data file, starwars.csv, as the data.frame object with the name, starwars, using (1) the read_csv() function and (2) the absolute path name of the file starwars.csv from your local hard disk drive in your laptop.\n\nAnswer:\n\nlibrary(tidyverse)\npath_name <- \"/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/starwars.csv\"\nstarwars <- read_csv(path_name)\n\nRows: 173 Columns: 12\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (9): films, name, species, hair_color, skin_color, eye_color, sex, gende...\ndbl (3): height, mass, birth_year\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
+    "text": "Q2a.\n\nDownload the CSV file, starwars.csv, from the Brightspace.\nRead the data file, starwars.csv, as the data.frame object with the name, starwars, using (1) the read_csv() function and (2) the absolute path name of the file starwars.csv from your local hard disk drive in your laptop.\n\nAnswer:\n\nlibrary(tidyverse)\npath_name <- \"/Users/bchoe/My Drive/suny-geneseo/teaching-materials/lecture-data/starwars.csv\"\nstarwars <- read_csv(path_name)\n\nRows: 173 Columns: 12\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (9): films, name, species, hair_color, skin_color, eye_color, sex, gende...\ndbl (3): height, mass, birth_year\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message."
   },
   {
     "objectID": "ex/danl200-hw-1-a.html#variable-description-for-starwars-data.frame",
@@ -249,7 +249,7 @@
     "href": "ex/danl200-hw-3.html",
     "title": "DANL 200: Homework Assignment 3",
     "section": "",
-    "text": "Load the data.frame for Question 1.\n\nrestaurant <- read_csv('https://bcdanl.github.io/data/DOHMH_NYC_Restaurant_Inspection.csv')\n\nRows: 17633 Columns: 12\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (10): DBA, BORO, STREET, CUISINE DESCRIPTION, INSPECTION DATE, ACTION, V...\ndbl  (2): CAMIS, SCORE\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\n\nrmarkdown::paged_table(restaurant)\n\n\n\n  \n\n\n\n\n\n\nCAMIS:\n\nThis is an unique identifier for the entity (restaurant);\n10-digit integer\n\nDBA:\n\nThis field represents the name (doing business as) of the entity (restaurant);\nPublic business name, may change at discretion of restaurant owner\n\nBORO:\n\nBorough in which the entity (restaurant) is located.;\n• 1 = MANHATTAN\n• 2 = BRONX\n• 3 = BROOKLYN\n• 4 = QUEENS\n• 5 = STATEN ISLAND\n• 0 = Missing;\n\nCUISINE DESCRIPTION:\n\nThis field describes the entity (restaurant) cuisine.\n\nACTION:\n\nThis field represents the actions that is associated with each restaurant inspection. ;\n• Violations were cited in the following area(s).\n• No violations were recorded at the time of this inspection.\n• Establishment re-opened by DOHMH\n• Establishment re-closed by DOHMH\n• Establishment Closed by DOHMH.\n• Violations were cited in the following area(s) and those requiring immediate action were addressed.\n\nVIOLATION CODE:\n\nViolation code associated with an establishment (restaurant) inspection\n\nVIOLATION DESCRIPTION:\n\nViolation description associated with an establishment (restaurant) inspection\n\nCRITICAL FLAG:\n\nIndicator of critical violation;\n• Critical\n• Not Critical\n• Not Applicable;\nCritical violations are those most likely to contribute to food-borne illness\n\nSCORE:\n\nTotal score for a particular inspection;\n\nGRADE:\n\nGrade associated with the inspection;\n• N = Not Yet Graded\n• A = Grade A\n• B = Grade B\n• C = Grade C\n• Z = Grade Pending\n• P = Grade Pending issued on re-opening following an initial inspection that resulted in a closure\n\n\n\n\n\n\nWhat are the mean, standard deviation, first quartile, median, third quartile, and maximum of SCORE for each GRADE of restaurants?\n\n\n\n\n\n\n\n\nHow many restaurants with a GRADE of A are there in NYC?\nHow much percentage of restaurants in NYC are a GRADE of C?\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nProvide both (1) ggplot code and (2) a simple comment to describe how the distribution of SCORE varies by GRADE and CRITICAL FLAG.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nProvide both (1) ggplot code and (2) a simple comment to describe how the proportion of CRITICAL FLAG varies by GRADE and BORO.\n\n\n\n\n\n\n\n\n\n\nFor the 10 most common CUISINE DESCRIPTION values, find the CUISINE DESCRIPTION value that has the highest proportion of GRADE A.\n\n\n\n\n\n\n\n\n\n\n\nFind the 3 most common names of restaurants (DBA) in each BORO.\n\nIf the third most common DBA values are multiple, please include all the DBA values.\n\nOverall, which DBA value is most common in NYC?\n\n\n\n\n\n\n\n\n\n\n\n\n\nFor all the DBA values that appear in the result of Q1f, find the DBA value that is most likely to commit critical violation."
+    "text": "Load the data.frame for Question 1.\n\nrestaurant <- read_csv('https://bcdanl.github.io/data/DOHMH_NYC_Restaurant_Inspection.csv')\n\nRows: 17633 Columns: 12\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr (10): DBA, BORO, STREET, CUISINE DESCRIPTION, INSPECTION DATE, ACTION, V...\ndbl  (2): CAMIS, SCORE\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\n\n\n\n\n  \n\n\n\n\n\n\nCAMIS:\n\nThis is an unique identifier for the entity (restaurant);\n10-digit integer\n\nDBA:\n\nThis field represents the name (doing business as) of the entity (restaurant);\nPublic business name, may change at discretion of restaurant owner\n\nBORO:\n\nBorough in which the entity (restaurant) is located.;\n• 1 = MANHATTAN\n• 2 = BRONX\n• 3 = BROOKLYN\n• 4 = QUEENS\n• 5 = STATEN ISLAND\n• 0 = Missing;\n\nCUISINE DESCRIPTION:\n\nThis field describes the entity (restaurant) cuisine.\n\nACTION:\n\nThis field represents the actions that is associated with each restaurant inspection. ;\n• Violations were cited in the following area(s).\n• No violations were recorded at the time of this inspection.\n• Establishment re-opened by DOHMH\n• Establishment re-closed by DOHMH\n• Establishment Closed by DOHMH.\n• Violations were cited in the following area(s) and those requiring immediate action were addressed.\n\nVIOLATION CODE:\n\nViolation code associated with an establishment (restaurant) inspection\n\nVIOLATION DESCRIPTION:\n\nViolation description associated with an establishment (restaurant) inspection\n\nCRITICAL FLAG:\n\nIndicator of critical violation;\n• Critical\n• Not Critical\n• Not Applicable;\nCritical violations are those most likely to contribute to food-borne illness\n\nSCORE:\n\nTotal score for a particular inspection;\n\nGRADE:\n\nGrade associated with the inspection;\n• N = Not Yet Graded\n• A = Grade A\n• B = Grade B\n• C = Grade C\n• Z = Grade Pending\n• P = Grade Pending issued on re-opening following an initial inspection that resulted in a closure\n\n\n\n\n\n\nWhat are the mean, standard deviation, first quartile, median, third quartile, and maximum of SCORE for each GRADE of restaurants?\n\nrestaurant %>% group_by(GRADE) %>% skim(SCORE)\n\n\nData summary\n\n\nName\nPiped data\n\n\nNumber of rows\n17633\n\n\nNumber of columns\n12\n\n\n_______________________\n\n\n\nColumn type frequency:\n\n\n\nnumeric\n1\n\n\n________________________\n\n\n\nGroup variables\nGRADE\n\n\n\nVariable type: numeric\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_variable\nGRADE\nn_missing\ncomplete_rate\nmean\nsd\np0\np25\np50\np75\np100\nhist\n\n\n\n\nSCORE\nA\n0\n1\n9.26\n3.42\n0\n7\n10\n12\n13\n▁▂▂▅▇\n\n\nSCORE\nB\n0\n1\n21.03\n4.16\n0\n18\n21\n24\n36\n▁▁▇▇▁\n\n\nSCORE\nC\n0\n1\n38.56\n10.83\n0\n31\n36\n44\n86\n▁▇▇▂▁\n\n\n\n\n\n\n\n\n\n\nHow many restaurants with a GRADE of A are there in NYC?\nHow much percentage of restaurants in NYC are a GRADE of C?\n\n\nfreq <- as.data.frame( table(restaurant$GRADE) )\nprop <- as.data.frame( 100 * prop.table(table(restaurant$GRADE)) )\n\n\n\n\n\n  \n\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\nProvide both (1) ggplot code and (2) a simple comment to describe how the distribution of SCORE varies by GRADE and CRITICAL FLAG.\n\nBoxplots\n\n\nggplot(restaurant) +\n  geom_boxplot(aes(x = SCORE, y = GRADE, fill = GRADE) ) +\n  facet_grid( `CRITICAL FLAG` ~ . )\n\n\n\n\n\nHistograms\n\n\nggplot(restaurant) +\n  geom_histogram(aes(x = SCORE), binwidth = 1 ) +\n  facet_grid( `CRITICAL FLAG` ~ GRADE, scales = 'free_x' )\n\n\n\n\n\nMostly,\n\nThe values of SCORE for GRADE A ranges from 0 to 13.\nThe values of SCORE for GRADE B ranges 13 to 27.\nThe values of SCORE for GRADE C ranges 24 to 75.\n\nFor Not Critical type, two SCORE values around 1 and 12 are most common, while 12 is the single most common SCORE value for Critical type.\n\n\n\n\n\nProvide both (1) ggplot code and (2) a simple comment to describe how the proportion of CRITICAL FLAG varies by GRADE and BORO.\n\nggplot(restaurant) +\n  geom_bar(aes(x = `CRITICAL FLAG`,\n               y = after_stat(prop), group = 1)) +\n  facet_grid( GRADE ~ BORO )\n\n\n\n\n\nFor GRADE A, the probability distribution of CRITICAL FLAG are similar across BOROs.\nFor GRADE B, the restaurants in Staten Island are more likely to be Critical than in other BOROs.\nFor GRADE C, the restaurants in Bronx are more likely to be Critical than in other BOROs.\n\n\n\n\n\nFor the 10 most common CUISINE DESCRIPTION values, find the CUISINE DESCRIPTION value that has the highest proportion of GRADE A.\n\nq2e <- restaurant %>% \n  group_by(`CUISINE DESCRIPTION`) %>% \n  mutate(n = n()) %>% \n  ungroup() %>% \n  filter(dense_rank(-n) <= 10) %>% \n  group_by(`CUISINE DESCRIPTION`, GRADE) %>% \n  count() %>% \n  group_by(`CUISINE DESCRIPTION`) %>% \n  mutate(prop_A = n / sum(n)) %>% \n  filter(GRADE == 'A') %>% \n  arrange(-prop_A)\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\nFind the 3 most common names of restaurants (DBA) in each BORO.\n\nIf the third most common DBA values are multiple, please include all the DBA values.\n\nOverall, which DBA value is most common in NYC?\n\n\nq2f <- restaurant %>% \n  select(DBA, BORO) %>% \n  group_by(BORO, DBA) %>% \n  summarize(n = n()) %>% \n  mutate(ranking = dense_rank(-n)) %>% \n  filter(ranking <= 3) %>% \n  arrange(BORO, ranking)\n\n`summarise()` has grouped output by 'BORO'. You can override using the\n`.groups` argument.\n\nq2f_ <- restaurant %>% \n  group_by(DBA) %>% \n  count() %>% \n  arrange(-n)\n\n\n\n\n\n  \n\n\n\n\n\n  \n\n\n\n\nNote that chipotle mexican grill and subway are both the third most popular franchise/chain in Manhattan.\nOverall, dunkin is the most popular franchise/chain in NYC.\n\n\n\n\n\nFor all the DBA values that appear in the result of Q1f, find the DBA value that is most likely to commit critical violation.\n\nq2g <- restaurant %>% \n  filter(DBA %in% q2f$DBA) %>% \n  group_by(DBA, `CRITICAL FLAG`) %>% \n  count() %>% \n  group_by(DBA) %>% \n  mutate(lag_n = lag(n),\n         tot = sum(n),\n         prop_crit = lag_n / tot) %>% \n  select(DBA, prop_crit) %>% \n  filter(!is.na(prop_crit)) %>% \n  arrange(-prop_crit)\n\n\n\n\n\n  \n\n\n\n\nAmong popular franchises/chains, subway is most likely to commit Critical violation in NYC."
   },
   {
     "objectID": "ex/econ340-hw-2.html",
@@ -1092,6 +1092,76 @@
     "text": "Q2g.\n\nFor each plane, count the number of flights before the first delay of greater than 1 hour."
   },
   {
+    "objectID": "ex/danl-399-midterm.html#q1a",
+    "href": "ex/danl-399-midterm.html#q1a",
+    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
+    "section": "Q1a",
+    "text": "Q1a\n\nReplicate the following ggplot.\n\nUse the color #0072B2 for dots."
+  },
+  {
+    "objectID": "ex/danl-399-midterm.html#q1b",
+    "href": "ex/danl-399-midterm.html#q1b",
+    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
+    "section": "Q1b",
+    "text": "Q1b\n\nMake a simple comment on the visualization result.\n\nAny comment that is not made up is okay."
+  },
+  {
+    "objectID": "ex/danl-399-midterm.html#q2a",
+    "href": "ex/danl-399-midterm.html#q2a",
+    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
+    "section": "Q2a",
+    "text": "Q2a\n\nReplicate the following ggplot.\n\nThe following describes the type values:\n\nn_ot_us: Number of US tweets\nn_ot_wrld: Number of worldwide tweets\nn_rt_lk_us: Number of US retweets & likes\nn_rt_lk_wrld: Number of worldwide retweets & likes\n\nUse the colors, maroon and #428bca properly."
+  },
+  {
+    "objectID": "ex/danl-399-midterm.html#q2b.",
+    "href": "ex/danl-399-midterm.html#q2b.",
+    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
+    "section": "Q2b.",
+    "text": "Q2b.\n\nMake a simple comment on the visualization result."
+  },
+  {
+    "objectID": "ex/danl-399-midterm.html#q3a",
+    "href": "ex/danl-399-midterm.html#q3a",
+    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
+    "section": "Q3a",
+    "text": "Q3a\n\nReplicate the following ggplot."
+  },
+  {
+    "objectID": "ex/danl-399-midterm.html#q3b",
+    "href": "ex/danl-399-midterm.html#q3b",
+    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
+    "section": "Q3b",
+    "text": "Q3b\n\nReplicate the following ggplot."
+  },
+  {
+    "objectID": "ex/danl-399-midterm.html#variable-description",
+    "href": "ex/danl-399-midterm.html#variable-description",
+    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
+    "section": "Variable description",
+    "text": "Variable description\n\nProduct_Name: Product Name\nSize: Size of drink (short, tall, grande, venti)\nMilk: Milk Type type of milk used\n\n0 none\n1 nonfat\n2 2%\n3 soy\n4 coconut\n5 whole\n\nWhip: Whip added or not (binary 0/1)\nServ_Size_mL: Serving size in ml\nCalories: KCal\nTotal_Fat_g: Total fat grams\nSaturated_Fat_g: Saturated fat grams\nTrans_Fat_g: Trans fat grams\nCholesterol_mg: Cholesterol mg\nSodium_mg: Sodium milligrams\nTotal_Carbs_g: Total Carbs grams\nFiber_g: Fiber grams\nSugar_g: Sugar grams\nCaffeine_mg: Caffeine in milligrams"
+  },
+  {
+    "objectID": "ex/danl-399-midterm.html#q4a.",
+    "href": "ex/danl-399-midterm.html#q4a.",
+    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
+    "section": "Q4a.",
+    "text": "Q4a.\n\nAdd the following two variables to starbucks data.frame\n\ncaffeine_mgml: Caffeine in milligrams per mL\ncalories_kcml: Calories KCal per mL"
+  },
+  {
+    "objectID": "ex/danl-399-midterm.html#q4b.",
+    "href": "ex/danl-399-midterm.html#q4b.",
+    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
+    "section": "Q4b.",
+    "text": "Q4b.\n\nCalculate a mean caffeine_mgml and a mean calories_kcml for each product_name."
+  },
+  {
+    "objectID": "ex/danl-399-midterm.html#q4c.",
+    "href": "ex/danl-399-midterm.html#q4c.",
+    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
+    "section": "Q4c.",
+    "text": "Q4c.\n\nFor the top 10 product_name in terms of caffeine_mgml and the top 10 product_name in terms of calories_kcml, replicate the following ggplot.\nUse the following commands for showing texts in the plot:\n\n\n# install.packages(\"showtext\")\nlibrary(showtext)\nshowtext_auto()\nfont_add_google(\"Annie Use Your Telescope\", \"annie\")\n\n\nUse the color, #00704A, for the title."
+  },
+  {
     "objectID": "ex/econ340-cw-6.html",
     "href": "ex/econ340-cw-6.html",
     "title": "ECON 340: Classwork 6 - Mockup Questions",
@@ -1509,7 +1579,7 @@
     "href": "ex/danl399-hw-2.html#q2b",
     "title": "DANL 310: Data Visualization and PresentationHomework Assignment 2",
     "section": "Q2b",
-    "text": "Q2b\n\nDownload the file labor_supply.zip from the Google Drive. Then, extract labor_supply.zip, so that you can access the labor_supply.csv file.\nVariable description in labor_supply.csv\n\nSEX: 1 if Male; 2 if Female; 9 if NIU (Not in universe)\nNCHLT5: Number of own children under age 5 in a household; 9 if 9+\nLABFORCE: 0 if NIU or members of the armed forces; 1 if not in the labor force; 2 if in the labor force.\nASECWT: sample weight\n\nA sample weight of each observation means how much population each observation represents.\n\nIf you sum ASECWT for each year, you get the size of yearly population in the US.\n\nHouseholds with LABFORCE == 0 is not in labor force.\nLabor force participation rate can be calculated by:\n\n\\[\n(\\text{Labor Force Participation Rate}) \\, = \\, \\frac{(\\text{Size of population in labor force})}{(\\text{Size of civilian population that are not members of the armed force})}\n\\]\n\npath <- '/Users/byeong-hakchoe/Google Drive/suny-geneseo/teaching-materials/lecture-data/labor_supply.csv'\n\ncps_labor <- read_csv(path)\n\ncps_labor <- cps_labor %>% \n  filter(YEAR >= 1982) %>% \n  filter(LABFORCE != 0) %>% \n  mutate(LABFORCE = LABFORCE - 1) %>% \n  mutate(labor_supply = LABFORCE * ASECWT,\n         child = ifelse(NCHLT5 == 0, \n                        \"No Child Under Age 5 in Household\", \n                        \"Having Children Under Age 5 in Household\")) %>% \n  group_by(YEAR, SEX, child) %>% \n  summarize(pct = sum(labor_supply) / sum(ASECWT, na.rm= T) ) %>% \n  filter(!is.na(child))\n  \nlabel_df <- filter(cps_labor, YEAR == 2022) %>% \n  mutate(label = ifelse(SEX == 1, \"Male\", \"Female\"))\n\nggplot(data = cps_labor,\n       aes(x = YEAR, y = pct, \n           color = factor(SEX))) +\n  geom_line(size = 1.5) +\n  geom_label_repel(data = label_df,\n                  aes(x = YEAR, y = pct, label = label),\n                  color = 'black',\n                  nudge_y = .033, box.padding = .5) +\n  facet_grid( . ~ factor(child)) +\n  scale_x_continuous( breaks = seq(1982, 2022, 4) ) +\n  scale_y_continuous( labels = scales::percent) +  \n  scale_color_manual( labels = c(\"Male\", \"Female\"),\n                      values = c(\"#2E74C0\", \"#CB454A\") ) +\n  labs(x = \"Year\",\n       y = \"Labor Force Participation Rate\",\n       color = \"Gender\",\n       lty = \"Young Children\",\n       title = \"Fertility and Labor Supply in the U.S.\",\n       subtitle = \"1982-2022\",\n       caption = \"Data: IPUMS-CPS, University of Minnesota, www.ipums.org.\") +  guides(color = \"none\") +\n  theme_ipsum() +\n  theme(axis.title.y = element_text(size = rel(1.5),\n                                    face = 'bold'),\n        axis.text.x = element_text(angle = 45))"
+    "text": "Q2b\n\nDownload the file labor_supply.zip from the Google Drive. Then, extract labor_supply.zip, so that you can access the labor_supply.csv file.\nVariable description in labor_supply.csv\n\nSEX: 1 if Male; 2 if Female; 9 if NIU (Not in universe)\nNCHLT5: Number of own children under age 5 in a household; 9 if 9+\nLABFORCE: 0 if NIU or members of the armed forces; 1 if not in the labor force; 2 if in the labor force.\nASECWT: sample weight\n\nA sample weight of each observation means how much population each observation represents.\n\nIf you sum ASECWT for each year, you get the size of yearly population in the US.\n\nHouseholds with LABFORCE == 0 is not in labor force.\nLabor force participation rate can be calculated by:\n\n\\[\n(\\text{Labor Force Participation Rate}) \\, = \\, \\frac{(\\text{Size of population in labor force})}{(\\text{Size of civilian population that are not members of the armed force})}\n\\]\n\npath <- '/Users/bchoe/My Drive/suny-geneseo/teaching-materials/lecture-data/labor_supply.csv'\n\ncps_labor <- read_csv(path)\n\ncps_labor <- cps_labor %>% \n  filter(YEAR >= 1982) %>% \n  filter(LABFORCE != 0) %>% \n  mutate(LABFORCE = LABFORCE - 1) %>% \n  mutate(labor_supply = LABFORCE * ASECWT,\n         child = ifelse(NCHLT5 == 0, \n                        \"No Child Under Age 5 in Household\", \n                        \"Having Children Under Age 5 in Household\")) %>% \n  group_by(YEAR, SEX, child) %>% \n  summarize(pct = sum(labor_supply) / sum(ASECWT, na.rm= T) ) %>% \n  filter(!is.na(child))\n  \nlabel_df <- filter(cps_labor, YEAR == 2022) %>% \n  mutate(label = ifelse(SEX == 1, \"Male\", \"Female\"))\n\nggplot(data = cps_labor,\n       aes(x = YEAR, y = pct, \n           color = factor(SEX))) +\n  geom_line(size = 1.5) +\n  geom_label_repel(data = label_df,\n                  aes(x = YEAR, y = pct, label = label),\n                  color = 'black',\n                  nudge_y = .033, box.padding = .5) +\n  facet_grid( . ~ factor(child)) +\n  scale_x_continuous( breaks = seq(1982, 2022, 4) ) +\n  scale_y_continuous( labels = scales::percent) +  \n  scale_color_manual( labels = c(\"Male\", \"Female\"),\n                      values = c(\"#2E74C0\", \"#CB454A\") ) +\n  labs(x = \"Year\",\n       y = \"Labor Force Participation Rate\",\n       color = \"Gender\",\n       lty = \"Young Children\",\n       title = \"Fertility and Labor Supply in the U.S.\",\n       subtitle = \"1982-2022\",\n       caption = \"Data: IPUMS-CPS, University of Minnesota, www.ipums.org.\") +  guides(color = \"none\") +\n  theme_ipsum() +\n  theme(axis.title.y = element_text(size = rel(1.5),\n                                    face = 'bold'),\n        axis.text.x = element_text(angle = 45))"
   },
   {
     "objectID": "ex/danl399-hw-2.html#q2c",
@@ -1566,103 +1636,5 @@
     "title": "B.H. CHOE",
     "section": "Memberships",
     "text": "Memberships\n\n\n\n\n\n  \n    2022—present \n    Southern Economic Association \n  \n  \n    2018—present \n    Association of Environmental and Resource Economists \n  \n  \n    2017—present \n    American Economic Association \n  \n  \n    2017—2019 \n    Econometric Society"
-  },
-  {
-    "objectID": "ex/danl-399-midterm.html#q1a",
-    "href": "ex/danl-399-midterm.html#q1a",
-    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
-    "section": "Q1a",
-    "text": "Q1a\n\nReplicate the following ggplot.\n\nUse the color #0072B2 for dots."
-  },
-  {
-    "objectID": "ex/danl-399-midterm.html#q1b",
-    "href": "ex/danl-399-midterm.html#q1b",
-    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
-    "section": "Q1b",
-    "text": "Q1b\n\nMake a simple comment on the visualization result.\n\nAny comment that is not made up is okay."
-  },
-  {
-    "objectID": "ex/danl-399-midterm.html#q2a",
-    "href": "ex/danl-399-midterm.html#q2a",
-    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
-    "section": "Q2a",
-    "text": "Q2a\n\nReplicate the following ggplot.\n\nThe following describes the type values:\n\nn_ot_us: Number of US tweets\nn_ot_wrld: Number of worldwide tweets\nn_rt_lk_us: Number of US retweets & likes\nn_rt_lk_wrld: Number of worldwide retweets & likes\n\nUse the colors, maroon and #428bca properly."
-  },
-  {
-    "objectID": "ex/danl-399-midterm.html#q2b.",
-    "href": "ex/danl-399-midterm.html#q2b.",
-    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
-    "section": "Q2b.",
-    "text": "Q2b.\n\nMake a simple comment on the visualization result."
-  },
-  {
-    "objectID": "ex/danl-399-midterm.html#q3a",
-    "href": "ex/danl-399-midterm.html#q3a",
-    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
-    "section": "Q3a",
-    "text": "Q3a\n\nReplicate the following ggplot."
-  },
-  {
-    "objectID": "ex/danl-399-midterm.html#q3a-1",
-    "href": "ex/danl-399-midterm.html#q3a-1",
-    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
-    "section": "Q3a",
-    "text": "Q3a\n\nReplicate the following ggplot."
-  },
-  {
-    "objectID": "ex/danl-399-midterm.html#q3b",
-    "href": "ex/danl-399-midterm.html#q3b",
-    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
-    "section": "Q3b",
-    "text": "Q3b\n\nReplicate the following ggplot."
-  },
-  {
-    "objectID": "ex/danl-399-midterm.html#variable-description",
-    "href": "ex/danl-399-midterm.html#variable-description",
-    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
-    "section": "Variable description",
-    "text": "Variable description\n\nProduct_Name: Product Name\nSize: Size of drink (short, tall, grande, venti)\nMilk: Milk Type type of milk used\n\n0 none\n1 nonfat\n2 2%\n3 soy\n4 coconut\n5 whole\n\nWhip: Whip added or not (binary 0/1)\nServ_Size_mL: Serving size in ml\nCalories: KCal\nTotal_Fat_g: Total fat grams\nSaturated_Fat_g: Saturated fat grams\nTrans_Fat_g: Trans fat grams\nCholesterol_mg: Cholesterol mg\nSodium_mg: Sodium milligrams\nTotal_Carbs_g: Total Carbs grams\nFiber_g: Fiber grams\nSugar_g: Sugar grams\nCaffeine_mg: Caffeine in milligrams"
-  },
-  {
-    "objectID": "ex/danl-399-midterm.html#q4a.",
-    "href": "ex/danl-399-midterm.html#q4a.",
-    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
-    "section": "Q4a.",
-    "text": "Q4a.\n\nAdd the following two variables to starbucks data.frame\n\ncaffeine_mgml: Caffeine in milligrams per mL\ncalories_kcml: Calories KCal per mL"
-  },
-  {
-    "objectID": "ex/danl-399-midterm.html#q4b.",
-    "href": "ex/danl-399-midterm.html#q4b.",
-    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
-    "section": "Q4b.",
-    "text": "Q4b.\n\nCalculate a mean caffeine_mgml and a mean calories_kcml for each product_name."
-  },
-  {
-    "objectID": "ex/danl-399-midterm.html#q4c.",
-    "href": "ex/danl-399-midterm.html#q4c.",
-    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
-    "section": "Q4c.",
-    "text": "Q4c.\n\nFor the top 10 product_name in terms of caffeine_mgml and the top 10 product_name in terms of calories_kcml, replicate the following ggplot.\nUse the following commands for showing texts in the plot:\n\n\n# install.packages(\"showtext\")\nlibrary(showtext)\nshowtext_auto()\nfont_add_google(\"Annie Use Your Telescope\", \"annie\")\n\n\nUse the color, #00704A, for the title."
-  },
-  {
-    "objectID": "ex/econ340-hw-4.html#q1a.",
-    "href": "ex/econ340-hw-4.html#q1a.",
-    "title": "ECON 340: Homework Assignment 4",
-    "section": "",
-    "text": "Clearly, air toxics control is justified on safety grounds. Suppose that total benefits of the legislation just matched total costs, at $5 billion annually.\nWould air toxics control be justified on efficiency grounds?"
-  },
-  {
-    "objectID": "ex/econ340-hw-4.html#q1b.",
-    "href": "ex/econ340-hw-4.html#q1b.",
-    "title": "ECON 340: Homework Assignment 4",
-    "section": "",
-    "text": "Some economist has in fact criticized the legislation from an efficiency perspective. - He puts estimated total costs at $6 to $10 billion per year, with total benefits at $0 to $ 4 billion per year. The air toxics legislation attacks some fairly significant risks.\nHow can the estimated benefits be so low (as low as zero)?"
-  },
-  {
-    "objectID": "ex/econ340-hw-4.html#q1c.",
-    "href": "ex/econ340-hw-4.html#q1c.",
-    "title": "ECON 340: Homework Assignment 4",
-    "section": "",
-    "text": "Suppose the air toxics regulations raised household expenditures on gasoline (due to extra controls on oil refineries) by an average of $20 per year.\nIf millionaire Mary and janitor Jane each paid the extra $20, in what sense is the impact of the legislation regressive?"
   }
 ]
