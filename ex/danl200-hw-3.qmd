@@ -4,6 +4,9 @@ date: "`r format(Sys.time(), '%B %d, %Y')`"
 execute: 
   echo: true
   eval: true
+  warning: false
+  message: false
+  fig-width: 9
 
 ---
 ```{r}
@@ -85,7 +88,7 @@ rmarkdown::paged_table(restaurant)
 What are the mean, standard deviation, first quartile, median, third quartile, and maximum of `SCORE` for each `GRADE` of restaurants?
 
 ```{r}
-restaurant %>% group_by(GRADE) %>% skim(SCORE)
+restaurant %>% group_by(GRADE) %>% skim(SCORE) %>% select(-n_missing)
 ```
 
 <br>
@@ -132,6 +135,15 @@ ggplot(restaurant) +
 ggplot(restaurant) +
   geom_histogram(aes(x = SCORE), binwidth = 1 ) +
   facet_grid( `CRITICAL FLAG` ~ GRADE, scales = 'free_x' )
+```
+
+
+-   Histograms
+
+```{r}
+ggplot(restaurant) +
+  geom_histogram(aes(x = SCORE), binwidth = 1 ) +
+  facet_wrap( `CRITICAL FLAG` ~ GRADE, scales = 'free' )
 ```
 
 -   Mostly,
