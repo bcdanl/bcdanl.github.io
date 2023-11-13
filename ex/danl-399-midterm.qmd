@@ -232,12 +232,8 @@ The following data set is for Question 3:
 
 ```{r}
 #| echo: true
-# electricity <- read_csv(
-  # 'https://bcdanl.github.io/data/electricity-usa-chn.csv')
-
 electricity <- read_csv(
-  "/Users/bchoe/Documents/websites/bcdanl.github.io/data/electricity-usa-chn.csv"
-)
+  'https://bcdanl.github.io/data/electricity-usa-chn.csv')
 ```
 
 ```{r, result = 'asis', echo = F}
@@ -328,12 +324,8 @@ The following data set is for Question 4:
 
 ```{r}
 #| echo: true
-# starbucks <- read_csv(
-  # 'https://bcdanl.github.io/data/starbucks.csv')
-
 starbucks <- read_csv(
-  "/Users/bchoe/Documents/websites/bcdanl.github.io/data/starbucks.csv"
-)
+  'https://bcdanl.github.io/data/starbucks.csv')
 ```
 
 ```{r, result = 'asis', echo = F}
@@ -408,6 +400,35 @@ showtext_auto()
 font_add_google("Annie Use Your Telescope", "annie")
 ```
 
+- Use the following `annotate()` geom to insert the starbucks image in the plot:
+
+```{r}
+#| echo: true
+#| eval: false
+annotate("richtext", 
+           x =  , 
+           y =  , 
+           label = "<img src='https://bcdanl.github.io/ex/starbucks.png' width='100'/>", 
+           fill =  ,
+           size =  , 
+           color =  )
+```
+
+- Use the following `geom_text_repel()` geom to use the `annie` font
+
+```{r}
+#| echo: true
+#| eval: false
+geom_text_repel(max.overlaps = ,
+                  size =  ,
+                  min.segment.length =  ,
+                  point.padding =  ,
+                  box.padding =  ,
+                  show.legend =  ,
+                  family = "annie")
+```
+
+
 - Use the color, `#00704A`, for the title.
 
 ```{r}
@@ -441,7 +462,7 @@ starbucks2 %>%
   annotate("richtext", 
            x = quantile(starbucks2$calories_kcml, probs = .75), 
            y = quantile(starbucks2$caffeine_mgml, probs = .75), 
-           label = "<img src='https://user-images.githubusercontent.com/55933131/146823691-4c19c28c-d2ef-46b5-82bc-76923f5c3256.png' width='100'/>", 
+           label = "<img src='https://bcdanl.github.io/ex/starbucks.png' width='100'/>", 
            fill = NA,
            size = rel(2.25), 
            color = NA) +
