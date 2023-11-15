@@ -293,97 +293,30 @@ Q2a_natural <- beer_mkts %>%
 
 
 ```{r}
-beer_mkts <- beer_mkts %>% 
-  mutate(bud = ifelse(brand=="BUD LIGHT", 1, 0),
+q2b <- beer_mkts %>% 
+  mutate(bud = ifelse(brand=="BUD LIGHT", 1, 0), # 1 if brand=="BUD LIGHT"; 0 otherwise
          busch = ifelse(brand=="BUSCH LIGHT", 1, 0),
          coors = ifelse(brand=="COORS LIGHT", 1, 0),
          miller = ifelse(brand=="MILLER LITE", 1, 0),
-         natural = ifelse(brand=="NATURAL LIGHT", 1, 0) )
-
-Q2b_bud <- beer_mkts %>%
-  select(hh, bud) %>%
-  arrange(hh, -bud) %>%
-  group_by(hh) %>%
-  filter(sum(bud) > 0) %>% 
-  mutate(frac_bud = sum(bud)/n(),
-         loyal_bud = ifelse(frac_bud == 1, 1, 0)) %>%
-  select(hh, frac_bud, loyal_bud) %>% 
-  unique() %>% 
-  ungroup() %>% 
-  mutate(n_hh_bud = n()) %>%
-  group_by(loyal_bud, n_hh_bud) %>% 
-  summarise(n_obs = n()) %>% 
-  ungroup() %>% 
-  mutate(n_frac = n_obs/n_hh_bud )  # 0.6600816
-
-
-Q2b_busch <- beer_mkts %>%
-  select(hh, busch) %>%
-  arrange(hh, -busch) %>%
-  group_by(hh) %>%
-  filter(sum(busch) > 0) %>% 
-  mutate(frac_busch = sum(busch)/n(),
-         loyal_busch = ifelse(frac_busch == 1, 1, 0)) %>%
-  select(hh, frac_busch, loyal_busch) %>% 
-  unique() %>% 
-  ungroup() %>% 
-  mutate(n_hh_busch = n()) %>%
-  group_by(loyal_busch, n_hh_busch) %>% 
-  summarise(n_obs = n()) %>% 
-  ungroup() %>% 
-  mutate(n_frac = n_obs/n_hh_busch )  # 0.472973
-
-
-Q2b_coors <- beer_mkts %>%
-  select(hh, coors) %>%
-  arrange(hh, -coors) %>%
-  group_by(hh) %>%
-  filter(sum(coors) > 0) %>% 
-  mutate(frac_coors = sum(coors)/n(),
-         loyal_coors = ifelse(frac_coors == 1, 1, 0)) %>%
-  select(hh, frac_coors, loyal_coors) %>% 
-  unique() %>% 
-  ungroup() %>% 
-  mutate(n_hh_coors = n()) %>%
-  group_by(loyal_coors, n_hh_coors) %>% 
-  summarise(n_obs = n()) %>% 
-  ungroup() %>% 
-  mutate(n_frac = n_obs/n_hh_coors )  # 0.6390805
-
-
-Q2b_miller <- beer_mkts %>%
-  select(hh, miller) %>%
-  arrange(hh, -miller) %>%
-  group_by(hh) %>%
-  filter(sum(miller) > 0) %>% 
-  mutate(frac_miller = sum(miller)/n(),
-         loyal_miller = ifelse(frac_miller == 1, 1, 0)) %>%
-  select(hh, frac_miller, loyal_miller) %>% 
-  unique() %>% 
-  ungroup() %>% 
-  mutate(n_hh_miller = n()) %>%
-  group_by(loyal_miller, n_hh_miller) %>% 
-  summarise(n_obs = n()) %>% 
-  ungroup() %>% 
-  mutate(n_frac = n_obs/n_hh_miller )  # 0.6312989
-
-Q2b_natural <- beer_mkts %>%
-  select(hh, natural) %>%
-  arrange(hh, -natural) %>%
-  group_by(hh) %>%
-  filter(sum(natural) > 0) %>% 
-  mutate(frac_natural = sum(natural)/n(),
-         loyal_natural = ifelse(frac_natural == 1, 1, 0)) %>%
-  select(hh, frac_natural, loyal_natural) %>% 
-  unique() %>% 
-  ungroup() %>% 
-  mutate(n_hh_natural = n()) %>%
-  group_by(loyal_natural, n_hh_natural) %>% 
-  summarise(n_obs = n()) %>% 
-  ungroup() %>% 
-  mutate(n_frac = n_obs/n_hh_natural )  # 0.5096234
-
-# Here I do not provide any comments on the result.
+         natural = ifelse(brand=="NATURAL LIGHT", 1, 0),
+         .after = hh) %>% 
+  select(hh:natural) %>%  # select the variables we need
+  group_by(hh) %>% 
+  summarise(n_transactions = n(), # number of beer transactions for each hh
+            n_bud = sum(bud), # number of BUD LIGHT transactions for each hh
+            n_busch = sum(busch), 
+            n_coors = sum(coors), 
+            n_miller = sum(miller), 
+            n_natural = sum(natural) 
+  ) %>% 
+  summarise(loyal_bud = sum(n_transactions == n_bud) / sum(n_bud > 0), 
+              # sum(n_transactions == n_bud) : the number of households that purchased BUD LIGHT only
+              # sum(n_bud > 0) : the number of households that purchased BUD LIGHT at least once.
+            loyal_busch = sum(n_transactions == n_busch) / sum(n_busch > 0),
+            loyal_coors = sum(n_transactions == n_coors) / sum(n_coors > 0),
+            loyal_miller = sum(n_transactions == n_miller) / sum(n_miller > 0),
+            loyal_natural = sum(n_transactions == n_natural) / sum(n_natural > 0)
+  )
 
 ```
 
@@ -399,9 +332,9 @@ Q2b_natural <- beer_mkts %>%
 Q2c <- beer_mkts %>% 
   count(hh, brand) %>% 
   group_by(hh) %>% 
-  mutate(n_tot = sum(n)) %>% 
+  mutate(n_tot = sum(n)) %>%  # n_tot : the number of beer transactions
   arrange(hh, brand) %>% 
-  mutate( prop = n / n_tot )
+  mutate( prop = n / n_tot ) # prop: the proportion of each beer brand choice
 
 ```
 

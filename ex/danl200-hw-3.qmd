@@ -134,11 +134,20 @@ ggplot(restaurant) +
 ```{r}
 ggplot(restaurant) +
   geom_histogram(aes(x = SCORE), binwidth = 1 ) +
+  facet_grid( `CRITICAL FLAG` ~ GRADE )
+```
+
+
+-   Histograms with varying x- scale across facets
+
+```{r}
+ggplot(restaurant) +
+  geom_histogram(aes(x = SCORE), binwidth = 1 ) +
   facet_grid( `CRITICAL FLAG` ~ GRADE, scales = 'free_x' )
 ```
 
 
--   Histograms
+-   Histograms with varying x- and y- scales across facets
 
 ```{r}
 ggplot(restaurant) +
