@@ -208,17 +208,11 @@ nyc_dogs <- nyc_dogs %>%
   mutate( age = 2023 - birth_year )
 
 ggplot( nyc_dogs ) +
-  geom_density(aes(x = age)) + 
-  facet_wrap(~borough)
-
-ggplot( data = filter(nyc_dogs, 
-                      age <= 25, !is.na(borough)) ) +
-  geom_density(aes(x = age)) + 
-  facet_wrap(~borough)
-
+  geom_freqpoly(aes(x = age, color = borough), 
+                 binwidth = 1) 
 
 ggplot( filter(nyc_dogs, 
-               age <= 25, !is.na(borough)) ) +
+               age <= 25) ) +
   geom_histogram(aes(x = age), 
                  binwidth = 1) + 
   facet_wrap(~borough)
