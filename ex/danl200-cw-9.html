@@ -814,6 +814,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>nyc_dogs <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'https://bcdanl.github.io/data/nyc_dogs_cleaned.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">paged_table</span>(nyc_dogs) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
 <div data-pagedtable="false">
@@ -829,7 +830,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Find the five most popular <code>breed</code>s.</li>
 </ul>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>q1a <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(breed)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(breed) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>n) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">paged_table</span>(q1a) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
 
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["breed"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"yorkshire terrier","2":"12804"},{"1":"shih tzu","2":"12790"},{"1":"chihuahua","2":"11099"},{"1":"labrador","2":"11017"},{"1":"pit bull","2":"10023"},{"1":"maltese","2":"7750"},{"1":"german shepherd","2":"5063"},{"1":"beagle","2":"4718"},{"1":"poodle","2":"4673"},{"1":"pomeranian","2":"4435"},{"1":"terrier","2":"3747"},{"1":"havanese","2":"3099"},{"1":"jack russell terrier","2":"3047"},{"1":"golden retriever","2":"2950"},{"1":"french bull dog","2":"2705"},{"1":"cocker spaniel","2":"2630"},{"1":"shiba inu","2":"2536"},{"1":"siberian husky","2":"2526"},{"1":"bichon frise","2":"2450"},{"1":"pug","2":"2347"},{"1":"cavalier king charles spaniel","2":"2230"},{"1":"dachshund","2":"2035"},{"1":"poodle, toy","2":"1996"},{"1":"boxer","2":"1987"},{"1":"goldendoodle","2":"1928"},{"1":"australian shepherd","2":"1925"},{"1":"boston terrier","2":"1876"},{"1":"poodle, miniature","2":"1844"},{"1":"labradoodle","2":"1542"},{"1":"american staffordshire terrier","2":"1395"},{"1":"bull dog, english","2":"1392"},{"1":"schnauzer, miniature","2":"1386"},{"1":"morkie","2":"1373"},{"1":"miniature pinscher","2":"1334"},{"1":"maltipoo","2":"1167"},{"1":"border collie","2":"1112"},{"1":"poodle, standard","2":"1108"},{"1":"rottweiler","2":"1076"},{"1":"miniature schnauzer","2":"1040"},{"1":"puggle","2":"1024"},{"1":"lhasa apso","2":"970"},{"1":"bull dog, french","2":"966"},{"1":"dachshund smooth coat","2":"888"},{"1":"jindo, korea","2":"858"},{"1":"pekingese","2":"821"},{"1":"dachshund smooth coat miniature","2":"781"},{"1":"pembroke welsh corgi","2":"686"},{"1":"cairn terrier","2":"672"},{"1":"rat terrier","2":"668"},{"1":"australian cattledog","2":"628"},{"1":"wheaton terrier","2":"615"},{"1":"american bully","2":"582"},{"1":"staffordshire bull terrier","2":"563"},{"1":"papillon","2":"556"},{"1":"shepard","2":"551"},{"1":"west high white terrier","2":"550"},{"1":"cockapoo","2":"521"},{"1":"dachshund, long haired miniature","2":"495"},{"1":"welsh corgi, pembroke","2":"495"},{"1":"american eskimo","2":"490"},{"1":"bernese mountain","2":"468"},{"1":"bull dog","2":"466"},{"1":"collie","2":"459"},{"1":"doberman pinscher","2":"457"},{"1":"italian greyhound","2":"455"},{"1":"brussels griffon","2":"442"},{"1":"shetland sheepdog","2":"433"},{"1":"miniature australian shepherd","2":"431"},{"1":"rhodesian ridgeback","2":"412"},{"1":"australian cattle","2":"398"},{"1":"west highland white terrier","2":"395"},{"1":"cane corso","2":"383"},{"1":"greyhound","2":"383"},{"1":"vizsla","2":"377"},{"1":"pointer","2":"374"},{"1":"chow chow","2":"371"},{"1":"silky terrier","2":"363"},{"1":"bull terrier","2":"346"},{"1":"basset hound","2":"326"},{"1":"shar-pei, chinese","2":"320"},{"1":"border terrier","2":"308"},{"1":"catahoula leopard","2":"306"},{"1":"schnauzer","2":"295"},{"1":"dachshund, long haired","2":"288"},{"1":"collie, border","2":"281"},{"1":"schnauzer, standard","2":"277"},{"1":"whippet","2":"275"},{"1":"tibetan terrier","2":"274"},{"1":"akita","2":"270"},{"1":"basenji","2":"266"},{"1":"coton de tulear","2":"266"},{"1":"great pyrenees","2":"261"},{"1":"plott","2":"261"},{"1":"great dane","2":"256"},{"1":"cotton de tulear","2":"255"},{"1":"pomsky","2":"247"},{"1":"weimaraner","2":"244"},{"1":"scottish terrier","2":"228"},{"1":"wire fox terrier","2":"226"},{"1":"samoyed","2":"223"},{"1":"portuguese water","2":"218"},{"1":"bassett hound","2":"214"},{"1":"soft coated wheaten terrier","2":"199"},{"1":"miniature american shepherd","2":"190"},{"1":"belgian malinois","2":"185"},{"1":"coonhound, black and tan","2":"185"},{"1":"english cocker spaniel","2":"182"},{"1":"dalmatian","2":"181"},{"1":"german shorthaired pointer","2":"176"},{"1":"bull dog, american","2":"171"},{"1":"norwich terrier","2":"162"},{"1":"mastiff","2":"149"},{"1":"anatolian shepherd","2":"148"},{"1":"welsh corgi, cardigan","2":"145"},{"1":"alaskan malamute","2":"143"},{"1":"coonhound, treeing walker","2":"141"},{"1":"old english sheepdog","2":"138"},{"1":"brittany spaniel","2":"135"},{"1":"english springer spaniel","2":"135"},{"1":"norfolk terrier","2":"129"},{"1":"american foxhound","2":"124"},{"1":"newfoundland","2":"115"},{"1":"treeing walker coonhound","2":"113"},{"1":"dachshund, wirehaired, miniature","2":"111"},{"1":"chinese shar-pei","2":"102"},{"1":"dachshund, wirehaired","2":"102"},{"1":"parson russell terrier","2":"102"},{"1":"tibetan spaniel","2":"102"},{"1":"cardigan welsh corgi","2":"101"},{"1":"japanese chin","2":"98"},{"1":"lagotto romagnolo","2":"98"},{"1":"toy fox terrier","2":"95"},{"1":"japanese chin/spaniel","2":"87"},{"1":"airedale terrier","2":"84"},{"1":"redbone coonhound","2":"84"},{"1":"irish terrier","2":"82"},{"1":"alaskan klee kai","2":"81"},{"1":"bloodhound","2":"81"},{"1":"mastiff, bull","2":"79"},{"1":"pointer, german shorthaired","2":"79"},{"1":"black and tan coonhound","2":"76"},{"1":"chinese crested","2":"75"},{"1":"dutch shepherd","2":"72"},{"1":"flat-coated retriever","2":"72"},{"1":"manchester terrier","2":"72"},{"1":"japanese spitz","2":"71"},{"1":"affenpinscher","2":"70"},{"1":"irish setter","2":"65"},{"1":"bluetick coonhound","2":"63"},{"1":"saint bernard","2":"62"},{"1":"collie, rough coat","2":"61"},{"1":"australian kelpie","2":"60"},{"1":"mastiff, old english","2":"59"},{"1":"australian silky terrier","2":"57"},{"1":"collie, smooth coat","2":"57"},{"1":"nova scotia duck tolling retriever","2":"57"},{"1":"coonhound, blue tick","2":"54"},{"1":"american english coonhound","2":"51"},{"1":"keeshond","2":"50"},{"1":"australian terrier","2":"49"},{"1":"bullmastiff","2":"49"},{"1":"chesapeake bay retriever","2":"46"},{"1":"english setter","2":"46"},{"1":"schipperke","2":"46"},{"1":"schipperkee","2":"46"},{"1":"canaan","2":"45"},{"1":"dogo argentino","2":"45"},{"1":"afghan hound","2":"43"},{"1":"russell terrier","2":"43"},{"1":"welsh terrier","2":"43"},{"1":"pharaoh hound","2":"42"},{"1":"norwegian elkhound","2":"41"},{"1":"brittany","2":"40"},{"1":"petit basset griffon vendeen","2":"40"},{"1":"st. bernard","2":"39"},{"1":"schnauzer, giant","2":"38"},{"1":"wirehaired pointing griffon","2":"38"},{"1":"bearded collie","2":"35"},{"1":"welsh springer spaniel","2":"34"},{"1":"english foxhound","2":"33"},{"1":"bedlington terrier","2":"31"},{"1":"biewer terrier","2":"29"},{"1":"collie, bearded","2":"28"},{"1":"giant schnauzer","2":"28"},{"1":"irish wolfhound","2":"28"},{"1":"belgian sheepdog","2":"27"},{"1":"dogue de bordeaux","2":"27"},{"1":"kerry blue terrier","2":"27"},{"1":"miniature bull terrier","2":"27"},{"1":"smooth fox terrier","2":"27"},{"1":"borzoi","2":"26"},{"1":"bouvier des flandres","2":"26"},{"1":"german spitz","2":"26"},{"1":"ibizan hound","2":"26"},{"1":"german pinscher","2":"25"},{"1":"spinone italiano","2":"25"},{"1":"portuguese podengo pequeno","2":"24"},{"1":"puli","2":"24"},{"1":"boerboel","2":"23"},{"1":"treeing tennessee brindle","2":"23"},{"1":"briard","2":"22"},{"1":"greater swiss mountain","2":"22"},{"1":"lakeland terrier","2":"22"},{"1":"german wirehaired pointer","2":"21"},{"1":"mastiff, french (dogue de bordeaux)","2":"21"},{"1":"thai ridgeback","2":"21"},{"1":"saluki","2":"20"},{"1":"glen of imaal terrier","2":"19"},{"1":"harrier","2":"19"},{"1":"xoloitzcuintli","2":"19"},{"1":"entlebucher mountain","2":"18"},{"1":"finnish spitz","2":"18"},{"1":"pharoh hound","2":"18"},{"1":"bolognese","2":"17"},{"1":"boykin spaniel","2":"17"},{"1":"clumber spaniel","2":"17"},{"1":"field spaniel","2":"17"},{"1":"mastiff, neapolitan","2":"17"},{"1":"skye terrier","2":"17"},{"1":"coonhound, redbone","2":"16"},{"1":"pointer, german wirehaired","2":"16"},{"1":"sealyham terrier","2":"16"},{"1":"english toy spaniel","2":"14"},{"1":"gordon setter","2":"14"},{"1":"kooikerhondje","2":"14"},{"1":"standard schnauzer","2":"14"},{"1":"tibetan mastiff","2":"14"},{"1":"german longhaired pointer","2":"13"},{"1":"leonberger","2":"13"},{"1":"perro de presa canario","2":"13"},{"1":"spanish water","2":"13"},{"1":"black russian terrier","2":"12"},{"1":"lowchen","2":"12"},{"1":"mountain feist","2":"12"},{"1":"russian toy","2":"12"},{"1":"american hairless terrier","2":"10"},{"1":"belgian tervuren","2":"10"},{"1":"american leopard hound","2":"9"},{"1":"barbet","2":"9"},{"1":"belgian griffon","2":"9"},{"1":"olde english bull dog","2":"9"},{"1":"polish hound","2":"9"},{"1":"polish lowland sheepdog","2":"9"},{"1":"berger picard","2":"8"},{"1":"chinook","2":"8"},{"1":"cirneco dell","2":"8"},{"1":"dandie dinmont terrier","2":"8"},{"1":"eurasier","2":"8"},{"1":"hovawart","2":"8"},{"1":"mastiff, tibetan","2":"8"},{"1":"neapolitan mastiff","2":"8"},{"1":"patterdale terrier","2":"8"},{"1":"french spaniel","2":"7"},{"1":"icelandic sheepdog","2":"7"},{"1":"kai ken","2":"7"},{"1":"lancashire heeler","2":"7"},{"1":"sussex spaniel","2":"7"},{"1":"american water spaniel","2":"6"},{"1":"baladi","2":"6"},{"1":"beauceron","2":"6"},{"1":"curly-coated retriever","2":"6"},{"1":"irish red and white setter","2":"6"},{"1":"miniature fox terrier","2":"6"},{"1":"mudi","2":"6"},{"1":"pyrenean shepherd","2":"6"},{"1":"pumi","2":"5"},{"1":"small munsterlander pointer","2":"5"},{"1":"swedish vallhund","2":"5"},{"1":"fila brasileiro","2":"4"},{"1":"kuvasz","2":"4"},{"1":"scottish deerhound","2":"4"},{"1":"wirehaired vizsla","2":"4"},{"1":"azawakh","2":"3"},{"1":"bracco italiano","2":"3"},{"1":"kromfohrlander","2":"3"},{"1":"norwegian buhund","2":"3"},{"1":"otterhound","2":"3"},{"1":"tosa","2":"3"},{"1":"cesky terrier","2":"2"},{"1":"finnish lapphund","2":"2"},{"1":"greek shephard","2":"2"},{"1":"hamiltonstovare","2":"2"},{"1":"irish water spaniel","2":"2"},{"1":"karelian bear","2":"2"},{"1":"peruvian inca orchid","2":"2"},{"1":"belgian laekenois","2":"1"},{"1":"estrela mountain","2":"1"},{"1":"grand basset griffon vendeen","2":"1"},{"1":"jagdterrier","2":"1"},{"1":"kishu ken","2":"1"},{"1":"portuguese sheepdog","2":"1"},{"1":"russian wolfhound","2":"1"},{"1":"stabyhoun","2":"1"},{"1":"swedish lapphund","2":"1"},{"1":"tornjak","2":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 <!-- 1 Unknown 54586 2 Yorkshire Terrier 30379 3 Labrador (or Crossbreed) 28399 4 Shih Tzu 27407 5 Pit Bull (or Mix) 24393 6 Chihuahua 21211 -->
 <p><br><br></p>
@@ -840,10 +854,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Provide both (1) ggplot code and (2) a simple comment to describe the relationship between the five popular <code>breed</code>s and <code>borough</code>.</li>
 </ul>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>q1b <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(breed <span class="sc">%in%</span> q1a<span class="sc">$</span>breed[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>],</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span><span class="fu">is.na</span>(breed) ) </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> q1b) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> breed, <span class="at">fill =</span> breed),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">show.legend =</span> F) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(.<span class="sc">~</span>borough)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="danl200-cw-9_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> q1b) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> breed, <span class="at">fill =</span> breed),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"dodge"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">show.legend =</span> F) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(.<span class="sc">~</span>borough)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="danl200-cw-9_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> q1b) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> breed, <span class="at">fill =</span> breed),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"fill"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">show.legend =</span> F) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(.<span class="sc">~</span>borough)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="danl200-cw-9_files/figure-html/unnamed-chunk-6-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> q1b) <span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> breed, <span class="at">fill =</span> borough, </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">x =</span> <span class="fu">stat</span>(prop), <span class="at">group =</span> borough), </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"dodge"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="danl200-cw-9_files/figure-html/unnamed-chunk-6-4.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> q1b) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">y =</span> borough, <span class="at">fill =</span> breed, </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">x =</span> <span class="fu">stat</span>(prop), <span class="at">group =</span> breed), </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"dodge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="danl200-cw-9_files/figure-html/unnamed-chunk-6-5.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What if the filtered data could not be obtained ... </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> nyc_dogs)<span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>borough))<span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>breed, <span class="at">ncol =</span> <span class="dv">4</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))  <span class="co"># optional</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="danl200-cw-9_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="864"></p>
+</div>
 </div>
 <p><br><br></p>
 </section>
@@ -853,10 +914,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Find the five most popular <code>breed</code>s in each <code>borough</code>.</li>
 </ul>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>q1c <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(breed)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(breed, borough) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(borough, <span class="sc">-</span>n)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>q1c <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(breed)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(breed, borough) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(borough) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">dense_rank</span>(<span class="sc">-</span>n) ) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rank <span class="sc">&lt;=</span> <span class="dv">10</span> ) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(breed, n, rank, borough) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(borough,<span class="sc">-</span>n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-result="asis">
+<div class="cell-output-display">
 
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["breed"],"name":[1],"type":["chr"],"align":["left"]},{"label":["n"],"name":[2],"type":["int"],"align":["right"]},{"label":["rank"],"name":[3],"type":["int"],"align":["right"]},{"label":["borough"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"yorkshire terrier","2":"2327","3":"1","4":"Bronx"},{"1":"shih tzu","2":"2118","3":"2","4":"Bronx"},{"1":"pit bull","2":"2003","3":"3","4":"Bronx"},{"1":"chihuahua","2":"1607","3":"4","4":"Bronx"},{"1":"maltese","2":"1095","3":"5","4":"Bronx"},{"1":"labrador","2":"819","3":"6","4":"Bronx"},{"1":"pomeranian","2":"567","3":"7","4":"Bronx"},{"1":"german shepherd","2":"530","3":"8","4":"Bronx"},{"1":"poodle","2":"525","3":"9","4":"Bronx"},{"1":"beagle","2":"458","3":"10","4":"Bronx"},{"1":"shih tzu","2":"3420","3":"1","4":"Brooklyn"},{"1":"yorkshire terrier","2":"3349","3":"2","4":"Brooklyn"},{"1":"labrador","2":"3053","3":"3","4":"Brooklyn"},{"1":"chihuahua","2":"3019","3":"4","4":"Brooklyn"},{"1":"pit bull","2":"2927","3":"5","4":"Brooklyn"},{"1":"maltese","2":"1876","3":"6","4":"Brooklyn"},{"1":"german shepherd","2":"1462","3":"7","4":"Brooklyn"},{"1":"beagle","2":"1261","3":"8","4":"Brooklyn"},{"1":"pomeranian","2":"1239","3":"9","4":"Brooklyn"},{"1":"terrier","2":"1206","3":"10","4":"Brooklyn"},{"1":"labrador","2":"4103","3":"1","4":"Manhattan"},{"1":"chihuahua","2":"3808","3":"2","4":"Manhattan"},{"1":"yorkshire terrier","2":"3247","3":"3","4":"Manhattan"},{"1":"shih tzu","2":"3135","3":"4","4":"Manhattan"},{"1":"pit bull","2":"2116","3":"5","4":"Manhattan"},{"1":"maltese","2":"2061","3":"6","4":"Manhattan"},{"1":"poodle","2":"1726","3":"7","4":"Manhattan"},{"1":"havanese","2":"1557","3":"8","4":"Manhattan"},{"1":"beagle","2":"1536","3":"9","4":"Manhattan"},{"1":"terrier","2":"1452","3":"10","4":"Manhattan"},{"1":"shih tzu","2":"2803","3":"1","4":"Queens"},{"1":"yorkshire terrier","2":"2681","3":"2","4":"Queens"},{"1":"pit bull","2":"2055","3":"3","4":"Queens"},{"1":"chihuahua","2":"2004","3":"4","4":"Queens"},{"1":"maltese","2":"1947","3":"5","4":"Queens"},{"1":"labrador","2":"1923","3":"6","4":"Queens"},{"1":"german shepherd","2":"1223","3":"7","4":"Queens"},{"1":"beagle","2":"1052","3":"8","4":"Queens"},{"1":"poodle","2":"1052","3":"8","4":"Queens"},{"1":"pomeranian","2":"987","3":"9","4":"Queens"},{"1":"siberian husky","2":"644","3":"10","4":"Queens"},{"1":"shih tzu","2":"1314","3":"1","4":"Staten Island"},{"1":"yorkshire terrier","2":"1200","3":"2","4":"Staten Island"},{"1":"labrador","2":"1119","3":"3","4":"Staten Island"},{"1":"pit bull","2":"922","3":"4","4":"Staten Island"},{"1":"maltese","2":"771","3":"5","4":"Staten Island"},{"1":"chihuahua","2":"661","3":"6","4":"Staten Island"},{"1":"german shepherd","2":"609","3":"7","4":"Staten Island"},{"1":"beagle","2":"411","3":"8","4":"Staten Island"},{"1":"pomeranian","2":"345","3":"9","4":"Staten Island"},{"1":"golden retriever","2":"288","3":"10","4":"Staten Island"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
 </div>
 <p><br><br></p>
 </section>
@@ -866,7 +949,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Find the five most popular dog <code>name</code>s for each <code>gender</code>.</li>
 </ul>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>q1d <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gender, name) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(gender, <span class="sc">-</span>n) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>( <span class="at">n =</span> <span class="dv">5</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>q1d <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gender, name) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ranking =</span> <span class="fu">dense_rank</span>(<span class="sc">-</span>n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ranking <span class="sc">&lt;=</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br><br></p>
 </section>
@@ -876,10 +970,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Find the five most popular dog <code>name</code>s for each <code>gender</code> in each <code>borough</code>.</li>
 </ul>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>q1e <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(borough, gender, name) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(gender, <span class="sc">-</span>n)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>q1e <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(borough, gender, name) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ranking =</span> <span class="fu">dense_rank</span>(<span class="sc">-</span>n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ranking <span class="sc">&lt;=</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-result="asis">
+<div class="cell-output-display">
 
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["borough"],"name":[1],"type":["chr"],"align":["left"]},{"label":["gender"],"name":[2],"type":["chr"],"align":["left"]},{"label":["name"],"name":[3],"type":["chr"],"align":["left"]},{"label":["n"],"name":[4],"type":["int"],"align":["right"]},{"label":["ranking"],"name":[5],"type":["int"],"align":["right"]}],"data":[{"1":"Bronx","2":"F","3":"bella","4":"197","5":"1"},{"1":"Bronx","2":"F","3":"lola","4":"130","5":"5"},{"1":"Bronx","2":"F","3":"luna","4":"139","5":"3"},{"1":"Bronx","2":"F","3":"princess","4":"144","5":"2"},{"1":"Bronx","2":"F","3":"NA","4":"136","5":"4"},{"1":"Bronx","2":"M","3":"lucky","4":"118","5":"4"},{"1":"Bronx","2":"M","3":"max","4":"220","5":"1"},{"1":"Bronx","2":"M","3":"prince","4":"110","5":"5"},{"1":"Bronx","2":"M","3":"rocky","4":"165","5":"2"},{"1":"Bronx","2":"M","3":"NA","4":"162","5":"3"},{"1":"Brooklyn","2":"F","3":"bella","4":"286","5":"2"},{"1":"Brooklyn","2":"F","3":"daisy","4":"215","5":"5"},{"1":"Brooklyn","2":"F","3":"lola","4":"241","5":"3"},{"1":"Brooklyn","2":"F","3":"lucy","4":"241","5":"3"},{"1":"Brooklyn","2":"F","3":"luna","4":"240","5":"4"},{"1":"Brooklyn","2":"F","3":"NA","4":"370","5":"1"},{"1":"Brooklyn","2":"M","3":"buddy","4":"197","5":"5"},{"1":"Brooklyn","2":"M","3":"charlie","4":"249","5":"3"},{"1":"Brooklyn","2":"M","3":"max","4":"308","5":"2"},{"1":"Brooklyn","2":"M","3":"rocky","4":"242","5":"4"},{"1":"Brooklyn","2":"M","3":"NA","4":"468","5":"1"},{"1":"Brooklyn","2":"NA","3":"cherry","4":"1","5":"1"},{"1":"Brooklyn","2":"NA","3":"shebah","4":"1","5":"1"},{"1":"Brooklyn","2":"NA","3":"sparkey","4":"1","5":"1"},{"1":"Manhattan","2":"F","3":"bella","4":"338","5":"3"},{"1":"Manhattan","2":"F","3":"lola","4":"351","5":"2"},{"1":"Manhattan","2":"F","3":"lucy","4":"370","5":"1"},{"1":"Manhattan","2":"F","3":"luna","4":"312","5":"4"},{"1":"Manhattan","2":"F","3":"NA","4":"277","5":"5"},{"1":"Manhattan","2":"M","3":"charlie","4":"370","5":"1"},{"1":"Manhattan","2":"M","3":"cooper","4":"248","5":"5"},{"1":"Manhattan","2":"M","3":"max","4":"336","5":"2"},{"1":"Manhattan","2":"M","3":"oliver","4":"276","5":"4"},{"1":"Manhattan","2":"M","3":"NA","4":"317","5":"3"},{"1":"Queens","2":"F","3":"bella","4":"290","5":"1"},{"1":"Queens","2":"F","3":"daisy","4":"191","5":"4"},{"1":"Queens","2":"F","3":"lola","4":"180","5":"5"},{"1":"Queens","2":"F","3":"luna","4":"220","5":"3"},{"1":"Queens","2":"F","3":"NA","4":"270","5":"2"},{"1":"Queens","2":"M","3":"buddy","4":"189","5":"5"},{"1":"Queens","2":"M","3":"charlie","4":"214","5":"4"},{"1":"Queens","2":"M","3":"max","4":"323","5":"2"},{"1":"Queens","2":"M","3":"rocky","4":"256","5":"3"},{"1":"Queens","2":"M","3":"NA","4":"335","5":"1"},{"1":"Queens","2":"NA","3":"nanuk","4":"1","5":"1"},{"1":"Queens","2":"NA","3":"sidney","4":"1","5":"1"},{"1":"Staten Island","2":"F","3":"bella","4":"180","5":"1"},{"1":"Staten Island","2":"F","3":"coco","4":"91","5":"5"},{"1":"Staten Island","2":"F","3":"daisy","4":"103","5":"4"},{"1":"Staten Island","2":"F","3":"lola","4":"103","5":"4"},{"1":"Staten Island","2":"F","3":"molly","4":"112","5":"3"},{"1":"Staten Island","2":"F","3":"NA","4":"134","5":"2"},{"1":"Staten Island","2":"M","3":"buddy","4":"126","5":"4"},{"1":"Staten Island","2":"M","3":"charlie","4":"110","5":"5"},{"1":"Staten Island","2":"M","3":"max","4":"154","5":"2"},{"1":"Staten Island","2":"M","3":"rocky","4":"131","5":"3"},{"1":"Staten Island","2":"M","3":"NA","4":"168","5":"1"},{"1":"Staten Island","2":"NA","3":"buddy","4":"1","5":"1"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
 </div>
 <p><br><br></p>
 </section>
@@ -892,9 +1002,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul>
 <div class="cell">
-
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>nyc_dogs <span class="ot">&lt;-</span> nyc_dogs <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">age =</span> <span class="dv">2023</span> <span class="sc">-</span> birth_year )</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>( nyc_dogs ) <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> age)) <span class="sc">+</span> </span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>borough)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="danl200-cw-9_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
-<!-- Add some comments here .... -->
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>( <span class="at">data =</span> <span class="fu">filter</span>(nyc_dogs, </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                      age <span class="sc">&lt;=</span> <span class="dv">25</span>, <span class="sc">!</span><span class="fu">is.na</span>(borough)) ) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">x =</span> age)) <span class="sc">+</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>borough)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="danl200-cw-9_files/figure-html/unnamed-chunk-13-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>( <span class="fu">filter</span>(nyc_dogs, </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>               age <span class="sc">&lt;=</span> <span class="dv">25</span>, <span class="sc">!</span><span class="fu">is.na</span>(borough)) ) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">x =</span> age), </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">binwidth =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>borough)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="danl200-cw-9_files/figure-html/unnamed-chunk-13-3.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Add some comments here ….</p>
 <p><br><br><br></p>
 
 

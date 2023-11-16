@@ -4,8 +4,8 @@ date: 2023-11-06
 execute: 
   warning: false
   message: false
-  echo: false
-  eval: false
+  echo: true
+  eval: true
   fig-width: 9
 
 ---
@@ -131,10 +131,20 @@ climate_finance %>%
   ggplot(aes(x = Year, y = funding_tot)) +
   geom_line(aes(color = Status)) +
   geom_point() +
-  facet_wrap(Energy ~.)
+  facet_wrap(Energy ~.) +
+  scale_y_comma()
 
 
 ```
+
+- The size of `committed` funding has been rapidly increasing, while the size of `provided` funding is not. 
+
+- The size of `provided` funding has been slowly increasing for non-energy sector, while that has been relatively sluggish for energy sector.
+
+- It is easier to make a promise than to keep it.
+
+- The gap in `provided` funding size between the energy and the non-energy sectors is partly because energy-related projects usually require relative much larger upfront cost.
+
 
 <br><br>
 
@@ -214,6 +224,8 @@ ggplot(Q1c, aes(x = log(am_ratio))) +
   geom_vline(xintercept = 0, color = 'red', lty = 2)
 ```
 
+- Here the comments are not provided.
+
 
 <br><br>
 
@@ -238,4 +250,4 @@ ggplot(climate_finance,
 ```
 
 
-
+- Here the comments are not provided.

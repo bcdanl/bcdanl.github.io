@@ -4,8 +4,8 @@ date: 2023-11-08
 execute: 
   warning: false
   message: false
-  echo: false
-  eval: false
+  echo: true
+  eval: true
 ---
 ```{r}
 #| eval: true
@@ -52,12 +52,19 @@ rmarkdown::paged_table(nyc_dogs)
 - Find the five most popular `breed`s.
 
 ```{r}
-q1b <- nyc_dogs %>% 
+q1a <- nyc_dogs %>% 
   filter(!is.na(breed)) %>% 
   group_by(breed) %>% 
   summarise(n = n()) %>% 
   arrange(-n) 
 
+```
+
+
+```{r}
+#| eval: true
+#| results: asis
+rmarkdown::paged_table(q1a) 
 ```
 
 <!-- 1 Unknown 54586 2 Yorkshire Terrier 30379 3 Labrador (or Crossbreed) 28399 4 Shih Tzu 27407 5 Pit Bull (or Mix) 24393 6 Chihuahua 21211 -->
@@ -69,35 +76,35 @@ q1b <- nyc_dogs %>%
 - Provide both (1) ggplot code and (2) a simple comment to describe the relationship between the five popular `breed`s and `borough`. 
 
 ```{r}
-q1c <- nyc_dogs %>% 
-  filter(breed %in% q1b$breed[1:5],
+q1b <- nyc_dogs %>% 
+  filter(breed %in% q1a$breed[1:5],
          !is.na(breed) ) 
   
-ggplot(data = q1c) +
+ggplot(data = q1b) +
   geom_bar(aes(y = breed, fill = breed),
            show.legend = F) +
   facet_wrap(.~borough)
 
 
-ggplot(data = q1c) +
+ggplot(data = q1b) +
   geom_bar(aes(y = breed, fill = breed),
            position = "dodge",
            show.legend = F) +
   facet_wrap(.~borough)
 
-ggplot(data = q1c) +
+ggplot(data = q1b) +
   geom_bar(aes(y = breed, fill = breed),
            position = "fill",
            show.legend = F) +
   facet_wrap(.~borough)
 
 
-ggplot(data = q1c) +
+ggplot(data = q1b) +
   geom_bar(aes(y = breed, fill = borough, 
                x = stat(prop), group = borough), 
            position = "dodge") 
 
-ggplot(data = q1c) +
+ggplot(data = q1b) +
   geom_bar(aes(y = borough, fill = breed, 
                x = stat(prop), group = breed), 
            position = "dodge")
@@ -108,7 +115,7 @@ ggplot(data = q1c) +
 # What if the filtered data could not be obtained ... 
 ggplot(data = nyc_dogs)+
   geom_bar(mapping = aes(x=borough))+
-  facet_wrap(~breed, ncol = 4) +
+  facet_wrap(~breed, ncol = 4, scales = "free_y") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))  # optional
 ```
 
@@ -119,13 +126,13 @@ ggplot(data = nyc_dogs)+
 - Find the five most popular `breed`s in each `borough`.
 
 ```{r}
-q1d <- nyc_dogs %>% 
+q1c <- nyc_dogs %>% 
   filter(!is.na(breed)) %>% 
   group_by(breed, borough) %>% 
   summarize(n = n()) %>% 
   arrange(borough, -n)
 
-Q1d <- nyc_dogs %>% 
+q1c <- nyc_dogs %>% 
   filter(!is.na(breed)) %>% 
   group_by(breed, borough) %>% 
   mutate(n = n()) %>% 
@@ -138,7 +145,7 @@ Q1d <- nyc_dogs %>%
 ```
 
 ```{r, result = 'asis', echo = F, message = F, warning = F}
-rmarkdown::paged_table(Q1d) 
+rmarkdown::paged_table(q1c) 
 ```
 
 <br><br>
@@ -148,14 +155,14 @@ rmarkdown::paged_table(Q1d)
 - Find the five most popular dog `name`s for each `gender`.
 
 ```{r}
-q1e <- nyc_dogs %>% 
+q1d <- nyc_dogs %>% 
   group_by(gender, name) %>% 
   summarise(n = n()) %>% 
   arrange(gender, -n) %>% 
-  slice_head(5)
+  slice_head( n = 5)
 
 
-Q1e <- nyc_dogs %>% 
+q1d <- nyc_dogs %>% 
   group_by(gender, name) %>% 
   summarise(n = n()) %>% 
   mutate(ranking = dense_rank(-n)) %>% 
@@ -171,12 +178,12 @@ Q1e <- nyc_dogs %>%
 - Find the five most popular dog `name`s for each `gender` in each `borough`.
 
 ```{r}
-q1f <- nyc_dogs %>% 
+q1e <- nyc_dogs %>% 
   group_by(borough, gender, name) %>% 
   summarise(n = n()) %>% 
   arrange(gender, -n)
 
-Q1f <- nyc_dogs %>% 
+q1e <- nyc_dogs %>% 
   group_by(borough, gender, name) %>% 
   summarise(n = n()) %>% 
   mutate(ranking = dense_rank(-n)) %>% 
@@ -186,7 +193,7 @@ Q1f <- nyc_dogs %>%
 ```
 
 ```{r, result = 'asis', echo = F, message = F, warning = F}
-rmarkdown::paged_table(Q1f) 
+rmarkdown::paged_table(q1e) 
 ```
 
 <br><br>
@@ -198,7 +205,7 @@ rmarkdown::paged_table(Q1f)
 
 ```{r}
 nyc_dogs <- nyc_dogs %>% 
-  mutate( age = 2023 - animal_birth_year )
+  mutate( age = 2023 - birth_year )
 
 ggplot( nyc_dogs ) +
   geom_density(aes(x = age)) + 
@@ -218,6 +225,6 @@ ggplot( filter(nyc_dogs,
 
 ```
 
-<!-- Add some comments here .... -->
+Add some comments here ....
 
 <br><br><br>

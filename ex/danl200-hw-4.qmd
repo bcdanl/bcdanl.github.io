@@ -2,8 +2,8 @@
 title: "DANL 200: Homework Assignment 4"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 execute: 
-  echo: false
-  eval: false
+  echo: true
+  eval: true
   warning: false
   message: false
 
@@ -138,13 +138,15 @@ ggplot(Q1c) +
   theme(strip.text.y.left = element_text(angle = 0))
 ```
 
-<!-- -   The relationship between `pos` and the ten most popular artists can be described by how the distribution of `pos` varies across the ten most popular artists. -->
 
-<!-- -   The distribution of `pos` does not seem to vary a lot across the ten most popular artists. -->
 
-<!-- All are skewed right -->
+- All are skewed right.
+  - Users tend to locate these popular artists' songs early in their playlist.
 
-<!-- -   Anything noticeable can be mentioned. -->
+-   The distribution of `pos` does not seem to vary a lot across the ten most popular artists.
+
+-   Anything noticeable can be mentioned.
+
 
 <br><br>
 
@@ -318,6 +320,7 @@ q2b <- beer_mkts %>%
             loyal_natural = sum(n_transactions == n_natural) / sum(n_natural > 0)
   )
 
+q2b
 ```
 
 
@@ -329,13 +332,14 @@ q2b <- beer_mkts %>%
 - For each household, calculate the proportion of each beer brand choice.
 
 ```{r}
-Q2c <- beer_mkts %>% 
+q2c <- beer_mkts %>% 
   count(hh, brand) %>% 
   group_by(hh) %>% 
   mutate(n_tot = sum(n)) %>%  # n_tot : the number of beer transactions
   arrange(hh, brand) %>% 
   mutate( prop = n / n_tot ) # prop: the proportion of each beer brand choice
 
+q2c
 ```
 
 <br><br>
