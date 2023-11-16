@@ -1,0 +1,148 @@
+---
+title: "ECON 340: Classwork 10 - Mock-up Exam II"
+date: 2023-11-15
+execute: 
+  echo: false
+  eval: true
+  warning: false
+  message: false
+---
+
+```{r}
+#| include: false
+
+library(tidyverse)
+library(hrbrthemes)
+
+
+theme_set(
+  theme_ipsum() +
+  theme(legend.position = "top",
+        legend.title = element_text(face = "bold"),
+        legend.background = element_rect(size = 0.5, 
+                                         linetype = 1, 
+                                         color = "lightgray"),
+        strip.background = element_rect(fill = "#c78ebe"),
+        strip.text = element_text(size = rel(1)),
+        axis.title.x = element_text(size = rel(1.5),
+                                    margin = margin(7.5,0,0,0)),
+        axis.title.y = element_text(size = rel(1.5),
+                                    angle = 0,
+                                    margin = margin(0,7.5,0,0))
+                )
+          )
+
+```
+
+
+<br><br><br>
+
+
+Grand Teton National Park is located 10 minutes away from city Jackson and 20 minutes away from city Teton. Cities Jackson and Teton have 25,000 and 10,000 inhabitants respectively, and residents in both cities have the same income and preferences for national parks. Assume that the cost for an individual to go to a national park is represented by the cost of the time it takes her to get into the park. Also assume that the cost of time for individuals in cities Jackson and Teton is $.50 per minute. You observe that each inhabitant of city Jackson goes to Grand Teton ten times a year while each inhabitant of city Teton goes only five times a year. Assume the following: the only people who go to the park are the residents of cities Jackson and Teton; the cost of running Grand Teton is $1,000,000 a year; and the social discount rate is 1%. Also assume that the park lasts forever.
+
+
+## Q1a.
+Compute the cost per visit to Grand Teton for an inhabitant of each city.
+
+<br>
+
+**Answer**:
+
+A day at the park will cost a resident of city Jackson $10 (10 minutes each way × $.50 per minute) and a resident of city Teton $20 (20 minutes each way × $.50 per minute).
+
+<br>
+
+## Q1b.
+Assuming that those two observations (cost per visit and number of visits per inhabitant of city Jackson, and cost per visit and number of visits per inhabitant of city Teton) correspond to two points of the same linear individual demand curve for visits to Grand Teton, derive that demand curve. What is the consumer surplus for inhabitants of each city? What is the total consumer surplus?
+
+<br>
+
+**Answer**:
+
+
+- Each resident in City Jackson accounts for 10 visits at a price of $10; 
+- Each resident in City Teton accounts for 5 visits at a price of $20
+
+If the demand function for the number of visit per year per person is linear, every $10 price increase is associated with a decrease in quantity of 5 visits. Thus, the demand function is 
+$$
+p = 30 - 2q
+$$
+
+```{r}
+#| fig-width: 9
+#| fig-height: 6
+q = seq(0,15, 1)
+p = 30 - 2*q
+
+df = data.frame(
+  q = q,
+  p = p
+)
+
+ggplot(df) +
+  geom_hline(yintercept = 0) +
+  geom_vline(xintercept = 0) +
+  geom_line(aes(x = q, y = p)) +
+  geom_segment(data = data.frame(x1 = 0, x2 = 5, y1 = 20, y2 = 20),
+                 aes(x = x1, y = y1, xend = x2, yend = y2),
+               color = 'red') +
+  geom_segment(data = data.frame(x1 = 0, x2 = 10, y1 = 10, y2 = 10),
+                 aes(x = x1, y = y1, xend = x2, yend = y2),
+               color = 'blue') +
+  ggrepel::geom_text_repel(data = data.frame(x2 = 5, y2 = 20, label = 'Teton'),
+                 aes(x = x2, y = y2, label = label),
+               color = 'red') +
+  ggrepel::geom_text_repel(data = data.frame(x2 = 10, y2 = 10, label = 'Jackson'),
+                 aes(x = x2, y = y2, label = label),
+               color = 'blue') +
+  scale_x_comma() +
+  labs(x = "Number of visits per year per person", y = "Price")
+
+```
+
+
+
+City Jackson residents have a consumer surplus of 
+
+$$
+\begin{align}
+CS_{Jackson} &= \underbrace{\frac{1}{2}\times (30 - 10)\times 10}_{\text{CS per person in Jackson}} \times \underbrace{25,000}_{\text{Number of residents in Jackson}}\\
+&= \text{\$} 2,500,000
+\end{align}
+$$
+
+
+City Teton residents have a consumer surplus of 
+
+$$
+\begin{align}
+CS_{Teton} &= \underbrace{\frac{1}{2}\times (30 - 20)\times 5}_{\text{CS per person in Teton}} \times \underbrace{10,000}_{\text{Number of residents in Teton}}\\
+&= \text{\$}250,000
+\end{align}
+$$
+
+
+Total consumer surplus is $2,750,000.
+
+<br>
+
+## Q1c.
+There is a timber developer who wants to buy Grand Teton to run his business. He is offering $50 million for the park. Should the park be sold?
+
+<br>
+
+**Answer**:
+
+Each year consumer surplus is $1,625,000 and operating costs are $1 million, for a net benefit of $625,000. Applying the social discount rate of 1% yields a PDV of 
+
+$$
+\begin{align}
+PDV &= \frac{1,750,000}{.01} \\
+&= \text{\$}175\;\text{million},
+\end{align}
+$$
+
+which is much more than the timber developer’s offer. The park should not be sold.
+
+<br>
+
