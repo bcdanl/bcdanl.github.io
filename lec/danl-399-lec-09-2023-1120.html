@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DANL 399 Lecture 9</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Byeong-Hak Choe" />
+    <meta name="date" content="2023-11-20" />
+    <script src="libs/header-attrs-2.25/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <script src="libs/peerjs-1.3.1/peerjs.min.js"></script>
+    <script src="libs/tiny.toast-1.0.0/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast-0.2.6/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast-0.2.6/broadcast.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
+    <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, left, bottom
+
+# DANL 399 Lecture 9
+----
+## **DANL 399: Data Visualization and Presentation**
+### Byeong-Hak Choe
+### November 20, 2023
+
+
+
+
+---
+class: inverse, center, middle
+
+# Draw maps
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+---
+# Draw maps
+### &lt;p style="color:#00449E"&gt; Maps with geospatial data
+
+Data with map drawing, also known as geospatial data, is important for several reasons:
+
+  - Analysis: Geospatial data can highlight patterns and relationships across spatial units in the data that may not be apparent in other forms of data.
+
+  - Communication: Maps can be visually striking, especially when the spatial units of the map are familiar entities, like counties in the US.
+
+
+---
+# Draw maps
+### &lt;p style="color:#00449E"&gt; Map U.S. state-level data
+
+- The `socviz::election` dataset has various measures of the vote and vote shares by state. 
+
+
+
+```r
+library(socviz)
+library(ggthemes)
+election %&gt;% select(state, total_vote,
+                    r_points, pct_trump, party, census) %&gt;%
+    sample_n(5)
+```
+
+--
+
+- We don’t have to represent spatial data spatially.
+
+---
+# Draw maps
+### &lt;p style="color:#00449E"&gt; Map U.S. state-level data
+
+.panelset[
+.panel[.panel-name[(1)]
+
+```r
+party_colors &lt;- c("#2E74C0", "#CB454A")  # Hex color codes for Dem Blue and Rep Red
+p0 &lt;- ggplot(data = filter(election, st != "DC"),
+             mapping = aes(x = r_points,
+                           y = reorder(state, r_points),
+                           color = party))
+```
+
+]
+.panel[.panel-name[(2)]
+
+```r
+p1 &lt;- p0 + geom_vline(xintercept = 0, color = "gray30") +
+    geom_point(size = 2)
+
+p1
+```
+
+]
+.panel[.panel-name[(3)]
+
+```r
+p2 &lt;- p1 + scale_color_manual(values = party_colors)
+
+p2
+```
+
+]
+.panel[.panel-name[(4)]
+
+```r
+p3 &lt;- p2 + scale_x_continuous(breaks = c(-30, -20, -10, 0, 10, 20, 30, 40),
+                              labels = c("30\n (Clinton)", "20", "10", "0",
+                                         "10", "20", "30", "40\n(Trump)"))
+p3
+```
+
+]
+.panel[.panel-name[(5)]
+
+```r
+p3 + facet_wrap(~ census, ncol=1, scales="free_y") +
+     guides(color = "none") + labs(x = "Point Margin", y = "") +
+     theme(axis.text=element_text(size=8))
+```
+
+]
+]
+
+---
+### &lt;p style="color:#00449E"&gt; Map U.S. state-level data
+- Let us get a data frame of the US state map.
+
+
+```r
+us_states &lt;- map_data("state") # from the 'maps' package
+us_states
+view(us_states)
+```
+
+
+
+
+---
+# Draw maps
+### &lt;p style="color:#00449E"&gt; Map U.S. state-level data
+
+- `geom_polygon()` is often used to visualize map data.
+
+
+```r
+p &lt;- ggplot(data = us_states,
+            mapping = aes(x = long, y = lat,
+                          group = group))
+
+p + geom_polygon(fill = "white", color = "black")
+```
+
+--
+
+- A map is a set of lines drawn in the right order on a grid.
+
+
+
+
+---
+# Draw maps
+### &lt;p style="color:#00449E"&gt; Map U.S. state-level data
+
+- Let's `fill` the map.
+
+
+```r
+p &lt;- ggplot(data = us_states,
+            aes(x = long, y = lat,
+                group = group, fill = region))
+
+p + geom_polygon(color = "gray90", size = 0.1) + guides(fill = FALSE)
+```
+
+
+
+
+
+---
+# Draw maps
+### &lt;p style="color:#00449E"&gt; Map U.S. state-level data
+- Let's deal with the projection. 
+  - By default, the map is plotted using the venerable **Mercator** projection.
+ 
+
+```r
+p &lt;- ggplot(data = us_states,
+            mapping = aes(x = long, y = lat,
+                          group = group, fill = region))
+
+p + geom_polygon(color = "gray90", size = 0.1) +
+    coord_map(projection = "albers", lat0 = 39, lat1 = 45) +
+    guides(fill = FALSE)
+```
+
+- We can transform the default projection used by `geom_polygon()`, via the `coord_map()` function.
+
+  - The *Albers* projection requires two latitude parameters, `lat0` and `lat1`. 
+
+
+
+---
+# Draw maps
+### &lt;p style="color:#00449E"&gt; Map U.S. state-level data
+- Let’s get the `election` data on to the map 
+ 
+
+```r
+election$region &lt;- tolower(election$state)
+us_states_elec &lt;- left_join(us_states, election)
+```
+
+- In the map data, `us_states`, the state names (in a variable named `region`) are in lower case. 
+
+- Here we can create a variable in the `election` data frame to correspond to this, using the `tolower()` function to convert the state names.
+
+- It is important to know your data and variables well enough to check that they have merged properly.
+
+  - FIPS code is useful in joining the data.
+
+
+
+
+---
+# Draw maps
+### &lt;p style="color:#00449E"&gt; Map U.S. state-level data
+ 
+
+```r
+p0 &lt;- ggplot(data = us_states_elec,
+            aes(x = long, y = lat,
+                group = group, fill = party))
+
+p0 + geom_polygon(color = "gray90", size = 0.1) +
+    coord_map(projection = "albers", lat0 = 39, lat1 = 45) 
+```
+
+- We use our `party` colors for the `fill`.
+
+
+
+
+
+---
+# Draw maps
+### &lt;p style="color:#00449E"&gt; Map U.S. state-level data
+ 
+
+```r
+p1 &lt;- p0 + geom_polygon(color = "gray90", size = 0.1) +
+    coord_map(projection = "albers", lat0 = 39, lat1 = 45) 
+
+p2 &lt;- p1 + scale_fill_manual(values = party_colors) +
+    labs(title = "Election Results 2016", fill = NULL)
+
+p2 + theme_map() 
+```
+
+
+
+---
+# Draw maps
+### &lt;p style="color:#00449E"&gt; Map U.S. state-level data
+- To the `fill` aethetic, let’s try a continuous measure, such as the percentage of the vote received by Donald Trump (`pct_trump`). 
+
+
+```r
+p0 &lt;- ggplot(data = us_states_elec,
+             mapping = aes(x = long, y = lat, group = group, fill = pct_trump))
+
+p1 &lt;- p0 + geom_polygon(color = "gray90", size = 0.1) +
+    coord_map(projection = "albers", lat0 = 39, lat1 = 45) 
+
+p1 + labs(title = "Trump vote") + theme_map() + labs(fill = "Percent")
+```
+
+
+
+
+---
+# Draw maps
+### &lt;p style="color:#00449E"&gt; Map U.S. state-level data
+
+- Blue is not the color we want here.
+
+- The color gradient runs in the wrong direction.
+
+- Let's fix these problems using `scale_fill_gradient()`:
+
+
+```r
+p2 &lt;- p1 + scale_fill_gradient(low = "white", high = "#CB454A") +
+        labs(title = "Trump vote") 
+p2 + theme_map() + labs(fill = "Percent")
+```
+
+
+
+---
+# Draw maps
+### &lt;p style="color:#00449E"&gt; Map U.S. state-level data
+
+- For election results, we might prefer a gradient that diverges from a midpoint. 
+  - The `scale_*_gradient2()` function gives us a blue-red spectrum that passes through white by default. 
+  - We can also re-specify the mid-level color along with the `high` and `low` colors. 
+
+
+```r
+p0 &lt;- ggplot(data = us_states_elec,
+             mapping = aes(x = long, y = lat, group = group, fill = d_points))
+
+p1 &lt;- p0 + geom_polygon(color = "gray90", size = 0.1) +
+    coord_map(projection = "albers", lat0 = 39, lat1 = 45) 
+
+p2 &lt;- p1 + scale_fill_gradient2() + labs(title = "Winning margins") 
+p2 + theme_map() + labs(fill = "Percent")
+```
+
+
+---
+# Draw maps
+### &lt;p style="color:#00449E"&gt; Map U.S. state-level data
+
+- From the `scale_*_gradient2()` function, we can also re-specify the mid-level color along with the `high` and `low` colors. 
+
+
+```r
+p3 &lt;- p1 + scale_fill_gradient2(low = "red", 
+                                mid = scales::muted("purple"),
+                                high = "blue", 
+                                breaks = c(-25, 0, 25, 50, 75)) 
+p3 + theme_map() + labs(fill = "Percent", title = "Winning margins")
+```
+
+
+
+
+---
+# Draw maps
+### &lt;p style="color:#00449E"&gt; Map U.S. state-level data
+
+- If you take a look at the gradient scale for this first “purple America” map, `p3`, you’ll see that it extends very high on the Blue side.
+  - This is because Washington DC is included in the data.
+  
+- If we omit Washington DC, we’ll see that our color scale shifts.
+
+
+```r
+p0 &lt;- ggplot(data = filter(us_states_elec,
+                           region != "district of columbia"),
+             aes(x = long, y = lat, group = group, fill = d_points))
+
+p3 &lt;- p1 + scale_fill_gradient2(low = "red", 
+                                mid = scales::muted("purple"),
+                                high = "blue", 
+                                breaks = c(-25, 0, 25, 50, 75)) 
+p3 + theme_map() + labs(fill = "Percent", title = "Winning margins", caption = "DC is omitted.")
+```
+
+
+
+---
+class: inverse, center, middle
+
+# Choropleth Maps
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+
+
+---
+# Choropleth Maps
+### &lt;p style="color:#00449E"&gt; America’s ur-choropleths
+  
+  - Choropleth maps display divided geographical areas or regions that are colored, shaded or patterned in relation to a data variable.
+
+- County-level US choropleth maps can be aesthetically pleasing, because of the added detail they bring to a national map. 
+
+- The county-level datasets (`county_map` and `county_data`) are included in the `socviz` library.
+
+- The county map data frame, `county_map`, has been processed a little in order to transform it to an *Albers* projection, and also to relocate (and re-scale) Alaska and Hawaii.
+
+
+
+---
+# Choropleth Maps
+### &lt;p style="color:#00449E"&gt; America’s ur-choropleths
+  
+
+```r
+county_map
+
+county_data %&gt;%
+  select(id, name, state, pop_dens, pct_black) %&gt;%
+  sample_n(5)
+
+county_full &lt;- 
+  left_join(county_map, county_data, by = "id")
+```
+
+- The `id` field is the FIPS code for the county.
+
+- `pop_dens` is population density. 
+
+- `pct_black` is percent of African-American population.
+
+- We merge the data frames using the shared FIPS `id` column.
+
+
+
+---
+# Choropleth Maps
+### &lt;p style="color:#00449E"&gt; Map U.S. county-level data 
+
+.panelset[
+.panel[.panel-name[(1)]
+
+```r
+p &lt;- ggplot(data = county_full,
+            mapping = aes(x = long, y = lat,
+                          fill = pop_dens, 
+                          group = group))
+p1 &lt;- p + geom_polygon(color = "gray90", size = 0.05)
+p1
+```
+
+-  `p1` object produces a legible map, but by default it chooses an unordered categorical layout. 
+  - This is because the `pop_dens` variable is not ordered.
+  - `pop_dens` is an un-ordered discrete variable.
+
+]
+
+.panel[.panel-name[(2)]
+
+```r
+p1 + coord_equal()
+```
+
+- The use of `coord_equal()` makes sure that the relative scale of our map does not change even if we alter the overall dimensions of the plot.
+
+]
+
+]
+
+
+
+
+---
+# Choropleth Maps
+### &lt;p style="color:#00449E"&gt; Map U.S. county-level data 
+
+.panelset[
+.panel[.panel-name[(1)]
+
+```r
+p2 &lt;- p1 + scale_fill_brewer(
+  palette = "Blues",
+  labels = c("0-10", "10-50", "50-100", "100-500",
+             "500-1,000", "1,000-5,000", "&gt;5,000"))
+p2
+```
+
+- We can manually supply the right sort of scale using the `scale_fill_brewer()` function, together with a nicer set of labels. 
+
+
+]
+
+.panel[.panel-name[(2)]
+
+```r
+p2 + labs(fill = "Population per\nsquare mile") +
+  theme_map() +
+  guides(fill = guide_legend(nrow = 1)) + 
+  theme(legend.position = "bottom")
+```
+
+- We can also use the `guides()` function to make sure each element of the key in the *legend* appears on the same row. 
+
+]
+
+]
+
+
+
+
+
+---
+# Choropleth Maps
+### &lt;p style="color:#00449E"&gt; Map U.S. county-level data 
+
+- We can now do exactly the same thing for our map of percent African-American population by county. 
+- `pct_black` is an un-ordered factor variable.
+- `table(county_full$pct_black)`
+
+
+```r
+p &lt;- ggplot(data = county_full,
+            mapping = aes(x = long, y = lat, fill = pct_black, 
+                          group = group))
+p1 &lt;- p + geom_polygon(color = "gray90", size = 0.05) + coord_equal()
+p2 &lt;- p1 + scale_fill_brewer(palette="Greens")
+
+p2 + labs(fill = "US Population, Percent Black") +
+  guides(fill = guide_legend(nrow = 1)) + 
+  theme_map() + theme(legend.position = "bottom")
+```
+
+
+
+
+---
+# Choropleth Maps
+### &lt;p style="color:#00449E"&gt; Map U.S. county-level data 
+
+.panelset[
+.panel[.panel-name[pop_dens6]
+
+-  Let's draw a new county-level choropleths.
+    
+  - We have a `pop_dens6` variable that divides the population density into six categories.
+
+  - We will map the color scale to the value of variable.
+]
+
+.panel[.panel-name[Color]
+
+```r
+orange_pal &lt;- RColorBrewer::brewer.pal(n = 6, name = "Oranges")
+orange_pal
+orange_rev &lt;- rev(orange_pal)
+orange_rev
+```
+
+- We use the `RColorBrewer::brewer.pal()` function to manually create two palettes.
+  - The `brewer.pal()` function produces evenly-spaced color schemes. 
+- We use the `rev()` function to reverse the order of a color vector.
+
+
+]
+
+.panel[.panel-name[(1)]
+
+```r
+pop_p &lt;- ggplot(data = county_full,
+            mapping = aes(x = long, y = lat,
+                          fill = pop_dens6, 
+                          group = group))
+
+pop_p1 &lt;- pop_p + geom_polygon(color = "gray90", size = 0.05) +
+  coord_equal()
+pop_p2 &lt;- pop_p1 + scale_fill_manual(values = orange_pal)
+
+pop_p2 + labs(title = "Population Density",
+              fill = "People per square mile") +
+    theme_map() + theme(legend.position = "bottom")
+```
+
+
+]
+
+.panel[.panel-name[(2)]
+
+
+```r
+pop_p2_rev &lt;- pop_p1 + scale_fill_manual(values = orange_rev)
+
+pop_p2_rev + labs(title = "Reverse-coded Population Density",
+              fill = "People per square mile") +
+    theme_map() + theme(legend.position = "bottom")
+```
+
+]
+]
+
+  
+
+  
+
+
+
+
+
+---
+# Choropleth Maps
+### &lt;p style="color:#00449E"&gt; Map U.S. county-level data 
+.panelset[
+.panel[.panel-name[(1)]
+- Let's consider a county map of a continuous variable, such as `per_gop_2016`.
+- Check `class(county_full$per_gop_2016)`.
+
+
+```r
+gop_p &lt;- ggplot(data = county_full,
+                mapping = aes(x = long, y = lat,
+                              fill = per_gop_2016, 
+                              group = group))
+
+gop_p1 &lt;- gop_p + geom_polygon(color = "gray70", size = 0.05) + coord_equal()
+gop_p1
+```
+
+
+]
+
+.panel[.panel-name[scale_fill_gradient*]
+- For a continuous variable, we can use `scale_fill_gradient()`, `scale_fill_gradient2()`, or `scale_fill_gradient2()` function:
+  - `scale_fill_gradient()` produces a two-color gradient.
+- `scale_fill_gradient2()` produces a three-color gradient with specified midpoint.
+- `scale_fill_gradientn()` produces an n-color gradient.
+
+- For `scale_fill_gradient2()`, choose the value and color for `midpoint` carefully.
+
+
+
+]
+
+.panel[.panel-name[(2)]
+
+```r
+gop_p2 &lt;- gop_p1 + scale_fill_gradient2( 
+  low = '#2E74C0',  # from party_colors for DEM
+  mid = '#FFFFFF',  # transparent white
+  high = '#CB454A',  # from party_colors for GOP
+  na.value = "grey50",
+  midpoint = .5)
+
+gop_p2 + labs(title = "US Presidential Election 2016",
+              fill = "Trump vote share") +
+  theme_map() + theme(legend.position = "bottom")
+```
+
+
+]
+
+]
+
+
+
+
+
+
+
+
+---
+# Choropleth Maps
+### &lt;p style="color:#00449E"&gt; Small-multiple maps
+
+.panelset[
+.panel[.panel-name[NY data]
+- Sometimes we have geographical data with repeated observations over time.
+- A common case is to have a country- or state-level measure observed over a period of years (Panel data).
+
+- Let's consider consider the poverty rate determined by level of educational attainment in NY.
+
+
+```r
+NY_socioecon_geo_poverty &lt;- read_csv(
+  'https://bcdanl.github.io/data/NY_socioecon_geo_poverty.csv'
+)
+```
+
+
+]
+
+.panel[.panel-name[viridis]
+
+```r
+library(viridis)
+```
+
+- The `viridis` colors run in low-to-high sequences and combines perceptually uniform colors with easy-to-see, easily-contrasted hues along their scales. 
+
+  - The `scale_fill_viridis_c()` function is for continuous data.
+  - The `scale_fill_viridis_d()` function is for discrete data.
+
+
+]
+
+.panel[.panel-name[map]
+
+```r
+p &lt;- ggplot(data = NY_socioecon_geo_poverty,
+            mapping = aes(x = long, y = lat, group = group, 
+                          fill = c04_058 ))
+  
+p1 &lt;- p + geom_polygon(color = "grey", size = 0.1) +
+    coord_map(projection = "albers", lat0 = 39, lat1 = 45) 
+
+p2 &lt;- p1 + scale_fill_viridis_c(option = "plasma") + theme_map() 
+p2
+```
+
+
+]
+
+.panel[.panel-name[facet]
+
+```r
+p2 + facet_wrap(~ year, ncol = 3) +
+    theme(legend.position = "bottom",
+          strip.background = element_blank()) +
+    labs(fill = "Poverty rate in NY (%)",
+         title = "Poverty rate for the male population 25 years and over \nfor whom the highest educational attainment is bachelor's degree")
+```
+- We facet the maps just like any other small-multiple with `facet_wrap()`. 
+
+
+]
+
+]
+
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Hexbin Maps
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+---
+# Hexbin Maps
+### &lt;p style="color:#00449E"&gt; Statebins 
+
+.panelset[
+.panel[.panel-name[(1)]
+- As an alternative to state-level choropleths, we can consider `statebins`.
+
+
+```r
+library(statebins)  # install.packages("statebins")
+p &lt;- ggplot(election, aes( state = state, fill = pct_trump ) )
+p1 &lt;- p +  geom_statebins(lbl_size = 5,
+                          border_col = "grey90", border_size = 1)
+p2 &lt;- p1 + labs(fill = "Percent Trump") +
+  coord_equal() +
+  theme_statebins( legend_position = c(.45, 1) ) +
+  theme( legend.direction="horizontal" )
+p2
+```
+
+]
+
+.panel[.panel-name[(2)]
+
+```r
+p2 + scale_fill_gradient2( 
+  low = '#2E74C0',  # from party_colors for DEM
+  mid = '#FFFFFF',  # transparent white
+  high = '#CB454A',  # from party_colors for GOP
+  na.value = "grey50",
+  midpoint = 50)   # set the midpoint value
+```
+
+]
+
+]
+
+
+
+
+---
+# Hexbin Maps
+### &lt;p style="color:#00449E"&gt; Statebins 
+
+
+.panelset[
+.panel[.panel-name[(1)]
+- Let's remove DC and use `scale_fill_gradient()`.
+
+```r
+p &lt;- ggplot(data = filter(election, st != "DC")  , 
+            mapping = aes(state = state, fill = pct_clinton)) 
+p1 &lt;- p + geom_statebins(lbl_size = 5,
+                         border_col = "grey90",
+                         border_size = 1)
+```
+
+
+]
+.panel[.panel-name[(2)]
+
+```r
+p2 &lt;- p1 + labs(fill = "Percent Clinton") +
+  coord_equal() +
+  theme_statebins( legend_position = c(.45, 1) ) +
+  theme( legend.direction="horizontal" )
+p2
+
+p2 + scale_fill_gradient( 
+    low = '#FFFFFF',  # transparent white
+    high = '#2E74C0',  # from party_colors for DEM
+    na.value = "grey50")   # set the midpoint value
+```
+
+
+]
+
+]
+
+
+---
+# Hexbin Maps
+### &lt;p style="color:#00449E"&gt; Statebins 
+
+.panelset[
+.panel[.panel-name[(1)]
+- Let's use `scale_fill_manual()` to `fill` color by `party`.
+
+- `legend_position` allows for adjusting a coordinate for the legend position.
+
+
+```r
+p &lt;- ggplot(data = election  , 
+            mapping = aes(state = state, fill = party)) 
+p1 &lt;- p + geom_statebins(lbl_size = 5,
+                         border_col = "grey90",
+                         border_size = 1)
+```
+
+]
+
+.panel[.panel-name[(2)]
+
+
+```r
+p2 &lt;- p1 + labs(fill = "Winner") +
+  coord_equal() +
+  theme_statebins( legend_position = c(.25, 1) ) +
+  theme( legend.direction="horizontal",
+         legend.title = element_text(size=30),
+         legend.text = element_text(size=30) )
+
+p2 + scale_fill_manual( values = c(Republican = "darkred", 
+                                   Democratic = "royalblue"))
+```
+
+]
+
+]
+
+
+
+---
+# Hexbin Maps
+### &lt;p style="color:#00449E"&gt; Statebins 
+
+.panelset[
+.panel[.panel-name[(1)]
+- Let's discretize a continuous variable using `scale_fill_gradient()` with `breaks`.
+
+
+```r
+p &lt;- ggplot(data = election  , 
+            mapping = aes(state = state, fill=pct_trump)) 
+p1 &lt;- p + geom_statebins(lbl_size = 5,
+                         border_col = "grey90",
+                         border_size = 1)
+```
+
+
+
+]
+
+.panel[.panel-name[(2)]
+
+
+```r
+p2 &lt;- p1 + labs(fill = "Percent Trump") +
+  coord_equal() +
+  theme_statebins( legend_position = c(.2, 1) ) +
+  theme( legend.direction="horizontal")
+
+p2 + scale_fill_gradient(breaks = c(5, 21, 41, 48, 57),
+                         labels = c("&lt; 5", "5-21", 
+                                    "21-41", "41-58", "&gt; 57"),
+                         low = "#f9ecec", high = "#CB454A") +
+  guides(fill = guide_legend())
+```
+
+]
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 66px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

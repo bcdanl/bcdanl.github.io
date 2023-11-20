@@ -1187,7 +1187,7 @@
     "href": "ex/danl-399-midterm.html#q1a",
     "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
     "section": "Q1a",
-    "text": "Q1a\n\nReplicate the following ggplot.\n\nUse the color #0072B2 for dots."
+    "text": "Q1a\n\nReplicate the following ggplot.\n\nUse the color #0072B2 for dots.\n\n\n\n# Set the data and filter to include only observations from 2007 and exclude Oceania\nggplot(data = filter(gapminder, year == 2007,\n                     continent != 'Oceania'),\n\n       # Set the aesthetics (x-axis and y-axis) to life expectancy and reorder countries by life expectancy\n       aes(x = lifeExp,\n           y = fct_reorder(country, lifeExp))) +\n\n  # Add a layer of points to the plot, setting the color to blue and size to 1.75\n  geom_point(color = \"#0072B2\", size = 1.75) +\n\n  # Add a layer of text labels to the plot, setting the label to life expectancy, hjust to -.25, and size to 2\n  geom_text(aes(label = lifeExp), hjust = -.25,\n            size = 2) +\n\n  # Facet the plot by continent, with y-scales free\n  facet_wrap(.~continent, scales = \"free_y\") +\n\n  # Set the x-axis label to NULL (no name) and limit the x-axis to 35-90\n  scale_x_continuous(\n    name = NULL,\n    lim = c(35, 90)\n  ) +\n\n  # Set the y-axis label to NULL (no name)\n  scale_y_discrete(name = NULL) +\n\n  # Add a title to the plot\n  labs(title = 'Life expectancy in 2007') +\n\n  # Set the theme to minimal\n  theme_minimal() +\n\n  # Customize theme elements: set the y-axis text size, the plot title size and position, and the facet strip text size and font face\n  theme(\n    axis.text.y = element_text(size = rel(.75)),\n    plot.title = element_text(size = rel(1.5),\n                              hjust = 0.5,\n                              face = 'bold'),\n    strip.text = element_text(size = rel(1.25),\n                              face = 'bold')\n  )"
   },
   {
     "objectID": "ex/danl-399-midterm.html#q1b",
@@ -1201,7 +1201,7 @@
     "href": "ex/danl-399-midterm.html#q2a",
     "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
     "section": "Q2a",
-    "text": "Q2a\n\nReplicate the following ggplot.\n\nThe following describes the type values:\n\nn_ot_us: Number of US tweets\nn_ot_wrld: Number of worldwide tweets\nn_rt_lk_us: Number of US retweets & likes\nn_rt_lk_wrld: Number of worldwide retweets & likes\n\nUse the colors, maroon and #428bca properly."
+    "text": "Q2a\n\nReplicate the following ggplot.\n\nThe following describes the type values:\n\nn_ot_us: Number of US tweets\nn_ot_wrld: Number of worldwide tweets\nn_rt_lk_us: Number of US retweets & likes\nn_rt_lk_wrld: Number of worldwide retweets & likes\n\nUse the colors, maroon and #428bca properly.\n\n\n\n# The following line filters the rows of the n_tweets_long data frame that have a value of \"n_ot_us\" or \"n_ot_wrld\" in the \"type\" column. \n# It then creates a new column called \"type\" that replaces \"n_ot_us\" with \"US\" and \"n_ot_wrld\" with \"Worldwide\".\nn_tweets_long1 <- n_tweets_long %>% \n  filter(type %in% c(\"n_ot_us\", \"n_ot_wrld\") ) %>% \n  mutate(type = ifelse(type == \"n_ot_us\", \"US\", \"Worldwide\"))\n\n\n# The following line filters the rows of the n_tweets_long data frame that have a value of \"n_rt_lk_us\" or \"n_rt_lk_wrld\" in the \"type\" column. \n# It then creates a new column called \"type\" that replaces \"n_rt_lk_us\" with \"US\" and \"n_rt_lk_wrld\" with \"Worldwide\".\nn_tweets_long2 <- n_tweets_long %>% \n  filter(type %in% c(\"n_rt_lk_us\", \"n_rt_lk_wrld\") ) %>% \n  mutate(type = ifelse(type == \"n_rt_lk_us\", \"US\", \"Worldwide\"))\n  \n\n\np2 <- ggplot(mapping = aes(x = year, y = n)) +  # Create a ggplot object with the mapping of the x-axis to the \"year\" variable and y-axis to the \"n\" variable\n  geom_col(n_tweets_long1,  # Add a column chart layer with the \"n_tweets_long1\" data\n           mapping = aes(fill = type),  # Map the \"type\" variable to the fill aesthetic of the chart\n           position = 'dodge', alpha = .67) +  # Set the position of the columns to \"dodge\" and the transparency to 0.67\n  geom_line(n_tweets_long2,  # Add a line chart layer with the \"n_tweets_long2\" data\n            mapping = aes(color = type),  # Map the \"type\" variable to the color aesthetic of the chart\n            size = 1.5) +  # Set the line size to 1.5\n  geom_point(data = n_tweets_long2,  # Add a point chart layer with the \"n_tweets_long2\" data\n             size = 2,  # Set the point size to 2\n             color = 'black')  +  # Set the point color to black\n  scale_x_continuous(breaks = seq(2012, 2017, 1)) +  # Set the x-axis breaks to the sequence from 2012 to 2017 with an interval of 1\n  scale_y_continuous(label = scales::comma) +  # Format the y-axis labels using the comma function from the scales package\n  scale_color_manual(values = c('maroon', '#428bca')) +  # Manually set the color values for the color aesthetic\n  scale_fill_manual(values = c('maroon', '#428bca')) +   # Manually set the color values for the fill aesthetic\n  guides(fill = guide_legend(reverse = TRUE,  # Customize the fill legend guide by reversing the order of the legend, positioning the labels at the bottom, and setting the number of rows to 2 and the key width to 2\n                             # title.position = \"top\",\n                             label.position = \"bottom\",\n                             keywidth = 2,\n                             nrow = 2,\n                             order = 1),\n         color = guide_legend(reverse = TRUE,  # Customize the color legend guide by reversing the order of the legend, positioning the labels at the bottom, and setting the number of rows to 2 and the key width to 2\n                             # title.position = \"top\",\n                             label.position = \"bottom\",\n                             keywidth = 2,\n                             nrow = 2,\n                             order = 2)) +\n  labs(x = \"Year\",  # Add x-axis label \"Year\"\n       y = \"Number of Tweets, Retweets & Likes\\n (in thousand)\",  # Add y-axis label \"Number of Tweets, Retweets & Likes (in thousand)\"\n       fill = \"Tweets\",  # Add fill legend label \"Tweets\"\n       color = \"Retweets and likes\",  # Add color legend label \"Retweets and likes\"\n       caption = 'Source: Choe, \"Social Media Campaigns, Lobbying, and Climate Change Legislation:\\n Evidence from #climatechange/#globalwarming and Energy Lobbies\" (2023)') +  # Add caption with source information\n  theme_ipsum() +  # Use the 'theme_ipsum' theme from the 'ggthemes' package\n  theme(\n  axis.title.y = element_text(\n    size = rel(1.5),\n    margin = margin(t = 0, r = 20, b = 0, l = 0) # set the margin for the y axis title\n  ),\n  axis.title.x = element_text(\n    size = rel(1.5),\n    margin = margin(t = 10, r = 0, b = 0, l = 0) # set the margin for the x axis title\n  ),\n  axis.text.x = element_text(\n    size = rel(1.25) # set the font size for the x axis tick labels\n  ),\n  axis.text.y = element_text(\n    size = rel(1.25) # set the font size for the y axis tick labels\n  ),\n  legend.position = 'top', # set the position of the legend\n  legend.title = element_text(\n    size = rel(1),\n    face = 'bold',\n    hjust = .5 # set the font size, face and horizontal justification for the legend title\n  ),\n  legend.text = element_text(\n    size = rel(1) # set the font size for the legend text\n  ),\n  legend.spacing.x = unit(1.25, \"cm\"), # set the horizontal spacing between legend items\n  plot.caption = element_text(\n    size = rel(1.25),\n    hjust = .5 # set the font size and horizontal justification for the plot caption\n  )\n)\n\n\np2"
   },
   {
     "objectID": "ex/danl-399-midterm.html#q2b.",
@@ -1215,14 +1215,14 @@
     "href": "ex/danl-399-midterm.html#q3a",
     "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
     "section": "Q3a",
-    "text": "Q3a\n\nReplicate the following ggplot."
+    "text": "Q3a\n\nReplicate the following ggplot.\n\n\nggplot(data = electricity,\n       aes(x = year, y = value)) + \n  geom_line(aes(color = energy),\n            linewidth = 1.25) +\n  geom_hline(yintercept = 0) +  \n  geom_vline(xintercept = min(electricity$year)) +\n  facet_wrap(.~ iso3c, \n             labeller = as_labeller(c('CHN' = \"China\",\n                                      \"USA\" = \"United States\"))) +\n  scale_y_comma() +\n  scale_color_viridis_d(option = \"C\") +\n  guides(color = guide_legend(label.position = \"bottom\",\n                             keywidth = 3,\n                             nrow = 1)) +\n  labs(x = \"Year\", y = \"Electricity\\nGeneration\\n(TWh)\",\n       color = \"Energy\") +\n  hrbrthemes::theme_ipsum() +\n  theme(axis.title.y = element_text(size = rel(1.25),\n                                    angle = 0),\n        axis.title.x = element_text(size = rel(1.25),\n                                    angle = 0),\n        strip.background = element_rect(fill = 'grey90',\n                                        colour = NA),\n        legend.position = 'top')"
   },
   {
     "objectID": "ex/danl-399-midterm.html#q3b",
     "href": "ex/danl-399-midterm.html#q3b",
     "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
     "section": "Q3b",
-    "text": "Q3b\n\nReplicate the following ggplot."
+    "text": "Q3b\n\nReplicate the following ggplot.\n\n\nelectricity2 <- electricity %>% \n  group_by(iso3c, year) %>% \n  mutate(tot = sum(value),\n         prop = value / tot)\n\n\nggplot(data = electricity2,\n       aes(x = year, y = prop)) + \n  geom_line(aes(color = energy),\n            linewidth = 1.25) +\n  geom_hline(yintercept = 0) +  \n  geom_vline(xintercept = min(electricity$year)) +\n  facet_wrap(.~ iso3c, \n             labeller = as_labeller(c('CHN' = \"China\",\n                                      \"USA\" = \"United States\"))) +\n  scale_y_percent() +\n  scale_color_viridis_d(option = \"D\") +\n  guides(color = guide_legend(label.position = \"bottom\",\n                              keywidth = 3,\n                              nrow = 1)) +\n  labs(x = \"Year\", y = \"Percentage of\\nElectricity\\nGeneration\\n(TWh)\",\n       color = \"Energy\") +\n  hrbrthemes::theme_ipsum() +\n  theme(axis.title.y = element_text(size = rel(1.25),\n                                    angle = 0),\n        axis.title.x = element_text(size = rel(1.25),\n                                    angle = 0),\n        strip.background = element_rect(fill = 'grey90',\n                                        colour = NA),\n        legend.position = 'top')"
   },
   {
     "objectID": "ex/danl-399-midterm.html#variable-description",
@@ -1236,21 +1236,21 @@
     "href": "ex/danl-399-midterm.html#q4a.",
     "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
     "section": "Q4a.",
-    "text": "Q4a.\n\nAdd the following two variables to starbucks data.frame\n\ncaffeine_mgml: Caffeine in milligrams per mL\ncalories_kcml: Calories KCal per mL"
+    "text": "Q4a.\n\nAdd the following two variables to starbucks data.frame\n\ncaffeine_mgml: Caffeine in milligrams per mL\ncalories_kcml: Calories KCal per mL\n\n\n\nstarbucks1 <- starbucks |> \n  mutate(caffeine_mgml = caffeine_mg / serv_size_m_l,\n         calories_kcml = calories/ serv_size_m_l,\n         .before = 1) %>% \n  select(product_name, size, serv_size_m_l, milk, whip, caffeine_mgml, calories_kcml)"
   },
   {
     "objectID": "ex/danl-399-midterm.html#q4b.",
     "href": "ex/danl-399-midterm.html#q4b.",
     "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
     "section": "Q4b.",
-    "text": "Q4b.\n\nCalculate a mean caffeine_mgml and a mean calories_kcml for each product_name."
+    "text": "Q4b.\n\nCalculate a mean caffeine_mgml and a mean calories_kcml for each product_name.\n\n\nstarbucks2 <- starbucks1 %>% \n  group_by(product_name) %>% \n  summarise(caffeine_mgml = mean(caffeine_mgml, na.rm = T),\n            calories_kcml = mean(calories_kcml, na.rm = T)\n  ) %>% \n  mutate(rank_caffeine = dense_rank(-caffeine_mgml),\n         rank_calories = dense_rank(-calories_kcml)) %>% \n  filter(rank_caffeine <= 10 |rank_calories <= 10 )"
   },
   {
     "objectID": "ex/danl-399-midterm.html#q4c.",
     "href": "ex/danl-399-midterm.html#q4c.",
     "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
     "section": "Q4c.",
-    "text": "Q4c.\n\nFor the top 10 product_name in terms of caffeine_mgml and the top 10 product_name in terms of calories_kcml, replicate the following ggplot.\nUse the following commands for showing texts in the plot:\n\n\n# install.packages(\"showtext\")\nlibrary(showtext)\nshowtext_auto()\nfont_add_google(\"Annie Use Your Telescope\", \"annie\")\n\n\nUse the following annotate() geom to insert the starbucks image in the plot:\n\n\nannotate(\"richtext\", \n           x =  , \n           y =  , \n           label = \"<img src='https://bcdanl.github.io/ex/starbucks.png' width='100'/>\", \n           fill =  ,\n           size =  , \n           color =  )\n\n\nUse the following geom_text_repel() geom to use the annie font\n\n\ngeom_text_repel(max.overlaps = ,\n                  size =  ,\n                  min.segment.length =  ,\n                  point.padding =  ,\n                  box.padding =  ,\n                  show.legend =  ,\n                  family = \"annie\")\n\n\nUse the color, #00704A, for the title."
+    "text": "Q4c.\n\nFor the top 10 product_name in terms of caffeine_mgml and the top 10 product_name in terms of calories_kcml, replicate the following ggplot.\nUse the following commands for showing texts in the plot:\n\n\n# install.packages(\"showtext\")\nlibrary(showtext)\nshowtext_auto()\nfont_add_google(\"Annie Use Your Telescope\", \"annie\")\n\n\nUse the following annotate() geom to insert the starbucks image in the plot:\n\n\nannotate(\"richtext\", \n           x =  , \n           y =  , \n           label = \"<img src='https://bcdanl.github.io/ex/starbucks.png' width='100'/>\", \n           fill =  ,\n           size =  , \n           color =  )\n\n\nUse the following geom_text_repel() geom to use the annie font\n\n\ngeom_text_repel(max.overlaps = ,\n                  size =  ,\n                  min.segment.length =  ,\n                  point.padding =  ,\n                  box.padding =  ,\n                  show.legend =  ,\n                  family = \"annie\")\n\n\nUse the color, #00704A, for the title.\n\n\nstarbucks_caffeine <- starbucks2 %>% filter(rank_caffeine <= 10)\nstarbucks_calories <- starbucks2 %>% filter(rank_calories <= 10)\n\n\nstarbucks2 %>% \n  ggplot(aes(x = calories_kcml, y = caffeine_mgml, \n             color = product_name, label = product_name)) +\n  geom_point(show.legend = FALSE) +\n  geom_rect(aes(xmin = min(starbucks_caffeine$calories_kcml), xmax = max(starbucks_caffeine$calories_kcml), \n                ymin = min(starbucks_caffeine$caffeine_mgml), ymax = max(starbucks_caffeine$caffeine_mgml)),\n            fill = \"#27251F\", \n            alpha = 0.004, color = NA)+\n  geom_rect(aes(xmin = min(starbucks_calories$calories_kcml), xmax = max(starbucks_calories$calories_kcml), \n                ymin = min(starbucks_calories$caffeine_mgml), ymax = max(starbucks_calories$caffeine_mgml)),\n            fill = \"#27251F\", \n            alpha = 0.004, color = NA)+\n  geom_text_repel(max.overlaps = 6,\n                  size = 4,\n                  min.segment.length = 0.1,\n                  point.padding = 0.4,\n                  box.padding = 0.5,\n                  show.legend = FALSE,\n                  family = \"annie\") +\n  annotate(\"richtext\", \n           x = quantile(starbucks2$calories_kcml, probs = .75), \n           y = quantile(starbucks2$caffeine_mgml, probs = .75), \n           label = \"<img src='https://bcdanl.github.io/ex/starbucks.png' width='100'/>\", \n           fill = NA,\n           size = rel(2.25), \n           color = NA) +\n  scale_x_continuous(breaks = seq(0, 1, .2)) +\n  scale_y_continuous(breaks = seq(0, 1, .2)) +\n  labs(y = expression(paste(\"Caffeine (mg mL\"^\"-1\",\")\")), \n       x = expression(paste(\"Calories (Kcal mL\"^\"-1\",\")\")),\n       caption = \"Source: Starbucks Coffee Company Beverage Nutrition Information\",\n       title = \"STARBUCKS DRINKS\",\n       subtitle = \"Caffeine or Calories, which one you would go?\") +\n  theme_ipsum() +\n  theme(plot.title = element_text(color = \"#00704A\",\n                                  face = 'bold',\n                                  size = rel(2.5)),\n        plot.subtitle = element_text(face = 'bold',\n                                  size = rel(1.75)),\n        axis.title.x = element_text(face = 'bold',\n                                  size = rel(1.25)),\n        axis.title.y = element_text(face = 'bold',\n                                  size = rel(1.25)))"
   },
   {
     "objectID": "ex/econ340-cw-6.html",
@@ -1727,138 +1727,5 @@
     "title": "B.H. CHOE",
     "section": "Memberships",
     "text": "Memberships\n\n\n\n\n\n  \n    2022—present \n    Southern Economic Association \n  \n  \n    2018—present \n    Association of Environmental and Resource Economists \n  \n  \n    2017—present \n    American Economic Association \n  \n  \n    2017—2019 \n    Econometric Society"
-  },
-  {
-    "objectID": "ex/econ340-midterm-2-q.html",
-    "href": "ex/econ340-midterm-2-q.html",
-    "title": "Fall 2023 ECON 340 Midterm Exam 2",
-    "section": "",
-    "text": "I solemnly swear that I will not cheat or engage in any form of academic dishonesty during this exam.\nI will not communicate with other students or use unauthorized materials.\nI will uphold the integrity of this exam and demonstrate my own knowledge and abilities.\nBy taking this pledge, I acknowledge that academic dishonesty undermines the academic process and is a violation of the trust placed in me as a student.\nI accept the consequences of any violation of this promise.\n\nStudent’s Name:\nStudent’s ID:\nStudent’s Signature:"
-  },
-  {
-    "objectID": "ex/econ340-midterm-2-q.html#q1a.",
-    "href": "ex/econ340-midterm-2-q.html#q1a.",
-    "title": "Fall 2023 ECON 340 Midterm Exam 2",
-    "section": "Q1a.",
-    "text": "Q1a.\nThe hedonic regression method for measuring non-market benefits uses the change in prices of complementary goods to infer a WTP for a healthier environment.\n\nThe  method for measuring non-market benefits uses the change in prices of complementary goods to infer a WTP for a healthier environment.\n\nAnswer:"
-  },
-  {
-    "objectID": "ex/econ340-midterm-2-q.html#q1b.",
-    "href": "ex/econ340-midterm-2-q.html#q1b.",
-    "title": "Fall 2023 ECON 340 Midterm Exam 2",
-    "section": "Q1b.",
-    "text": "Q1b.\nEngineering cost estimates overstate true social costs to the extent that government involvement:"
-  },
-  {
-    "objectID": "ex/econ340-midterm-2-q.html#q1c.",
-    "href": "ex/econ340-midterm-2-q.html#q1c.",
-    "title": "Fall 2023 ECON 340 Midterm Exam 2",
-    "section": "Q1c.",
-    "text": "Q1c.\n\nProponents of a  standard argue that people have a right to protection from unsolicited damage to their health."
-  },
-  {
-    "objectID": "ex/econ340-midterm-2-q.html#q1d.",
-    "href": "ex/econ340-midterm-2-q.html#q1d.",
-    "title": "Fall 2023 ECON 340 Midterm Exam 2",
-    "section": "Q1d.",
-    "text": "Q1d.\n\nBoth sources and sinks make up  : the inputs that nature provides for our production and consumption proccesses."
-  },
-  {
-    "objectID": "ex/econ340-midterm-2-q.html#q1e.",
-    "href": "ex/econ340-midterm-2-q.html#q1e.",
-    "title": "Fall 2023 ECON 340 Midterm Exam 2",
-    "section": "Q1e.",
-    "text": "Q1e.\n\nGovernment regulation of pollution is one way of  externalities."
-  },
-  {
-    "objectID": "ex/econ340-midterm-2-q.html#q1f.",
-    "href": "ex/econ340-midterm-2-q.html#q1f.",
-    "title": "Fall 2023 ECON 340 Midterm Exam 2",
-    "section": "Q1f.",
-    "text": "Q1f.\nWhat is the definition of Pareto efficieny?\nAnswer:"
-  },
-  {
-    "objectID": "ex/econ340-midterm-2-q.html#q1g.",
-    "href": "ex/econ340-midterm-2-q.html#q1g.",
-    "title": "Fall 2023 ECON 340 Midterm Exam 2",
-    "section": "Q1g.",
-    "text": "Q1g.\nWhat does Coase Theorem says?\nAnswer:"
-  },
-  {
-    "objectID": "ex/econ340-midterm-2-q.html#q1h.",
-    "href": "ex/econ340-midterm-2-q.html#q1h.",
-    "title": "Fall 2023 ECON 340 Midterm Exam 2",
-    "section": "Q1h.",
-    "text": "Q1h.\nWhat are the definitions of the willingness to pay (WTP) and the willingness to accept (WTA) for environmental quality?\nAnswer:"
-  },
-  {
-    "objectID": "ex/econ340-midterm-2-q.html#q1i.",
-    "href": "ex/econ340-midterm-2-q.html#q1i.",
-    "title": "Fall 2023 ECON 340 Midterm Exam 2",
-    "section": "Q1i.",
-    "text": "Q1i.\nA “tragedy of the commons” occurs for resources like the air that are commonly owned\n\nbecause users weigh the full social costs against private benefits.\nwhen there is free access to the resource.\nwhen there is effective regulation of resource use.\nwhen the population is small and stable.\nbecause users internalize the negative externality associated with the resource use."
-  },
-  {
-    "objectID": "ex/econ340-midterm-2-q.html#q1j.",
-    "href": "ex/econ340-midterm-2-q.html#q1j.",
-    "title": "Fall 2023 ECON 340 Midterm Exam 2",
-    "section": "Q1j.",
-    "text": "Q1j.\n\nEconomists use survey approaches for measuring the benefits of environmental protections called . The four possible errors in these survey estimates are:"
-  },
-  {
-    "objectID": "ex/econ340-midterm-2-q.html#q2a.",
-    "href": "ex/econ340-midterm-2-q.html#q2a.",
-    "title": "Fall 2023 ECON 340 Midterm Exam 2",
-    "section": "Q2a.",
-    "text": "Q2a.\n\nUnder the sustainability standard, what is the socially optimal level of \\(h^{o}\\)?\n\nThe social welfare function \\(SW\\) under the sustainability standard is given by:\n\n\n\\[\n\\begin{align}\nSW = U_{1} + \\frac{1}{1+\\delta}U_{2},\n\\end{align}\n\\] where \\(\\delta >0\\) is the rate of pure time preference.\nAnswer:"
-  },
-  {
-    "objectID": "ex/econ340-midterm-2-q.html#q2b.",
-    "href": "ex/econ340-midterm-2-q.html#q2b.",
-    "title": "Fall 2023 ECON 340 Midterm Exam 2",
-    "section": "Q2b.",
-    "text": "Q2b.\nProvide economic intuition on how the Social Planner in Q2a chooses \\(h^{o}\\).\nAnswer:"
-  },
-  {
-    "objectID": "ex/econ340-midterm-2-q.html#q2c.",
-    "href": "ex/econ340-midterm-2-q.html#q2c.",
-    "title": "Fall 2023 ECON 340 Midterm Exam 2",
-    "section": "Q2c.",
-    "text": "Q2c.\nDerive the market level \\(h^{*}\\) of the activity that results if choosing it is left up to the first generation, and show that this level differs from \\(h^{o}\\) in Q2a.\nAnswer:"
-  },
-  {
-    "objectID": "ex/econ340-midterm-2-q.html#q2d.",
-    "href": "ex/econ340-midterm-2-q.html#q2d.",
-    "title": "Fall 2023 ECON 340 Midterm Exam 2",
-    "section": "Q2d.",
-    "text": "Q2d.\nSuppose now that the sustainable government intervenes in the situation by imposing a tax on \\(h\\).\n\nHere is what happens with the tax revenue:\n\nGovernment forces the first generation to pay a per-unit tax \\(t\\) on \\(h\\), and to distribute the tax revenue \\(th\\) in some “lump-sum” fashion back to the first generation, giving \\(L\\) to the first generation.\n\nDerive the optimal level of the tax—the level that will induce the first generation to choose \\(h^{o}\\) rather than \\(h^{*}\\).\n\nAssume that the government anticipates the first generation’s response to the tax.\n\n\nAnswer:"
-  },
-  {
-    "objectID": "ex/econ340-midterm-2-q.html#q2e.",
-    "href": "ex/econ340-midterm-2-q.html#q2e.",
-    "title": "Fall 2023 ECON 340 Midterm Exam 2",
-    "section": "Q2e.",
-    "text": "Q2e.\n\nHow does the per-unit tax \\(t^{*}\\) change with the rate of pure time preference \\(\\delta\\)?\nProvide economic intuition on how the per-unit tax changes with the rate of pure time preference.\n\nAnswer:"
-  },
-  {
-    "objectID": "ex/econ340-midterm-2-q.html#q3a.",
-    "href": "ex/econ340-midterm-2-q.html#q3a.",
-    "title": "Fall 2023 ECON 340 Midterm Exam 2",
-    "section": "Q3a.",
-    "text": "Q3a.\nAnswer:"
-  },
-  {
-    "objectID": "ex/econ340-midterm-2-q.html#q3b.",
-    "href": "ex/econ340-midterm-2-q.html#q3b.",
-    "title": "Fall 2023 ECON 340 Midterm Exam 2",
-    "section": "Q3b.",
-    "text": "Q3b.\nAnswer:"
-  },
-  {
-    "objectID": "ex/econ340-midterm-2-q.html#q3c.",
-    "href": "ex/econ340-midterm-2-q.html#q3c.",
-    "title": "Fall 2023 ECON 340 Midterm Exam 2",
-    "section": "Q3c.",
-    "text": "Q3c.\nAnswer:"
   }
 ]
