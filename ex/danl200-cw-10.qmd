@@ -1,0 +1,214 @@
+---
+title: "R Lab 3 - Pivoting"
+author: "Byeong-Hak Choe"
+
+execute: 
+  eval: false
+  echo: false
+  warning: false
+  message: false
+  fig-width: 9
+---
+
+```{r setup}
+#| include: false
+#| eval: true
+
+library(tidyverse)
+library(ggthemes)
+library(hrbrthemes)
+library(skimr)
+
+
+theme_set(theme_ipsum() +
+          theme(strip.background =element_rect(fill="lightgray")))
+
+
+```
+
+## Loading R packages
+
+```{r, eval = F, echo = T}
+library(tidyverse)
+library(skimr)
+```
+
+# Question 1 - Billboard Charts
+
+The following data is for Question 1:
+
+```{r, echo = T, eval = T, message=F}
+billboard <- read_csv('https://bcdanl.github.io/data/billboard.csv')
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(billboard) 
+```
+
+<br><br>
+
+
+## Q1a
+
+-   Describe how the distribution of rating varies across week 1, week 2, and week 3 using the **faceted** histogram.
+
+```{r}
+# making billboard longer
+billboard_long <- billboard %>% 
+  pivot_longer(cols = starts_with('wk'),
+               names_to = 'week',
+               values_to = 'rating')
+
+# ggplot
+ggplot( data = filter(billboard_long,
+                      week %in% c('wk1','wk2','wk3')),
+        aes(x = rating) ) +
+  geom_histogram(bins = 75) +
+  facet_wrap(week ~., ncol = 1)
+```
+
+<br>
+
+## Q1b
+
+-   Which artist(s) have the most number of tracks in `billboard` data.frame?
+
+  - Do not double-count an artist's tracks if they appear in multiple weeks.
+
+```{r}
+q1b <- billboard_long %>% 
+  select(artist, track) %>% 
+  distinct() %>% 
+  group_by(artist) %>% 
+  count() %>% 
+  arrange(-n)
+```
+
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(q1b) 
+```
+
+
+<br><br><br>
+
+# Question 2 - Average Personal Income in NY Counties
+
+The following data is for Question 2:
+
+```{r, echo = T, eval = T, message=F}
+ny_pincp <- read_csv('https://bcdanl.github.io/data/NY_pinc_wide.csv')
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(ny_pincp) 
+```
+
+<br><br>
+
+
+## Q2a
+Make `ny_pincp` longer.
+
+```{r}
+ny_pincp_long <- ny_pincp %>% 
+  pivot_longer(cols = starts_with('pincp'),
+               names_to = 'year',
+               values_to = 'pincp')
+```
+
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(ny_pincp_long) 
+```
+
+
+## Q2b
+Provide both (1) ggplot code and (2) a simple comment to describe how overall the yearly trend of NY counties' average personal incomes are.
+
+```{r}
+ny_pincp_long2 <- ny_pincp_long %>% 
+  separate(year, into = c('tmp', 'year'), sep = 'pincp') %>% 
+  mutate(year = as.integer(year)) %>% 
+  select(-tmp) %>% 
+  filter(fips != 36000)  # which is state-level average income
+```
+
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(ny_pincp_long2) 
+```
+
+
+```{r}
+ggplot(ny_pincp_long2,
+       aes(x = year, y = pincp)) +
+  geom_line(aes(group = geoname),
+            alpha = .1 ) +
+  geom_smooth(method = lm) +
+  geom_smooth(color = 'red')
+```
+
+<br><br><br>
+
+# Question 3 - COVID-19 Cases
+
+The following data is for Question 3:
+
+```{r, echo = T, eval = T, message=F}
+covid <- read_csv('https://bcdanl.github.io/data/covid19_cases.csv')
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(covid) 
+```
+
+<br><br>
+
+
+## Q3a
+- Keep only the following three variables, `date`, `countriesAndTerritories`, and `cases`.
+
+- Then make a wide-form data.frame of `covid` whose variable names are from `countriesAndTerritories` and values are from `cases`.
+
+- Then drop the variable `date`.
+
+```{r}
+covid_wide <- covid %>%
+  select(date, countriesAndTerritories, cases) %>%
+  pivot_wider(names_from = countriesAndTerritories,
+              values_from = cases) %>% 
+  select(-date)
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(covid_wide) 
+```
+
+<br>
+
+## Q3b
+
+- Use the wide-form data.frame of `covid` to find the top 10 countries in terms of the correlation between their cases and the `USA` case. 
+  - Use `cor(data.frame)`, which returns a matrix.
+  - Then convert it to data.frame using `as.data.frame(matrix)`
+
+```{r}
+covid_cor <- as.data.frame( cor(covid_wide) )  
+```
+
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(covid_cor) 
+```
+
+```{r}
+covid_cor_us <- covid_cor %>% 
+  select(USA) %>% 
+  arrange(-USA)
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(covid_cor_us) 
+```
+

@@ -1,0 +1,203 @@
+---
+title: "ECON 340: Classwork 11 - Price vs. Quantity<br>Example Answers"
+date: 2023-12-01
+execute: 
+  echo: false
+  eval: true
+  warning: false
+  message: false
+---
+
+```{r}
+#| include: false
+
+library(tidyverse)
+library(hrbrthemes)
+
+
+theme_set(
+  theme_ipsum() +
+  theme(legend.position = "top",
+        legend.title = element_text(face = "bold"),
+        legend.background = element_rect(size = 0.5, 
+                                         linetype = 1, 
+                                         color = "lightgray"),
+        strip.background = element_rect(fill = "#c78ebe"),
+        strip.text = element_text(size = rel(1)),
+        axis.title.x = element_text(size = rel(1.5),
+                                    margin = margin(7.5,0,0,0)),
+        axis.title.y = element_text(size = rel(1.5),
+                                    angle = 0,
+                                    margin = margin(0,7.5,0,0))
+                )
+          )
+
+```
+
+
+<br><br><br>
+
+
+Suppose that the (external) damage done by polluting goods $Q$ is known to be $MD = 300 + 5Q$, and the (private) cost and benefit are given by $MC = 100 + 2Q$ and $MB = D_{0} + 2Q$, where $D_{0}$ is not precisely known.
+
+
+## Q1a.
+If $D_{0} = 1,000$, what would be the optimal quantity? What tax would be necessary in order for that to be the equilibrium quantity?
+
+<br>
+
+**Answer**:
+
+Setting $MB = MC + MD$ gives
+
+$$
+1000 - 2Q = (100 + 2Q) + (300 + 5Q)
+$$
+Therefore, $Q^{*} = \frac{200}{3}$.
+
+The tax that will result in the socially optimal level of pollution is set so that $t^{*} = MD(Q^{*}) = 300 + 5Q^{*} = \frac{1900}{3}$.
+
+<br><br>
+
+## Q1b.
+Suppose that, based on the result from Q1a, a cap-and-trade system is imposed to allow the optimal quantity of pollution to be produced. If $D_{0} = 900$, what would be the deadweight loss associated with having the wrong quantity?
+
+<br>
+
+**Answer**:
+
+
+Setting $MB = MC + MD$ gives
+
+$$
+900 - 2Q = (100 + 2Q) + (300 + 5Q)
+$$
+Therefore, $Q^{o} = \frac{500}{9}$.
+
+```{r}
+library(tidyverse)
+q <- seq(0,125,5)
+md <- 300 + 5*q
+mc <- 100 + 2*q
+
+d0 <- 900
+mb <- d0 - 2*q
+mb_wrong <- 1000 - 2*q
+  
+df <- data.frame(
+  MC = mc,
+  MD = md,
+  MSC = mc + md,
+  MB = mb,
+  MB_wrong = mb_wrong,
+  q = q
+) %>% 
+  pivot_longer(MSC:MB_wrong,
+               values_to = "val",
+               names_to = "fn")
+
+ggplot(df,
+       aes(x = q, y = val)) +
+  geom_line(aes(color = fn)) +
+  geom_vline(xintercept = 200/3, linetype = 2) +
+  geom_polygon(data = data.frame(x = c(200/3, 200/3, 500/9),
+                                 y = c(1000-400/3, 900-400/3, 900-1000/9)),
+               aes(x = x, y = y),
+               fill = 'grey'
+               ) +
+  labs(x = "Q", y = "P", color = "Functions") +
+  hrbrthemes::theme_ipsum() +
+  theme(axis.title.y = element_text(angle = 0))
+```
+MSC represents the marginal social cost, which is MC + MD.
+
+The DWL is:
+$$
+\begin{align}
+DWL_{q} &= \frac{1}{2}\times (1000 - 900) \times \left(\frac{200}{3} - \frac{500}{9}\right)\\
+&= \frac{5000}{9}
+\end{align}
+$$
+
+<br><br>
+
+## Q1c.
+Suppose that, based on the result from part Q1a, a tax is imposed to allow the optimal quantity of pollution to be produced. If $D_{0} = 900$, what would be the deadweight loss associated with having the wrong tax level?
+
+<br>
+
+**Answer**:
+
+
+Given $t = \frac{1900}{3}$ from Q1a, the firm will set $MB = MC + t$:
+
+$$
+900 - 2Q = 100 + 2Q + \frac{1900}{3}.
+$$
+
+Therefore, $Q = \frac{125}{3}$ 
+
+
+```{r}
+library(tidyverse)
+q <- seq(0,125,5)
+md <- 300 + 5*q
+mc <- 100 + 2*q
+
+d0 <- 900
+mb <- d0 - 2*q
+mb_wrong <- 1000 - 2*q
+  
+df <- data.frame(
+  MC = mc,
+  MD = md,
+  MSC = mc + md,
+  MB = mb,
+  MB_wrong = mb_wrong,
+  q = q
+) %>% 
+  pivot_longer(MSC:MB_wrong,
+               values_to = "val",
+               names_to = "fn")
+
+ggplot(df,
+       aes(x = q, y = val)) +
+  geom_line(aes(color = fn)) +
+  geom_vline(xintercept = 125/3, linetype = 2) +
+  # geom_hline(yintercept = 1900/3, linetype = 2) +
+  geom_polygon(data = data.frame(x = c(125/3, 125/3, 500/9),
+                                 y = c(900-250/3, 400+7*125/3, 900-1000/9)),
+               aes(x = x, y = y),
+               fill = 'grey'
+               ) +
+  labs(x = "Q", y = "P", color = "Functions") +
+  hrbrthemes::theme_ipsum() +
+  theme(axis.title.y = element_text(angle = 0))
+```
+
+The DWL is:
+$$
+\begin{align}
+DWL_{p} &= \frac{1}{2}\times \left(900 - 2\frac{125}{3} - \left(400 + 7\frac{125}{3}\right)\right) \times \left(\frac{500}{9} - \frac{125}{3}\right)\\
+&= \frac{1}{2}\times 125 \times \frac{125}{9}\\
+&= \frac{5^6}{2\times3^{2}}
+\end{align}
+$$
+<br><br>
+
+
+
+## Q1d.
+If $D_{0}$ is not exactly known, which is likely to give better results, a cap-and-trade system or a tax? What would be the answer to this question if the marginal damage were $300 + 3Q$ instead of $300 + 5Q$?
+
+<br>
+
+**Answer**:
+
+- If you try other values for $D_{0}$, you will find that the DWL is always higher for the tax than cap-and-trade, except when $D_{0} = 1,000$.
+
+- Because the marginal damage varies so much with quantity, the correct level for the tax is more sensitive to $D_{0}$ than the correct amount of pollution to allow is.
+
+- If marginal damages are $MD = 300 + 3Q$, the situation reverses; in that situation, marginal damages vary less with quantity and can be more precisely estimated than the correct quantity can.
+
+
