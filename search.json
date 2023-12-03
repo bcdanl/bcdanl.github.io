@@ -1923,5 +1923,40 @@
     "title": "B.H. CHOE",
     "section": "Memberships",
     "text": "Memberships\n\n\n\n\n\n  \n    2022—present \n    Southern Economic Association \n  \n  \n    2018—present \n    Association of Environmental and Resource Economists \n  \n  \n    2017—present \n    American Economic Association \n  \n  \n    2017—2019 \n    Econometric Society"
+  },
+  {
+    "objectID": "ex/danl200-hw-5.html",
+    "href": "ex/danl200-hw-5.html",
+    "title": "DANL 200: Homework Assignment 5",
+    "section": "",
+    "text": "Provide the username of your GihtHub account.\nEnsure that your GitHub repository, YOUR_GITHUB_USERNAME.github.io, public.\nUpdate your website, https://YOUR_GITHUB_USERNAME.github.io/index.html, in a way that\n\nInclude (\n\n LinkedIn\n\n)\nShows your profile picture, not the below one"
+  },
+  {
+    "objectID": "ex/danl200-hw-5.html#variable-description",
+    "href": "ex/danl200-hw-5.html#variable-description",
+    "title": "DANL 200: Homework Assignment 5",
+    "section": "Variable Description",
+    "text": "Variable Description\n\n\nhh: an identifier of the household;\nX_purchase_desc: details on the purchased item;\nquantity: the number of items purchased;\nbrand: Bud Light, Busch Light, Coors Light, Miller Lite, or Natural Light;\ndollar_spent: total dollar value of purchase;\nbeer_floz: total volume of beer, in fluid ounces;\nprice_per_floz: price per fl.oz. (i.e., beer spent/beer floz);\ncontainer: the type of container;\npromo: Whether the item was promoted (coupon or otherwise);\nmarket: Scan-track market (or state if rural);\ndemographic data, including gender, marital status, household income, class of work, race, education, age, the size of household, and whether or not the household has a microwave or a dishwasher."
+  },
+  {
+    "objectID": "ex/danl200-hw-5.html#q2a",
+    "href": "ex/danl200-hw-5.html#q2a",
+    "title": "DANL 200: Homework Assignment 5",
+    "section": "Q2a",
+    "text": "Q2a\n\nFind the top 5 markets in terms of the total beer_floz.\nFind the top 5 markets in terms of the total beer_floz of BUD LIGHT.\nFind the top 5 markets in terms of the total beer_floz of BUSCH LIGHT.\nFind the top 5 markets in terms of the total beer_floz of COORS LIGHT.\nFind the top 5 markets in terms of the total beer_floz of MILLER LITE.\nFind the top 5 markets in terms of the total beer_floz of NATURAL LIGHT.\n\n\nQ2a1 <- beer_mkts %>% \n   group_by(market) %>% \n   summarize(beer_floz_tot = sum(beer_floz, na.rm = T)) %>% \n   arrange(-beer_floz_tot) %>% \n   slice(1:5)\n\nQ2a_bud <- beer_mkts %>% \n  filter(brand == \"BUD LIGHT\") %>% \n  group_by(market) %>% \n  summarize(beer_floz_tot = sum(beer_floz, na.rm = T)) %>% \n  arrange(-beer_floz_tot) %>% \n  slice(1:5)\n\nQ2a_busch <- beer_mkts %>% \n  filter(brand == \"BUSCH LIGHT\") %>% \n  group_by(market) %>% \n  summarize(beer_floz_tot = sum(beer_floz, na.rm = T)) %>% \n  arrange(-beer_floz_tot) %>% \n  slice(1:5)\n\nQ2a_coors <- beer_mkts %>% \n  filter(brand == \"COORS LIGHT\") %>% \n  group_by(market) %>% \n  summarize(beer_floz_tot = sum(beer_floz, na.rm = T)) %>% \n  arrange(-beer_floz_tot) %>% \n  slice(1:5)\n\nQ2a_miller <- beer_mkts %>% \n  filter(brand == \"MILLER LITE\") %>% \n  group_by(market) %>% \n  summarize(beer_floz_tot = sum(beer_floz, na.rm = T)) %>% \n  arrange(-beer_floz_tot) %>% \n  slice(1:5)\n\nQ2a_natural <- beer_mkts %>% \n  filter(brand == \"NATURAL LIGHT\") %>% \n  group_by(market) %>% \n  summarize(beer_floz_tot = sum(beer_floz, na.rm = T)) %>% \n  arrange(-beer_floz_tot) %>% \n  slice(1:5)"
+  },
+  {
+    "objectID": "ex/danl200-hw-5.html#q2b",
+    "href": "ex/danl200-hw-5.html#q2b",
+    "title": "DANL 200: Homework Assignment 5",
+    "section": "Q2b",
+    "text": "Q2b\n\nFor households that purchased BUD LIGHT at least once, what fraction of households did purchase only BUD LIGHT?\nFor households that purchased BUSCH LIGHT at least once, what fraction of households did purchase only BUSCH LIGHT?\nFor households that purchased COORS LIGHT at least once, what fraction of households did purchase only COORS LIGHT?\nFor households that purchased MILLER LITE at least once, what fraction of households did purchase only MILLER LITE?\nFor households that purchased NATURAL LIGHT at least once, what fraction of households did purchase only NATURAL LIGHT?\nWhich beer brand does have the largest proportion of such loyal consumers?\n\n\nq2b <- beer_mkts %>% \n  mutate(bud = ifelse(brand==\"BUD LIGHT\", 1, 0), # 1 if brand==\"BUD LIGHT\"; 0 otherwise\n         busch = ifelse(brand==\"BUSCH LIGHT\", 1, 0),\n         coors = ifelse(brand==\"COORS LIGHT\", 1, 0),\n         miller = ifelse(brand==\"MILLER LITE\", 1, 0),\n         natural = ifelse(brand==\"NATURAL LIGHT\", 1, 0),\n         .after = hh) %>% \n  select(hh:natural) %>%  # select the variables we need\n  group_by(hh) %>% \n  summarise(n_transactions = n(), # number of beer transactions for each hh\n            n_bud = sum(bud), # number of BUD LIGHT transactions for each hh\n            n_busch = sum(busch), \n            n_coors = sum(coors), \n            n_miller = sum(miller), \n            n_natural = sum(natural) \n  ) %>% \n  summarise(loyal_bud = sum(n_transactions == n_bud) / sum(n_bud > 0), \n              # sum(n_transactions == n_bud) : the number of households that purchased BUD LIGHT only\n              # sum(n_bud > 0) : the number of households that purchased BUD LIGHT at least once.\n            loyal_busch = sum(n_transactions == n_busch) / sum(n_busch > 0),\n            loyal_coors = sum(n_transactions == n_coors) / sum(n_coors > 0),\n            loyal_miller = sum(n_transactions == n_miller) / sum(n_miller > 0),\n            loyal_natural = sum(n_transactions == n_natural) / sum(n_natural > 0)\n  )\n\nq2b\n\n# A tibble: 1 × 5\n  loyal_bud loyal_busch loyal_coors loyal_miller loyal_natural\n      <dbl>       <dbl>       <dbl>        <dbl>         <dbl>\n1     0.660       0.473       0.639        0.631         0.510"
+  },
+  {
+    "objectID": "ex/danl200-hw-5.html#q2c",
+    "href": "ex/danl200-hw-5.html#q2c",
+    "title": "DANL 200: Homework Assignment 5",
+    "section": "Q2c",
+    "text": "Q2c\n\nFor each household, calculate the number of beer transactions.\nFor each household, calculate the proportion of each beer brand choice.\n\n\nq2c <- beer_mkts %>% \n  count(hh, brand) %>% \n  group_by(hh) %>% \n  mutate(n_tot = sum(n)) %>%  # n_tot : the number of beer transactions\n  arrange(hh, brand) %>% \n  mutate( prop = n / n_tot ) # prop: the proportion of each beer brand choice\n\nq2c\n\n# A tibble: 13,202 × 5\n# Groups:   hh [10,408]\n        hh brand           n n_tot  prop\n     <dbl> <chr>       <int> <int> <dbl>\n 1 2000235 BUD LIGHT       1     1 1    \n 2 2000417 COORS LIGHT     8     8 1    \n 3 2000711 COORS LIGHT    13    13 1    \n 4 2000946 BUD LIGHT       1     2 0.5  \n 5 2000946 MILLER LITE     1     2 0.5  \n 6 2001521 BUD LIGHT       6    11 0.545\n 7 2001521 COORS LIGHT     3    11 0.273\n 8 2001521 MILLER LITE     2    11 0.182\n 9 2001531 BUSCH LIGHT     1     1 1    \n10 2001581 BUSCH LIGHT     5     5 1    \n# ℹ 13,192 more rows"
   }
 ]
