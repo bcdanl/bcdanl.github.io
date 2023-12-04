@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>DANL 200 Lecture 36</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Byeong-Hak Choe" />
+    <meta name="date" content="2023-12-04" />
+    <script src="libs/header-attrs-2.25/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/clipboard-2.0.6/clipboard.min.js"></script>
+    <link href="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-clipboard-0.2.6/xaringanExtra-clipboard.js"></script>
+    <script>window.xaringanExtraClipboard(null, {"button":"Copy Code","success":"Copied!","error":"Press Ctrl+C to Copy"})</script>
+    <script src="libs/xaringanExtra-webcam-0.0.1/webcam.js"></script>
+    <script id="xaringanExtra-webcam-options" type="application/json">{"width":"200","height":"200","margin":"1em"}</script>
+    <script src="libs/js-cookie-3.0.0/js.cookie.js"></script>
+    <script src="libs/peerjs-1.3.1/peerjs.min.js"></script>
+    <script src="libs/tiny.toast-1.0.0/toast.min.js"></script>
+    <link href="libs/xaringanExtra-broadcast-0.2.6/broadcast.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-broadcast-0.2.6/broadcast.js"></script>
+    <link href="libs/shareon-1.4.1/shareon.min.css" rel="stylesheet" />
+    <script src="libs/shareon-1.4.1/shareon.min.js"></script>
+    <link href="libs/xaringanExtra-shareagain-0.2.6/shareagain.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-shareagain-0.2.6/shareagain.js"></script>
+    <link href="libs/xaringanExtra-extra-styles-0.2.6/xaringanExtra-extra-styles.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/nhsr.css" type="text/css" />
+    <link rel="stylesheet" href="css/nhsr-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide, left, bottom
+
+# DANL 200 Lecture 36
+----
+## **DANL 200: Introduction to Data Analytics**
+### Byeong-Hak Choe
+### December 04, 2023
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Getting Started with Quarto
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+---
+# Getting Started with Quarto
+### &lt;p style="color:#00449E"&gt; Workflow &lt;/p&gt;
+
+- Check out the following references:
+  - Quarto template (`quarto-template.qmd`) and the PDF file of useful markdown syntax (`markdown-reference.pdf`) are uploaded in Quarto Module in Brightspace.
+  - [Quarto HTML Documents](https://quarto.org/docs/output-formats/html-basics.html)
+  - [Quarto Websites](https://quarto.org/docs/websites/)
+
+
+
+---
+# Must-know Quarto Shortcuts
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+.pull-left[
+### Mac
+
+  - **option+command+I**: to create a R chunk
+  
+  - **command+shift+return**: to run the code in the R chunk
+  
+  - **command + shift + K**: to render/knit the Quarto file
+  
+  - **command + shift + C**: to (de-)comment out a line in the Quarto file
+
+
+]
+
+.pull-left[
+### Windows
+
+  - **Alt+Ctrl+I** : to create a R chunk
+  
+  - **Ctrl+Shift+Enter** : to run the code in the R chunk
+  
+  - **Ctrl + Shift + K**: to knit/render the Quarto file
+  
+  - **Ctrl + Shift + C**: to (de-)comment out a line in the Quarto file
+
+
+]
+
+---
+# Must-know `git` commands
+### &lt;p style="color:#00449E"&gt; 3-step `git` operations &lt;/p&gt;
+
+
+.panelset[
+.panel[.panel-name[git commands]
+
+- To update your website, make changes from your local RStudio, and then push the files to your GitHub repository.
+
+  - On Terminal within RStudio, execute the following three `git` commands one by one:
+
+
+```r
+git add .
+git commit -m “ANY_MASSAGE”
+git push -u origin main
+```
+
+]
+
+.panel[.panel-name[f &amp; master]
+
+- If `git push -u origin main` gives error, try either of the following:
+
+```r
+# 'f' is 'force' option; 'main' is the default branch
+git push -f origin main 
+
+# 'u' is 'update' option; someone can have 'master' as the default branch
+git push -u origin master 
+```
+]
+
+]
+
+
+---
+# Quarto Websites
+### &lt;p style="color:#00449E"&gt; Rendering &lt;/p&gt;
+
+- The **Render** button (**command/Ctrl + shift + K**) renders a single Quarto file.
+
+- `quarto render` from Terminal renders all Quarto files in your local working directory:
+
+
+```r
+quarto render
+```
+
+- We should use `quarto render` when we have changes in `_quarto.yml`.
+  - Use the tab key to adjust indention levels in `_quarto.yml` or YAML header in a Quarto script
+
+
+- Make changes only from your local laptop. Do not make any change from the GitHub repo webpage.
+
+
+---
+# ggplot `labs()`
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+
+- We can use `labs()` to specify labels in ggplot:
+
+
+```r
+ggplot() + 
+  ... +
+  labs(x = "...",
+       y = "...",
+       color = "...",
+       fill = "...",
+       caption = "...",
+       title = "...",
+       subtitle = "...")
+```
+
+
+
+
+---
+# ggplot `scale_*_*()`
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+- `ggthemes` package provides the following scales for `color` and `fill`:
+  - `scale_color_tableau()` and `scale_fill_tableau()`
+  - `scale_color_economist()` and `scale_fill_economist()`
+  - `scale_color_wsj()` and `scale_fill_wsj()`
+  - `scale_color_fivethirtyeight()` and `scale_fill_fivethirtyeight()`
+
+
+- `hrbrthemes` package provides the following scales for `x` and `y`:
+  - `scale_x_comma()` and `scale_y_comma()` to add comma to every 3 digits.
+  - `scale_x_percent()` and `scale_y_percent()` to use percent scales.
+
+
+
+---
+class: inverse, center, middle
+
+# Quarto Blogs
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+---
+# Quarto Blogs
+### &lt;p style="color:#00449E"&gt;  &lt;/p&gt;
+
+- To change the title of a Quarto blog, change the title in YAML header in `blog-listing.qmd` file:
+
+
+```r
+---
+title: "Insightful Analytics&lt;br&gt;&lt;br&gt;"
+listing:
+  contents: posts
+  ...
+---
+```
+
+
+---
+# Quarto Blogs
+### &lt;p style="color:#00449E"&gt; Adding a new blog post &lt;/p&gt;
+
+- The `posts` directory includes blogs posts.
+  - Each blog post has individual sub-directory.
+
+
+- To post a new blog, do the followings from your File Explorer/Finder:
+  - Step 0. Go inside the `posts` directory.
+  - Step 1. Copy and paste one entire blog sub-directory.
+  - Step 2. Rename the sub-directory that you pasted.
+  - Step 3. Go inside the renamed sub-directory.
+  - Step 4. Keep the `*.qmd` file, and delete everything else.
+  - Step 5. Rename the `*.qmd` file.
+  - Step 6. Open the renamed `*.qmd` file from RStudio.
+
+
+
+
+---
+# Quarto Blogs
+### &lt;p style="color:#00449E"&gt; Removing a blog post &lt;/p&gt;
+
+- To remove a blog post, delete the corresponding sub-directory in the `posts` directory.
+
+
+- A reference for Quarto blog website is available here:
+  - [https://quarto.org/docs/ websites/website-blog.html](https://quarto.org/docs/websites/website-blog.html)
+
+
+
+---
+class: inverse, center, middle
+
+# Tidy Data
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+  
+
+
+---
+# Tidy Data
+### &lt;p style="color:#00449E"&gt; What are tidy data? &lt;/p&gt;
+
+- There are three rules which make a dataset tidy:
+
+  1. Each **variable** must have its own *column*.
+  2. Each **observation** must have its own *row*.
+  3. Each **value** must have its own *cell*.
+
+
+&lt;img src="lec_figs/tidy-1.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Tidy data
+
+- We can represent the same underlying data in multiple ways. 
+
+
+```r
+library(tidyverse)
+table1
+table2
+table3
+
+# Spread across two tibbles
+table4a  # cases
+table4b
+```
+
+
+---
+class: inverse, center, middle
+
+# Pivoting
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+  
+
+---
+# Pivoting
+
+
+- The first step is always to figure out what form of the *variables* and *observations* we need. 
+
+- The second step is to resolve one of two common problems:
+
+  - One variable might be spread across *multiple columns*.
+
+  - One observation might be scattered across *multiple rows*.
+
+- To fix these problems, we may need the two most important functions in the `tidyr` package: `pivot_longer()` and `pivot_wider()`.
+
+
+
+
+---
+# Pivoting
+### &lt;p style="color:#00449E"&gt; Longer
+
+- Some of the *column names* are not names of variables, but **values** of a variable.
+
+
+```r
+table4a
+```
+
+- We use `pivot_longer()` when a variable might be spread across *multiple columns*.
+
+
+---
+# Pivoting
+### &lt;p style="color:#00449E"&gt; Longer
+
+- To tidy a dataset like `table4a`, we need to pivot the offending columns into a new pair of variables.
+
+- To use `pivot_longer()`, we need to the following three parameters:
+  - The *set of columns* (`cols`) whose names are values, not variables.
+  - The name of the variable to move the column *names to* (`names_to`).
+  - The name of the variable to move the column *values to* (`values_to`).
+
+
+```r
+table4a %&gt;% 
+  pivot_longer(cols = c(`1999`, `2000`), 
+               names_to = "year", 
+               values_to = "cases")
+```
+
+
+
+---
+# Pivoting
+### &lt;p style="color:#00449E"&gt; Longer
+&lt;img src="lec_figs/tidy-9.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Pivoting
+### &lt;p style="color:#00449E"&gt; Wider
+
+- One observation might be scattered across *multiple rows*.
+
+
+```r
+table2
+```
+
+- We use `pivot_wider()` when an observation is scattered across multiple rows.
+
+
+---
+# Pivoting
+### &lt;p style="color:#00449E"&gt; Wider
+
+- To use `pivot_wider()`, we need two parameters:
+  - The column to take variable *names from*.
+  - The column to take *values from*.
+
+- We can add the optimal parameter, `names_prefix`, for the prefix of column names.
+
+
+```r
+table2
+table2 %&gt;%
+    pivot_wider(names_from = type, values_from = count)
+```
+
+
+---
+# Pivoting
+### &lt;p style="color:#00449E"&gt; Wider
+&lt;img src="lec_figs/tidy-8.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: inverse, center, middle
+
+# Separating and Uniting
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+  
+
+---
+# Separating and Uniting
+### &lt;p style="color:#00449E"&gt;`separate`
+
+- `table3` has one column (`rate`) that contains two variables (`cases` and `population`).
+
+- `separate()` takes the name of the column to separate, and the names of the columns to separate into.
+
+
+```r
+table3
+
+table3 %&gt;% 
+  separate(rate, into = c("cases", "population"))
+```
+
+
+---
+# Separating and Uniting
+### &lt;p style="color:#00449E"&gt;`separate`
+
+- If we want to use a specific chracter to seprate a column, we can pass the character to the `sep` parameter.
+
+
+
+```r
+table3 %&gt;% 
+  separate(rate, into = c("cases", "population"), sep = "/")
+```
+
+
+---
+# Separating and Uniting
+### &lt;p style="color:#00449E"&gt;`separate`
+
+- By default, `separate()` leaves the type of the column as is.
+
+
+```r
+table3 %&gt;% 
+  separate(rate, into = c("cases", "population"))
+```
+
+
+---
+# Separating and Uniting
+### &lt;p style="color:#00449E"&gt;`separate`
+
+- `separate()` will interpret the integers as positions to split at.
+
+  - We can also pass a vector of integers to `sep`.
+  
+  - `separate()` will interpret the integer as positions to split at.
+
+
+
+```r
+table3 %&gt;% 
+  separate(year, into = c("century", "year"), sep = 2)
+```
+
+
+
+---
+# Separating and Uniting
+### &lt;p style="color:#00449E"&gt; `unite`
+
+- `unite()` combines multiple columns into a single column. 
+
+- The default will place an underscore (`_`) between the values from different columns.
+
+
+
+```r
+table5 %&gt;% 
+  unite(new, century, year)
+  
+table5 %&gt;% 
+  unite(new, century, year, sep = "")
+```
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Data Assembly
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+---
+# Data Assembly
+
+- `rbind()` can row-bind data.frames.
+- `cbind()` can column-bind data.frames.
+
+
+```r
+df1 &lt;- data.frame(id = 1:3, 
+                  name = c("Alice", "Bob", "Charlie")
+                  )
+df2 &lt;- data.frame(id = 4:6, 
+                  name = c("Dave", "Eve", "Frank")
+                  )
+
+df_rbind &lt;- rbind(df1, df2)
+df_cbind &lt;- cbind(df1, df2) # better to rename id before cbind()
+```
+
+
+---
+# Data Assembly
+
+- `rbind()` does not work if the two data.frames have different names of columns.
+
+
+```r
+df1 &lt;- data.frame(id1 = 1:3, 
+                  name = c("Alice", "Bob", "Charlie")
+                  )
+df2 &lt;- data.frame(id2 = 4:6, 
+                  name = c("Dave", "Eve", "Frank")
+                  )
+
+df_rbind &lt;- rbind(df1, df2)
+```
+
+
+---
+# Data Assembly
+
+- `cbind()` does not work if the two data.frames have different numbers of rows.
+
+
+```r
+df1 &lt;- data.frame(id1 = 1:5, 
+                  name = c("Alice", "Bob", "Charlie", "Dan", "Eva")
+                  )
+df2 &lt;- data.frame(id2 = 6:8, 
+                  name = c("Dave", "Eve", "Frank")
+                  )
+
+df_cbind &lt;- cbind(df1, df2)
+```
+
+
+
+
+---
+class: inverse, center, middle
+
+# Relational Data
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+---
+# Relational data
+
+
+- It's rare that a data analysis involves only a single data frame.
+
+- Collectively, multiple data frames are called *relational data*.
+
+-  To work with relational data, we need verbs that work with pairs of data frames. 
+
+  - **join** methods add new variables to one data frame from matching observations in another data frame.
+
+
+---
+# Relational data
+### &lt;p style="color:#00449E"&gt; `nycflights13`
+
+- `nycflights13` contains four data frames that are related to the data frame, `flights`, that we used in data transformation.
+
+
+
+```r
+library(nycflights13)
+flights
+airlines
+airports
+planes
+weather
+```
+
+
+---
+# Relational data
+### &lt;p style="color:#00449E"&gt; `nycflights13`
+
+- `flights` connects to ...
+
+- `planes` via a single variable, `tailnum`.
+
+- `airlines` through the `carrier` variable.
+
+- `airports` in two ways: via the `origin` and `dest` variables.
+
+- `weather` via `origin` (the location), and `year`, `month`, `day` and `hour` (the time).
+
+
+
+---
+# Relational data
+### &lt;p style="color:#00449E"&gt; `nycflights13`
+
+&lt;img src="lec_figs/relational-nycflights.png" width="66%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+# Relational data
+### &lt;p style="color:#00449E"&gt; Key variables
+
+- A **key** variable (or a set of key variables) is a variable (or a set of variables) that uniquely identifies an observation.
+
+  - So, a key variable (or a set of key variables) is used to connect relational data.frames.
+  
+  - The name of a key variable can be different across relational data.frames.
+
+
+
+
+
+---
+# Relational data
+### &lt;p style="color:#00449E"&gt;   &lt;/p&gt; 
+
+- A join allows us to combine two data frames via key variables. 
+  - It first matches observations by their keys, then copies across variables from one data.frame to the other.
+
+
+&lt;table class=" lightable-paper table table-hover table-condensed" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; margin-left: auto; margin-right: auto; font-family: sans-serif, helvetica, arial; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Tidyverse &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; SQL &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; left &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; left outer &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Keep all the observations from the left &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; right &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; right outer &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Keep all the observations from the right &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; full &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; full outer &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Keep all the observations from both left and right &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;font-weight: bold;border-right:1px solid;"&gt; inner &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; inner &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Keep only the observations whose key values exist in both &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+---
+# Relational data
+### &lt;p style="color:#00449E"&gt; Joins
+
+&lt;img src="lec_figs/join-setup.png" width="20%" style="display: block; margin: auto;" /&gt;
+
+.pull-left[
+
+```r
+x &lt;- tribble(
+  ~key, ~val_x,
+     1, "x1",
+     2, "x2",
+     3, "x3" )
+```
+]
+.pull-right[
+
+```r
+y &lt;- tribble(
+  ~key, ~val_y,
+     1, "y1",
+     2, "y2",
+     4, "y3" )
+```
+]
+
+- The colored column represents the "key" variable.
+- The grey column represents the "value" column.
+
+
+
+---
+# Joins
+### &lt;p style="color:#00449E"&gt; 
+
+.panelset[
+.panel[.panel-name[inner]
+- An **inner join** matches pairs of observations whenever their keys are equal:
+
+&lt;img src="lec_figs/join-inner.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+join_inner &lt;- x %&gt;% 
+  inner_join(y)
+```
+
+
+]
+
+.panel[.panel-name[left]
+
+- A **left join** keeps all observations in `x`.
+
+&lt;img src="lec_figs/join-left.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+join_left &lt;- x %&gt;% 
+  left_join(y)
+```
+
+- The most commonly used join is the left join.
+]
+
+
+.panel[.panel-name[right]
+
+- A **right join** keeps all observations in `y`.
+
+&lt;img src="lec_figs/join-right.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+join_right &lt;- x %&gt;% 
+  right_join(y)
+```
+
+]
+
+
+.panel[.panel-name[full]
+
+- A **full join** keeps all observations in `x` and `y`.
+
+&lt;img src="lec_figs/join-full.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+join_full &lt;- x %&gt;% 
+  full_join(y)
+```
+
+]
+
+]
+
+
+
+
+
+---
+# Joins
+### &lt;p style="color:#00449E"&gt; Duplicate keys
+
+.panelset[
+.panel[.panel-name[Relations]
+- Relations between data.frames could be ...
+  - One-to-one;
+  - One-to-many (e.g., `airlines` and `airports`);
+  - Many-to-one;
+  - Many-to-many (e.g., `flights` and `airplanes`).
+
+
+- One-to-many relation is such that one data.frame has duplicate keys
+- Many-to-many relation is such that both data.frames have duplicate keys.
+  - In practice, it is recommended to avoid joining data.frames with many-to-many relation.
+
+
+]
+.panel[.panel-name[one-to-many]
+.pull-left[
+&lt;img src="lec_figs/join-one-to-many.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+.pull-left[
+
+```r
+x &lt;- tribble(
+  ~key, ~val_x,
+     1, "x1",
+     2, "x2",
+     2, "x3",
+     1, "x4")
+```
+
+]
+.pull-right[
+
+```r
+y &lt;- tribble(
+  ~key, ~val_y,
+     1, "y1",
+     2, "y2")
+
+x %&gt;% 
+  left_join(y)
+```
+
+]
+]
+
+]
+
+.panel[.panel-name[many-to-many]
+
+.pull-left[
+&lt;img src="lec_figs/join-many-to-many.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+.pull-right[
+.pull-left[
+
+```r
+x &lt;- tribble(
+  ~key, ~val_x,
+     1, "x1",
+     2, "x2",
+     2, "x3",
+     3, "x4" )
+```
+
+]
+
+.pull-right[
+
+```r
+y &lt;- tribble(
+  ~key, ~val_y,
+     1, "y1",
+     2, "y2",
+     2, "y3",
+     3, "y4" )
+
+x %&gt;% 
+  left_join(y)
+```
+]
+
+]
+]
+
+]
+
+
+
+
+---
+# Joins
+### &lt;p style="color:#00449E"&gt; Defining the key columns
+
+- `by = "a"`: uses only variable `a`.
+- `by = c("a" = "b")`: match variable `a` in data frame `x` to variable `b` in data frame `y`.
+
+.pull-left[
+
+```r
+flights2 %&gt;% 
+  left_join(weather)
+  
+flights2 %&gt;% 
+  left_join(planes, 
+            by = "tailnum")
+```
+]
+
+.pull-right[
+
+```r
+flights2 %&gt;% 
+  left_join(airports, 
+            c("dest" = "faa"))
+  
+flights2 %&gt;% 
+  left_join(airports, 
+            c("origin" = "faa"))
+```
+]
+
+
+
+---
+class: inverse, center, middle
+
+# Factors
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+---
+# Factors
+### &lt;p style="color:#00449E"&gt; Creating factors
+
+- In `R`, factors are categorical variables, variables that have a fixed and known set of possible values.
+
+
+```r
+x1 &lt;- c("Dec", "Apr", "Jan", "Mar")
+```
+
+- Using a string to record variable `x1` has two problems:
+  1. There are only twelve possible months, and there's nothing saving us from typos.
+  2. It doesn't sort in a useful way.
+
+
+```r
+x2 &lt;- c("Dec", "Apr", "Jam", "Mar")
+sort(x1)
+```
+
+
+---
+# Factors
+### &lt;p style="color:#00449E"&gt; Creating factors with `factor()`
+
+- We can fix both of these problems with `factor()`. 
+- To create a factor, we must start by creating a list of the valid `levels`.
+- Any values not in the set will be silently converted to `NA`.
+- If we omit the `levels`, they'll be taken from the data in alphabetical order:
+
+.pull-left[
+
+```r
+months &lt;- c(
+  "Jan", "Feb", "Mar", "Apr", 
+  "May", "Jun", "Jul", "Aug", 
+  "Sep", "Oct", "Nov", "Dec")
+x1 &lt;- 
+  c("Dec", "Apr", "Jan", "Mar")
+y1 &lt;- factor(x1, 
+             levels = months)
+sort(y1)
+```
+]
+
+.pull-right[
+
+```r
+x2 &lt;- 
+  c("Dec", "Apr", "Jam", "Mar")
+
+y2 &lt;- factor(x2, 
+             levels = months)
+y2
+
+factor(x1)
+```
+]
+
+
+
+
+---
+# Factors
+### &lt;p style="color:#00449E"&gt; Creating factors with `factor()`
+
+-  Sometimes we'd prefer that the order of the levels match the order of the first appearance in the data. 
+
+- We can do that when creating the factor by setting levels to `unique()`.
+
+- If we ever need to access the set of valid levels directly, we can do so with `levels()`.
+
+
+```r
+x1
+
+f1 &lt;- factor(x1, levels = unique(x1))
+f1
+
+levels(f1)
+```
+
+
+---
+# Factors
+### &lt;p style="color:#00449E"&gt; General Social Survey
+
+- We're going to focus on the data frame, `forcats::gss_cat`.which is a sample of data from the General Social Survey.
+
+- When factors are stored in a data frame, we can see them with `count()`.
+
+
+```r
+gss_cat
+
+gss_cat %&gt;%
+  count(race)
+```
+
+
+---
+# Factors
+### &lt;p style="color:#00449E"&gt; Modifying factor order
+
+- It's often useful to change the order of the factor levels in a visualization.
+
+- Imagine we want to explore the average number of hours spent watching TV per day across `relig`:
+
+.pull-left[
+
+```r
+relig_summary &lt;- gss_cat %&gt;%
+  group_by(relig) %&gt;%
+  summarize(
+    age = mean(age, na.rm = T),
+    tvhours = mean(tvhours, na.rm = T),
+    n = n()
+  )
+```
+]
+.pull-right[
+
+```r
+ggplot(relig_summary, 
+       aes(x = tvhours, y = relig)) + 
+  geom_point()
+```
+]
+
+
+
+---
+# Factors
+### &lt;p style="color:#00449E"&gt; Modifying factor order
+
+- We can reorder the levels using `fct_reorder(f, x, fun)`, which can take three arguments.
+
+- `f`: the factor whose levels we want to modify.
+- `x`: a numeric vector that we want to use to reorder the levels.
+- Optionally, `fun`: a function that's used if there are multiple values of `x` for each value of `f`. The default value is *median*.
+
+
+
+
+
+```r
+relig_summary %&gt;%
+  mutate(relig = fct_reorder(relig, tvhours)) %&gt;%
+  ggplot(aes(x = tvhours, y = relig)) + 
+  geom_point()
+```
+
+
+
+
+
+---
+# Factors
+### &lt;p style="color:#00449E"&gt; Modifying factor order
+
+- We can use `relevel()` to set the first level (*reference level*). 
+- `relevel(x, ref = ...)` takes at least the two arguments: 
+  - `x`: factor variable 
+  - `ref`: reference level or first level
+  
+.pull-left[
+
+```r
+rincome_summary &lt;- gss_cat %&gt;%
+  group_by(rincome) %&gt;%
+  summarize(
+    age = mean(age, na.rm = T),
+    tvhours = mean(tvhours, na.rm = T),
+    n = n()
+  )
+```
+
+]
+
+.pull-right[
+
+```r
+ggplot(rincome_summary, 
+       aes(x = age, y = fct_reorder(rincome, age) ) )  + 
+  geom_point()
+
+ggplot(rincome_summary, 
+       aes(x = age, 
+           y = relevel(rincome, 
+                   "Not applicable") ) ) +
+  geom_point()
+```
+
+]
+
+
+
+---
+class: inverse, center, middle
+
+# Strings
+&lt;html&gt;&lt;div style='float:left'&gt;&lt;/div&gt;&lt;hr color='#EB811B' size=1px width=796px&gt;&lt;/html&gt;
+
+
+---
+# Strings
+### &lt;p style="color:#00449E"&gt; Combining strings
+
+- To count the length of string, use `str_length()`.
+- To combine two or more strings, use `str_c()`:
+
+- To control how strings are separated, add the `sep`.
+- To collapse a vector of strings into a single string, add the `collapse`.
+
+
+```r
+str_length(c("a", "R for data science", NA))
+str_c("x", "y", "z")
+str_c(c("x", "y", "z"), sep = ", ")
+str_c("prefix-", c("a", "b", "c"), "-suffix")
+str_c(c("x", "y", "z"), collapse = ", ")
+```
+
+
+---
+# Strings
+### &lt;p style="color:#00449E"&gt; Subsetting strings
+
+- We can extract parts of a string using `str_sub()`:
+
+- `str_sub()` takes `start` and `end` arguments which give the position of the substring:.
+
+
+
+```r
+x &lt;- c("Apple", "Banana", "Pear")
+str_sub(x, 1, 3)
+
+# negative numbers count backwards from end
+str_sub(x, -3, -1)
+```
+
+
+
+
+---
+# Strings
+### &lt;p style="color:#00449E"&gt; Matching a pattern of strings
+
+- To determine if a character vector matches a pattern, use `str_detect()`.
+- `str_count()` tells us how many matches there are in a string.
+- `str_replace()` and `str_replace_all()` allow us to replace matches with new strings.
+- `str_replace_all()` can perform multiple replacements by supplying a named vector.
+
+
+```r
+x &lt;- c("apple", "banana", "pear")
+
+str_detect(x, "e")
+str_count(x, "a")
+str_replace(x, "a", "-")
+str_replace_all(x, "a", "-")
+```
+
+---
+# Strings
+### &lt;p style="color:#00449E"&gt; Splitting strings
+
+- Use `str_split()` to split a string up into pieces. 
+
+
+
+```r
+sentences %&gt;%
+  head(5) %&gt;% 
+  str_split(" ")
+```
+
+
+---
+# Dates and times
+### &lt;p style="color:#00449E"&gt; Creating date/times
+
+- To get the current date or date-time we can use `today()` or `now()`.
+- The `lubridate` functions are a combination of `y`, `m`, `d`, `h`, `m`, and `s`.
+
+.pull-left[
+
+```r
+today()
+now()
+```
+]
+.pull-right[
+
+```r
+ymd("2017-01-31")
+[?]("January 31st, 2017")
+[?]("31-Jan-2017")
+
+[?](20170131)
+
+[?]("2017-01-31 20:11:59")
+[?]("01/31/2017 08:01")
+
+[?](20170131, [?] = "UTC")
+```
+]
+
+
+
+---
+# Dates and times
+### &lt;p style="color:#00449E"&gt; Creating date/times
+
+- To create a date/time from individual components, use `make_date()` for dates, or `make_datetime()` for date-times:
+
+
+
+
+```r
+flights %&gt;% 
+  select(year, month, day, hour, minute)
+  
+flights %&gt;% 
+  select(year, month, day, hour, minute) %&gt;% 
+  mutate(departure = [?](year, month, day, hour, minute))
+  
+flights %&gt;% 
+  select(year, month, day, hour, minute) %&gt;% 
+  mutate(departure = [?](year, month, day))
+```
+
+
+
+---
+# Dates and times
+### &lt;p style="color:#00449E"&gt; Creating date/times
+
+- We can visualize time series data using `lubridate` functions.
+
+
+```r
+flights_dt %&gt;% 
+  ggplot(aes(dep_time)) + 
+  geom_freqpoly(binwidth = 86400) # 86400 seconds = 1 day
+  
+flights_dt %&gt;% 
+  filter(dep_time &lt; ymd(20130102)) %&gt;% 
+  ggplot(aes(dep_time)) + 
+  geom_freqpoly(binwidth = 600) # 600 s = 10 minutes
+```
+
+
+
+
+---
+# Dates and times
+### &lt;p style="color:#00449E"&gt; Creating date/times
+
+- `as_datetime()` and `as_date()` switch between a date-time and a date.
+
+
+```r
+[?](today())
+[?](now())
+```
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "googlecode",
+"highlightLines": true,
+"highlightLanguage": "r",
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<!--Hat-tip: https://www.garrickadenbuie.com/blog/xaringan-tip-logo-all-slides/-->
+<style>
+.logo {
+  background-image: url(img/logo-blue.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 66px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

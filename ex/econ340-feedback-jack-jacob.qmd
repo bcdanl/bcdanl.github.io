@@ -1,0 +1,97 @@
+---
+title: "ECON 340: Team Project"
+author: 
+  - Jack Gramlich
+  - Jacob Vogel
+  - <i>Feedback provided by</i> Byeong-Hak Choe
+date: 2023-12-03
+execute: 
+  echo: false
+  eval: true
+  warning: false
+  message: false
+---
+
+# Feedback
+
+- Include a brief summary on the references you guys have.
+
+- For empirical part of your research, you guys may need more data.
+  - If you guys do not think you can finish it by the due, it is okay to do instead literature review regarding the objectives/problems.
+  - It is okay not to to obtain additional data. You guys can focus on what you can do with data you guys have. 
+  
+- Provide additional details on the economic model and theoretical analysis approach.
+
+- The following materials may help proceed your research:
+  - Joshua Linn, *Can State-Level Regulations Help Reduce National Emissions from Passenger Vehicles?* (2023) [*[Link]*](https://www.resources.org/common-resources/can-state-level-regulations-help-reduce-national-emissions-from-passenger-vehicles/)
+  - Joshua Linn, *How Much Do Regulations for Fuel Economy and Emissions Incentivize the Production of Larger Vehicles?* (2023) [*[Link]*](https://www.resources.org/common-resources/how-much-do-regulations-for-fuel-economy-and-emissions-incentivize-the-production-of-larger-vehicles/)
+  - Joshua Linn, *Emissions Standards and Electric Vehicle Targets for Passenger Vehicles*, Springer (2023) [*[Link]*](https://bcdanl.github.io/pdfs/econ-340-jack-jacob-ref.pdf)
+
+
+
+# Suggested Economic Model
+
+## Consumer
+
+Taking the prices of clean and dirty passenger vehicles $p_{c}$ and $p_{d}$ as given, consumer maximizes her utility by choosing a numeraire good $x$, amount of clean/dirty passenger vehicles $v_{c}$ and $v_{d}$:
+
+$$
+\begin{align}
+\max_{x, v_{c}, v_{d}}\, U &= x + u_{c}(v_{c}) + u_{d}(v_{d})\\
+\text{subject to }\; Y &= x + p_{c}v_{c} + p_{d}v_{d}
+\end{align}
+$$
+
+## Vehicle firm
+
+- Vehicle firm produces clean and dirty vehicles, respectively.
+
+- Vehicle firm's total cost of producing clean/dirty vehicles consists of production cost $C_{i}(v_{i})$ and emission abatement cost $E_{i}(v_{i})$:
+
+$$
+\begin{align}
+TC_{c} &= C_{c}(v_{c}) + E_{c}(v_{c}) \\
+TC_{d} &= C_{d}(v_{d}) + E_{d}(v_{d}),
+\end{align}
+$$
+
+where $E_{c}'(v) < E_{d}'(v)$ for any level of vehicle production $v$.
+
+- Taking the vehicle prices $p_{c}$ and $p_{d}$ as given, the vehicle producer maximizes its profit by choosing how much to produce clean/dirty vehicles $v_{c}$ and $v_{d}$:
+$$
+\begin{align}
+\max_{v_{c}, v_{d}}\;\Pi &=  p_{c}v_{c} + p_{d}v_{d} - C_{c}(v_{c})  - C_{d}(v_{d}) - E_{c}(v_{c})  - E_{d}(v_{d})
+\end{align}
+$$
+
+
+
+## Vehicle Market
+
+In the vehicle market, the vehicle prices $p_{c}$ and $p_{d}$ are such that the supply and the demand for clean/dirty vehicles are met:
+
+$$
+\begin{align}
+u_{c}'(v_{c}) &= C_{c}'(v_{c}) + E_{c}'(v_{c})\\
+u_{d}'(v_{d}) &= C_{d}'(v_{d}) + E_{d}'(v_{d})
+\end{align}
+$$
+
+## Social planner
+- Social planner maximizes social welfare, which takes into account the damage caused by dirty vehicle, as a function of $v_{d}$
+
+$$
+\begin{align}
+\max_{v_{c}, v_{d}}\;SW &= U + \Pi - D\\
+&= Y + u_{c}(v_{c}) + u_{d}(v_{d}) - C_{c}'(v_{c}) - E_{c}'(v_{c}) - C_{d}'(v_{d}) - E_{d}'(v_{d}) - D(v_{d}),
+\end{align}
+$$
+where the damage $D(v_{d})$ increases with $v_{d}$ at an increasing rate.
+
+
+## Government
+- Government can consider various policies:
+  - Tax dirty vehicles
+  - Subsidy clean vehicles
+  - Setting stricter emission standards to dirty vehicles
+
