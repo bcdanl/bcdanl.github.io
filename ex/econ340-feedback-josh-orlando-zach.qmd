@@ -41,22 +41,22 @@ The proposal presents a compelling and significant research topic with a clear o
 ## Power plant
 - Power plant uses either clean energy or dirty energy to produce electricity ($e$).
 
-- Power plant has a continuum of plants, and she can freely adjust its relative proportion of dirty and clean plant, $\gamma$ and $1-\gamma$, respectively.
+- Power plant has a continuum of plants, and she can freely adjust its relative proportion of dirty and clean electricity, $\gamma$ and $1-\gamma$, respectively.
 
 - Power plant's total cost of producing electricity from dirty/clean energies consist of variable costs ( $C_{d}(e)$ and $C_{c}(e)$ ) and fixed costs ( $F_{c}$ and $F_{d}$ ):
 
 $$
 \begin{align}
-TC_{d} &= C_{d}(e) + F_{d}\\
-TC_{c} &= C_{c}(e) + F_{c}
+TC_{d} &= C_{d}(\gamma\times e) + F_{d}\\
+TC_{c} &= C_{c}((1-\gamma)\times e) + F_{c}
 \end{align}
 $$
 
 - Taking the electricity price $s$ as given, the power plant maximizes its profit by choosing how much to produce electricity $e$ and the proportion of dirty energy power plant ( $\gamma \in [0,1]$  ):
 $$
 \begin{align}
-\max_{e, \gamma}\;\Pi_{e} &= \gamma\left(\, s e - TC_{d}(e) \,\right) + (1 - \gamma)\left(\, s e - TC_{c}(e) \,\right)\\
-&= se - \gamma\, TC_{d}(e)  - (1 - \gamma)\, TC_{c}(e)
+\max_{e, \gamma}\;\Pi_{e} &=  s e - TC_{d}(\gamma \times e)  - TC_{c}((1 - \gamma)\times e) \\
+ &=  s e - C_{d}(\gamma \times e)  - C_{c}((1 - \gamma)\times e) - F_{c} - F_{d}
 \end{align}
 $$
 
@@ -82,20 +82,21 @@ $$
 In the electricity market, the electricity price $s$ is such that the supply and the demand for electricity are met:
 
 $$
-v'(e) = \gamma C_{d}'(e) + (1 - \gamma) C_{c}'(e)
+v'(e) = \gamma C_{d}'(\gamma \times e) + (1 - \gamma) C_{c}'((1-\gamma)\times e)
 $$
 
 
 ## Social planner
-- Social planner maximizes social welfare, which takes into account the damage caused by greenhouse gas emissions from dirty power plant, as a function of $\gamma$
+- Social planner maximizes social welfare, which takes into account the damage caused by greenhouse gas emissions from dirty power plant, as a function of the amount of electricity produced by dirty power plant
 
 $$
 \begin{align}
 \max_{e,\gamma}\;SW &= \Pi_{e} + U - D\\
-&= Y + v(e) - \gamma\, TC_{d}(e)  - (1 - \gamma)\, TC_{c}(e)  - D(\gamma),
+&= Y - F_{c} - F_{d} \\
+&\quad+ v(e) - \, C_{d}(\gamma\times e)  - \, C_{c}((1 - \gamma)\times e)  - D(\gamma\times e),
 \end{align}
 $$
-where the damage $D(\gamma)$ increases with $\gamma$ at an increasing rate.
+where the damage $D(\gamma\times e)$ increases with $\gamma \times e$ at an increasing rate.
 
 
 ## Government
