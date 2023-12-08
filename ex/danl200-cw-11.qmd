@@ -1,0 +1,139 @@
+---
+title: "DANL 200 - Classwork 11 - Joins"
+author: "Byeong-Hak Choe"
+---
+
+```{r setup, include = FALSE}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(ggthemes)
+library(ggthemr)
+library(hrbrthemes)
+library(hexbin)
+library(ggforce)
+library(skimr)
+
+knitr::opts_chunk$set(fig.width=8, fig.height=5)  
+
+theme_set(theme_ipsum() +
+          theme(strip.background =element_rect(fill="lightgray")))
+
+
+```
+
+## Loading R packages
+
+```{r, eval = T, echo = T}
+library(tidyverse)
+library(nycflights13)
+library(skimr)
+```
+
+
+# Question 1
+
+
+Consider the following example DataFrames.
+```{r}
+student_data1 <- data.frame(
+  student_id = c('S1', 'S2', 'S3', 'S4', 'S5'),
+  name = c('Danniella Fenton', 'Ryder Storey', 'Bryce Jensen', 'Ed Bernal', 'Kwame Morin'),
+  marks = c(200, 210, 190, 222, 199)
+)
+
+student_data2 <- data.frame(
+  student_id = c('S4', 'S5', 'S6', 'S7', 'S8'),
+  name = c('Scarlette Fisher', 'Carla Williamson', 'Dante Morse', 'Kaiser William', 'Madeeha Preston'),
+  marks = c(201, 200, 198, 219, 201)
+)
+
+```
+
+
+
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(student_data1)
+```
+
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(student_data2)
+```
+
+
+<br>
+
+## Q1a
+Write a R code to join the two given data.frames along **rows** and assign all data.
+
+
+<br>
+
+
+## Q1b
+Write a R code to join the two given data.frames along **columns** and assign all data.
+
+
+
+<br><br><br>
+
+# Question 2
+
+Consider the three data.frames `flights`, `airports`, and `airlines` from the `nycflights13` package.
+
+
+- `flights` data.frame
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(flights)
+```
+
+```{r}
+colnames(flights)  # returns column names in the flights data.frame
+```
+
+- `airports` data.frame
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(airports)
+```
+
+```{r}
+colnames(airports)  
+```
+
+
+- `airlines` data.frame
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(airlines)
+```
+
+```{r}
+colnames(airlines)
+```
+
+<br>
+
+## Q2a
+
+Join `flights` with `airports`, so that we can see information about each flight's destination airport in the `flights` data.frame.
+
+
+
+<br>
+
+## Q2b
+
+Find the full name of the airline that has the longest positive `dep_delay` on average.
+
+
+
+<br>
+
+## Q2c
+
+Find the full name of the airline that has the largest proportion of flights with longer than 30-minute `dep_delay`.
+
+
+
