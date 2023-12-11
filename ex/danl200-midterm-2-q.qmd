@@ -1,0 +1,449 @@
+---
+title: "Fall 2023 DANL 200 Midterm Exam 2 - Questions"
+# subtitle: "Version 1"
+author: "Byeong-Hak Choe"
+institute: "SUNY Geneseo"
+date: "2023-11-17"
+
+format: 
+  html:
+    code-fold: true      
+    code-summary: "Show the code"
+
+execute:
+  echo: true
+  eval: true
+  message: false
+  warning: false
+---
+```{r, include=F}
+library(tidyverse)
+library(skimr)
+library(lubridate)
+library(hrbrthemes)
+
+knitr::opts_chunk$set(fig.width=9, fig.height=7)  
+
+theme_set(
+  theme_ipsum() +
+  theme(legend.position = "top",
+        legend.title = element_text(face = "bold"),
+        legend.background = element_rect(size = 0.5, 
+                                         linetype = 1, 
+                                         color = "lightgray"),
+        strip.background = element_rect(fill = "#c78ebe"),
+        strip.text = element_text(size = rel(1)),
+        axis.title.x = element_text(size = rel(1.5),
+                                    margin = margin(7.5,0,0,0)),
+        axis.title.y = element_text(size = rel(1.5),
+                                    angle = 0,
+                                    margin = margin(0,7.5,0,0))
+                )
+          )
+
+```
+
+# Load R packages
+- Here we are loading all the R packages we need for the Midterm Exam II, so that you do not need to load the R packages in your code.
+```{r, echo = T}
+library(tidyverse)
+library(skimr)
+```
+
+
+<br><br>
+
+# Question 1
+
+- The following is the data frame for Question 1.
+
+```{r, echo = T}
+#| code-fold: false
+games <- read_csv("/Users/bchoe/Documents/websites/bcdanl.github.io/data/games.csv")
+```
+
+- The data frame **games** includes information on 100 popular games over the monthly time periods, ranging from July 2012 to February 2021.
+- The time of the collected data depends on the time of the game's release.
+
+
+## Variable description
+
+- **gamename**:	Name of a game
+- **date**:	Date of measure
+- **year**:	Year of measure
+- **month**:	Month of measure
+- **avg**:	Average number of players at the same time within a given month
+- **peak**:	Highest number of players at the same time within a given month
+
+
+
+<br>
+
+
+- The following is the data.frame, **games**.
+```{r, results = 'asis'}
+rmarkdown::paged_table(games,
+                       options = list(rows.print = 20,
+                                      cols.print = 6,
+                                      pages.print = 0,
+                                      paged.print = F
+                                      )) 
+```
+
+<br>
+
+```{r, echo = T}
+nrow(games)
+ncol(games)
+```
+
+<br>
+
+```{r, echo = T}
+unique(games$gamename)
+```
+
+<br>
+
+
+## Q1a
+- Provide the R code to generate the data.frame, **top4**, which includes data exclusively for the top 4 **gamename**s, featuring only these variables: **gamename**, **date**, **avg**, **peak**, from the data.frame **games**.
+
+  - The top 4 **gamename**s are identified based on their mean **avg** values, calculated from January 2020 onwards within the **games** data.frame.
+  
+
+
+```{r}
+top4names <- games %>% 
+  filter(year >= 2020) %>% 
+  group_by(gamename) %>% 
+  mutate(mean_avg = mean(avg) ) %>% 
+  ungroup() %>% 
+  filter(dense_rank(-mean_avg) <= 4) 
+
+top4 <- games %>% 
+  filter(gamename %in% top4names$gamename) %>% 
+  select(-year, -month)
+```
+
+
+  - The following is the first 10 observations in the data.frame, **top4**.
+```{r, results = 'asis'}
+rmarkdown::paged_table(top4,
+                       options = list(rows.print = 10,
+                                      cols.print = 6,
+                                      pages.print = 0,
+                                      paged.print = F
+                                      )) 
+```
+  
+  <br>
+  
+  - The following is the last 10 observations in the data.frame, **top4**.
+
+```{r, results = 'asis'}
+rmarkdown::paged_table(top4 %>% tail(10),
+                       options = list(rows.print = 20,
+                                      cols.print = 6,
+                                      pages.print = 0,
+                                      paged.print = F
+                                      )) 
+```
+
+<br><br>
+
+
+## Q1b
+- Provide R code to recreate the ggplot figure illustrating the monthly trend of **avg** for the top 4 **gamename**s using the data.frame **top4**. 
+
+<br>
+
+```{r}
+ggplot(data = top4,
+       aes(x = date, 
+           y = avg)
+       ) +
+  geom_line(aes(color = gamename),
+            linewidth = 1.25) +
+  geom_point(size = 1, alpha = .5, shape = 3) +
+  # labs(color = "GAMES") +
+  guides(color = 
+           guide_legend(
+             label.position = "bottom",
+             title.position = "top",
+             title.hjust = .5,
+             nrow = 1
+             )
+         ) +
+  hrbrthemes::scale_y_comma() +
+  scale_x_date(date_breaks = '1 year', date_labels = '%Y')
+
+```
+
+
+
+<br><br>
+
+
+
+## Q1c
+- Provide R code to recreate the ggplot figure illustrating the trend of the monthly change in **avg** for the games.
+
+```{r}
+#| fig-height: 12
+q1c <- top4 %>% 
+  group_by(gamename) %>% 
+  mutate(chg = avg - lag(avg),
+         pm = ifelse(chg >= 0, "+", "-")) %>% 
+  filter(!is.na(pm))
+         
+ggplot(data = q1c,
+       aes(x = date, 
+           y = chg)) +
+  geom_col(aes(fill = pm), show.legend = F) +
+  geom_line() +
+  # geom_point(size = .75) +
+  geom_hline(yintercept = 0, color = 'black', linetype = 3) +
+  facet_grid(gamename ~.) +
+  labs(x = "", y = "",
+       title = "Top 4 Games",
+       subtitle = "Change in average number of players (Monthly)") +
+  scale_x_date(breaks = '1 year',
+               date_labels = "%Y" ) +
+  hrbrthemes::scale_y_comma() +
+  theme(strip.text = element_text(size = rel(.8)))
+```
+
+
+
+<br><br>
+
+
+## Q1d.
+- Provide a brief comparison of the monthly **avg** trends among the top 4 **gamename**s, using the visualizations in Q1b and Q1c.
+
+
+<br><br>
+<br><br>
+
+
+
+# Question 2
+
+- The following is the data frame for Question 2.
+
+```{r, echo = T}
+#| code-fold: false
+h1b <- read_csv("/Users/bchoe/My Drive/suny-geneseo/teaching-materials/lecture-data/H1B_2019_cleaned_v2.csv")
+```
+
+- The H-1B visa is a non-immigrant visa used by the United States to allow employers to employ foreign workers in specialty occupations. These occupations typically require specialized knowledge and a bachelor's degree or higher in the specific specialty, or its equivalent. H-1B work-authorization is strictly limited to employment by the sponsoring employer.
+
+- The data frame **h1b** includes information on application status for H-1B visa in 2019.
+
+
+## Variable description
+
+- **EMPLOYER_STATE**:	US state
+- **EMPLOYER_CITY**:	US city
+- **CASE_STATUS**:	Application status
+- **EMPLOYER_NAME**:	Month of measure
+- **SOC_TITLE**:	Title of Standard Occupational Classification (SOC). 
+  - United States government system uses this for classifying occupations
+- **JOB_TITLE**:	Title of job
+
+
+- The following is the first 20 values in **EMPLOYER_STATE**, **EMPLOYER_CITY**, and **CASE_STATUS**:
+```{r, results = 'asis'}
+rmarkdown::paged_table(h1b %>% select(EMPLOYER_STATE, EMPLOYER_CITY, CASE_STATUS),
+                       options = list(rows.print = 20,
+                                      cols.print = 3,
+                                      pages.print = 0,
+                                      paged.print = F
+                                      )) 
+```
+
+<br>
+
+- The following is the first 20 values in **SOC_TITLE**:
+```{r, results = 'asis'}
+rmarkdown::paged_table(h1b %>% select(SOC_TITLE),
+                       options = list(rows.print = 20,
+                                      cols.print = 3,
+                                      pages.print = 0,
+                                      paged.print = F
+                                      )) 
+```
+
+<br>
+
+- The following is the first 20 values in **JOB_TITLE**:
+```{r, results = 'asis'}
+rmarkdown::paged_table(h1b %>% select(JOB_TITLE),
+                       options = list(rows.print = 20,
+                                      cols.print = 3,
+                                      pages.print = 0,
+                                      paged.print = F
+                                      )) 
+```
+
+<br>
+
+
+```{r, echo = T}
+nrow(h1b)
+ncol(h1b)
+```
+
+<br>
+
+```{r, echo = T}
+unique(h1b$EMPLOYER_STATE)
+```
+
+<br>
+
+```{r, echo = T}
+unique(h1b$CASE_STATUS)
+```
+
+
+
+<br>
+
+
+## Q2a
+- Provide ggplot code to recreate the ggplot figure illustrating how the distribution of **CASE_STATUS** varies by **EMPLOYER_STATE**.
+  
+
+```{r}
+#| fig-height: 12
+ggplot(h1b, aes(y = EMPLOYER_STATE, 
+                fill = CASE_STATUS)) + 
+  geom_bar(position = 'fill') +
+  labs(x = "prop", 
+       title = "Distribution by Employer State")
+```
+
+
+<br><br>
+
+
+## Q2b
+- Provide a brief comparison of the the distributions of **CASE_STATUS** across **EMPLOYER_STATE**S, using the visualization in Q2a.
+
+
+<br><br>
+
+
+
+## Q2c
+- Provide the R code to recreate the ggplot figure illustrating how the probability distribution of **CASE_STATUS** varies across the top 5 US states.
+  - The top 5 US states are selected in terms of the number of H1-B applications.
+  - The sum of bar heights within one state is 1.
+
+```{r}
+h1b_top5states <- h1b %>% 
+  select(EMPLOYER_STATE, CASE_STATUS) %>% 
+  group_by(EMPLOYER_STATE, CASE_STATUS) %>% 
+  count() %>% 
+  group_by(EMPLOYER_STATE) %>% 
+  mutate(n_cases = sum(n),
+         perc = 100*n/n_cases) %>% 
+  arrange(-n_cases, -n, CASE_STATUS) %>% 
+  ungroup() %>% 
+  mutate(st_rank = dense_rank(desc(n_cases))) %>% 
+  filter(st_rank <= 5)
+
+ggplot(h1b_top5states,
+       aes(x = EMPLOYER_STATE, y = perc, 
+           fill = CASE_STATUS)) +
+  geom_bar(stat = "identity",
+           position = "dodge")
+```
+
+
+<br><br>
+
+
+
+## Q2d
+- Provide the two distinct R codes to create the data.frame **top50**, which identifies the top 50 **SOC_TITLE** with the highest number of H1B **CERTIFIED** workers.
+  - In cases where there are multiple **SOC_TITLE**S tied for the 50th highest count of H1B **CERTIFIED** workers, include all such **SOC_TITLE** values in the data.frame **top50**.
+  - The following shows the resulting data.frame:
+
+```{r}
+top50_1 <- h1b %>%
+  filter(CASE_STATUS == "CERTIFIED") %>% 
+  group_by(SOC_TITLE) %>%
+  summarise(n = n()) %>%
+  mutate(ranking = dense_rank(-n)) %>% 
+  filter(ranking <= 50) %>% 
+  arrange(SOC_TITLE)
+
+
+top50_2 <- h1b %>%
+  filter(CASE_STATUS == "CERTIFIED") %>% 
+  group_by(SOC_TITLE) %>%
+  summarise(n = n()) %>%
+  slice_max(n, n = 50) %>% 
+  arrange(SOC_TITLE)
+```
+
+```{r, results = 'asis'}
+rmarkdown::paged_table(top50_2,
+                       options = list(rows.print = 20,
+                                      cols.print = 3,
+                                      pages.print = 0,
+                                      paged.print = F
+                                      )) 
+```
+
+
+<br><br>
+
+
+
+## Q2e
+- Provide the two distinct R codes to create the data.frame **top5**, which identifies the top 5 out of those top 50 **SOC_TITLE** in terms of the probability of being **CERTIFIED**.
+  - The following shows the resulting data.frame:
+```{r}
+top_50_SOC <- h1b %>% 
+  filter( CASE_STATUS == "CERTIFIED") %>%
+  group_by(SOC_TITLE) %>%
+  summarise(num_apps = n()) %>%
+  arrange(-num_apps) 
+
+SOC_NAME_t50 <- top_50_SOC$SOC_TITLE[1:50]
+
+q2e <- h1b %>%
+  filter(SOC_TITLE %in% SOC_NAME_t50  ) %>% 
+  group_by(SOC_TITLE) %>%
+  mutate(tot = n()) %>% 
+  mutate(n_certi = ifelse(CASE_STATUS == "CERTIFIED", 1, 0)) %>% 
+  mutate(n_certis = sum(n_certi),
+         prop_certi = 100*n_certis/tot) %>% 
+  mutate(n_certiw = ifelse(CASE_STATUS == "CERTIFIED-WITHDRAWN", 1, 0)) %>% 
+  mutate(n_certiws = sum(n_certiw),
+         prop_certiw = 100*n_certiws/tot) %>% 
+  mutate(n_denied = ifelse(CASE_STATUS == "DENIED", 1, 0)) %>% 
+  mutate(n_denieds = sum(n_denied),
+         prop_denied = 100*n_denieds/tot) %>% 
+  mutate(n_w = ifelse(CASE_STATUS == "WITHDRAWN", 1, 0)) %>% 
+  mutate(n_ws = sum(n_w),
+         prop_w = 100*n_ws/tot) %>% 
+  select(SOC_TITLE, prop_certi, prop_certiw, prop_denied, prop_w, tot) %>% 
+  distinct() %>% 
+  arrange(-prop_certi)
+
+```
+
+
+```{r, results = 'asis'}
+rmarkdown::paged_table(q2e,
+                       options = list(rows.print = 20,
+                                      cols.print = 3,
+                                      pages.print = 0,
+                                      paged.print = F
+                                      )) 
+```

@@ -431,49 +431,49 @@
     "href": "ex/danl200-cw-10.html",
     "title": "DANL 200 - Classwork 10",
     "section": "",
-    "text": "library(tidyverse)\nlibrary(skimr)"
+    "text": "Show the code\nlibrary(tidyverse)\nlibrary(skimr)"
   },
   {
     "objectID": "ex/danl200-cw-10.html#q1a",
     "href": "ex/danl200-cw-10.html#q1a",
     "title": "DANL 200 - Classwork 10",
     "section": "Q1a",
-    "text": "Q1a\n\nDescribe how the distribution of rating varies across week 1, week 2, and week 3 using the faceted histogram."
+    "text": "Q1a\n\nDescribe how the distribution of rating varies across week 1, week 2, and week 3 using the faceted histogram.\n\n\n\nShow the code\n# making billboard longer\nbillboard_long <- billboard %>% \n  pivot_longer(cols = starts_with('wk'),\n               names_to = 'week',\n               values_to = 'rating')\n\n# ggplot\nggplot( data = filter(billboard_long,\n                      week %in% c('wk1','wk2','wk3')),\n        aes(x = rating) ) +\n  geom_histogram(bins = 75) +\n  facet_wrap(week ~., ncol = 1)"
   },
   {
     "objectID": "ex/danl200-cw-10.html#q1b",
     "href": "ex/danl200-cw-10.html#q1b",
     "title": "DANL 200 - Classwork 10",
     "section": "Q1b",
-    "text": "Q1b\n\nWhich artist(s) have the most number of tracks in billboard data.frame?\nDo not double-count an artist’s tracks if they appear in multiple weeks."
+    "text": "Q1b\n\nWhich artist(s) have the most number of tracks in billboard data.frame?\nDo not double-count an artist’s tracks if they appear in multiple weeks.\n\n\n\nShow the code\nq1b <- billboard_long %>% \n  select(artist, track) %>% \n  distinct() %>% \n  group_by(artist) %>% \n  count() %>% \n  arrange(-n)"
   },
   {
     "objectID": "ex/danl200-cw-10.html#q2a",
     "href": "ex/danl200-cw-10.html#q2a",
     "title": "DANL 200 - Classwork 10",
     "section": "Q2a",
-    "text": "Q2a\nMake ny_pincp longer."
+    "text": "Q2a\nMake ny_pincp longer.\n\n\nShow the code\nny_pincp_long <- ny_pincp %>% \n  pivot_longer(cols = starts_with('pincp'),\n               names_to = 'year',\n               values_to = 'pincp')"
   },
   {
     "objectID": "ex/danl200-cw-10.html#q2b",
     "href": "ex/danl200-cw-10.html#q2b",
     "title": "DANL 200 - Classwork 10",
     "section": "Q2b",
-    "text": "Q2b\nProvide both (1) ggplot code and (2) a simple comment to describe how overall the yearly trend of NY counties’ average personal incomes are."
+    "text": "Q2b\nProvide both (1) ggplot code and (2) a simple comment to describe how overall the yearly trend of NY counties’ average personal incomes are.\n\n\nShow the code\nny_pincp_long2 <- ny_pincp_long %>% \n  separate(year, into = c('tmp', 'year'), sep = 'pincp') %>% \n  mutate(year = as.integer(year)) %>% \n  select(-tmp) %>% \n  filter(fips != 36000)  # which is state-level average income\n\n\n\n\n\n\n  \n\n\n\n\n\nShow the code\nggplot(ny_pincp_long2,\n       aes(x = year, y = pincp)) +\n  geom_line(aes(group = geoname),\n            alpha = .1 ) +\n  geom_smooth(method = lm) +\n  geom_smooth(color = 'red')"
   },
   {
     "objectID": "ex/danl200-cw-10.html#q3a",
     "href": "ex/danl200-cw-10.html#q3a",
     "title": "DANL 200 - Classwork 10",
     "section": "Q3a",
-    "text": "Q3a\n\nKeep only the following three variables, date, countriesAndTerritories, and cases.\nThen make a wide-form data.frame of covid whose variable names are from countriesAndTerritories and values are from cases.\nThen drop the variable date."
+    "text": "Q3a\n\nKeep only the following three variables, date, countriesAndTerritories, and cases.\nThen make a wide-form data.frame of covid whose variable names are from countriesAndTerritories and values are from cases.\nThen drop the variable date.\n\n\n\nShow the code\ncovid_wide <- covid %>%\n  select(date, countriesAndTerritories, cases) %>%\n  pivot_wider(names_from = countriesAndTerritories,\n              values_from = cases) %>% \n  select(-date)"
   },
   {
     "objectID": "ex/danl200-cw-10.html#q3b",
     "href": "ex/danl200-cw-10.html#q3b",
     "title": "DANL 200 - Classwork 10",
     "section": "Q3b",
-    "text": "Q3b\n\nUse the wide-form data.frame of covid to find the top 10 countries in terms of the correlation between their cases and the USA case.\n\nUse cor(data.frame), which returns a matrix.\nThen convert it to data.frame using as.data.frame(matrix)"
+    "text": "Q3b\n\nUse the wide-form data.frame of covid to find the top 10 countries in terms of the correlation between their cases and the USA case.\n\nUse cor(data.frame), which returns a matrix.\nThen convert it to data.frame using as.data.frame(matrix)\n\n\n\n\nShow the code\ncovid_cor <- as.data.frame( cor(covid_wide) )  \n\n\n\n\n\n\n  \n\n\n\n\n\nShow the code\ncovid_cor_us <- covid_cor %>% \n  select(USA) %>% \n  arrange(-USA)"
   },
   {
     "objectID": "ex/econ340-feedback-miranda.html",
@@ -2245,6 +2245,90 @@
     "title": "DANL 399: Data Visualization and PresentationHomework Assignment 1",
     "section": "Q2h",
     "text": "Q2h\nUse the following data.frame for Q2h.\n\ncows_filtered <- read_csv(\n  'https://bcdanl.github.io/data/cows_filtered.csv')\n\n\np <- ggplot(cows_filtered, aes(x = butterfat, color = breed, fill = breed))\n\n# add a density line for each breed with some transparency\np + geom_density_line(alpha = .2) +\n\n# set x-axis properties\nscale_x_continuous(\n  expand = c(0, 0), # remove padding from axis limits\n  labels = scales::percent_format(accuracy = 1, scale = 1), # format axis labels as percentages with 1 decimal point\n  name = \"butterfat contents\" # set axis label\n) +\n\n# set y-axis properties\nscale_y_continuous(limits = c(0, 1.99), expand = c(0, 0)) +\n\n# set plot area properties\ncoord_cartesian(clip = \"off\") + # allow density lines to extend beyond axis limits\ntheme(axis.line.x = element_blank()) # remove x-axis line"
+  },
+  {
+    "objectID": "ex/danl200-midterm-2-q.html",
+    "href": "ex/danl200-midterm-2-q.html",
+    "title": "Fall 2023 DANL 200 Midterm Exam 2 - Questions",
+    "section": "",
+    "text": "Here we are loading all the R packages we need for the Midterm Exam II, so that you do not need to load the R packages in your code.\n\n\n\nShow the code\nlibrary(tidyverse)\nlibrary(skimr)"
+  },
+  {
+    "objectID": "ex/danl200-midterm-2-q.html#variable-description",
+    "href": "ex/danl200-midterm-2-q.html#variable-description",
+    "title": "Fall 2023 DANL 200 Midterm Exam 2 - Questions",
+    "section": "Variable description",
+    "text": "Variable description\n\ngamename: Name of a game\ndate: Date of measure\nyear: Year of measure\nmonth: Month of measure\navg: Average number of players at the same time within a given month\npeak: Highest number of players at the same time within a given month\n\n\n\nThe following is the data.frame, games.\n\n\nShow the code\nrmarkdown::paged_table(games,\n                       options = list(rows.print = 20,\n                                      cols.print = 6,\n                                      pages.print = 0,\n                                      paged.print = F\n                                      )) \n\n\n\n\n  \n\n\n\n\n\nShow the code\nnrow(games)\n\n\n[1] 5837\n\n\nShow the code\nncol(games)\n\n\n[1] 6\n\n\n\n\n\nShow the code\nunique(games$gamename)\n\n\n  [1] \"7 Days to Die\"                         \n  [2] \"ARK: Survival Evolved\"                 \n  [3] \"ATLAS\"                                 \n  [4] \"Apex Legends\"                          \n  [5] \"Arma 3\"                                \n  [6] \"Assassin's Creed Odyssey\"              \n  [7] \"BATTLETECH\"                            \n  [8] \"BioShock Infinite\"                     \n  [9] \"Black Desert Online\"                   \n [10] \"Borderlands 2\"                         \n [11] \"Borderlands 3\"                         \n [12] \"Borderlands: The Pre-Sequel\"           \n [13] \"Call of Duty: Black Ops III\"           \n [14] \"Cities: Skylines\"                      \n [15] \"Clicker Heroes\"                        \n [16] \"Conan Exiles\"                          \n [17] \"Counter-Strike\"                        \n [18] \"Counter-Strike: Global Offensive\"      \n [19] \"Counter-Strike: Source\"                \n [20] \"Crusader Kings III\"                    \n [21] \"Cyberpunk 2077\"                        \n [22] \"DARK SOULS II\"                         \n [23] \"DARK SOULS III\"                        \n [24] \"DOOM Eternal\"                          \n [25] \"DayZ\"                                  \n [26] \"Dead by Daylight\"                      \n [27] \"Destiny 2\"                             \n [28] \"Divinity: Original Sin 2\"              \n [29] \"Dota 2\"                                \n [30] \"Dota Underlords\"                       \n [31] \"Dyson Sphere Program\"                  \n [32] \"Euro Truck Simulator 2\"                \n [33] \"FINAL FANTASY XIV Online\"              \n [34] \"Fall Guys: Ultimate Knockout\"          \n [35] \"Fallout 4\"                             \n [36] \"Far Cry 5\"                             \n [37] \"Farming Simulator 19\"                  \n [38] \"Football Manager 2012\"                 \n [39] \"Football Manager 2014\"                 \n [40] \"Football Manager 2015\"                 \n [41] \"Football Manager 2016\"                 \n [42] \"Football Manager 2017\"                 \n [43] \"Football Manager 2018\"                 \n [44] \"Football Manager 2020\"                 \n [45] \"Football Manager 2021\"                 \n [46] \"For Honor\"                             \n [47] \"Garry's Mod\"                           \n [48] \"Grand Theft Auto V\"                    \n [49] \"Hearts of Iron IV\"                     \n [50] \"Kingdom Come: Deliverance\"             \n [51] \"Left 4 Dead 2\"                         \n [52] \"METAL GEAR SOLID V: THE PHANTOM PAIN\"  \n [53] \"MORDHAU\"                               \n [54] \"Monster Hunter: World\"                 \n [55] \"Mount & Blade II: Bannerlord\"          \n [56] \"NBA 2K20\"                              \n [57] \"No Man's Sky\"                          \n [58] \"PAYDAY 2\"                              \n [59] \"PLAYERUNKNOWN'S BATTLEGROUNDS\"         \n [60] \"Paladins\"                              \n [61] \"Path of Exile\"                         \n [62] \"Phasmophobia\"                          \n [63] \"Realm Royale\"                          \n [64] \"Resident Evil 2\"                       \n [65] \"RimWorld\"                              \n [66] \"Ring of Elysium\"                       \n [67] \"Risk of Rain 2\"                        \n [68] \"Rocket League\"                         \n [69] \"Rust\"                                  \n [70] \"Sea of Thieves\"                        \n [71] \"Sekiro: Shadows Die Twice\"             \n [72] \"Sid Meier's Civilization V\"            \n [73] \"Sid Meier's Civilization VI\"           \n [74] \"Sid Meier's Civilization: Beyond Earth\"\n [75] \"Starbound\"                             \n [76] \"Stardew Valley\"                        \n [77] \"Stellaris\"                             \n [78] \"Team Fortress 2\"                       \n [79] \"Temtem\"                                \n [80] \"Terraria\"                              \n [81] \"The Elder Scrolls Online\"              \n [82] \"The Witcher 3: Wild Hunt\"              \n [83] \"Tom Clancy's Rainbow Six Siege\"        \n [84] \"Tom Clancy's The Division\"             \n [85] \"Torchlight II\"                         \n [86] \"Total War: ROME II - Emperor Edition\"  \n [87] \"Total War: THREE KINGDOMS\"             \n [88] \"Total War: WARHAMMER\"                  \n [89] \"Total War: WARHAMMER II\"               \n [90] \"Tree of Savior (English Ver.)\"         \n [91] \"Trove\"                                 \n [92] \"Unturned\"                              \n [93] \"Wallpaper Engine\"                      \n [94] \"War Thunder\"                           \n [95] \"Warframe\"                              \n [96] \"Warhammer: Vermintide 2\"               \n [97] \"Wolcen: Lords of Mayhem\"               \n [98] \"World of Tanks Blitz\"                  \n [99] \"XCOM 2\"                                \n[100] \"Z1 Battle Royale\""
+  },
+  {
+    "objectID": "ex/danl200-midterm-2-q.html#q1a",
+    "href": "ex/danl200-midterm-2-q.html#q1a",
+    "title": "Fall 2023 DANL 200 Midterm Exam 2 - Questions",
+    "section": "Q1a",
+    "text": "Q1a\n\nProvide the R code to generate the data.frame, top4, which includes data exclusively for the top 4 gamenames, featuring only these variables: gamename, date, avg, peak, from the data.frame games.\n\nThe top 4 gamenames are identified based on their mean avg values, calculated from January 2020 onwards within the games data.frame.\n\n\n\n\nShow the code\ntop4names <- games %>% \n  filter(year >= 2020) %>% \n  group_by(gamename) %>% \n  mutate(mean_avg = mean(avg) ) %>% \n  ungroup() %>% \n  filter(dense_rank(-mean_avg) <= 4) \n\ntop4 <- games %>% \n  filter(gamename %in% top4names$gamename) %>% \n  select(-year, -month)\n\n\n\nThe following is the first 10 observations in the data.frame, top4.\n\n\nShow the code\nrmarkdown::paged_table(top4,\n                       options = list(rows.print = 10,\n                                      cols.print = 6,\n                                      pages.print = 0,\n                                      paged.print = F\n                                      )) \n\n\n\n\n  \n\n\n\n\nThe following is the last 10 observations in the data.frame, top4.\n\n\nShow the code\nrmarkdown::paged_table(top4 %>% tail(10),\n                       options = list(rows.print = 20,\n                                      cols.print = 6,\n                                      pages.print = 0,\n                                      paged.print = F\n                                      ))"
+  },
+  {
+    "objectID": "ex/danl200-midterm-2-q.html#q1b",
+    "href": "ex/danl200-midterm-2-q.html#q1b",
+    "title": "Fall 2023 DANL 200 Midterm Exam 2 - Questions",
+    "section": "Q1b",
+    "text": "Q1b\n\nProvide R code to recreate the ggplot figure illustrating the monthly trend of avg for the top 4 gamenames using the data.frame top4.\n\n\n\n\nShow the code\nggplot(data = top4,\n       aes(x = date, \n           y = avg)\n       ) +\n  geom_line(aes(color = gamename),\n            linewidth = 1.25) +\n  geom_point(size = 1, alpha = .5, shape = 3) +\n  # labs(color = \"GAMES\") +\n  guides(color = \n           guide_legend(\n             label.position = \"bottom\",\n             title.position = \"top\",\n             title.hjust = .5,\n             nrow = 1\n             )\n         ) +\n  hrbrthemes::scale_y_comma() +\n  scale_x_date(date_breaks = '1 year', date_labels = '%Y')"
+  },
+  {
+    "objectID": "ex/danl200-midterm-2-q.html#q1c",
+    "href": "ex/danl200-midterm-2-q.html#q1c",
+    "title": "Fall 2023 DANL 200 Midterm Exam 2 - Questions",
+    "section": "Q1c",
+    "text": "Q1c\n\nProvide R code to recreate the ggplot figure illustrating the trend of the monthly change in avg for the games.\n\n\n\nShow the code\nq1c <- top4 %>% \n  group_by(gamename) %>% \n  mutate(chg = avg - lag(avg),\n         pm = ifelse(chg >= 0, \"+\", \"-\")) %>% \n  filter(!is.na(pm))\n         \nggplot(data = q1c,\n       aes(x = date, \n           y = chg)) +\n  geom_col(aes(fill = pm), show.legend = F) +\n  geom_line() +\n  # geom_point(size = .75) +\n  geom_hline(yintercept = 0, color = 'black', linetype = 3) +\n  facet_grid(gamename ~.) +\n  labs(x = \"\", y = \"\",\n       title = \"Top 4 Games\",\n       subtitle = \"Change in average number of players (Monthly)\") +\n  scale_x_date(breaks = '1 year',\n               date_labels = \"%Y\" ) +\n  hrbrthemes::scale_y_comma() +\n  theme(strip.text = element_text(size = rel(.8)))"
+  },
+  {
+    "objectID": "ex/danl200-midterm-2-q.html#q1d.",
+    "href": "ex/danl200-midterm-2-q.html#q1d.",
+    "title": "Fall 2023 DANL 200 Midterm Exam 2 - Questions",
+    "section": "Q1d.",
+    "text": "Q1d.\n\nProvide a brief comparison of the monthly avg trends among the top 4 gamenames, using the visualizations in Q1b and Q1c."
+  },
+  {
+    "objectID": "ex/danl200-midterm-2-q.html#variable-description-1",
+    "href": "ex/danl200-midterm-2-q.html#variable-description-1",
+    "title": "Fall 2023 DANL 200 Midterm Exam 2 - Questions",
+    "section": "Variable description",
+    "text": "Variable description\n\nEMPLOYER_STATE: US state\nEMPLOYER_CITY: US city\nCASE_STATUS: Application status\nEMPLOYER_NAME: Month of measure\nSOC_TITLE: Title of Standard Occupational Classification (SOC).\n\nUnited States government system uses this for classifying occupations\n\nJOB_TITLE: Title of job\nThe following is the first 20 values in EMPLOYER_STATE, EMPLOYER_CITY, and CASE_STATUS:\n\n\nShow the code\nrmarkdown::paged_table(h1b %>% select(EMPLOYER_STATE, EMPLOYER_CITY, CASE_STATUS),\n                       options = list(rows.print = 20,\n                                      cols.print = 3,\n                                      pages.print = 0,\n                                      paged.print = F\n                                      )) \n\n\n\n\n  \n\n\n\n\nThe following is the first 20 values in SOC_TITLE:\n\n\nShow the code\nrmarkdown::paged_table(h1b %>% select(SOC_TITLE),\n                       options = list(rows.print = 20,\n                                      cols.print = 3,\n                                      pages.print = 0,\n                                      paged.print = F\n                                      )) \n\n\n\n\n  \n\n\n\n\nThe following is the first 20 values in JOB_TITLE:\n\n\nShow the code\nrmarkdown::paged_table(h1b %>% select(JOB_TITLE),\n                       options = list(rows.print = 20,\n                                      cols.print = 3,\n                                      pages.print = 0,\n                                      paged.print = F\n                                      )) \n\n\n\n\n  \n\n\n\n\n\nShow the code\nnrow(h1b)\n\n\n[1] 621462\n\n\nShow the code\nncol(h1b)\n\n\n[1] 6\n\n\n\n\n\nShow the code\nunique(h1b$EMPLOYER_STATE)\n\n\n [1] \"CA\" \"IL\" \"UT\" \"TX\" \"NY\" \"FL\" \"OR\" \"WA\" \"VA\" \"OH\" \"GA\" \"MD\" \"AZ\" \"PA\" \"CT\"\n[16] \"MI\" \"NJ\" \"NC\" \"DE\" \"NV\" \"MS\" \"MA\" \"IN\" \"GU\" \"TN\" \"CO\" \"DC\" \"MN\" \"AL\" \"PR\"\n[31] \"OK\" \"MP\" \"WI\" \"ID\" \"KS\" \"MO\" \"KY\" \"NH\" \"LA\" \"VI\" \"HI\" \"AR\" \"IA\" \"SC\" \"RI\"\n[46] \"NE\" \"ND\" \"NM\" \"WV\" \"ME\" \"VT\" \"AK\" \"MT\" \"SD\" \"PW\" \"WY\" \"FM\"\n\n\n\n\n\nShow the code\nunique(h1b$CASE_STATUS)\n\n\n[1] \"WITHDRAWN\"           \"CERTIFIED\"           \"DENIED\"             \n[4] \"CERTIFIED-WITHDRAWN\""
+  },
+  {
+    "objectID": "ex/danl200-midterm-2-q.html#q2a",
+    "href": "ex/danl200-midterm-2-q.html#q2a",
+    "title": "Fall 2023 DANL 200 Midterm Exam 2 - Questions",
+    "section": "Q2a",
+    "text": "Q2a\n\nProvide ggplot code to recreate the ggplot figure illustrating how the distribution of CASE_STATUS varies by EMPLOYER_STATE.\n\n\n\nShow the code\nggplot(h1b, aes(y = EMPLOYER_STATE, \n                fill = CASE_STATUS)) + \n  geom_bar(position = 'fill') +\n  labs(x = \"prop\", \n       title = \"Distribution by Employer State\")"
+  },
+  {
+    "objectID": "ex/danl200-midterm-2-q.html#q2b",
+    "href": "ex/danl200-midterm-2-q.html#q2b",
+    "title": "Fall 2023 DANL 200 Midterm Exam 2 - Questions",
+    "section": "Q2b",
+    "text": "Q2b\n\nProvide a brief comparison of the the distributions of CASE_STATUS across EMPLOYER_STATES, using the visualization in Q2a."
+  },
+  {
+    "objectID": "ex/danl200-midterm-2-q.html#q2c",
+    "href": "ex/danl200-midterm-2-q.html#q2c",
+    "title": "Fall 2023 DANL 200 Midterm Exam 2 - Questions",
+    "section": "Q2c",
+    "text": "Q2c\n\nProvide the R code to recreate the ggplot figure illustrating how the probability distribution of CASE_STATUS varies across the top 5 US states.\n\nThe top 5 US states are selected in terms of the number of H1-B applications.\nThe sum of bar heights within one state is 1.\n\n\n\n\nShow the code\nh1b_top5states <- h1b %>% \n  select(EMPLOYER_STATE, CASE_STATUS) %>% \n  group_by(EMPLOYER_STATE, CASE_STATUS) %>% \n  count() %>% \n  group_by(EMPLOYER_STATE) %>% \n  mutate(n_cases = sum(n),\n         perc = 100*n/n_cases) %>% \n  arrange(-n_cases, -n, CASE_STATUS) %>% \n  ungroup() %>% \n  mutate(st_rank = dense_rank(desc(n_cases))) %>% \n  filter(st_rank <= 5)\n\nggplot(h1b_top5states,\n       aes(x = EMPLOYER_STATE, y = perc, \n           fill = CASE_STATUS)) +\n  geom_bar(stat = \"identity\",\n           position = \"dodge\")"
+  },
+  {
+    "objectID": "ex/danl200-midterm-2-q.html#q2d",
+    "href": "ex/danl200-midterm-2-q.html#q2d",
+    "title": "Fall 2023 DANL 200 Midterm Exam 2 - Questions",
+    "section": "Q2d",
+    "text": "Q2d\n\nProvide the two distinct R codes to create the data.frame top50, which identifies the top 50 SOC_TITLE with the highest number of H1B CERTIFIED workers.\n\nIn cases where there are multiple SOC_TITLES tied for the 50th highest count of H1B CERTIFIED workers, include all such SOC_TITLE values in the data.frame top50.\nThe following shows the resulting data.frame:\n\n\n\n\nShow the code\ntop50_1 <- h1b %>%\n  filter(CASE_STATUS == \"CERTIFIED\") %>% \n  group_by(SOC_TITLE) %>%\n  summarise(n = n()) %>%\n  mutate(ranking = dense_rank(-n)) %>% \n  filter(ranking <= 50) %>% \n  arrange(SOC_TITLE)\n\n\ntop50_2 <- h1b %>%\n  filter(CASE_STATUS == \"CERTIFIED\") %>% \n  group_by(SOC_TITLE) %>%\n  summarise(n = n()) %>%\n  slice_max(n, n = 50) %>% \n  arrange(SOC_TITLE)\n\n\n\nShow the code\nrmarkdown::paged_table(top50_2,\n                       options = list(rows.print = 20,\n                                      cols.print = 3,\n                                      pages.print = 0,\n                                      paged.print = F\n                                      ))"
+  },
+  {
+    "objectID": "ex/danl200-midterm-2-q.html#q2e",
+    "href": "ex/danl200-midterm-2-q.html#q2e",
+    "title": "Fall 2023 DANL 200 Midterm Exam 2 - Questions",
+    "section": "Q2e",
+    "text": "Q2e\n\nProvide the two distinct R codes to create the data.frame top5, which identifies the top 5 out of those top 50 SOC_TITLE in terms of the probability of being CERTIFIED.\n\nThe following shows the resulting data.frame:\n\n\n\n\nShow the code\ntop_50_SOC <- h1b %>% \n  filter( CASE_STATUS == \"CERTIFIED\") %>%\n  group_by(SOC_TITLE) %>%\n  summarise(num_apps = n()) %>%\n  arrange(-num_apps) \n\nSOC_NAME_t50 <- top_50_SOC$SOC_TITLE[1:50]\n\nq2e <- h1b %>%\n  filter(SOC_TITLE %in% SOC_NAME_t50  ) %>% \n  group_by(SOC_TITLE) %>%\n  mutate(tot = n()) %>% \n  mutate(n_certi = ifelse(CASE_STATUS == \"CERTIFIED\", 1, 0)) %>% \n  mutate(n_certis = sum(n_certi),\n         prop_certi = 100*n_certis/tot) %>% \n  mutate(n_certiw = ifelse(CASE_STATUS == \"CERTIFIED-WITHDRAWN\", 1, 0)) %>% \n  mutate(n_certiws = sum(n_certiw),\n         prop_certiw = 100*n_certiws/tot) %>% \n  mutate(n_denied = ifelse(CASE_STATUS == \"DENIED\", 1, 0)) %>% \n  mutate(n_denieds = sum(n_denied),\n         prop_denied = 100*n_denieds/tot) %>% \n  mutate(n_w = ifelse(CASE_STATUS == \"WITHDRAWN\", 1, 0)) %>% \n  mutate(n_ws = sum(n_w),\n         prop_w = 100*n_ws/tot) %>% \n  select(SOC_TITLE, prop_certi, prop_certiw, prop_denied, prop_w, tot) %>% \n  distinct() %>% \n  arrange(-prop_certi)\n\n\n\nShow the code\nrmarkdown::paged_table(q2e,\n                       options = list(rows.print = 20,\n                                      cols.print = 3,\n                                      pages.print = 0,\n                                      paged.print = F\n                                      ))"
   },
   {
     "objectID": "ex/danl399-hw-2.html",
