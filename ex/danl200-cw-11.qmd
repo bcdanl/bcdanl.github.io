@@ -2,11 +2,17 @@
 title: "DANL 200 - Classwork 11 - Joins"
 author: "Byeong-Hak Choe"
 
+format: 
+  html:
+    code-fold: true      
+    code-summary: "Show the code"
+
 execute: 
   eval: true
   echo: true
   warning: false
   message: false
+  fig-width: 9
 ---
 
 ```{r setup, include = FALSE}
@@ -75,13 +81,10 @@ rmarkdown::paged_table(student_data2)
 ## Q1a
 Write a R code to join the two given data.frames along **rows** and assign all data.
 
-```{r, eval = F}
+```{r}
 df_r <- rbind(student_data1, student_data2)
 ```
 
-```{r, echo = F}
-df_r <- rbind(student_data1, student_data2)
-```
 
 ```{r, result = 'asis', echo = F, message = F, warning = F}
 rmarkdown::paged_table(df_r)
@@ -93,11 +96,7 @@ rmarkdown::paged_table(df_r)
 ## Q1b
 Write a R code to join the two given data.frames along **columns** and assign all data.
 
-```{r, eval = F}
-df_c <- cbind(student_data1, student_data2)
-```
-
-```{r, echo = F}
+```{r}
 df_c <- cbind(student_data1, student_data2)
 ```
 
@@ -166,7 +165,7 @@ rmarkdown::paged_table(q2a)
 
 Find the airline that has the longest positive `dep_delay` on average.
 
-```{r, message=F, warning=F}
+```{r}
 flights <- flights %>% 
   left_join(airlines)
 
@@ -192,7 +191,7 @@ rmarkdown::paged_table(q2b)
 Find the airline that has the largest proportion of flights with longer than 30-minute `dep_delay`.
 
 
-```{r, message=F, warning=F}
+```{r}
 q2c <- flights %>% 
   mutate(delay_over_30 = ifelse(dep_delay > 30, 
                                 1, 0) ) %>% 

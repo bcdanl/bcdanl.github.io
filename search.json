@@ -781,42 +781,42 @@
     "href": "ex/danl200-cw-11.html",
     "title": "DANL 200 - Classwork 11 - Joins",
     "section": "",
-    "text": "library(tidyverse)\nlibrary(nycflights13)\nlibrary(skimr)"
+    "text": "Show the code\nlibrary(tidyverse)\nlibrary(nycflights13)\nlibrary(skimr)"
   },
   {
     "objectID": "ex/danl200-cw-11.html#q1a",
     "href": "ex/danl200-cw-11.html#q1a",
     "title": "DANL 200 - Classwork 11 - Joins",
     "section": "Q1a",
-    "text": "Q1a\nWrite a R code to join the two given data.frames along rows and assign all data.\n\ndf_r <- rbind(student_data1, student_data2)"
+    "text": "Q1a\nWrite a R code to join the two given data.frames along rows and assign all data.\n\n\nShow the code\ndf_r <- rbind(student_data1, student_data2)"
   },
   {
     "objectID": "ex/danl200-cw-11.html#q1b",
     "href": "ex/danl200-cw-11.html#q1b",
     "title": "DANL 200 - Classwork 11 - Joins",
     "section": "Q1b",
-    "text": "Q1b\nWrite a R code to join the two given data.frames along columns and assign all data.\n\ndf_c <- cbind(student_data1, student_data2)"
+    "text": "Q1b\nWrite a R code to join the two given data.frames along columns and assign all data.\n\n\nShow the code\ndf_c <- cbind(student_data1, student_data2)"
   },
   {
     "objectID": "ex/danl200-cw-11.html#q2a",
     "href": "ex/danl200-cw-11.html#q2a",
     "title": "DANL 200 - Classwork 11 - Joins",
     "section": "Q2a",
-    "text": "Q2a\nJoin flights with airports, so that we can see information about each flight’s destination airport in the flights data.frame.\n\nq2a <- flights %>% \n  left_join(airports, by = c('dest' = 'faa'))"
+    "text": "Q2a\nJoin flights with airports, so that we can see information about each flight’s destination airport in the flights data.frame.\n\n\nShow the code\nq2a <- flights %>% \n  left_join(airports, by = c('dest' = 'faa'))"
   },
   {
     "objectID": "ex/danl200-cw-11.html#q2b",
     "href": "ex/danl200-cw-11.html#q2b",
     "title": "DANL 200 - Classwork 11 - Joins",
     "section": "Q2b",
-    "text": "Q2b\nFind the airline that has the longest positive dep_delay on average.\n\nflights <- flights %>% \n  left_join(airlines)\n\nq2b <- flights %>% \n  group_by(carrier, name) %>% \n  summarize(delay_mean = mean(dep_delay[dep_delay> 0],\n                              na.rm = T)\n            ) %>% \n  arrange(-delay_mean)"
+    "text": "Q2b\nFind the airline that has the longest positive dep_delay on average.\n\n\nShow the code\nflights <- flights %>% \n  left_join(airlines)\n\nq2b <- flights %>% \n  group_by(carrier, name) %>% \n  summarize(delay_mean = mean(dep_delay[dep_delay> 0],\n                              na.rm = T)\n            ) %>% \n  arrange(-delay_mean)"
   },
   {
     "objectID": "ex/danl200-cw-11.html#q2c",
     "href": "ex/danl200-cw-11.html#q2c",
     "title": "DANL 200 - Classwork 11 - Joins",
     "section": "Q2c",
-    "text": "Q2c\nFind the airline that has the largest proportion of flights with longer than 30-minute dep_delay.\n\nq2c <- flights %>% \n  mutate(delay_over_30 = ifelse(dep_delay > 30, \n                                1, 0) ) %>% \n  group_by(carrier, name) %>% \n  summarize(pct = 100 * mean(delay_over_30,\n                              na.rm = T)) %>% \n  arrange(-pct)"
+    "text": "Q2c\nFind the airline that has the largest proportion of flights with longer than 30-minute dep_delay.\n\n\nShow the code\nq2c <- flights %>% \n  mutate(delay_over_30 = ifelse(dep_delay > 30, \n                                1, 0) ) %>% \n  group_by(carrier, name) %>% \n  summarize(pct = 100 * mean(delay_over_30,\n                              na.rm = T)) %>% \n  arrange(-pct)"
   },
   {
     "objectID": "ex/danl200-cw-9.html",
