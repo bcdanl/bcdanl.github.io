@@ -417,7 +417,7 @@ top_50_SOC <- h1b %>%
 
 SOC_NAME_t50 <- top_50_SOC$SOC_TITLE[1:50]
 
-q2e <- h1b %>%
+top5 <- h1b %>%
   filter(SOC_TITLE %in% SOC_NAME_t50  ) %>% 
   group_by(SOC_TITLE) %>%
   mutate(tot = n()) %>% 
@@ -426,11 +426,29 @@ q2e <- h1b %>%
          prop_certi = 100*n_certis/tot) %>% 
   select(SOC_TITLE, prop_certi, tot) %>% 
   distinct() %>% 
+  ungroup() %>% 
+  filter(dense_rank(-prop_certi) <= 5) %>% 
   arrange(-prop_certi)
 
 
+top5 <- h1b %>%
+  filter(SOC_TITLE %in% SOC_NAME_t50  ) %>% 
+  group_by(SOC_TITLE) %>%
+  mutate(tot = n()) %>% 
+  mutate(prop_certi = 100*sum(CASE_STATUS == "CERTIFIED")/tot) %>% 
+  select(SOC_TITLE, prop_certi, tot) %>% 
+  distinct() %>% 
+  ungroup() %>% 
+  filter(dense_rank(-prop_certi) <= 5) %>% 
+  arrange(-prop_certi)
 
-q2e <- h1b %>%
+
+```
+
+Below arranges top 50 `SOC_TITLE` in terms of the probability of being `CERTIFIED`.
+
+```{r, results = 'asis'}
+top5 <- h1b %>%
   filter(SOC_TITLE %in% SOC_NAME_t50  ) %>% 
   group_by(SOC_TITLE) %>%
   mutate(tot = n()) %>% 
@@ -439,11 +457,7 @@ q2e <- h1b %>%
   distinct() %>% 
   arrange(-prop_certi)
 
-```
-
-
-```{r, results = 'asis'}
-rmarkdown::paged_table(q2e,
+rmarkdown::paged_table(top5,
                        options = list(rows.print = 20,
                                       cols.print = 3,
                                       pages.print = 0,
