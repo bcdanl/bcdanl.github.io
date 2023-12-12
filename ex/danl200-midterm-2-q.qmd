@@ -420,8 +420,8 @@ SOC_NAME_t50 <- top_50_SOC$SOC_TITLE[1:50]
 top5 <- h1b %>%
   filter(SOC_TITLE %in% SOC_NAME_t50  ) %>% 
   group_by(SOC_TITLE) %>%
-  mutate(tot = n()) %>% 
-  mutate(n_certi = ifelse(CASE_STATUS == "CERTIFIED", 1, 0),
+  mutate(tot = n(),
+         n_certi = ifelse(CASE_STATUS == "CERTIFIED", 1, 0),
          n_certis = sum(n_certi),
          prop_certi = 100*n_certis/tot) %>% 
   select(SOC_TITLE, prop_certi, tot) %>% 
@@ -434,8 +434,8 @@ top5 <- h1b %>%
 top5 <- h1b %>%
   filter(SOC_TITLE %in% SOC_NAME_t50  ) %>% 
   group_by(SOC_TITLE) %>%
-  mutate(tot = n()) %>% 
-  mutate(prop_certi = 100*sum(CASE_STATUS == "CERTIFIED")/tot) %>% 
+  mutate(tot = n(),
+         prop_certi = 100*sum(CASE_STATUS == "CERTIFIED")/tot) %>% 
   select(SOC_TITLE, prop_certi, tot) %>% 
   distinct() %>% 
   ungroup() %>% 
@@ -445,7 +445,7 @@ top5 <- h1b %>%
 
 ```
 
-Below arranges top 50 `SOC_TITLE` in terms of the probability of being `CERTIFIED`.
+Below arranges top 50 `SOC_TITLE`s in terms of the probability of being `CERTIFIED`.
 
 ```{r, results = 'asis'}
 top5 <- h1b %>%

@@ -1512,8 +1512,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>top5 <span class="ot">&lt;-</span> h1b <span class="sc">%&gt;%</span></span>
 <span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(SOC_TITLE <span class="sc">%in%</span> SOC_NAME_t50  ) <span class="sc">%&gt;%</span> </span>
 <span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SOC_TITLE) <span class="sc">%&gt;%</span></span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tot =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_certi =</span> <span class="fu">ifelse</span>(CASE_STATUS <span class="sc">==</span> <span class="st">"CERTIFIED"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tot =</span> <span class="fu">n</span>(),</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">n_certi =</span> <span class="fu">ifelse</span>(CASE_STATUS <span class="sc">==</span> <span class="st">"CERTIFIED"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
 <span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">n_certis =</span> <span class="fu">sum</span>(n_certi),</span>
 <span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">prop_certi =</span> <span class="dv">100</span><span class="sc">*</span>n_certis<span class="sc">/</span>tot) <span class="sc">%&gt;%</span> </span>
 <span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SOC_TITLE, prop_certi, tot) <span class="sc">%&gt;%</span> </span>
@@ -1526,8 +1526,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>top5 <span class="ot">&lt;-</span> h1b <span class="sc">%&gt;%</span></span>
 <span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(SOC_TITLE <span class="sc">%in%</span> SOC_NAME_t50  ) <span class="sc">%&gt;%</span> </span>
 <span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SOC_TITLE) <span class="sc">%&gt;%</span></span>
-<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tot =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop_certi =</span> <span class="dv">100</span><span class="sc">*</span><span class="fu">sum</span>(CASE_STATUS <span class="sc">==</span> <span class="st">"CERTIFIED"</span>)<span class="sc">/</span>tot) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tot =</span> <span class="fu">n</span>(),</span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>         <span class="at">prop_certi =</span> <span class="dv">100</span><span class="sc">*</span><span class="fu">sum</span>(CASE_STATUS <span class="sc">==</span> <span class="st">"CERTIFIED"</span>)<span class="sc">/</span>tot) <span class="sc">%&gt;%</span> </span>
 <span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SOC_TITLE, prop_certi, tot) <span class="sc">%&gt;%</span> </span>
 <span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
@@ -1535,7 +1535,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>prop_certi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Below arranges top 50 <code>SOC_TITLE</code> in terms of the probability of being <code>CERTIFIED</code>.</p>
+<p>Below arranges top 50 <code>SOC_TITLE</code>s in terms of the probability of being <code>CERTIFIED</code>.</p>
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>top5 <span class="ot">&lt;-</span> h1b <span class="sc">%&gt;%</span></span>
