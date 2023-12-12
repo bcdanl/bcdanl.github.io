@@ -63,25 +63,25 @@ library(skimr)
 games <- read_csv("/Users/bchoe/Documents/websites/bcdanl.github.io/data/games.csv")
 ```
 
-- The data frame **games** includes information on 100 popular games over the monthly time periods, ranging from July 2012 to February 2021.
+- The data frame `games` includes information on 100 popular games over the monthly time periods, ranging from July 2012 to February 2021.
 - The time of the collected data depends on the time of the game's release.
 
 
 ## Variable description
 
-- **gamename**:	Name of a game
-- **date**:	Date of measure
-- **year**:	Year of measure
-- **month**:	Month of measure
-- **avg**:	Average number of players at the same time within a given month
-- **peak**:	Highest number of players at the same time within a given month
+- `gamename`:	Name of a game
+- `date`:	Date of measure
+- `year`:	Year of measure
+- `month`:	Month of measure
+- `avg`:	Average number of players at the same time within a given month
+- `peak`:	Highest number of players at the same time within a given month
 
 
 
 <br>
 
 
-- The following is the data.frame, **games**.
+- The following is the data.frame, `games`.
 ```{r, results = 'asis'}
 rmarkdown::paged_table(games,
                        options = list(rows.print = 20,
@@ -108,9 +108,9 @@ unique(games$gamename)
 
 
 ## Q1a
-- Provide the R code to generate the data.frame, **top4**, which includes data exclusively for the top 4 **gamename**s, featuring only these variables: **gamename**, **date**, **avg**, **peak**, from the data.frame **games**.
+- Provide the R code to generate the data.frame, `top4`, which includes data exclusively for the top 4 `gamename`s, featuring only these variables: `gamename`, `date`, `avg`, `peak`, from the data.frame `games`.
 
-  - The top 4 **gamename**s are identified based on their mean **avg** values, calculated from January 2020 onwards within the **games** data.frame.
+  - The top 4 `gamename`s are identified based on their mean `avg` values, calculated from January 2020 onwards within the `games` data.frame.
   
 
 
@@ -128,7 +128,7 @@ top4 <- games %>%
 ```
 
 
-  - The following is the first 10 observations in the data.frame, **top4**.
+  - The following is the first 10 observations in the data.frame, `top4`.
 ```{r, results = 'asis'}
 rmarkdown::paged_table(top4,
                        options = list(rows.print = 10,
@@ -140,7 +140,7 @@ rmarkdown::paged_table(top4,
   
   <br>
   
-  - The following is the last 10 observations in the data.frame, **top4**.
+  - The following is the last 10 observations in the data.frame, `top4`.
 
 ```{r, results = 'asis'}
 rmarkdown::paged_table(top4 %>% tail(10),
@@ -155,7 +155,7 @@ rmarkdown::paged_table(top4 %>% tail(10),
 
 
 ## Q1b
-- Provide R code to recreate the ggplot figure illustrating the monthly trend of **avg** for the top 4 **gamename**s using the data.frame **top4**. 
+- Provide R code to recreate the ggplot figure illustrating the monthly trend of `avg` for the top 4 `gamename`s using the data.frame `top4`. 
 
 <br>
 
@@ -188,7 +188,7 @@ ggplot(data = top4,
 
 
 ## Q1c
-- Provide R code to recreate the ggplot figure illustrating the trend of the monthly change in **avg** for the games.
+- Provide R code to recreate the ggplot figure illustrating the trend of the monthly change in `avg` for the games.
 
 ```{r}
 #| fig-height: 12
@@ -221,7 +221,7 @@ ggplot(data = q1c,
 
 
 ## Q1d.
-- Provide a brief comparison of the monthly **avg** trends among the top 4 **gamename**s, using the visualizations in Q1b and Q1c.
+- Provide a brief comparison of the monthly `avg` trends among the top 4 `gamename`s, using the visualizations in Q1b and Q1c.
 
 
 <br><br>
@@ -240,21 +240,21 @@ h1b <- read_csv("/Users/bchoe/My Drive/suny-geneseo/teaching-materials/lecture-d
 
 - The H-1B visa is a non-immigrant visa used by the United States to allow employers to employ foreign workers in specialty occupations. These occupations typically require specialized knowledge and a bachelor's degree or higher in the specific specialty, or its equivalent. H-1B work-authorization is strictly limited to employment by the sponsoring employer.
 
-- The data frame **h1b** includes information on application status for H-1B visa in 2019.
+- The data frame `h1b` includes information on application status for H-1B visa in 2019.
 
 
 ## Variable description
 
-- **EMPLOYER_STATE**:	US state
-- **EMPLOYER_CITY**:	US city
-- **CASE_STATUS**:	Application status
-- **EMPLOYER_NAME**:	Month of measure
-- **SOC_TITLE**:	Title of Standard Occupational Classification (SOC). 
+- `EMPLOYER_STATE`:	US state
+- `EMPLOYER_CITY`:	US city
+- `CASE_STATUS`:	Application status
+- `EMPLOYER_NAME`:	Month of measure
+- `SOC_TITLE`:	Title of Standard Occupational Classification (SOC). 
   - United States government system uses this for classifying occupations
-- **JOB_TITLE**:	Title of job
+- `JOB_TITLE`:	Title of job
 
 
-- The following is the first 20 values in **EMPLOYER_STATE**, **EMPLOYER_CITY**, and **CASE_STATUS**:
+- The following is the first 20 values in `EMPLOYER_STATE`, `EMPLOYER_CITY`, and `CASE_STATUS`:
 ```{r, results = 'asis'}
 rmarkdown::paged_table(h1b %>% select(EMPLOYER_STATE, EMPLOYER_CITY, CASE_STATUS),
                        options = list(rows.print = 20,
@@ -266,7 +266,7 @@ rmarkdown::paged_table(h1b %>% select(EMPLOYER_STATE, EMPLOYER_CITY, CASE_STATUS
 
 <br>
 
-- The following is the first 20 values in **SOC_TITLE**:
+- The following is the first 20 values in `SOC_TITLE`:
 ```{r, results = 'asis'}
 rmarkdown::paged_table(h1b %>% select(SOC_TITLE),
                        options = list(rows.print = 20,
@@ -278,7 +278,7 @@ rmarkdown::paged_table(h1b %>% select(SOC_TITLE),
 
 <br>
 
-- The following is the first 20 values in **JOB_TITLE**:
+- The following is the first 20 values in `JOB_TITLE`:
 ```{r, results = 'asis'}
 rmarkdown::paged_table(h1b %>% select(JOB_TITLE),
                        options = list(rows.print = 20,
@@ -314,7 +314,7 @@ unique(h1b$CASE_STATUS)
 
 
 ## Q2a
-- Provide ggplot code to recreate the ggplot figure illustrating how the distribution of **CASE_STATUS** varies by **EMPLOYER_STATE**.
+- Provide ggplot code to recreate the ggplot figure illustrating how the distribution of `CASE_STATUS` varies by `EMPLOYER_STATE`.
   
 
 ```{r}
@@ -331,7 +331,7 @@ ggplot(h1b, aes(y = EMPLOYER_STATE,
 
 
 ## Q2b
-- Provide a brief comparison of the the distributions of **CASE_STATUS** across **EMPLOYER_STATE**S, using the visualization in Q2a.
+- Provide a brief comparison of the the distributions of `CASE_STATUS` across `EMPLOYER_STATE`S, using the visualization in Q2a.
 
 
 <br><br>
@@ -339,7 +339,7 @@ ggplot(h1b, aes(y = EMPLOYER_STATE,
 
 
 ## Q2c
-- Provide the R code to recreate the ggplot figure illustrating how the probability distribution of **CASE_STATUS** varies across the top 5 US states.
+- Provide the R code to recreate the ggplot figure illustrating how the probability distribution of `CASE_STATUS` varies across the top 5 US states.
   - The top 5 US states are selected in terms of the number of H1-B applications.
   - The sum of bar heights within one state is 1.
 
@@ -369,8 +369,8 @@ ggplot(h1b_top5states,
 
 
 ## Q2d
-- Provide the two distinct R codes to create the data.frame **top50**, which identifies the top 50 **SOC_TITLE** with the highest number of H1B **CERTIFIED** workers.
-  - In cases where there are multiple **SOC_TITLE**S tied for the 50th highest count of H1B **CERTIFIED** workers, include all such **SOC_TITLE** values in the data.frame **top50**.
+- Provide the two distinct R codes to create the data.frame `top50`, which identifies the top 50 `SOC_TITLE` with the highest number of H1B `CERTIFIED` workers.
+  - In cases where there are multiple `SOC_TITLE`S tied for the 50th highest count of H1B `CERTIFIED` workers, include all such `SOC_TITLE` values in the data.frame `top50`.
   - The following shows the resulting data.frame:
 
 ```{r}
@@ -406,7 +406,7 @@ rmarkdown::paged_table(top50_2,
 
 
 ## Q2e
-- Provide the two distinct R codes to create the data.frame **top5**, which identifies the top 5 out of those top 50 **SOC_TITLE** in terms of the probability of being **CERTIFIED**.
+- Provide the two distinct R codes to create the data.frame `top5`, which identifies the top 5 out of those top 50 `SOC_TITLE` in terms of the probability of being `CERTIFIED`.
   - The following shows the resulting data.frame:
 ```{r}
 top_50_SOC <- h1b %>% 
