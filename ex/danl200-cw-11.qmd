@@ -1,6 +1,12 @@
 ---
 title: "DANL 200 - Classwork 11 - Joins"
 author: "Byeong-Hak Choe"
+
+execute: 
+  eval: true
+  echo: true
+  warning: false
+  message: false
 ---
 
 ```{r setup, include = FALSE}
@@ -31,6 +37,7 @@ library(skimr)
 ```
 
 
+
 # Question 1
 
 
@@ -51,6 +58,8 @@ student_data2 <- data.frame(
 ```
 
 
+
+
 ```{r, result = 'asis', echo = F, message = F, warning = F}
 rmarkdown::paged_table(student_data1)
 ```
@@ -66,6 +75,17 @@ rmarkdown::paged_table(student_data2)
 ## Q1a
 Write a R code to join the two given data.frames along **rows** and assign all data.
 
+```{r, eval = F}
+df_r <- rbind(student_data1, student_data2)
+```
+
+```{r, echo = F}
+df_r <- rbind(student_data1, student_data2)
+```
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(df_r)
+```
 
 <br>
 
@@ -73,13 +93,25 @@ Write a R code to join the two given data.frames along **rows** and assign all d
 ## Q1b
 Write a R code to join the two given data.frames along **columns** and assign all data.
 
+```{r, eval = F}
+df_c <- cbind(student_data1, student_data2)
+```
+
+```{r, echo = F}
+df_c <- cbind(student_data1, student_data2)
+```
+
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(df_c)
+```
 
 
 <br><br><br>
 
 # Question 2
 
-Consider the three data.frames `flights`, `airports`, and `airlines` from the `nycflights13` package.
+Consider the two data.frames `flights` and `airlines` from the `nycflights13` package.
 
 
 - `flights` data.frame
@@ -91,13 +123,15 @@ rmarkdown::paged_table(flights)
 colnames(flights)  # returns column names in the flights data.frame
 ```
 
+
 - `airports` data.frame
+
 ```{r, result = 'asis', echo = F, message = F, warning = F}
 rmarkdown::paged_table(airports)
 ```
 
 ```{r}
-colnames(airports)  
+colnames(airports)
 ```
 
 
@@ -117,21 +151,59 @@ colnames(airlines)
 
 Join `flights` with `airports`, so that we can see information about each flight's destination airport in the `flights` data.frame.
 
+```{r}
+q2a <- flights %>% 
+  left_join(airports, by = c('dest' = 'faa'))
+```
 
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(q2a)
+```
 
 <br>
 
 ## Q2b
 
-Find the full name of the airline that has the longest positive `dep_delay` on average.
+Find the airline that has the longest positive `dep_delay` on average.
+
+```{r, message=F, warning=F}
+flights <- flights %>% 
+  left_join(airlines)
+
+q2b <- flights %>% 
+  group_by(carrier, name) %>% 
+  summarize(delay_mean = mean(dep_delay[dep_delay> 0],
+                              na.rm = T)
+            ) %>% 
+  arrange(-delay_mean)
+
+```
 
 
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(q2b)
+```
 
 <br>
 
 ## Q2c
 
-Find the full name of the airline that has the largest proportion of flights with longer than 30-minute `dep_delay`.
+Find the airline that has the largest proportion of flights with longer than 30-minute `dep_delay`.
 
 
+```{r, message=F, warning=F}
+q2c <- flights %>% 
+  mutate(delay_over_30 = ifelse(dep_delay > 30, 
+                                1, 0) ) %>% 
+  group_by(carrier, name) %>% 
+  summarize(pct = 100 * mean(delay_over_30,
+                              na.rm = T)) %>% 
+  arrange(-pct)
 
+```
+
+
+```{r, result = 'asis', echo = F, message = F, warning = F}
+rmarkdown::paged_table(q2c)
+```
