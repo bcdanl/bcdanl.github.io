@@ -714,6 +714,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../ex/danl200-midterm-2-makeup-q.html" class="sidebar-item-text sidebar-link">06 - Midterm II - Make-up - Review</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../ex/danl200-midterm-2-q.html" class="sidebar-item-text sidebar-link active">06 - Midterm II - Review</a>
   </div>
 </li>
@@ -1513,23 +1518,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(SOC_TITLE <span class="sc">%in%</span> SOC_NAME_t50  ) <span class="sc">%&gt;%</span> </span>
 <span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SOC_TITLE) <span class="sc">%&gt;%</span></span>
 <span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tot =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_certi =</span> <span class="fu">ifelse</span>(CASE_STATUS <span class="sc">==</span> <span class="st">"CERTIFIED"</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_certis =</span> <span class="fu">sum</span>(n_certi),</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_certi =</span> <span class="fu">ifelse</span>(CASE_STATUS <span class="sc">==</span> <span class="st">"CERTIFIED"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">n_certis =</span> <span class="fu">sum</span>(n_certi),</span>
 <span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">prop_certi =</span> <span class="dv">100</span><span class="sc">*</span>n_certis<span class="sc">/</span>tot) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_certiw =</span> <span class="fu">ifelse</span>(CASE_STATUS <span class="sc">==</span> <span class="st">"CERTIFIED-WITHDRAWN"</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_certiws =</span> <span class="fu">sum</span>(n_certiw),</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_certiw =</span> <span class="fu">ifelse</span>(CASE_STATUS <span class="sc">==</span> <span class="st">"CERTIFIED-WITHDRAWN"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">n_certiws =</span> <span class="fu">sum</span>(n_certiw),</span>
 <span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">prop_certiw =</span> <span class="dv">100</span><span class="sc">*</span>n_certiws<span class="sc">/</span>tot) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_denied =</span> <span class="fu">ifelse</span>(CASE_STATUS <span class="sc">==</span> <span class="st">"DENIED"</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_denieds =</span> <span class="fu">sum</span>(n_denied),</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_denied =</span> <span class="fu">ifelse</span>(CASE_STATUS <span class="sc">==</span> <span class="st">"DENIED"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">n_denieds =</span> <span class="fu">sum</span>(n_denied),</span>
 <span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">prop_denied =</span> <span class="dv">100</span><span class="sc">*</span>n_denieds<span class="sc">/</span>tot) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_w =</span> <span class="fu">ifelse</span>(CASE_STATUS <span class="sc">==</span> <span class="st">"WITHDRAWN"</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_ws =</span> <span class="fu">sum</span>(n_w),</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">n_w =</span> <span class="fu">ifelse</span>(CASE_STATUS <span class="sc">==</span> <span class="st">"WITHDRAWN"</span>, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">n_ws =</span> <span class="fu">sum</span>(n_w),</span>
 <span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">prop_w =</span> <span class="dv">100</span><span class="sc">*</span>n_ws<span class="sc">/</span>tot) <span class="sc">%&gt;%</span> </span>
 <span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SOC_TITLE, prop_certi, prop_certiw, prop_denied, prop_w, tot) <span class="sc">%&gt;%</span> </span>
 <span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">%&gt;%</span> </span>
 <span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>prop_certi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+<ul>
+<li>In the above, I provided just one R code for the answer.</li>
+</ul>
 <details>
 <summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">paged_table</span>(q2e,</span>

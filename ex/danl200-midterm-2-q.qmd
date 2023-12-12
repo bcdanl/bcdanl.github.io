@@ -421,17 +421,17 @@ q2e <- h1b %>%
   filter(SOC_TITLE %in% SOC_NAME_t50  ) %>% 
   group_by(SOC_TITLE) %>%
   mutate(tot = n()) %>% 
-  mutate(n_certi = ifelse(CASE_STATUS == "CERTIFIED", 1, 0)) %>% 
-  mutate(n_certis = sum(n_certi),
+  mutate(n_certi = ifelse(CASE_STATUS == "CERTIFIED", 1, 0),
+         n_certis = sum(n_certi),
          prop_certi = 100*n_certis/tot) %>% 
-  mutate(n_certiw = ifelse(CASE_STATUS == "CERTIFIED-WITHDRAWN", 1, 0)) %>% 
-  mutate(n_certiws = sum(n_certiw),
+  mutate(n_certiw = ifelse(CASE_STATUS == "CERTIFIED-WITHDRAWN", 1, 0),
+         n_certiws = sum(n_certiw),
          prop_certiw = 100*n_certiws/tot) %>% 
-  mutate(n_denied = ifelse(CASE_STATUS == "DENIED", 1, 0)) %>% 
-  mutate(n_denieds = sum(n_denied),
+  mutate(n_denied = ifelse(CASE_STATUS == "DENIED", 1, 0),
+         n_denieds = sum(n_denied),
          prop_denied = 100*n_denieds/tot) %>% 
-  mutate(n_w = ifelse(CASE_STATUS == "WITHDRAWN", 1, 0)) %>% 
-  mutate(n_ws = sum(n_w),
+  mutate(n_w = ifelse(CASE_STATUS == "WITHDRAWN", 1, 0),
+         n_ws = sum(n_w),
          prop_w = 100*n_ws/tot) %>% 
   select(SOC_TITLE, prop_certi, prop_certiw, prop_denied, prop_w, tot) %>% 
   distinct() %>% 
@@ -439,6 +439,7 @@ q2e <- h1b %>%
 
 ```
 
+- In the above, I provided just one R code for the answer.
 
 ```{r, results = 'asis'}
 rmarkdown::paged_table(q2e,
