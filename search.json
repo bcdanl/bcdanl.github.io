@@ -907,7 +907,7 @@
     "href": "ex/danl200-hw-5.html#q1a.",
     "title": "DANL 200: Homework Assignment 5",
     "section": "Q1a.",
-    "text": "Q1a.\n\nProvide a link for your GihtHub repository, https://github.com/YOUR_GITHUB_USERNAME/YOUR_GITHUB_USERNAME.github.io\nAdd a URL for your website (https://YOUR_GITHUB_USERNAME.github.io/) in the About section in your GihtHub repository webpage by clicking the setting. For example, the below shows the :"
+    "text": "Q1a.\n\nProvide a link for your GihtHub repository, https://github.com/YOUR_GITHUB_USERNAME/YOUR_GITHUB_USERNAME.github.io\nAdd a URL for your website (https://YOUR_GITHUB_USERNAME.github.io/) in the About section in your GihtHub repository webpage by clicking the setting. For example, the below shows the :\n\n\nknitr::include_graphics(\"github-repo.png\")"
   },
   {
     "objectID": "ex/danl200-hw-5.html#q1b.",
@@ -935,49 +935,49 @@
     "href": "ex/danl200-hw-5.html#q2a.",
     "title": "DANL 200: Homework Assignment 5",
     "section": "Q2a.",
-    "text": "Q2a.\nIn data.frame, NFL2022_stuffs, remove observations for which values of posteam is missing.\nAnswer:"
+    "text": "Q2a.\nIn data.frame, NFL2022_stuffs, remove observations for which values of posteam is missing.\nAnswer:\n\nq2a <- NFL2022_stuffs %>% \n  filter(!is.na(posteam))"
   },
   {
     "objectID": "ex/danl200-hw-5.html#q2b.",
     "href": "ex/danl200-hw-5.html#q2b.",
     "title": "DANL 200: Homework Assignment 5",
     "section": "Q2b.",
-    "text": "Q2b.\n\nSummarize the mean value of pass for each posteam when all the following conditions hold:\n\nwp is greater than 20% and less than 75%;\ndown is less than or equal to 2; and\nhalf_seconds_remaining is greater than 120.\n\n\nAnswer:"
+    "text": "Q2b.\n\nSummarize the mean value of pass for each posteam when all the following conditions hold:\n\nwp is greater than 20% and less than 75%;\ndown is less than or equal to 2; and\nhalf_seconds_remaining is greater than 120.\n\n\nAnswer:\n\nq2b <- q2a %>%\n  filter(wp > .20, wp < .80, down <= 2, qtr <= 2, \n         half_seconds_remaining > 120) %>%\n  group_by(posteam) %>%\n  summarize(mean_pass = mean(pass), \n            plays = n()) %>%\n  arrange(mean_pass)"
   },
   {
     "objectID": "ex/danl200-hw-5.html#q2c.",
     "href": "ex/danl200-hw-5.html#q2c.",
     "title": "DANL 200: Homework Assignment 5",
     "section": "Q2c.",
-    "text": "Q2c.\n\nProvide both (1) a ggplot code with geom_point() using the resulting data.frame in Q2b and (2) a simple comments to describe the mean value of pass for each posteam.\n\nIn the ggplot, reorder the posteam categories based on the mean value of pass in ascending or in descending order.\n\n\nAnswer:"
+    "text": "Q2c.\n\nProvide both (1) a ggplot code with geom_point() using the resulting data.frame in Q2b and (2) a simple comments to describe the mean value of pass for each posteam.\n\nIn the ggplot, reorder the posteam categories based on the mean value of pass in ascending or in descending order.\n\n\nAnswer:\n\nggplot(data = q2b,\n       aes( y = reorder(posteam, mean_pass), \n            x = mean_pass)) +\n  geom_point() +\n  labs(y = \"Team with possession\",\n       x = \"Percentage of pass plays\",\n       title = \"Passing stats in NFL 2022\")"
   },
   {
     "objectID": "ex/danl200-hw-5.html#q2d.",
     "href": "ex/danl200-hw-5.html#q2d.",
     "title": "DANL 200: Homework Assignment 5",
     "section": "Q2d.",
-    "text": "Q2d.\n\nConsider the following data.frame, NFL2022_epa:\n\n\nNFL2022_epa <- read_csv('https://bcdanl.github.io/data/NFL2022_epa.csv')\n\n\n\n\n  \n\n\n\nVariable description for NFL2022_epa\n\nplay_id: Numeric play identifier that when used with game_id and drive provides the unique identifier for a single play\ngame_id: Ten digit identifier for NFL game.\ndrive: Numeric drive number in the game.\nposteam: String abbreviation for the team with possession.\npasser: Name of the player who passed a ball to a receiver by initially taking a three-step drop and backpedaling into the pocket to make a pass. (Mostly, they are quarterbacks)\nreceiver: Name of the receiver.\nepa: Expected points added (EPA) by the posteam for the given play.\n\nCreate the data.frame, NFL2022_stuffs_EPA, that includes\n\nAll the variables in the data.frame, NFL2022_stuffs;\nThe variables, passer, receiver, and epa, from the data.frame, NFL2022_epa. by joining the two data.frames.\n\nIn the resulting data.frame, NFL2022_stuffs_EPA, remove observations with NA in passer.\n\nAnswer:"
+    "text": "Q2d.\n\nConsider the following data.frame, NFL2022_epa:\n\n\nNFL2022_epa <- read_csv('https://bcdanl.github.io/data/NFL2022_epa.csv')\n\nrmarkdown::paged_table(NFL2022_epa)\n\n\n\n  \n\n\n\nVariable description for NFL2022_epa\n\nplay_id: Numeric play identifier that when used with game_id and drive provides the unique identifier for a single play\ngame_id: Ten digit identifier for NFL game.\ndrive: Numeric drive number in the game.\nposteam: String abbreviation for the team with possession.\npasser: Name of the player who passed a ball to a receiver by initially taking a three-step drop and backpedaling into the pocket to make a pass. (Mostly, they are quarterbacks)\nreceiver: Name of the receiver.\nepa: Expected points added (EPA) by the posteam for the given play.\n\nCreate the data.frame, NFL2022_stuffs_EPA, that includes\n\nAll the variables in the data.frame, NFL2022_stuffs;\nThe variables, passer, receiver, and epa, from the data.frame, NFL2022_epa. by joining the two data.frames.\n\nIn the resulting data.frame, NFL2022_stuffs_EPA, remove observations with NA in passer.\n\nAnswer:\n\nq2d <- NFL2022_stuffs %>% \n  left_join(NFL2022_epa) %>% \n  filter(!is.na(passer))"
   },
   {
     "objectID": "ex/danl200-hw-5.html#q2e.",
     "href": "ex/danl200-hw-5.html#q2e.",
     "title": "DANL 200: Homework Assignment 5",
     "section": "Q2e.",
-    "text": "Q2e.\n\nProvide both (1) a single ggplot and (2) a simple comment to describe the NFL weekly trend of weekly mean value of epa for each of the following two passers,\n\n\"J.Allen\"\n\"P.Mahomes\"\n\n\nAnswer:"
+    "text": "Q2e.\n\nProvide both (1) a single ggplot and (2) a simple comment to describe the NFL weekly trend of weekly mean value of epa for each of the following two passers,\n\n\"J.Allen\"\n\"P.Mahomes\"\n\n\nAnswer:\n\nq2e <- q2d %>%\n  filter( str_detect(passer, \"J.Allen\") | \n            str_detect(passer, \"P.Mahomes\"))%>%\n  group_by(week, passer) %>% \n  summarize(mean_epa = mean(epa, na.rm = TRUE))\n\n\nggplot( q2e, \n        aes(x = week, y = mean_epa, color = passer) ) +\n  geom_line(size = 1) + geom_point(size = 2) +\n  labs(x = \"Week\",\n       y = \"Mean value of expected points added (EPA)\",\n       color = \"Passer\") +\n  # scale_color_tableau() +\n  scale_color_fivethirtyeight() +\n  theme(legend.position = 'top')"
   },
   {
     "objectID": "ex/danl200-hw-5.html#q2f.",
     "href": "ex/danl200-hw-5.html#q2f.",
     "title": "DANL 200: Homework Assignment 5",
     "section": "Q2f.",
-    "text": "Q2f.\nCalculate the difference between the mean value of epa for \"J.Allen\" the mean value of epa for \"P.Mahomes\" for each value of week.\nAnswer:"
+    "text": "Q2f.\nCalculate the difference between the mean value of epa for \"J.Allen\" the mean value of epa for \"P.Mahomes\" for each value of week.\nAnswer:\n\nq2f <- q2e %>% \n  pivot_wider(values_from = mean_epa,\n              names_from = passer) %>% \n  mutate(diff_epa = J.Allen - P.Mahomes)"
   },
   {
     "objectID": "ex/danl200-hw-5.html#q2g.",
     "href": "ex/danl200-hw-5.html#q2g.",
     "title": "DANL 200: Homework Assignment 5",
     "section": "Q2g.",
-    "text": "Q2g.\n\nSummarize the resulting data.frame in Q2d, with the following four variables:\n\nposteam: String abbreviation for the team with possession.\npasser: Name of the player who passed a ball to a receiver by initially taking a three-step drop, and backpedaling into the pocket to make a pass. (Mostly, they are quarterbacks.)\nmean_epa: Mean value of epa in 2022 for each passer\nn_pass: Number of observations for each passer\n\nThen find the top 10 NFL passers in 2022 in terms of the mean value of epa, conditioning that n_pass must be greater than or equal to the third quantile level of n_pass.\n\nAnswer:"
+    "text": "Q2g.\n\nSummarize the resulting data.frame in Q2d, with the following four variables:\n\nposteam: String abbreviation for the team with possession.\npasser: Name of the player who passed a ball to a receiver by initially taking a three-step drop, and backpedaling into the pocket to make a pass. (Mostly, they are quarterbacks.)\nmean_epa: Mean value of epa in 2022 for each passer\nn_pass: Number of observations for each passer\n\nThen find the top 10 NFL passers in 2022 in terms of the mean value of epa, conditioning that n_pass must be greater than or equal to the third quantile level of n_pass.\n\nAnswer:\n\nq2g <- q2d %>%\n  group_by(posteam, passer) %>% \n  summarize(mean_epa = mean(epa, na.rm = TRUE),\n            n_pass = n()) \n# skimr::skim(q2g) # \n\nq2g <- q2g %>% \n  ungroup() %>% \n  filter(n_pass > quantile(q2g$n_pass, probs = .75)) %>% \n  arrange(-mean_epa)"
   },
   {
     "objectID": "ex/econ340-hw-4.html",
