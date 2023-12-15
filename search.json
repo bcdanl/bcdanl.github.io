@@ -2564,22 +2564,78 @@
   {
     "objectID": "ex/danl-399-final-nicky.html",
     "href": "ex/danl-399-final-nicky.html",
-    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
+    "title": "DANL 399: Data Visualization and Presentation Final Exam",
     "section": "",
     "text": "library(knitr)\nlibrary(tidyverse)\nlibrary(lubridate)\nlibrary(socviz)\nlibrary(ggthemes)\nlibrary(ggrepel)\nlibrary(ggtext)\nlibrary(hrbrthemes)\nlibrary(gapminder)\nlibrary(stargazer)\nlibrary(broom)"
   },
   {
     "objectID": "ex/danl-399-final-nicky.html#q1a",
     "href": "ex/danl-399-final-nicky.html#q1a",
-    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
+    "title": "DANL 399: Data Visualization and Presentation Final Exam",
     "section": "Q1a",
     "text": "Q1a\n\nReplicate the following ggplot.\n\nYou should calculate the proportion of Pit Bull (or Mix) for each zip code.\nYou should join data.frames properly.\nChoose the color palette from the viridis scales https://ggplot2.tidyverse.org/reference/scale_viridis.html.\nUse coord_map(projection = \"albers\", lat0 = 39, lat1 = 45)."
   },
   {
     "objectID": "ex/danl-399-final-nicky.html#q1b",
     "href": "ex/danl-399-final-nicky.html#q1b",
-    "title": "DANL 399: Data Visualization and Presentation Midterm Exam",
+    "title": "DANL 399: Data Visualization and Presentation Final Exam",
     "section": "Q1b",
     "text": "Q1b\n\nWhich zip_code does have the highest proportion of Pit Bull (or Mix)?"
+  },
+  {
+    "objectID": "ex/danl-399-final-nicky.html#variable-description",
+    "href": "ex/danl-399-final-nicky.html#variable-description",
+    "title": "DANL 399: Data Visualization and Presentation Final Exam",
+    "section": "Variable description",
+    "text": "Variable description\n\ntconst: alphanumeric unique identifier of the title\ntitle_type: the type/format of the title\n\n(movie, video, or tvMovie)\n\nprimary_title: the more popular title / the title used by the filmmakers on promotional materials at the point of release\nsimple_title: the title in lowercase, with punctuation removed, for easier filtering and grouping\nyear: the release year of a title\nruntime_minutes: primary runtime of the title, in minutes\naverage_rating: weighted average of all the individual user ratings on IMDb\nnum_votes: number of votes the title has received on IMDb (titles with fewer than 10 votes were not included in this dataset)\n\n\n\nThe following is the data.frame, holiday_movies.\n\n\n\n\n  \n\n\n\n\nnrow(holiday_movies)\n\n[1] 2265\n\nncol(holiday_movies)\n\n[1] 8\n\n\n\n\nunique(holiday_movies$title_type)\n\n[1] \"movie\"   \"tvMovie\" \"video\"  \n\n\n\n\nlength(unique(holiday_movies$primary_title))\n\n[1] 2081\n\nunique(holiday_movies$primary_title)[1:50]\n\n [1] \"Sailor's Holiday\"               \"The Devil's Holiday\"           \n [3] \"Holiday\"                        \"Holiday of St. Jorgen\"         \n [5] \"Sin Takes a Holiday\"            \"Sinners' Holiday\"              \n [7] \"Husband's Holiday\"              \"Beggar's Holiday\"              \n [9] \"Cowboy Holiday\"                 \"Death Takes a Holiday\"         \n[11] \"College Holiday\"                \"Mad Holiday\"                   \n[13] \"Stolen Holiday\"                 \"Angel's Holiday\"               \n[15] \"Dangerous Holiday\"              \"Every Day's a Holiday\"         \n[17] \"Bank Holiday\"                   \"A Christmas Carol\"             \n[19] \"Crime Takes a Holiday\"          \"Tropic Holiday\"                \n[21] \"Inspector Hornleigh on Holiday\" \"Christmas in July\"             \n[23] \"Holiday Inn\"                    \"Hoosier Holiday\"               \n[25] \"Christmas Holiday\"              \"Knickerbocker Holiday\"         \n[27] \"Christmas in Connecticut\"       \"Strange Holiday\"               \n[29] \"Holiday in Mexico\"              \"Perilous Holiday\"              \n[31] \"Blondie's Holiday\"              \"Bush Christmas\"                \n[33] \"Christmas Eve\"                  \"Hoppy's Holiday\"               \n[35] \"Holiday Camp\"                   \"Summer Holiday\"                \n[37] \"Holidays in Hell\"               \"Holiday Affair\"                \n[39] \"Holiday in Havana\"              \"Johnny Holiday\"                \n[41] \"Holiday Rhythm\"                 \"Last Holiday\"                  \n[43] \"Holiday Week\"                   \"Holiday for Sinners\"           \n[45] \"Roman Holiday\"                  \"Monsieur Hulot's Holiday\"      \n[47] \"White Christmas\"                \"Cinerama Holiday\"              \n[49] \"Holiday for Henrietta\"          \"Holiday Island\"                \n\n\n\n\nlength(unique(holiday_movies$simple_title))\n\n[1] 2073\n\nunique(holiday_movies$simple_title)[1:50]\n\n [1] \"sailors holiday\"                \"the devils holiday\"            \n [3] \"holiday\"                        \"holiday of st jorgen\"          \n [5] \"sin takes a holiday\"            \"sinners holiday\"               \n [7] \"husbands holiday\"               \"beggars holiday\"               \n [9] \"cowboy holiday\"                 \"death takes a holiday\"         \n[11] \"college holiday\"                \"mad holiday\"                   \n[13] \"stolen holiday\"                 \"angels holiday\"                \n[15] \"dangerous holiday\"              \"every days a holiday\"          \n[17] \"bank holiday\"                   \"a christmas carol\"             \n[19] \"crime takes a holiday\"          \"tropic holiday\"                \n[21] \"inspector hornleigh on holiday\" \"christmas in july\"             \n[23] \"holiday inn\"                    \"hoosier holiday\"               \n[25] \"christmas holiday\"              \"knickerbocker holiday\"         \n[27] \"christmas in connecticut\"       \"strange holiday\"               \n[29] \"holiday in mexico\"              \"perilous holiday\"              \n[31] \"blondies holiday\"               \"bush christmas\"                \n[33] \"christmas eve\"                  \"hoppys holiday\"                \n[35] \"holiday camp\"                   \"summer holiday\"                \n[37] \"holidays in hell\"               \"holiday affair\"                \n[39] \"holiday in havana\"              \"johnny holiday\"                \n[41] \"holiday rhythm\"                 \"last holiday\"                  \n[43] \"holiday week\"                   \"holiday for sinners\"           \n[45] \"roman holiday\"                  \"monsieur hulots holiday\"       \n[47] \"white christmas\"                \"cinerama holiday\"              \n[49] \"holiday for henrietta\"          \"holiday island\"                \n\n\n\n\nlength(unique(holiday_movies$year))\n\n[1] 91\n\nunique(holiday_movies$year)\n\n [1] 1929 1930 1931 1934 1936 1937 1938 1939 1940 1942 1943 1944 1945 1946 1947\n[16] 1948 1949 1950 1951 1952 1953 1954 1955 1957 1958 1959 1960 1963 1961 1964\n[31] 1965 1966 1967 1969 1970 1971 1972 1973 1974 1975 1976 1977 1978 1979 1981\n[46] 1980 1983 1984 1986 1985 1987 1988 1989 1990 1991 1993 1992 1994 1995 1997\n[61] 1996 1962 1998 1968 2000 1999 2001 2004 2002 1982 2008 2003 1956 2007 2005\n[76] 2006 2016 2014 2019 2018 2020 2021 2011 2023 2017 2009 2022 2012 2015 2010\n[91] 2013\n\n\n\n\nunique(holiday_movies$runtime_minutes)\n\n  [1]  58  80  91  83  81  60  70  56  79  86  71  76  69  59  95  78  90  67\n [19] 100  65  93  85 101  61 128  89  NA  87  73  92  88  82  72 118 114 120\n [37] 119 105 103 125  75 107  68  84  96  25  94  26 110  98  22 113  97  48\n [55] 109  24 133 127  49 123  43  50 104  40 102  30  55  46  44  53 115 132\n [73]  23  64  52 158 145 130  57  66  45  47  51  29  27  63   7  99  18  54\n [91] 112   6   9  33 136   5  39  28  15 122  74  35  41  10  20 152 106 220\n[109]  31   4   1  37  17 146 140  77 150 141  42   3 121 111  21  12 172 108\n[127]   2  34 180 131  11 160 286 165  16 135 288 126 117  36 213\n\nunique(holiday_movies$average_rating)\n\n [1]  5.4  6.0  6.3  7.4  6.1  6.4  5.6  4.8  6.9  5.7  5.8  6.2  7.5  6.5  7.7\n[16]  5.5  6.8  7.3  6.7  5.3  6.6  5.9  7.1  8.1  8.0  7.6  8.3  3.5  4.4  7.2\n[31]  4.2  8.2  7.8  4.7  7.9  5.2  5.0  8.9  5.1  7.0  4.9  3.1  4.0  2.0  8.5\n[46]  4.3  8.7  2.1  2.4  4.1  2.2  2.9  4.6  3.9  3.6  4.5  8.6  2.7  3.8  3.2\n[61]  8.4  3.7  9.0  9.4  9.1  9.2  9.3  3.3  3.4  1.5 10.0  1.4  2.8  8.8  9.9\n[76]  9.8  2.6  9.5  1.6  1.3  1.7  1.8  3.0  1.0  2.3\n\n\n\n\nThe following is another data.frame holiday_movie_genres that is related with the data.frame holiday_movies:\n\n\nholiday_movie_genres <- read_csv(\"https://bcdanl.github.io/data/holiday_movie_genres.csv\")\n\n\n\n\n  \n\n\n\nThe data.frame holiday_movie_genres include up to three genres associated with the titles that appear in the data.frame.\n\n\nunique(holiday_movie_genres$genres)\n\n [1] \"Comedy\"      \"Drama\"       \"Romance\"     \"Adventure\"   \"Crime\"      \n [6] \"Western\"     \"Fantasy\"     \"Musical\"     \"Mystery\"     \"Family\"     \n[11] \"Action\"      \"Music\"       \"Film-Noir\"   \"History\"     \"War\"        \n[16] \"Thriller\"    NA            \"Documentary\" \"Animation\"   \"Sci-Fi\"     \n[21] \"Horror\"      \"Short\"       \"Biography\"   \"Sport\"       \"Talk-Show\"  \n[26] \"News\"        \"Reality-TV\""
+  },
+  {
+    "objectID": "ex/danl-399-final-nicky.html#variable-description-1",
+    "href": "ex/danl-399-final-nicky.html#variable-description-1",
+    "title": "DANL 399: Data Visualization and Presentation Final Exam",
+    "section": "Variable description",
+    "text": "Variable description\n\ntconst: alphanumeric unique identifier of the title\ngenres: genres associated with the title, one row per genre"
+  },
+  {
+    "objectID": "ex/danl-399-final-nicky.html#q3a.",
+    "href": "ex/danl-399-final-nicky.html#q3a.",
+    "title": "DANL 399: Data Visualization and Presentation Final Exam",
+    "section": "Q3a.",
+    "text": "Q3a.\n\nProvide the R code to generate the data.frame, holiday_movie_with_genres, which combines the two data.frames, holiday_movies and holiday_movie_genres:\n\n\n\n\n\nThe following shows the first four variables in holiday_movie_with_genres:"
+  },
+  {
+    "objectID": "ex/danl-399-final-nicky.html#q3b.",
+    "href": "ex/danl-399-final-nicky.html#q3b.",
+    "title": "DANL 399: Data Visualization and Presentation Final Exam",
+    "section": "Q3b.",
+    "text": "Q3b.\n\nProvide the R code to see how the summary statistics—mean, median, standard deviation, minimum, maximum, first and third quartiles—of average_rating and num_votes varies by popular genres and title_type.\n\nConsider only the five popular genres, which are selected in terms of the number of titles for each genre.\nRemoves the video type of the titles when calculating the summary statistics."
+  },
+  {
+    "objectID": "ex/danl-399-final-nicky.html#q3c.",
+    "href": "ex/danl-399-final-nicky.html#q3c.",
+    "title": "DANL 399: Data Visualization and Presentation Final Exam",
+    "section": "Q3c.",
+    "text": "Q3c.\n\nProvide R code to recreate the ggplot figure illustrating how the relationship between log10(num_votes) and average_rating varies by the popular genres and title_type.\n\nThe five popular genres are selected in terms of the number of titles for each genre.\nThe video type of the titles are removed in the ggplot figure."
+  },
+  {
+    "objectID": "ex/danl-399-final-nicky.html#q3d.",
+    "href": "ex/danl-399-final-nicky.html#q3d.",
+    "title": "DANL 399: Data Visualization and Presentation Final Exam",
+    "section": "Q3d.",
+    "text": "Q3d.\n\nProvide a comment to illustrate how the relationship between log10(num_votes) and average_rating varies by the popular genres and title_type."
+  },
+  {
+    "objectID": "ex/danl-399-final-nicky.html#q3e.",
+    "href": "ex/danl-399-final-nicky.html#q3e.",
+    "title": "DANL 399: Data Visualization and Presentation Final Exam",
+    "section": "Q3e.",
+    "text": "Q3e.\n\nProvide R code to recreate the ggplot figure illustrating the annual trend of the share of number of movies by popular genre from year 1975 to 2022.\n\nFor genres that are not popular, categorize them as “Other”.\nConsider changing the order of categories in genres."
+  },
+  {
+    "objectID": "ex/danl-399-final-nicky.html#q3f.",
+    "href": "ex/danl-399-final-nicky.html#q3f.",
+    "title": "DANL 399: Data Visualization and Presentation Final Exam",
+    "section": "Q3f.",
+    "text": "Q3f.\n\nProvide a comment to illustrate the annual trend of (1) the share of number of movies by popular genre from year 1975 to 2022.\n\nWhich genre has become more popular since 2010?"
   }
 ]

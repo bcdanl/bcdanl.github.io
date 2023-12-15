@@ -1,5 +1,5 @@
 ---
-title: "DANL 399: Data Visualization and Presentation\Final Exam"
+title: "DANL 399: Data Visualization and Presentation\nFinal Exam"
 author: "Byeong-Hak Choe"
 execute: 
   eval: true
@@ -207,7 +207,7 @@ knitr::include_graphics("eia-gas-cost.png")
 Below is the data frame for Question 3:
 
 ```{r, echo = T}
-holiday_movies <- read_csv("/Users/bchoe/My Drive/suny-geneseo/teaching-materials/lecture-data/holiday_movies.csv")
+holiday_movies <- read_csv("https://bcdanl.github.io/data/holiday_movies.csv")
 ```
 
 - The data.frame **holiday_movies** comes from the Internet Movie Database (IMDb). 
@@ -238,41 +238,6 @@ holiday_movies <- read_csv("/Users/bchoe/My Drive/suny-geneseo/teaching-material
 - The following is the data.frame, **holiday_movies**.
 ```{r, results = 'asis'}
 rmarkdown::paged_table(holiday_movies,
-                       options = list(rows.print = 20,
-                                      cols.print = 6,
-                                      pages.print = 0,
-                                      paged.print = F
-                                      )) 
-```
-
-<br>
-
-```{r, results = 'asis'}
-rmarkdown::paged_table(holiday_movies %>% select(primary_title),
-                       options = list(rows.print = 20,
-                                      cols.print = 6,
-                                      pages.print = 0,
-                                      paged.print = F
-                                      )) 
-```
-
-<br>
-
-
-```{r, results = 'asis'}
-rmarkdown::paged_table(holiday_movies %>% select(simple_title, year),
-                       options = list(rows.print = 20,
-                                      cols.print = 6,
-                                      pages.print = 0,
-                                      paged.print = F
-                                      )) 
-```
-
-<br>
-
-
-```{r, results = 'asis'}
-rmarkdown::paged_table(holiday_movies %>% select(runtime_minutes:num_votes),
                        options = list(rows.print = 20,
                                       cols.print = 6,
                                       pages.print = 0,
@@ -385,7 +350,7 @@ rmarkdown::paged_table(holiday_movies_with_genres,
 
 <br><br>
 
-## Q1b.
+## Q3b.
 
 - Provide the R code to see how the summary statistics---mean, median, standard deviation, minimum, maximum, first and third quartiles---of **average_rating** and **num_votes** varies by popular **genres** and **title_type**.
 
@@ -413,7 +378,7 @@ holiday_movies_with_genres %>%
 
 <br><br>
 
-## Q1c.
+## Q3c.
 
 - Provide R code to recreate the ggplot figure illustrating how the relationship between **log10(num_votes)** and **average_rating** varies by the popular **genres** and **title_type**.
   - The five popular **genres** are selected in terms of the number of titles for each genre.
@@ -445,14 +410,14 @@ holiday_movies_with_genres %>%
 
 <br><br>
 
-## Q1d.
+## Q3d.
 
 - Provide a comment to illustrate how the relationship between **log10(num_votes)** and **average_rating** varies by the popular **genres** and **title_type**.
 
 
 <br><br>
 
-## Q1e.
+## Q3e.
 
 - Provide R code to recreate the ggplot figure illustrating the annual trend of the share of number of movies by popular genre from year 1975 to 2022.
 
@@ -479,7 +444,7 @@ holiday_movies_with_genres %>%
 
 <br>
 
-## Q1f.
+## Q3f.
 
 - Provide a comment to illustrate the annual trend of (1) the share of number of movies by popular genre from year 1975 to 2022.
 
