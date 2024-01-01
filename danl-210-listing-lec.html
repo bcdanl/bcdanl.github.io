@@ -29,6 +29,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./img/favicon.ico" rel="icon">
 <script src="site_libs/quarto-listing/list.min.js"></script>
 <script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -72,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-subtitle','listing-title',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
+      valueNames: ['listing-title','listing-subtitle','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
       
       searchColumns: ["listing-date","listing-title","listing-author"],
     };
@@ -106,6 +107,9 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./img/geneseo-logo-with-suny.jpg" alt="" class="navbar-logo">
+    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">B.H. CHOE</span>
     </a>
@@ -128,8 +132,10 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./danl-200-listing-hw.html" rel="" target="">
  <span class="menu-text">Homework</span></a>
   </li>  
-</ul>
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://bcdanl.github.io" rel="" target="_self">
+ <span class="menu-text">|</span></a>
+  </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./danl-210-listing-lec.html" rel="" target="" aria-current="page">
  <span class="menu-text">DANL210: Lecture</span></a>
@@ -147,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
   <li class="dropdown-header">
  <span class="menu-text"> </span></li>
 </ul>
-            <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools ms-auto">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
           </div> <!-- /navcollapse -->
@@ -187,22 +193,6 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="quarto-listing quarto-listing-container-table" id="listing-listing">
 <div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-listing'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-date-sort" data-direction="asc">
-          Date - Oldest
-        </option>
-         <option value="listing-date-sort" data-direction="desc">
-          Date - Newest
-        </option>
-         <option value="listing-title-sort" data-direction="asc">
-          Title
-        </option>
-     </select>
-  </div>
     <div class="input-group input-group-sm quarto-listing-filter">
       <span class="input-group-text"><i class="bi bi-search"></i></span>
       <input type="text" class="search form-control" placeholder="Filter">
@@ -213,26 +203,26 @@ ul.task-list li input[type="checkbox"] {
 <thead>
 <tr>
 <th>
-<a class="sort" data-sort="listing-date-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Date</a>
+Title
 </th>
 <th>
 Subtitle
 </th>
 <th>
-<a class="sort" data-sort="listing-title-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Title</a>
+Date
 </th>
 </tr>
 </thead>
 <tbody class="list">
-<tr data-index="0" data-listing-date-sort="1704070013000" data-listing-file-modified-sort="1704070013935" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-title-sort="Syllabus, Course Outline, Etc." data-listing-filename-sort="danl-210-lec-recent.qmd">
+<tr data-index="0" data-listing-date-sort="1704105260000" data-listing-file-modified-sort="1704105260685" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-title-sort="Lecture 1" data-listing-filename-sort="danl-210-lec-recent.qmd">
 <td>
-<span class="listing-date">Dec 31, 2023</span>
+<a href="./danl-210-lec/danl-210-lec-recent.html" class="title listing-title">Lecture 1</a>
 </td>
 <td>
-<span class="listing-subtitle">Lecture 1</span>
+<span class="listing-subtitle">Syllabus, Course Outline, Etc.</span>
 </td>
 <td>
-<a href="./danl-210-lec/danl-210-lec-recent.html" class="title listing-title">Syllabus, Course Outline, Etc.</a>
+<span class="listing-date">Jan 1, 2024</span>
 </td>
 </tr>
 </tbody>
@@ -242,7 +232,6 @@ Subtitle
 No matching items
 </div>
 </div></main> <!-- /main -->
-<script type="text/javascript" src="links.js"></script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
