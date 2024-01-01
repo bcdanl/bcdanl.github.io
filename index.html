@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.475">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>B.H. CHOE</title>
+<title>B.H. CHOE - Geneseo Data Analytics, Spring 2024</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -17,7 +17,7 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
 </style>
@@ -29,6 +29,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -39,7 +41,6 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<script src="site_libs/quarto-contrib/magic-snowflakes-6.0.1/snowflakes.min.js"></script>
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -56,16 +57,76 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-danl-200-lec .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-date','listing-title',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-danl-200-lec'] = new List('listing-danl-200-lec', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-danl-210-lec .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-date','listing-title',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-danl-210-lec'] = new List('listing-danl-210-lec', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="assets/css/font.css">
 </head>
 
-<body class="nav-sidebar docked nav-fixed fullcontent">
-
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -76,782 +137,150 @@ ul.task-list li input[type="checkbox"] {
     <span class="navbar-title">B.H. CHOE</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./cv.html">
- <span class="menu-text">About</span></a>
+    <a class="nav-link" href="./danl-200-listing-lec.html" rel="" target="">
+ <span class="menu-text">DANL200: Lecture</span></a>
   </li>  
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl-200---lecture" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">DANL 200 - Lecture</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl-200---lecture">    
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-39-2023-1211.html">
- <span class="dropdown-text">39 - factor, string</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="./danl-200-listing-cw.html" rel="" target="">
+ <span class="menu-text">Classwork</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-38-2023-1208.html">
- <span class="dropdown-text">38 - quarto, relational data</span></a>
+  <li class="nav-item">
+    <a class="nav-link" href="./danl-200-listing-hw.html" rel="" target="">
+ <span class="menu-text">Homework</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-37-2023-1206.html">
- <span class="dropdown-text">37 - quarto, relational data</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-36-2023-1204.html">
- <span class="dropdown-text">36 - quarto, tidy data, pivoting</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-35-2023-1201.html">
- <span class="dropdown-text">35 - quarto, tidy data, pivoting</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-34-2023-1129.html">
- <span class="dropdown-text">34 - quarto</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-33-2023-1127.html">
- <span class="dropdown-text">33 - r project, git, github, and quarto</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-32-2023-1115.html">
- <span class="dropdown-text">32 - installing tools for the project</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-31-2023-1113.html">
- <span class="dropdown-text">31 - installing tools for the project</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-30-2023-1110.html">
- <span class="dropdown-text">30 - grouped mutate/filter/slice</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-29-2023-1108.html">
- <span class="dropdown-text">29 - summarize</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-28-2023-1106.html">
- <span class="dropdown-text">28 - summarize</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-27-2023-1103.html">
- <span class="dropdown-text">27 - summarize</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-26-2023-1101.html">
- <span class="dropdown-text">26 - summarize</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-25-2023-1030.html">
- <span class="dropdown-text">25 - summarize</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-24-2023-1027.html">
- <span class="dropdown-text">24 - mutate, summarize</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-23-2023-1025.html">
- <span class="dropdown-text">23 - mutate</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-22-2023-1023.html">
- <span class="dropdown-text">22 - rename, relocate, mutate</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-21-2023-1020.html">
- <span class="dropdown-text">21 - arrange, select, mutate</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-20-2023-1018.html">
- <span class="dropdown-text">20 - filter, arrange, select</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-19-2023-1016.html">
- <span class="dropdown-text">19 - filter</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-18-2023-1013.html">
- <span class="dropdown-text">18 - filter</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./ex/danl200-midterm-1-q-v1.html">
- <span class="dropdown-text">17 - midterm 1 review</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-16-2023-1004.html">
- <span class="dropdown-text">16 - data viz</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-15-2023-1002.html">
- <span class="dropdown-text">15 - stat, position, coordnate</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-14-2023-0929.html">
- <span class="dropdown-text">14 - data viz, geoms, stat</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-13-2023-0927.html">
- <span class="dropdown-text">13 - geoms, stat</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-12-2023-0925.html">
- <span class="dropdown-text">12 - geoms, stat</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-11-2023-0922.html">
- <span class="dropdown-text">11 - facets, geoms</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-10-2023-0920.html">
- <span class="dropdown-text">10 - aesthetic mapping, facets, geoms</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-09-2023-0918.html">
- <span class="dropdown-text">09 - aesthetic mapping</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-08-2023-0915.html">
- <span class="dropdown-text">08 - data visualization</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-07-2023-0913.html">
- <span class="dropdown-text">07 - basics in r; data visualization</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-06-2023-0911.html">
- <span class="dropdown-text">06 - basics in r</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-05-2023-0908.html">
- <span class="dropdown-text">05 - basics in r</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-04-2023-0906.html">
- <span class="dropdown-text">04 - basics in r</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-03-2023-0901.html">
- <span class="dropdown-text">03 - basics in r</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-02-2023-0830.html">
- <span class="dropdown-text">02 - r; rstudio; tidyverse</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-200-lec-01-2023-0828.html">
- <span class="dropdown-text">01 - syllabus</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-danl-399---lecture" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">DANL 399 - Lecture</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-danl-399---lecture">    
-        <li>
-    <a class="dropdown-item" href="./lec/danl-399-lec-10-2023-1204.html">
- <span class="dropdown-text">10 - interactive plots</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-399-lec-09-2023-1120.html">
- <span class="dropdown-text">09 - draw maps</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-399-lec-08-2023-1030.html">
- <span class="dropdown-text">08 - add labels, make notes, refine your plots</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-399-lec-07-2023-1023.html">
- <span class="dropdown-text">07 - graph tables, add labels, make notes, refine your plots</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-399-lec-06-2023-1016.html">
- <span class="dropdown-text">06 - graph tables, add labels, make notes</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-399-lec-05-2023-1011.html">
- <span class="dropdown-text">05 - show the right numbers</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-399-lec-04-2023-0925.html">
- <span class="dropdown-text">04 - show the right numbers</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-399-lec-03-2023-0918.html">
- <span class="dropdown-text">03 - data visualization</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-399-lec-02-2023-0911.html">
- <span class="dropdown-text">02 - installing the tools; quarto; data viz</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/danl-399-lec-01-2023-0906.html">
- <span class="dropdown-text">01 - syllabus; installing the tools</span></a>
-  </li>  
-    </ul>
-  </li>
-  <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-econ-340---lecture" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">ECON 340 - Lecture</span>
-    </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-econ-340---lecture">    
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-37-2023-1211.html">
- <span class="dropdown-text">37 - incentive-based regulation</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-36-2023-1204.html">
- <span class="dropdown-text">36 - incentive-based regulation</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-35-2023-1201.html">
- <span class="dropdown-text">35 - incentive-based regulation</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-34-2023-1129.html">
- <span class="dropdown-text">34 - incentive-based regulation</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-33-2023-1127.html">
- <span class="dropdown-text">33 - incentive-based regulation</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-32-2023-1115.html">
- <span class="dropdown-text">32 - sustainability standard</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-31-2023-1113.html">
- <span class="dropdown-text">31 - sustainability standard</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-30-2023-1110.html">
- <span class="dropdown-text">30 - sustainability standard</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-29-2023-1108.html">
- <span class="dropdown-text">29 - sustainability standard</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-28-2023-1106.html">
- <span class="dropdown-text">28 - sustainability standard</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-27-2023-1103.html">
- <span class="dropdown-text">27 - safety standard</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-26-2023-1101.html">
- <span class="dropdown-text">26 - safety standard</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-25-2023-1030.html">
- <span class="dropdown-text">25 - safety standard</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-24-2023-1027.html">
- <span class="dropdown-text">24 - safety standard</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-23-2023-1025.html">
- <span class="dropdown-text">23 - double dividend, benefit-cost analysis</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-22-2023-1023.html">
- <span class="dropdown-text">22 - employment impacts of envrionemtal protection, double dividend</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-21-2023-1020.html">
- <span class="dropdown-text">21 - productivity impacts of envrionemtal protection</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-20-2023-1018.html">
- <span class="dropdown-text">20 - costs of envrionemtal protection</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-19-2023-1016.html">
- <span class="dropdown-text">19 - value of life, costs of envrionemtal protection</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-18-2023-1013.html">
- <span class="dropdown-text">18 - hedonic regression, value of life</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./ex/econ340-midterm-1-q.html">
- <span class="dropdown-text">17 - midterm 1 review</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./ex/econ340-hw-2-a.html">
- <span class="dropdown-text">16 - hw 2 review</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-15-2023-1002.html">
- <span class="dropdown-text">15 - risk assessment, contingent valuation, travel cost</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-14-2023-0929.html">
- <span class="dropdown-text">14 - wtp-wta, risk assessment</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-13-2023-0927.html">
- <span class="dropdown-text">13 - cost-benefit analysis in practice, wtp-wta</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-12-2023-0925.html">
- <span class="dropdown-text">12 - coase theorem, cost-benefit analysis in practice</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./ex/econ340-hw-1-a.html">
- <span class="dropdown-text">11 - hw 1 review</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-10-2023-0920.html">
- <span class="dropdown-text">10 - marginal analysis</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-09-2023-0918.html">
- <span class="dropdown-text">09 - pareto efficiency</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-08-2023-0915.html">
- <span class="dropdown-text">08 - open access problems; public goods problems</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-07-2023-0913.html">
- <span class="dropdown-text">07 - open access problems; public goods problems</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-06-2023-0911.html">
- <span class="dropdown-text">06 - externalities</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-05-2023-0908.html">
- <span class="dropdown-text">05 - social welfare; externalities</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-04-2023-0906.html">
- <span class="dropdown-text">04 - social welfare; externalities</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-03-2023-0901.html">
- <span class="dropdown-text">03 - social welfare</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-02-2023-0830.html">
- <span class="dropdown-text">02 - climate change; social welfare</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lec/econ-340-lec-01-2023-0828.html">
- <span class="dropdown-text">01 - syllabus</span></a>
-  </li>  
-    </ul>
-  </li>
 </ul>
-              <div class="quarto-toggle-container">
-                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
-              </div>
-              <div id="quarto-search" class="" title="Search"></div>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./danl-210-listing-lec.html" rel="" target="">
+ <span class="menu-text">DANL210: Lecture</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./danl-200-listing-cw.html" rel="" target="">
+ <span class="menu-text">Classwork</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./danl-200-listing-hw.html" rel="" target="">
+ <span class="menu-text">Homework</span></a>
+  </li>  
+  <li class="dropdown-header">
+ <span class="menu-text"> </span></li>
+  <li class="dropdown-header">
+ <span class="menu-text"> </span></li>
+</ul>
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-    <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
-      </button>
-    </div>
-  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
-      <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-      </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start"><font size="6" color="white">Classwork</font></span>
-  </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false"><font size="4">Data Analytics 200   </font></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-cw-11.html" class="sidebar-item-text sidebar-link">11 - joining</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-cw-10.html" class="sidebar-item-text sidebar-link">10 - pivoting</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-cw-9.html" class="sidebar-item-text sidebar-link">09 - data transformation - nyc dogs</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-cw-8.html" class="sidebar-item-text sidebar-link">08 - data transformation - climate finance</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-cw-7.html" class="sidebar-item-text sidebar-link">07 - summarize, group_by</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-cw-6.html" class="sidebar-item-text sidebar-link">06 - filter, arrange, select, mutate</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-cw-5.html" class="sidebar-item-text sidebar-link">05 - past hw - fall 2022, danl200-hw1</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-cw-4.html" class="sidebar-item-text sidebar-link">04 - past hw - spring 2023, danl200-hw1</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-cw-3.html" class="sidebar-item-text sidebar-link">03 - ggplot - geometric objects, stat, position</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-cw-2.html" class="sidebar-item-text sidebar-link">02 - ggplot - first step, aethetic mapping, facets</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-cw-1.html" class="sidebar-item-text sidebar-link">01 - Working with data.frame</a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false"><font size="4">Data Analytics 399  </font></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl399-cw-1.html" class="sidebar-item-text sidebar-link">01 - show the right numbers</a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false"><font size="4">Economics 340        </font></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="false">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-cw-11.html" class="sidebar-item-text sidebar-link">11 - p vs.&nbsp;q</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-cw-10-v2.html" class="sidebar-item-text sidebar-link">10 - Mockup Exam 2</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-cw-9.html" class="sidebar-item-text sidebar-link">09 - Pigouvian Tax - general form</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-cw-8.html" class="sidebar-item-text sidebar-link">08 - Pigouvian tax and clean technology</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-cw-7.html" class="sidebar-item-text sidebar-link">07 - Economic modeling</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-cw-6.html" class="sidebar-item-text sidebar-link">06 - Mockup Exam 1</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-cw-5.html" class="sidebar-item-text sidebar-link">05 - Lagrangian method</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-cw-4.html" class="sidebar-item-text sidebar-link">04 - Market equilibrium, social planner, and government</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-cw-3.html" class="sidebar-item-text sidebar-link">03 - Public goods game</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-cw-2.html" class="sidebar-item-text sidebar-link">02 - Utilty maximization</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-cw-1.html" class="sidebar-item-text sidebar-link">01 - Social welfare and landfills</a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start"><font size="6"> &nbsp; </font></span>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <span class="sidebar-item-text sidebar-link text-start"><font size="6" color="white">Homework</font></span>
-  </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false"><font size="4">Data Analytics 200  </font></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-midterm-2-makeup-q.html" class="sidebar-item-text sidebar-link">06 - Midterm II - Make-up - Review</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-midterm-2-q.html" class="sidebar-item-text sidebar-link">06 - Midterm II - Review</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-hw-5.html" class="sidebar-item-text sidebar-link">05 - HW 5 - Quarto website, NFL data analysis</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-hw-4.html" class="sidebar-item-text sidebar-link">04 - HW 4 - Data transformation</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-hw-3.html" class="sidebar-item-text sidebar-link">04 - HW 3 - Data transformation</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-midterm-1-a-v1.html" class="sidebar-item-text sidebar-link">03 - Midterm I - Review</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-hw-2-a.html" class="sidebar-item-text sidebar-link">02 - HW 2 - Review</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-hw-2.html" class="sidebar-item-text sidebar-link">02 - HW 2 - Summary statistics; data visualization</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-hw-1-a.html" class="sidebar-item-text sidebar-link">01 - HW 1 - Review</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl200-hw-1.html" class="sidebar-item-text sidebar-link">01 - HW 1 - R basics; data visualization</a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false"><font size="4">Data Analytics 399  </font></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl399-hw-4.html" class="sidebar-item-text sidebar-link">05 - HW 4 - Map visualization</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl-399-midterm.html" class="sidebar-item-text sidebar-link">04 - Midterm Exam</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl399-hw-3.html" class="sidebar-item-text sidebar-link">03 - HW 3 - data visualization</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl399-hw-2.html" class="sidebar-item-text sidebar-link">02 - HW 2 - data visualization</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/danl399-hw-1.html" class="sidebar-item-text sidebar-link">01 - HW 1 - data visualization</a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false"><font size="4">Economics 340        </font></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-9" aria-expanded="false">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-hw-5.html" class="sidebar-item-text sidebar-link">05 - HW 5 - Incentive-based regulation</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-hw-4.html" class="sidebar-item-text sidebar-link">04 - HW 4 - Safety standard and sustainability Standard</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-hw-3-sol.html" class="sidebar-item-text sidebar-link">04 - HW 3 - Public good provision, VSL</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-midterm-1-a.html" class="sidebar-item-text sidebar-link">03 - Midterm I - Review</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-midterm-1-q.html" class="sidebar-item-text sidebar-link">03 - Midterm I</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-hw-2-a.html" class="sidebar-item-text sidebar-link">02 - HW 2 - Review</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-hw-2.html" class="sidebar-item-text sidebar-link">02 - HW 2 - Negative externalities II; cost-benefit analysis</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-hw-1-a.html" class="sidebar-item-text sidebar-link">01 - HW 1 - Review</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ex/econ340-hw-1.html" class="sidebar-item-text sidebar-link">01 - HW 1 - Negative externalities I; the tradegy of the commons</a>
-  </div>
-</li>
-      </ul>
-  </li>
-    </ul>
-    </div>
-</nav>
 <!-- margin-sidebar -->
     
 <!-- main -->
-<div class="quarto-about-jolla">
- <main class="content" id="quarto-document-content">
+<div class="quarto-about-solana column-body">
+  <div class="about-entity">
+    <div class="entity-contents">
+      <header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Geneseo Data Analytics, Spring 2024</h1>
+<p class="subtitle lead">Byeong-Hak Choe</p>
+</div>
+<div class="quarto-title-meta">
+  </div>
+</header> <div class="about-links">
+  <a href="mailto:bchoe@geneseo.edu" class="about-link" rel="" target="">
+     <span class="about-link-text">Email</span>
+  </a>
+  <a href="https://brightspace.geneseo.edu" class="about-link" rel="" target="">
+     <span class="about-link-text">Brightspace</span>
+  </a>
+</div>
+      <div class="about-contents"><main class="content" id="quarto-document-content">
+<!-- ![](img/geneseo-logo-with-suny.jpg) -->
 <div class="columns">
-<div class="column">
-<p><img src="img/danl-tiger.gif" class="img-fluid"></p>
-</div><div class="column">
-<p><img src="img/econ-tiger.gif" class="img-fluid"></p>
+<div class="column" style="width:45%;">
+<section id="danl-200---lectures" class="level2">
+<h2 data-anchor-id="danl-200---lectures">DANL 200 - Lectures</h2>
+<div id="listing-danl-200-lec" class="quarto-listing quarto-listing-container-table">
+<table class="quarto-listing-table table">
+<thead>
+<tr>
+<th>
+Date
+</th>
+<th>
+Title
+</th>
+</tr>
+</thead>
+<tbody class="list">
+<tr data-index="0" data-listing-date-sort="1704067230000" data-listing-file-modified-sort="1704067230931" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-title-sort="Syllabus, Course Outline, Etc." data-listing-filename-sort="danl-200-lec-01-2024-0123.qmd">
+<td>
+<span class="listing-date">Dec 31, 2023</span>
+</td>
+<td>
+<a href="./danl-200-lec/danl-200-lec-01-2024-0123.html" class="title listing-title">Syllabus, Course Outline, Etc.</a>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="listing-no-matching d-none">
+No matching items
 </div>
 </div>
-<p><br></p>
-<!-- ````{=html} -->
-<!-- <style>iframe{height: 800px; width: 800px}</style> -->
-<!-- <iframe height="100%" width="100%" frameborder="no" -->
-<!-- src="best-fitting.html"> -->
-<!-- </iframe> -->
-<!-- ```` -->
-<section id="data-analytics-at-suny-geneseo" class="level1">
-<h1>Data Analytics at SUNY Geneseo</h1>
-<section id="byeong-hak-choe" class="level3">
-<h3 data-anchor-id="byeong-hak-choe">Byeong-Hak Choe</h3>
-<p><br></p>
-<p>Data visualization and machine learning for business and economics with Python and R <br></p>
-<p>Web projects with Python Notebook and Quarto <br></p>
-<p>Data preparation and management with Python, R, SQL, and web API <br></p>
-<p>Web scrapping and automation with Python Selenium <br></p>
-<p>Version control with Git and GitHub <br></p>
-<p>Practical AI with ChatGPT</p>
+</section>
+</div><div class="column" style="width:10%;">
+</div><div class="column" style="width:45%;">
+<section id="danl-210---lectures" class="level2">
+<h2 data-anchor-id="danl-210---lectures">DANL 210 - Lectures</h2>
+<div id="listing-danl-210-lec" class="quarto-listing quarto-listing-container-table">
+<table class="quarto-listing-table table">
+<thead>
+<tr>
+<th>
+Date
+</th>
+<th>
+Title
+</th>
+</tr>
+</thead>
+<tbody class="list">
+<tr data-index="0" data-listing-date-sort="1704070013000" data-listing-file-modified-sort="1704070013935" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-title-sort="Syllabus, Course Outline, Etc." data-listing-filename-sort="danl-210-lec-recent.qmd">
+<td>
+<span class="listing-date">Dec 31, 2023</span>
+</td>
+<td>
+<a href="./danl-210-lec/danl-210-lec-recent.html" class="title listing-title">Syllabus, Course Outline, Etc.</a>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div>
+</section>
+</div>
+</div>
 
 
-</section>
-</section>
-</main> 
-  <hr class="about-sep">
-   <div class="about-links">
-  <a href="https://brightspace.geneseo.edu" class="about-link">
-     <span class="about-link-text">brightspace</span>
-  </a>
-  <a href="https://r4ds.had.co.nz" class="about-link">
-     <span class="about-link-text">r4ds</span>
-  </a>
-  <a href="https://moderndive.com" class="about-link">
-     <span class="about-link-text">moderndive</span>
-  </a>
-  <a href="https://socviz.co" class="about-link">
-     <span class="about-link-text">socviz</span>
-  </a>
-  <a href="https://wesmckinney.com/book/" class="about-link">
-     <span class="about-link-text">mckinney</span>
-  </a>
-  <a href="mailto:bchoe@geneseo.edu" class="about-link">
-     <span class="about-link-text">email</span>
-  </a>
-</div>
+</main></div>
+    </div>
+  </div>
 </div>
  <!-- /main -->
 <script type="text/javascript" src="links.js"></script>
-<p style="font-family:gill sans, sans-serif;color:grey;font-size:13px;text-align:center"> the coding and econ tigers are created by 
-<a href="https://openai.com/dall-e-3" target="_blank">DALL·E 3</a> and modified by byeong-hak choe.</p>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -987,9 +416,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   } else {
     toggleColorMode(false);
   }
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -1054,6 +497,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -1096,12 +625,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-      <div class="nav-footer-center">powered with github, quarto, and rstudio<br>byeong-hak choe, 2023</div>
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">powered with github, quarto, and rstudio<br>byeong-hak choe, 2023</div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
   </div>
 </footer>
-<script>
-    new Snowflakes();
-</script>
 
 
 
