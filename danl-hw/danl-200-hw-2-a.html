@@ -9,7 +9,7 @@
 <meta name="author" content="Byeong-Hak Choe">
 <meta name="dcterms.date" content="2024-01-03">
 
-<title>DANL 200: Homework Assignment 2 | B.H. Choe</title>
+<title>DANL 200: Homework Assignment 2 | Byeong-Hak Choe</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,11 +110,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <link rel="stylesheet" href="../styles.css">
 <link rel="stylesheet" href="../assets/css/font.css">
-<meta property="og:title" content="DANL 200: Homework Assignment 2 | B.H. Choe">
+<meta property="og:title" content="DANL 200: Homework Assignment 2 | Byeong-Hak Choe">
 <meta property="og:description" content="">
 <meta property="og:image" content="/assets/img/posts.png">
 <meta property="og:site-name" content="&amp;nbsp;B.H. CHOE">
-<meta name="twitter:title" content="DANL 200: Homework Assignment 2 | B.H. Choe">
+<meta name="twitter:title" content="DANL 200: Homework Assignment 2 | Byeong-Hak Choe">
 <meta name="twitter:description" content="">
 <meta name="twitter:image" content="/assets/img/posts.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -595,7 +595,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 </section>
 
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div>© 2024 B.H. Choe | This post is licensed under &lt;a href='http://creativecommons.org/licenses/by-nc-sa/4.0/' target='_blank'&gt;CC BY-NC-SA 4.0&lt;/a&gt;</div></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-choe2024" class="csl-entry quarto-appendix-citeas" role="listitem">
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div>© 2024 Byeong-Hak Choe | This post is licensed under &lt;a href='http://creativecommons.org/licenses/by-nc-sa/4.0/' target='_blank'&gt;CC BY-NC-SA 4.0&lt;/a&gt;</div></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-choe2024" class="csl-entry quarto-appendix-citeas" role="listitem">
 Choe, Byeong-Hak. 2024. <span>“DANL 200: Homework Assignment 2.”</span>
 January 3, 2024.
 </div></div></section></div></main> <!-- /main -->
@@ -996,6 +996,20 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+          // target, if specified
+          link.setAttribute("target", "_blank");
+      }
+    }
 });
 </script>
 <script src="https://giscus.app/client.js" data-repo="bcdanl/bcdanl.github.io" data-repo-id="R_kgDOGyXu3Q" data-category="General" data-category-id="DIC_kwDOGyXu3c4CcKJQ" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
@@ -1012,6 +1026,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
+<div id="scroll-padding"></div>
+<script src="../assets/js/site.js"></script>
+<script src="../assets/js/posts2.js"></script>
 
 
 
