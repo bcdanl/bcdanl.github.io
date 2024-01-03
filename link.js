@@ -3,3 +3,4 @@ window.onload = function() {
         link.setAttribute('target', '_blank');
     });
 };
+
