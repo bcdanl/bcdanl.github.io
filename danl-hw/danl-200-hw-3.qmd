@@ -1,0 +1,375 @@
+---
+title: "DANL 200: Homework Assignment 3"
+author: Byeong-Hak Choe
+date: last-modified
+execute: 
+  echo: true
+  eval: true
+  warning: false
+  message: false
+
+comments:
+  hypothesis: 
+    theme: clean
+---
+```{r setup}
+#| include: false
+
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(ggthemes)
+library(ggthemr)
+library(hrbrthemes)
+library(hexbin)
+library(ggforce)
+library(skimr)
+
+knitr::opts_chunk$set(fig.width=8, fig.height=5,
+                      echo = T, eval = T, 
+                      message=F, warning = F, fig.cap = " ")  
+
+theme_set(theme_ipsum() +
+          theme(strip.background =element_rect(fill="lightgray"),
+                axis.title.x = element_text(size = rel(1.5)),
+                axis.title.y = element_text(size = rel(1.5))
+                ))
+```
+
+# Question 1. Working with Customer Data with Health Insurance
+
+Read the data file, `custdata_rev.csv`, as the data.frame object with the name, `health_cust`:
+
+```{r}
+#| echo: true
+library(tidyverse)
+library(skimr)
+
+health_cust <- read_csv(
+  'https://bcdanl.github.io/data/custdata_rev.csv'
+)
+```
+
+```{r}
+#| results: asis
+#| echo: false
+rmarkdown::paged_table(health_cust)
+```
+
+
+## Variable Description for `health_cust`
+
+The following describes the variables  in the `health_cust` data.frame.
+
+- `custid`: ID of customer
+- `sex`: Sex
+- `is_employed`: Employment status
+  - `NA`: Unknown or not applicable
+  - `TRUE`: Employed
+  - `FALSE`: Unemployed
+- `income`: Income (in $)
+- `marital_status`: Marital status
+- `housing_type`: Housing type
+- `recent_move`: 
+  - `TRUE`: Recently moved
+  - `FALSE`: Not recently moved
+- `age`: Age
+- `state_of_res`: State of residence
+- `gas_usage`: Gas usage
+  - `NA`: Unknown or not applicable
+  - `001`: Included in rent or condo fee
+  - `002`: Included in electricity payment
+  - `003`: No charge or gas not used
+  - `004`-`999`: $4 to $999 (rounded and top-coded)
+- `health_ins`: Health insuarance status
+  - `TRUE`: customer with health insuarance 
+  - `FALSE`: customer without health insuarance 
+
+<br><br>
+
+## Q1a 
+Report summary statistics including a mean value 
+for each logical variable in `health_cust`.
+
+**Answer:**
+
+```{r}
+health_cust_sum <- skim(health_cust)
+
+q1a <- health_cust_sum[health_cust_sum$skim_type == 'logical', 
+                       c('skim_variable', 
+                         'n_missing', 'complete_rate',
+                         'logical.mean', 'logical.count')]
+```
+
+<br>
+
+
+
+
+
+## Q1b 
+Use `health_cust` data.frame to create a new data.frame, `health_cust2`, in which 
+(1) `age` is greater than 0 and less than 100; and
+(2) `income` is positive.
+
+**Answer:**
+
+```{r}
+
+
+health_cust2 <- health_cust[health_cust$age > 0, ]
+health_cust2 <- health_cust2[health_cust2$age < 100, ]
+health_cust2 <- health_cust2[health_cust2$income > 0, ]
+health_cust2_sum <- skim(health_cust2)
+
+# Combining all conditions into one, which we will cover after the first midterm:
+# health_cust2 <- health_cust[ ( 0 < health_cust$age < 100 ) &
+#                                 ( health_cust$income > 0 ), ]
+
+```
+
+<br>
+
+
+
+
+
+## Q1c 
+Provide ggplot code and comments to describe 
+the distribution of `income`.
+
+**Answer:**
+
+```{r}
+ggplot(health_cust2, aes(x = income)) +
+  geom_histogram()
+
+ggplot(health_cust2, aes(x = income)) +
+  geom_histogram(bins = 100)
+
+ggplot(health_cust2, aes(x = log(income))) +
+  geom_histogram(bins = 100)
+
+ggplot(health_cust2, aes(x = log(income))) +
+  geom_freqpoly(bins = 100)
+
+```
+
+- Provide some comments
+
+<br>
+
+
+
+
+
+## Q1d 
+Provide ggplot code and comments to describe 
+the distribution of `marital_status`.
+
+**Answer:**
+
+```{r}
+
+ggplot(health_cust2,
+       aes(y = marital_status,
+           fill = marital_status)) +
+  geom_bar(show.legend = F)
+```
+
+- Provide some comments
+
+<br>
+
+
+
+
+
+## Q1e 
+Suppose you randomly pick one customer's observation 
+from each state in data.frame `health_cust`.
+
+Use ggplot code to find:
+(1) in which state a customer is most likely to have a health insurance; and
+(2) in which state a customer is least likely to have a health insurance.
+
+**Answer:**
+
+```{r, fig.width=12, fig.height=20}
+ggplot(health_cust2) +
+  geom_bar(aes(y = health_ins,
+               group = 1)) +
+  facet_wrap(state_of_res ~ . , ncol = 5)
+
+ggplot(health_cust2) +
+  geom_bar(aes(y = health_ins, x = stat(prop),
+               group = 1)) +
+  facet_wrap(state_of_res ~ . , ncol = 5)
+```
+- The proportional bar chart faceted by `state_of_res` is the one we need.
+  - `Alaska` customer is most likely to have health insurance.
+  - `Hawaii` customer is least likely to have health insurance.
+  - Why? 
+
+
+The following might mislead...
+```{r, fig.width=12, fig.height=20}
+ggplot(health_cust2) +
+  geom_bar(aes(y = state_of_res, x = stat(prop),
+               group = 1)) +
+  facet_wrap(health_ins ~ . , ncol = 5)
+
+```
+
+<br>
+
+
+
+
+
+## Q1f 
+Provide ggplot code and comments to describe 
+the relationship between `age` and `income`.
+
+**Answer:**
+
+```{r}
+ggplot(health_cust2,
+       aes(x = age, y = income)) +
+  geom_point(alpha = .2, size = .75) +
+  geom_smooth() +
+  geom_smooth(method = lm, color = 'red')
+
+ggplot(health_cust2,
+       aes(x = age, y = income)) +
+  geom_hex() +
+  geom_smooth() +
+  geom_smooth(method = lm, color = 'red')
+
+# Considering income level below $250,000
+health_cust3 <- health_cust2[health_cust2$income < 2.5*10^5, ]
+ggplot(health_cust3,
+       aes(x = age, y = income)) +
+  geom_hex() +
+  geom_smooth() +
+  geom_smooth(method = lm, color = 'red')
+
+```
+
+- Considering the income group whose level is below $250,000, `income` is positively associated with `age` up to `age` around 55. `income` is then negatively associated from age around 55 to 100.
+
+<br>
+
+
+
+
+
+## Q1g 
+Provide ggplot code and comments to describe 
+the relationship between `age` and `health_ins`.
+
+**Answer:**
+
+```{r}
+ggplot(health_cust2) + 
+  geom_histogram(aes(x = age), bins = 75) +
+  facet_wrap(health_ins ~.)
+
+ggplot(health_cust2) + 
+  geom_freqpoly(aes(x = age), bins = 75) +
+  facet_wrap(health_ins ~.)
+
+```
+
+<br>
+
+
+
+
+
+## Q1h 
+Provide ggplot code and comments to describe 
+the relationship between `marital_status` and `health_ins`.
+
+**Answer:**
+
+```{r}
+ggplot(health_cust2) +
+  geom_bar(aes(y = marital_status, 
+               fill = health_ins))
+
+ggplot(health_cust2) +
+  geom_bar(aes(y = marital_status, 
+               fill = health_ins),
+           position = "fill")
+
+ggplot(health_cust2) +
+  geom_bar(aes(y = marital_status, 
+               fill = health_ins),
+           position = "dodge")
+
+ggplot(health_cust2) +
+  geom_bar(aes(y = marital_status)) +
+  facet_wrap(health_ins ~.)
+
+ggplot(health_cust2) +
+  geom_bar(aes(y = marital_status, 
+               x = stat(prop), group = 1)) +
+  facet_wrap(health_ins ~.)
+
+ggplot(health_cust2) +
+  geom_bar(aes(y = health_ins, 
+               x = stat(prop), group = 1)) +
+  facet_grid(marital_status ~.)
+
+```
+
+<br>
+
+
+
+
+
+## Q1i 
+Provide ggplot code and comments to describe 
+the relationship between `marital_status` and `housing_type`.
+
+**Answer:**
+
+```{r}
+ggplot(health_cust2) +
+  geom_bar(aes(y = marital_status, 
+               fill = housing_type))
+
+ggplot(health_cust2) +
+  geom_bar(aes(y = marital_status, 
+               fill = housing_type),
+           position = "fill")
+
+ggplot(health_cust2) +
+  geom_bar(aes(y = marital_status, 
+               fill = housing_type),
+           position = "dodge")
+
+ggplot(health_cust2) +
+  geom_bar(aes(y = marital_status)) +
+  facet_wrap(housing_type ~.)
+
+ggplot(health_cust2) +
+  geom_bar(aes(y = marital_status, 
+               x = stat(prop), group = 1)) +
+  facet_wrap(housing_type ~.)
+
+ggplot(health_cust2) +
+  geom_bar(aes(y = housing_type, 
+               x = stat(prop), group = 1)) +
+  facet_grid(marital_status ~.)
+
+```
+
+<br>
+
+
+## Q & A
+

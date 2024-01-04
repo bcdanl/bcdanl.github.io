@@ -35,46 +35,102 @@
     "text": "Memberships\n\n\n\n\n\n2022—present\nSouthern Economic Association\n\n\n2018—present\nAssociation of Environmental and Resource Economists\n\n\n2017—present\nAmerican Economic Association\n\n\n2017—2019\nEconometric Society"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Geneseo Data Analytics, Spring 2024",
+    "objectID": "danl-hw/danl-200-hw-2.html",
+    "href": "danl-hw/danl-200-hw-2.html",
+    "title": "DANL 200: Homework Assignment 2",
     "section": "",
-    "text": "Title\n\n\nDate\n\n\n\n\n\n\nLecture 1\n\n\nJan 2, 2024\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n\n\n\n\n\n\nTitle\n\n\nDate\n\n\n\n\n\n\nLecture 1\n\n\nJan 1, 2024\n\n\n\n\n\nNo matching items"
+    "text": "Read the data file, custdata_rev.csv, as the data.frame object with the name, health_cust:\n\nlibrary(tidyverse)\nlibrary(skimr)\n\nhealth_cust &lt;- read_csv(\n  'https://bcdanl.github.io/data/custdata_rev.csv'\n)\n\n\n\n\n  \n\n\n \n\n\n\nThe following describes the variables in the health_cust data.frame.\n\ncustid: ID of customer\nsex: Sex\nis_employed: Employment status\n\nNA: Unknown or not applicable\nTRUE: Employed\nFALSE: Unemployed\n\nincome: Income (in $)\nmarital_status: Marital status\nhousing_type: Housing type\nrecent_move:\n\nTRUE: Recently moved\nFALSE: Not recently moved\n\nage: Age\nstate_of_res: State of residence\ngas_usage: Gas usage\n\nNA: Unknown or not applicable\n001: Included in rent or condo fee\n002: Included in electricity payment\n003: No charge or gas not used\n004-999: $4 to $999 (rounded and top-coded)\n\nhealth_ins: Health insuarance status\n\nTRUE: customer with health insuarance\nFALSE: customer without health insuarance\n\n\n\n\n\n\nReport summary statistics including a mean value for each logical variable in health_cust.\nAnswer:\n\nhealth_cust_sum &lt;- skim(health_cust)\n\nq1a &lt;- health_cust_sum[health_cust_sum$skim_type == 'logical', \n                       c('skim_variable', \n                         'n_missing', 'complete_rate',\n                         'logical.mean', 'logical.count')]\n\n\n\n\n\nUse health_cust data.frame to create a new data.frame, health_cust2, in which (1) age is greater than 0 and less than 100; and (2) income is positive.\nAnswer:\n\nhealth_cust2 &lt;- health_cust[health_cust$age &gt; 0, ]\nhealth_cust2 &lt;- health_cust2[health_cust2$age &lt; 100, ]\nhealth_cust2 &lt;- health_cust2[health_cust2$income &gt; 0, ]\nhealth_cust2_sum &lt;- skim(health_cust2)\n\n# Combining all conditions into one, which we will cover after the first midterm:\n# health_cust2 &lt;- health_cust[ ( 0 &lt; health_cust$age &lt; 100 ) &\n#                                 ( health_cust$income &gt; 0 ), ]\n\n\n\n\n\nProvide ggplot code and comments to describe the distribution of income.\nAnswer:\n\nggplot(health_cust2, aes(x = income)) +\n  geom_histogram()\n\n\n\nggplot(health_cust2, aes(x = income)) +\n  geom_histogram(bins = 100)\n\n\n\nggplot(health_cust2, aes(x = log(income))) +\n  geom_histogram(bins = 100)\n\n\n\nggplot(health_cust2, aes(x = log(income))) +\n  geom_freqpoly(bins = 100)\n\n\n\n\n\nProvide some comments\n\n\n\n\n\nProvide ggplot code and comments to describe the distribution of marital_status.\nAnswer:\n\nggplot(health_cust2,\n       aes(y = marital_status,\n           fill = marital_status)) +\n  geom_bar(show.legend = F)\n\n\n\n\n\nProvide some comments\n\n\n\n\n\nSuppose you randomly pick one customer’s observation from each state in data.frame health_cust.\nUse ggplot code to find: (1) in which state a customer is most likely to have a health insurance; and (2) in which state a customer is least likely to have a health insurance.\nAnswer:\n\nggplot(health_cust2) +\n  geom_bar(aes(y = health_ins,\n               group = 1)) +\n  facet_wrap(state_of_res ~ . , ncol = 5)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = health_ins, x = stat(prop),\n               group = 1)) +\n  facet_wrap(state_of_res ~ . , ncol = 5)\n\n\n\n\n\nThe proportional bar chart faceted by state_of_res is the one we need.\n\nAlaska customer is most likely to have health insurance.\nHawaii customer is least likely to have health insurance.\nWhy?\n\n\nThe following might mislead…\n\nggplot(health_cust2) +\n  geom_bar(aes(y = state_of_res, x = stat(prop),\n               group = 1)) +\n  facet_wrap(health_ins ~ . , ncol = 5)\n\n\n\n\n\n\n\n\nProvide ggplot code and comments to describe the relationship between age and income.\nAnswer:\n\nggplot(health_cust2,\n       aes(x = age, y = income)) +\n  geom_point(alpha = .2, size = .75) +\n  geom_smooth() +\n  geom_smooth(method = lm, color = 'red')\n\n\n\nggplot(health_cust2,\n       aes(x = age, y = income)) +\n  geom_hex() +\n  geom_smooth() +\n  geom_smooth(method = lm, color = 'red')\n\n\n\n# Considering income level below $250,000\nhealth_cust3 &lt;- health_cust2[health_cust2$income &lt; 2.5*10^5, ]\nggplot(health_cust3,\n       aes(x = age, y = income)) +\n  geom_hex() +\n  geom_smooth() +\n  geom_smooth(method = lm, color = 'red')\n\n\n\n\n\nConsidering the income group whose level is below $250,000, income is positively associated with age up to age around 55. income is then negatively associated from age around 55 to 100.\n\n\n\n\n\nProvide ggplot code and comments to describe the relationship between age and health_ins.\nAnswer:\n\nggplot(health_cust2) + \n  geom_histogram(aes(x = age), bins = 75) +\n  facet_wrap(health_ins ~.)\n\n\n\nggplot(health_cust2) + \n  geom_freqpoly(aes(x = age), bins = 75) +\n  facet_wrap(health_ins ~.)\n\n\n\n\n\n\n\n\nProvide ggplot code and comments to describe the relationship between marital_status and health_ins.\nAnswer:\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = health_ins))\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = health_ins),\n           position = \"fill\")\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = health_ins),\n           position = \"dodge\")\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status)) +\n  facet_wrap(health_ins ~.)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               x = stat(prop), group = 1)) +\n  facet_wrap(health_ins ~.)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = health_ins, \n               x = stat(prop), group = 1)) +\n  facet_grid(marital_status ~.)\n\n\n\n\n\n\n\n\nProvide ggplot code and comments to describe the relationship between marital_status and housing_type.\nAnswer:\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = housing_type))\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = housing_type),\n           position = \"fill\")\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = housing_type),\n           position = \"dodge\")\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status)) +\n  facet_wrap(housing_type ~.)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               x = stat(prop), group = 1)) +\n  facet_wrap(housing_type ~.)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = housing_type, \n               x = stat(prop), group = 1)) +\n  facet_grid(marital_status ~.)"
   },
   {
-    "objectID": "index.html#danl-200",
-    "href": "index.html#danl-200",
-    "title": "Geneseo Data Analytics, Spring 2024",
+    "objectID": "danl-hw/danl-200-hw-2.html#variable-description-for-health_cust",
+    "href": "danl-hw/danl-200-hw-2.html#variable-description-for-health_cust",
+    "title": "DANL 200: Homework Assignment 2",
     "section": "",
-    "text": "Title\n\n\nDate\n\n\n\n\n\n\nLecture 1\n\n\nJan 2, 2024\n\n\n\n\n\nNo matching items"
+    "text": "The following describes the variables in the health_cust data.frame.\n\ncustid: ID of customer\nsex: Sex\nis_employed: Employment status\n\nNA: Unknown or not applicable\nTRUE: Employed\nFALSE: Unemployed\n\nincome: Income (in $)\nmarital_status: Marital status\nhousing_type: Housing type\nrecent_move:\n\nTRUE: Recently moved\nFALSE: Not recently moved\n\nage: Age\nstate_of_res: State of residence\ngas_usage: Gas usage\n\nNA: Unknown or not applicable\n001: Included in rent or condo fee\n002: Included in electricity payment\n003: No charge or gas not used\n004-999: $4 to $999 (rounded and top-coded)\n\nhealth_ins: Health insuarance status\n\nTRUE: customer with health insuarance\nFALSE: customer without health insuarance"
   },
   {
-    "objectID": "index.html#danl-210",
-    "href": "index.html#danl-210",
-    "title": "Geneseo Data Analytics, Spring 2024",
+    "objectID": "danl-hw/danl-200-hw-2.html#q1a",
+    "href": "danl-hw/danl-200-hw-2.html#q1a",
+    "title": "DANL 200: Homework Assignment 2",
     "section": "",
-    "text": "Title\n\n\nDate\n\n\n\n\n\n\nLecture 1\n\n\nJan 1, 2024\n\n\n\n\n\nNo matching items"
+    "text": "Report summary statistics including a mean value for each logical variable in health_cust.\nAnswer:\n\nhealth_cust_sum &lt;- skim(health_cust)\n\nq1a &lt;- health_cust_sum[health_cust_sum$skim_type == 'logical', \n                       c('skim_variable', \n                         'n_missing', 'complete_rate',\n                         'logical.mean', 'logical.count')]"
   },
   {
-    "objectID": "listing-danl-hw-210.html",
-    "href": "listing-danl-hw-210.html",
-    "title": "DANL 210 - Homework",
+    "objectID": "danl-hw/danl-200-hw-2.html#q1b",
+    "href": "danl-hw/danl-200-hw-2.html#q1b",
+    "title": "DANL 200: Homework Assignment 2",
     "section": "",
-    "text": "Title\n\n\nSubtitle\n\n\nDate\n\n\n\n\n\n\n\n\nNo matching items\n\n Back to top"
+    "text": "Use health_cust data.frame to create a new data.frame, health_cust2, in which (1) age is greater than 0 and less than 100; and (2) income is positive.\nAnswer:\n\nhealth_cust2 &lt;- health_cust[health_cust$age &gt; 0, ]\nhealth_cust2 &lt;- health_cust2[health_cust2$age &lt; 100, ]\nhealth_cust2 &lt;- health_cust2[health_cust2$income &gt; 0, ]\nhealth_cust2_sum &lt;- skim(health_cust2)\n\n# Combining all conditions into one, which we will cover after the first midterm:\n# health_cust2 &lt;- health_cust[ ( 0 &lt; health_cust$age &lt; 100 ) &\n#                                 ( health_cust$income &gt; 0 ), ]"
   },
   {
-    "objectID": "listing-danl-cw-200.html",
-    "href": "listing-danl-cw-200.html",
-    "title": "DANL 200 - Classwork",
+    "objectID": "danl-hw/danl-200-hw-2.html#q1c",
+    "href": "danl-hw/danl-200-hw-2.html#q1c",
+    "title": "DANL 200: Homework Assignment 2",
     "section": "",
-    "text": "Title\n\n\nSubtitle\n\n\nDate\n\n\n\n\n\n\nLecture 1 200\n\n\nSyllabus, Course Outline, Etc.\n\n\nJan 1, 2024\n\n\n\n\n\n\nNo matching items\n\n Back to top"
+    "text": "Provide ggplot code and comments to describe the distribution of income.\nAnswer:\n\nggplot(health_cust2, aes(x = income)) +\n  geom_histogram()\n\n\n\nggplot(health_cust2, aes(x = income)) +\n  geom_histogram(bins = 100)\n\n\n\nggplot(health_cust2, aes(x = log(income))) +\n  geom_histogram(bins = 100)\n\n\n\nggplot(health_cust2, aes(x = log(income))) +\n  geom_freqpoly(bins = 100)\n\n\n\n\n\nProvide some comments"
   },
   {
-    "objectID": "listing-danl-lec-200.html",
-    "href": "listing-danl-lec-200.html",
-    "title": "DANL 200 - Lecture",
+    "objectID": "danl-hw/danl-200-hw-2.html#q1d",
+    "href": "danl-hw/danl-200-hw-2.html#q1d",
+    "title": "DANL 200: Homework Assignment 2",
     "section": "",
-    "text": "Title\n\n\nSubtitle\n\n\nDate\n\n\n\n\n\n\nLecture 1\n\n\nSyllabus, Course Outline, Etc.\n\n\nJan 2, 2024\n\n\n\n\n\n\nNo matching items\n\n Back to top"
+    "text": "Provide ggplot code and comments to describe the distribution of marital_status.\nAnswer:\n\nggplot(health_cust2,\n       aes(y = marital_status,\n           fill = marital_status)) +\n  geom_bar(show.legend = F)\n\n\n\n\n\nProvide some comments"
+  },
+  {
+    "objectID": "danl-hw/danl-200-hw-2.html#q1e",
+    "href": "danl-hw/danl-200-hw-2.html#q1e",
+    "title": "DANL 200: Homework Assignment 2",
+    "section": "",
+    "text": "Suppose you randomly pick one customer’s observation from each state in data.frame health_cust.\nUse ggplot code to find: (1) in which state a customer is most likely to have a health insurance; and (2) in which state a customer is least likely to have a health insurance.\nAnswer:\n\nggplot(health_cust2) +\n  geom_bar(aes(y = health_ins,\n               group = 1)) +\n  facet_wrap(state_of_res ~ . , ncol = 5)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = health_ins, x = stat(prop),\n               group = 1)) +\n  facet_wrap(state_of_res ~ . , ncol = 5)\n\n\n\n\n\nThe proportional bar chart faceted by state_of_res is the one we need.\n\nAlaska customer is most likely to have health insurance.\nHawaii customer is least likely to have health insurance.\nWhy?\n\n\nThe following might mislead…\n\nggplot(health_cust2) +\n  geom_bar(aes(y = state_of_res, x = stat(prop),\n               group = 1)) +\n  facet_wrap(health_ins ~ . , ncol = 5)"
+  },
+  {
+    "objectID": "danl-hw/danl-200-hw-2.html#q1f",
+    "href": "danl-hw/danl-200-hw-2.html#q1f",
+    "title": "DANL 200: Homework Assignment 2",
+    "section": "",
+    "text": "Provide ggplot code and comments to describe the relationship between age and income.\nAnswer:\n\nggplot(health_cust2,\n       aes(x = age, y = income)) +\n  geom_point(alpha = .2, size = .75) +\n  geom_smooth() +\n  geom_smooth(method = lm, color = 'red')\n\n\n\nggplot(health_cust2,\n       aes(x = age, y = income)) +\n  geom_hex() +\n  geom_smooth() +\n  geom_smooth(method = lm, color = 'red')\n\n\n\n# Considering income level below $250,000\nhealth_cust3 &lt;- health_cust2[health_cust2$income &lt; 2.5*10^5, ]\nggplot(health_cust3,\n       aes(x = age, y = income)) +\n  geom_hex() +\n  geom_smooth() +\n  geom_smooth(method = lm, color = 'red')\n\n\n\n\n\nConsidering the income group whose level is below $250,000, income is positively associated with age up to age around 55. income is then negatively associated from age around 55 to 100."
+  },
+  {
+    "objectID": "danl-hw/danl-200-hw-2.html#q1g",
+    "href": "danl-hw/danl-200-hw-2.html#q1g",
+    "title": "DANL 200: Homework Assignment 2",
+    "section": "",
+    "text": "Provide ggplot code and comments to describe the relationship between age and health_ins.\nAnswer:\n\nggplot(health_cust2) + \n  geom_histogram(aes(x = age), bins = 75) +\n  facet_wrap(health_ins ~.)\n\n\n\nggplot(health_cust2) + \n  geom_freqpoly(aes(x = age), bins = 75) +\n  facet_wrap(health_ins ~.)"
+  },
+  {
+    "objectID": "danl-hw/danl-200-hw-2.html#q1h",
+    "href": "danl-hw/danl-200-hw-2.html#q1h",
+    "title": "DANL 200: Homework Assignment 2",
+    "section": "",
+    "text": "Provide ggplot code and comments to describe the relationship between marital_status and health_ins.\nAnswer:\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = health_ins))\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = health_ins),\n           position = \"fill\")\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = health_ins),\n           position = \"dodge\")\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status)) +\n  facet_wrap(health_ins ~.)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               x = stat(prop), group = 1)) +\n  facet_wrap(health_ins ~.)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = health_ins, \n               x = stat(prop), group = 1)) +\n  facet_grid(marital_status ~.)"
+  },
+  {
+    "objectID": "danl-hw/danl-200-hw-2.html#q1i",
+    "href": "danl-hw/danl-200-hw-2.html#q1i",
+    "title": "DANL 200: Homework Assignment 2",
+    "section": "",
+    "text": "Provide ggplot code and comments to describe the relationship between marital_status and housing_type.\nAnswer:\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = housing_type))\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = housing_type),\n           position = \"fill\")\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = housing_type),\n           position = \"dodge\")\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status)) +\n  facet_wrap(housing_type ~.)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               x = stat(prop), group = 1)) +\n  facet_wrap(housing_type ~.)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = housing_type, \n               x = stat(prop), group = 1)) +\n  facet_grid(marital_status ~.)"
+  },
+  {
+    "objectID": "listing-danl-cw-210.html",
+    "href": "listing-danl-cw-210.html",
+    "title": "DANL 210 - Classwork",
+    "section": "",
+    "text": "Title\n\n\nSubtitle\n\n\nDate\n\n\n\n\n\n\nLecture 1\n\n\nSyllabus, Course Outline, Etc.\n\n\nJan 1, 2024\n\n\n\n\n\n\nNo matching items\n\n Back to top"
+  },
+  {
+    "objectID": "listing-danl-hw-200.html",
+    "href": "listing-danl-hw-200.html",
+    "title": "DANL 200 - Homework",
+    "section": "",
+    "text": "Title\n\n\nSubtitle\n\n\nDate\n\n\n\n\n\n\nundefined\n\n\nundefined\n\n\nundefined\n\n\n\n\nDANL 200: Homework Assignment 2\n\n\nundefined\n\n\nJan 3, 2024\n\n\n\n\n\n\nNo matching items\n\n Back to top"
+  },
+  {
+    "objectID": "listing-danl-lec-210.html",
+    "href": "listing-danl-lec-210.html",
+    "title": "DANL 210 - Lecture",
+    "section": "",
+    "text": "Title\n\n\nSubtitle\n\n\nDate\n\n\n\n\n\n\nLecture 1\n\n\nSyllabus, Course Outline, Etc.\n\n\nJan 1, 2024\n\n\n\n\n\n\nNo matching items\n\n Back to top"
   },
   {
     "objectID": "danl-lec/danl-200-lec-2024-0123.html#example-slide",
@@ -217,100 +273,121 @@
     "text": "Appendix\n\n\n\n\n\n\nTable 1:  Summary of the base R attitude dataset \n  \n    \n    \n       \n      Unique (#)\n      Missing (%)\n      Mean\n      SD\n      Min\n      Median\n      Max\n        \n    \n  \n  \n    rating\n22\n0\n64.6\n12.2\n40.0\n65.5\n85.0\n          \n    complaints\n23\n0\n66.6\n13.3\n37.0\n65.0\n90.0\n          \n    privileges\n24\n0\n53.1\n12.2\n30.0\n51.5\n83.0\n          \n    learning\n23\n0\n56.4\n11.7\n34.0\n56.5\n75.0\n          \n    raises\n21\n0\n64.6\n10.4\n43.0\n63.5\n88.0\n          \n    critical\n21\n0\n74.8\n9.9\n49.0\n77.5\n92.0\n          \n    advance\n20\n0\n42.9\n10.3\n25.0\n41.0\n72.0\n          \n  \n  \n  \n\n\n\n\n\nBack to main"
   },
   {
-    "objectID": "listing-danl-lec-210.html",
-    "href": "listing-danl-lec-210.html",
-    "title": "DANL 210 - Lecture",
+    "objectID": "listing-danl-lec-200.html",
+    "href": "listing-danl-lec-200.html",
+    "title": "DANL 200 - Lecture",
     "section": "",
-    "text": "Title\n\n\nSubtitle\n\n\nDate\n\n\n\n\n\n\nLecture 1\n\n\nSyllabus, Course Outline, Etc.\n\n\nJan 1, 2024\n\n\n\n\n\n\nNo matching items\n\n Back to top"
+    "text": "Title\n\n\nSubtitle\n\n\nDate\n\n\n\n\n\n\nLecture 1\n\n\nSyllabus, Course Outline, Etc.\n\n\nJan 2, 2024\n\n\n\n\n\n\nNo matching items\n\n Back to top"
   },
   {
-    "objectID": "listing-danl-hw-200.html",
-    "href": "listing-danl-hw-200.html",
-    "title": "DANL 200 - Homework",
+    "objectID": "listing-danl-cw-200.html",
+    "href": "listing-danl-cw-200.html",
+    "title": "DANL 200 - Classwork",
     "section": "",
-    "text": "Title\n\n\nSubtitle\n\n\nDate\n\n\n\n\n\n\nDANL 200: Homework Assignment 2\n\n\nundefined\n\n\nJan 3, 2024\n\n\n\n\n\n\nNo matching items\n\n Back to top"
+    "text": "Title\n\n\nSubtitle\n\n\nDate\n\n\n\n\n\n\nLecture 1 200\n\n\nSyllabus, Course Outline, Etc.\n\n\nJan 1, 2024\n\n\n\n\n\n\nNo matching items\n\n Back to top"
   },
   {
-    "objectID": "listing-danl-cw-210.html",
-    "href": "listing-danl-cw-210.html",
-    "title": "DANL 210 - Classwork",
+    "objectID": "listing-danl-hw-210.html",
+    "href": "listing-danl-hw-210.html",
+    "title": "DANL 210 - Homework",
     "section": "",
-    "text": "Title\n\n\nSubtitle\n\n\nDate\n\n\n\n\n\n\nLecture 1\n\n\nSyllabus, Course Outline, Etc.\n\n\nJan 1, 2024\n\n\n\n\n\n\nNo matching items\n\n Back to top"
+    "text": "Title\n\n\nSubtitle\n\n\nDate\n\n\n\n\n\n\n\n\nNo matching items\n\n Back to top"
   },
   {
-    "objectID": "danl-hw/danl-200-hw-2.html",
-    "href": "danl-hw/danl-200-hw-2.html",
-    "title": "DANL 200: Homework Assignment 2",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Geneseo Data Analytics, Spring 2024",
+    "section": "",
+    "text": "Title\n\n\nDate\n\n\n\n\n\n\nLecture 1\n\n\nJan 2, 2024\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n\n\n\n\n\n\nTitle\n\n\nDate\n\n\n\n\n\n\nLecture 1\n\n\nJan 1, 2024\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html#danl-200",
+    "href": "index.html#danl-200",
+    "title": "Geneseo Data Analytics, Spring 2024",
+    "section": "",
+    "text": "Title\n\n\nDate\n\n\n\n\n\n\nLecture 1\n\n\nJan 2, 2024\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html#danl-210",
+    "href": "index.html#danl-210",
+    "title": "Geneseo Data Analytics, Spring 2024",
+    "section": "",
+    "text": "Title\n\n\nDate\n\n\n\n\n\n\nLecture 1\n\n\nJan 1, 2024\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "danl-hw/danl-200-hw-3.html",
+    "href": "danl-hw/danl-200-hw-3.html",
+    "title": "DANL 200: Homework Assignment 3",
     "section": "",
     "text": "Read the data file, custdata_rev.csv, as the data.frame object with the name, health_cust:\n\nlibrary(tidyverse)\nlibrary(skimr)\n\nhealth_cust &lt;- read_csv(\n  'https://bcdanl.github.io/data/custdata_rev.csv'\n)\n\n\n\n\n  \n\n\n \n\n\n\nThe following describes the variables in the health_cust data.frame.\n\ncustid: ID of customer\nsex: Sex\nis_employed: Employment status\n\nNA: Unknown or not applicable\nTRUE: Employed\nFALSE: Unemployed\n\nincome: Income (in $)\nmarital_status: Marital status\nhousing_type: Housing type\nrecent_move:\n\nTRUE: Recently moved\nFALSE: Not recently moved\n\nage: Age\nstate_of_res: State of residence\ngas_usage: Gas usage\n\nNA: Unknown or not applicable\n001: Included in rent or condo fee\n002: Included in electricity payment\n003: No charge or gas not used\n004-999: $4 to $999 (rounded and top-coded)\n\nhealth_ins: Health insuarance status\n\nTRUE: customer with health insuarance\nFALSE: customer without health insuarance\n\n\n\n\n\n\nReport summary statistics including a mean value for each logical variable in health_cust.\nAnswer:\n\nhealth_cust_sum &lt;- skim(health_cust)\n\nq1a &lt;- health_cust_sum[health_cust_sum$skim_type == 'logical', \n                       c('skim_variable', \n                         'n_missing', 'complete_rate',\n                         'logical.mean', 'logical.count')]\n\n\n\n\n\nUse health_cust data.frame to create a new data.frame, health_cust2, in which (1) age is greater than 0 and less than 100; and (2) income is positive.\nAnswer:\n\nhealth_cust2 &lt;- health_cust[health_cust$age &gt; 0, ]\nhealth_cust2 &lt;- health_cust2[health_cust2$age &lt; 100, ]\nhealth_cust2 &lt;- health_cust2[health_cust2$income &gt; 0, ]\nhealth_cust2_sum &lt;- skim(health_cust2)\n\n# Combining all conditions into one, which we will cover after the first midterm:\n# health_cust2 &lt;- health_cust[ ( 0 &lt; health_cust$age &lt; 100 ) &\n#                                 ( health_cust$income &gt; 0 ), ]\n\n\n\n\n\nProvide ggplot code and comments to describe the distribution of income.\nAnswer:\n\nggplot(health_cust2, aes(x = income)) +\n  geom_histogram()\n\n\n\nggplot(health_cust2, aes(x = income)) +\n  geom_histogram(bins = 100)\n\n\n\nggplot(health_cust2, aes(x = log(income))) +\n  geom_histogram(bins = 100)\n\n\n\nggplot(health_cust2, aes(x = log(income))) +\n  geom_freqpoly(bins = 100)\n\n\n\n\n\nProvide some comments\n\n\n\n\n\nProvide ggplot code and comments to describe the distribution of marital_status.\nAnswer:\n\nggplot(health_cust2,\n       aes(y = marital_status,\n           fill = marital_status)) +\n  geom_bar(show.legend = F)\n\n\n\n\n\nProvide some comments\n\n\n\n\n\nSuppose you randomly pick one customer’s observation from each state in data.frame health_cust.\nUse ggplot code to find: (1) in which state a customer is most likely to have a health insurance; and (2) in which state a customer is least likely to have a health insurance.\nAnswer:\n\nggplot(health_cust2) +\n  geom_bar(aes(y = health_ins,\n               group = 1)) +\n  facet_wrap(state_of_res ~ . , ncol = 5)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = health_ins, x = stat(prop),\n               group = 1)) +\n  facet_wrap(state_of_res ~ . , ncol = 5)\n\n\n\n\n\nThe proportional bar chart faceted by state_of_res is the one we need.\n\nAlaska customer is most likely to have health insurance.\nHawaii customer is least likely to have health insurance.\nWhy?\n\n\nThe following might mislead…\n\nggplot(health_cust2) +\n  geom_bar(aes(y = state_of_res, x = stat(prop),\n               group = 1)) +\n  facet_wrap(health_ins ~ . , ncol = 5)\n\n\n\n\n\n\n\n\nProvide ggplot code and comments to describe the relationship between age and income.\nAnswer:\n\nggplot(health_cust2,\n       aes(x = age, y = income)) +\n  geom_point(alpha = .2, size = .75) +\n  geom_smooth() +\n  geom_smooth(method = lm, color = 'red')\n\n\n\nggplot(health_cust2,\n       aes(x = age, y = income)) +\n  geom_hex() +\n  geom_smooth() +\n  geom_smooth(method = lm, color = 'red')\n\n\n\n# Considering income level below $250,000\nhealth_cust3 &lt;- health_cust2[health_cust2$income &lt; 2.5*10^5, ]\nggplot(health_cust3,\n       aes(x = age, y = income)) +\n  geom_hex() +\n  geom_smooth() +\n  geom_smooth(method = lm, color = 'red')\n\n\n\n\n\nConsidering the income group whose level is below $250,000, income is positively associated with age up to age around 55. income is then negatively associated from age around 55 to 100.\n\n\n\n\n\nProvide ggplot code and comments to describe the relationship between age and health_ins.\nAnswer:\n\nggplot(health_cust2) + \n  geom_histogram(aes(x = age), bins = 75) +\n  facet_wrap(health_ins ~.)\n\n\n\nggplot(health_cust2) + \n  geom_freqpoly(aes(x = age), bins = 75) +\n  facet_wrap(health_ins ~.)\n\n\n\n\n\n\n\n\nProvide ggplot code and comments to describe the relationship between marital_status and health_ins.\nAnswer:\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = health_ins))\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = health_ins),\n           position = \"fill\")\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = health_ins),\n           position = \"dodge\")\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status)) +\n  facet_wrap(health_ins ~.)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               x = stat(prop), group = 1)) +\n  facet_wrap(health_ins ~.)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = health_ins, \n               x = stat(prop), group = 1)) +\n  facet_grid(marital_status ~.)\n\n\n\n\n\n\n\n\nProvide ggplot code and comments to describe the relationship between marital_status and housing_type.\nAnswer:\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = housing_type))\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = housing_type),\n           position = \"fill\")\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = housing_type),\n           position = \"dodge\")\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status)) +\n  facet_wrap(housing_type ~.)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               x = stat(prop), group = 1)) +\n  facet_wrap(housing_type ~.)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = housing_type, \n               x = stat(prop), group = 1)) +\n  facet_grid(marital_status ~.)"
   },
   {
-    "objectID": "danl-hw/danl-200-hw-2.html#variable-description-for-health_cust",
-    "href": "danl-hw/danl-200-hw-2.html#variable-description-for-health_cust",
-    "title": "DANL 200: Homework Assignment 2",
+    "objectID": "danl-hw/danl-200-hw-3.html#variable-description-for-health_cust",
+    "href": "danl-hw/danl-200-hw-3.html#variable-description-for-health_cust",
+    "title": "DANL 200: Homework Assignment 3",
     "section": "",
     "text": "The following describes the variables in the health_cust data.frame.\n\ncustid: ID of customer\nsex: Sex\nis_employed: Employment status\n\nNA: Unknown or not applicable\nTRUE: Employed\nFALSE: Unemployed\n\nincome: Income (in $)\nmarital_status: Marital status\nhousing_type: Housing type\nrecent_move:\n\nTRUE: Recently moved\nFALSE: Not recently moved\n\nage: Age\nstate_of_res: State of residence\ngas_usage: Gas usage\n\nNA: Unknown or not applicable\n001: Included in rent or condo fee\n002: Included in electricity payment\n003: No charge or gas not used\n004-999: $4 to $999 (rounded and top-coded)\n\nhealth_ins: Health insuarance status\n\nTRUE: customer with health insuarance\nFALSE: customer without health insuarance"
   },
   {
-    "objectID": "danl-hw/danl-200-hw-2.html#q1a",
-    "href": "danl-hw/danl-200-hw-2.html#q1a",
-    "title": "DANL 200: Homework Assignment 2",
+    "objectID": "danl-hw/danl-200-hw-3.html#q1a",
+    "href": "danl-hw/danl-200-hw-3.html#q1a",
+    "title": "DANL 200: Homework Assignment 3",
     "section": "",
     "text": "Report summary statistics including a mean value for each logical variable in health_cust.\nAnswer:\n\nhealth_cust_sum &lt;- skim(health_cust)\n\nq1a &lt;- health_cust_sum[health_cust_sum$skim_type == 'logical', \n                       c('skim_variable', \n                         'n_missing', 'complete_rate',\n                         'logical.mean', 'logical.count')]"
   },
   {
-    "objectID": "danl-hw/danl-200-hw-2.html#q1b",
-    "href": "danl-hw/danl-200-hw-2.html#q1b",
-    "title": "DANL 200: Homework Assignment 2",
+    "objectID": "danl-hw/danl-200-hw-3.html#q1b",
+    "href": "danl-hw/danl-200-hw-3.html#q1b",
+    "title": "DANL 200: Homework Assignment 3",
     "section": "",
     "text": "Use health_cust data.frame to create a new data.frame, health_cust2, in which (1) age is greater than 0 and less than 100; and (2) income is positive.\nAnswer:\n\nhealth_cust2 &lt;- health_cust[health_cust$age &gt; 0, ]\nhealth_cust2 &lt;- health_cust2[health_cust2$age &lt; 100, ]\nhealth_cust2 &lt;- health_cust2[health_cust2$income &gt; 0, ]\nhealth_cust2_sum &lt;- skim(health_cust2)\n\n# Combining all conditions into one, which we will cover after the first midterm:\n# health_cust2 &lt;- health_cust[ ( 0 &lt; health_cust$age &lt; 100 ) &\n#                                 ( health_cust$income &gt; 0 ), ]"
   },
   {
-    "objectID": "danl-hw/danl-200-hw-2.html#q1c",
-    "href": "danl-hw/danl-200-hw-2.html#q1c",
-    "title": "DANL 200: Homework Assignment 2",
+    "objectID": "danl-hw/danl-200-hw-3.html#q1c",
+    "href": "danl-hw/danl-200-hw-3.html#q1c",
+    "title": "DANL 200: Homework Assignment 3",
     "section": "",
     "text": "Provide ggplot code and comments to describe the distribution of income.\nAnswer:\n\nggplot(health_cust2, aes(x = income)) +\n  geom_histogram()\n\n\n\nggplot(health_cust2, aes(x = income)) +\n  geom_histogram(bins = 100)\n\n\n\nggplot(health_cust2, aes(x = log(income))) +\n  geom_histogram(bins = 100)\n\n\n\nggplot(health_cust2, aes(x = log(income))) +\n  geom_freqpoly(bins = 100)\n\n\n\n\n\nProvide some comments"
   },
   {
-    "objectID": "danl-hw/danl-200-hw-2.html#q1d",
-    "href": "danl-hw/danl-200-hw-2.html#q1d",
-    "title": "DANL 200: Homework Assignment 2",
+    "objectID": "danl-hw/danl-200-hw-3.html#q1d",
+    "href": "danl-hw/danl-200-hw-3.html#q1d",
+    "title": "DANL 200: Homework Assignment 3",
     "section": "",
     "text": "Provide ggplot code and comments to describe the distribution of marital_status.\nAnswer:\n\nggplot(health_cust2,\n       aes(y = marital_status,\n           fill = marital_status)) +\n  geom_bar(show.legend = F)\n\n\n\n\n\nProvide some comments"
   },
   {
-    "objectID": "danl-hw/danl-200-hw-2.html#q1e",
-    "href": "danl-hw/danl-200-hw-2.html#q1e",
-    "title": "DANL 200: Homework Assignment 2",
+    "objectID": "danl-hw/danl-200-hw-3.html#q1e",
+    "href": "danl-hw/danl-200-hw-3.html#q1e",
+    "title": "DANL 200: Homework Assignment 3",
     "section": "",
     "text": "Suppose you randomly pick one customer’s observation from each state in data.frame health_cust.\nUse ggplot code to find: (1) in which state a customer is most likely to have a health insurance; and (2) in which state a customer is least likely to have a health insurance.\nAnswer:\n\nggplot(health_cust2) +\n  geom_bar(aes(y = health_ins,\n               group = 1)) +\n  facet_wrap(state_of_res ~ . , ncol = 5)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = health_ins, x = stat(prop),\n               group = 1)) +\n  facet_wrap(state_of_res ~ . , ncol = 5)\n\n\n\n\n\nThe proportional bar chart faceted by state_of_res is the one we need.\n\nAlaska customer is most likely to have health insurance.\nHawaii customer is least likely to have health insurance.\nWhy?\n\n\nThe following might mislead…\n\nggplot(health_cust2) +\n  geom_bar(aes(y = state_of_res, x = stat(prop),\n               group = 1)) +\n  facet_wrap(health_ins ~ . , ncol = 5)"
   },
   {
-    "objectID": "danl-hw/danl-200-hw-2.html#q1f",
-    "href": "danl-hw/danl-200-hw-2.html#q1f",
-    "title": "DANL 200: Homework Assignment 2",
+    "objectID": "danl-hw/danl-200-hw-3.html#q1f",
+    "href": "danl-hw/danl-200-hw-3.html#q1f",
+    "title": "DANL 200: Homework Assignment 3",
     "section": "",
     "text": "Provide ggplot code and comments to describe the relationship between age and income.\nAnswer:\n\nggplot(health_cust2,\n       aes(x = age, y = income)) +\n  geom_point(alpha = .2, size = .75) +\n  geom_smooth() +\n  geom_smooth(method = lm, color = 'red')\n\n\n\nggplot(health_cust2,\n       aes(x = age, y = income)) +\n  geom_hex() +\n  geom_smooth() +\n  geom_smooth(method = lm, color = 'red')\n\n\n\n# Considering income level below $250,000\nhealth_cust3 &lt;- health_cust2[health_cust2$income &lt; 2.5*10^5, ]\nggplot(health_cust3,\n       aes(x = age, y = income)) +\n  geom_hex() +\n  geom_smooth() +\n  geom_smooth(method = lm, color = 'red')\n\n\n\n\n\nConsidering the income group whose level is below $250,000, income is positively associated with age up to age around 55. income is then negatively associated from age around 55 to 100."
   },
   {
-    "objectID": "danl-hw/danl-200-hw-2.html#q1g",
-    "href": "danl-hw/danl-200-hw-2.html#q1g",
-    "title": "DANL 200: Homework Assignment 2",
+    "objectID": "danl-hw/danl-200-hw-3.html#q1g",
+    "href": "danl-hw/danl-200-hw-3.html#q1g",
+    "title": "DANL 200: Homework Assignment 3",
     "section": "",
     "text": "Provide ggplot code and comments to describe the relationship between age and health_ins.\nAnswer:\n\nggplot(health_cust2) + \n  geom_histogram(aes(x = age), bins = 75) +\n  facet_wrap(health_ins ~.)\n\n\n\nggplot(health_cust2) + \n  geom_freqpoly(aes(x = age), bins = 75) +\n  facet_wrap(health_ins ~.)"
   },
   {
-    "objectID": "danl-hw/danl-200-hw-2.html#q1h",
-    "href": "danl-hw/danl-200-hw-2.html#q1h",
-    "title": "DANL 200: Homework Assignment 2",
+    "objectID": "danl-hw/danl-200-hw-3.html#q1h",
+    "href": "danl-hw/danl-200-hw-3.html#q1h",
+    "title": "DANL 200: Homework Assignment 3",
     "section": "",
     "text": "Provide ggplot code and comments to describe the relationship between marital_status and health_ins.\nAnswer:\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = health_ins))\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = health_ins),\n           position = \"fill\")\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = health_ins),\n           position = \"dodge\")\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status)) +\n  facet_wrap(health_ins ~.)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               x = stat(prop), group = 1)) +\n  facet_wrap(health_ins ~.)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = health_ins, \n               x = stat(prop), group = 1)) +\n  facet_grid(marital_status ~.)"
   },
   {
-    "objectID": "danl-hw/danl-200-hw-2.html#q1i",
-    "href": "danl-hw/danl-200-hw-2.html#q1i",
-    "title": "DANL 200: Homework Assignment 2",
+    "objectID": "danl-hw/danl-200-hw-3.html#q1i",
+    "href": "danl-hw/danl-200-hw-3.html#q1i",
+    "title": "DANL 200: Homework Assignment 3",
     "section": "",
     "text": "Provide ggplot code and comments to describe the relationship between marital_status and housing_type.\nAnswer:\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = housing_type))\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = housing_type),\n           position = \"fill\")\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               fill = housing_type),\n           position = \"dodge\")\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status)) +\n  facet_wrap(housing_type ~.)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = marital_status, \n               x = stat(prop), group = 1)) +\n  facet_wrap(housing_type ~.)\n\n\n\nggplot(health_cust2) +\n  geom_bar(aes(y = housing_type, \n               x = stat(prop), group = 1)) +\n  facet_grid(marital_status ~.)"
   }
