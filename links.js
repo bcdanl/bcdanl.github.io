@@ -1,5 +1,5 @@
-(function() {
-  for (const link of document.getElementsByTagName('a')) {
-    if (/^(https?:)?\/\//.test(link.getAttribute('href'))) link.target = '_blank';
-  }
-})();
+window.onload = function() {
+    document.querySelectorAll('td a').forEach(function(link) {
+        link.setAttribute('target', '_blank');
+    });
+};
