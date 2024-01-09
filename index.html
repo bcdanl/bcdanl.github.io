@@ -43,6 +43,8 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -108,6 +110,62 @@ ul.task-list li input[type="checkbox"] {
 
     window['quarto-listings'] = window['quarto-listings'] || {};
     window['quarto-listings']['listing-danl-210-lec'] = new List('listing-danl-210-lec', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-danl-200-qa .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-danl-200-qa'] = new List('listing-danl-200-qa', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-danl-210-qa .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-danl-210-qa'] = new List('listing-danl-210-qa', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -259,7 +317,7 @@ border-radius: 5px; /* Rounds the corners */
 <link rel="stylesheet" href="assets/css/font.css">
 <link rel="stylesheet" href="front.css">
 <meta property="og:title" content="Geneseo Data Analytics, Spring 2024 | Byeong-Hak Choe">
-<meta property="og:description" content="<div class=class=“box-body buttons-text clearfix”>Byeong-Hak Choe [ Email;  Brightspace]">
+<meta property="og:description" content="<div class=class=“box-body buttons-text clearfix”>Byeong-Hak Choe &nbsp;  Email;  Brightspace">
 <meta property="og:image" content="/assets/img/posts.png">
 <meta property="og:site-name" content="B.H. CHOE&amp;nbsp;&amp;nbsp;&amp;nbsp;">
 </head>
@@ -278,31 +336,10 @@ border-radius: 5px; /* Rounds the corners */
     <span class="navbar-title">B.H. CHOE&nbsp;&nbsp;&nbsp;</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./listing-danl-qa-200.html" rel="" target="">
- <span class="menu-text">DANL 200 - Lecture Board</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="https://bcdanl.github.io" rel="" target="">
- <span class="menu-text">||</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./listing-danl-qa-210.html" rel="" target="">
- <span class="menu-text">DANL 210 - Lecture Board</span></a>
-  </li>  
-  <li class="dropdown-header">
- <span class="menu-text"> </span></li>
-</ul>
-            <div class="quarto-navbar-tools">
+        <div class="quarto-navbar-tools ms-auto">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
-          </div> <!-- /navcollapse -->
+          <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
@@ -310,7 +347,7 @@ border-radius: 5px; /* Rounds the corners */
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Geneseo Data Analytics, Spring 2024</li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><font style="font-family:Optima"><b>Geneseo Data Analytics, Spring 2024</b></font></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -323,30 +360,45 @@ border-radius: 5px; /* Rounds the corners */
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text"><font size="5"><b>Welcome! </b></font><font size="5" color="#194493"><i class="fa fa-user-circle" aria-hidden="true"></i> <i class="fa fa-sun" aria-hidden="true"></i></font>
+</span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text"><font size="2">   </font></span></span>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text"><font size="5"><b>DANL 200  </b></font></span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text"><font size="5"><b>DANL 200 </b></font><font size="5" color="#194493"><i class="fa fa-step-forward" aria-hidden="true"></i></font></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./listing-danl-lec-200.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><font size="5">Lecture   </font></span></a>
+ <span class="menu-text"><font size="5">Lecture </font><font size="5" color="#194493"><i class="fa-solid fa-laptop" aria-label="laptop"></i></font></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./listing-danl-qa-200.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><font size="5">Q &amp; A </font><font size="5" color="#194493"><i class="fa-solid fa-commenting" aria-label="commenting"></i></font></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./listing-danl-cw-200.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><font size="5">Classwork   </font></span></a>
+ <span class="menu-text"><font size="5">Classwork </font><font size="5" color="#194493"><i class="fa-solid fa-keyboard" aria-label="keyboard"></i></font></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./listing-danl-hw-200.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><font size="5">Homework   </font></span></a>
+ <span class="menu-text"><font size="5">Homework </font><font size="5" color="#194493"><i class="fa-solid fa-level-up" aria-label="level-up"></i></font></span></a>
   </div>
 </li>
       </ul>
@@ -357,29 +409,35 @@ border-radius: 5px; /* Rounds the corners */
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
- <span class="menu-text"><font size="5"><b>DANL 210  </b></font></span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text"><font size="5"><b>DANL 210 </b></font><font size="5" color="#194493"><i class="fa fa-step-forward" aria-hidden="true"></i></font></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./listing-danl-lec-210.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><font size="5">Lecture   </font></span></a>
+ <span class="menu-text"><font size="5">Lecture </font><font size="5" color="#194493"><i class="fa-solid fa-laptop" aria-label="laptop"></i></font></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./listing-danl-qa-210.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><font size="5">Q &amp; A </font><font size="5" color="#194493"><i class="fa-solid fa-commenting" aria-label="commenting"></i></font></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./listing-danl-cw-210.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><font size="5">Classwork   </font></span></a>
+ <span class="menu-text"><font size="5">Classwork </font><font size="5" color="#194493"><i class="fa-solid fa-keyboard" aria-label="keyboard"></i></font></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./listing-danl-hw-210.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><font size="5">Homework   </font></span></a>
+ <span class="menu-text"><font size="5">Homework </font><font size="5" color="#194493"><i class="fa-solid fa-level-up" aria-label="level-up"></i></font></span></a>
   </div>
 </li>
       </ul>
@@ -389,32 +447,14 @@ border-radius: 5px; /* Rounds the corners */
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
-   
-  <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome! 👋 <br><br></a>
-  <ul>
-  <li><a href="#bullet-lecture" id="toc-bullet-lecture" class="nav-link" data-scroll-target="#bullet-lecture"><span class="math inline">\(\bullet\,\)</span> Lecture <span class="emoji" data-emoji="rocket">🚀</span></a>
-  <ul>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">&nbsp;</a></li>
-  </ul></li>
-  <li><a href="#bullet-classwork" id="toc-bullet-classwork" class="nav-link" data-scroll-target="#bullet-classwork"><span class="math inline">\(\bullet\,\)</span> Classwork <span class="emoji" data-emoji="keyboard">⌨️</span></a>
-  <ul>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">&nbsp;</a></li>
-  </ul></li>
-  <li><a href="#bullet-homework" id="toc-bullet-homework" class="nav-link" data-scroll-target="#bullet-homework"><span class="math inline">\(\bullet\,\)</span> Homework <span class="emoji" data-emoji="computer">💻</span></a></li>
-  </ul></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
-<main class="content column-body" id="quarto-document-content">
+<main class="content column-page-right" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Geneseo Data Analytics, Spring 2024</h1>
-<p class="subtitle lead"></p><div class="class=&quot;box-body" buttons-text="" clearfix"=""><font size="4">Byeong-Hak Choe [<a href="mailto:bchoe@geneseo.edu" class="about-link" rel="" target=""><i class="bi bi-envelope"></i><span class="about-link-text"> Email</span></a>; <a href="https://brightspace.geneseo.edu" class="about-link" rel="" target="_blank"><i class="bi bi-bootstrap"></i><span class="about-link-text"> Brightspace</span></a>]</font></div><p></p>
+<h1 class="title"><font style="font-family:Optima"><b>Geneseo Data Analytics, Spring 2024</b></font></h1>
+<p class="subtitle lead"></p><div class="class=&quot;box-body" buttons-text="" clearfix"=""><font size="4"><b>Byeong-Hak Choe</b> &nbsp; <i class="fa fa-chevron-left" aria-hidden="true"></i><a href="mailto:bchoe@geneseo.edu" class="about-link" rel="" target=""><i class="bi bi-envelope"></i><span class="about-link-text"> <b>Email</b></span></a>; <a href="https://brightspace.geneseo.edu" class="about-link" rel="" target="_blank"><i class="bi bi-bootstrap"></i><span class="about-link-text"> <b>Brightspace</b></span></a><i class="fa fa-chevron-right" aria-hidden="true"></i></font></div><p></p>
 </div>
 
 
@@ -429,27 +469,37 @@ border-radius: 5px; /* Rounds the corners */
 
 </header>
 
-<section id="welcome" class="level1">
-<h1>Welcome! 👋 <br><br></h1>
+<div style="display:block; margin:32px;">
+
+</div>
+<p><font size="5">Welcome! 👋 </font></p>
+<div style="display:block; margin:-10px;">
+
+</div>
 <p><font size="5"><span class="math inline">\(-\)</span> Explore, Learn, and Grow with the DANL! 🌟</font></p>
 <div class="columns">
 <div class="column" style="width:10%;">
 
 </div><div class="column" style="width:35%;">
-<p><img src="img/coding-sea-lion.gif" class="img-fluid" style="width:81.0%"></p>
+<p><img src="img/coding-sea-lion.gif" class="img-fluid" style="width:75.0%"></p>
 </div><div class="column" style="width:10%;">
 
 </div><div class="column" style="width:35%;">
-<p><img src="img/coding-sea-turtle.gif" class="img-fluid" style="width:81.0%"></p>
+<p><img src="img/coding-sea-turtle.gif" class="img-fluid" style="width:75.0%"></p>
 </div><div class="column" style="width:10%;">
 
 </div>
 </div>
 <!-- <p style="font-family:gill sans, sans-serif;color:grey;font-size:13px;text-align:center"> The above animated images are created by  -->
 <!-- <a href="https://openai.com/dall-e-3" target="_blank">DALL·E 3</a> and modified by Byeong-Hak Choe.</p> -->
-<!-- ### &nbsp; -->
+<div style="display:block; margin:-20px;">
+
+</div>
 <section id="bullet-lecture" class="level2">
 <h2 class="anchored" data-anchor-id="bullet-lecture"><span class="math inline">\(\bullet\,\)</span> Lecture <span class="emoji" data-emoji="rocket">🚀</span></h2>
+<div style="display:block; margin:-25px;">
+
+</div>
 <div class="columns">
 <div class="column" style="width:45%;">
 <section id="danl-200" class="level4">
@@ -537,16 +587,99 @@ No matching items
 </section>
 </div>
 </div>
-<section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section">&nbsp;</h3>
+<div style="display:block; margin:25px;">
+
+</div>
 </section>
-</section>
-<section id="bullet-classwork" class="level2">
-<h2 class="anchored" data-anchor-id="bullet-classwork"><span class="math inline">\(\bullet\,\)</span> Classwork <span class="emoji" data-emoji="keyboard">⌨️</span></h2>
+<section id="bullet-q-a" class="level2">
+<h2 class="anchored" data-anchor-id="bullet-q-a"><span class="math inline">\(\bullet\,\)</span> Q &amp; A <span class="emoji" data-emoji="question">❓</span></h2>
+<div style="display:block; margin:-25px;">
+
+</div>
 <div class="columns">
 <div class="column" style="width:45%;">
 <section id="danl-200-1" class="level4">
-<h4 class="anchored" data-anchor-id="danl-200-1"><span class="math inline">\(-\)</span> DANL 200 <span class="emoji" data-emoji="mag">🔍</span></h4>
+<h4 class="anchored" data-anchor-id="danl-200-1"><span class="math inline">\(-\)</span> DANL 200 <span class="emoji" data-emoji="bulb">💡</span></h4>
+<div id="listing-danl-200-qa" class="quarto-listing quarto-listing-container-table">
+
+<table class="quarto-listing-table table">
+<thead>
+<tr>
+<th>
+Title
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody class="list">
+<tr data-index="0" data-listing-date-sort="1704415216000" data-listing-file-modified-sort="1704415216309" data-listing-date-modified-sort="1704415216000" data-listing-reading-time-sort="1" data-listing-title-sort="DANL 200: Lecture 01 - Discussion and Q &amp; A" data-listing-filename-sort="danl-200-qa-01.qmd">
+<td>
+<a href="./danl-qa/danl-200-qa-01.html" class="title listing-title">DANL 200: Lecture 01 - Discussion and Q &amp; A</a>
+</td>
+<td>
+<span class="listing-date">January 4, 2024</span>
+</td>
+</tr>
+</tbody>
+
+</table>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div>
+</section>
+</div><div class="column" style="width:10%;">
+
+</div><div class="column" style="width:45%;">
+<section id="danl-210-1" class="level4">
+<h4 class="anchored" data-anchor-id="danl-210-1"><span class="math inline">\(-\)</span> DANL 210 <span class="emoji" data-emoji="flashlight">🔦</span></h4>
+<div id="listing-danl-210-qa" class="quarto-listing quarto-listing-container-table">
+
+<table class="quarto-listing-table table">
+<thead>
+<tr>
+<th>
+Title
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody class="list">
+<tr data-index="0" data-listing-date-sort="1704773920000" data-listing-file-modified-sort="1704773920074" data-listing-date-modified-sort="1704773920000" data-listing-reading-time-sort="1" data-listing-title-sort="DANL 210: Lecture 01 - Discussion and Q &amp; A" data-listing-filename-sort="danl-210-qa-01.qmd">
+<td>
+<a href="./danl-qa/danl-210-qa-01.html" class="title listing-title">DANL 210: Lecture 01 - Discussion and Q &amp; A</a>
+</td>
+<td>
+<span class="listing-date">January 8, 2024</span>
+</td>
+</tr>
+</tbody>
+
+</table>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div>
+</section>
+</div>
+</div>
+<div style="display:block; margin:25px;">
+
+</div>
+</section>
+<section id="bullet-classwork" class="level2">
+<h2 class="anchored" data-anchor-id="bullet-classwork"><span class="math inline">\(\bullet\,\)</span> Classwork <span class="emoji" data-emoji="keyboard">⌨️</span></h2>
+<div style="display:block; margin:-25px;">
+
+</div>
+<div class="columns">
+<div class="column" style="width:45%;">
+<section id="danl-200-2" class="level4">
+<h4 class="anchored" data-anchor-id="danl-200-2"><span class="math inline">\(-\)</span> DANL 200 <span class="emoji" data-emoji="mag">🔍</span></h4>
 <div id="listing-danl-200-cw" class="quarto-listing quarto-listing-container-table">
 
 <table class="quarto-listing-table table">
@@ -588,8 +721,8 @@ No matching items
 </div><div class="column" style="width:10%;">
 
 </div><div class="column" style="width:45%;">
-<section id="danl-210-1" class="level4">
-<h4 class="anchored" data-anchor-id="danl-210-1"><span class="math inline">\(-\)</span> DANL 210 <span class="emoji" data-emoji="mag_right">🔎</span></h4>
+<section id="danl-210-2" class="level4">
+<h4 class="anchored" data-anchor-id="danl-210-2"><span class="math inline">\(-\)</span> DANL 210 <span class="emoji" data-emoji="mag_right">🔎</span></h4>
 <div id="listing-danl-210-cw" class="quarto-listing quarto-listing-container-table">
 
 <table class="quarto-listing-table table">
@@ -622,16 +755,19 @@ No matching items
 </section>
 </div>
 </div>
-<section id="section-1" class="level3">
-<h3 class="anchored" data-anchor-id="section-1">&nbsp;</h3>
-</section>
+<div style="display:block; margin:25px;">
+
+</div>
 </section>
 <section id="bullet-homework" class="level2">
 <h2 class="anchored" data-anchor-id="bullet-homework"><span class="math inline">\(\bullet\,\)</span> Homework <span class="emoji" data-emoji="computer">💻</span></h2>
+<div style="display:block; margin:-25px;">
+
+</div>
 <div class="columns">
 <div class="column" style="width:45%;">
-<section id="danl-200-2" class="level4">
-<h4 class="anchored" data-anchor-id="danl-200-2"><span class="math inline">\(-\)</span> DANL 200 <span class="emoji" data-emoji="thinking">🤔</span></h4>
+<section id="danl-200-3" class="level4">
+<h4 class="anchored" data-anchor-id="danl-200-3"><span class="math inline">\(-\)</span> DANL 200 <span class="emoji" data-emoji="thinking">🤔</span></h4>
 <div id="listing-danl-200-hw" class="quarto-listing quarto-listing-container-table">
 
 <table class="quarto-listing-table table">
@@ -673,8 +809,8 @@ No matching items
 </div><div class="column" style="width:10%;">
 
 </div><div class="column" style="width:45%;">
-<section id="danl-210-2" class="level4">
-<h4 class="anchored" data-anchor-id="danl-210-2"><span class="math inline">\(-\)</span> DANL 210 <span class="emoji" data-emoji="sunglasses">😎</span></h4>
+<section id="danl-210-3" class="level4">
+<h4 class="anchored" data-anchor-id="danl-210-3"><span class="math inline">\(-\)</span> DANL 210 <span class="emoji" data-emoji="sunglasses">😎</span></h4>
 <div id="listing-danl-210-hw" class="quarto-listing quarto-listing-container-table">
 
 <table class="quarto-listing-table table">
@@ -708,7 +844,6 @@ No matching items
 
 
 
-</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
