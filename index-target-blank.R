@@ -17,7 +17,15 @@ html_as_text <- str_replace_all(html_as_text,
                                 old_content,
                                 new_content)
 
+lec_no <- '02'
+lec_date <- '0125'
 
+old_content <- str_c('lec-', lec_no, '-2024-', lec_date, '.html"')
+new_content <- str_c(old_content, " ", 'target="_blank"') 
+
+html_as_text <- str_replace_all(html_as_text,
+                                old_content,
+                                new_content)
 writeLines(html_as_text, 
            "index.html")
 
