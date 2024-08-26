@@ -3,9 +3,9 @@ project:
   output-dir: "."
   
 website:
-  title: "B.H. CHOE&nbsp;&nbsp;&nbsp;"
-  favicon: img/favicon.ico
-  description: 'A collection of data analytics course contents by Byeong-Hak Choe'
+  title: Home
+  # favicon: img/favicon.ico
+  description: 'A collection of data analytics and danlomics by Byeong-Hak Choe'
   reader-mode: false
   back-to-top-navigation: true
 
@@ -13,13 +13,61 @@ website:
     background: "#1c4982"
     logo: img/geneseo-logo-squared.png
     pinned: true
-
+    right:
+      # - text: Causal ML
+      #   href: danlml.qmd
+      - text: Research
+        href: index-home.qmd
+      - text: Blog
+        href: blog-listing.qmd
+      - text: " "
+      # - text: "Teaching {{< fa external-link >}}"
+      #   href: https://bcdanl.github.io
+      #   target: _blank
+      # - icon: github
+      #   href: https://github.com/bcdanl
+      #   target: _blank
+    
+  sidebar:
+    title: "Welcome!"
+    logo: img/geneseo-logo-squared.png
+    style: docked
+    search: false
+    # collapse-level: 0
+    # pinned: true
+    # border: true
+    # type: light
+    contents:
+      - text: <a href="./index.html"><font size ="6" ><b>Welcome! </b></font><font size ="5" color="#194493"> <i class="fa fa-sun" aria-hidden="true"></i></font></a>
+      - text: &nbsp;
+      - text: <font size ="5" ><b>- Lecture </b></font><font size ="5" color="#194493">{{< fa solid laptop >}}</font>
+        href: listing-danl-101-lec.qmd
+      - text: &nbsp;
+      - text: <font size ="5" ><b>- Q & A </b></font><font size ="5" color="#194493">{{< fa solid commenting >}}</font>
+        href: listing-danl-101-qa.qmd
+      - text: &nbsp;
+      - text: <font size ="5" ><b>- Classwork </b></font><font size ="5" color="#194493">{{< fa solid keyboard >}}</font>
+        href: listing-danl-101-cw.qmd
+      - text: &nbsp;
+      - text: <font size ="5" ><b>- Homework </b></font><font size ="5" color="#194493">{{< fa solid level-up >}}</font>
+        href: listing-danl-101-hw.qmd
+      # - text: &nbsp;
+      # - text: <font size ="5" ><b>- Class Notes </b></font><font size ="5" color="#194493">{{< fa solid pencil >}}</font>
+      #   href: listing-danl-101-class.qmd
+        
   page-footer: 
     border: false
     center: "powered with github, quarto, and rstudio<br>byeong-hak choe, 2024"
     # foreground: dark
     # background: '#9b4e55' 
-    
+
+
+execute:
+  echo: true
+  eval: true
+  message: false
+  warning: false
+  
 format:
   html: 
     grid:
@@ -32,5 +80,5 @@ format:
     css: [styles.css, assets/css/font.css] # , font.css
     highlight-style: atom-one # espresso   tango
     mainfont:  sans-serif; serif; ui-sans-serif  # Gill Sans, sans-serif;
-    toc: true
     # include-after-body: [target-blank.html]
+
