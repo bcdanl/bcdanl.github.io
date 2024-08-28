@@ -1,0 +1,293 @@
+---
+title: Lecture 2
+subtitle: Introduction
+format:
+  clean-revealjs:
+    self-contained: false
+    chalkboard: true
+    incremental: true
+    code-annotations: hover
+    scrollable: false
+
+    # logo: logo-title-slide.png
+author:
+  - name: Byeong-Hak Choe
+    email: bchoe@geneseo.edu
+    affiliations: SUNY Geneseo
+date: 2024-08-28
+execute: 
+  eval: true
+  echo: true
+callout-icon: false
+
+from: markdown+emoji
+include-after-body: target-hover.html # effect.html
+
+# bibliography: refs.bib
+---
+
+
+```{r setup}
+#| include: false
+library(tidyverse)
+library(skimr)
+library(ggthemes)
+library(hrbrthemes)
+
+
+theme_set(theme_fivethirtyeight()+
+          theme(strip.background =element_rect(fill="lightgray"),
+                axis.title.x = 
+                  element_text(angle = 0,
+                               size = rel(1.5),
+                               margin = margin(10,0,0,0)),
+                axis.title.y = 
+                  element_text(angle = 0,
+                               size = rel(1.5),
+                               margin = margin(0,10,0,0)),
+                axis.text.x = element_text(size = rel(1.5)),
+                axis.text.y = element_text(size = rel(1.5)),
+                strip.text = element_text(size = rel(1.5)),
+                legend.position = "top",
+                legend.text = element_text(size = rel(1.5)),
+                legend.title = element_text(size = rel(1.5))
+                )
+          )
+```
+
+
+# Prologue {background-color="#1c4982"}
+
+
+## Why Data Analytics?
+
+- Fill in the gaps left by traditional business and economics classes.
+  - Practical skills that will benefit your future career.
+  - Neglected skills like how to actually find datasets in the wild and clean them.
+
+- Data analytics skills are largely distinct from (and complementary to) the core quantitative works familiar to business undergrads.
+  - Data visualization, cleaning and wrangling; databases; machine learning; etc.
+
+- In short, we will cover things that I wish someone had taught me when I was undergraduate.
+
+
+
+## You, at the end of this course
+
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/yes-that-s-awesome.jpeg">
+</p>
+
+
+
+
+## Why Data Analytics?
+
+- **Data analysts** use analytical tools and techniques to extract meaningful insights from data.
+  - Skills in data analytics are also useful for **business analysts** or **market analysts**.
+
+
+- [Breau of Labor Statistics](https://www.bls.gov/ooh/math/data-scientists.htm){target="_blank"} forecasts that the projected growth rate of the employment in the industry related to data analytics from 2021 to 2031 is **36%**. 
+  - The average growth rate for all occupations is **5%**.
+
+
+
+
+
+## Why R, Python, and Databases?
+
+![](https://bcdanl.github.io/lec_figs/indeed-py-r-sql.png)
+
+## Why R, Python, and Databases?
+
+- [Stack Overflow](https://stackoverflow.com){target="_blank"}  is the most popular Q & A website specifically for programmers and software developers in the world.
+
+- See how programming languages have trended over time based on use of their tags in Stack Overflow from 2008 to 2022.
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+### Most Popular Languagues
+
+![](https://bcdanl.github.io/lec_figs/stackoverflow-py-r-sql.png)
+:::
+
+
+::: {.column width="50%"}
+### Data Science and Big Data
+
+![](https://bcdanl.github.io/lec_figs/stackoverflow-datascience-r-sql.png)
+
+:::
+
+:::: 
+
+
+
+
+
+## The State of the Art
+### Generative AI and ChatGPT
+
+
+:::: {.columns }
+
+::: {.column width="50%"}
+### Data Science and Big Data Trend
+
+From 2008 to 2023
+ 
+![](https://bcdanl.github.io/lec_figs/stackoverflow-datascience-r-sql-2024.png)
+
+:::
+
+
+::: {.column width="50%"}
+
+### Programmers in 2024
+
+![](https://bcdanl.github.io/lec_figs/chatgpt-stackoverflow-meme.jpg)
+:::
+
+
+::::
+
+
+
+
+
+
+
+
+## The State of the Art
+### Generative AI and ChatGPT
+
+- **Generative AI** refers to a category of artificial intelligence (AI) that is capable of generating new content, ranging from text, images, and videos to music and code. 
+
+:::{.incremental}
+
+- In the early 2020s, advances in transformer-based deep neural networks enabled a number of generative AI systems notable for accepting natural language prompts as input.
+  - These include large language model (LLM) chatbots (e.g., ChatGPT, Claude, Copilot, Gemini, LLaMA, Grok).
+
+- **ChatGPT** (Chat Generative Pre-trained Transformer) is a chatbot developed by OpenAI and launched on November 30, 2022. 
+  - By January 2023, it had become what was then the fastest-growing consumer software application in history.
+
+:::
+
+
+
+## The State of the Art
+### Generative AI and ChatGPT
+
+  
+- Users around the world have explored how to best utilize GPT for writing essays and programming codes.
+
+
+::::{.incremental}
+
+:::{}
+- Is AI a threat to data analytics?
+  - Fundamental understanding of the subject matter is still crucial for effectively utilizing AI's capabilities.
+:::
+
+:::{}
+- If you use Generative AI such as ChatGPT, please try to understand what ChatGPT gives you.
+  - Copying and pasting it without any understanding harms your learning opportunity.
+:::
+
+::::
+
+
+# DANL Tools {background-color="#1c4982"}
+
+
+## What is Git?
+
+:::: {.columns}
+
+::: {.column width="45%"}
+![](https://bcdanl.github.io/lec_figs/git-version.png)
+:::
+
+::: {.column width="55%"}
+
+$\quad$
+
+- **Git** is the most popular **version control** tool for any software development.
+  - It tracks changes in a series of snapshots of the project, allowing developers to revert to previous versions, compare changes, and merge different versions. 
+  - It is the industry standard and ubiquitous for coding collaboration.
+  
+:::
+
+::::
+
+
+
+
+## What is GitHub?
+
+- [GitHub](https://github.com/){target="_blank"} is a web-based hosting platform for Git repositories to store, manage, and share code. 
+
+- Out class website is hosted on a GitHub repository.
+
+- Course contents will be posted not only in Brightspace but also in our GitHub repositories ("repos") and websites.
+
+- Github is useful for many reasons, but the main reason is how user friendly it makes uploading and sharing code.
+
+
+
+
+## What is GitHub?
+
+{{< video https://www.youtube.com/watch?v=pBy1zgt0XPc width="100%" height="100%">}}
+
+
+## What is R?
+
+- **R** is a programming language and software environment designed for statistical computing and graphics. 
+
+- R has become a major tool in data analysis, statistical modeling, and visualization. 
+  - It is widely used among statisticians and data scientists for developing statistical software and performing data analysis. 
+  - R is open source and freely available. 
+
+
+## What is RStudio?
+
+- **RStudio** is an integrated development environment (IDE) for R. 
+  - An IDE is a software application that provides comprehensive facilities (e.g., text code editor, graphical user interface (GUI)) to computer programmers for software development. 
+
+- RStudio is a user-friendly interface that makes using R easier and more interactive. 
+  - It provides a console, syntax-highlighting editor that supports direct code execution, as well as tools for plotting, history, debugging, and workspace management.
+
+- We will use a free cloud version of RStudio, which is [**Posit Cloud**](https://posit.cloud).
+
+
+
+## What is Python?
+
+- **Python** is a versatile programming language known for its simplicity and readability.
+
+- Python has become a dominant tool in various fields including data analysis, machine learning, and web development.
+  - It is widely used among developers, data scientists, and researchers for building applications and performing data-driven tasks.
+  - Python is open source and has a vast ecosystem of libraries and frameworks.
+
+
+
+## What is Jupyter?
+
+- **Jupyter** is an open-source integrated development environment (IDE) primarily for Python, though it supports many other languages.
+  - Jupyter provides a notebook interface that allows users to write and execute code in a more interactive and visual format.
+
+- Jupyter Notebook is a user-friendly environment that enhances coding, data analysis, and visualization.
+  - It offers a web-based interface that combines live code, equations, visualizations, and narrative text.
+  - Jupyter is widely used for data science, machine learning, and research, enabling easy sharing and collaboration.
+
+- We will use a free cloud version of Jupyter, which is [**Google Colab**](https://colab.research.google.com).
+
+
+
+## R vs. Python
+
+{{< video https://www.youtube.com/watch?v=4lcwTGA7MZw width="100%" height="100%">}}
+
