@@ -270,52 +270,287 @@ theme_set(theme_fivethirtyeight()+
 <!-- This comparison highlights that while data analytics and data science share some overlap, they differ in scope, complexity, and the depth of technical expertise required. Data analytics is more about interpreting existing data, whereas data science involves creating new models and techniques to predict and optimize future outcomes. -->
 
 
-# Data Science Process---Estimating the Price Elasticity of Orange Juice {background-color="#1c4982"}
 
 
-## Data Science Workflow
-### The Lifecycle of a Data Science Project
-
-<div style="text-align: center; width: 100%; margin: auto;">
-  <img src="https://bcdanl.github.io/lec_figs/r4ds-fig1-1-whole-game.png" style="width: 45%; margin-bottom: -20px;">
-  <p style="font-weight: bold;"></p>
-</div>
+# Setting the DANL Tools {background-color="#1c4982"}
 
 
-::: {.nonincremental}
-- With the example of estimating the *price elasticity* of orange juice (OJ), this section rapidly overviews the main tools of data science: 
-  - Importing, tidying, transforming, and visualizing data, as well as ML modeling.
-  - Note: Price elasticity of demand is a measure of how *sensitive* the quantity demanded of a good or service is to a change in its price.
 
-$$
-(\text{Price Elasticity of Demand}) = \frac{(\text{% Change in Quantity Demanded})}{(\text{% Change in Price})}
-$$
-
-:::
-
-## Price Elasticity of Orange Juice in Dominick's Supermarket
+## Setting the Tools
+### Computer Basics
 
 
-::::{.columns}
-
-::: {.column width="40%"}
-<div style="text-align: center; width: 100%; margin: auto;">
-  <img src="https://bcdanl.github.io/lec_figs/dominicks.jpeg" style="width: 100%; margin-bottom: -20px;">
-  <p style="font-weight: bold;"></p>
-</div>
-<div style="text-align: center; width: 100%; margin: auto;">
-  <img src="https://bcdanl.github.io/lec_figs/oj-tropicana-mm.png" style="width: 100%; margin-bottom: -20px;">
-  <p style="font-weight: bold;"></p>
-</div>
+::: {.incremental}
+- I expect you to know:
+  - Where downloaded files are located in your laptop
+    - By default, `Downloads` is the directory where downloaded files are stored.
+  - How to extract a Zip file, a compressed file that supports lossless file compression and that can contain multiple files;
+  - How to copy and paste files using short cuts 
+    - **Copy**: **Ctrl + C** for Windows users; **command + C** for Mac users
+    - **Paste**: **Ctrl + V** for Windows users; **command + V** for Mac users
+  <!-- - How to find a pathname of a file/directory in your laptop. -->
 
 :::
 
-:::{.column width="60%"}
 
-- To estimate the price elasticity of OJ, we will use sales data for OJ from Dominick’s grocery stores in the 1990s.
-  - Weekly `price` and `sales` (in number of cartons "sold") for three OJ brands---Tropicana, Minute Maid, Dominick's
-  <!-- - A dummy, `ad`, showing whether each `brand` was advertised (in store or flyer) that week. -->
 
+
+## Setting the Tools
+### Getting a GitHub account
+
+:::: {.incremental}
+
+::: {}
+- Create the GitHub account with your Geneseo email.
+  1. Go to [GitHub](https://github.com){target="_blank"}.
+  2. Click "Sign up for GitHub".
+:::
+
+::: {}
+- Choose your GitHub username carefully:
+  - `https://USERNAME.github.io` will be the address for your website, if you want to have one.
+  - e.g., Byeong-Hak's GitHub username is `bcdanl`, so that Byeong-Hak owns the web address `https://bcdanl.github.io`.
+:::
+
+::: {}
+- It is better to have a username with *all lower cases*.
 :::
 
 ::::
+
+
+## Setting the Tools
+### RStudio Environment
+:::: {.columns}
+::: {.column width="50%"}
+![](https://bcdanl.github.io/lec_figs/rstudio_env.png)
+:::
+
+::: {.column width="50%"}
+
+
+- **Script Pane** is where you write an R script or a Quarto document that you can save.
+
+:::{.incremental}
+  - An R script is simply a text file containing R commands. 
+
+:::
+
+:::
+::::
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+:::{.incremental}
+- To open an R script, 
+  - File $>$ New File  $>$ R Script
+
+:::
+:::
+
+::: {.column width="50%"}
+:::{.incremental}
+- To save the R script, 
+  - File $>$ Save
+
+:::
+:::
+
+::::
+
+
+
+
+
+## Setting the Tools
+### RStudio Environment
+:::: {.columns}
+::: {.column width="50%"}
+![](https://bcdanl.github.io/lec_figs/rstudio_env.png)
+:::
+
+::: {.column width="50%"}
+- **Console Pane** allows you to interact directly with the R interpreter and type commands where R will immediately execute them.
+:::
+::::
+
+## Setting the Tools
+### RStudio Environment
+:::: {.columns}
+::: {.column width="50%"}
+![](lec_figs/rstudio_env.png)
+:::
+
+::: {.column width="50%"}
+- **Environment Pane** is where you can see the values of variables, data frames, and other objects that are currently stored in memory.
+
+- Type below in the Console Pane, and then hit *Enter*:
+```{.r}
+a <- 1
+```
+
+:::
+::::
+
+## Setting the Tools
+### RStudio Environment
+
+:::: {.columns}
+::: {.column width="50%"}
+![](lec_figs/rstudio_env.png)
+:::
+
+::: {.column width="50%"}
+- **Plots Pane** contains any graphics that you generate from your R code.
+
+:::
+::::
+
+
+## Setting the Tools
+### R Packages and `tidyverse`
+
+- **R packages** are collections of R functions, compiled code, and data that are combined in a structured format.
+
+- Several R packages come with numerous pre-built functions that can perform a wide range of data analysis tasks.
+
+
+
+## Setting the Tools
+### `tidyverse`
+
+
+:::: {.columns}
+::: {.column width="50%"}
+
+- The `tidyverse` is a collection of R packages designed for data science that share an underlying design philosophy, grammar, and data structures. 
+
+
+:::{.incremental}
+
+- `tidyverse` includes a lot of R packages, including `ggplot2`, `dplyr`, and `tidyr`.
+  
+- The `tidyverse` packages work harmoniously together to make data manipulation, exploration, and visualization more.
+
+:::
+:::
+
+::: {.column width="50%"}
+
+![](https://bcdanl.github.io/lec_figs/ggplot2-part-of-tidyverse.png){width="80%"}
+:::
+::::
+
+## Setting the Tools
+### Installing R packages with `install.packages("packageName")`
+
+- R packages can be easily installed from within R using a base-R function `install.packages("packageName")`. 
+  - To install the R package `tidyverse`, type and run the following command from R console:
+
+:::{.incremental}
+```{.r}
+install.packages("tidyverse")
+```
+
+
+- While running the above codes, you may encounter the pop-up question, and you can answer "No"
+
+
+## Setting the Tools
+### Loading R packages with `library(packageName)`
+
+- Once installed, a package is loaded into an R session using a base-R function `library(packageName)` so that R package's functions and data can be used.
+  - To load the R package `tidyverse`, type and run the following commands from a R script:
+
+```{.r}
+library(tidyverse)
+df_mpg <- mpg
+```
+
+:::{.incremental}
+
+- `mpg` is the data.frame provided by the R package `ggplot2`, one of the R pakcages in `tidyverse`.
+  - Since `tidyverse` is installed, `ggplot2` package is already installed.
+:::
+
+## Setting the Tools
+### RStudio Options Setting
+
+:::: {.columns}
+::: {.column width="50%"}
+![](https://bcdanl.github.io/lec_figs/RStudio_options.png)
+:::
+
+::: {.column width="50%"}
+- This option menu is found by menus as follows:
+  - **Tools** $>$ **Global Options**
+
+- Check the boxes as in the left.
+- Choose the option __*Never*__ for <u> Save workspace to .RData on exit: </u>
+:::
+
+::::
+
+
+
+
+
+<!-- # Estimating the Price Elasticity of Orange Juice {background-color="#1c4982"} -->
+
+
+<!-- ## Data Science Workflow -->
+<!-- ### The Lifecycle of a Data Science Project -->
+
+<!-- <div style="text-align: center; width: 100%; margin: auto;"> -->
+<!--   <img src="https://bcdanl.github.io/lec_figs/r4ds-fig1-1-whole-game.png" style="width: 45%; margin-bottom: -20px;"> -->
+<!--   <p style="font-weight: bold;"></p> -->
+<!-- </div> -->
+
+
+<!-- ::: {.nonincremental} -->
+<!-- - With the example of estimating the *price elasticity* of orange juice (OJ), this section rapidly overviews the main tools of data science:  -->
+<!--   - Importing, tidying, transforming, and visualizing data, as well as ML modeling. -->
+<!--   - Note: Price elasticity of demand is a measure of how *sensitive* the quantity demanded of a good or service is to a change in its price. -->
+
+<!-- $$ -->
+<!-- (\text{Price Elasticity of Demand}) = \frac{(\text{% Change in Quantity Demanded})}{(\text{% Change in Price})} -->
+<!-- $$ -->
+
+:::
+
+
+<!-- ## Price Elasticity of Orange Juice in Dominick's Supermarket -->
+
+<!-- ::::{.columns} -->
+
+<!-- ::: {.column width="40%"} -->
+<!-- <!-- <div style="text-align: center; width: 100%; margin: auto;"> --> -->
+<!-- <!--   <img src="https://bcdanl.github.io/lec_figs/dominicks.jpeg" style="width: 100%; margin-bottom: -20px;"> --> -->
+<!-- <!--   <p style="font-weight: bold;"></p> --> -->
+<!-- <!-- </div> --> -->
+<!-- <div style="text-align: center; width: 100%; margin: auto;"> -->
+<!--   <img src="https://bcdanl.github.io/lec_figs/oj-tropicana-mm.png" style="width: 100%; margin-bottom: -20px;"> -->
+<!--   <p style="font-weight: bold;"></p> -->
+<!-- </div> -->
+
+<!-- ::: -->
+
+<!-- :::{.column width="60%"} -->
+
+<!-- - To estimate the price elasticity of OJ, we will use sales data for OJ from Dominick’s grocery stores in the 1990s. -->
+<!--   - Weekly `price` and `sales` (in number of cartons "sold") for three OJ brands---Tropicana, Minute Maid, Dominick's. -->
+<!--   - A dummy, `ad`, showing whether each `brand` was advertised (in store or flyer) that week. -->
+
+<!-- ::: -->
+
+<!-- :::: -->
+
+
+<!-- ## Price Elasticity of Orange Juice in Dominick's Supermarket -->
+<!-- ### Descriptive Statitstics -->
+
+
+
+
