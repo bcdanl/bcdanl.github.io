@@ -280,7 +280,6 @@ theme_set(theme_fivethirtyeight()+
 ### Computer Basics
 
 
-::: {.incremental}
 - I expect you to know:
   - Where downloaded files are located in your laptop
     - By default, `Downloads` is the directory where downloaded files are stored.
@@ -290,33 +289,23 @@ theme_set(theme_fivethirtyeight()+
     - **Paste**: **Ctrl + V** for Windows users; **command + V** for Mac users
   <!-- - How to find a pathname of a file/directory in your laptop. -->
 
-:::
-
 
 
 
 ## Setting the Tools
 ### Getting a GitHub account
 
-:::: {.incremental}
-
-::: {}
 - Create the GitHub account with your Geneseo email.
   1. Go to [GitHub](https://github.com){target="_blank"}.
   2. Click "Sign up for GitHub".
-:::
 
-::: {}
+
 - Choose your GitHub username carefully:
-  - `https://USERNAME.github.io` will be the address for your website, if you want to have one.
+  - `https://USERNAME.github.io` will be the address for your website, if you want to have GitHub data portfolio in the future.
   - e.g., Byeong-Hak's GitHub username is `bcdanl`, so that Byeong-Hak owns the web address `https://bcdanl.github.io`.
-:::
 
-::: {}
+
 - It is better to have a username with *all lower cases*.
-:::
-
-::::
 
 
 ## Setting the Tools
@@ -331,10 +320,8 @@ theme_set(theme_fivethirtyeight()+
 
 - **Script Pane** is where you write an R script or a Quarto document that you can save.
 
-:::{.incremental}
   - An R script is simply a text file containing R commands. 
 
-:::
 
 :::
 ::::
@@ -380,7 +367,7 @@ theme_set(theme_fivethirtyeight()+
 ### RStudio Environment
 :::: {.columns}
 ::: {.column width="50%"}
-![](lec_figs/rstudio_env.png)
+![](https://bcdanl.github.io/lec_figs/rstudio_env.png)
 :::
 
 ::: {.column width="50%"}
@@ -399,7 +386,7 @@ a <- 1
 
 :::: {.columns}
 ::: {.column width="50%"}
-![](lec_figs/rstudio_env.png)
+![](https://bcdanl.github.io/lec_figs/rstudio_env.png)
 :::
 
 ::: {.column width="50%"}
@@ -446,34 +433,37 @@ a <- 1
 ## Setting the Tools
 ### Installing R packages with `install.packages("packageName")`
 
-- R packages can be easily installed from within R using a base-R function `install.packages("packageName")`. 
-  - To install the R package `tidyverse`, type and run the following command from R console:
-
-:::{.incremental}
 ```{.r}
 install.packages("tidyverse")
 ```
+
+- R packages can be easily installed from within R using a base-R function `install.packages("packageName")`. 
+  - To install the R package `tidyverse`, type and run the following command from R console:
 
 
 - While running the above codes, you may encounter the pop-up question, and you can answer "No"
 
 
+
+
 ## Setting the Tools
 ### Loading R packages with `library(packageName)`
+
+```{.r}
+library(tidyverse)
+mpg
+```
 
 - Once installed, a package is loaded into an R session using a base-R function `library(packageName)` so that R package's functions and data can be used.
   - To load the R package `tidyverse`, type and run the following commands from a R script:
 
-```{.r}
-library(tidyverse)
-df_mpg <- mpg
-```
-
-:::{.incremental}
 
 - `mpg` is the data.frame provided by the R package `ggplot2`, one of the R pakcages in `tidyverse`.
   - Since `tidyverse` is installed, `ggplot2` package is already installed.
-:::
+
+
+
+
 
 ## Setting the Tools
 ### RStudio Options Setting
@@ -494,6 +484,758 @@ df_mpg <- mpg
 ::::
 
 
+
+## Setting the Tools
+### RStudio Environment
+
+:::: {.columns}
+::: {.column width="50%"}
+
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/rstudio_env.png">
+</p>
+
+
+:::
+
+::: {.column width="50%"}
+
+- **Script Pane** is where you write R commands in a script file that you can save. 
+  - An R script is simply a text file containing R commands. 
+  - RStudio will color-code different elements of your code to make it easier to read.
+
+:::
+::::
+
+## Setting the Tools
+### RStudio Environment
+
+:::: {.columns}
+::: {.column width="50%"}
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/rstudio_env.png">
+</p>
+
+:::
+
+::: {.column width="50%"}
+
+- **Console Pane** allows you to interact directly with the R interpreter and type commands where R will immediately execute them.
+
+:::
+::::
+
+## Setting the Tools
+### RStudio Environment
+
+:::: {.columns}
+::: {.column width="50%"}
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/rstudio_env.png">
+</p>
+:::
+
+::: {.column width="50%"}
+
+- **Environment Pane** is where you can see the values of variables, data frames, and other objects that are currently stored in memory.
+
+:::
+::::
+
+## Setting the Tools
+### RStudio Environment
+:::: {.columns}
+::: {.column width="50%"}
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/rstudio_env.png">
+</p>
+
+:::
+
+::: {.column width="50%"}
+- **Plots Pane** contains any graphics that you generate from your R code.
+
+:::
+::::
+
+
+## Setting the Tools
+### Workflow: Code and comment style
+- The two main principles for coding and managing data are:
+  - Make things easier for your future self.
+  - Don't trust your future self.
+
+
+- The `#` mark is R's comment character.
+  - In R scripts (`*.R` files), `#` indicates that the rest of the line is to be ignored.
+  - Write comments before the line that you want the comment to apply to.
+  - **Ctrl/command + Shift + C** is the shortcut for `#` (commenting).
+
+
+
+
+## Setting the Tools
+### Workflow: Shortcuts in RStudio
+
+- **Ctrl** (**command** for Mac Users) **+ Z** undoes the previous action.
+- **Ctrl** (**command** for Mac Users) **+ Shift + Z** redoes when undo is executed.
+
+- **Ctrl** (**command** for Mac Users) **+ F** is useful when finding a phrase (and replace the phrase) in the RScript.
+
+
+
+
+## Setting the Tools
+### Workflow: Auto-completion
+:::: {.columns}
+::: {.column width="50%"}
+```{.r}
+libr
+```
+:::
+
+::: {.column width="50%"}
+
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/auto-completionRStudio.png">
+</p>
+
+:::
+
+::::
+
+
+- Auto-completion of command is useful.
+  - Type `libr` in the RScript in RStudio and wait for a second.
+
+
+
+## Setting the Tools
+### Workflow: STOP icon
+
+
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/console-running.png">
+</p>
+
+
+- When the code is running, RStudio shows the STOP icon ( 🛑 ) at the top right corner in the Console Pane.
+  - Do not click it unless if you want to stop running the code.
+  
+  
+    
+    
+
+# R Basics  {background-color="#1c4982"}
+
+
+    
+## R Basics
+###  Values, Variables, and Types
+
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/py-basic-box.png">
+</p>
+
+- A **value** is datum (literal) such as a number or text. 
+
+- There are different types of values: 
+  - 352.3 is known as a float or double;
+  - 22 is an integer;
+  - "Hello World!" is a string.
+
+
+## R Basics
+###  Values, Variables, and Types
+
+```{r}
+a <- 10    # The assignment operator in R is `<-`.
+a
+```
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/int-py-fig2-3.png" width="400">
+</p>
+
+:::
+
+::: {.column width="50%"}
+
+
+- A **variable** is a name that refers to a value.
+  - We can think of a **variable** as a box that has a value, or multiple values, packed inside it.
+  
+- A **variable** is just a name!
+
+:::
+
+::::
+
+
+
+
+## R Basics
+### Assignment
+
+```{.r}
+x <- 2
+x < - 3
+```
+
+- What is going on here?
+
+- The shortcut for the assignment `<-` is:
+  - Windows: **Alt + -** 
+  - Mac: **option + -** 
+    
+
+## R Basics
+###  Assignment
+
+```{.r}
+x <- 2
+y <- x + 12
+```
+
+- In programming code, everything on the right side needs to have a value.
+  - The right side can be a literal value, or a variable that has already been assigned a value, or a combination.
+  
+- When R reads `y <- x + 12`, it does the following:
+  1. Sees the `<-` in the middle.
+  2. Knows that this is an assignment.
+  3. Calculates the right side (gets the value of the object referred to by `x` and adds it to `12`).
+  4. Assigns the result to the left-side variable, `y`.
+
+
+    
+## R Basics
+###  Values, Variables, and Types
+
+::: {}
+- Sometimes you will hear variables referred to as **objects**.
+
+- Everything that is not a *literal value*, such as `10`, is an **object**. 
+
+:::
+
+
+
+
+## R Basics
+###  Values, Variables, and Types
+
+::: {.panel-tabset}
+
+## Types
+
+:::: {.columns}
+::: {.column width="50%"}
+
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/r_variable_types.png">
+</p>
+
+:::
+
+::: {.column width="50%"}
+- **Logical**: `TRUE` or `FALSE`.
+- **Numeric**: Numbers with decimals
+- **Integer**: Integers
+- **Character**: Text strings
+- **Factor**: Categorical values. 
+  - Each possible value of a factor is known as a *level*.
+
+:::
+::::
+
+
+
+## Data containers
+
+:::: {.columns}
+::: {.column width="50%"}
+
+
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/r_data_types_vdf.png" width="350px">
+</p>
+
+:::
+
+::: {.column width="50%"}
+- **vector**:	1D collection of variables of the *same* type
+- **data.frame**:	2D collection of variables of *multiple* types
+  - A data.frame is a collection of vectors.
+
+:::
+
+::::
+
+
+:::
+
+
+
+
+## R Basics
+### R Variable and Data Types
+
+- `class()` function returns the data **type** of an object.
+
+
+::: {.panel-tabset}
+
+## Character
+
+```{.r}
+myname <- "my_name"
+class(myname)
+```
+
+
+- Strings are known as `character` in R. 
+- Use the double quotes `"` or single quotes `'` to wrap around the string
+
+
+
+
+## Numbers
+
+```{.r}
+favorite.integer <- as.integer(2)
+class(favorite.integer)
+
+favorite.numeric <- as.numeric(8.8)
+class(favorite.numeric)
+```
+
+
+- Numbers have different classes. 
+  - The most common two are integer and numeric. Integers are whole numbers.
+
+
+## Logical (`TRUE`/`FALSE`)
+
+```{.r}
+class(TRUE)
+class(FALSE)
+favorite.numeric == 8.8
+favorite.numeric == 9.9
+class(favorite.numeric == 8.8)
+```
+
+- We use the `==` to test for equality in R
+
+
+
+## Vectors
+
+
+```{.r}
+a <- 1:10  # colon operator
+b <- c("3", 4, 5)
+beers <- c("BUD LIGHT", "BUSCH LIGHT", "COORS LIGHT", 
+           "MILLER LITE", "NATURAL LIGHT")
+class(a)
+class(b)
+class(beers)
+```
+
+
+- We can create one-dimensional data structures called "vectors".
+
+- `c(...)`: Returns a vector that is constructed from one or more arguments, with the order of the vector elements corresponding to the order of the arguments.
+
+
+## Factors
+
+```{.r}
+beers <- as.factor(beers)
+class(beers)
+
+levels(beers)
+nlevels(beers)
+```
+
+
+- Factors store categorical data. 
+
+- Under the hood, factors are actually integers that have a string label attached to each unique integer. 
+  - For example, if we have a long list of `Male`/`Female` labels for each of our patients, this will be stored a "column" of zeros and ones by R.
+
+
+:::
+
+
+
+
+
+## R Basics
+### Workflow: Quotation marks, parentheses, and `+`
+
+```{.r}
+x <- "hello
+```
+
+
+- Quotation marks and parentheses must always come in a pair.
+  - If not, Console Pane will show you the continuation character `+`:
+  
+- The `+` tells you that R is waiting for more input; it doesn’t think you’re done yet. 
+
+
+
+## R Basics
+### R Variable and Data Types
+
+- **Q**. [Classwork 5.1](https://bcdanl.github.io/200/danl-cw/danl-200-cw-5.html)
+
+
+
+## R Basics
+### Functions
+
+- A function can take any number and type of input *parameters* and **return** any number and type of output *results*.
+
+- R ships a vast number of built-in functions. 
+
+- R also allows a user to define a new function.
+
+- We will mostly use built-in functions.
+
+
+
+## R Basics
+### Functions, Arguments, and Parameters
+
+```{.r}
+library(tidyverse)
+
+# The function `str_c()`, provided by `tidyverse`, concatenates characters.
+str_c("Data", "Analytics")
+str_c("Data", "Analytics", sep = "!")
+```
+
+
+- We invoke a function by entering its name and a pair of opening and closing parentheses. 
+
+- Much as a cooking recipe can accept ingredients, a function invocation can accept inputs called **arguments**. 
+
+- We pass arguments sequentially inside the parentheses (, separated by commas).
+
+- A **parameter** is a name given to an expected function argument.
+
+- A *default argument* is a fallback value that R passes to a parameter if the function invocation does not explicitly provide one.
+
+
+
+## R Basics
+### Arithmetic Operations and Mathematical Functions
+
+::: {.panel-tabset}
+
+## Algebra
+
+:::: {.columns}
+::: {.column width="50%"}
+```{.r}
+5 + 3
+5 - 3
+5 * 3
+5 / 3
+5^3
+```
+:::
+
+::: {.column width="50%"}
+```{.r}
+( 3 + 4 )^2
+3 + 4^2
+3 + 2 * 4^2
+3 + 2 * 4 + 2
+(3 + 2) * (4 + 2)
+```
+:::
+
+::::
+
+- All of the basic operators with parentheses we see in mathematics are available to use.
+
+- R can be used for a wide range of mathematical calculations.
+
+
+## Math functions
+
+- R has many built-in mathematical functions that facilitate calculations and data analysis.
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{.r}
+5 * abs(-3)
+sqrt(17) / 2
+exp(3)
+log(3)
+log(exp(3))
+exp(log(3))
+```
+
+:::
+
+
+::: {.column width="50%"}
+- `abs(x)`: the absolute value $|x|$ 
+- `sqrt(x)`: the square root $\sqrt{x}$
+- `exp(x)`: the exponential value $e^x$, where $e = 2.718...$
+- `log(x)`: the natural logarithm $\log_{e}(x)$, or simply $\log(x)$
+
+:::
+
+::::
+
+
+
+:::
+
+
+
+
+## R Basics
+### Vectorized Operations
+
+```{.r}
+a <- c(1, 2, 3, 4, 5)
+b <- c(5, 4, 3, 2, 1)
+
+a + b
+a - b
+a * b
+a / b
+sqrt(a)
+```
+
+- Vectorized operations mean applying a function to every element of a vector without explicitly writing a loop. 
+  - This is possible because most functions in R are vectorized, meaning they are designed to operate on vectors element-wise.
+  - Vectorized operations are a powerful feature of R, enabling efficient and concise code for data analysis and manipulation.
+
+
+
+
+## R Basics
+### More Math Functions
+
+```{.r}
+x <- c(1, 2, 3, 4, 5)
+
+sum(x)
+mean(x)
+sd(x)
+```
+
+::: {.panel-tabset}
+
+## Sum
+
+- `sum()` calculates the sum of all numbers in a vector.
+
+## Mean
+
+- `mean()` calculates the arithmetic mean of the values in a vector.
+$$
+\overline{x} = \frac{x_{1} + x_{2} + \cdots + x_{N}}{N}
+$$
+
+## Standard Deviation
+
+- `sd()` calculates the standard deviation (SD) of the values in a vector. 
+  - SD measures the amount of variation or dispersion of a set of values.
+$$
+\overline{s} = \sqrt{ \left( \frac{(x_{1}-\overline{x})^{2} + (x_{2}-\overline{x})^{2} + \cdots + (x_{N}-\overline{x})^{2}}{N-1}\;\, \right) }
+$$
+
+:::
+
+## R Basics
+### `NULL` and `NA` values
+
+
+```{.r}
+c(c(), 1, NULL)
+c("a", NA, "c")
+```
+
+
+- `NULL` is just an alias for `c()`, the empty vector.
+- `NA` indicates missing or unavailable data.
+
+
+## R Basics
+### `NULL` and `NA` values
+
+- `is.na()` is to check whether expression evaluates to `NA`.
+
+```{r}
+is.na(NA)
+is.na(c())
+is.na("A")
+```
+
+
+- **Q**. Why does `"A" == NA` evaluate to `NA`?
+
+
+## R Basics
+###  Casting Variables
+
+:::: {.columns}
+::: {.column width="50%"}
+```{.r}
+orig_number <- 4.39898498
+class(orig_number)
+mod_number <- as.integer(orig_number)
+class(mod_number)
+```
+:::
+
+::: {.column width="50%"}
+
+```{.r}
+# TRUE converts to 1; FALSE does to 0.
+as.numeric(TRUE)
+as.numeric(FALSE)
+```
+:::
+::::
+
+
+- Sometimes we need to explicitly cast a value from one type to another. 
+
+  - We can do this using built-in functions like `as.character()`, `as.integer()`, `as.numeric()`, and `as.factor()`. 
+  - If we try these, R will do its best to interpret the input and convert it to the output type we'd like and, if they can't, the code will throw `NA`.
+
+
+
+
+## R Basics
+### R Variable and Data Types
+
+- **Q**. [Classwork 5.2](https://bcdanl.github.io/200/danl-cw/danl-200-cw-5.html)
+
+
+
+
+## R Basics
+### Absolute vs. Relative Pathnames
+
+::: {.panel-tabset}
+
+## Absolute Path
+
+- Complete path from the root directory to the target file or directory.
+- Independent of the current working directory.
+
+- Example (Mac): `/Users/user/documents/car_data.csv`
+- Example (Windows): `C:\\Users\\user\\Documents\\car_data.csv`
+
+
+## Relative Path
+
+- Path relative to the current working directory.
+- Changes based on the current directory.
+<!-- - Uses '.' for current directory and '..' for parent directory. -->
+- Example: If the current directory is `/Users/user`, the relative path to `car_data.csv` would be `documents/car_data.csv`
+- For the website R project, we can use a relative path.
+
+:::
+
+
+## R Basics
+### Working with Data from Files
+
+
+:::{.nonincremental}
+- We use the `read_csv()` function to read a comma-separated values (CSV) file.
+
+1. Download the CSV file, `car_data.csv` from the Class Files module in our Brightspace.
+
+2. Find the path name for the file, `car_data.csv` from the File Explorer / Finder.
+
+3. Provide the path name for the file, `car_data.csv`, to the `read_csv()` function.
+
+```{.r}
+uciCar <- read_csv('HERE WE PROVIDE A PATHNAME FOR car_data.csv')
+View(uciCar)
+```
+
+- `View()`/`view()` displays the data in a simple spreadsheet-like grid viewer.
+  - We can click the data.frame object, displayed in the Environment Pane.
+
+:::
+
+
+
+## R Basics
+### Examining data.frames
+
+
+:::: {.columns}
+::: {.column width="50%"}
+```{.r}
+dim(uciCar)
+nrow(uciCar)
+ncol(uciCar)
+```
+:::
+
+::: {.column width="50%"}
+```{.r}
+class(uciCar)
+library(skimr)
+skim(uciCar)
+```
+:::
+
+::::
+
+- `dim()` shows how many rows and columns are in the data for `data.frame`.
+- `nrow()` and `ncol()` shows the number of rows and columns for `data.frame` respectively.
+- `skimr::skim()` provides a more detailed summary.
+  - `skimr` is the R package that provides the function `skim()`.
+
+
+
+## R Basics
+### Reading data.frames from an URL
+
+
+```{.r}
+tvshows <- read_csv(
+		'https://bcdanl.github.io/data/tvshows.csv')
+```
+
+- We can import the CSV file from the web.
+
+
+## R Basics
+### Tidy `data.frame`: Variables, Observations, and Values
+
+
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/tidy-1.png">
+</p>
+
+
+- There are three rules which make a `data.frame` tidy:
+
+  1. Each **variable** must have its own *column*.
+  2. Each **observation** must have its own *row*.
+  3. Each **value** must have its own *cell*.
 
 
 
