@@ -706,8 +706,8 @@ Byeong-Hak Choe
 <li class="fragment">How to extract a Zip file, a compressed file that supports lossless file compression and that can contain multiple files;</li>
 <li class="fragment">How to copy and paste files using short cuts
 <ul>
-<li class="fragment"><strong>Copy</strong>: <strong>Ctrl + C</strong> for Windows users; <strong>command + C</strong> for Mac users</li>
-<li class="fragment"><strong>Paste</strong>: <strong>Ctrl + V</strong> for Windows users; <strong>command + V</strong> for Mac users <!-- - How to find a pathname of a file/directory in your laptop. --></li>
+<li class="fragment"><em>Copy</em>: <strong>Ctrl + C</strong> for Windows users; <strong>command + C</strong> for Mac users</li>
+<li class="fragment"><em>Paste</em>: <strong>Ctrl + V</strong> for Windows users; <strong>command + V</strong> for Mac users <!-- - How to find a pathname of a file/directory in your laptop. --></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -1026,11 +1026,8 @@ Byeong-Hak Choe
 <section id="r-basics-2" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="values-variables-and-types-1">Values, Variables, and Types</h3>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 10</code></pre>
-</div>
-</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>a <span class="ot">&lt;-</span> <span class="dv">10</span>    <span class="co"># The assignment operator in R is `&lt;-`.</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="columns">
 <div class="column" style="width:50%;">
 <p align="center">
@@ -1120,7 +1117,7 @@ Byeong-Hak Choe
 <div class="columns">
 <div class="column" style="width:50%;">
 <p align="center">
-<img src="https://bcdanl.github.io/lec_figs/r_data_types_vdf.png" width="350px">
+<img src="https://bcdanl.github.io/lec_figs/r_data_types.png" width="350px">
 </p>
 </div><div class="column" style="width:50%;">
 <ul>
@@ -1139,15 +1136,12 @@ Byeong-Hak Choe
 <section id="r-basics-7" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="r-variable-and-data-types">R Variable and Data Types</h3>
-<ul>
-<li class="fragment"><code>class()</code> function returns the data <strong>type</strong> of an object.</li>
-</ul>
 <div class="panel-tabset">
 <ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Character</a></li><li><a href="#tabset-2-2">Numbers</a></li><li><a href="#tabset-2-3">Logical (<code>TRUE</code>/<code>FALSE</code>)</a></li><li><a href="#tabset-2-4">Vectors</a></li><li><a href="#tabset-2-5">Factors</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1">
 <div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>myname <span class="ot">&lt;-</span> <span class="st">"my_name"</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">class</span>(myname)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">class</span>(myname) <span class="co"># returns the data **type** of an object.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">Strings are known as <code>character</code> in R.</li>
 <li class="fragment">Use the double quotes <code>"</code> or single quotes <code>'</code> to wrap around the string</li>
@@ -1220,13 +1214,6 @@ Byeong-Hak Choe
 </section>
 <section id="r-basics-9" class="slide level2">
 <h2>R Basics</h2>
-<h3 id="r-variable-and-data-types-1">R Variable and Data Types</h3>
-<ul>
-<li class="fragment"><strong>Q</strong>. <a href="https://bcdanl.github.io/200/danl-cw/danl-200-cw-5.html">Classwork 5.1</a></li>
-</ul>
-</section>
-<section id="r-basics-10" class="slide level2">
-<h2>R Basics</h2>
 <h3 id="functions">Functions</h3>
 <ul>
 <li class="fragment"><p>A function can take any number and type of input <em>parameters</em> and <strong>return</strong> any number and type of output <em>results</em>.</p></li>
@@ -1235,7 +1222,7 @@ Byeong-Hak Choe
 <li class="fragment"><p>We will mostly use built-in functions.</p></li>
 </ul>
 </section>
-<section id="r-basics-11" class="slide level2">
+<section id="r-basics-10" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="functions-arguments-and-parameters">Functions, Arguments, and Parameters</h3>
 <div class="sourceCode" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -1251,7 +1238,7 @@ Byeong-Hak Choe
 <li class="fragment"><p>A <em>default argument</em> is a fallback value that R passes to a parameter if the function invocation does not explicitly provide one.</p></li>
 </ul>
 </section>
-<section id="r-basics-12" class="slide level2">
+<section id="r-basics-11" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="arithmetic-operations-and-mathematical-functions">Arithmetic Operations and Mathematical Functions</h3>
 <div class="panel-tabset">
@@ -1279,9 +1266,6 @@ Byeong-Hak Choe
 </ul>
 </div>
 <div id="tabset-3-2">
-<ul>
-<li class="fragment">R has many built-in mathematical functions that facilitate calculations and data analysis.</li>
-</ul>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="sourceCode" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="dv">5</span> <span class="sc">*</span> <span class="fu">abs</span>(<span class="sc">-</span><span class="dv">3</span>)</span>
@@ -1290,6 +1274,9 @@ Byeong-Hak Choe
 <span id="cb17-4"><a href="#cb17-4"></a><span class="fu">log</span>(<span class="dv">3</span>)</span>
 <span id="cb17-5"><a href="#cb17-5"></a><span class="fu">log</span>(<span class="fu">exp</span>(<span class="dv">3</span>))</span>
 <span id="cb17-6"><a href="#cb17-6"></a><span class="fu">exp</span>(<span class="fu">log</span>(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li class="fragment">R has many built-in mathematical functions that facilitate calculations and data analysis.</li>
+</ul>
 </div><div class="column" style="width:50%;">
 <ul>
 <li class="fragment"><code>abs(x)</code>: the absolute value <span class="math inline">\(|x|\)</span></li>
@@ -1303,7 +1290,7 @@ Byeong-Hak Choe
 </div>
 </div>
 </section>
-<section id="r-basics-13" class="slide level2">
+<section id="r-basics-12" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="vectorized-operations">Vectorized Operations</h3>
 <div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
@@ -1322,7 +1309,7 @@ Byeong-Hak Choe
 </ul></li>
 </ul>
 </section>
-<section id="r-basics-14" class="slide level2">
+<section id="r-basics-13" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="more-math-functions">More Math Functions</h3>
 <div class="sourceCode" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
@@ -1358,7 +1345,7 @@ Byeong-Hak Choe
 </div>
 </div>
 </section>
-<section id="r-basics-15" class="slide level2">
+<section id="r-basics-14" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="null-and-na-values"><code>NULL</code> and <code>NA</code> values</h3>
 <div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">c</span>(<span class="fu">c</span>(), <span class="dv">1</span>, <span class="cn">NULL</span>)</span>
@@ -1368,7 +1355,7 @@ Byeong-Hak Choe
 <li class="fragment"><code>NA</code> indicates missing or unavailable data.</li>
 </ul>
 </section>
-<section id="r-basics-16" class="slide level2">
+<section id="r-basics-15" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="null-and-na-values-1"><code>NULL</code> and <code>NA</code> values</h3>
 <ul>
@@ -1389,7 +1376,7 @@ Byeong-Hak Choe
 <li class="fragment"><strong>Q</strong>. Why does <code>"A" == NA</code> evaluate to <code>NA</code>?</li>
 </ul>
 </section>
-<section id="r-basics-17" class="slide level2">
+<section id="r-basics-16" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="casting-variables">Casting Variables</h3>
 <div class="columns">
@@ -1412,14 +1399,7 @@ Byeong-Hak Choe
 </ul></li>
 </ul>
 </section>
-<section id="r-basics-18" class="slide level2">
-<h2>R Basics</h2>
-<h3 id="r-variable-and-data-types-2">R Variable and Data Types</h3>
-<ul>
-<li class="fragment"><strong>Q</strong>. <a href="https://bcdanl.github.io/200/danl-cw/danl-200-cw-5.html">Classwork 5.2</a></li>
-</ul>
-</section>
-<section id="r-basics-19" class="slide level2">
+<section id="r-basics-17" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="absolute-vs.-relative-pathnames">Absolute vs.&nbsp;Relative Pathnames</h3>
 <div class="panel-tabset">
@@ -1444,7 +1424,7 @@ Byeong-Hak Choe
 </div>
 </div>
 </section>
-<section id="r-basics-20" class="slide level2">
+<section id="r-basics-18" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="working-with-data-from-files">Working with Data from Files</h3>
 <div>
@@ -1466,7 +1446,7 @@ Byeong-Hak Choe
 </ul>
 </div>
 </section>
-<section id="r-basics-21" class="slide level2">
+<section id="r-basics-19" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="examining-data.frames">Examining data.frames</h3>
 <div class="columns">
@@ -1489,7 +1469,7 @@ Byeong-Hak Choe
 </ul></li>
 </ul>
 </section>
-<section id="r-basics-22" class="slide level2">
+<section id="r-basics-20" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="reading-data.frames-from-an-url">Reading data.frames from an URL</h3>
 <div class="sourceCode" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>tvshows <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
@@ -1498,7 +1478,7 @@ Byeong-Hak Choe
 <li class="fragment">We can import the CSV file from the web.</li>
 </ul>
 </section>
-<section id="r-basics-23" class="slide level2">
+<section id="r-basics-21" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="tidy-data.frame-variables-observations-and-values">Tidy <code>data.frame</code>: Variables, Observations, and Values</h3>
 <p align="center">

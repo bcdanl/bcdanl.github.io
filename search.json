@@ -1306,7 +1306,7 @@
     "href": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-2",
     "title": "Lecture 4",
     "section": "R Basics",
-    "text": "R Basics\nValues, Variables, and Types\n\n\n[1] 10\n\n\n\n\n\n\n\n\n\nA variable is a name that refers to a value.\n\nWe can think of a variable as a box that has a value, or multiple values, packed inside it.\n\nA variable is just a name!"
+    "text": "R Basics\nValues, Variables, and Types\na &lt;- 10    # The assignment operator in R is `&lt;-`.\na\n\n\n\n\n\n\n\nA variable is a name that refers to a value.\n\nWe can think of a variable as a box that has a value, or multiple values, packed inside it.\n\nA variable is just a name!"
   },
   {
     "objectID": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-3",
@@ -1341,7 +1341,7 @@
     "href": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-7",
     "title": "Lecture 4",
     "section": "R Basics",
-    "text": "R Basics\nR Variable and Data Types\n\nclass() function returns the data type of an object.\n\n\nCharacterNumbersLogical (TRUE/FALSE)VectorsFactors\n\n\nmyname &lt;- \"my_name\"\nclass(myname)\n\nStrings are known as character in R.\nUse the double quotes \" or single quotes ' to wrap around the string\n\n\n\nfavorite.integer &lt;- as.integer(2)\nclass(favorite.integer)\n\nfavorite.numeric &lt;- as.numeric(8.8)\nclass(favorite.numeric)\n\nNumbers have different classes.\n\nThe most common two are integer and numeric. Integers are whole numbers.\n\n\n\n\nclass(TRUE)\nclass(FALSE)\nfavorite.numeric == 8.8\nfavorite.numeric == 9.9\nclass(favorite.numeric == 8.8)\n\nWe use the == to test for equality in R\n\n\n\na &lt;- 1:10  # colon operator\nb &lt;- c(\"3\", 4, 5)\nbeers &lt;- c(\"BUD LIGHT\", \"BUSCH LIGHT\", \"COORS LIGHT\", \n           \"MILLER LITE\", \"NATURAL LIGHT\")\nclass(a)\nclass(b)\nclass(beers)\n\nWe can create one-dimensional data structures called “vectors”.\nc(...): Returns a vector that is constructed from one or more arguments, with the order of the vector elements corresponding to the order of the arguments.\n\n\n\nbeers &lt;- as.factor(beers)\nclass(beers)\n\nlevels(beers)\nnlevels(beers)\n\nFactors store categorical data.\nUnder the hood, factors are actually integers that have a string label attached to each unique integer.\n\nFor example, if we have a long list of Male/Female labels for each of our patients, this will be stored a “column” of zeros and ones by R."
+    "text": "R Basics\nR Variable and Data Types\n\nCharacterNumbersLogical (TRUE/FALSE)VectorsFactors\n\n\nmyname &lt;- \"my_name\"\nclass(myname) # returns the data **type** of an object.\n\nStrings are known as character in R.\nUse the double quotes \" or single quotes ' to wrap around the string\n\n\n\nfavorite.integer &lt;- as.integer(2)\nclass(favorite.integer)\n\nfavorite.numeric &lt;- as.numeric(8.8)\nclass(favorite.numeric)\n\nNumbers have different classes.\n\nThe most common two are integer and numeric. Integers are whole numbers.\n\n\n\n\nclass(TRUE)\nclass(FALSE)\nfavorite.numeric == 8.8\nfavorite.numeric == 9.9\nclass(favorite.numeric == 8.8)\n\nWe use the == to test for equality in R\n\n\n\na &lt;- 1:10  # colon operator\nb &lt;- c(\"3\", 4, 5)\nbeers &lt;- c(\"BUD LIGHT\", \"BUSCH LIGHT\", \"COORS LIGHT\", \n           \"MILLER LITE\", \"NATURAL LIGHT\")\nclass(a)\nclass(b)\nclass(beers)\n\nWe can create one-dimensional data structures called “vectors”.\nc(...): Returns a vector that is constructed from one or more arguments, with the order of the vector elements corresponding to the order of the arguments.\n\n\n\nbeers &lt;- as.factor(beers)\nclass(beers)\n\nlevels(beers)\nnlevels(beers)\n\nFactors store categorical data.\nUnder the hood, factors are actually integers that have a string label attached to each unique integer.\n\nFor example, if we have a long list of Male/Female labels for each of our patients, this will be stored a “column” of zeros and ones by R."
   },
   {
     "objectID": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-8",
@@ -1355,91 +1355,91 @@
     "href": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-9",
     "title": "Lecture 4",
     "section": "R Basics",
-    "text": "R Basics\nR Variable and Data Types\n\nQ. Classwork 5.1"
+    "text": "R Basics\nFunctions\n\nA function can take any number and type of input parameters and return any number and type of output results.\nR ships a vast number of built-in functions.\nR also allows a user to define a new function.\nWe will mostly use built-in functions."
   },
   {
     "objectID": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-10",
     "href": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-10",
     "title": "Lecture 4",
     "section": "R Basics",
-    "text": "R Basics\nFunctions\n\nA function can take any number and type of input parameters and return any number and type of output results.\nR ships a vast number of built-in functions.\nR also allows a user to define a new function.\nWe will mostly use built-in functions."
+    "text": "R Basics\nFunctions, Arguments, and Parameters\nlibrary(tidyverse)\n\n# The function `str_c()`, provided by `tidyverse`, concatenates characters.\nstr_c(\"Data\", \"Analytics\")\nstr_c(\"Data\", \"Analytics\", sep = \"!\")\n\nWe invoke a function by entering its name and a pair of opening and closing parentheses.\nMuch as a cooking recipe can accept ingredients, a function invocation can accept inputs called arguments.\nWe pass arguments sequentially inside the parentheses (, separated by commas).\nA parameter is a name given to an expected function argument.\nA default argument is a fallback value that R passes to a parameter if the function invocation does not explicitly provide one."
   },
   {
     "objectID": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-11",
     "href": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-11",
     "title": "Lecture 4",
     "section": "R Basics",
-    "text": "R Basics\nFunctions, Arguments, and Parameters\nlibrary(tidyverse)\n\n# The function `str_c()`, provided by `tidyverse`, concatenates characters.\nstr_c(\"Data\", \"Analytics\")\nstr_c(\"Data\", \"Analytics\", sep = \"!\")\n\nWe invoke a function by entering its name and a pair of opening and closing parentheses.\nMuch as a cooking recipe can accept ingredients, a function invocation can accept inputs called arguments.\nWe pass arguments sequentially inside the parentheses (, separated by commas).\nA parameter is a name given to an expected function argument.\nA default argument is a fallback value that R passes to a parameter if the function invocation does not explicitly provide one."
+    "text": "R Basics\nArithmetic Operations and Mathematical Functions\n\nAlgebraMath functions\n\n\n\n\n5 + 3\n5 - 3\n5 * 3\n5 / 3\n5^3\n\n( 3 + 4 )^2\n3 + 4^2\n3 + 2 * 4^2\n3 + 2 * 4 + 2\n(3 + 2) * (4 + 2)\n\n\n\nAll of the basic operators with parentheses we see in mathematics are available to use.\nR can be used for a wide range of mathematical calculations.\n\n\n\n\n\n5 * abs(-3)\nsqrt(17) / 2\nexp(3)\nlog(3)\nlog(exp(3))\nexp(log(3))\n\nR has many built-in mathematical functions that facilitate calculations and data analysis.\n\n\n\nabs(x): the absolute value \\(|x|\\)\nsqrt(x): the square root \\(\\sqrt{x}\\)\nexp(x): the exponential value \\(e^x\\), where \\(e = 2.718...\\)\nlog(x): the natural logarithm \\(\\log_{e}(x)\\), or simply \\(\\log(x)\\)"
   },
   {
     "objectID": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-12",
     "href": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-12",
     "title": "Lecture 4",
     "section": "R Basics",
-    "text": "R Basics\nArithmetic Operations and Mathematical Functions\n\nAlgebraMath functions\n\n\n\n\n5 + 3\n5 - 3\n5 * 3\n5 / 3\n5^3\n\n( 3 + 4 )^2\n3 + 4^2\n3 + 2 * 4^2\n3 + 2 * 4 + 2\n(3 + 2) * (4 + 2)\n\n\n\nAll of the basic operators with parentheses we see in mathematics are available to use.\nR can be used for a wide range of mathematical calculations.\n\n\n\n\nR has many built-in mathematical functions that facilitate calculations and data analysis.\n\n\n\n5 * abs(-3)\nsqrt(17) / 2\nexp(3)\nlog(3)\nlog(exp(3))\nexp(log(3))\n\n\nabs(x): the absolute value \\(|x|\\)\nsqrt(x): the square root \\(\\sqrt{x}\\)\nexp(x): the exponential value \\(e^x\\), where \\(e = 2.718...\\)\nlog(x): the natural logarithm \\(\\log_{e}(x)\\), or simply \\(\\log(x)\\)"
+    "text": "R Basics\nVectorized Operations\na &lt;- c(1, 2, 3, 4, 5)\nb &lt;- c(5, 4, 3, 2, 1)\n\na + b\na - b\na * b\na / b\nsqrt(a)\n\nVectorized operations mean applying a function to every element of a vector without explicitly writing a loop.\n\nThis is possible because most functions in R are vectorized, meaning they are designed to operate on vectors element-wise.\nVectorized operations are a powerful feature of R, enabling efficient and concise code for data analysis and manipulation."
   },
   {
     "objectID": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-13",
     "href": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-13",
     "title": "Lecture 4",
     "section": "R Basics",
-    "text": "R Basics\nVectorized Operations\na &lt;- c(1, 2, 3, 4, 5)\nb &lt;- c(5, 4, 3, 2, 1)\n\na + b\na - b\na * b\na / b\nsqrt(a)\n\nVectorized operations mean applying a function to every element of a vector without explicitly writing a loop.\n\nThis is possible because most functions in R are vectorized, meaning they are designed to operate on vectors element-wise.\nVectorized operations are a powerful feature of R, enabling efficient and concise code for data analysis and manipulation."
+    "text": "R Basics\nMore Math Functions\nx &lt;- c(1, 2, 3, 4, 5)\n\nsum(x)\nmean(x)\nsd(x)\n\nSumMeanStandard Deviation\n\n\n\nsum() calculates the sum of all numbers in a vector.\n\n\n\n\nmean() calculates the arithmetic mean of the values in a vector. \\[\n\\overline{x} = \\frac{x_{1} + x_{2} + \\cdots + x_{N}}{N}\n\\]\n\n\n\n\nsd() calculates the standard deviation (SD) of the values in a vector.\n\nSD measures the amount of variation or dispersion of a set of values. \\[\n\\overline{s} = \\sqrt{ \\left( \\frac{(x_{1}-\\overline{x})^{2} + (x_{2}-\\overline{x})^{2} + \\cdots + (x_{N}-\\overline{x})^{2}}{N-1}\\;\\, \\right) }\n\\]"
   },
   {
     "objectID": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-14",
     "href": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-14",
     "title": "Lecture 4",
     "section": "R Basics",
-    "text": "R Basics\nMore Math Functions\nx &lt;- c(1, 2, 3, 4, 5)\n\nsum(x)\nmean(x)\nsd(x)\n\nSumMeanStandard Deviation\n\n\n\nsum() calculates the sum of all numbers in a vector.\n\n\n\n\nmean() calculates the arithmetic mean of the values in a vector. \\[\n\\overline{x} = \\frac{x_{1} + x_{2} + \\cdots + x_{N}}{N}\n\\]\n\n\n\n\nsd() calculates the standard deviation (SD) of the values in a vector.\n\nSD measures the amount of variation or dispersion of a set of values. \\[\n\\overline{s} = \\sqrt{ \\left( \\frac{(x_{1}-\\overline{x})^{2} + (x_{2}-\\overline{x})^{2} + \\cdots + (x_{N}-\\overline{x})^{2}}{N-1}\\;\\, \\right) }\n\\]"
+    "text": "R Basics\nNULL and NA values\nc(c(), 1, NULL)\nc(\"a\", NA, \"c\")\n\nNULL is just an alias for c(), the empty vector.\nNA indicates missing or unavailable data."
   },
   {
     "objectID": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-15",
     "href": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-15",
     "title": "Lecture 4",
     "section": "R Basics",
-    "text": "R Basics\nNULL and NA values\nc(c(), 1, NULL)\nc(\"a\", NA, \"c\")\n\nNULL is just an alias for c(), the empty vector.\nNA indicates missing or unavailable data."
+    "text": "R Basics\nNULL and NA values\n\nis.na() is to check whether expression evaluates to NA.\n\n\n\n[1] TRUE\n\n\nlogical(0)\n\n\n[1] FALSE\n\n\n\nQ. Why does \"A\" == NA evaluate to NA?"
   },
   {
     "objectID": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-16",
     "href": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-16",
     "title": "Lecture 4",
     "section": "R Basics",
-    "text": "R Basics\nNULL and NA values\n\nis.na() is to check whether expression evaluates to NA.\n\n\n\n[1] TRUE\n\n\nlogical(0)\n\n\n[1] FALSE\n\n\n\nQ. Why does \"A\" == NA evaluate to NA?"
+    "text": "R Basics\nCasting Variables\n\n\norig_number &lt;- 4.39898498\nclass(orig_number)\nmod_number &lt;- as.integer(orig_number)\nclass(mod_number)\n\n# TRUE converts to 1; FALSE does to 0.\nas.numeric(TRUE)\nas.numeric(FALSE)\n\n\n\nSometimes we need to explicitly cast a value from one type to another.\n\nWe can do this using built-in functions like as.character(), as.integer(), as.numeric(), and as.factor().\nIf we try these, R will do its best to interpret the input and convert it to the output type we’d like and, if they can’t, the code will throw NA."
   },
   {
     "objectID": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-17",
     "href": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-17",
     "title": "Lecture 4",
     "section": "R Basics",
-    "text": "R Basics\nCasting Variables\n\n\norig_number &lt;- 4.39898498\nclass(orig_number)\nmod_number &lt;- as.integer(orig_number)\nclass(mod_number)\n\n# TRUE converts to 1; FALSE does to 0.\nas.numeric(TRUE)\nas.numeric(FALSE)\n\n\n\nSometimes we need to explicitly cast a value from one type to another.\n\nWe can do this using built-in functions like as.character(), as.integer(), as.numeric(), and as.factor().\nIf we try these, R will do its best to interpret the input and convert it to the output type we’d like and, if they can’t, the code will throw NA."
+    "text": "R Basics\nAbsolute vs. Relative Pathnames\n\nAbsolute PathRelative Path\n\n\n\nComplete path from the root directory to the target file or directory.\nIndependent of the current working directory.\nExample (Mac): /Users/user/documents/car_data.csv\nExample (Windows): C:\\\\Users\\\\user\\\\Documents\\\\car_data.csv\n\n\n\n\nPath relative to the current working directory.\nChanges based on the current directory. \nExample: If the current directory is /Users/user, the relative path to car_data.csv would be documents/car_data.csv\nFor the website R project, we can use a relative path."
   },
   {
     "objectID": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-18",
     "href": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-18",
     "title": "Lecture 4",
     "section": "R Basics",
-    "text": "R Basics\nR Variable and Data Types\n\nQ. Classwork 5.2"
+    "text": "R Basics\nWorking with Data from Files\n\n\nWe use the read_csv() function to read a comma-separated values (CSV) file.\n\n\nDownload the CSV file, car_data.csv from the Class Files module in our Brightspace.\nFind the path name for the file, car_data.csv from the File Explorer / Finder.\nProvide the path name for the file, car_data.csv, to the read_csv() function.\n\nuciCar &lt;- read_csv('HERE WE PROVIDE A PATHNAME FOR car_data.csv')\nView(uciCar)\n\nView()/view() displays the data in a simple spreadsheet-like grid viewer.\n\nWe can click the data.frame object, displayed in the Environment Pane."
   },
   {
     "objectID": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-19",
     "href": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-19",
     "title": "Lecture 4",
     "section": "R Basics",
-    "text": "R Basics\nAbsolute vs. Relative Pathnames\n\nAbsolute PathRelative Path\n\n\n\nComplete path from the root directory to the target file or directory.\nIndependent of the current working directory.\nExample (Mac): /Users/user/documents/car_data.csv\nExample (Windows): C:\\\\Users\\\\user\\\\Documents\\\\car_data.csv\n\n\n\n\nPath relative to the current working directory.\nChanges based on the current directory. \nExample: If the current directory is /Users/user, the relative path to car_data.csv would be documents/car_data.csv\nFor the website R project, we can use a relative path."
+    "text": "R Basics\nExamining data.frames\n\n\ndim(uciCar)\nnrow(uciCar)\nncol(uciCar)\n\nclass(uciCar)\nlibrary(skimr)\nskim(uciCar)\n\n\n\ndim() shows how many rows and columns are in the data for data.frame.\nnrow() and ncol() shows the number of rows and columns for data.frame respectively.\nskimr::skim() provides a more detailed summary.\n\nskimr is the R package that provides the function skim()."
   },
   {
     "objectID": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-20",
     "href": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-20",
     "title": "Lecture 4",
     "section": "R Basics",
-    "text": "R Basics\nWorking with Data from Files\n\n\nWe use the read_csv() function to read a comma-separated values (CSV) file.\n\n\nDownload the CSV file, car_data.csv from the Class Files module in our Brightspace.\nFind the path name for the file, car_data.csv from the File Explorer / Finder.\nProvide the path name for the file, car_data.csv, to the read_csv() function.\n\nuciCar &lt;- read_csv('HERE WE PROVIDE A PATHNAME FOR car_data.csv')\nView(uciCar)\n\nView()/view() displays the data in a simple spreadsheet-like grid viewer.\n\nWe can click the data.frame object, displayed in the Environment Pane."
+    "text": "R Basics\nReading data.frames from an URL\ntvshows &lt;- read_csv(\n        'https://bcdanl.github.io/data/tvshows.csv')\n\nWe can import the CSV file from the web."
   },
   {
     "objectID": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-21",
     "href": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-21",
     "title": "Lecture 4",
     "section": "R Basics",
-    "text": "R Basics\nExamining data.frames\n\n\ndim(uciCar)\nnrow(uciCar)\nncol(uciCar)\n\nclass(uciCar)\nlibrary(skimr)\nskim(uciCar)\n\n\n\ndim() shows how many rows and columns are in the data for data.frame.\nnrow() and ncol() shows the number of rows and columns for data.frame respectively.\nskimr::skim() provides a more detailed summary.\n\nskimr is the R package that provides the function skim()."
+    "text": "R Basics\nTidy data.frame: Variables, Observations, and Values\n\n\n\n\nThere are three rules which make a data.frame tidy:\n\nEach variable must have its own column.\nEach observation must have its own row.\nEach value must have its own cell.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n:::\n\n\n\n\n–&gt;  –&gt;  –&gt;  –&gt;"
   },
   {
     "objectID": "danl-lec/danl-101-lec-04-2024-0903.html#r-basics-22",
