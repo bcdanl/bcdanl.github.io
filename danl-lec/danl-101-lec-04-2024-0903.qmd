@@ -1,0 +1,250 @@
+---
+title: Lecture 4
+subtitle: Introduction with Analytics Example in the Retail Value Chain 
+format:
+  clean-revealjs:
+    self-contained: false
+    chalkboard: true
+    incremental: true
+    code-annotations: hover
+    scrollable: true
+
+    # logo: logo-title-slide.png
+author:
+  - name: Byeong-Hak Choe
+    email: bchoe@geneseo.edu
+    affiliations: SUNY Geneseo
+date: 2024-09-03
+execute: 
+  eval: true
+  echo: false
+callout-icon: false
+
+from: markdown+emoji
+include-after-body: target-hover.html # effect.html
+
+# bibliography: refs.bib
+---
+
+
+```{r setup}
+#| include: false
+library(tidyverse)
+library(skimr)
+library(ggthemes)
+library(hrbrthemes)
+
+
+theme_set(theme_fivethirtyeight()+
+          theme(strip.background =element_rect(fill="lightgray"),
+                axis.title.x = 
+                  element_text(angle = 0,
+                               size = rel(1.5),
+                               margin = margin(10,0,0,0)),
+                axis.title.y = 
+                  element_text(angle = 0,
+                               size = rel(1.5),
+                               margin = margin(0,10,0,0)),
+                axis.text.x = element_text(size = rel(1.5)),
+                axis.text.y = element_text(size = rel(1.5)),
+                strip.text = element_text(size = rel(1.5)),
+                legend.position = "top",
+                legend.text = element_text(size = rel(1.5)),
+                legend.title = element_text(size = rel(1.5))
+                )
+          )
+```
+
+
+
+# Data Analytics in the Retail Value Chain {background-color="#1c4982"}
+
+
+## Data Analytics in the Retail Sector
+
+- The retail sector is heavily invested in analytics due to large volumes, thin margins, and rapidly changing customer preferences.
+
+- Retailers like Amazon, Walmart, and Target have made significant investments in analytics to optimize their value chains.
+
+- Analytics are crucial for understanding suppliers, customers, employees, and stakeholders to make better data-driven decisions.
+
+- The extensive use of retail analytics by companies like Amazon highlights the potential for numerous applications, many of which are discussed throughout the source material.
+
+
+
+## Examples of Data Analytics Applications in the Retail Sector
+#### 1. Inventory Optimization
+
+- **Key Questions**:
+  1. Which products are in high demand?
+  2. Which products are slow to sell or becoming outdated?
+
+- **Business Benefits**:
+  1. Predict demand for fast-moving products and ensure adequate stock to prevent shortages.
+  2. Accelerate the turnover of slow-moving products by pairing them with high-demand items.
+
+#### 2. Price Elasticity
+
+- **Key Questions**:
+  1. What is the net margin for this product?
+  2. What discount can be offered on this product?
+
+- **Business Benefits**:
+  1. Optimize markdowns for each product to minimize margin losses.
+  2. Determine the best price for product bundles to protect margins.
+    - While online retailers can tailor user experiences upon login, physical stores struggle with this at the entrance.
+
+#### 3. Market Basket Analysis
+<!-- - Market basket analysis and advanced analytics help retailers push sales of slow-moving SKUs and optimize pricing strategies for better returns. -->
+
+- **Key Questions**:
+  1. Which products should be combined to create a bundle offer?
+  2. Should bundles mix slow-moving and fast-moving items?
+  3. Should bundles consist of products from the same or different categories?
+
+- **Business Benefits**:
+  1. Machine learning uncovers hidden product correlations, enabling:
+    a. Strategic product bundling focused on inventory management or margin optimization.
+    b. Enhanced cross-selling or upselling through bundling products from different or the same categories, respectively.
+
+#### 4. Shopper Insight
+<!-- - Retailers use shopper analytics, such as CCTV image analysis, to understand in-store foot traffic demographics and optimize marketing methods. -->
+
+- **Key Questions**:
+  1. Which customers are buying which products at which locations?
+
+- **Business Benefits**:
+  1. By segmenting customers, businesses can create personalized offers, leading to improved customer experience and retention.
+
+#### 5. Customer Churn Analysis
+
+- **Key Questions**:
+  1. Which customers are likely not to return?
+  2. How much revenue could be lost?
+  3. How can these customers be retained?
+  4. What demographic is most loyal?
+
+- **Business Benefits**:
+  1. Identify customer and product relationships with high churn to focus on improving product quality and addressing churn reasons.
+  2. Use customer lifetime value (LTV) to target marketing efforts, enhancing customer retention.
+
+#### 6. Channel Analysis
+
+- **Key Questions**:
+  1. Which channel has the lowest customer acquisition cost?
+  2. Which channel has the best customer retention?
+  3. Which channel is most profitable?
+
+- **Business Benefits**:
+  1. Optimize marketing budgets based on insights to achieve better returns on investment.
+
+#### 7. New Store Analysis
+
+- **Key Questions**:
+  1. Where should a new store be located?
+  2. What and how much initial inventory should be stocked?
+
+- **Business Benefits**:
+  1. Leverage best practices from other locations and channels to ensure a strong start.
+  2. Compare competitor data to develop a unique selling proposition (USP) that attracts new customers.
+
+#### 8. Store Layout
+<!-- - Analyzing in-store movement data can help store managers optimize shelf layouts, workforce allocation, and identify profitable store areas. -->
+
+- **Key Questions**:
+  1. How should the store be laid out to maximize sales?
+  2. How can in-store customer experience be enhanced?
+
+- **Business Benefits**:
+  1. Analyze product associations to optimize store layout for customer satisfaction.
+  2. Plan workforce deployment to enhance customer interactions and improve overall experience.
+
+#### 9. Video Analytics
+<!-- - Video analytics combined with loyalty programs can help physical stores identify customers upon entry, enabling personalized shopping experiences. -->
+
+- **Key Questions**:
+  1. What demographic is entering the store during peak sales periods?
+  2. How can a high LTV customer be identified at the store entrance for a personalized experience?
+
+- **Business Benefits**:
+  1. Plan in-store promotions and events based on the demographics of incoming traffic.
+  2. Enhance customer experience through targeted engagement and instant discounts, leading to higher retention rates.
+
+
+# Data Analytics Workflow---Application of Price Elasticity of Orange Juice {background-color="#1c4982"}
+
+
+## What is data science?
+
+Data science is a cross-disciplinary practice that draws on methods from data wrangling, data mining, machine learning, and econometrics.
+
+
+## Example: Estimating the Price Elasticity of Orange Juice in Dominick's Supermarket
+
+- To estimate the price elasticity of orange juice (OJ), we will use sales data for OJ from Dominick’s grocery stores in the 1990s.
+  - Weekly `price` and `sales` (in number of cartons "sold") for three OJ brands---Tropicana, Minute Maid, Dominick's
+  - A dummy, `ad`, showing whether each `brand` was advertised (in store or flyer) that week.
+
+
+
+
+
+
+
+
+
+
+# Data Analytics vs. Data Science {background-color="#1c4982"}
+
+
+## Data Analytics vs. Data Science
+### Focus and Key Activities
+
+- **Focus**:
+  - **Data Analytics**: Primarily focuses on examining existing datasets to generate insights. It involves descriptive and diagnostic analytics, which help in understanding historical data and identifying patterns or trends.
+  - **Data Science**: Encompasses a broader scope, including data analytics, but extends to predictive and prescriptive analytics. Data science aims to uncover insights from data through advanced statistical, machine learning, and algorithmic methods.
+
+- **Key Activities**:
+  - **Data Analytics**: Involves data cleaning, reporting, visualization, and interpretation. The goal is to provide actionable insights based on existing data, often through dashboards, reports, or visualizations.
+  - **Data Science**: Involves data collection, exploration, and the use of advanced techniques like machine learning, predictive modeling, and algorithm development. Data scientists often work on creating models that predict future trends or optimize decisions.
+
+
+## Data Analytics vs. Data Science
+### Skill Sets and Outcome
+- **Skill Sets**:
+  - **Data Analytics**: Requires skills in tools like Excel, SQL, and BI software. It may also involve basic statistical knowledge and proficiency in creating data visualizations.
+  - **Data Science**: Requires a deeper understanding of programming languages like Python or R, advanced statistical methods, machine learning algorithms, and data engineering. Data scientists often need to have strong mathematical and computational skills.
+
+- **Outcome**:
+  - **Data Analytics**: The outcome is usually insights that describe what has happened in the past, often helping businesses make informed decisions based on historical data.
+  - **Data Science**: The outcome often involves predictive models that forecast future events or behaviors, as well as prescriptive models that suggest specific actions to achieve desired outcomes.
+
+## Data Analytics vs. Data Science
+### Tools & Techniques and Applications
+- **Tools & Techniques**:
+  - **Data Analytics**: Commonly uses tools like SQL, Tableau, Power BI, and Excel. The focus is on querying data and creating reports or visualizations.
+  - **Data Science**: Utilizes more advanced tools and techniques such as Python, R, TensorFlow, Hadoop, and deep learning frameworks. Techniques include data mining, machine learning, and algorithm development.
+
+- **Applications**:
+  - **Data Analytics**: Often used in business intelligence, reporting, trend analysis, and operational decision-making.
+  - **Data Science**: Applied in areas requiring predictive insights, such as recommendation systems, fraud detection, customer segmentation, and autonomous systems.
+
+## Data Analytics vs. Data Science
+### Job Titles and Orientation
+- **Job Titles**:
+  - **Data Analytics**: Roles often include Data Analyst, Business Analyst, BI Analyst, or Reporting Analyst.
+  - **Data Science**: Roles include Data Scientist, Machine Learning Engineer, Data Engineer, and AI Specialist.
+
+- **Orientation**:
+  - **Data Analytics**: Business-oriented, with a focus on applying data to solve specific business problems and improve processes.
+  - **Data Science**: Often research-oriented, with a focus on exploring data and developing new methods or algorithms to extract value from data.
+
+## Data Analytics vs. Data Science
+### Fuzzy Distinctions:
+
+- The difference between professionals focusing on descriptive analytics and those engaged in all types of analytics is not clear-cut.
+- Graduates of data-related programs often perform tasks aligned with data science.
+
+<!-- This comparison highlights that while data analytics and data science share some overlap, they differ in scope, complexity, and the depth of technical expertise required. Data analytics is more about interpreting existing data, whereas data science involves creating new models and techniques to predict and optimize future outcomes. -->
+
+
