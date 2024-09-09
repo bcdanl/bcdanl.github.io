@@ -452,8 +452,24 @@
         border-color: aquamarine;
       "
     ></div>
-
+    
     <script>
+    
+    
+    // Capture the current date and time in the format "YYYY-MM-DD-HH:mm"
+    const form = document.getElementById('form');
+    const submissionTimeInput = document.getElementById('submission-time');
+    
+    form.addEventListener('submit', function() {
+        const now = new Date();
+        const formattedDate = now.getFullYear() + '-' +
+                              String(now.getMonth() + 1).padStart(2, '0') + '-' +
+                              String(now.getDate()).padStart(2, '0') + '-' +
+                              String(now.getHours()).padStart(2, '0') + ':' +
+                              String(now.getMinutes()).padStart(2, '0');
+        submissionTimeInput.value = formattedDate;
+    });
+    
       document.getElementById("form").addEventListener("submit", function (e) {
         e.preventDefault(); // Prevent the default form submission
         document.getElementById("message").textContent = "Submitting..";
@@ -613,21 +629,5 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     height: 100px;
   }
 </style>
-
-<script>
-    // Capture the current date and time in the format "YYYY-MM-DD-HH:mm"
-    const form = document.getElementById('form');
-    const submissionTimeInput = document.getElementById('submission-time');
-    
-    form.addEventListener('submit', function() {
-        const now = new Date();
-        const formattedDate = now.getFullYear() + '-' +
-                              String(now.getMonth() + 1).padStart(2, '0') + '-' +
-                              String(now.getDate()).padStart(2, '0') + '-' +
-                              String(now.getHours()).padStart(2, '0') + ':' +
-                              String(now.getMinutes()).padStart(2, '0');
-        submissionTimeInput.value = formattedDate;
-    });
-</script>
 
 </html>
