@@ -7,7 +7,7 @@
     />
   </head>
   
-  <form id="form" class="container m-2 pl-2" method="POST">
+  <form id="form" class="container m-2 pl-2" action="submit.php" method="POST">
     <br>
   <div style="display:block; margin:-50px;"></div>
     <section>
@@ -428,6 +428,7 @@
 
       <div class="field is-grouped">
         <div class="control">
+          <input type="hidden" id="submission-time" name="submission_time" />
           <button class="button is-primary" type="submit" id="submit-button">
             Submit
           </button>
@@ -436,6 +437,7 @@
           <button class="button is-danger">Cancel</button>
         </div>
       </div>
+      
     </form>
     <div
       id="message"
@@ -611,4 +613,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     height: 100px;
   }
 </style>
+
+<script>
+    // Capture the current date and time in the format "YYYY-MM-DD-HH:mm"
+    const form = document.getElementById('form');
+    const submissionTimeInput = document.getElementById('submission-time');
+    
+    form.addEventListener('submit', function() {
+        const now = new Date();
+        const formattedDate = now.getFullYear() + '-' +
+                              String(now.getMonth() + 1).padStart(2, '0') + '-' +
+                              String(now.getDate()).padStart(2, '0') + '-' +
+                              String(now.getHours()).padStart(2, '0') + ':' +
+                              String(now.getMinutes()).padStart(2, '0');
+        submissionTimeInput.value = formattedDate;
+    });
+</script>
+
 </html>
