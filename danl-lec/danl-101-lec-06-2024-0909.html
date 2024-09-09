@@ -667,6 +667,21 @@ Byeong-Hak Choe
 </section>
 <section id="measures-of-central-tendency" class="slide level2">
 <h2>Measures of Central Tendency</h2>
+<ul>
+<li class="fragment">Measures of <strong>centrality</strong> are used to describe the central or typical value in a given vector.
+<ul>
+<li class="fragment">They represent the “center” or most representative value of a data set.</li>
+</ul></li>
+<li class="fragment">To describe this centrality, several statistical measures are commonly used:
+<ul>
+<li class="fragment"><strong>Mean</strong>: The arithmetic average of all values in the data set.</li>
+<li class="fragment"><strong>Median</strong>: The middle value when the data set is ordered from least to greatest.</li>
+<li class="fragment"><strong>Mode</strong>: The most frequently occurring value in the data set.</li>
+</ul></li>
+</ul>
+</section>
+<section id="measures-of-central-tendency-1" class="slide level2">
+<h2>Measures of Central Tendency</h2>
 <h3 id="mean">Mean</h3>
 <p><span class="math display">\[
 \overline{x} = \frac{x_{1} + x_{2} + \cdots + x_{N}}{N}
@@ -678,13 +693,28 @@ Byeong-Hak Choe
 <li class="fragment">The <strong>arithmetic mean</strong> (or simply <em>mean</em> or <em>average</em>) is the sum of all the values divided by the number of observations in the data set.
 <ul>
 <li class="fragment"><code>mean()</code> calculates the mean of the values in a vector.</li>
-<li class="fragment">For a given vector <span class="math inline">\(x\)</span>, if we happen to have <span class="math inline">\(N\)</span> observations <span class="math inline">\((x_{1}, x_{2}, \cdots , x_{N})\)</span>, we can write the arithmetic mean of the data sample as follows:</li>
+<li class="fragment">For a given vector <span class="math inline">\(x\)</span>, if we happen to have <span class="math inline">\(N\)</span> observations <span class="math inline">\((x_{1}, x_{2}, \cdots , x_{N})\)</span>, we can write the arithmetic mean of the data sample as above.</li>
 </ul></li>
 </ul>
 </section>
-<section id="measures-of-central-tendency-1" class="slide level2">
+<section id="measures-of-central-tendency-2" class="slide level2">
 <h2>Measures of Central Tendency</h2>
 <h3 id="median">Median</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="text-align: center; width: 100%; margin: auto;">
+<img src="https://bcdanl.github.io/lec_figs/median-formula.jpg" style="width: 100%; margin-bottom: -20px;">
+<p style="font-weight: bold;">
+</p>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="text-align: center; width: 100%; margin: auto;">
+<img src="https://bcdanl.github.io/lec_figs/median_eg.png" style="width: 100%; margin-bottom: -20px;">
+<p style="font-weight: bold;">
+</p>
+</div>
+</div>
+</div>
 <div class="sourceCode" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
 <span id="cb15-2"><a href="#cb15-2"></a><span class="fu">median</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
@@ -692,15 +722,25 @@ Byeong-Hak Choe
 <ul>
 <li class="fragment"><code>median()</code> calculates the <strong>median</strong> of the values in a vector.</li>
 </ul></li>
-<li class="fragment">In contrary to the mean, the median is not affected by outliers or skewed data.</li>
+</ul>
+</section>
+<section id="measures-of-central-tendency-3" class="slide level2">
+<h2>Measures of Central Tendency</h2>
+<h3 id="mode">Mode</h3>
+<ul>
+<li class="fragment"><p>The <strong>mode</strong> is the value(s) that occurs most frequently in a given vector.</p></li>
+<li class="fragment"><p>Mode is useful, although it is often not a very good representation of centrality.</p></li>
+<li class="fragment"><p>The R package, <code>modest</code>, provides the <code>mfw(x)</code> function that calculate the mode of values in vector <code>x</code>.</p></li>
 </ul>
 </section>
 <section id="measures-of-dispersion" class="slide level2">
 <h2>Measures of Dispersion</h2>
 <ul>
-<li class="fragment"><p>Measures of <strong>dispersion</strong> are used to describe the degree of variation in a given vector.</p></li>
-<li class="fragment"><p>They are a representation of the numerical spread of a given data set.</p></li>
-<li class="fragment"><p>To describe this dispersion, a number of statistical measures are developed</p>
+<li class="fragment">Measures of <strong>dispersion</strong> are used to describe the degree of variation in a given vector.
+<ul>
+<li class="fragment">They are a representation of the numerical spread of a given data set.</li>
+</ul></li>
+<li class="fragment">To describe this dispersion, a number of statistical measures are developed
 <ul>
 <li class="fragment">Range</li>
 <li class="fragment">Variance</li>
@@ -753,12 +793,13 @@ Byeong-Hak Choe
 <div class="sourceCode" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
 <span id="cb18-2"><a href="#cb18-2"></a><span class="fu">sd</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
-<li class="fragment">The <strong>standard deviation</strong> (SD) is also a measure of the spread of values within a given vector.
+<li class="fragment">The <strong>standard deviation</strong> (SD)—the square root of the variance—is also a measure of the spread of values within a given vector.
 <ul>
-<li class="fragment">SD is simply the square root of the variance.</li>
 <li class="fragment"><code>sd(x)</code> calculates the standard deviation of the values in a vector <span class="math inline">\(x\)</span></li>
-<li class="fragment">SD helps us understand how representative the mean is of the data.</li>
+<li class="fragment">SD helps us understand how representative the mean is of the data.
+<ul>
 <li class="fragment">A low SD suggests that the mean is a good summary, while a high SD suggests greater variability around the mean.</li>
+</ul></li>
 </ul></li>
 </ul>
 </section>
@@ -783,13 +824,13 @@ Byeong-Hak Choe
 <h2>Measures of Dispersion</h2>
 <h3 id="interquartile-range">Interquartile Range</h3>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:45%;">
 <div style="text-align: center; width: 100%; margin: auto;">
 <img src="https://bcdanl.github.io/lec_figs/boxplot.png" style="width: 100%; margin-bottom: -20px;">
 <p style="font-weight: bold;">
 </p>
 </div>
-</div><div class="column" style="width:50%;">
+</div><div class="column" style="width:55%;">
 <ul>
 <li class="fragment">An <strong>interquartile range</strong> describes the difference between the third quartile (Q3) and the first quartile (Q1), telling us about the range of the middle half of the scores in the distribution.
 <ul>
@@ -810,16 +851,35 @@ Byeong-Hak Choe
 <ul>
 <li><p>Complete path from the root directory to the target file or directory.</p></li>
 <li><p>Independent of the current working directory.</p></li>
-<li><p>Example (Mac): <code>/Users/user/documents/data/car_data.csv</code></p></li>
-<li><p>Example (Windows): <code>C:\\Users\\user\\Documents\\data\\car_data.csv</code></p></li>
+<li><p>Example</p>
+<ul>
+<li>Mac:
+<ul>
+<li><code>/Users/user/documents/data/car_data.csv</code></li>
+</ul></li>
+<li>Windows:
+<ul>
+<li><code>C:\\Users\\user\\Documents\\data\\car_data.csv</code></li>
+</ul></li>
+</ul></li>
 </ul>
 </div>
 <div id="tabset-3-2">
 <ul>
-<li>Path relative to the current working directory.</li>
-<li>Changes based on the current directory. <!-- - Uses '.' for current directory and '..' for parent directory. --></li>
-<li>Example: If the current directory is <code>/Users/user</code>, the relative path to <code>car_data.csv</code> would be <code>documents/dada/car_data.csv</code></li>
-<li>For the Posit Cloud project, we can use a relative path.</li>
+<li>Path relative to the working directory.
+<ul>
+<li>Relative path changes based on the working directory. <!-- - Uses '.' for current directory and '..' for parent directory. --></li>
+</ul></li>
+<li><strong>Example</strong>:
+<ul>
+<li>Absolute pathname for <code>car_data.csv</code> is <code>/Users/user/documents/data/car_data.csv</code>.</li>
+<li>Suppose the current directory is <code>/Users/user/documents/</code>.</li>
+<li>Then, the relative pathname for <code>car_data.csv</code> is <code>dada/car_data.csv</code>.</li>
+</ul></li>
+<li>For the Posit Cloud project, we can use a relative path.
+<ul>
+<li>The current working directory in is <code>/cloud/project/</code></li>
+</ul></li>
 </ul>
 </div>
 </div>
@@ -835,17 +895,14 @@ Byeong-Hak Choe
 </ul>
 <ol type="1">
 <li><p>Download the CSV file, <code>car_data.csv</code> from the Class Files module in our Brightspace.</p></li>
-<li><p>Create a sub-directory, <code>data</code>, by clicking “New Folder” in Files Pane in Posit Cloud.</p></li>
+<li><p>Create a sub-directory, <code>data</code>, by clicking “New Folder” in the Files Pane in Posit Cloud.</p></li>
 <li><p>Upload the <code>car_data.csv</code> file to the sub-directory <code>data</code>.</p></li>
 <li><p>Provide the relative pathname for the file, <code>car_data.csv</code>, to the <code>read_csv()</code> function.</p></li>
 </ol>
 <div class="sourceCode" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>uciCar <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'HERE WE PROVIDE A RELATIVE PATHNAME FOR car_data.csv'</span>)</span>
 <span id="cb20-2"><a href="#cb20-2"></a><span class="fu">View</span>(uciCar)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
-<li><code>View()</code>/<code>view()</code> displays the data in a simple spreadsheet-like grid viewer.
-<ul>
-<li>We can click the data.frame object, displayed in the Environment Pane.</li>
-</ul></li>
+<li><code>View()</code>/<code>view()</code> displays the data in a simple spreadsheet-like grid.</li>
 </ul>
 </div>
 </section>

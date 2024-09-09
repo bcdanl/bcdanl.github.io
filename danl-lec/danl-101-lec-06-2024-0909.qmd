@@ -379,6 +379,16 @@ sqrt(a)
 
 
 
+## Measures of Central Tendency
+
+- Measures of **centrality** are used to describe the central or typical value in a given vector.
+  - They represent the "center" or most representative value of a data set.
+
+- To describe this centrality, several statistical measures are commonly used:
+  - **Mean**: The arithmetic average of all values in the data set.
+  - **Median**: The middle value when the data set is ordered from least to greatest.
+  - **Mode**: The most frequently occurring value in the data set.
+
 
 ## Measures of Central Tendency
 ### Mean
@@ -396,34 +406,64 @@ mean(x)
 
 - The **arithmetic mean** (or simply *mean* or *average*) is the sum of all the values divided by the number of observations in the data set.
   - `mean()` calculates the mean of the values in a vector.
-  - For a given vector $x$, if we happen to have $N$ observations $(x_{1}, x_{2}, \cdots , x_{N})$, we can write the arithmetic mean of the data sample as follows:
+  - For a given vector $x$, if we happen to have $N$ observations $(x_{1}, x_{2}, \cdots , x_{N})$, we can write the arithmetic mean of the data sample as above.
   
 
 ## Measures of Central Tendency
 ### Median
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/median-formula.jpg" style="width: 100%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
+
+:::
+
+::: {.column width="50%"}
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/median_eg.png" style="width: 100%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
+:::
+::::
 
 ```{.r}
 x <- c(1, 2, 3, 4, 5)
 median(x)
 ```
 
+
 - The **median** is the measure of center value in a given vector.
   - `median()` calculates the **median** of the values in a vector.
 
-- In contrary to the mean, the median is not affected by outliers or skewed data.
+
+## Measures of Central Tendency
+### Mode
+
+- The **mode** is the value(s) that occurs most frequently in a given vector.
+
+- Mode is useful, although it is often not a very good representation of centrality.
+
+- The R package, `modest`, provides the `mfw(x)` function that calculate the mode of values in vector `x`.
+
 
 
 ## Measures of Dispersion
 
 - Measures of **dispersion** are used to describe the degree of variation in a given vector.
-
-- They are a representation of the numerical spread of a given data set. 
+  - They are a representation of the numerical spread of a given data set. 
 
 - To describe this dispersion, a number of statistical measures are developed
   - Range
   - Variance
   - Standard deviation
   - Quartile
+
+
 
 ## Measures of Dispersion
 ### Range
@@ -470,11 +510,10 @@ $$
 x <- c(1, 2, 3, 4, 5)
 sd(x)
 ```
-- The **standard deviation** (SD) is also a measure of the spread of values within a given vector.
-  - SD is simply the square root of the variance.
+- The **standard deviation** (SD)---the square root of the variance---is also a measure of the spread of values within a given vector.
   - `sd(x)` calculates the standard deviation  of the values in a vector $x$
   - SD helps us understand how representative the mean is of the data. 
-  - A low SD suggests that the mean is a good summary, while a high SD suggests greater variability around the mean.
+    - A low SD suggests that the mean is a good summary, while a high SD suggests greater variability around the mean.
   
   
 
@@ -501,7 +540,7 @@ quantile(x, 1) # the maximum
 
 :::: {.columns}
 
-::: {.column width="50%"}
+::: {.column width="45%"}
 <div style="text-align: center; width: 100%; margin: auto;">
   <img src="https://bcdanl.github.io/lec_figs/boxplot.png" style="width: 100%; margin-bottom: -20px;">
   <p style="font-weight: bold;"></p>
@@ -509,7 +548,7 @@ quantile(x, 1) # the maximum
 
 :::
 
-::: {.column width="50%"}
+::: {.column width="55%"}
 - An **interquartile range** describes the difference between the third quartile (Q3) and the first quartile (Q1), telling us about the range of the middle half of the scores in the distribution.
   - The quartile-driven descriptive measures (both centrality and dispersion) are best explained with a popular plot called a **box plot**.
 
@@ -528,17 +567,24 @@ quantile(x, 1) # the maximum
 - Complete path from the root directory to the target file or directory.
 - Independent of the current working directory.
 
-- Example (Mac): `/Users/user/documents/data/car_data.csv`
-- Example (Windows): `C:\\Users\\user\\Documents\\data\\car_data.csv`
+- Example 
+  - Mac: 
+    - `/Users/user/documents/data/car_data.csv`
+  - Windows: 
+    - `C:\\Users\\user\\Documents\\data\\car_data.csv`
 
 
 ## Relative Path
 
-- Path relative to the current working directory.
-- Changes based on the current directory.
+- Path relative to the working directory.
+  - Relative path changes based on the working directory.
 <!-- - Uses '.' for current directory and '..' for parent directory. -->
-- Example: If the current directory is `/Users/user`, the relative path to `car_data.csv` would be `documents/dada/car_data.csv`
+- **Example**: 
+  - Absolute pathname for `car_data.csv` is `/Users/user/documents/data/car_data.csv`.
+  - Suppose the current directory is `/Users/user/documents/`. 
+  - Then, the relative pathname for `car_data.csv` is `dada/car_data.csv`.
 - For the Posit Cloud project, we can use a relative path.
+  - The current working directory in  is `/cloud/project/`
 
 :::
 :::
@@ -552,7 +598,7 @@ quantile(x, 1) # the maximum
 
 1. Download the CSV file, `car_data.csv` from the Class Files module in our Brightspace.
 
-2. Create a sub-directory, `data`, by clicking "New Folder" in Files Pane in Posit Cloud.
+2. Create a sub-directory, `data`, by clicking "New Folder" in the Files Pane in Posit Cloud.
 
 3. Upload the `car_data.csv` file to the sub-directory `data`.
 
@@ -563,8 +609,7 @@ uciCar <- read_csv('HERE WE PROVIDE A RELATIVE PATHNAME FOR car_data.csv')
 View(uciCar)
 ```
 
-- `View()`/`view()` displays the data in a simple spreadsheet-like grid viewer.
-  - We can click the data.frame object, displayed in the Environment Pane.
+- `View()`/`view()` displays the data in a simple spreadsheet-like grid.
 
 :::
 

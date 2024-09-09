@@ -1593,21 +1593,21 @@
     "href": "danl-lec/danl-101-lec-06-2024-0909.html#measures-of-central-tendency",
     "title": "Lecture 6",
     "section": "Measures of Central Tendency",
-    "text": "Measures of Central Tendency\nMean\n\\[\n\\overline{x} = \\frac{x_{1} + x_{2} + \\cdots + x_{N}}{N}\n\\]\nx &lt;- c(1, 2, 3, 4, 5)\nsum(x)\nmean(x)\n\nThe arithmetic mean (or simply mean or average) is the sum of all the values divided by the number of observations in the data set.\n\nmean() calculates the mean of the values in a vector.\nFor a given vector \\(x\\), if we happen to have \\(N\\) observations \\((x_{1}, x_{2}, \\cdots , x_{N})\\), we can write the arithmetic mean of the data sample as follows:"
+    "text": "Measures of Central Tendency\n\nMeasures of centrality are used to describe the central or typical value in a given vector.\n\nThey represent the “center” or most representative value of a data set.\n\nTo describe this centrality, several statistical measures are commonly used:\n\nMean: The arithmetic average of all values in the data set.\nMedian: The middle value when the data set is ordered from least to greatest.\nMode: The most frequently occurring value in the data set."
   },
   {
     "objectID": "danl-lec/danl-101-lec-06-2024-0909.html#measures-of-central-tendency-1",
     "href": "danl-lec/danl-101-lec-06-2024-0909.html#measures-of-central-tendency-1",
     "title": "Lecture 6",
     "section": "Measures of Central Tendency",
-    "text": "Measures of Central Tendency\nMedian\nx &lt;- c(1, 2, 3, 4, 5)\nmedian(x)\n\nThe median is the measure of center value in a given vector.\n\nmedian() calculates the median of the values in a vector.\n\nIn contrary to the mean, the median is not affected by outliers or skewed data."
+    "text": "Measures of Central Tendency\nMean\n\\[\n\\overline{x} = \\frac{x_{1} + x_{2} + \\cdots + x_{N}}{N}\n\\]\nx &lt;- c(1, 2, 3, 4, 5)\nsum(x)\nmean(x)\n\nThe arithmetic mean (or simply mean or average) is the sum of all the values divided by the number of observations in the data set.\n\nmean() calculates the mean of the values in a vector.\nFor a given vector \\(x\\), if we happen to have \\(N\\) observations \\((x_{1}, x_{2}, \\cdots , x_{N})\\), we can write the arithmetic mean of the data sample as above."
   },
   {
     "objectID": "danl-lec/danl-101-lec-06-2024-0909.html#measures-of-dispersion",
     "href": "danl-lec/danl-101-lec-06-2024-0909.html#measures-of-dispersion",
     "title": "Lecture 6",
     "section": "Measures of Dispersion",
-    "text": "Measures of Dispersion\n\nMeasures of dispersion are used to describe the degree of variation in a given vector.\nThey are a representation of the numerical spread of a given data set.\nTo describe this dispersion, a number of statistical measures are developed\n\nRange\nVariance\nStandard deviation\nQuartile"
+    "text": "Measures of Dispersion\n\nMeasures of dispersion are used to describe the degree of variation in a given vector.\n\nThey are a representation of the numerical spread of a given data set.\n\nTo describe this dispersion, a number of statistical measures are developed\n\nRange\nVariance\nStandard deviation\nQuartile"
   },
   {
     "objectID": "danl-lec/danl-101-lec-06-2024-0909.html#measures-of-dispersion-1",
@@ -1628,7 +1628,7 @@
     "href": "danl-lec/danl-101-lec-06-2024-0909.html#measures-of-dispersion-3",
     "title": "Lecture 6",
     "section": "Measures of Dispersion",
-    "text": "Measures of Dispersion\nStandard Deviation\n\\[\n\\overline{s} = \\sqrt{ \\left( \\frac{(x_{1}-\\overline{x})^{2} + (x_{2}-\\overline{x})^{2} + \\cdots + (x_{N}-\\overline{x})^{2}}{N-1}\\;\\, \\right) }\n\\]\nx &lt;- c(1, 2, 3, 4, 5)\nsd(x)\n\nThe standard deviation (SD) is also a measure of the spread of values within a given vector.\n\nSD is simply the square root of the variance.\nsd(x) calculates the standard deviation of the values in a vector \\(x\\)\nSD helps us understand how representative the mean is of the data.\nA low SD suggests that the mean is a good summary, while a high SD suggests greater variability around the mean."
+    "text": "Measures of Dispersion\nStandard Deviation\n\\[\n\\overline{s} = \\sqrt{ \\left( \\frac{(x_{1}-\\overline{x})^{2} + (x_{2}-\\overline{x})^{2} + \\cdots + (x_{N}-\\overline{x})^{2}}{N-1}\\;\\, \\right) }\n\\]\nx &lt;- c(1, 2, 3, 4, 5)\nsd(x)\n\nThe standard deviation (SD)—the square root of the variance—is also a measure of the spread of values within a given vector.\n\nsd(x) calculates the standard deviation of the values in a vector \\(x\\)\nSD helps us understand how representative the mean is of the data.\n\nA low SD suggests that the mean is a good summary, while a high SD suggests greater variability around the mean."
   },
   {
     "objectID": "danl-lec/danl-101-lec-06-2024-0909.html#measures-of-dispersion-4",
@@ -1649,14 +1649,14 @@
     "href": "danl-lec/danl-101-lec-06-2024-0909.html#r-basics-10",
     "title": "Lecture 6",
     "section": "R Basics",
-    "text": "R Basics\nAbsolute vs. Relative Pathnames\n\n\nAbsolute PathRelative Path\n\n\n\nComplete path from the root directory to the target file or directory.\nIndependent of the current working directory.\nExample (Mac): /Users/user/documents/data/car_data.csv\nExample (Windows): C:\\\\Users\\\\user\\\\Documents\\\\data\\\\car_data.csv\n\n\n\n\nPath relative to the current working directory.\nChanges based on the current directory. \nExample: If the current directory is /Users/user, the relative path to car_data.csv would be documents/dada/car_data.csv\nFor the Posit Cloud project, we can use a relative path."
+    "text": "R Basics\nAbsolute vs. Relative Pathnames\n\n\nAbsolute PathRelative Path\n\n\n\nComplete path from the root directory to the target file or directory.\nIndependent of the current working directory.\nExample\n\nMac:\n\n/Users/user/documents/data/car_data.csv\n\nWindows:\n\nC:\\\\Users\\\\user\\\\Documents\\\\data\\\\car_data.csv\n\n\n\n\n\n\nPath relative to the working directory.\n\nRelative path changes based on the working directory. \n\nExample:\n\nAbsolute pathname for car_data.csv is /Users/user/documents/data/car_data.csv.\nSuppose the current directory is /Users/user/documents/.\nThen, the relative pathname for car_data.csv is dada/car_data.csv.\n\nFor the Posit Cloud project, we can use a relative path.\n\nThe current working directory in is /cloud/project/"
   },
   {
     "objectID": "danl-lec/danl-101-lec-06-2024-0909.html#r-basics-11",
     "href": "danl-lec/danl-101-lec-06-2024-0909.html#r-basics-11",
     "title": "Lecture 6",
     "section": "R Basics",
-    "text": "R Basics\nWorking with Data from Files\n\n\nWe use the read_csv() function to read a comma-separated values (CSV) file.\n\n\nDownload the CSV file, car_data.csv from the Class Files module in our Brightspace.\nCreate a sub-directory, data, by clicking “New Folder” in Files Pane in Posit Cloud.\nUpload the car_data.csv file to the sub-directory data.\nProvide the relative pathname for the file, car_data.csv, to the read_csv() function.\n\nuciCar &lt;- read_csv('HERE WE PROVIDE A RELATIVE PATHNAME FOR car_data.csv')\nView(uciCar)\n\nView()/view() displays the data in a simple spreadsheet-like grid viewer.\n\nWe can click the data.frame object, displayed in the Environment Pane."
+    "text": "R Basics\nWorking with Data from Files\n\n\nWe use the read_csv() function to read a comma-separated values (CSV) file.\n\n\nDownload the CSV file, car_data.csv from the Class Files module in our Brightspace.\nCreate a sub-directory, data, by clicking “New Folder” in the Files Pane in Posit Cloud.\nUpload the car_data.csv file to the sub-directory data.\nProvide the relative pathname for the file, car_data.csv, to the read_csv() function.\n\nuciCar &lt;- read_csv('HERE WE PROVIDE A RELATIVE PATHNAME FOR car_data.csv')\nView(uciCar)\n\nView()/view() displays the data in a simple spreadsheet-like grid."
   },
   {
     "objectID": "danl-lec/danl-101-lec-06-2024-0909.html#r-basics-12",
@@ -1678,5 +1678,19 @@
     "title": "Lecture 6",
     "section": "R Basics",
     "text": "R Basics\nTidy data.frame: Variables, Observations, and Values\n\n\n\n\nThere are three rules which make a data.frame tidy:\n\nEach variable must have its own column.\nEach observation must have its own row.\nEach value must have its own cell.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n:::\n\n\n\n\n–&gt;  –&gt;  –&gt;  –&gt;"
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-06-2024-0909.html#measures-of-central-tendency-2",
+    "href": "danl-lec/danl-101-lec-06-2024-0909.html#measures-of-central-tendency-2",
+    "title": "Lecture 6",
+    "section": "Measures of Central Tendency",
+    "text": "Measures of Central Tendency\nMedian\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nx &lt;- c(1, 2, 3, 4, 5)\nmedian(x)\n\nThe median is the measure of center value in a given vector.\n\nmedian() calculates the median of the values in a vector."
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-06-2024-0909.html#measures-of-central-tendency-3",
+    "href": "danl-lec/danl-101-lec-06-2024-0909.html#measures-of-central-tendency-3",
+    "title": "Lecture 6",
+    "section": "Measures of Central Tendency",
+    "text": "Measures of Central Tendency\nMode\n\nThe mode is the value(s) that occurs most frequently in a given vector.\nMode is useful, although it is often not a very good representation of centrality.\nThe R package, modest, provides the mfw(x) function that calculate the mode of values in vector x."
   }
 ]
