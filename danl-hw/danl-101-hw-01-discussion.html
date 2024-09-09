@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="bulma.css"
+    />
+  </head>
+  
+  <form id="form" class="container m-2 pl-2" method="POST">
+    <br>
+  <div style="display:block; margin:-50px;"></div>
+    <section>
+      <div>
+        <h1 style="color: #1c4982; font-size: 30px; font-style: bold">Name, Email, and Session</h1>
+      </div>
+    </section>
+    <div style="display:block; margin:-50px;"></div>
+    <br><br><div class="field">
+      <label class="label">What is your DANL 101 session schedule?</label>
+      <div class="control">
+        <label class="radio">
+          <input type="radio" name="session" value="MWF 9:30am-10:20am" /> MWF 9:30am-10:20am
+        </label>
+        <label class="radio">
+          <input type="radio" name="session" value="TTh 3:30pm-4:45pm" /> TTh 3:30pm-4:45pm
+        </label>
+      </div>
+    </div>
+    <br><br>
+
+    <div class="field">
+      <label class="label">What is your first name?</label>
+      <div class="control">
+        <textarea
+          class="textarea"
+          placeholder="Enter your answer"
+          name="first-name"
+        ></textarea>
+      </div>
+    </div>
+
+    <br><br><div class="field">
+      <label class="label">What is your last name?</label>
+      <div class="control">
+        <textarea
+          class="textarea"
+          placeholder="Enter your answer"
+          name="last-name"
+        ></textarea>
+      </div>
+    </div>
+
+    <br><br><div class="field">
+      <label class="label">What is your Geneseo email ID? (without `@geneseo.edu`)</label>
+      <div class="control">
+        <textarea
+          class="textarea"
+          placeholder="Enter your answer"
+          name="email"
+        ></textarea>
+      </div>
+    </div>
+
+    <br><br>
+    <section>
+      <div>
+        <h1 style="color: #1c4982; font-size: 30px; font-style: bold">R Basics</h1>
+      </div>
+    </section>
+    <div style="display:block; margin:-50px;"></div>
+    
+    <!-- R Questions -->
+    <br><br><div class="field">
+      <div class="control">
+      <label class="label">1. Complete <code>[?]</code> to compute the weighted mean of the vector <code>scores &lt;- c(85, 90, 88, 92, 87)</code> with corresponding weights <code>weights &lt;- c(1, 2, 1, 1, 3)</code>.</label>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">85</span>, <span class="dv">90</span>, <span class="dv">88</span>, <span class="dv">92</span>, <span class="dv">87</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>weighted_mean <span class="ot">&lt;-</span> [?]</span></code></pre></div>
+</div>
+        <textarea
+          class="textarea"
+          placeholder="Provide your answer here"
+          name="code-1"
+        ></textarea>
+      </div>
+    </div>
+    
+    
+    <br><br><div class="field">
+      <div class="control">
+      <label class="label">2. Complete <code>[Blank 1]</code>, <code>[Blank 2]</code>, and <code>[Blank 3]</code> to compute the interquartile range (IQR) of the following vector <code>x &lt;- c(5, 7, 6, 9, 100, 8, 5, 7, 6)</code> manually, without using the <code>IQR()</code> function.</label>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">100</span>, <span class="dv">8</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">6</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> [Blank <span class="dv">1</span>](x, <span class="fl">0.25</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>q3 <span class="ot">&lt;-</span> [Blank <span class="dv">2</span>](x, [Blank <span class="dv">3</span>])</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>iqr_value <span class="ot">&lt;-</span> q3 <span class="sc">-</span> q1</span></code></pre></div>
+</div>
+        <textarea
+          class="textarea"
+          placeholder="Provide your answer for Blank 1"
+          name="code-2-1"
+        ></textarea>
+        <textarea
+          class="textarea"
+          placeholder="Provide your answer for Blank 2"
+          name="code-2-2"
+        ></textarea>
+        <textarea
+          class="textarea"
+          placeholder="Provide your answer for Blank 3"
+          name="code-2-3"
+        ></textarea>
+      </div>
+    </div>
+
+    <br><br><div class="field">
+      <div class="control">
+      <label class="label">3. Complete <code>[Blank 1]</code> and <code>[Blank 2]</code> to detect the outliers in the vector <code>x &lt;- c(5, 7, 6, 9, 100, 8, 5, 7, 6)</code> using the 1.5*IQR rule.</label>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>lower_bound <span class="ot">&lt;-</span> q1 <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> iqr_value</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>upper_bound <span class="ot">&lt;-</span> q3 <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> iqr_value</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>outliers_lower <span class="ot">&lt;-</span> [Blank <span class="dv">1</span>]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>outliers_upper <span class="ot">&lt;-</span> [Blank <span class="dv">2</span>]</span></code></pre></div>
+</div>
+
+        <textarea
+          class="textarea"
+          placeholder="Provide your answer for Blank 1"
+          name="code-3-1"
+        ></textarea>
+        <textarea
+          class="textarea"
+          placeholder="Provide your answer for Blank 2"
+          name="code-3-2"
+        ></textarea>
+      </div>
+    </div>
+
+
+<br><br><div class="field">
+      <div class="control">
+      <label class="label">4. Complete <code>[?]</code> to calculate the skewness of the vector <code>x &lt;- c(3, 5, 8, 12, 14, 15, 18, 20)</code> without using any external R package. Skewness is defined as:</label>
+
+<label class="label"><span class="math display">\[
+\text{Skewness} = \frac{n}{(n-1)(n-2)} \sum \left(\frac{x_i - \bar{x}}{s}\right)^3,
+\]</span> where <span class="math inline">\(s\)</span> is the standard deviation of the vector <code>x</code>.</label>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">18</span>, <span class="dv">20</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>mean_x <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>sd_x <span class="ot">&lt;-</span> <span class="fu">sd</span>(x)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>skewness <span class="ot">&lt;-</span> [?]</span></code></pre></div>
+</div>
+        <textarea
+          class="textarea"
+          placeholder="Provide your answer here"
+          name="code-4"
+        ></textarea>
+      </div>
+    </div>
+    
+    
+
+
+    <br><br><div class="field">
+      <div class="control">
+      <label class="label">5. Complete <code>[Blank 1]</code> and <code>[Blank 2]</code> to calculate <code>mode_v</code>, the mode of a numeric vector <code>v &lt;- c(2, 3, 5, 5, 6, 7, 3)</code> using the <code>mfv()</code> function provided by the R package <code>modest</code>.</label>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">3</span>, <span class="dv">5</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mode_v <span class="ot">&lt;-</span> [Blank <span class="dv">1</span>]<span class="sc">::</span>[Blank <span class="dv">2</span>](v)</span></code></pre></div>
+</div>
+
+        <textarea
+          class="textarea"
+          placeholder="Provide your answer for Blank 1"
+          name="code-5-1"
+        ></textarea>
+        <textarea
+          class="textarea"
+          placeholder="Provide your answer for Blank 2"
+          name="code-5-2"
+        ></textarea>
+      </div>
+    </div>
+  
+
+
+<br><br><div class="field">
+      <div class="control">
+      <label class="label">6. Complete <code>[?]</code> to calculate, <span class="math inline">\(z\)</span>, the vector for the standardized value of the vector <code>x &lt;- c(10, 20, 30, 40, 50)</code>. The standardized value of the individual value <span class="math inline">\(x_{i}\)</span> is defined as:</label>
+
+<label class="label">
+  <span class="math display">
+    \[
+    z_{i} = \frac{x_{i} - \mu}{\sigma},
+    \]
+  </span>
+  where:
+  <ul>
+    <li><span class="math inline">\(x_{i}\)</span>: <span class="math inline">\(i^{th}\)</span> value in the vector <span class="math inline">\({x}\)</span></li>
+    <li><span class="math inline">\(\mu\)</span>: the mean of values in <span class="math inline">\({x}\)</span></li>
+    <li><span class="math inline">\(\sigma\)</span>: the standard deviation of values in <span class="math inline">\(x\)</span></li>
+    <li><span class="math inline">\(z_{i}\)</span>: <span class="math inline">\(i^{th}\)</span> value in the vector <span class="math inline">\({z}\)</span>, the vector of the standardized values in <span class="math inline">\(x\)</span></li>
+  </ul>
+</label>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">18</span>, <span class="dv">20</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>mean_x <span class="ot">&lt;-</span> <span class="fu">mean</span>(x)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>sd_x <span class="ot">&lt;-</span> <span class="fu">sd</span>(x)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>skewness <span class="ot">&lt;-</span> [?]</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>skewness</span></code></pre></div>
+</div>
+        <textarea
+          class="textarea"
+          placeholder="Provide your answer here"
+          name="code-6"
+        ></textarea>
+      </div>
+    </div>  
+
+    <br><br>
+    
+    <section>
+      <div>
+        <h1 style="color: #1c4982; font-size: 30px; font-style: bold">Short-Answer Questions</h1>
+      </div>
+    </section>
+    
+    <div style="display:block; margin:-50px;"></div>
+    <!-- True/False Questions -->
+    <br><br><div class="field">
+      <label class="label">1. Data analytics aims to replace traditional business and economics courses. (True/False)</label>
+      <div class="control">
+        <label class="radio">
+          <input type="radio" name="q1" value="True" /> True
+        </label>
+        <label class="radio">
+          <input type="radio" name="q1" value="False" /> False
+        </label>
+      </div>
+    </div>
+
+    <br><br><div class="field">
+      <label class="label">2. Data analysts are the only professionals who benefit from data analytics skills. (True/False)</label>
+      <div class="control">
+        <label class="radio">
+          <input type="radio" name="q2" value="True" /> True
+        </label>
+        <label class="radio">
+          <input type="radio" name="q2" value="False" /> False
+        </label>
+      </div>
+    </div>
+
+    <br><br><div class="field">
+      <label class="label">3. Python and R are the only programming languages used in data science. (True/False)</label>
+      <div class="control">
+        <label class="radio">
+          <input type="radio" name="q3" value="True" /> True
+        </label>
+        <label class="radio">
+          <input type="radio" name="q3" value="False" /> False
+        </label>
+      </div>
+    </div>
+
+    <br><br><div class="field">
+      <label class="label">4. The use of generative AI requires a deep understanding of the subject matter to apply it effectively. (True/False)</label>
+      <div class="control">
+        <label class="radio">
+          <input type="radio" name="q4" value="True" /> True
+        </label>
+        <label class="radio">
+          <input type="radio" name="q4" value="False" /> False
+        </label>
+      </div>
+    </div>
+
+    <br><br><div class="field">
+      <label class="label">5. Machine learning algorithms need to be explicitly programmed for each task they perform. (True/False)</label>
+      <div class="control">
+        <label class="radio">
+          <input type="radio" name="q5" value="True" /> True
+        </label>
+        <label class="radio">
+          <input type="radio" name="q5" value="False" /> False
+        </label>
+      </div>
+    </div>
+
+    <!-- Multiple Choice Questions -->
+    <br><br><div class="field">
+      <label class="label">6. Which of the following skills is NOT typically covered in traditional business or economics classes?</label>
+      <div class="control">
+        <label class="radio">
+          <input type="radio" name="q6" value="a" /> Finding and cleaning datasets
+        </label>
+        <label class="radio">
+          <input type="radio" name="q6" value="b" /> Economic modeling
+        </label>
+        <label class="radio">
+          <input type="radio" name="q6" value="c" /> Market analysis
+        </label>
+        <label class="radio">
+          <input type="radio" name="q6" value="d" /> Investment portfolio management
+        </label>
+      </div>
+    </div>
+
+    <br><br><div class="field">
+      <label class="label">7. Which of the following is a key reason why R is widely used in data analysis?</label>
+      <div class="control">
+        <label class="radio">
+          <input type="radio" name="q7" value="a" /> It is a paid software
+        </label>
+        <label class="radio">
+          <input type="radio" name="q7" value="b" /> It is closed source
+        </label>
+        <label class="radio">
+          <input type="radio" name="q7" value="c" /> It is specifically designed for statistical computing
+        </label>
+        <label class="radio">
+          <input type="radio" name="q7" value="d" /> It is mostly used for web development
+        </label>
+      </div>
+    </div>
+
+    <br><br><div class="field">
+      <label class="label">8. Which question would you ask to analyze season ticket renewals in sports analytics?</label>
+      <div class="control">
+        <label class="radio">
+          <input type="radio" name="q8" value="a" /> How many players are on the team?
+        </label>
+        <label class="radio">
+          <input type="radio" name="q8" value="b" /> What factors drive last-minute individual seat ticket purchases?
+        </label>
+        <label class="radio">
+          <input type="radio" name="q8" value="c" /> What are the financial benefits of dynamic pricing?
+        </label>
+        <label class="radio">
+          <input type="radio" name="q8" value="d" /> Which type of fan engages most with team merchandise?
+        </label>
+      </div>
+    </div>
+
+    <br><br><div class="field">
+      <label class="label">9. Which of the following is a benefit of using Git in software development?</label>
+      <div class="control">
+        <label class="radio">
+          <input type="radio" name="q9" value="a" /> It helps analyze financial data
+        </label>
+        <label class="radio">
+          <input type="radio" name="q9" value="b" /> It tracks changes and helps manage multiple versions of a project
+        </label>
+        <label class="radio">
+          <input type="radio" name="q9" value="c" /> It predicts future trends using machine learning
+        </label>
+        <label class="radio">
+          <input type="radio" name="q9" value="d" /> It assists in generating reports and dashboards
+        </label>
+      </div>
+    </div>
+
+    <br><br><div class="field">
+      <label class="label">10. Which of the following is a key application of data analytics in the retail sector?</label>
+      <div class="control">
+        <label class="radio">
+          <input type="radio" name="q10" value="a" /> Enhancing physical store layouts based on customer behavior
+        </label>
+        <label class="radio">
+          <input type="radio" name="q10" value="b" /> Developing machine learning algorithms
+        </label>
+        <label class="radio">
+          <input type="radio" name="q10" value="c" /> Analyzing sports team tactics
+        </label>
+        <label class="radio">
+          <input type="radio" name="q10" value="d" /> Predicting election results
+        </label>
+      </div>
+    </div>
+
+    <br><br><div class="field">
+      <label class="label">11. Why are R and Python considered important tools for data analytics?</label>
+      <div class="control">
+        <textarea
+          class="textarea"
+          placeholder="Enter your answer"
+          name="q11"
+        ></textarea>
+      </div>
+    </div>
+
+    <br><br><div class="field">
+      <label class="label">12. Explain why understanding the output of Generative AI tools like ChatGPT is important for data analysts or data scientists.</label>
+      <div class="control">
+        <textarea
+          class="textarea"
+          placeholder="Enter your answer"
+          name="q12"
+        ></textarea>
+      </div>
+    </div>
+
+    <br><br><div class="field">
+      <label class="label">13. How does dynamic ticket pricing work in sports analytics?</label>
+      <div class="control">
+        <textarea
+          class="textarea"
+          placeholder="Enter your answer"
+          name="q13"
+        ></textarea>
+      </div>
+    </div>
+
+    <br><br><div class="field">
+      <label class="label">14. How do business intelligence (BI) tools assist in decision-making for businesses?</label>
+      <div class="control">
+        <textarea
+          class="textarea"
+          placeholder="Enter your answer"
+          name="q14"
+        ></textarea>
+      </div>
+    </div>
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary" type="submit" id="submit-button">
+            Submit
+          </button>
+        </div>
+        <div class="control">
+          <button class="button is-danger">Cancel</button>
+        </div>
+      </div>
+    </form>
+    <div
+      id="message"
+      style="
+        display: none;
+        margin: 18px;
+        font-weight: bold;
+        color: green;
+        padding: 8px;
+        background-color: beige;
+        border-radius: 4px;
+        border-color: aquamarine;
+      "
+    ></div>
+
+    <script>
+      document.getElementById("form").addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent the default form submission
+        document.getElementById("message").textContent = "Submitting..";
+        document.getElementById("message").style.display = "block";
+        document.getElementById("submit-button").disabled = true;
+
+        // Collect the form data
+        var formData = new FormData(this);
+        var keyValuePairs = [];
+        for (var pair of formData.entries()) {
+          keyValuePairs.push(pair[0] + "=" + pair[1]);
+        }
+
+        var formDataString = keyValuePairs.join("&");
+
+        // Send a POST request to your Google Apps Script
+        fetch(
+          "https://script.google.com/macros/s/AKfycbz-exeZcDwckiJPi80JZxW7ucIylwIuRLNdouJcLXHD-yEiX5COZPOt8lVfCxYzLhEh/exec",
+          {
+            redirect: "follow",
+            method: "POST",
+            body: formDataString,
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8",
+            },
+          }
+        )
+          .then(function (response) {
+            // Check if the request was successful
+            if (response) {
+              return response; // Assuming your script returns JSON response
+            } else {
+              throw new Error("Failed to submit the form.");
+            }
+          })
+          .then(function (data) {
+            // Display a success message
+            document.getElementById("message").textContent =
+              "Data submitted successfully!";
+            document.getElementById("message").style.display = "block";
+            document.getElementById("message").style.backgroundColor = "green";
+            document.getElementById("message").style.color = "beige";
+            document.getElementById("submit-button").disabled = false;
+            document.getElementById("form").reset();
+
+            setTimeout(function () {
+              document.getElementById("message").textContent = "";
+              document.getElementById("message").style.display = "none";
+            }, 2600);
+          })
+          .catch(function (error) {
+            // Handle errors, you can display an error message here
+            console.error(error);
+            document.getElementById("message").textContent =
+              "An error occurred while submitting the form.";
+            document.getElementById("message").style.display = "block";
+          });
+      });
+    </script>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../assets/css/font.css">
+<style>
+  .textarea {
+    width: 300px;
+    height: 100px;
+  }
+</style>
+</html>
