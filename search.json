@@ -11,7 +11,7 @@
     "href": "listing-danl-101-hw.html",
     "title": "DANL 101 - Homework",
     "section": "",
-    "text": "Title\n\n\nSubtitle\n\n\nDate\n\n\n\n\n\n\nHomework Assignment 1\n\n\n\n\n\nSeptember 9, 2024\n\n\n\n\n\n\nNo matching items\n\n Back to top"
+    "text": "Title\n\n\nSubtitle\n\n\nDate\n\n\n\n\n\n\nHomework Assignment 1\n\n\n\n\n\nSeptember 12, 2024\n\n\n\n\n\n\nNo matching items\n\n Back to top"
   },
   {
     "objectID": "listing-danl-101-cw.html",
@@ -991,7 +991,7 @@
     "href": "index.html#bullet-homework",
     "title": "DANL 101-05: Introduction to Data Analytics, Fall 2024",
     "section": "\\(\\bullet\\,\\) Homework 💻",
-    "text": "\\(\\bullet\\,\\) Homework 💻\n\n\n\n\n\n\nTitle\n\n\nDate\n\n\n\n\n\n\nHomework Assignment 1\n\n\nSeptember 9, 2024\n\n\n\n\n\n\nNo matching items"
+    "text": "\\(\\bullet\\,\\) Homework 💻\n\n\n\n\n\n\nTitle\n\n\nDate\n\n\n\n\n\n\nHomework Assignment 1\n\n\nSeptember 12, 2024\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "listing-danl-101-lec.html",
@@ -1929,32 +1929,39 @@
     "href": "danl-lec/danl-101-lec-08-2024-0913.html#r-basics-1",
     "title": "Lecture 7",
     "section": "R Basics",
-    "text": "R Basics\nAbsolute vs. Relative Pathnames\n\n\nAbsolute PathRelative Path\n\n\n\nComplete path from the root directory to the target file or directory.\nIndependent of the current working directory.\nExample\n\nMac:\n\n/Users/user/documents/data/car_data.csv\n\nWindows:\n\nC:\\\\Users\\\\user\\\\Documents\\\\data\\\\car_data.csv\n\n\n\n\n\n\nPath relative to the working directory.\n\nRelative path changes based on the working directory. \n\nExample:\n\nAbsolute pathname for car_data.csv is /Users/user/documents/data/car_data.csv.\nSuppose the current directory is /Users/user/documents/.\nThen, the relative pathname for car_data.csv is dada/car_data.csv.\n\nFor the Posit Cloud project, we can use a relative path.\n\nThe current working directory in is /cloud/project/"
+    "text": "R Basics\nAbsolute Pathnames\n\nComplete path from the root directory to the target file or directory.\nIndependent of the working directory.\n\ngetwd() returns the pathname of the working directory.\nThe working directory for a Posit Cloud project is /cloud/project/\n\nExample of absolute pathnames for custdata_rev.csv\n\nMac:\n\n/Users/user/documents/data/custdata_rev.csv\n\nWindows:\n\nC:\\\\Users\\\\user\\\\Documents\\\\data\\\\custdata_rev.csv"
   },
   {
     "objectID": "danl-lec/danl-101-lec-08-2024-0913.html#r-basics-2",
     "href": "danl-lec/danl-101-lec-08-2024-0913.html#r-basics-2",
     "title": "Lecture 7",
     "section": "R Basics",
-    "text": "R Basics\nWorking with Data from Files\n\n\nWe use the read_csv() function to read a comma-separated values (CSV) file.\n\n\nDownload the CSV file, car_data.csv from the Class Files module in our Brightspace.\nCreate a sub-directory, data, by clicking “New Folder” in the Files Pane in Posit Cloud.\nUpload the car_data.csv file to the sub-directory data.\nProvide the relative pathname for the file, car_data.csv, to the read_csv() function.\n\nuciCar &lt;- read_csv('HERE WE PROVIDE A RELATIVE PATHNAME FOR car_data.csv')\nView(uciCar)\n\nView()/view() displays the data in a simple spreadsheet-like grid."
+    "text": "R Basics\nRelative Pathnames\n\nPath relative to the working directory.\nExample:\n\nAbsolute pathname for custdata_rev.csv is /Users/user/documents/data/custdata_rev.csv.\nSuppose the working directory is /Users/user/documents/.\nThen, the relative pathname for custdata_rev.csv is dada/custdata_rev.csv.\n\nWhen using the Posit Cloud project, we can use a relative path to read a file."
   },
   {
     "objectID": "danl-lec/danl-101-lec-08-2024-0913.html#r-basics-3",
     "href": "danl-lec/danl-101-lec-08-2024-0913.html#r-basics-3",
     "title": "Lecture 7",
     "section": "R Basics",
-    "text": "R Basics\nExamining data.frames\n\n\nclass(uciCar)\ndim(uciCar)\nnrow(uciCar)\nncol(uciCar)\n\nlibrary(skimr)\nskim(uciCar)\n\n\n\ndim() shows how many rows and columns are in the data for data.frame.\nnrow() and ncol() shows the number of rows and columns for data.frame respectively.\nskimr::skim() provides a more detailed summary.\n\nskimr is the R package that provides the function skim()."
+    "text": "R Basics\nWorking with Data from Files\n\n\nWe use the read_csv() function to read a comma-separated values (CSV) file.\n\n\nDownload the CSV file, custdata_rev.csv from the Class Files module in our Brightspace.\nCreate a sub-directory, data, by clicking “New Folder” in the Files Pane in Posit Cloud.\nUpload the custdata_rev.csv file to the sub-directory data.\nProvide the relative pathname for the file, custdata_rev.csv, to the read_csv() function.\n\ncustdata &lt;- read_csv('HERE WE PROVIDE A RELATIVE PATHNAME FOR custdata_rev.csv')\nView(custdata)\n\nView() displays the data in a simple spreadsheet-like grid."
   },
   {
     "objectID": "danl-lec/danl-101-lec-08-2024-0913.html#r-basics-4",
     "href": "danl-lec/danl-101-lec-08-2024-0913.html#r-basics-4",
     "title": "Lecture 7",
     "section": "R Basics",
-    "text": "R Basics\nReading data.frames from an URL\ntvshows &lt;- read_csv(\n        'https://bcdanl.github.io/data/tvshows.csv')\n\nWe can import the CSV file from the web."
+    "text": "R Basics\nExamining data.frames\n\n\nclass(custdata)\ndim(custdata)\nnrow(custdata)\nncol(custdata)\n\nsummary(custdata_rev)\nlibrary(skimr)\nskim(custdata_rev)\n\n\n\ndim() shows how many rows and columns are in the data for data.frame.\nnrow() and ncol() shows the number of rows and columns for data.frame respectively.\nskimr::skim() refers to the skim() function from the skimr package.\n\nThis provides a more comprehensive summary.\nIt’s a more user-friendly alternative to functions like base-R’s summary(), offering both numerical and categorical summaries."
   },
   {
     "objectID": "danl-lec/danl-101-lec-08-2024-0913.html#r-basics-5",
     "href": "danl-lec/danl-101-lec-08-2024-0913.html#r-basics-5",
+    "title": "Lecture 7",
+    "section": "R Basics",
+    "text": "R Basics\nReading data.frames from an URL\ntvshows &lt;- read_csv(\n        'https://bcdanl.github.io/data/tvshows.csv')\n\nWe can import the CSV file from the web."
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-08-2024-0913.html#r-basics-6",
+    "href": "danl-lec/danl-101-lec-08-2024-0913.html#r-basics-6",
     "title": "Lecture 7",
     "section": "R Basics",
     "text": "R Basics\nTidy data.frame: Variables, Observations, and Values\n\n\n\n\nThere are three rules which make a data.frame tidy:\n\nEach variable must have its own column.\nEach observation must have its own row.\nEach value must have its own cell.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n:::\n\n\n\n\n–&gt;  –&gt;  –&gt;  –&gt;"

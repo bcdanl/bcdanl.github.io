@@ -267,37 +267,35 @@ quantile(x, 1) # the maximum
 
 
 ## R Basics
-### Absolute vs. Relative Pathnames
-
-::: {.nonincremental}
-::: {.panel-tabset}
-
-## Absolute Path
+### Absolute Pathnames
 
 - Complete path from the root directory to the target file or directory.
-- Independent of the current working directory.
+- Independent of the working directory.
+  - `getwd()` returns the pathname of the working directory.
+  - The working directory for a *Posit Cloud* project is `/cloud/project/`
 
-- Example 
+- Example of absolute pathnames for `custdata_rev.csv`
   - Mac: 
-    - `/Users/user/documents/data/car_data.csv`
+    - `/Users/user/documents/data/custdata_rev.csv`
   - Windows: 
-    - `C:\\Users\\user\\Documents\\data\\car_data.csv`
+    - `C:\\Users\\user\\Documents\\data\\custdata_rev.csv`
 
 
-## Relative Path
+
+
+## R Basics
+### Relative Pathnames
 
 - Path relative to the working directory.
-  - Relative path changes based on the working directory.
-<!-- - Uses '.' for current directory and '..' for parent directory. -->
-- **Example**: 
-  - Absolute pathname for `car_data.csv` is `/Users/user/documents/data/car_data.csv`.
-  - Suppose the current directory is `/Users/user/documents/`. 
-  - Then, the relative pathname for `car_data.csv` is `dada/car_data.csv`.
-- For the Posit Cloud project, we can use a relative path.
-  - The current working directory in  is `/cloud/project/`
 
-:::
-:::
+- **Example**: 
+  - Absolute pathname for `custdata_rev.csv` is `/Users/user/documents/data/custdata_rev.csv`.
+  - Suppose the working directory is `/Users/user/documents/`. 
+  - Then, the relative pathname for `custdata_rev.csv` is `dada/custdata_rev.csv`.
+  
+
+- When using the Posit Cloud project, we can use a relative path to read a file.
+
 
 ## R Basics
 ### Working with Data from Files
@@ -306,20 +304,20 @@ quantile(x, 1) # the maximum
 :::{.nonincremental}
 - We use the `read_csv()` function to read a comma-separated values (CSV) file.
 
-1. Download the CSV file, `car_data.csv` from the Class Files module in our Brightspace.
+1. Download the CSV file, `custdata_rev.csv` from the Class Files module in our Brightspace.
 
 2. Create a sub-directory, `data`, by clicking "New Folder" in the Files Pane in Posit Cloud.
 
-3. Upload the `car_data.csv` file to the sub-directory `data`.
+3. Upload the `custdata_rev.csv` file to the sub-directory `data`.
 
-4. Provide the relative pathname for the file, `car_data.csv`, to the `read_csv()` function.
+4. Provide the relative pathname for the file, `custdata_rev.csv`, to the `read_csv()` function.
 
 ```{.r}
-uciCar <- read_csv('HERE WE PROVIDE A RELATIVE PATHNAME FOR car_data.csv')
-View(uciCar)
+custdata <- read_csv('HERE WE PROVIDE A RELATIVE PATHNAME FOR custdata_rev.csv')
+View(custdata)
 ```
 
-- `View()`/`view()` displays the data in a simple spreadsheet-like grid.
+- `View()` displays the data in a simple spreadsheet-like grid.
 
 :::
 
@@ -332,26 +330,35 @@ View(uciCar)
 :::: {.columns}
 ::: {.column width="50%"}
 ```{.r}
-class(uciCar)
-dim(uciCar)
-nrow(uciCar)
-ncol(uciCar)
+class(custdata)
+dim(custdata)
+nrow(custdata)
+ncol(custdata)
 ```
 :::
 
 ::: {.column width="50%"}
+
+```{.r}
+summary(custdata_rev)
+```
+
 ```{.r}
 library(skimr)
-skim(uciCar)
+skim(custdata_rev)
 ```
+
 :::
 
 ::::
 
 - `dim()` shows how many rows and columns are in the data for `data.frame`.
 - `nrow()` and `ncol()` shows the number of rows and columns for `data.frame` respectively.
-- `skimr::skim()` provides a more detailed summary.
-  - `skimr` is the R package that provides the function `skim()`.
+- `skimr::skim()` refers to the `skim()` function from the `skimr` package.
+  - This provides a more comprehensive summary.
+  - It’s a more user-friendly alternative to functions like base-R's `summary()`, offering both numerical and categorical summaries.
+  
+  
 
 
 

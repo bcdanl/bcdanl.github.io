@@ -627,51 +627,42 @@ Byeong-Hak Choe
 </section>
 <section id="r-basics-1" class="slide level2">
 <h2>R Basics</h2>
-<h3 id="absolute-vs.-relative-pathnames">Absolute vs.&nbsp;Relative Pathnames</h3>
-<div>
-<div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Absolute Path</a></li><li><a href="#tabset-1-2">Relative Path</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1">
+<h3 id="absolute-pathnames">Absolute Pathnames</h3>
 <ul>
-<li><p>Complete path from the root directory to the target file or directory.</p></li>
-<li><p>Independent of the current working directory.</p></li>
-<li><p>Example</p>
+<li class="fragment">Complete path from the root directory to the target file or directory.</li>
+<li class="fragment">Independent of the working directory.
 <ul>
-<li>Mac:
-<ul>
-<li><code>/Users/user/documents/data/car_data.csv</code></li>
+<li class="fragment"><code>getwd()</code> returns the pathname of the working directory.</li>
+<li class="fragment">The working directory for a <em>Posit Cloud</em> project is <code>/cloud/project/</code></li>
 </ul></li>
-<li>Windows:
+<li class="fragment">Example of absolute pathnames for <code>custdata_rev.csv</code>
 <ul>
-<li><code>C:\\Users\\user\\Documents\\data\\car_data.csv</code></li>
+<li class="fragment">Mac:
+<ul>
+<li class="fragment"><code>/Users/user/documents/data/custdata_rev.csv</code></li>
 </ul></li>
+<li class="fragment">Windows:
+<ul>
+<li class="fragment"><code>C:\\Users\\user\\Documents\\data\\custdata_rev.csv</code></li>
 </ul></li>
-</ul>
-</div>
-<div id="tabset-1-2">
-<ul>
-<li>Path relative to the working directory.
-<ul>
-<li>Relative path changes based on the working directory. <!-- - Uses '.' for current directory and '..' for parent directory. --></li>
-</ul></li>
-<li><strong>Example</strong>:
-<ul>
-<li>Absolute pathname for <code>car_data.csv</code> is <code>/Users/user/documents/data/car_data.csv</code>.</li>
-<li>Suppose the current directory is <code>/Users/user/documents/</code>.</li>
-<li>Then, the relative pathname for <code>car_data.csv</code> is <code>dada/car_data.csv</code>.</li>
-</ul></li>
-<li>For the Posit Cloud project, we can use a relative path.
-<ul>
-<li>The current working directory in is <code>/cloud/project/</code></li>
 </ul></li>
 </ul>
-</div>
-</div>
-</div>
-</div>
 </section>
 <section id="r-basics-2" class="slide level2">
+<h2>R Basics</h2>
+<h3 id="relative-pathnames">Relative Pathnames</h3>
+<ul>
+<li class="fragment"><p>Path relative to the working directory.</p></li>
+<li class="fragment"><p><strong>Example</strong>:</p>
+<ul>
+<li class="fragment">Absolute pathname for <code>custdata_rev.csv</code> is <code>/Users/user/documents/data/custdata_rev.csv</code>.</li>
+<li class="fragment">Suppose the working directory is <code>/Users/user/documents/</code>.</li>
+<li class="fragment">Then, the relative pathname for <code>custdata_rev.csv</code> is <code>dada/custdata_rev.csv</code>.</li>
+</ul></li>
+<li class="fragment"><p>When using the Posit Cloud project, we can use a relative path to read a file.</p></li>
+</ul>
+</section>
+<section id="r-basics-3" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="working-with-data-from-files">Working with Data from Files</h3>
 <div>
@@ -679,51 +670,53 @@ Byeong-Hak Choe
 <li>We use the <code>read_csv()</code> function to read a comma-separated values (CSV) file.</li>
 </ul>
 <ol type="1">
-<li><p>Download the CSV file, <code>car_data.csv</code> from the Class Files module in our Brightspace.</p></li>
+<li><p>Download the CSV file, <code>custdata_rev.csv</code> from the Class Files module in our Brightspace.</p></li>
 <li><p>Create a sub-directory, <code>data</code>, by clicking “New Folder” in the Files Pane in Posit Cloud.</p></li>
-<li><p>Upload the <code>car_data.csv</code> file to the sub-directory <code>data</code>.</p></li>
-<li><p>Provide the relative pathname for the file, <code>car_data.csv</code>, to the <code>read_csv()</code> function.</p></li>
+<li><p>Upload the <code>custdata_rev.csv</code> file to the sub-directory <code>data</code>.</p></li>
+<li><p>Provide the relative pathname for the file, <code>custdata_rev.csv</code>, to the <code>read_csv()</code> function.</p></li>
 </ol>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>uciCar <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'HERE WE PROVIDE A RELATIVE PATHNAME FOR car_data.csv'</span>)</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">View</span>(uciCar)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>custdata <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'HERE WE PROVIDE A RELATIVE PATHNAME FOR custdata_rev.csv'</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">View</span>(custdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
-<li><code>View()</code>/<code>view()</code> displays the data in a simple spreadsheet-like grid.</li>
+<li><code>View()</code> displays the data in a simple spreadsheet-like grid.</li>
 </ul>
 </div>
 </section>
-<section id="r-basics-3" class="slide level2">
+<section id="r-basics-4" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="examining-data.frames">Examining data.frames</h3>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">class</span>(uciCar)</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">dim</span>(uciCar)</span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="fu">nrow</span>(uciCar)</span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="fu">ncol</span>(uciCar)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">class</span>(custdata)</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">dim</span>(custdata)</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="fu">nrow</span>(custdata)</span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="fu">ncol</span>(custdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:50%;">
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">skim</span>(uciCar)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">summary</span>(custdata_rev)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">library</span>(skimr)</span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">skim</span>(custdata_rev)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <ul>
 <li class="fragment"><code>dim()</code> shows how many rows and columns are in the data for <code>data.frame</code>.</li>
 <li class="fragment"><code>nrow()</code> and <code>ncol()</code> shows the number of rows and columns for <code>data.frame</code> respectively.</li>
-<li class="fragment"><code>skimr::skim()</code> provides a more detailed summary.
+<li class="fragment"><code>skimr::skim()</code> refers to the <code>skim()</code> function from the <code>skimr</code> package.
 <ul>
-<li class="fragment"><code>skimr</code> is the R package that provides the function <code>skim()</code>.</li>
+<li class="fragment">This provides a more comprehensive summary.</li>
+<li class="fragment">It’s a more user-friendly alternative to functions like base-R’s <code>summary()</code>, offering both numerical and categorical summaries.</li>
 </ul></li>
 </ul>
 </section>
-<section id="r-basics-4" class="slide level2">
+<section id="r-basics-5" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="reading-data.frames-from-an-url">Reading data.frames from an URL</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>tvshows <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
-<span id="cb10-2"><a href="#cb10-2"></a>        <span class="st">'https://bcdanl.github.io/data/tvshows.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>tvshows <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb11-2"><a href="#cb11-2"></a>        <span class="st">'https://bcdanl.github.io/data/tvshows.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">We can import the CSV file from the web.</li>
 </ul>
 </section>
-<section id="r-basics-5" class="slide level2">
+<section id="r-basics-6" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="tidy-data.frame-variables-observations-and-values">Tidy <code>data.frame</code>: Variables, Observations, and Values</h3>
 <p align="center">
