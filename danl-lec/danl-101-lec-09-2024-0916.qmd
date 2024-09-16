@@ -1,0 +1,180 @@
+---
+title: Lecture 9
+subtitle: R Basics
+format:
+  clean-revealjs:
+    self-contained: false
+    chalkboard: true
+    incremental: false
+    code-annotations: hover
+    scrollable: false
+
+    # logo: logo-title-slide.png
+author:
+  - name: Byeong-Hak Choe
+    email: bchoe@geneseo.edu
+    affiliations: SUNY Geneseo
+date: 2024-09-16
+execute: 
+  eval: true
+  echo: false
+callout-icon: false
+
+from: markdown+emoji
+include-after-body: target-hover.html # effect.html
+
+# bibliography: refs.bib
+---
+
+
+```{r setup}
+#| include: false
+library(tidyverse)
+library(skimr)
+library(ggthemes)
+library(hrbrthemes)
+
+
+theme_set(theme_fivethirtyeight()+
+          theme(strip.background =element_rect(fill="lightgray"),
+                axis.title.x = 
+                  element_text(angle = 0,
+                               size = rel(1.5),
+                               margin = margin(10,0,0,0)),
+                axis.title.y = 
+                  element_text(angle = 0,
+                               size = rel(1.5),
+                               margin = margin(0,10,0,0)),
+                axis.text.x = element_text(size = rel(1.5)),
+                axis.text.y = element_text(size = rel(1.5)),
+                strip.text = element_text(size = rel(1.5)),
+                legend.position = "top",
+                legend.text = element_text(size = rel(1.5)),
+                legend.title = element_text(size = rel(1.5))
+                )
+          )
+```
+
+
+    
+
+# R Basics  {background-color="#1c4982"}
+
+
+## R Basics
+### Accessing Subsets of Vectors in R
+
+#### Index
+- A numerical or positional reference used to access individual elements within data structures like a vector or a data.frame.
+  - In R, the index starts at 1. 
+```{.r}
+my_vector <- c(10, 20, 30, 40, 50)
+my_vector[1]
+my_vector[5]
+```
+
+
+
+## R Basics
+### Accessing Subsets of Vectors in R
+
+#### Slicing with a Range
+- **Selecting multiple elements** by providing a range of indices.
+```{.r}
+# Selects elements from index 2 to 4
+my_vector[2:4]
+
+# Selects elements from index 3 to 5
+my_vector[3:5]
+```
+
+
+
+## R Basics
+### Accessing Subsets of Vectors in R
+
+#### Logical Indexing
+- **Using conditions** to filter elements of a vector.
+```{.r}
+# Selects elements greater than 10
+logi_condition <- my_vector > 10
+my_vector[ logi_condition ] 
+```
+
+
+
+
+## R Basics
+### Tidy `data.frame`: Variables, Observations, and Values
+
+
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/tidy-1.png">
+</p>
+
+
+- There are three rules which make a `data.frame` tidy:
+
+  1. Each **variable** must have its own *column*.
+  2. Each **observation** must have its own *row*.
+  3. Each **value** must have its own *cell*.
+
+
+
+<!-- # Estimating the Price Elasticity of Orange Juice {background-color="#1c4982"} -->
+
+
+<!-- ## Data Science Workflow -->
+<!-- ### The Lifecycle of a Data Science Project -->
+
+<!-- <div style="text-align: center; width: 100%; margin: auto;"> -->
+<!--   <img src="https://bcdanl.github.io/lec_figs/r4ds-fig1-1-whole-game.png" style="width: 45%; margin-bottom: -20px;"> -->
+<!--   <p style="font-weight: bold;"></p> -->
+<!-- </div> -->
+
+
+<!-- ::: {.nonincremental} -->
+<!-- - With the example of estimating the *price elasticity* of orange juice (OJ), this section rapidly overviews the main tools of data science:  -->
+<!--   - Importing, tidying, transforming, and visualizing data, as well as ML modeling. -->
+<!--   - Note: Price elasticity of demand is a measure of how *sensitive* the quantity demanded of a good or service is to a change in its price. -->
+
+<!-- $$ -->
+<!-- (\text{Price Elasticity of Demand}) = \frac{(\text{% Change in Quantity Demanded})}{(\text{% Change in Price})} -->
+<!-- $$ -->
+
+:::
+
+
+<!-- ## Price Elasticity of Orange Juice in Dominick's Supermarket -->
+
+<!-- ::::{.columns} -->
+
+<!-- ::: {.column width="40%"} -->
+<!-- <!-- <div style="text-align: center; width: 100%; margin: auto;"> --> -->
+<!-- <!--   <img src="https://bcdanl.github.io/lec_figs/dominicks.jpeg" style="width: 100%; margin-bottom: -20px;"> --> -->
+<!-- <!--   <p style="font-weight: bold;"></p> --> -->
+<!-- <!-- </div> --> -->
+<!-- <div style="text-align: center; width: 100%; margin: auto;"> -->
+<!--   <img src="https://bcdanl.github.io/lec_figs/oj-tropicana-mm.png" style="width: 100%; margin-bottom: -20px;"> -->
+<!--   <p style="font-weight: bold;"></p> -->
+<!-- </div> -->
+
+<!-- ::: -->
+
+<!-- :::{.column width="60%"} -->
+
+<!-- - To estimate the price elasticity of OJ, we will use sales data for OJ from Dominick’s grocery stores in the 1990s. -->
+<!--   - Weekly `price` and `sales` (in number of cartons "sold") for three OJ brands---Tropicana, Minute Maid, Dominick's. -->
+<!--   - A dummy, `ad`, showing whether each `brand` was advertised (in store or flyer) that week. -->
+
+<!-- ::: -->
+
+<!-- :::: -->
+
+
+<!-- ## Price Elasticity of Orange Juice in Dominick's Supermarket -->
+<!-- ### Descriptive Statitstics -->
+
+
+
+

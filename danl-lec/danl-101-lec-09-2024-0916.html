@@ -11,8 +11,8 @@
   <meta name="generator" content="quarto-1.3.450">
 
   <meta name="author" content="Byeong-Hak Choe">
-  <meta name="dcterms.date" content="2024-09-13">
-  <title>Home - Lecture 8</title>
+  <meta name="dcterms.date" content="2024-09-16">
+  <title>Home - Lecture 9</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -393,7 +393,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Lecture 8</h1>
+  <h1 class="title">Lecture 9</h1>
   <p class="subtitle">R Basics</p>
 
 <div class="quarto-title-authors">
@@ -410,314 +410,94 @@ Byeong-Hak Choe
     </div>
 </div>
 
-  <p class="date">September 13, 2024</p>
+  <p class="date">September 16, 2024</p>
 </section>
 <section>
 <section id="r-basics" class="title-slide slide level1 center" data-background-color="#1c4982">
 <h1>R Basics</h1>
 
 </section>
-<section id="descriptive-statistics" class="slide level2">
-<h2>Descriptive Statistics</h2>
-<div style="text-align: center; width: 65%; margin: auto;">
-<img src="https://bcdanl.github.io/lec_figs/descriptive-stat-ex.jpg" style="width: 100%; margin-bottom: -20px;">
-<p style="font-weight: bold;">
-</p>
-</div>
-<ul>
-<li class="fragment"><p>Descriptive statistics condense data into manageable summaries, making it easier to understand key characteristics of the data.</p>
-<ul>
-<li class="fragment">They help reveal patterns, trends, and relationships within the data that might not be immediately apparent from raw numbers.</li>
-</ul></li>
-</ul>
-</section>
-<section id="descriptive-statistics-1" class="slide level2">
-<h2>Descriptive Statistics</h2>
-<ul>
-<li class="fragment"><strong>Data quality assessment</strong>:
-<ul>
-<li class="fragment">Descriptive statistics can highlight potential issues in data quality, such as outliers or unexpected distributions, prompting further investigation.</li>
-</ul></li>
-<li class="fragment"><strong>Foundation for further analysis</strong>:
-<ul>
-<li class="fragment">Descriptive statistics often serve as a starting point for more advanced statistical analyses and predictive modeling.</li>
-</ul></li>
-<li class="fragment"><strong>Data visualization enhancement</strong>:
-<ul>
-<li class="fragment">Descriptive statistics often form the basis for effective data visualizations, making complex data more accessible and understandable.</li>
-</ul></li>
-</ul>
-</section>
-<section id="descriptive-statistics-2" class="slide level2">
-<h2>Descriptive Statistics</h2>
-<h3 id="measures-of-central-tendency">Measures of Central Tendency</h3>
-<ul>
-<li class="fragment">Measures of <strong>centrality</strong> are used to describe the central or typical value in a given vector.
-<ul>
-<li class="fragment">They represent the “center” or most representative value of a data set.</li>
-</ul></li>
-<li class="fragment">To describe this centrality, several statistical measures are commonly used:
-<ul>
-<li class="fragment"><strong>Mean</strong>: The arithmetic average of all values in the data set.</li>
-<li class="fragment"><strong>Median</strong>: The middle value when the data set is ordered from least to greatest.</li>
-<li class="fragment"><strong>Mode</strong>: The most frequently occurring value in the data set.</li>
-</ul></li>
-</ul>
-</section>
-<section id="measures-of-central-tendency-1" class="slide level2">
-<h2>Measures of Central Tendency</h2>
-<h3 id="mean">Mean</h3>
-<p><span class="math display">\[
-\overline{x} = \frac{x_{1} + x_{2} + \cdots + x_{N}}{N}
-\]</span></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">sum</span>(x)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">mean</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li class="fragment">The <strong>arithmetic mean</strong> (or simply <em>mean</em> or <em>average</em>) is the sum of all the values divided by the number of observations in the data set.
-<ul>
-<li class="fragment"><code>mean()</code> calculates the mean of the values in a vector.</li>
-<li class="fragment">For a given vector <span class="math inline">\(x\)</span>, if we happen to have <span class="math inline">\(N\)</span> observations <span class="math inline">\((x_{1}, x_{2}, \cdots , x_{N})\)</span>, we can write the arithmetic mean of the data sample as above.</li>
-</ul></li>
-</ul>
-</section>
-<section id="measures-of-central-tendency-2" class="slide level2">
-<h2>Measures of Central Tendency</h2>
-<h3 id="median">Median</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div style="text-align: center; width: 100%; margin: auto;">
-<img src="https://bcdanl.github.io/lec_figs/median-formula.jpg" style="width: 100%; margin-bottom: -20px;">
-<p style="font-weight: bold;">
-</p>
-</div>
-</div><div class="column" style="width:50%;">
-<div style="text-align: center; width: 100%; margin: auto;">
-<img src="https://bcdanl.github.io/lec_figs/median_eg.png" style="width: 100%; margin-bottom: -20px;">
-<p style="font-weight: bold;">
-</p>
-</div>
-</div>
-</div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">median</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li class="fragment">The <strong>median</strong> is the measure of center value in a given vector.
-<ul>
-<li class="fragment"><code>median()</code> calculates the <strong>median</strong> of the values in a vector.</li>
-</ul></li>
-</ul>
-</section>
-<section id="measures-of-central-tendency-3" class="slide level2">
-<h2>Measures of Central Tendency</h2>
-<h3 id="mode">Mode</h3>
-<ul>
-<li class="fragment"><p>The <strong>mode</strong> is the value(s) that occurs most frequently in a given vector.</p></li>
-<li class="fragment"><p>Mode is useful, although it is often not a very good representation of centrality.</p></li>
-<li class="fragment"><p>The R package, <code>modest</code>, provides the <code>mfw(x)</code> function that calculate the mode of values in vector <code>x</code>.</p></li>
-</ul>
-</section>
-<section id="descriptive-statistics-3" class="slide level2">
-<h2>Descriptive Statistics</h2>
-<h3 id="measures-of-dispersion">Measures of Dispersion</h3>
-<ul>
-<li class="fragment">Measures of <strong>dispersion</strong> are used to describe the degree of variation in a given vector.
-<ul>
-<li class="fragment">They are a representation of the numerical spread of a given data set.</li>
-</ul></li>
-<li class="fragment">To describe this dispersion, a number of statistical measures are developed
-<ul>
-<li class="fragment">Range</li>
-<li class="fragment">Variance</li>
-<li class="fragment">Standard deviation</li>
-<li class="fragment">Quartile</li>
-</ul></li>
-</ul>
-</section>
-<section id="measures-of-dispersion-1" class="slide level2">
-<h2>Measures of Dispersion</h2>
-<h3 id="range">Range</h3>
-<p><span class="math display">\[
-(\text{range of x}) \,=\, (\text{maximum value in x}) \,-\, (\text{minimum value in x})
-\]</span></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="fu">max</span>(x)</span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">min</span>(x)</span>
-<span id="cb3-4"><a href="#cb3-4"></a>range <span class="ot">&lt;-</span> <span class="fu">max</span>(x) <span class="sc">-</span> <span class="fu">min</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li class="fragment">The <strong>range</strong> is the difference between the largest and the smallest values in a given vector.
-<ul>
-<li class="fragment"><code>max(x)</code> returns the maximum value of the values in a given vector <span class="math inline">\(x\)</span>.</li>
-<li class="fragment"><code>min(x)</code> returns the minimum value of the values in a given vector <span class="math inline">\(x\)</span>.</li>
-</ul></li>
-</ul>
-</section>
-<section id="measures-of-dispersion-2" class="slide level2">
-<h2>Measures of Dispersion</h2>
-<h3 id="variance">Variance</h3>
-<p><span class="math display">\[
-\overline{s}^{2} = \frac{(x_{1}-\overline{x})^{2} + (x_{2}-\overline{x})^{2} + \cdots + (x_{N}-\overline{x})^{2}}{N-1}\;\,
-\]</span></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">var</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li class="fragment">The <strong>variance</strong> is used to calculate the deviation of all data points in a given vector from the mean.
-<ul>
-<li class="fragment">The larger the variance, the more the data are spread out from the mean and the more variability one can observe in the data sample.</li>
-<li class="fragment">To prevent the offsetting of negative and positive differences, the variance takes into account the square of the distances from the mean.</li>
-</ul></li>
-<li class="fragment"><code>var(x)</code> calculates the variance of the values in a vector <span class="math inline">\(x\)</span>.</li>
-</ul>
-</section>
-<section id="measures-of-dispersion-3" class="slide level2">
-<h2>Measures of Dispersion</h2>
-<h3 id="standard-deviation">Standard Deviation</h3>
-<p><span class="math display">\[
-\overline{s} = \sqrt{ \left( \frac{(x_{1}-\overline{x})^{2} + (x_{2}-\overline{x})^{2} + \cdots + (x_{N}-\overline{x})^{2}}{N-1}\;\, \right) }
-\]</span></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">sd</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li class="fragment">The <strong>standard deviation</strong> (SD)—the square root of the variance—is also a measure of the spread of values within a given vector.
-<ul>
-<li class="fragment"><code>sd(x)</code> calculates the standard deviation of the values in a vector <span class="math inline">\(x\)</span></li>
-<li class="fragment">SD helps us understand how representative the mean is of the data.
-<ul>
-<li class="fragment">A low SD suggests that the mean is a good summary, while a high SD suggests greater variability around the mean.</li>
-</ul></li>
-</ul></li>
-</ul>
-</section>
-<section id="measures-of-dispersion-4" class="slide level2">
-<h2>Measures of Dispersion</h2>
-<h3 id="quartiles">Quartiles</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">quantile</span>(x)</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">quantile</span>(x, <span class="dv">0</span>) <span class="co"># the minimum</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="fu">quantile</span>(x, <span class="fl">0.25</span>) <span class="co"># the 1st quartile</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="fu">quantile</span>(x, <span class="fl">0.5</span>) <span class="co"># the 2nd quartile</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="fu">quantile</span>(x, <span class="fl">0.75</span>) <span class="co"># the 3rd quartile</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="fu">quantile</span>(x, <span class="dv">1</span>) <span class="co"># the maximum</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li class="fragment">A <strong>quartile</strong> is a quarter of the number of data points in a given vector.
-<ul>
-<li class="fragment">Quartiles are determined by first sorting the values and then splitting the sorted values into four disjoint smaller data sets.</li>
-<li class="fragment">Quartiles are a useful measure of dispersion because they are much less affected by outliers or a skewness in the data set than the equivalent measures in the whole data set.</li>
-</ul></li>
-</ul>
-</section>
-<section id="measures-of-dispersion-5" class="slide level2">
-<h2>Measures of Dispersion</h2>
-<h3 id="interquartile-range">Interquartile Range</h3>
-<div class="columns">
-<div class="column" style="width:45%;">
-<div style="text-align: center; width: 100%; margin: auto;">
-<img src="https://bcdanl.github.io/lec_figs/boxplot.png" style="width: 100%; margin-bottom: -20px;">
-<p style="font-weight: bold;">
-</p>
-</div>
-</div><div class="column" style="width:55%;">
-<ul>
-<li class="fragment">An <strong>interquartile range</strong> describes the difference between the third quartile (Q3) and the first quartile (Q1), telling us about the range of the middle half of the scores in the distribution.
-<ul>
-<li class="fragment">The quartile-driven descriptive measures (both centrality and dispersion) are best explained with a popular plot called a <strong>box plot</strong>.</li>
-</ul></li>
-</ul>
-</div>
-</div>
-</section>
 <section id="r-basics-1" class="slide level2">
 <h2>R Basics</h2>
-<h3 id="csv-file">CSV file</h3>
+<h3 id="accessing-subsets-of-vectors-in-r">Accessing Subsets of Vectors in R</h3>
+<h4 id="index">Index</h4>
 <ul>
-<li class="fragment"><p>A CSV (comma-separated values) file is a text file in which values are separated by commas.</p></li>
-<li class="fragment"><p>CSV files are most commonly encountered in spreadsheets and databases.</p></li>
-<li class="fragment"><p><strong>Example</strong></p>
+<li>A numerical or positional reference used to access individual elements within data structures like a vector or a data.frame.
 <ul>
-<li class="fragment"><code>https://bcdanl.github.io/data/tvshows.csv</code></li>
-</ul></li>
+<li>In R, the index starts at 1.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>my_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>my_vector[<span class="dv">1</span>]</span>
+<span id="cb1-3"><a href="#cb1-3"></a>my_vector[<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
 </ul>
 </section>
 <section id="r-basics-2" class="slide level2">
 <h2>R Basics</h2>
-<h3 id="absolute-pathnames">Absolute Pathnames</h3>
+<h3 id="accessing-subsets-of-vectors-in-r-1">Accessing Subsets of Vectors in R</h3>
+<h4 id="slicing-with-a-range">Slicing with a Range</h4>
 <ul>
-<li class="fragment">Complete path from the root directory to the target file or directory.</li>
-<li class="fragment">Independent of the working directory.
-<ul>
-<li class="fragment"><code>getwd()</code> returns the pathname of the working directory.</li>
-<li class="fragment">The working directory for a <em>Posit Cloud</em> project is <code>/cloud/project/</code></li>
-</ul></li>
-<li class="fragment">Example of absolute pathnames for <code>custdata_rev.csv</code>
-<ul>
-<li class="fragment">Mac:
-<ul>
-<li class="fragment"><code>/Users/user/documents/data/custdata_rev.csv</code></li>
-</ul></li>
-<li class="fragment">Windows:
-<ul>
-<li class="fragment"><code>C:\\Users\\user\\Documents\\data\\custdata_rev.csv</code></li>
-</ul></li>
-</ul></li>
+<li><strong>Selecting multiple elements</strong> by providing a range of indices.</li>
 </ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Selects elements from index 2 to 4</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>my_vector[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># Selects elements from index 3 to 5</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>my_vector[<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="r-basics-3" class="slide level2">
 <h2>R Basics</h2>
-<h3 id="relative-pathnames">Relative Pathnames</h3>
+<h3 id="accessing-subsets-of-vectors-in-r-2">Accessing Subsets of Vectors in R</h3>
+<h4 id="logical-indexing">Logical Indexing</h4>
 <ul>
-<li class="fragment"><p>Path relative to the working directory.</p></li>
-<li class="fragment"><p><strong>Example</strong>:</p>
-<ul>
-<li class="fragment">Absolute pathname for <code>custdata_rev.csv</code> is <code>/Users/user/documents/data/custdata_rev.csv</code>.</li>
-<li class="fragment">Suppose the working directory is <code>/Users/user/documents/</code>.</li>
-<li class="fragment">Then, the relative pathname for <code>custdata_rev.csv</code> is <code>dada/custdata_rev.csv</code>.</li>
-</ul></li>
-<li class="fragment"><p>When using the Posit Cloud project, we can use a relative path to read a file.</p></li>
+<li><strong>Using conditions</strong> to filter elements of a vector.</li>
 </ul>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Selects elements greater than 10</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>logi_condition <span class="ot">&lt;-</span> my_vector <span class="sc">&gt;</span> <span class="dv">10</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>my_vector[ logi_condition ] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="r-basics-4" class="slide level2">
 <h2>R Basics</h2>
-<h3 id="working-with-data-from-files">Working with Data from Files</h3>
-<div>
+<h3 id="tidy-data.frame-variables-observations-and-values">Tidy <code>data.frame</code>: Variables, Observations, and Values</h3>
+<p align="center">
+<img src="https://bcdanl.github.io/lec_figs/tidy-1.png">
+</p>
 <ul>
-<li>We use the <code>read_csv()</code> function to read a comma-separated values (CSV) file.</li>
-</ul>
+<li><p>There are three rules which make a <code>data.frame</code> tidy:</p>
 <ol type="1">
-<li><p>Download the CSV file, <code>custdata_rev.csv</code> from the Class Files module in our Brightspace.</p></li>
-<li><p>Create a sub-directory, <code>data</code>, by clicking “New Folder” in the Files Pane in Posit Cloud.</p></li>
-<li><p>Upload the <code>custdata_rev.csv</code> file to the sub-directory <code>data</code>.</p></li>
-<li><p>Provide the relative pathname for the file, <code>custdata_rev.csv</code>, to the <code>read_csv()</code> function.</p></li>
-</ol>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>custdata <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'HERE WE PROVIDE A RELATIVE PATHNAME FOR custdata_rev.csv'</span>)</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">View</span>(custdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li><code>View()</code> displays the data in a simple spreadsheet-like grid.</li>
+<li>Each <strong>variable</strong> must have its own <em>column</em>.</li>
+<li>Each <strong>observation</strong> must have its own <em>row</em>.</li>
+<li>Each <strong>value</strong> must have its own <em>cell</em>.</li>
+</ol></li>
 </ul>
-</div>
-</section>
-<section id="r-basics-5" class="slide level2">
-<h2>R Basics</h2>
-<h3 id="examining-data.frames">Examining data.frames</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">class</span>(custdata)</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">dim</span>(custdata)</span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="fu">nrow</span>(custdata)</span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="fu">ncol</span>(custdata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column" style="width:50%;">
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">summary</span>(custdata_rev)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">library</span>(skimr)</span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">skim</span>(custdata_rev)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<ul>
-<li class="fragment"><code>dim()</code> shows how many rows and columns are in the data for <code>data.frame</code>.</li>
-<li class="fragment"><code>nrow()</code> and <code>ncol()</code> shows the number of rows and columns for <code>data.frame</code> respectively.</li>
-<li class="fragment"><code>skimr::skim()</code> refers to the <code>skim()</code> function from the <code>skimr</code> package.
-<ul>
-<li class="fragment">This provides a more comprehensive summary.</li>
-<li class="fragment">It’s a more user-friendly alternative to functions like base-R’s <code>summary()</code>, offering both numerical and categorical summaries.</li>
-</ul></li>
-</ul>
+<!-- # Estimating the Price Elasticity of Orange Juice {background-color="#1c4982"} -->
+<!-- ## Data Science Workflow -->
+<!-- ### The Lifecycle of a Data Science Project -->
+<!-- <div style="text-align: center; width: 100%; margin: auto;"> -->
+<!--   <img src="https://bcdanl.github.io/lec_figs/r4ds-fig1-1-whole-game.png" style="width: 45%; margin-bottom: -20px;"> -->
+<!--   <p style="font-weight: bold;"></p> -->
+<!-- </div> -->
+<!-- ::: {.nonincremental} -->
+<!-- - With the example of estimating the *price elasticity* of orange juice (OJ), this section rapidly overviews the main tools of data science:  -->
+<!--   - Importing, tidying, transforming, and visualizing data, as well as ML modeling. -->
+<!--   - Note: Price elasticity of demand is a measure of how *sensitive* the quantity demanded of a good or service is to a change in its price. -->
+<!-- $$ -->
+<!-- (\text{Price Elasticity of Demand}) = \frac{(\text{% Change in Quantity Demanded})}{(\text{% Change in Price})} -->
+<!-- $$ -->
+<p>:::</p>
+<!-- ## Price Elasticity of Orange Juice in Dominick's Supermarket -->
+<!-- ::::{.columns} -->
+<!-- ::: {.column width="40%"} -->
+<!-- <!-- <div style="text-align: center; width: 100%; margin: auto;"> -->
+<p>–&gt; <!-- <!--   <img src="https://bcdanl.github.io/lec_figs/dominicks.jpeg" style="width: 100%; margin-bottom: -20px;"> --> –&gt; <!-- <!--   <p style="font-weight: bold;"></p> --> –&gt; <!-- <!-- </div> --> –&gt; <!-- <div style="text-align: center; width: 100%; margin: auto;"> --> <!--   <img src="https://bcdanl.github.io/lec_figs/oj-tropicana-mm.png" style="width: 100%; margin-bottom: -20px;"> --> <!--   <p style="font-weight: bold;"></p> --> <!-- </div> --></p>
+<!-- ::: -->
+<!-- :::{.column width="60%"} -->
+<!-- - To estimate the price elasticity of OJ, we will use sales data for OJ from Dominick’s grocery stores in the 1990s. -->
+<!--   - Weekly `price` and `sales` (in number of cartons "sold") for three OJ brands---Tropicana, Minute Maid, Dominick's. -->
+<!--   - A dummy, `ad`, showing whether each `brand` was advertised (in store or flyer) that week. -->
+<!-- ::: -->
+<!-- :::: -->
+<!-- ## Price Elasticity of Orange Juice in Dominick's Supermarket -->
+<!-- ### Descriptive Statitstics -->
 
 <div class="footer footer-default">
 
