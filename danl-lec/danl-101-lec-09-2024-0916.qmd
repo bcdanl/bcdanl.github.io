@@ -58,19 +58,34 @@ theme_set(theme_fivethirtyeight()+
 
     
 
-# R Basics  {background-color="#1c4982"}
 
+# R Basics  {background-color="#1c4982"}
+## R Basics
+### Accessing Subsets of Vectors in R
+
+:::{.incremental}
+
+- An important aspect of working with R objects is knowing how to "index" them.
+  - Indexing enables the filtering of data subsets for further analysis.
+- We focus on two primary types of *vector* indexing: **positional** and **logical**.
+- To access elements in a vector `vec`, use `vec[]` with one of these methods:
+  1. Single index: `vec[n]` where `n` is a positive integer
+  2. Vector of indices: `vec[c(i, j, k)]` where `i`, `j`, `k` are positive integers
+  3. Logical condition: `vec[condition]` where condition is a logical expression
+
+:::
 
 ## R Basics
 ### Accessing Subsets of Vectors in R
 
-#### Index
-- A numerical or positional reference used to access individual elements within data structures like a vector or a data.frame.
-  - In R, the index starts at 1. 
+#### Positional Indexing
+- An index is a **positional** reference (e.g., 1, 2, 3) used to access individual elements within data structures like a vector.
+  - In R, the index is positive integer, starting at 1.
 ```{.r}
-my_vector <- c(10, 20, 30, 40, 50)
-my_vector[1]
-my_vector[5]
+my_vector <- c(10, 20, 30, 40, 50, 60)
+my_vector[2]
+my_vector[4]
+my_vector[6]
 ```
 
 
@@ -78,14 +93,11 @@ my_vector[5]
 ## R Basics
 ### Accessing Subsets of Vectors in R
 
-#### Slicing with a Range
-- **Selecting multiple elements** by providing a range of indices.
+#### A Vector of Indices
+- **Selecting multiple elements** by providing a vector of indices
 ```{.r}
-# Selects elements from index 2 to 4
-my_vector[2:4]
-
-# Selects elements from index 3 to 5
-my_vector[3:5]
+my_vector[ c(3,4,5) ]
+my_vector[ 3:5 ]
 ```
 
 
@@ -96,9 +108,9 @@ my_vector[3:5]
 #### Logical Indexing
 - **Using conditions** to filter elements of a vector.
 ```{.r}
-# Selects elements greater than 10
-logi_condition <- my_vector > 10
-my_vector[ logi_condition ] 
+# Filter elements greater than 10
+is_greater_than_10 <- my_vector > 10  # Creates logical vector
+my_vector[ is_greater_than_10 ] 
 ```
 
 

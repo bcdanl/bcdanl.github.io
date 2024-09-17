@@ -420,42 +420,59 @@ Byeong-Hak Choe
 <section id="r-basics-1" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="accessing-subsets-of-vectors-in-r">Accessing Subsets of Vectors in R</h3>
-<h4 id="index">Index</h4>
+<div>
 <ul>
-<li>A numerical or positional reference used to access individual elements within data structures like a vector or a data.frame.
+<li class="fragment">An important aspect of working with R objects is knowing how to “index” them.
 <ul>
-<li>In R, the index starts at 1.</li>
+<li class="fragment">Indexing enables the filtering of data subsets for further analysis.</li>
+</ul></li>
+<li class="fragment">We focus on two primary types of <em>vector</em> indexing: <strong>positional</strong> and <strong>logical</strong>.</li>
+<li class="fragment">To access elements in a vector <code>vec</code>, use <code>vec[]</code> with one of these methods:
+<ol type="1">
+<li class="fragment">Single index: <code>vec[n]</code> where <code>n</code> is a positive integer</li>
+<li class="fragment">Vector of indices: <code>vec[c(i, j, k)]</code> where <code>i</code>, <code>j</code>, <code>k</code> are positive integers</li>
+<li class="fragment">Logical condition: <code>vec[condition]</code> where condition is a logical expression</li>
+</ol></li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>my_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>my_vector[<span class="dv">1</span>]</span>
-<span id="cb1-3"><a href="#cb1-3"></a>my_vector[<span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
-</ul>
+</div>
 </section>
 <section id="r-basics-2" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="accessing-subsets-of-vectors-in-r-1">Accessing Subsets of Vectors in R</h3>
-<h4 id="slicing-with-a-range">Slicing with a Range</h4>
+<h4 id="positional-indexing">Positional Indexing</h4>
 <ul>
-<li><strong>Selecting multiple elements</strong> by providing a range of indices.</li>
+<li>An index is a <strong>positional</strong> reference (e.g., 1, 2, 3) used to access individual elements within data structures like a vector.
+<ul>
+<li>In R, the index is positive integer, starting at 1.</li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Selects elements from index 2 to 4</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>my_vector[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>]</span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># Selects elements from index 3 to 5</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>my_vector[<span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>my_vector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>, <span class="dv">60</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>my_vector[<span class="dv">2</span>]</span>
+<span id="cb1-3"><a href="#cb1-3"></a>my_vector[<span class="dv">4</span>]</span>
+<span id="cb1-4"><a href="#cb1-4"></a>my_vector[<span class="dv">6</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div></li>
+</ul>
 </section>
 <section id="r-basics-3" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="accessing-subsets-of-vectors-in-r-2">Accessing Subsets of Vectors in R</h3>
+<h4 id="a-vector-of-indices">A Vector of Indices</h4>
+<ul>
+<li><strong>Selecting multiple elements</strong> by providing a vector of indices</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>my_vector[ <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>) ]</span>
+<span id="cb2-2"><a href="#cb2-2"></a>my_vector[ <span class="dv">3</span><span class="sc">:</span><span class="dv">5</span> ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="r-basics-4" class="slide level2">
+<h2>R Basics</h2>
+<h3 id="accessing-subsets-of-vectors-in-r-3">Accessing Subsets of Vectors in R</h3>
 <h4 id="logical-indexing">Logical Indexing</h4>
 <ul>
 <li><strong>Using conditions</strong> to filter elements of a vector.</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Selects elements greater than 10</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>logi_condition <span class="ot">&lt;-</span> my_vector <span class="sc">&gt;</span> <span class="dv">10</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a>my_vector[ logi_condition ] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Filter elements greater than 10</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>is_greater_than_10 <span class="ot">&lt;-</span> my_vector <span class="sc">&gt;</span> <span class="dv">10</span>  <span class="co"># Creates logical vector</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>my_vector[ is_greater_than_10 ] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="r-basics-4" class="slide level2">
+<section id="r-basics-5" class="slide level2">
 <h2>R Basics</h2>
 <h3 id="tidy-data.frame-variables-observations-and-values">Tidy <code>data.frame</code>: Variables, Observations, and Values</h3>
 <p align="center">
