@@ -1,0 +1,273 @@
+---
+title: Lecture 10
+subtitle: R Basics
+format:
+  clean-revealjs:
+    self-contained: false
+    chalkboard: true
+    incremental: true
+    code-annotations: hover
+    scrollable: false
+
+    # logo: logo-title-slide.png
+author:
+  - name: Byeong-Hak Choe
+    email: bchoe@geneseo.edu
+    affiliations: SUNY Geneseo
+date: 2024-09-18
+execute: 
+  eval: true
+  echo: false
+callout-icon: false
+
+from: markdown+emoji
+include-after-body: target-hover.html # effect.html
+
+# bibliography: refs.bib
+---
+
+
+```{r setup}
+#| include: false
+library(tidyverse)
+library(skimr)
+library(ggthemes)
+library(hrbrthemes)
+
+
+theme_set(theme_fivethirtyeight()+
+          theme(strip.background =element_rect(fill="lightgray"),
+                axis.title.x = 
+                  element_text(angle = 0,
+                               size = rel(1.5),
+                               margin = margin(10,0,0,0)),
+                axis.title.y = 
+                  element_text(angle = 0,
+                               size = rel(1.5),
+                               margin = margin(0,10,0,0)),
+                axis.text.x = element_text(size = rel(1.5)),
+                axis.text.y = element_text(size = rel(1.5)),
+                strip.text = element_text(size = rel(1.5)),
+                legend.position = "top",
+                legend.text = element_text(size = rel(1.5)),
+                legend.title = element_text(size = rel(1.5))
+                )
+          )
+```
+
+
+    
+
+
+# Data Preparation and Management  {background-color="#1c4982"}
+
+## Fuels Rapid Growth with Data Science
+### AirBnB
+
+
+<div style="text-align: center; width: 40%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/airbnb.png" style="width: 100%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
+
+
+- Airbnb started as a small business in San Francisco and grew into a major player in the sharing economy, valued at $38 billion in early 2019.
+
+- Founded by Brian Chesky and Joe Gebbia, Airbnb began as a way for them to pay their rent by offering temporary lodging.
+
+- As of spring 2019, Airbnb had over 6 million properties listed in more than 80,000 cities worldwide, surpassing the combined listings of the top five hotel brands.
+
+- Airbnb attributes much of its growth to data science, which it uses to gather insights and make informed business decisions.
+
+
+## Fuels Rapid Growth with Data Science
+### AirBnB
+
+
+<div style="text-align: center; width: 40%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/airbnb.png" style="width: 100%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
+
+- Riley Newman, one of Airbnb's first employees, was a data scientist who helped shift the company's focus from cold numeric data to understanding individual experiences and community trends.
+
+- Airbnb uses data science to improve its search system, streamline the booking process, evaluate user experiences, and inform decisions on hiring practices, product offerings, and site design.
+
+- The company developed the *Dataportal*, an integrated system that allows employees to easily access and analyze data for decision-making.
+
+
+## Fuels Rapid Growth with Data Science
+### AirBnB
+
+
+<div style="text-align: center; width: 40%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/airbnb.png" style="width: 100%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
+
+- Airbnb's success in leveraging data is based on three key components: 
+  - <u>A solid data management program</u>
+  - Creative data scientists
+  - A strong commitment to data-driven decision-making
+
+
+
+
+## Big Data
+
+- Big data and analytics are likely to be significant components of future careers across various fields.
+
+- Big data refers to enormous and complex data collections that traditional data management tools can't handle effectively.
+
+- Five key characteristics of big data (5 V's):
+  1. Volume
+  2. Velocity
+  3. Value
+  4. Veracity
+  5. Variety
+
+
+## Big Data
+### 1. Volume
+  - In 2017, the digital universe contained an estimated 16.1 zettabytes of data.
+  - Expected to grow to 163 zettabytes by 2025.
+  - Much new data will come from embedded systems in smart devices.
+
+## Big Data
+### 1. Volume
+
+:::: {.columns}
+
+::: {.column width="42%"}
+
+| Name | Symbol | Value |
+|------|--------|-------|
+| Kilobyte | kB | 10³ |
+| Megabyte | MB | 10⁶ |
+| Gigabyte | GB | 10⁹ |
+| Terabyte | TB | 10¹² |
+| Petabyte | PB | 10¹⁵ |
+| Exabyte | EB | 10¹⁸ |
+| Zettabyte | ZB | 10²¹ |
+| Yottabyte | YB | 10²⁴ |
+| Brontobyte* | BB | 10²⁷ |
+| Gegobyte* | GeB | 10³⁰ |
+
+Note: The asterisks (*) next to Brontobyte and Gegobyte in the original image have been preserved in this table. These likely indicate that these units are less commonly used or are proposed extensions to the standard system of byte units.
+:::
+
+::: {.column width="3%"}
+:::
+
+::: {.column width="55%"}
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/big-data.png" style="width: 100%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"> Increase in size of the global datasphere</p>
+</div>
+
+:::
+::::
+
+
+## Big Data
+### 2. Velocity
+  - Refers to the rate at which new data is generated.
+  - Estimated at 2.5 quintillion bytes each day.
+  - 90% of the world's data was generated in just the past two years.
+
+## Big Data
+### 3. Value
+  - Refers to the worth of data in decision-making.
+  - Emphasizes the need to quickly identify and process relevant data.
+
+
+
+
+## Big Data
+### 4. Veracity
+- Measures the quality of the data.
+- Considers accuracy, completeness, and currency of data.
+- Determines if the data can be trusted for good decision-making.
+
+
+
+## Big Data
+### 5. Variety
+
+<div style="text-align: center; width: 55%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/data-taxonomy.png" style="width: 100%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"> </p>
+</div>
+
+   - Data comes in various formats.
+   - **Structured data**: Has a predefined format, fits into traditional databases.
+   - **Unstructured data**: Not organized in a predefined manner, comes from sources like documents, social media, emails, photos, videos, etc.
+
+
+## A Simple Taxonomy of Data
+### Categorical Data
+- Categorical Data:
+  - Represents labels of multiple classes
+  - Examples: race, sex, age group, educational level
+  - Also called *discrete* data
+  - Finite number of values with no continuum
+  - Numbers used are symbols, not for calculations
+
+
+## A Simple Taxonomy of Data
+### Categorical Data
+- Types of Categorical Data:
+  1. Nominal Data:
+     - Simple codes assigned as labels
+     - No inherent order
+     - Can be binomial (two values) or multinomial (three or more values)
+     - Examples: marital status, yes/no questions
+
+  2. Ordinal Data:
+     - Codes represent rank order
+     - Examples: credit score (low, medium, high), age groups, educational levels
+
+
+## A Simple Taxonomy of Data
+### Numeric Data
+- Numeric Data:
+  - Represents specific numeric values
+  - Can be integer or real (fractional) numbers
+  - Also called continuous data
+  - Examples: age, income, distance, temperature
+
+
+## A Simple Taxonomy of Data
+### Numeric Data
+- Types of Numeric Data:
+  1. Interval Data:
+     - Measured on interval scales
+     - No absolute zero
+     - Example: Celsius temperature scale
+
+  2. Ratio Data:
+     - Common in physical sciences and engineering
+     - Has a nonarbitrary zero value
+     - Examples: mass, length, time, Kelvin temperature scale
+
+## A Simple Taxonomy of Data
+### Categorical vs. Numeric 
+- Key Distinctions:
+  - Categorical (discrete) vs. Numeric (continuous)
+  - Presence or absence of inherent order
+  - Ability to perform mathematical operations
+  - Presence of an absolute zero point
+
+
+
+
+
+
+## Sources of an Organization's Data
+
+<div style="text-align: center; width: 85%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/data-source.png" style="width: 100%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"> </p>
+</div>
+
+
