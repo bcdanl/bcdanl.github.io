@@ -1,5 +1,5 @@
 ---
-title: Lecture 9
+title: Lecture 10
 subtitle: R Basics
 format:
   clean-revealjs:
@@ -14,7 +14,7 @@ author:
   - name: Byeong-Hak Choe
     email: bchoe@geneseo.edu
     affiliations: SUNY Geneseo
-date: 2024-09-16
+date: 2024-09-18
 execute: 
   eval: true
   echo: false
@@ -59,134 +59,97 @@ theme_set(theme_fivethirtyeight()+
     
 
 
-# R Basics  {background-color="#1c4982"}
-## R Basics
-### Accessing Subsets of Vectors in R
+# Data Preparation and Management  {background-color="#1c4982"}
+## Fuels Rapid Growth with Data Science
+### AirBnB
 
-:::{.incremental}
 
-- An important aspect of working with R objects is knowing how to "index" them.
-  - Indexing enables the filtering of data subsets for further analysis.
-- We focus on two primary types of *vector* indexing: **positional** and **logical**.
-- To access elements in a vector `vec`, use `vec[]` with one of these methods:
-  1. Single index: `vec[n]` where `n` is a positive integer
-  2. Vector of indices: `vec[c(i, j, k)]` where `i`, `j`, `k` are positive integers
-  3. Logical condition: `vec[condition]` where condition is a logical expression
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/airbnb.png" style="width: 100%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
 
+
+- Airbnb started as a small business in San Francisco and grew into a major player in the sharing economy, valued at $38 billion in early 2019.
+
+- Founded by Brian Chesky and Joe Gebbia, Airbnb began as a way for them to pay their rent by offering temporary lodging.
+
+- As of spring 2019, Airbnb had over 6 million properties listed in more than 80,000 cities worldwide, surpassing the combined listings of the top five hotel brands.
+
+- Airbnb attributes much of its growth to data science, which it uses to gather insights and make informed business decisions.
+
+- Riley Newman, one of Airbnb's first employees, was a data scientist who helped shift the company's focus from cold numeric data to understanding individual experiences and community trends.
+
+- Airbnb uses data science to improve its search system, streamline the booking process, evaluate user experiences, and inform decisions on hiring practices, product offerings, and site design.
+
+- The company developed the Dataportal, an integrated system that allows employees to easily access and analyze data for decision-making.
+
+- Airbnb's success in leveraging data is based on three key components: a solid data management program, creative data scientists, and a strong commitment to data-driven decision-making.
+
+
+
+
+## Big Data
+
+- Big data and analytics are likely to be significant components of future careers across various fields.
+
+- Big data refers to enormous and complex data collections that traditional data management tools can't handle effectively.
+
+- Five key characteristics of big data (5 V's):
+  1. Volume
+  2. Velocity
+  3. Value
+  4. Variety
+  5. Veracity
+
+
+## Big Data
+### 1. Volume
+  - In 2017, the digital universe contained an estimated 16.1 zettabytes of data.
+  - Expected to grow to 163 zettabytes by 2025.
+  - Much new data will come from embedded systems in smart devices.
+
+## Big Data
+### 1. Volume
+
+:::: {.columns}
+
+::: {.column width="38%"}
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/data-size.png" style="width: 100%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
 :::
 
-## R Basics
-### Accessing Subsets of Vectors in R
-
-#### Positional Indexing
-- An index is a **positional** reference (e.g., 1, 2, 3) used to access individual elements within data structures like a vector.
-  - In R, the index is positive integer, starting at 1.
-```{.r}
-my_vector <- c(10, 20, 30, 40, 50, 60)
-my_vector[2]
-my_vector[4]
-my_vector[6]
-```
-
-
-
-## R Basics
-### Accessing Subsets of Vectors in R
-
-#### A Vector of Indices
-- **Selecting multiple elements** by providing a vector of indices
-```{.r}
-my_vector[ c(3,4,5) ]
-my_vector[ 3:5 ]
-```
-
-
-
-## R Basics
-### Accessing Subsets of Vectors in R
-
-#### Logical Indexing
-- **Using conditions** to filter elements of a vector.
-```{.r}
-# Filter elements greater than 10
-is_greater_than_10 <- my_vector > 10  # Creates logical vector
-my_vector[ is_greater_than_10 ] 
-```
-
-
-
-
-## R Basics
-### Tidy `data.frame`: Variables, Observations, and Values
-
-
-<p align="center">
-  <img src="https://bcdanl.github.io/lec_figs/tidy-1.png">
-</p>
-
-
-- There are three rules which make a `data.frame` tidy:
-
-  1. Each **variable** must have its own *column*.
-  2. Each **observation** must have its own *row*.
-  3. Each **value** must have its own *cell*.
-
-
-
-<!-- # Estimating the Price Elasticity of Orange Juice {background-color="#1c4982"} -->
-
-
-<!-- ## Data Science Workflow -->
-<!-- ### The Lifecycle of a Data Science Project -->
-
-<!-- <div style="text-align: center; width: 100%; margin: auto;"> -->
-<!--   <img src="https://bcdanl.github.io/lec_figs/r4ds-fig1-1-whole-game.png" style="width: 45%; margin-bottom: -20px;"> -->
-<!--   <p style="font-weight: bold;"></p> -->
-<!-- </div> -->
-
-
-<!-- ::: {.nonincremental} -->
-<!-- - With the example of estimating the *price elasticity* of orange juice (OJ), this section rapidly overviews the main tools of data science:  -->
-<!--   - Importing, tidying, transforming, and visualizing data, as well as ML modeling. -->
-<!--   - Note: Price elasticity of demand is a measure of how *sensitive* the quantity demanded of a good or service is to a change in its price. -->
-
-<!-- $$ -->
-<!-- (\text{Price Elasticity of Demand}) = \frac{(\text{% Change in Quantity Demanded})}{(\text{% Change in Price})} -->
-<!-- $$ -->
+::: {.column width="62%"}
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/big-data.png" style="width: 100%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
 
 :::
+::::
 
 
-<!-- ## Price Elasticity of Orange Juice in Dominick's Supermarket -->
+## Big Data
+### 2. Velocity
+  - Refers to the rate at which new data is generated.
+  - Estimated at 2.5 quintillion bytes each day.
+  - 90% of the world's data was generated in just the past two years.
 
-<!-- ::::{.columns} -->
+## Big Data
+### 3. Value
+  - Refers to the worth of data in decision-making.
+  - Emphasizes the need to quickly identify and process relevant data.
 
-<!-- ::: {.column width="40%"} -->
-<!-- <!-- <div style="text-align: center; width: 100%; margin: auto;"> --> -->
-<!-- <!--   <img src="https://bcdanl.github.io/lec_figs/dominicks.jpeg" style="width: 100%; margin-bottom: -20px;"> --> -->
-<!-- <!--   <p style="font-weight: bold;"></p> --> -->
-<!-- <!-- </div> --> -->
-<!-- <div style="text-align: center; width: 100%; margin: auto;"> -->
-<!--   <img src="https://bcdanl.github.io/lec_figs/oj-tropicana-mm.png" style="width: 100%; margin-bottom: -20px;"> -->
-<!--   <p style="font-weight: bold;"></p> -->
-<!-- </div> -->
+## Big Data
+### 4. Variety
+   - Data comes in various formats.
+   - Structured data: Has a predefined format, fits into traditional databases.
+   - Unstructured data: Not organized in a predefined manner, comes from sources like documents, social media, emails, photos, videos, etc.
 
-<!-- ::: -->
-
-<!-- :::{.column width="60%"} -->
-
-<!-- - To estimate the price elasticity of OJ, we will use sales data for OJ from Dominick’s grocery stores in the 1990s. -->
-<!--   - Weekly `price` and `sales` (in number of cartons "sold") for three OJ brands---Tropicana, Minute Maid, Dominick's. -->
-<!--   - A dummy, `ad`, showing whether each `brand` was advertised (in store or flyer) that week. -->
-
-<!-- ::: -->
-
-<!-- :::: -->
-
-
-<!-- ## Price Elasticity of Orange Juice in Dominick's Supermarket -->
-<!-- ### Descriptive Statitstics -->
-
-
-
-
+## Big Data
+### 5. Veracity
+   - Measures the quality of the data.
+   - Considers accuracy, completeness, and currency of data.
+   - Determines if the data can be trusted for good decision-making.
