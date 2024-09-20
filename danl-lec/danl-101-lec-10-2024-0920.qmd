@@ -182,22 +182,23 @@ Note: The asterisks (*) next to Brontobyte and Gegobyte in the original image ha
 ## Big Data
 ### 2. Velocity
   - Refers to the rate at which new data is generated.
-  - Estimated at 2.5 quintillion bytes each day.
+  - Estimated at 0.33 zetabytes each day (120 zetabytes annually).
   - 90% of the world's data was generated in just the past two years.
 
 ## Big Data
 ### 3. Value
-  - Refers to the worth of data in decision-making.
+  - Refers to the *worth* of data in decision-making.
   - Emphasizes the need to quickly identify and process relevant data.
+  - Users may be able to find more patterns and interesting anomalies from "big" data than from "small" data.
 
 
 
 
 ## Big Data
 ### 4. Veracity
-- Measures the quality of the data.
+- Measures the *quality* of the data.
 - Considers accuracy, completeness, and currency of data.
-- Determines if the data can be trusted for good decision-making.
+- Determines if the data can be *trusted* for good decision-making.
 
 
 
@@ -214,60 +215,136 @@ Note: The asterisks (*) next to Brontobyte and Gegobyte in the original image ha
    - **Unstructured data**: Not organized in a predefined manner, comes from sources like documents, social media, emails, photos, videos, etc.
 
 
-## A Simple Taxonomy of Data
-### Categorical Data
-  - Represents labels of multiple classes
-  - Examples: race, sex, age group, educational level
-  - Also called *discrete* data
-  - Finite number of values with no continuum
-  - Numbers used are symbols, not for calculations
+
+## Introduction to `data.frame`
+
+<div style="text-align: center; width: 70%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/tidy-1.png" style="width: 100%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
+
+- **Definition**: A `data.frame` is a table-like data structure in R used for storing data in a tabular format with rows and columns.
+- **Structure**: Consists of:
+  - **Variables** (Columns)
+  - **Observations** (Rows)
+  - **Values** (Cells): Individual data points within each cell of the `data.frame`.
 
 
-## A Simple Taxonomy of Data
-### Categorical Data
-- Types of Categorical Data:
-  1. Nominal Data:
-     - Simple codes assigned as labels
-     - No inherent order
-     - Can be binomial (two values) or multinomial (three or more values)
-     - Examples: marital status, yes/no questions
-
-  2. Ordinal Data:
-     - Codes represent rank order
-     - Examples: credit score (low, medium, high), age groups, educational levels
+## Introduction to `data.frame`
+### **Variables**
+- **Definition**: Columns in a `data.frame`, representing a specific attribute or characteristic measured across different units of observation.
+- **Examples**:
+  - **Student Data**: `Name`, `Age`, `Grade`, `Major`
+  - **Employee Data**: `EmployeeID`, `Name`, `Age`, `Department`
 
 
-## A Simple Taxonomy of Data
-### Numeric Data
-  - Represents specific numeric values
-  - Can be integer or real (fractional) numbers
-  - Also called *continuous* data
-  - Examples: age, income, distance, temperature
+## Introduction to `data.frame`
+### **Observations**
+- **Definition**: Rows in a `data.frame`, each representing a single entity or unit for which data is collected and recorded.
+- **Examples**:
+  - **Student Information**: Each row represents an individual student.
+  - **Employee Information**: Each row represents an individual employee.
+  - **Daily S&P 500 Index Data**: Each row represents a specific day.
+  - **Household Survey Data**: Each row represents a household.
 
 
-## A Simple Taxonomy of Data
-### Numeric Data
-- Types of Numeric Data:
-  1. Interval Data:
-     - Measured on interval scales
-     - No absolute zero
-     - Example: Celsius temperature scale
-
-  2. Ratio Data:
-     - Common in physical sciences and engineering
-     - Has a nonarbitrary zero value
-     - Examples: mass, length, time, Kelvin temperature scale
 
 ## A Simple Taxonomy of Data
-### Categorical vs. Numeric 
-- Key Distinctions:
-  - Categorical (discrete) vs. Numeric (continuous)
-  - Presence or absence of inherent order
-  - Ability to perform mathematical operations
-  - Presence of an absolute zero point
+### Data Types Overview
+
+:::: {.nonincremental}
+:::: {.columns}
+::: {.column width="50%"}
+
+- **Categorical Data**: Data that can be divided into distinct categories based on some qualitative attribute.
+  - **Nominal Data**
+  - **Ordinal Data**
+
+:::
+
+::: {.column width="50%"}
+
+- **Numeric Data**: Data that represents measurable quantities and can be subjected to mathematical algebra.
+  - **Interval Data**
+  - **Ratio Data**
+
+:::
+::::
+::::
+
+## A Simple Taxonomy of Data
+### Categorical Data - Nominal
 
 
 
+| ID | Animal |
+|----|--------|
+| 1  | Dog    |
+| 2  | Cat    |
+| 3  | Bird   |
+
+- **Nominal Data**: Categorical data where the categories have no intrinsic order or ranking.
+- **No Order**: Categories are simply different; there is no logical sequence.
+- **Examples**:
+  - **Colors**: Red, Blue, Green
+  - **Types of Animals**: Dog, Cat, Bird
+
+
+
+## A Simple Taxonomy of Data
+### Categorical Data - Ordinal
+
+| ID | Education Level |
+|----|-----------------|
+| 1  | Bachelor’s      |
+| 2  | Master’s        |
+| 3  | PhD             |
+
+- **Ordinal Data**: Categorical data where the categories have a meaningful order or ranking.
+
+- **Order Matters**: Categories can be ranked or ordered, but the differences between categories are not necessarily uniform.
+- **Examples**:
+  - **Education Levels**: High School, Bachelor’s, Master’s, PhD
+  - **Customer Satisfaction**: Poor, Fair, Good, Excellent
+
+
+
+
+
+## A Simple Taxonomy of Data
+### Numeric Data - Interval
+
+| ID | Temperature (°F) |
+|----|------------------|
+| 1  | 70               |
+| 2  | 80               |
+| 3  | 90               |
+
+- **Interval Data**: Numeric data where the differences between values are meaningful, but there is no true zero point.
+
+- **Meaningful Intervals**: The difference between values is consistent.
+- **No True Zero**: Zero does not indicate the absence of the quantity.
+- **Examples**:
+  - **Temperature (°F)**: Zero degrees does not mean no temperature.
+  - **Time of Day in a 12-Hour Clock**: Differences are meaningful, but there is no absolute zero.
+
+
+## A Simple Taxonomy of Data
+### Numeric Data - Ratio
+
+| ID | Height (cm) | Weight (kg) |
+|----|-------------|-------------|
+| 1  | 160         | 55          |
+| 2  | 175         | 70          |
+| 3  | 170         | 65          |
+
+- **Ratio Data**: Numeric data with a true zero point, allowing for a full range of mathematical operations.
+
+- **Meaningful Ratios**: Comparisons like twice as much or half as much are valid.
+- **True Zero**: Zero indicates the absence of the quantity.
+- **Examples**:
+  - **Height in Centimeters**: Zero means no height.
+  - **Weight in Kilograms**: Zero means no weight.
 
 
 

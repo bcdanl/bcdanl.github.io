@@ -541,7 +541,7 @@ Increase in size of the global datasphere
 <h3 id="velocity">2. Velocity</h3>
 <ul>
 <li class="fragment">Refers to the rate at which new data is generated.</li>
-<li class="fragment">Estimated at 2.5 quintillion bytes each day.</li>
+<li class="fragment">Estimated at 0.33 zetabytes each day (120 zetabytes annually).</li>
 <li class="fragment">90% of the world’s data was generated in just the past two years.</li>
 </ul>
 </section>
@@ -549,17 +549,18 @@ Increase in size of the global datasphere
 <h2>Big Data</h2>
 <h3 id="value">3. Value</h3>
 <ul>
-<li class="fragment">Refers to the worth of data in decision-making.</li>
+<li class="fragment">Refers to the <em>worth</em> of data in decision-making.</li>
 <li class="fragment">Emphasizes the need to quickly identify and process relevant data.</li>
+<li class="fragment">Users may be able to find more patterns and interesting anomalies from “big” data than from “small” data.</li>
 </ul>
 </section>
 <section id="big-data-5" class="slide level2">
 <h2>Big Data</h2>
 <h3 id="veracity">4. Veracity</h3>
 <ul>
-<li class="fragment">Measures the quality of the data.</li>
+<li class="fragment">Measures the <em>quality</em> of the data.</li>
 <li class="fragment">Considers accuracy, completeness, and currency of data.</li>
-<li class="fragment">Determines if the data can be trusted for good decision-making.</li>
+<li class="fragment">Determines if the data can be <em>trusted</em> for good decision-making.</li>
 </ul>
 </section>
 <section id="big-data-6" class="slide level2">
@@ -576,79 +577,217 @@ Increase in size of the global datasphere
 <li class="fragment"><strong>Unstructured data</strong>: Not organized in a predefined manner, comes from sources like documents, social media, emails, photos, videos, etc.</li>
 </ul>
 </section>
+<section id="introduction-to-data.frame" class="slide level2">
+<h2>Introduction to <code>data.frame</code></h2>
+<div style="text-align: center; width: 70%; margin: auto;">
+<img src="https://bcdanl.github.io/lec_figs/tidy-1.png" style="width: 100%; margin-bottom: -20px;">
+<p style="font-weight: bold;">
+</p>
+</div>
+<ul>
+<li class="fragment"><strong>Definition</strong>: A <code>data.frame</code> is a table-like data structure in R used for storing data in a tabular format with rows and columns.</li>
+<li class="fragment"><strong>Structure</strong>: Consists of:
+<ul>
+<li class="fragment"><strong>Variables</strong> (Columns)</li>
+<li class="fragment"><strong>Observations</strong> (Rows)</li>
+<li class="fragment"><strong>Values</strong> (Cells): Individual data points within each cell of the <code>data.frame</code>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="introduction-to-data.frame-1" class="slide level2">
+<h2>Introduction to <code>data.frame</code></h2>
+<h3 id="variables"><strong>Variables</strong></h3>
+<ul>
+<li class="fragment"><strong>Definition</strong>: Columns in a <code>data.frame</code>, representing a specific attribute or characteristic measured across different units of observation.</li>
+<li class="fragment"><strong>Examples</strong>:
+<ul>
+<li class="fragment"><strong>Student Data</strong>: <code>Name</code>, <code>Age</code>, <code>Grade</code>, <code>Major</code></li>
+<li class="fragment"><strong>Employee Data</strong>: <code>EmployeeID</code>, <code>Name</code>, <code>Age</code>, <code>Department</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="introduction-to-data.frame-2" class="slide level2">
+<h2>Introduction to <code>data.frame</code></h2>
+<h3 id="observations"><strong>Observations</strong></h3>
+<ul>
+<li class="fragment"><strong>Definition</strong>: Rows in a <code>data.frame</code>, each representing a single entity or unit for which data is collected and recorded.</li>
+<li class="fragment"><strong>Examples</strong>:
+<ul>
+<li class="fragment"><strong>Student Information</strong>: Each row represents an individual student.</li>
+<li class="fragment"><strong>Employee Information</strong>: Each row represents an individual employee.</li>
+<li class="fragment"><strong>Daily S&amp;P 500 Index Data</strong>: Each row represents a specific day.</li>
+<li class="fragment"><strong>Household Survey Data</strong>: Each row represents a household.</li>
+</ul></li>
+</ul>
+</section>
 <section id="a-simple-taxonomy-of-data" class="slide level2">
 <h2>A Simple Taxonomy of Data</h2>
-<h3 id="categorical-data">Categorical Data</h3>
+<h3 id="data-types-overview">Data Types Overview</h3>
+<div>
+<div class="columns">
+<div class="column" style="width:50%;">
 <ul>
-<li class="fragment">Represents labels of multiple classes</li>
-<li class="fragment">Examples: race, sex, age group, educational level</li>
-<li class="fragment">Also called <em>discrete</em> data</li>
-<li class="fragment">Finite number of values with no continuum</li>
-<li class="fragment">Numbers used are symbols, not for calculations</li>
+<li><strong>Categorical Data</strong>: Data that can be divided into distinct categories based on some qualitative attribute.
+<ul>
+<li><strong>Nominal Data</strong></li>
+<li><strong>Ordinal Data</strong></li>
+</ul></li>
 </ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><strong>Numeric Data</strong>: Data that represents measurable quantities and can be subjected to mathematical algebra.
+<ul>
+<li><strong>Interval Data</strong></li>
+<li><strong>Ratio Data</strong></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
 </section>
 <section id="a-simple-taxonomy-of-data-1" class="slide level2">
 <h2>A Simple Taxonomy of Data</h2>
-<h3 id="categorical-data-1">Categorical Data</h3>
+<h3 id="categorical-data---nominal">Categorical Data - Nominal</h3>
+<table>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Animal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Dog</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Cat</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Bird</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li class="fragment">Types of Categorical Data:
-<ol type="1">
-<li class="fragment">Nominal Data:
+<li class="fragment"><strong>Nominal Data</strong>: Categorical data where the categories have no intrinsic order or ranking.</li>
+<li class="fragment"><strong>No Order</strong>: Categories are simply different; there is no logical sequence.</li>
+<li class="fragment"><strong>Examples</strong>:
 <ul>
-<li class="fragment">Simple codes assigned as labels</li>
-<li class="fragment">No inherent order</li>
-<li class="fragment">Can be binomial (two values) or multinomial (three or more values)</li>
-<li class="fragment">Examples: marital status, yes/no questions</li>
+<li class="fragment"><strong>Colors</strong>: Red, Blue, Green</li>
+<li class="fragment"><strong>Types of Animals</strong>: Dog, Cat, Bird</li>
 </ul></li>
-<li class="fragment">Ordinal Data:
-<ul>
-<li class="fragment">Codes represent rank order</li>
-<li class="fragment">Examples: credit score (low, medium, high), age groups, educational levels</li>
-</ul></li>
-</ol></li>
 </ul>
 </section>
 <section id="a-simple-taxonomy-of-data-2" class="slide level2">
 <h2>A Simple Taxonomy of Data</h2>
-<h3 id="numeric-data">Numeric Data</h3>
+<h3 id="categorical-data---ordinal">Categorical Data - Ordinal</h3>
+<table>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Education Level</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Bachelor’s</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Master’s</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>PhD</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li class="fragment">Represents specific numeric values</li>
-<li class="fragment">Can be integer or real (fractional) numbers</li>
-<li class="fragment">Also called <em>continuous</em> data</li>
-<li class="fragment">Examples: age, income, distance, temperature</li>
+<li class="fragment"><p><strong>Ordinal Data</strong>: Categorical data where the categories have a meaningful order or ranking.</p></li>
+<li class="fragment"><p><strong>Order Matters</strong>: Categories can be ranked or ordered, but the differences between categories are not necessarily uniform.</p></li>
+<li class="fragment"><p><strong>Examples</strong>:</p>
+<ul>
+<li class="fragment"><strong>Education Levels</strong>: High School, Bachelor’s, Master’s, PhD</li>
+<li class="fragment"><strong>Customer Satisfaction</strong>: Poor, Fair, Good, Excellent</li>
+</ul></li>
 </ul>
 </section>
 <section id="a-simple-taxonomy-of-data-3" class="slide level2">
 <h2>A Simple Taxonomy of Data</h2>
-<h3 id="numeric-data-1">Numeric Data</h3>
+<h3 id="numeric-data---interval">Numeric Data - Interval</h3>
+<table>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Temperature (°F)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>70</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>80</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>90</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li class="fragment">Types of Numeric Data:
-<ol type="1">
-<li class="fragment">Interval Data:
+<li class="fragment"><p><strong>Interval Data</strong>: Numeric data where the differences between values are meaningful, but there is no true zero point.</p></li>
+<li class="fragment"><p><strong>Meaningful Intervals</strong>: The difference between values is consistent.</p></li>
+<li class="fragment"><p><strong>No True Zero</strong>: Zero does not indicate the absence of the quantity.</p></li>
+<li class="fragment"><p><strong>Examples</strong>:</p>
 <ul>
-<li class="fragment">Measured on interval scales</li>
-<li class="fragment">No absolute zero</li>
-<li class="fragment">Example: Celsius temperature scale</li>
+<li class="fragment"><strong>Temperature (°F)</strong>: Zero degrees does not mean no temperature.</li>
+<li class="fragment"><strong>Time of Day in a 12-Hour Clock</strong>: Differences are meaningful, but there is no absolute zero.</li>
 </ul></li>
-<li class="fragment">Ratio Data:
-<ul>
-<li class="fragment">Common in physical sciences and engineering</li>
-<li class="fragment">Has a nonarbitrary zero value</li>
-<li class="fragment">Examples: mass, length, time, Kelvin temperature scale</li>
-</ul></li>
-</ol></li>
 </ul>
 </section>
 <section id="a-simple-taxonomy-of-data-4" class="slide level2">
 <h2>A Simple Taxonomy of Data</h2>
-<h3 id="categorical-vs.-numeric">Categorical vs.&nbsp;Numeric</h3>
+<h3 id="numeric-data---ratio">Numeric Data - Ratio</h3>
+<table>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Height (cm)</th>
+<th>Weight (kg)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>160</td>
+<td>55</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>175</td>
+<td>70</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>170</td>
+<td>65</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li class="fragment">Key Distinctions:
+<li class="fragment"><p><strong>Ratio Data</strong>: Numeric data with a true zero point, allowing for a full range of mathematical operations.</p></li>
+<li class="fragment"><p><strong>Meaningful Ratios</strong>: Comparisons like twice as much or half as much are valid.</p></li>
+<li class="fragment"><p><strong>True Zero</strong>: Zero indicates the absence of the quantity.</p></li>
+<li class="fragment"><p><strong>Examples</strong>:</p>
 <ul>
-<li class="fragment">Categorical (discrete) vs.&nbsp;Numeric (continuous)</li>
-<li class="fragment">Presence or absence of inherent order</li>
-<li class="fragment">Ability to perform mathematical operations</li>
-<li class="fragment">Presence of an absolute zero point</li>
+<li class="fragment"><strong>Height in Centimeters</strong>: Zero means no height.</li>
+<li class="fragment"><strong>Weight in Kilograms</strong>: Zero means no weight.</li>
 </ul></li>
 </ul>
 </section>
