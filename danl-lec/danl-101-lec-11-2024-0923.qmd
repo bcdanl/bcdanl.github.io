@@ -26,7 +26,6 @@ include-after-body: target-hover.html # effect.html
 # bibliography: refs.bib
 ---
 
-
 ```{r setup}
 #| include: false
 library(tidyverse)
@@ -343,25 +342,17 @@ theme_set(theme_fivethirtyeight()+
 
 
 
-:::: {.columns}
-::: {.column width="50%"}
-
 <div style="text-align: center; width: 100%; margin: auto;">
-  <img src="https://bcdanl.github.io/lec_figs/data-warehouse.jpg" style="width: 100%; margin-bottom: -20px;">
+  <img src="https://bcdanl.github.io/lec_figs/data-warehousing.png" style="width: 53%; margin-bottom: -20px;">
   <p style="font-weight: bold;"> </p>
 </div>
   
-:::
-
-::: {.column width="50%"}
 - **Definition**
   - A large database that holds business information from many sources across the enterprise.
 
 - **Purpose**
   - Supports decision-making processes by providing a comprehensive view of the organization's data.
-  
-:::
-::::
+
 
 
 ## Data Warehouses, Data Marts, and Data Lakes
@@ -383,7 +374,7 @@ theme_set(theme_fivethirtyeight()+
 
 
 - **Data Sources**
-  - Internal Systems: online transaction processing systems, customer relationship management, enterprise resource planning.
+  - Internal Systems: Online transaction processing systems, customer relationship management, enterprise resource planning.
   - External Systems: Social media, government databases, etc.
 - **ETL Process**
   - Extract, Transform, Load (to be discussed in detail).
@@ -391,18 +382,6 @@ theme_set(theme_fivethirtyeight()+
   - Centralized repository optimized for query and analysis.
 - **Data Access**
   - Used by various departments for reporting, analysis, and decision-making.
-
-
-
-## Data Warehouses, Data Marts, and Data Lakes
-### Importance of Data Warehouses
-
-- **Decision Support**
-  - Provides historical data for trend analysis and forecasting.
-- **Data Analysis**
-  - Allows for drill-down and roll-up operations.
-- **Cross-Functional Insights**
-  - Integrates data across different business units.
 
 
 
@@ -425,6 +404,7 @@ theme_set(theme_fivethirtyeight()+
   - Early adopter; used data warehouse to gain a competitive advantage in supply chain management.
   - Held transaction data from over 11,000 stores and 25,000 suppliers.
   - First commercial data warehouse to reach 1 terabyte in 1992.
+  - Collects data over 2.5 petabytes per hour in 2024.
 
 :::
 ::::
@@ -650,29 +630,54 @@ theme_set(theme_fivethirtyeight()+
 - **Components**
   - **Hadoop Distributed File System (HDFS):** Distributed data storage.
   - **MapReduce:** Data processing model.
+
+
+## Hadoop
+### Introduction to Hadoop
+
+<div style="text-align: center; width: 55%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/hadoop.png" style="width: 100%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"> </p>
+</div>
+
 - **Purpose**
   - Enables distributed processing of large data sets across clusters of computers.
 
 
 
 ## Hadoop
-### Hadoop Architecture
+### Hadoop Architecture - HDFS
+:::: {.columns}
 
-<div style="text-align: center; width: 55%; margin: auto;">
+::: {.column width="50%"}
+
+<div style="text-align: center; width: 100%; margin: auto;">
   <img src="https://bcdanl.github.io/lec_figs/hadoop-env.png" style="width: 100%; margin-bottom: -20px;">
   <p style="font-weight: bold;"> </p>
 </div>
+:::
+
+::: {.column width="50%"}
 
 - **HDFS**
-  - Divides data into blocks and distributes them across cluster nodes.
-  - Provides redundancy and fault tolerance.
+  - Divides data into blocks and distributes them across different servers for processing.
+  - Provides a highly redundant computing environment
+    - Allows the application to keep running even if individual servers fail.
+
+
+:::
+::::
+
+
+## Hadoop
+### Hadoop Architecture - MapReduce
+
 - **MapReduce**
   - **Map Phase:** Filters and sorts data.
+    - e.g., Sorting customer orders based on their product IDs, with each group corresponding to a specific product ID.
   - **Reduce Phase:** Summarizes and aggregates results.
-- **Cluster Nodes**
-  - Each node contains data and computation resources.
-- **Master Node**
-  - Manages distribution of tasks and data.
+    - e.g., Counting the number of orders within each group, thereby determining the frequency of each product ID.
+  
 
 
 
@@ -682,96 +687,60 @@ theme_set(theme_fivethirtyeight()+
 1. **Data Distribution**
    - Large data sets are split into smaller blocks.
 2. **Data Storage**
-   - Blocks are stored across multiple nodes in the cluster.
+   - Blocks are stored across multiple servers in the cluster.
 3. **Processing with MapReduce**
-   - **Map Tasks:** Executed on nodes where data resides, minimizing data movement.
+   - **Map Tasks:** Executed on servers where data resides, minimizing data movement.
    - **Reduce Tasks:** Combine results from map tasks to produce final output.
 4. **Fault Tolerance**
-   - Data replication ensures processing continues even if nodes fail.
+   - Data replication ensures processing continues even if servers fail.
 
 
 
-## Hadoop
-### Advantages of Hadoop
-
-- **Scalability**
-  - Easily add more nodes to handle increased data.
-- **Cost-Effectiveness**
-  - Utilizes commodity hardware.
-- **Flexibility**
-  - Can process structured and unstructured data.
-- **Reliability**
-  - Built-in fault tolerance and redundancy.
-
-
-
-## Hadoop
-### Limitations of Hadoop
-
-- **Batch Processing Only**
-  - Not suitable for real-time data processing.
-- **Complexity**
-  - Requires specialized skills to manage and program.
-- **Data Security**
-  - Additional measures needed to secure data in a distributed environment.
-
-
+---
 
 ## Hadoop
 ### Extending Hadoop for Real-Time Processing
 
-- **Apache Storm**
-  - Real-time computation system for unbounded data streams.
-- **Apache Spark**
-  - Framework for in-memory data processing.
-- **Integration**
-  - Both can run on top of Hadoop clusters, utilizing HDFS for storage.
+- **Limitation of Hadoop**
+  - Hadoop was originally designed for batch processing.
+    - **Batch Processing:** Data or tasks are collected over a period of time and then processed all at once, typically at scheduled times or during periods of low activity.
 
+- **Real-Time Processing Limitation:**
+  - Hadoop cannot natively process real-time streaming data (e.g., stock prices flowing into stock exchanges, live sensor data)
 
-
-## Hadoop
-### Use Cases and Examples
-
-- **Yahoo!**
-  - Used Hadoop to personalize ads and content.
-- **Verizon Wireless**
-  - Utilizes Hadoop for customer churn analysis, incorporating clickstream data and social media interactions.
-- **Medscape MedPulse**
-  - Employs Apache Storm to process Twitter feeds and provide real-time medical news updates.
-
-
+- **Extending Hadoop's Capabilities**
+  - Both Apache Storm and Apache Spark can run on top of Hadoop clusters, utilizing HDFS for storage.
 
 ## Hadoop
-### Apache Storm and Spark
+### Apache Storm and Apache Spark
 
-- **Apache Storm**
-  - **Functionality:** Processes real-time data streams.
-  - **Use Cases:** Real-time analytics, online machine learning, continuous computation.
-- **Apache Spark**
-  - **Functionality:** Provides in-memory computations for speed.
-  - **Use Cases:** Batch processing, interactive queries, machine learning.
+:::: {.columns}
+::: {.column width="50%"}
 
+#### **Apache Storm**
 
+- **Functionality:**
+  - Processes real-time data streams.
+  - Handles unbounded streams of data reliably and efficiently.
+- **Use Cases:**
+  - Real-time analytics
+  - Online machine learning
+  - Continuous computation
+  - Real-time data integration
 
-## Technologies Used to Manage and Process Big Data
-### Strategic Implementation
+:::
 
-- **Assess Organizational Needs**
-  - Data volume, variety, and velocity.
-- **Select Appropriate Technologies**
-  - Based on use cases and technical capabilities.
-- **Invest in Skills and Training**
-  - Necessary to manage and leverage these technologies effectively.
-- **Data Governance**
-  - Establish policies for data quality, security, and compliance.
+::: {.column width="50%"}
 
+#### **Apache Spark**
 
-## Technologies Used to Manage and Process Big Data
-### Future Outlook
+- **Functionality:**
+  - Provides in-memory computations for increased speed.
+  - Supports both batch and streaming data processing through Spark Streaming.
+- **Use Cases:**
+  - Interactive queries
+  - Machine learning
 
-- **Continuous Evolution**
-  - Technologies will keep advancing to meet the growing demands of big data.
-- **Integration of Tools**
-  - Greater integration between systems for seamless data processing.
-- **Adoption of AI and Machine Learning**
-  - Enhanced analytics capabilities for deeper insights.
+:::
+::::
+
