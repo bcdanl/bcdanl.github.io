@@ -55,439 +55,255 @@ theme_set(theme_fivethirtyeight()+
 ```
 
 
-
-# Technologies Used to Manage and Process Big Data {background-color="#1c4982"}
-
-## Technologies Used to Manage and Process Big Data
-
-- **Definition of Big Data**
-  - Data sets so large and complex that traditional data management tools are inadequate.
-- **The Need for Advanced Technologies**
-  - Emerging technologies are essential to manage, process, and analyze big data effectively.
-- **Overview of Topics**
-  - Data Warehouses
-  - Extract, Transform, Load (ETL) Process
-  - Data Marts
-  - Data Lakes
-  - Hadoop
+    
 
 
-## Technologies Used to Manage and Process Big Data
-### Challenges with Traditional Data Management
+# Data Preparation and Management  {background-color="#1c4982"}
 
-- **Limitations**
-  - Traditional software and hardware can't handle the volume, velocity, and variety of big data.
-- **Impact**
-  - Inability to store massive data volumes efficiently.
-  - Difficulty in processing and analyzing data in a timely manner.
-- **Solution**
-  - Adoption of new technologies specifically designed for big data management.
+## A Simple Taxonomy of Data
+### Data Types Overview
 
-
-
-## Data Warehouses, Data Marts, and Data Lakes
-### Data Warehouses
-
-
-
-
-<div style="text-align: center; width: 100%; margin: auto;">
-  <img src="https://bcdanl.github.io/lec_figs/data-warehousing.png" style="width: 53%; margin-bottom: -20px;">
-  <p style="font-weight: bold;"> </p>
-</div>
-  
-- **Definition**
-  - A large database that holds business information from many sources across the enterprise.
-
-- **Purpose**
-  - Supports decision-making processes by providing a comprehensive view of the organization's data.
-
-
-
-## Data Warehouses, Data Marts, and Data Lakes
-### Data Warehouses Characteristics
-
-  | Characteristic                               | Description                                                           |
-  |----------------------------------------------|-----------------------------------------------------------------------|
-  | **Large**                                    | Holds billions of records and petabytes of data                       |
-  | **Multiple Sources**                         | Data comes from many internal and external sources via the ETL process |
-  | **Historical**                               | Typically contains data spanning 5 years or more                      |
-  | **Cross-Organizational Access and Analysis** | Data accessed and analyzed by users across the organization to support multiple business processes and decision-making |
-  | **Supports Various Analyses and Reporting**  | Enables drill-down analysis, metric development, trend identification  |
-
-
-
-
-## Data Warehouses, Data Marts, and Data Lakes
-### Data Warehouse Architecture
-
-
-- **Data Sources**
-  - Internal Systems: Online transaction processing systems, customer relationship management, enterprise resource planning.
-  - External Systems: Social media, government databases, etc.
-- **ETL Process**
-  - Extract, Transform, Load (to be discussed in detail).
-- **Data Storage**
-  - Centralized repository optimized for query and analysis.
-- **Data Access**
-  - Used by various departments for reporting, analysis, and decision-making.
-
-
-
-## Data Warehouses, Data Marts, and Data Lakes
-### Examples of Data Warehouse Usage
-
-
-:::: {.columns}
-
-::: {.column width="50%"}
-
-<div style="text-align: center; width: 100%; margin: auto;">
-  <img src="https://bcdanl.github.io/lec_figs/walmart-data-warehouse.png" style="width: 100%; margin-bottom: -20px;">
-  <p style="font-weight: bold;"> </p>
-</div>
-:::
-
-::: {.column width="50%"}
-- **Walmart**
-  - Early adopter; used data warehouse to gain a competitive advantage in supply chain management.
-  - Held transaction data from over 11,000 stores and 25,000 suppliers.
-  - First commercial data warehouse to reach 1 terabyte in 1992.
-  - Collects data over 2.5 petabytes per hour in 2024.
-
-:::
-::::
-
-
-## Data Warehouses, Data Marts, and Data Lakes
-### Examples of Data Warehouse Usage
-
-:::: {.columns}
-
-::: {.column width="50%"}
-
-<div style="text-align: center; width: 100%; margin: auto;">
-  <img src="https://bcdanl.github.io/lec_figs/whoop.png" style="width: 100%; margin-bottom: -20px;">
-  <p style="font-weight: bold;"> </p>
-</div>
-:::
-
-::: {.column width="50%"}
-- **WHOOP Wearable Device**
-  - Collects massive biometric data from athletes.
-  - Data warehouse stores sensor data collected 100 times per second.
-  - Provides insights on strain, recovery, and sleep to optimize performance.
-  
-:::
-::::
-
-
-## Data Warehouses, Data Marts, and Data Lakes
-### Examples of Data Warehouse Usage
-
-
+:::: {.nonincremental}
 :::: {.columns}
 ::: {.column width="50%"}
 
-<div style="text-align: center; width: 100%; margin: auto;">
-  <img src="https://bcdanl.github.io/lec_figs/aa.jpeg" style="width: 100%; margin-bottom: -20px;">
-  <p style="font-weight: bold;"> </p>
-</div>
+- **Categorical Data**: Data that can be divided into distinct categories based on some qualitative attribute.
+  - **Nominal Data**
+  - **Ordinal Data**
 
 :::
 
 ::: {.column width="50%"}
-- **American Airlines**
-  - Flight attendants access customer data to enhance in-flight service.
-  - Ability to resolve issues by offering free miles or travel vouchers based on customer history.
+
+- **Numeric Data**: Data that represents measurable quantities and can be subjected to mathematical algebra.
+  - **Interval Data**
+  - **Ratio Data**
 
 :::
 ::::
+::::
 
-## Data Warehouses, Data Marts, and Data Lakes
-### Data Quality in Data Warehouses
+## A Simple Taxonomy of Data
+### Categorical Data - Nominal
 
-- **Challenges**
-  - **Data Inconsistencies:** Duplicate or missing data leading to incorrect analyses.
-  - **Dirty Data:** Inaccurate, incomplete, or outdated information.
-  - Misleading statistics: "Garbage in, garbage out"
-- **Importance**
-  - Ensuring high data quality is critical to avoid misleading conclusions.
-- **Solution**
-  - Implement robust ETL processes to cleanse and standardize data.
+:::: {.nonincremental}
 
 
+| ID | Animal |
+|----|--------|
+| 1  | Dog    |
+| 2  | Cat    |
+| 3  | Bird   |
 
-## Extract, Transform, Load (ETL) Process
-### Overview of ETL Process
+- **Nominal Data**: Categorical data where the categories have no intrinsic order or ranking.
+- **No Order**: Categories are simply different; there is no logical sequence.
+- **Examples**:
+  - **Colors**: Red, Blue, Green
+  - **Types of Animals**: Dog, Cat, Bird
 
-- **Purpose**
-  - Integral process for populating data warehouses with clean, consistent data.
-- **Stages**
-  1. **Extract**
-     - Collecting data from multiple sources.
-  2. **Transform**
-     - Cleaning and converting data into a suitable format.
-  3. **Load**
-     - Inserting transformed data into the data warehouse.
+:::: 
 
+## A Simple Taxonomy of Data
+### Categorical Data - Ordinal
 
+:::: {.nonincremental}
 
-## Extract, Transform, Load (ETL) Process
-### Extract Stage
+| ID | Education Level |
+|----|-----------------|
+| 1  | Bachelor’s      |
+| 2  | Master’s        |
+| 3  | PhD             |
 
-- **Data Sources**
-  - Various internal and external systems.
-- **Process**
-  - **Data Extraction:** Pulling data from different systems.
-  - **Data Validation:** Rejecting data that doesn't meet quality standards (e.g., missing values, invalid formats).
-- **Challenges**
-  - Dealing with heterogeneous data formats and structures.
+- **Ordinal Data**: Categorical data where the categories have a meaningful order or ranking.
 
+- **Order Matters**: Categories can be ranked or ordered, but the differences between categories are not necessarily uniform.
+- **Examples**:
+  - **Education Levels**: High School, Bachelor’s, Master’s, PhD
+  - **Customer Satisfaction**: Poor, Fair, Good, Excellent
 
-
-## Extract, Transform, Load (ETL) Process
-### Transform Stage
-
-- **Purpose**
-  - Convert extracted data into a standardized format suitable for analysis.
-- **Processes**
-  - **Data Cleaning:** Correcting errors and inconsistencies.
-  - **Data Integration:** Combining data from different sources.
-  - **Data Aggregation:** Summarizing data to reduce processing time.
-  - **Example Transformation:**
-    - Converting customer address information into a sales district or census tract.
-
-
-
-## Extract, Transform, Load (ETL) Process
-### Load Stage
-
-- **Process**
-  - **Data Loading:** Inserting transformed data into the data warehouse.
-  - **Indexing:** Creating indices to improve query performance.
-  - **Constraint Checking:** Ensuring data integrity according to database schema.
-- **Challenges**
-  - The loading process for large data warehouses can take days.
-- **Outcome**
-  - The data warehouse is updated with high-quality, consistent data ready for analysis.
-
-
-
-
-
-## Data Marts
-### Definition of Data Marts
-
-- **Subset of Data Warehouse**
-  - Focused on a specific business area or department.
-- **Purpose**
-  - Provides relevant data to a specific group without the complexity of the entire data warehouse.
-- **Advantages**
-  - **Cost-Effective:** Less expensive to implement and maintain.
-  - **Faster Access:** Optimized for departmental needs.
-  - **Simplified Analysis:** Easier to query and analyze due to reduced data volume.
-
-
-
-## Data Marts
-### Data Mart Use Cases
-
-- **Departmental Focus**
-  - Finance: Financial reporting and analysis.
-  - Marketing: Customer segmentation and campaign analysis.
-  - Inventory: Stock levels and supply chain management.
-- **Small to Medium-Sized Businesses**
-  - An affordable alternative to a full-scale data warehouse.
-
-
-
-## Data Marts
-### Data Marts vs. Data Warehouses
-
-| Feature            | Data Mart                         | Data Warehouse                   |
-|--|--|--|
-| Scope              | Specific department or business area | Entire enterprise                 |
-| Data Volume        | Smaller                           | Larger                            |
-| Complexity         | Less complex                      | More complex                      |
-| Implementation Time| Shorter                           | Longer                            |
-| Cost               | Lower                             | Higher                            |
-
-
-
-## Data Lakes
-### Definition of Data Lakes
-
-- **"Store Everything" Approach**
-  - Stores all data in its raw, unaltered form.
-- **Purpose**
-  - Provides a centralized repository for all data, accommodating future analytical needs.
-- **Characteristics**
-  - **Data Variety:** Includes structured, semi-structured, and unstructured data.
-  - **Flexibility:** Data is available for any type of analysis at any time.
-
-
-## Data Lakes
-### Data Lakes vs. Data Warehouses
-
-| Feature            | Data Lake                         | Data Warehouse                   |
-|--|--|--|
-| Data Processing    | Schema-on-read (processed when accessed) | Schema-on-write (processed before storage) |
-| Data State         | Raw, unprocessed                  | Cleaned, transformed              |
-| Data Types         | All data types                    | Primarily structured              |
-| Flexibility        | High                              | Moderate                          |
-
-
-
-## Data Lakes
-### Case Study: Bechtel Corporation
-
-
-<div style="text-align: center; width: 45%; margin: auto;">
-  <img src="https://bcdanl.github.io/lec_figs/bechtel.jpeg" style="width: 100%; margin-bottom: -20px;">
-  <p style="font-weight: bold;"> </p>
-</div>
-
-
-- **About Bechtel**
-  - Global engineering, construction, and project management company.
-- **Implementation**
-  - Built a 5-petabyte data lake consolidating years of project data.
-  
-  
-## Data Lakes
-### Case Study: Bechtel Corporation
-
-- **Benefits**
-  - **Historical Insights:** Access to data from hundreds of projects worldwide.
-  - **Improved Forecasting:** Better predictions of project outcomes.
-  - **Cost Reduction:** Identifying inefficiencies to cut costs.
-  - **Competitive Advantage:** Enhanced ability to win new contracts through data-driven insights.
-
-
-
-## Hadoop
-### Introduction to Hadoop
-
-<div style="text-align: center; width: 55%; margin: auto;">
-  <img src="https://bcdanl.github.io/lec_figs/hadoop.png" style="width: 100%; margin-bottom: -20px;">
-  <p style="font-weight: bold;"> </p>
-</div>
-
-- **Definition**
-  - An open-source software framework for storing and processing large data sets.
-- **Components**
-  - **Hadoop Distributed File System (HDFS):** Distributed data storage.
-  - **MapReduce:** Data processing model.
-
-
-## Hadoop
-### Introduction to Hadoop
-
-<div style="text-align: center; width: 55%; margin: auto;">
-  <img src="https://bcdanl.github.io/lec_figs/hadoop.png" style="width: 100%; margin-bottom: -20px;">
-  <p style="font-weight: bold;"> </p>
-</div>
-
-- **Purpose**
-  - Enables distributed processing of large data sets across clusters of computers.
-
-
-
-## Hadoop
-### Hadoop Architecture - HDFS
-:::: {.columns}
-
-::: {.column width="50%"}
-
-<div style="text-align: center; width: 100%; margin: auto;">
-  <img src="https://bcdanl.github.io/lec_figs/hadoop-env.png" style="width: 100%; margin-bottom: -20px;">
-  <p style="font-weight: bold;"> </p>
-</div>
-:::
-
-::: {.column width="50%"}
-
-- **HDFS**
-  - Divides data into blocks and distributes them across different servers for processing.
-  - Provides a highly redundant computing environment
-    - Allows the application to keep running even if individual servers fail.
-
-
-:::
 ::::
 
 
-## Hadoop
-### Hadoop Architecture - MapReduce
 
-- **MapReduce**
-  - **Map Phase:** Filters and sorts data.
-    - e.g., Sorting customer orders based on their product IDs, with each group corresponding to a specific product ID.
-  - **Reduce Phase:** Summarizes and aggregates results.
-    - e.g., Counting the number of orders within each group, thereby determining the frequency of each product ID.
+## A Simple Taxonomy of Data
+### Numeric Data - Interval
+
+:::: {.nonincremental}
+
+| ID | Temperature (°F) |
+|----|------------------|
+| 1  | 70               |
+| 2  | 80               |
+| 3  | 90               |
+
+- **Interval Data**: Numeric data where the differences between values are meaningful, but there is no true zero point.
+
+- **Meaningful Intervals**: The difference between values is consistent.
+- **No True Zero**: Zero does not indicate the absence of the quantity.
+- **Examples**:
+  - **Temperature (°F)**: Zero degrees does not mean no temperature.
+  - **Time of Day in a 12-Hour Clock**: Differences are meaningful, but there is no absolute zero.
+
+::::
+
+## A Simple Taxonomy of Data
+### Numeric Data - Ratio
+
+:::: {.nonincremental}
+
+| ID | Height (cm) | Weight (kg) |
+|----|-------------|-------------|
+| 1  | 160         | 55          |
+| 2  | 175         | 70          |
+| 3  | 170         | 65          |
+
+- **Ratio Data**: Numeric data with a true zero point, allowing for a full range of mathematical operations.
+
+- **Meaningful Ratios**: Comparisons like twice as much or half as much are valid.
+- **True Zero**: Zero indicates the absence of the quantity.
+- **Examples**:
+  - **Height in Centimeters**: Zero means no height.
+  - **Weight in Kilograms**: Zero means no weight.
+
+::::
+
+## Sources of an Organization's Data
+
+<div style="text-align: center; width: 85%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/data-source.png" style="width: 100%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"> </p>
+</div>
+
+
+## Free Sources of Useful (Big) Data
+### Economics/Finance
+<div style="font-size: 18px;">
+
+
+| Data Source                        | Description                                                                                                                                  | URL                                                |
+|------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------|
+| Bureau of Labor Statistics (BLS)   | Provides access to data on inflation and prices, wages and benefits, employment, spending and time use, productivity, and workplace injuries | [BLS](https://www.bls.gov)                        |
+| FRED (Federal Reserve Economic Data)| Provides access to a vast collection of U.S. economic data, including interest rates, GDP, inflation, employment, and more                   | [FRED](https://fred.stlouisfed.org)                |
+| Yahoo Finance                      | Provides comprehensive financial news, data, and analysis, including stock quotes, market data, and financial reports                        | [Yahoo Finance](https://finance.yahoo.com)        |
+| IMF (International Monetary Fund)  | Provides access to a range of economic data and reports on countries’ economies                                                              | [IMF Data](https://www.imf.org/en/Data)            |
+| World Bank Open Data               | Free and open access to global development data, including world development indicators                                                      | [World Bank Open Data](https://data.worldbank.org) |
+| OECD Data                          | Provides access to economic, environmental, and social data and indicators from OECD member countries                                        | [OECD Data](https://data.oecd.org)                 |
+</div>
+
+
+## Free Sources of Useful (Big) Data
+### Government/Public Data
+<div style="font-size: 18px;">
+
+| Data Source                        | Description                                                                                                                                  | URL                                                |
+|------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------|
+| Data.gov                           | Portal providing access to over 186,000 government data sets, related to topics such as agriculture, education, health, and public safety    | [Data.gov](http://data.gov)                       |
+| CIA World Factbook                 | Portal to information on the economy, government, history, infrastructure, military, and population of 267 countries                        | [CIA World Factbook](https://cia.gov/library/publications/the-world-factbook) |
+| U.S. Census Bureau                 | Portal to a huge variety of government statistics and data relating to the U.S. economy and its population                                   | [U.S. Census Bureau](https://www.census.gov/data.html) |
+| European Union Open Data Portal    | Provides access to public data from EU institutions                                                                                          | [EU Open Data Portal](https://data.europa.eu/euodp/en/data) |
+| New York City Open Data            | Provides access to datasets from New York City, covering a wide range of topics such as public safety, transportation, and health            | [NYC Open Data](https://opendata.cityofnewyork.us)|
+| Los Angeles Open Data              | Portal for accessing public data from the City of Los Angeles, including transportation, public safety, and city services                     | [LA Open Data](https://data.lacity.org)           |
+| Chicago Data Portal                | Offers access to datasets from the City of Chicago, including crime data, transportation, and health statistics                              | [Chicago Data Portal](https://data.cityofchicago.org) |
+</div>
+
+
+## Free Sources of Useful (Big) Data
+### Health, Climate/Environment, and Social Data
+<div style="font-size: 18px;">
+
+| Data Source                        | Description                                                                                                                                  | URL                                                |
+|------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------|
+| Healthdata.gov                     | Portal to 125 years of U.S. health care data, including national health care expenditures, claim-level Medicare data, and other topics       | [Healthdata.gov](https://www.healthdata.gov)      |
+| World Health Organization (WHO)    | Portal to data and statistics on global health issues                                                                                        | [WHO Data](https://www.who.int/data)               |
+| National Centers for Environmental Information (NOAA) | Portal for accessing a variety of climate and weather data sets                                                                              | [NCEI](https://www.ncdc.noaa.gov/data-access/quick-links#loc-clim) |
+| NOAA National Weather Service      | Provides weather, water, and climate data, forecasts and warnings                                                                            | [NOAA NWS](https://www.weather.gov/data)           |
+| FAO (Food and Agriculture Organization) | Provides access to data on food and agriculture, including data on production, trade, food security, and sustainability                       | [FAOSTAT](http://www.fao.org/faostat/en/#data)    |
+| Pew Research Center Internet & Technology| Portal to research on U.S. politics, media and news, social trends, religion, Internet and technology, science, Hispanic, and global topics  | [Pew Research](https://www.pewresearch.org/internet/datasets/) |
+| Data for Good from Facebook        | Provides access to anonymized data from Facebook to help non-profits and research communities with insights on crises, health, and well-being | [Facebook Data for Good](https://dataforgood.fb.com) |
+| Data for Good from Canada          | Provides open access to datasets that address pressing social challenges across Canada                                                       | [Data for Good Canada](https://dataforgood.ca)     |
+
+</div>
+
+
+
+## Free Sources of Useful (Big) Data
+### General Data Repositories
+
+<div style="font-size: 18px;">
+
+
+| Data Source                        | Description                                                                                                                                  | URL                                                |
+|------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------|
+| Amazon Web Services (AWS) public data sets | Portal to a huge repository of public data, including climate data, the million song dataset, and data from the 1000 Genomes project        | [AWS Datasets](http://aws.amazon.com/datasets)     |
+| Gapminder                          | Portal to data from the World Health Organization and World Bank on economic, medical, and social issues                                     | [Gapminder](https://www.gapminder.org/data)       |
+| Google Dataset Search              | Helps find datasets stored across the web                                                                                                    | [Google Dataset Search](https://datasetsearch.research.google.com) |
+| Kaggle Datasets                    | A community-driven platform with datasets from various fields, useful for machine learning and data science projects                         | [Kaggle Datasets](https://www.kaggle.com/datasets) |
+| UCI Machine Learning Repository    | A collection of databases, domain theories, and datasets used for machine learning research                                                  | [UCI ML Repository](https://archive.ics.uci.edu/ml/index.php) |
+| United Nations Data                | Provides access to global statistical data compiled by the United Nations                                                                    | [UN Data](http://data.un.org)                      |
+| Humanitarian Data Exchange (HDX)   | Provides humanitarian data from the United Nations, NGOs, and other organizations                                                            | [HDX](https://data.humdata.org)                    |
+| Democratizing Data from data.org   | A platform providing access to high-impact datasets, tools, and resources aimed at solving critical global challenges                        | [Democratizing Data](https://data.org/democratizing-data) |
+| Justia Federal District Court Opinions and Orders database | A free searchable database of full-text opinions and orders from civil cases heard in U.S. Federal District Courts                            | [Justia](http://law.justia.com/cases/federal/district-courts) |
+</div>
+
+
+
+# Challenges of Big Data {background-color="#1c4982"}
+
+
+## Challenges of Big Data
+### Information Overload
+
+- **Difficulty in Finding Information**
+  - **Search Challenges:** With so much data, traditional search methods become inefficient.
+  - **Indexing Issues:** Properly cataloging data to make retrieval efficient is complex.
+- **Trust Issues**
+  - **Data Validity:** Users may question the accuracy and timeliness of available data.
+  - **Source Credibility:** Differentiating between reliable and unreliable data sources.
+
+## Challenges of Big Data
+### Information Overload
+- **Data from Diverse Sources**
+  - **Integration Complexity:** Combining data from internal and external sources can be technically challenging.
+  - **Data Formats:** Managing different data types, such as structured, unstructured, and semi-structured data.
+
+
+## Challenges of Big Data
+### Compliance and Regulations
+
+- **Risk of Non-Compliance**
+  - **Legal Penalties:** Organizations may face fines, sanctions, or legal action.
+  - **Reputation Damage:** Public trust can be eroded by non-compliance incidents.
+- **Impact on Organizations**
+  - **Operational Costs:** Investing in compliance measures can be resource-intensive.
+  - **Process Adjustments:** Policies and procedures may need significant changes to meet regulatory standards.
   
 
-
-
-## Hadoop
-### How Hadoop Works
-
-1. **Data Distribution**
-   - Large data sets are split into smaller blocks.
-2. **Data Storage**
-   - Blocks are stored across multiple servers in the cluster.
-3. **Processing with MapReduce**
-   - **Map Tasks:** Executed on servers where data resides, minimizing data movement.
-   - **Reduce Tasks:** Combine results from map tasks to produce final output.
-4. **Fault Tolerance**
-   - Data replication ensures processing continues even if servers fail.
+## Challenges of Big Data
+### Compliance and Regulations
+- **Need for Vigilance**
+  - **Evolving Laws:** Regulations frequently update, requiring continuous monitoring.
+  - **Employee Training:** Staff must be educated on compliance requirements and best practices.
 
 
 
-## Hadoop
-### Extending Hadoop for Real-Time Processing
 
-- **Limitation of Hadoop**
-  - Hadoop was originally designed for batch processing.
-    - **Batch Processing:** Data or tasks are collected over a period of time and then processed all at once, typically at scheduled times or during periods of low activity.
+## Challenges of Big Data
+### Privacy Concerns
 
-- **Real-Time Processing Limitation:**
-  - Hadoop cannot natively process real-time streaming data (e.g., stock prices flowing into stock exchanges, live sensor data)
+- **Data Harvesting**
+  - **Collection Methods:** Corporations gather personal data through various means, often without explicit user consent.
+  - **Scope of Data:** Information ranges from basic demographics to detailed behavioral patterns.
+- **Extensive Profiling**
+  - **User Tracking:** Monitoring online activities to build comprehensive profiles.
+  - **Third-Party Sharing:** Data sold or shared with other organizations, amplifying privacy risks.
+  
 
-- **Extending Hadoop's Capabilities**
-  - Both Apache Storm and Apache Spark can run on top of Hadoop clusters, utilizing HDFS for storage.
+## Challenges of Big Data
+### Privacy Concerns
+- **Ethical Implications**
+  - **Consent and Transparency:** Lack of clear communication about data usage.
+  - **Right to Privacy:** Debates over how much personal data companies should access and store.
 
-## Hadoop
-### Apache Storm and Apache Spark
 
-:::: {.columns}
-::: {.column width="50%"}
 
-#### **Apache Storm**
-
-- **Functionality:**
-  - Processes real-time data streams.
-  - Handles unbounded streams of data reliably and efficiently.
-- **Use Cases:**
-  - Real-time analytics
-  - Online machine learning
-  - Continuous computation
-  - Real-time data integration
-
-:::
-
-::: {.column width="50%"}
-
-#### **Apache Spark**
-
-- **Functionality:**
-  - Provides in-memory computations for increased speed.
-  - Supports both batch and streaming data processing through Spark Streaming.
-- **Use Cases:**
-  - Interactive queries
-  - Machine learning
-
-:::
-::::
 

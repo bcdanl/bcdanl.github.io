@@ -348,628 +348,500 @@ Byeong-Hak Choe
   <p class="date">September 23, 2024</p>
 </section>
 <section>
-<section id="technologies-used-to-manage-and-process-big-data" class="title-slide slide level1 center" data-background-color="#1c4982">
-<h1>Technologies Used to Manage and Process Big Data</h1>
+<section id="data-preparation-and-management" class="title-slide slide level1 center" data-background-color="#1c4982">
+<h1>Data Preparation and Management</h1>
 
 </section>
-<section id="technologies-used-to-manage-and-process-big-data-1" class="slide level2">
-<h2>Technologies Used to Manage and Process Big Data</h2>
+<section id="a-simple-taxonomy-of-data" class="slide level2">
+<h2>A Simple Taxonomy of Data</h2>
+<h3 id="data-types-overview">Data Types Overview</h3>
+<div>
+<div class="columns">
+<div class="column" style="width:50%;">
 <ul>
-<li class="fragment"><strong>Definition of Big Data</strong>
+<li><strong>Categorical Data</strong>: Data that can be divided into distinct categories based on some qualitative attribute.
 <ul>
-<li class="fragment">Data sets so large and complex that traditional data management tools are inadequate.</li>
-</ul></li>
-<li class="fragment"><strong>The Need for Advanced Technologies</strong>
-<ul>
-<li class="fragment">Emerging technologies are essential to manage, process, and analyze big data effectively.</li>
-</ul></li>
-<li class="fragment"><strong>Overview of Topics</strong>
-<ul>
-<li class="fragment">Data Warehouses</li>
-<li class="fragment">Extract, Transform, Load (ETL) Process</li>
-<li class="fragment">Data Marts</li>
-<li class="fragment">Data Lakes</li>
-<li class="fragment">Hadoop</li>
+<li><strong>Nominal Data</strong></li>
+<li><strong>Ordinal Data</strong></li>
 </ul></li>
 </ul>
-</section>
-<section id="technologies-used-to-manage-and-process-big-data-2" class="slide level2">
-<h2>Technologies Used to Manage and Process Big Data</h2>
-<h3 id="challenges-with-traditional-data-management">Challenges with Traditional Data Management</h3>
+</div><div class="column" style="width:50%;">
 <ul>
-<li class="fragment"><strong>Limitations</strong>
+<li><strong>Numeric Data</strong>: Data that represents measurable quantities and can be subjected to mathematical algebra.
 <ul>
-<li class="fragment">Traditional software and hardware can’t handle the volume, velocity, and variety of big data.</li>
-</ul></li>
-<li class="fragment"><strong>Impact</strong>
-<ul>
-<li class="fragment">Inability to store massive data volumes efficiently.</li>
-<li class="fragment">Difficulty in processing and analyzing data in a timely manner.</li>
-</ul></li>
-<li class="fragment"><strong>Solution</strong>
-<ul>
-<li class="fragment">Adoption of new technologies specifically designed for big data management.</li>
+<li><strong>Interval Data</strong></li>
+<li><strong>Ratio Data</strong></li>
 </ul></li>
 </ul>
+</div>
+</div>
+</div>
 </section>
-<section id="data-warehouses-data-marts-and-data-lakes" class="slide level2">
-<h2>Data Warehouses, Data Marts, and Data Lakes</h2>
-<h3 id="data-warehouses">Data Warehouses</h3>
-<div style="text-align: center; width: 100%; margin: auto;">
-<img src="https://bcdanl.github.io/lec_figs/data-warehousing.png" style="width: 53%; margin-bottom: -20px;">
+<section id="a-simple-taxonomy-of-data-1" class="slide level2">
+<h2>A Simple Taxonomy of Data</h2>
+<h3 id="categorical-data---nominal">Categorical Data - Nominal</h3>
+<div>
+<table>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Animal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Dog</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Cat</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Bird</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Nominal Data</strong>: Categorical data where the categories have no intrinsic order or ranking.</li>
+<li><strong>No Order</strong>: Categories are simply different; there is no logical sequence.</li>
+<li><strong>Examples</strong>:
+<ul>
+<li><strong>Colors</strong>: Red, Blue, Green</li>
+<li><strong>Types of Animals</strong>: Dog, Cat, Bird</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="a-simple-taxonomy-of-data-2" class="slide level2">
+<h2>A Simple Taxonomy of Data</h2>
+<h3 id="categorical-data---ordinal">Categorical Data - Ordinal</h3>
+<div>
+<table>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Education Level</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Bachelor’s</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Master’s</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>PhD</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>Ordinal Data</strong>: Categorical data where the categories have a meaningful order or ranking.</p></li>
+<li><p><strong>Order Matters</strong>: Categories can be ranked or ordered, but the differences between categories are not necessarily uniform.</p></li>
+<li><p><strong>Examples</strong>:</p>
+<ul>
+<li><strong>Education Levels</strong>: High School, Bachelor’s, Master’s, PhD</li>
+<li><strong>Customer Satisfaction</strong>: Poor, Fair, Good, Excellent</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="a-simple-taxonomy-of-data-3" class="slide level2">
+<h2>A Simple Taxonomy of Data</h2>
+<h3 id="numeric-data---interval">Numeric Data - Interval</h3>
+<div>
+<table>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Temperature (°F)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>70</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>80</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>90</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>Interval Data</strong>: Numeric data where the differences between values are meaningful, but there is no true zero point.</p></li>
+<li><p><strong>Meaningful Intervals</strong>: The difference between values is consistent.</p></li>
+<li><p><strong>No True Zero</strong>: Zero does not indicate the absence of the quantity.</p></li>
+<li><p><strong>Examples</strong>:</p>
+<ul>
+<li><strong>Temperature (°F)</strong>: Zero degrees does not mean no temperature.</li>
+<li><strong>Time of Day in a 12-Hour Clock</strong>: Differences are meaningful, but there is no absolute zero.</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="a-simple-taxonomy-of-data-4" class="slide level2">
+<h2>A Simple Taxonomy of Data</h2>
+<h3 id="numeric-data---ratio">Numeric Data - Ratio</h3>
+<div>
+<table>
+<thead>
+<tr class="header">
+<th>ID</th>
+<th>Height (cm)</th>
+<th>Weight (kg)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>160</td>
+<td>55</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>175</td>
+<td>70</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>170</td>
+<td>65</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><strong>Ratio Data</strong>: Numeric data with a true zero point, allowing for a full range of mathematical operations.</p></li>
+<li><p><strong>Meaningful Ratios</strong>: Comparisons like twice as much or half as much are valid.</p></li>
+<li><p><strong>True Zero</strong>: Zero indicates the absence of the quantity.</p></li>
+<li><p><strong>Examples</strong>:</p>
+<ul>
+<li><strong>Height in Centimeters</strong>: Zero means no height.</li>
+<li><strong>Weight in Kilograms</strong>: Zero means no weight.</li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="sources-of-an-organizations-data" class="slide level2">
+<h2>Sources of an Organization’s Data</h2>
+<div style="text-align: center; width: 85%; margin: auto;">
+<img src="https://bcdanl.github.io/lec_figs/data-source.png" style="width: 100%; margin-bottom: -20px;">
 <p style="font-weight: bold;">
 </p>
 </div>
-<ul>
-<li class="fragment"><strong>Definition</strong>
-<ul>
-<li class="fragment">A large database that holds business information from many sources across the enterprise.</li>
-</ul></li>
-<li class="fragment"><strong>Purpose</strong>
-<ul>
-<li class="fragment">Supports decision-making processes by providing a comprehensive view of the organization’s data.</li>
-</ul></li>
-</ul>
 </section>
-<section id="data-warehouses-data-marts-and-data-lakes-1" class="slide level2">
-<h2>Data Warehouses, Data Marts, and Data Lakes</h2>
-<h3 id="data-warehouses-characteristics">Data Warehouses Characteristics</h3>
+<section id="free-sources-of-useful-big-data" class="slide level2">
+<h2>Free Sources of Useful (Big) Data</h2>
+<h3 id="economicsfinance">Economics/Finance</h3>
+<div style="font-size: 18px;">
 <table>
-<colgroup>
-<col style="width: 39%">
-<col style="width: 60%">
-</colgroup>
 <thead>
 <tr class="header">
-<th>Characteristic</th>
+<th>Data Source</th>
 <th>Description</th>
+<th>URL</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Large</strong></td>
-<td>Holds billions of records and petabytes of data</td>
+<td>Bureau of Labor Statistics (BLS)</td>
+<td>Provides access to data on inflation and prices, wages and benefits, employment, spending and time use, productivity, and workplace injuries</td>
+<td><a href="https://www.bls.gov">BLS</a></td>
 </tr>
 <tr class="even">
-<td><strong>Multiple Sources</strong></td>
-<td>Data comes from many internal and external sources via the ETL process</td>
+<td>FRED (Federal Reserve Economic Data)</td>
+<td>Provides access to a vast collection of U.S. economic data, including interest rates, GDP, inflation, employment, and more</td>
+<td><a href="https://fred.stlouisfed.org">FRED</a></td>
 </tr>
 <tr class="odd">
-<td><strong>Historical</strong></td>
-<td>Typically contains data spanning 5 years or more</td>
+<td>Yahoo Finance</td>
+<td>Provides comprehensive financial news, data, and analysis, including stock quotes, market data, and financial reports</td>
+<td><a href="https://finance.yahoo.com">Yahoo Finance</a></td>
 </tr>
 <tr class="even">
-<td><strong>Cross-Organizational Access and Analysis</strong></td>
-<td>Data accessed and analyzed by users across the organization to support multiple business processes and decision-making</td>
+<td>IMF (International Monetary Fund)</td>
+<td>Provides access to a range of economic data and reports on countries’ economies</td>
+<td><a href="https://www.imf.org/en/Data">IMF Data</a></td>
 </tr>
 <tr class="odd">
-<td><strong>Supports Various Analyses and Reporting</strong></td>
-<td>Enables drill-down analysis, metric development, trend identification</td>
+<td>World Bank Open Data</td>
+<td>Free and open access to global development data, including world development indicators</td>
+<td><a href="https://data.worldbank.org">World Bank Open Data</a></td>
+</tr>
+<tr class="even">
+<td>OECD Data</td>
+<td>Provides access to economic, environmental, and social data and indicators from OECD member countries</td>
+<td><a href="https://data.oecd.org">OECD Data</a></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="data-warehouses-data-marts-and-data-lakes-2" class="slide level2">
-<h2>Data Warehouses, Data Marts, and Data Lakes</h2>
-<h3 id="data-warehouse-architecture">Data Warehouse Architecture</h3>
-<ul>
-<li class="fragment"><strong>Data Sources</strong>
-<ul>
-<li class="fragment">Internal Systems: Online transaction processing systems, customer relationship management, enterprise resource planning.</li>
-<li class="fragment">External Systems: Social media, government databases, etc.</li>
-</ul></li>
-<li class="fragment"><strong>ETL Process</strong>
-<ul>
-<li class="fragment">Extract, Transform, Load (to be discussed in detail).</li>
-</ul></li>
-<li class="fragment"><strong>Data Storage</strong>
-<ul>
-<li class="fragment">Centralized repository optimized for query and analysis.</li>
-</ul></li>
-<li class="fragment"><strong>Data Access</strong>
-<ul>
-<li class="fragment">Used by various departments for reporting, analysis, and decision-making.</li>
-</ul></li>
-</ul>
-</section>
-<section id="data-warehouses-data-marts-and-data-lakes-3" class="slide level2">
-<h2>Data Warehouses, Data Marts, and Data Lakes</h2>
-<h3 id="examples-of-data-warehouse-usage">Examples of Data Warehouse Usage</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div style="text-align: center; width: 100%; margin: auto;">
-<img src="https://bcdanl.github.io/lec_figs/walmart-data-warehouse.png" style="width: 100%; margin-bottom: -20px;">
-<p style="font-weight: bold;">
-</p>
-</div>
-</div><div class="column" style="width:50%;">
-<ul>
-<li class="fragment"><strong>Walmart</strong>
-<ul>
-<li class="fragment">Early adopter; used data warehouse to gain a competitive advantage in supply chain management.</li>
-<li class="fragment">Held transaction data from over 11,000 stores and 25,000 suppliers.</li>
-<li class="fragment">First commercial data warehouse to reach 1 terabyte in 1992.</li>
-<li class="fragment">Collects data over 2.5 petabytes per hour in 2024.</li>
-</ul></li>
-</ul>
-</div>
 </div>
 </section>
-<section id="data-warehouses-data-marts-and-data-lakes-4" class="slide level2">
-<h2>Data Warehouses, Data Marts, and Data Lakes</h2>
-<h3 id="examples-of-data-warehouse-usage-1">Examples of Data Warehouse Usage</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div style="text-align: center; width: 100%; margin: auto;">
-<img src="https://bcdanl.github.io/lec_figs/whoop.png" style="width: 100%; margin-bottom: -20px;">
-<p style="font-weight: bold;">
-</p>
-</div>
-</div><div class="column" style="width:50%;">
-<ul>
-<li class="fragment"><strong>WHOOP Wearable Device</strong>
-<ul>
-<li class="fragment">Collects massive biometric data from athletes.</li>
-<li class="fragment">Data warehouse stores sensor data collected 100 times per second.</li>
-<li class="fragment">Provides insights on strain, recovery, and sleep to optimize performance.</li>
-</ul></li>
-</ul>
-</div>
-</div>
-</section>
-<section id="data-warehouses-data-marts-and-data-lakes-5" class="slide level2">
-<h2>Data Warehouses, Data Marts, and Data Lakes</h2>
-<h3 id="examples-of-data-warehouse-usage-2">Examples of Data Warehouse Usage</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div style="text-align: center; width: 100%; margin: auto;">
-<img src="https://bcdanl.github.io/lec_figs/aa.jpeg" style="width: 100%; margin-bottom: -20px;">
-<p style="font-weight: bold;">
-</p>
-</div>
-</div><div class="column" style="width:50%;">
-<ul>
-<li class="fragment"><strong>American Airlines</strong>
-<ul>
-<li class="fragment">Flight attendants access customer data to enhance in-flight service.</li>
-<li class="fragment">Ability to resolve issues by offering free miles or travel vouchers based on customer history.</li>
-</ul></li>
-</ul>
-</div>
-</div>
-</section>
-<section id="data-warehouses-data-marts-and-data-lakes-6" class="slide level2">
-<h2>Data Warehouses, Data Marts, and Data Lakes</h2>
-<h3 id="data-quality-in-data-warehouses">Data Quality in Data Warehouses</h3>
-<ul>
-<li class="fragment"><strong>Challenges</strong>
-<ul>
-<li class="fragment"><strong>Data Inconsistencies:</strong> Duplicate or missing data leading to incorrect analyses.</li>
-<li class="fragment"><strong>Dirty Data:</strong> Inaccurate, incomplete, or outdated information.</li>
-<li class="fragment">Misleading statistics: “Garbage in, garbage out”</li>
-</ul></li>
-<li class="fragment"><strong>Importance</strong>
-<ul>
-<li class="fragment">Ensuring high data quality is critical to avoid misleading conclusions.</li>
-</ul></li>
-<li class="fragment"><strong>Solution</strong>
-<ul>
-<li class="fragment">Implement robust ETL processes to cleanse and standardize data.</li>
-</ul></li>
-</ul>
-</section>
-<section id="extract-transform-load-etl-process" class="slide level2">
-<h2>Extract, Transform, Load (ETL) Process</h2>
-<h3 id="overview-of-etl-process">Overview of ETL Process</h3>
-<ul>
-<li class="fragment"><strong>Purpose</strong>
-<ul>
-<li class="fragment">Integral process for populating data warehouses with clean, consistent data.</li>
-</ul></li>
-<li class="fragment"><strong>Stages</strong>
-<ol type="1">
-<li class="fragment"><strong>Extract</strong>
-<ul>
-<li class="fragment">Collecting data from multiple sources.</li>
-</ul></li>
-<li class="fragment"><strong>Transform</strong>
-<ul>
-<li class="fragment">Cleaning and converting data into a suitable format.</li>
-</ul></li>
-<li class="fragment"><strong>Load</strong>
-<ul>
-<li class="fragment">Inserting transformed data into the data warehouse.</li>
-</ul></li>
-</ol></li>
-</ul>
-</section>
-<section id="extract-transform-load-etl-process-1" class="slide level2">
-<h2>Extract, Transform, Load (ETL) Process</h2>
-<h3 id="extract-stage">Extract Stage</h3>
-<ul>
-<li class="fragment"><strong>Data Sources</strong>
-<ul>
-<li class="fragment">Various internal and external systems.</li>
-</ul></li>
-<li class="fragment"><strong>Process</strong>
-<ul>
-<li class="fragment"><strong>Data Extraction:</strong> Pulling data from different systems.</li>
-<li class="fragment"><strong>Data Validation:</strong> Rejecting data that doesn’t meet quality standards (e.g., missing values, invalid formats).</li>
-</ul></li>
-<li class="fragment"><strong>Challenges</strong>
-<ul>
-<li class="fragment">Dealing with heterogeneous data formats and structures.</li>
-</ul></li>
-</ul>
-</section>
-<section id="extract-transform-load-etl-process-2" class="slide level2">
-<h2>Extract, Transform, Load (ETL) Process</h2>
-<h3 id="transform-stage">Transform Stage</h3>
-<ul>
-<li class="fragment"><strong>Purpose</strong>
-<ul>
-<li class="fragment">Convert extracted data into a standardized format suitable for analysis.</li>
-</ul></li>
-<li class="fragment"><strong>Processes</strong>
-<ul>
-<li class="fragment"><strong>Data Cleaning:</strong> Correcting errors and inconsistencies.</li>
-<li class="fragment"><strong>Data Integration:</strong> Combining data from different sources.</li>
-<li class="fragment"><strong>Data Aggregation:</strong> Summarizing data to reduce processing time.</li>
-<li class="fragment"><strong>Example Transformation:</strong>
-<ul>
-<li class="fragment">Converting customer address information into a sales district or census tract.</li>
-</ul></li>
-</ul></li>
-</ul>
-</section>
-<section id="extract-transform-load-etl-process-3" class="slide level2">
-<h2>Extract, Transform, Load (ETL) Process</h2>
-<h3 id="load-stage">Load Stage</h3>
-<ul>
-<li class="fragment"><strong>Process</strong>
-<ul>
-<li class="fragment"><strong>Data Loading:</strong> Inserting transformed data into the data warehouse.</li>
-<li class="fragment"><strong>Indexing:</strong> Creating indices to improve query performance.</li>
-<li class="fragment"><strong>Constraint Checking:</strong> Ensuring data integrity according to database schema.</li>
-</ul></li>
-<li class="fragment"><strong>Challenges</strong>
-<ul>
-<li class="fragment">The loading process for large data warehouses can take days.</li>
-</ul></li>
-<li class="fragment"><strong>Outcome</strong>
-<ul>
-<li class="fragment">The data warehouse is updated with high-quality, consistent data ready for analysis.</li>
-</ul></li>
-</ul>
-</section>
-<section id="data-marts" class="slide level2">
-<h2>Data Marts</h2>
-<h3 id="definition-of-data-marts">Definition of Data Marts</h3>
-<ul>
-<li class="fragment"><strong>Subset of Data Warehouse</strong>
-<ul>
-<li class="fragment">Focused on a specific business area or department.</li>
-</ul></li>
-<li class="fragment"><strong>Purpose</strong>
-<ul>
-<li class="fragment">Provides relevant data to a specific group without the complexity of the entire data warehouse.</li>
-</ul></li>
-<li class="fragment"><strong>Advantages</strong>
-<ul>
-<li class="fragment"><strong>Cost-Effective:</strong> Less expensive to implement and maintain.</li>
-<li class="fragment"><strong>Faster Access:</strong> Optimized for departmental needs.</li>
-<li class="fragment"><strong>Simplified Analysis:</strong> Easier to query and analyze due to reduced data volume.</li>
-</ul></li>
-</ul>
-</section>
-<section id="data-marts-1" class="slide level2">
-<h2>Data Marts</h2>
-<h3 id="data-mart-use-cases">Data Mart Use Cases</h3>
-<ul>
-<li class="fragment"><strong>Departmental Focus</strong>
-<ul>
-<li class="fragment">Finance: Financial reporting and analysis.</li>
-<li class="fragment">Marketing: Customer segmentation and campaign analysis.</li>
-<li class="fragment">Inventory: Stock levels and supply chain management.</li>
-</ul></li>
-<li class="fragment"><strong>Small to Medium-Sized Businesses</strong>
-<ul>
-<li class="fragment">An affordable alternative to a full-scale data warehouse.</li>
-</ul></li>
-</ul>
-</section>
-<section id="data-marts-2" class="slide level2">
-<h2>Data Marts</h2>
-<h3 id="data-marts-vs.-data-warehouses">Data Marts vs.&nbsp;Data Warehouses</h3>
+<section id="free-sources-of-useful-big-data-1" class="slide level2">
+<h2>Free Sources of Useful (Big) Data</h2>
+<h3 id="governmentpublic-data">Government/Public Data</h3>
+<div style="font-size: 18px;">
 <table>
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
 <thead>
 <tr class="header">
-<th>Feature</th>
-<th>Data Mart</th>
-<th>Data Warehouse</th>
+<th>Data Source</th>
+<th>Description</th>
+<th>URL</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Scope</td>
-<td>Specific department or business area</td>
-<td>Entire enterprise</td>
+<td>Data.gov</td>
+<td>Portal providing access to over 186,000 government data sets, related to topics such as agriculture, education, health, and public safety</td>
+<td><a href="http://data.gov">Data.gov</a></td>
 </tr>
 <tr class="even">
-<td>Data Volume</td>
-<td>Smaller</td>
-<td>Larger</td>
+<td>CIA World Factbook</td>
+<td>Portal to information on the economy, government, history, infrastructure, military, and population of 267 countries</td>
+<td><a href="https://cia.gov/library/publications/the-world-factbook">CIA World Factbook</a></td>
 </tr>
 <tr class="odd">
-<td>Complexity</td>
-<td>Less complex</td>
-<td>More complex</td>
+<td>U.S. Census Bureau</td>
+<td>Portal to a huge variety of government statistics and data relating to the U.S. economy and its population</td>
+<td><a href="https://www.census.gov/data.html">U.S. Census Bureau</a></td>
 </tr>
 <tr class="even">
-<td>Implementation Time</td>
-<td>Shorter</td>
-<td>Longer</td>
+<td>European Union Open Data Portal</td>
+<td>Provides access to public data from EU institutions</td>
+<td><a href="https://data.europa.eu/euodp/en/data">EU Open Data Portal</a></td>
 </tr>
 <tr class="odd">
-<td>Cost</td>
-<td>Lower</td>
-<td>Higher</td>
+<td>New York City Open Data</td>
+<td>Provides access to datasets from New York City, covering a wide range of topics such as public safety, transportation, and health</td>
+<td><a href="https://opendata.cityofnewyork.us">NYC Open Data</a></td>
+</tr>
+<tr class="even">
+<td>Los Angeles Open Data</td>
+<td>Portal for accessing public data from the City of Los Angeles, including transportation, public safety, and city services</td>
+<td><a href="https://data.lacity.org">LA Open Data</a></td>
+</tr>
+<tr class="odd">
+<td>Chicago Data Portal</td>
+<td>Offers access to datasets from the City of Chicago, including crime data, transportation, and health statistics</td>
+<td><a href="https://data.cityofchicago.org">Chicago Data Portal</a></td>
 </tr>
 </tbody>
 </table>
+</div>
 </section>
-<section id="data-lakes" class="slide level2">
-<h2>Data Lakes</h2>
-<h3 id="definition-of-data-lakes">Definition of Data Lakes</h3>
-<ul>
-<li class="fragment"><strong>“Store Everything” Approach</strong>
-<ul>
-<li class="fragment">Stores all data in its raw, unaltered form.</li>
-</ul></li>
-<li class="fragment"><strong>Purpose</strong>
-<ul>
-<li class="fragment">Provides a centralized repository for all data, accommodating future analytical needs.</li>
-</ul></li>
-<li class="fragment"><strong>Characteristics</strong>
-<ul>
-<li class="fragment"><strong>Data Variety:</strong> Includes structured, semi-structured, and unstructured data.</li>
-<li class="fragment"><strong>Flexibility:</strong> Data is available for any type of analysis at any time.</li>
-</ul></li>
-</ul>
-</section>
-<section id="data-lakes-1" class="slide level2">
-<h2>Data Lakes</h2>
-<h3 id="data-lakes-vs.-data-warehouses">Data Lakes vs.&nbsp;Data Warehouses</h3>
+<section id="free-sources-of-useful-big-data-2" class="slide level2">
+<h2>Free Sources of Useful (Big) Data</h2>
+<h3 id="health-climateenvironment-and-social-data">Health, Climate/Environment, and Social Data</h3>
+<div style="font-size: 18px;">
 <table>
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
 <thead>
 <tr class="header">
-<th>Feature</th>
-<th>Data Lake</th>
-<th>Data Warehouse</th>
+<th>Data Source</th>
+<th>Description</th>
+<th>URL</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Data Processing</td>
-<td>Schema-on-read (processed when accessed)</td>
-<td>Schema-on-write (processed before storage)</td>
+<td>Healthdata.gov</td>
+<td>Portal to 125 years of U.S. health care data, including national health care expenditures, claim-level Medicare data, and other topics</td>
+<td><a href="https://www.healthdata.gov">Healthdata.gov</a></td>
 </tr>
 <tr class="even">
-<td>Data State</td>
-<td>Raw, unprocessed</td>
-<td>Cleaned, transformed</td>
+<td>World Health Organization (WHO)</td>
+<td>Portal to data and statistics on global health issues</td>
+<td><a href="https://www.who.int/data">WHO Data</a></td>
 </tr>
 <tr class="odd">
-<td>Data Types</td>
-<td>All data types</td>
-<td>Primarily structured</td>
+<td>National Centers for Environmental Information (NOAA)</td>
+<td>Portal for accessing a variety of climate and weather data sets</td>
+<td><a href="https://www.ncdc.noaa.gov/data-access/quick-links#loc-clim">NCEI</a></td>
 </tr>
 <tr class="even">
-<td>Flexibility</td>
-<td>High</td>
-<td>Moderate</td>
+<td>NOAA National Weather Service</td>
+<td>Provides weather, water, and climate data, forecasts and warnings</td>
+<td><a href="https://www.weather.gov/data">NOAA NWS</a></td>
+</tr>
+<tr class="odd">
+<td>FAO (Food and Agriculture Organization)</td>
+<td>Provides access to data on food and agriculture, including data on production, trade, food security, and sustainability</td>
+<td><a href="http://www.fao.org/faostat/en/#data">FAOSTAT</a></td>
+</tr>
+<tr class="even">
+<td>Pew Research Center Internet &amp; Technology</td>
+<td>Portal to research on U.S. politics, media and news, social trends, religion, Internet and technology, science, Hispanic, and global topics</td>
+<td><a href="https://www.pewresearch.org/internet/datasets/">Pew Research</a></td>
+</tr>
+<tr class="odd">
+<td>Data for Good from Facebook</td>
+<td>Provides access to anonymized data from Facebook to help non-profits and research communities with insights on crises, health, and well-being</td>
+<td><a href="https://dataforgood.fb.com">Facebook Data for Good</a></td>
+</tr>
+<tr class="even">
+<td>Data for Good from Canada</td>
+<td>Provides open access to datasets that address pressing social challenges across Canada</td>
+<td><a href="https://dataforgood.ca">Data for Good Canada</a></td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="data-lakes-2" class="slide level2">
-<h2>Data Lakes</h2>
-<h3 id="case-study-bechtel-corporation">Case Study: Bechtel Corporation</h3>
-<div style="text-align: center; width: 45%; margin: auto;">
-<img src="https://bcdanl.github.io/lec_figs/bechtel.jpeg" style="width: 100%; margin-bottom: -20px;">
-<p style="font-weight: bold;">
-</p>
-</div>
-<ul>
-<li class="fragment"><strong>About Bechtel</strong>
-<ul>
-<li class="fragment">Global engineering, construction, and project management company.</li>
-</ul></li>
-<li class="fragment"><strong>Implementation</strong>
-<ul>
-<li class="fragment">Built a 5-petabyte data lake consolidating years of project data.</li>
-</ul></li>
-</ul>
-</section>
-<section id="data-lakes-3" class="slide level2">
-<h2>Data Lakes</h2>
-<h3 id="case-study-bechtel-corporation-1">Case Study: Bechtel Corporation</h3>
-<ul>
-<li class="fragment"><strong>Benefits</strong>
-<ul>
-<li class="fragment"><strong>Historical Insights:</strong> Access to data from hundreds of projects worldwide.</li>
-<li class="fragment"><strong>Improved Forecasting:</strong> Better predictions of project outcomes.</li>
-<li class="fragment"><strong>Cost Reduction:</strong> Identifying inefficiencies to cut costs.</li>
-<li class="fragment"><strong>Competitive Advantage:</strong> Enhanced ability to win new contracts through data-driven insights.</li>
-</ul></li>
-</ul>
-</section>
-<section id="hadoop" class="slide level2">
-<h2>Hadoop</h2>
-<h3 id="introduction-to-hadoop">Introduction to Hadoop</h3>
-<div style="text-align: center; width: 55%; margin: auto;">
-<img src="https://bcdanl.github.io/lec_figs/hadoop.png" style="width: 100%; margin-bottom: -20px;">
-<p style="font-weight: bold;">
-</p>
-</div>
-<ul>
-<li class="fragment"><strong>Definition</strong>
-<ul>
-<li class="fragment">An open-source software framework for storing and processing large data sets.</li>
-</ul></li>
-<li class="fragment"><strong>Components</strong>
-<ul>
-<li class="fragment"><strong>Hadoop Distributed File System (HDFS):</strong> Distributed data storage.</li>
-<li class="fragment"><strong>MapReduce:</strong> Data processing model.</li>
-</ul></li>
-</ul>
-</section>
-<section id="hadoop-1" class="slide level2">
-<h2>Hadoop</h2>
-<h3 id="introduction-to-hadoop-1">Introduction to Hadoop</h3>
-<div style="text-align: center; width: 55%; margin: auto;">
-<img src="https://bcdanl.github.io/lec_figs/hadoop.png" style="width: 100%; margin-bottom: -20px;">
-<p style="font-weight: bold;">
-</p>
-</div>
-<ul>
-<li class="fragment"><strong>Purpose</strong>
-<ul>
-<li class="fragment">Enables distributed processing of large data sets across clusters of computers.</li>
-</ul></li>
-</ul>
-</section>
-<section id="hadoop-2" class="slide level2">
-<h2>Hadoop</h2>
-<h3 id="hadoop-architecture---hdfs">Hadoop Architecture - HDFS</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div style="text-align: center; width: 100%; margin: auto;">
-<img src="https://bcdanl.github.io/lec_figs/hadoop-env.png" style="width: 100%; margin-bottom: -20px;">
-<p style="font-weight: bold;">
-</p>
-</div>
-</div><div class="column" style="width:50%;">
-<ul>
-<li class="fragment"><strong>HDFS</strong>
-<ul>
-<li class="fragment">Divides data into blocks and distributes them across different servers for processing.</li>
-<li class="fragment">Provides a highly redundant computing environment
-<ul>
-<li class="fragment">Allows the application to keep running even if individual servers fail.</li>
-</ul></li>
-</ul></li>
-</ul>
-</div>
 </div>
 </section>
-<section id="hadoop-3" class="slide level2">
-<h2>Hadoop</h2>
-<h3 id="hadoop-architecture---mapreduce">Hadoop Architecture - MapReduce</h3>
-<ul>
-<li class="fragment"><strong>MapReduce</strong>
-<ul>
-<li class="fragment"><strong>Map Phase:</strong> Filters and sorts data.
-<ul>
-<li class="fragment">e.g., Sorting customer orders based on their product IDs, with each group corresponding to a specific product ID.</li>
-</ul></li>
-<li class="fragment"><strong>Reduce Phase:</strong> Summarizes and aggregates results.
-<ul>
-<li class="fragment">e.g., Counting the number of orders within each group, thereby determining the frequency of each product ID.</li>
-</ul></li>
-</ul></li>
-</ul>
-</section>
-<section id="hadoop-4" class="slide level2">
-<h2>Hadoop</h2>
-<h3 id="how-hadoop-works">How Hadoop Works</h3>
-<ol type="1">
-<li class="fragment"><strong>Data Distribution</strong>
-<ul>
-<li class="fragment">Large data sets are split into smaller blocks.</li>
-</ul></li>
-<li class="fragment"><strong>Data Storage</strong>
-<ul>
-<li class="fragment">Blocks are stored across multiple servers in the cluster.</li>
-</ul></li>
-<li class="fragment"><strong>Processing with MapReduce</strong>
-<ul>
-<li class="fragment"><strong>Map Tasks:</strong> Executed on servers where data resides, minimizing data movement.</li>
-<li class="fragment"><strong>Reduce Tasks:</strong> Combine results from map tasks to produce final output.</li>
-</ul></li>
-<li class="fragment"><strong>Fault Tolerance</strong>
-<ul>
-<li class="fragment">Data replication ensures processing continues even if servers fail.</li>
-</ul></li>
-</ol>
-</section>
-<section id="hadoop-5" class="slide level2">
-<h2>Hadoop</h2>
-<h3 id="extending-hadoop-for-real-time-processing">Extending Hadoop for Real-Time Processing</h3>
-<ul>
-<li class="fragment"><strong>Limitation of Hadoop</strong>
-<ul>
-<li class="fragment">Hadoop was originally designed for batch processing.
-<ul>
-<li class="fragment"><strong>Batch Processing:</strong> Data or tasks are collected over a period of time and then processed all at once, typically at scheduled times or during periods of low activity.</li>
-</ul></li>
-</ul></li>
-<li class="fragment"><strong>Real-Time Processing Limitation:</strong>
-<ul>
-<li class="fragment">Hadoop cannot natively process real-time streaming data (e.g., stock prices flowing into stock exchanges, live sensor data)</li>
-</ul></li>
-<li class="fragment"><strong>Extending Hadoop’s Capabilities</strong>
-<ul>
-<li class="fragment">Both Apache Storm and Apache Spark can run on top of Hadoop clusters, utilizing HDFS for storage.</li>
-</ul></li>
-</ul>
-</section>
-<section id="hadoop-6" class="slide level2">
-<h2>Hadoop</h2>
-<h3 id="apache-storm-and-apache-spark">Apache Storm and Apache Spark</h3>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h4 id="apache-storm"><strong>Apache Storm</strong></h4>
-<ul>
-<li class="fragment"><strong>Functionality:</strong>
-<ul>
-<li class="fragment">Processes real-time data streams.</li>
-<li class="fragment">Handles unbounded streams of data reliably and efficiently.</li>
-</ul></li>
-<li class="fragment"><strong>Use Cases:</strong>
-<ul>
-<li class="fragment">Real-time analytics</li>
-<li class="fragment">Online machine learning</li>
-<li class="fragment">Continuous computation</li>
-<li class="fragment">Real-time data integration</li>
-</ul></li>
-</ul>
-</div><div class="column" style="width:50%;">
-<h4 id="apache-spark"><strong>Apache Spark</strong></h4>
-<ul>
-<li class="fragment"><strong>Functionality:</strong>
-<ul>
-<li class="fragment">Provides in-memory computations for increased speed.</li>
-<li class="fragment">Supports both batch and streaming data processing through Spark Streaming.</li>
-</ul></li>
-<li class="fragment"><strong>Use Cases:</strong>
-<ul>
-<li class="fragment">Interactive queries</li>
-<li class="fragment">Machine learning</li>
-</ul></li>
-</ul>
+<section id="free-sources-of-useful-big-data-3" class="slide level2">
+<h2>Free Sources of Useful (Big) Data</h2>
+<h3 id="general-data-repositories">General Data Repositories</h3>
+<div style="font-size: 18px;">
+<table>
+<thead>
+<tr class="header">
+<th>Data Source</th>
+<th>Description</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Amazon Web Services (AWS) public data sets</td>
+<td>Portal to a huge repository of public data, including climate data, the million song dataset, and data from the 1000 Genomes project</td>
+<td><a href="http://aws.amazon.com/datasets">AWS Datasets</a></td>
+</tr>
+<tr class="even">
+<td>Gapminder</td>
+<td>Portal to data from the World Health Organization and World Bank on economic, medical, and social issues</td>
+<td><a href="https://www.gapminder.org/data">Gapminder</a></td>
+</tr>
+<tr class="odd">
+<td>Google Dataset Search</td>
+<td>Helps find datasets stored across the web</td>
+<td><a href="https://datasetsearch.research.google.com">Google Dataset Search</a></td>
+</tr>
+<tr class="even">
+<td>Kaggle Datasets</td>
+<td>A community-driven platform with datasets from various fields, useful for machine learning and data science projects</td>
+<td><a href="https://www.kaggle.com/datasets">Kaggle Datasets</a></td>
+</tr>
+<tr class="odd">
+<td>UCI Machine Learning Repository</td>
+<td>A collection of databases, domain theories, and datasets used for machine learning research</td>
+<td><a href="https://archive.ics.uci.edu/ml/index.php">UCI ML Repository</a></td>
+</tr>
+<tr class="even">
+<td>United Nations Data</td>
+<td>Provides access to global statistical data compiled by the United Nations</td>
+<td><a href="http://data.un.org">UN Data</a></td>
+</tr>
+<tr class="odd">
+<td>Humanitarian Data Exchange (HDX)</td>
+<td>Provides humanitarian data from the United Nations, NGOs, and other organizations</td>
+<td><a href="https://data.humdata.org">HDX</a></td>
+</tr>
+<tr class="even">
+<td>Democratizing Data from data.org</td>
+<td>A platform providing access to high-impact datasets, tools, and resources aimed at solving critical global challenges</td>
+<td><a href="https://data.org/democratizing-data">Democratizing Data</a></td>
+</tr>
+<tr class="odd">
+<td>Justia Federal District Court Opinions and Orders database</td>
+<td>A free searchable database of full-text opinions and orders from civil cases heard in U.S. Federal District Courts</td>
+<td><a href="http://law.justia.com/cases/federal/district-courts">Justia</a></td>
+</tr>
+</tbody>
+</table>
 </div>
-</div>
+</section></section>
+<section>
+<section id="challenges-of-big-data" class="title-slide slide level1 center" data-background-color="#1c4982">
+<h1>Challenges of Big Data</h1>
+
+</section>
+<section id="challenges-of-big-data-1" class="slide level2">
+<h2>Challenges of Big Data</h2>
+<h3 id="information-overload">Information Overload</h3>
+<ul>
+<li class="fragment"><strong>Difficulty in Finding Information</strong>
+<ul>
+<li class="fragment"><strong>Search Challenges:</strong> With so much data, traditional search methods become inefficient.</li>
+<li class="fragment"><strong>Indexing Issues:</strong> Properly cataloging data to make retrieval efficient is complex.</li>
+</ul></li>
+<li class="fragment"><strong>Trust Issues</strong>
+<ul>
+<li class="fragment"><strong>Data Validity:</strong> Users may question the accuracy and timeliness of available data.</li>
+<li class="fragment"><strong>Source Credibility:</strong> Differentiating between reliable and unreliable data sources.</li>
+</ul></li>
+</ul>
+</section>
+<section id="challenges-of-big-data-2" class="slide level2">
+<h2>Challenges of Big Data</h2>
+<h3 id="information-overload-1">Information Overload</h3>
+<ul>
+<li class="fragment"><strong>Data from Diverse Sources</strong>
+<ul>
+<li class="fragment"><strong>Integration Complexity:</strong> Combining data from internal and external sources can be technically challenging.</li>
+<li class="fragment"><strong>Data Formats:</strong> Managing different data types, such as structured, unstructured, and semi-structured data.</li>
+</ul></li>
+</ul>
+</section>
+<section id="challenges-of-big-data-3" class="slide level2">
+<h2>Challenges of Big Data</h2>
+<h3 id="compliance-and-regulations">Compliance and Regulations</h3>
+<ul>
+<li class="fragment"><strong>Risk of Non-Compliance</strong>
+<ul>
+<li class="fragment"><strong>Legal Penalties:</strong> Organizations may face fines, sanctions, or legal action.</li>
+<li class="fragment"><strong>Reputation Damage:</strong> Public trust can be eroded by non-compliance incidents.</li>
+</ul></li>
+<li class="fragment"><strong>Impact on Organizations</strong>
+<ul>
+<li class="fragment"><strong>Operational Costs:</strong> Investing in compliance measures can be resource-intensive.</li>
+<li class="fragment"><strong>Process Adjustments:</strong> Policies and procedures may need significant changes to meet regulatory standards.</li>
+</ul></li>
+</ul>
+</section>
+<section id="challenges-of-big-data-4" class="slide level2">
+<h2>Challenges of Big Data</h2>
+<h3 id="compliance-and-regulations-1">Compliance and Regulations</h3>
+<ul>
+<li class="fragment"><strong>Need for Vigilance</strong>
+<ul>
+<li class="fragment"><strong>Evolving Laws:</strong> Regulations frequently update, requiring continuous monitoring.</li>
+<li class="fragment"><strong>Employee Training:</strong> Staff must be educated on compliance requirements and best practices.</li>
+</ul></li>
+</ul>
+</section>
+<section id="challenges-of-big-data-5" class="slide level2">
+<h2>Challenges of Big Data</h2>
+<h3 id="privacy-concerns">Privacy Concerns</h3>
+<ul>
+<li class="fragment"><strong>Data Harvesting</strong>
+<ul>
+<li class="fragment"><strong>Collection Methods:</strong> Corporations gather personal data through various means, often without explicit user consent.</li>
+<li class="fragment"><strong>Scope of Data:</strong> Information ranges from basic demographics to detailed behavioral patterns.</li>
+</ul></li>
+<li class="fragment"><strong>Extensive Profiling</strong>
+<ul>
+<li class="fragment"><strong>User Tracking:</strong> Monitoring online activities to build comprehensive profiles.</li>
+<li class="fragment"><strong>Third-Party Sharing:</strong> Data sold or shared with other organizations, amplifying privacy risks.</li>
+</ul></li>
+</ul>
+</section>
+<section id="challenges-of-big-data-6" class="slide level2">
+<h2>Challenges of Big Data</h2>
+<h3 id="privacy-concerns-1">Privacy Concerns</h3>
+<ul>
+<li class="fragment"><strong>Ethical Implications</strong>
+<ul>
+<li class="fragment"><strong>Consent and Transparency:</strong> Lack of clear communication about data usage.</li>
+<li class="fragment"><strong>Right to Privacy:</strong> Debates over how much personal data companies should access and store.</li>
+</ul></li>
+</ul>
 
 <div class="footer footer-default">
 
