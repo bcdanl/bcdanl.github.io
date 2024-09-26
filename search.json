@@ -2657,7 +2657,7 @@
     "href": "danl-lec/danl-101-lec-13-2024-0927.html#data-transformation",
     "title": "Lecture 13",
     "section": "Data Transformation",
-    "text": "Data Transformation\n\n\nBecause the first argument is a data.frame and the output is a data.frame, dplyr verbs work well with the pipe, |&gt;\n\nCtrl + Shift + M for Windows; command + Shift + M for Mac.\n\nThe pipe (|&gt;) takes the thing on its left and passes it along to the function on its right so that\n\nf(x, y) is equivalent to x |&gt; f(y).\ne.g., filter(DATA_FRAME, LOGICAL_STATEMENT) is equivalent to DATA_FRAME |&gt;  filter(LOGICAL_STATEMENT).\n\nThe easiest way to pronounce the pipe (|&gt;) is “then”.\n\nThe pipe (|&gt;) is super useful when we have a chain of data transforming operations to do."
+    "text": "Data Transformation\n\n\nDATA_FRAME |&gt; filter(LOGICAL_CONDITIONS)\nDATA_FRAME |&gt; arrange(VARIABLES)\nDATA_FRAME |&gt; select(VARIABLES)\nDATA_FRAME |&gt; rename(NEW_VARIABLE = EXISTING_VARIABLE)\nDATA_FRAME |&gt; mutate(NEW_VARIABLE = ... )\nThe subsequent arguments describe what to do with the data.frame, mostly using the variable names.\nThe result is a data.frame."
   },
   {
     "objectID": "danl-lec/danl-101-lec-13-2024-0927.html#data-transformation-1",
@@ -2763,5 +2763,33 @@
     "title": "Lecture 13",
     "section": "Arrange observations with arrange()",
     "text": "Arrange observations with arrange()\nflights |&gt; \n  arrange(year, month, day)\n\n# re-order observations by `dep_delay` in descending order.\nflights |&gt; \n  arrange([?])\n\narrange() sorts out observations.\n\nIf we provide more than one variable name, each additional variable will be used to break ties in the values of preceding variables.\n\nUse desc() to re-order by a column in descending order.\n\nAdding - before a numeric variable (-NUMERIC_VARIABLE) also works."
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-13-2024-0927.html#pipe-operator",
+    "href": "danl-lec/danl-101-lec-13-2024-0927.html#pipe-operator",
+    "title": "Lecture 13",
+    "section": "Pipe (|>) Operator",
+    "text": "Pipe (|&gt;) Operator\n\n\ntidyverse verbs work well with the pipe, |&gt;, because the first argument of a tidyverse verb is a data.frame and the output is a data.frame,\nCtrl + Shift + M for Windows; command + Shift + M for Mac.\nThe pipe (|&gt;) takes the thing on its left and passes it along to the function on its right so that\n\nf(x, y) is equivalent to x |&gt; f(y).\ne.g., left_join(DATA_FRAME_1, DATA_FRAME_2) is equivalent to DATA_FRAME |&gt;  left_join(DATA_FRAME_2).\n\nThe easiest way to pronounce the pipe (|&gt;) is “then”.\n\nThe pipe (|&gt;) is super useful when we have a chain of data transforming operations to do."
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-13-2024-0927.html#pipe-operator-1",
+    "href": "danl-lec/danl-101-lec-13-2024-0927.html#pipe-operator-1",
+    "title": "Lecture 13",
+    "section": "Pipe (|>) Operator",
+    "text": "Pipe (|&gt;) Operator\n\nTo use the (native) pipe operator (|&gt;), we should set the option as follows:\n\nTools &gt; Global Options &gt; Code from the side menu &gt; Choose “Use native pipe operator, |&gt;”."
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-13-2024-0927.html#joining-relational-data.frames-with-left_join-1",
+    "href": "danl-lec/danl-101-lec-13-2024-0927.html#joining-relational-data.frames-with-left_join-1",
+    "title": "Lecture 13",
+    "section": "Joining Relational data.frames with left_join()",
+    "text": "Joining Relational data.frames with left_join()\n\n\n\n\n\nx &lt;- data.frame(\n    key = c(1, 2, 3),\n    val_y = c('x1', 'x2', 'x3')\n)\n\ny &lt;- data.frame(\n    key = c(1, 2, 4),\n    val_y = c('y1', 'y2', 'y3')\n)\n\n\n\nThe colored column represents the “key” variable.\nThe grey column represents the “value” column."
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-13-2024-0927.html#relational-databases",
+    "href": "danl-lec/danl-101-lec-13-2024-0927.html#relational-databases",
+    "title": "Lecture 13",
+    "section": "Relational Databases",
+    "text": "Relational Databases\n\n\n\nx |&gt;\n  left_join(y)\n\nA left join keeps all observations in x.\n\nThe left join is most commonly used."
   }
 ]

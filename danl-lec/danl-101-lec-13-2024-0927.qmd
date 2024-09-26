@@ -205,19 +205,19 @@ theme_set(theme_fivethirtyeight()+
 
 
 
-# Data Transformation with R `tidyverse` {background-color="#1c4982"}
+# Joining Relational `data.frame`s with `left_join()` {background-color="#1c4982"}
 
 
-## Data Transformation
+## Pipe (`|>`) Operator
 <!-- ### `dplyr` basics -->
 
-- Because the first argument is a `data.frame` and the output is a `data.frame`, `dplyr` verbs work well with the **pipe**, `|>` 
+-  `tidyverse` verbs work well with the **pipe**, `|>`, because the first argument of a `tidyverse` verb is a `data.frame` and the output is a `data.frame`, 
   - **Ctrl + Shift + M** for Windows; **command + Shift + M** for Mac. 
 
 
 - The **pipe** (`|>`) takes the thing on its left and passes it along to the function on its right so that
   - `f(x, y)` is equivalent to `x |> f(y)`. 
-  - e.g., `filter(DATA_FRAME, LOGICAL_STATEMENT)` is equivalent to `DATA_FRAME |>  filter(LOGICAL_STATEMENT)`.
+  - e.g., `left_join(DATA_FRAME_1, DATA_FRAME_2)` is equivalent to `DATA_FRAME |>  left_join(DATA_FRAME_2)`.
 
 
 - The easiest way to pronounce the **pipe** (`|>`) is “**then**”. 
@@ -226,23 +226,75 @@ theme_set(theme_fivethirtyeight()+
 
 
 
-## Data Transformation
+## Pipe (`|>`) Operator
 
 - To use the (native) pipe operator (`|>`), we should set the option as follows:
 
   - **Tools** > **Global Options** > **Code** from the side menu > Choose "Use native pipe operator, |>".
 
 
+## Joining Relational `data.frame`s with `left_join()`
+
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/join-setup.png" width="300">
+</p>
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+```{.r}
+x <- data.frame(
+    key = c(1, 2, 3),
+    val_y = c('x1', 'x2', 'x3')
+)
+
+```
+
+:::
+
+::: {.column width="50%"}
+
+```{.r}
+y <- data.frame(
+    key = c(1, 2, 4),
+    val_y = c('y1', 'y2', 'y3')
+)
+```
+:::
+
+::::
+
+- The colored column represents the "key" variable.
+- The grey column represents the "value" column.
+
+## Relational Databases
+
+
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/join-left.png" width="425">
+</p>
+
+```{.r}
+x |>
+  left_join(y)
+```
+
+- A **left join** keeps all observations in `x`.
+  - The left join is most commonly used.
+
+
+# Data Transformation with R `tidyverse` {background-color="#1c4982"}
+
 
 ## Data Transformation
-### `dplyr` basics
+<!-- ### `dplyr` basics -->
 
 - `DATA_FRAME |> filter(LOGICAL_CONDITIONS)`
 - `DATA_FRAME |> arrange(VARIABLES)`
 - `DATA_FRAME |> select(VARIABLES)`
 - `DATA_FRAME |> rename(NEW_VARIABLE = EXISTING_VARIABLE)`
 - `DATA_FRAME |> mutate(NEW_VARIABLE = ... )`
-
 
 - The subsequent arguments describe what to do with the data.frame, mostly using the variable names.
 - The result is a **data.frame**.
@@ -965,6 +1017,5 @@ flights |>
 
 - Use `desc()` to re-order by a column in descending order.
   - Adding `-` before a numeric variable (`-NUMERIC_VARIABLE`) also works.
-
 
 
