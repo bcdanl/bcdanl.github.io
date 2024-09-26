@@ -1,0 +1,970 @@
+---
+title: Lecture 13
+subtitle: Data Preparation and Management
+format:
+  clean-revealjs:
+    self-contained: false
+    chalkboard: true
+    incremental: true
+    code-annotations: hover
+    scrollable: false
+
+    # logo: logo-title-slide.png
+author:
+  - name: Byeong-Hak Choe
+    email: bchoe@geneseo.edu
+    affiliations: SUNY Geneseo
+date: 2024-09-25
+execute: 
+  eval: true
+  echo: false
+callout-icon: false
+
+from: markdown+emoji
+include-after-body: target-hover.html # effect.html
+
+# bibliography: refs.bib
+---
+
+```{r setup}
+#| include: false
+library(tidyverse)
+library(skimr)
+library(ggthemes)
+library(hrbrthemes)
+
+
+theme_set(theme_fivethirtyeight()+
+          theme(strip.background =element_rect(fill="lightgray"),
+                axis.title.x = 
+                  element_text(angle = 0,
+                               size = rel(1.5),
+                               margin = margin(10,0,0,0)),
+                axis.title.y = 
+                  element_text(angle = 0,
+                               size = rel(1.5),
+                               margin = margin(0,10,0,0)),
+                axis.text.x = element_text(size = rel(1.5)),
+                axis.text.y = element_text(size = rel(1.5)),
+                strip.text = element_text(size = rel(1.5)),
+                legend.position = "top",
+                legend.text = element_text(size = rel(1.5)),
+                legend.title = element_text(size = rel(1.5))
+                )
+          )
+```
+
+
+    
+
+# Technologies Used to Manage and Process Big Data {background-color="#1c4982"}
+
+
+
+## Hadoop
+### Introduction to Hadoop
+
+<div style="text-align: center; width: 55%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/hadoop.png" style="width: 100%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"> </p>
+</div>
+
+- **Definition**
+  - An open-source software framework for storing and processing large data sets.
+- **Components**
+  - **Hadoop Distributed File System (HDFS):** Distributed data storage.
+  - **MapReduce:** Data processing model.
+
+
+## Hadoop
+### Introduction to Hadoop
+
+<div style="text-align: center; width: 55%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/hadoop.png" style="width: 100%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"> </p>
+</div>
+
+- **Purpose**
+  - Enables distributed processing of large data sets across clusters of computers.
+
+
+
+## Hadoop
+### Hadoop Architecture - HDFS
+:::: {.columns}
+
+::: {.column width="50%"}
+
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/hadoop-env.png" style="width: 100%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"> </p>
+</div>
+:::
+
+::: {.column width="50%"}
+
+- **HDFS**
+  - Divides data into blocks and distributes them across different servers for processing.
+  - Provides a highly redundant computing environment
+    - Allows the application to keep running even if individual servers fail.
+
+
+:::
+::::
+
+
+## Hadoop
+### Hadoop Architecture - MapReduce
+
+- **MapReduce**
+  - **Map Phase:** Filters and sorts data.
+    - e.g., Sorting customer orders based on their product IDs, with each group corresponding to a specific product ID.
+  - **Reduce Phase:** Summarizes and aggregates results.
+    - e.g., Counting the number of orders within each group, thereby determining the frequency of each product ID.
+  
+
+
+## Hadoop
+### Hadoop Architecture - MapReduce
+
+
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/map-reduce.png" style="width: 100%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"> </p>
+</div>
+
+
+## Hadoop
+### How Hadoop Works
+
+1. **Data Distribution**
+   - Large data sets are split into smaller blocks.
+2. **Data Storage**
+   - Blocks are stored across multiple servers in the cluster.
+3. **Processing with MapReduce**
+   - **Map Tasks:** Executed on servers where data resides, minimizing data movement.
+   - **Reduce Tasks:** Combine results from map tasks to produce final output.
+4. **Fault Tolerance**
+   - Data replication ensures processing continues even if servers fail.
+
+
+
+## Hadoop
+### Extending Hadoop for Real-Time Processing
+
+- **Limitation of Hadoop**
+  - Hadoop was originally designed for batch processing.
+    - **Batch Processing:** Data or tasks are collected over a period of time and then processed all at once, typically at scheduled times or during periods of low activity.
+
+- **Real-Time Processing Limitation:**
+  - Hadoop cannot natively process real-time streaming data (e.g., stock prices flowing into stock exchanges, live sensor data)
+
+- **Extending Hadoop's Capabilities**
+  - Both *Apache Storm* and *Apache Spark* can run on top of Hadoop clusters, utilizing HDFS for storage.
+
+## Hadoop
+### Apache Storm and Apache Spark
+
+:::: {.columns}
+::: {.column width="50%"}
+
+#### **Apache Storm**
+
+- **Functionality:**
+  - Processes real-time data streams.
+  - Handles unbounded streams of data reliably and efficiently.
+- **Use Cases:**
+  - Real-time analytics
+  - Online machine learning
+  - Continuous computation
+  - Real-time data integration
+
+:::
+
+::: {.column width="50%"}
+
+#### **Apache Spark**
+
+- **Functionality:**
+  - Provides in-memory computations for increased speed.
+  - Supports both batch and streaming data processing through Spark Streaming.
+- **Use Cases:**
+  - Interactive queries
+  - Machine learning
+
+:::
+::::
+
+
+## References
+
+- [What is a Data Warehouse?](https://aws.amazon.com/what-is/data-warehouse/)
+- [What is a Data Mart?](https://aws.amazon.com/what-is/data-mart/)
+- [What is a Data Lake?](https://aws.amazon.com/what-is/data-lake/)
+- [What is Hadoop?](https://aws.amazon.com/what-is/hadoop/)
+
+
+
+# Data Transformation with R `tidyverse` {background-color="#1c4982"}
+
+
+## Data Transformation
+<!-- ### `dplyr` basics -->
+
+- Because the first argument is a `data.frame` and the output is a `data.frame`, `dplyr` verbs work well with the **pipe**, `|>` 
+  - **Ctrl + Shift + M** for Windows; **command + Shift + M** for Mac. 
+
+
+- The **pipe** (`|>`) takes the thing on its left and passes it along to the function on its right so that
+  - `f(x, y)` is equivalent to `x |> f(y)`. 
+  - e.g., `filter(DATA_FRAME, LOGICAL_STATEMENT)` is equivalent to `DATA_FRAME |>  filter(LOGICAL_STATEMENT)`.
+
+
+- The easiest way to pronounce the **pipe** (`|>`) is “**then**”. 
+  - The **pipe** (`|>`) is super useful when we have <u>*a chain of data transforming operations*</u> to do.
+
+
+
+
+## Data Transformation
+
+- To use the (native) pipe operator (`|>`), we should set the option as follows:
+
+  - **Tools** > **Global Options** > **Code** from the side menu > Choose "Use native pipe operator, |>".
+
+
+
+## Data Transformation
+### `dplyr` basics
+
+- `DATA_FRAME |> filter(LOGICAL_CONDITIONS)`
+- `DATA_FRAME |> arrange(VARIABLES)`
+- `DATA_FRAME |> select(VARIABLES)`
+- `DATA_FRAME |> rename(NEW_VARIABLE = EXISTING_VARIABLE)`
+- `DATA_FRAME |> mutate(NEW_VARIABLE = ... )`
+
+
+- The subsequent arguments describe what to do with the data.frame, mostly using the variable names.
+- The result is a **data.frame**.
+
+
+
+# Filter observations with `filter()` {background-color="#1c4982"}
+
+
+## Filter observations with `filter()`
+
+```{.r}
+jan1 <- flights |> 
+  filter(month == 1, day == 1)
+
+dec25 <- flights |> 
+  filter(month == 12, day == 25)
+
+class(flights$month == 1)
+```
+
+- `filter()` allows us to subset observations based on the value of logical conditions, which are either `TRUE` or `FALSE`.
+
+
+
+## Filter observations with `filter()`
+### Logicals and Conditions
+
+```{r, eval = T, echo = F, out.width='100%', fig.align='center'}
+text_tbl <- data.frame(
+  Operator = c("x & y", "x | y", "!x"),
+  Description = c("Are x and y both TRUE?",
+"Is at least one of x and y TRUE?",
+"Is x FALSE?")
+  )
+
+
+
+# Create a DT datatable without search box and 'Show entries' dropdown
+DT::datatable(text_tbl, rownames = FALSE,
+              options = list(
+  dom = 't', # This sets the DOM layout without the search box ('f') and 'Show entries' dropdown ('l')
+  paging = FALSE, # Disable pagination
+  columnDefs = list(list(
+    targets = "_all", # Applies to all columns
+    orderable = FALSE # Disables sorting
+  ))
+), callback = htmlwidgets::JS("
+  // Change header background and text color
+  $('thead th').css('background-color', '#1c4982');
+  $('thead th').css('color', 'white');
+
+  // Loop through each row and alternate background color
+  $('tbody tr').each(function(index) {
+    if (index % 2 == 0) {
+      $(this).css('background-color', '#d1dae6'); // Light color for even rows
+    } else {
+      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows
+    }
+  });
+
+  // Set text color for all rows
+  $('tbody tr').css('color', 'black');
+
+  // Add hover effect
+  $('tbody tr').hover(
+    function() {
+      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row
+    }, 
+    function() {
+      var index = $(this).index();
+      if (index % 2 == 0) {
+        $(this).css('background-color', '#d1dae6'); // Restore even row color
+      } else {
+        $(this).css('background-color', '#9fb2cb'); // Restore odd row color
+      }
+    }
+  );
+")
+)
+
+```
+
+
+- Logical variables have either `TRUE` or `FALSE` value.
+- Conditions are expressions that evaluate as `logical` 
+- What logical operations do is combining logical conditions, which returns a logical value when executed.
+
+## Filter observations with `filter()`
+### `logical` conditions
+
+
+```{r, eval = T, echo = F, out.width='100%', fig.align='center'}
+text_tbl <- data.frame(
+  Operator = c("x == y", "x != y", "x > y", "x >= y", "x < y", "x <= y"),
+  Description = c("Is x equal to y?",
+"Is x not equal to y?",
+"Is x greater than y?",
+"Is x greater than or equal to y?",
+"Is x less than y?",
+"Is x less than or equal to y?" )
+)
+
+
+# Create a DT datatable without search box and 'Show entries' dropdown
+DT::datatable(text_tbl, rownames = FALSE,
+              options = list(
+  dom = 't', # This sets the DOM layout without the search box ('f') and 'Show entries' dropdown ('l')
+  paging = FALSE, # Disable pagination
+  columnDefs = list(list(
+    targets = "_all", # Applies to all columns
+    orderable = FALSE # Disables sorting
+  ))
+), callback = htmlwidgets::JS("
+  // Change header background and text color
+  $('thead th').css('background-color', '#1c4982');
+  $('thead th').css('color', 'white');
+
+  // Loop through each row and alternate background color
+  $('tbody tr').each(function(index) {
+    if (index % 2 == 0) {
+      $(this).css('background-color', '#d1dae6'); // Light color for even rows
+    } else {
+      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows
+    }
+  });
+
+  // Set text color for all rows
+  $('tbody tr').css('color', 'black');
+
+  // Add hover effect
+  $('tbody tr').hover(
+    function() {
+      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row
+    }, 
+    function() {
+      var index = $(this).index();
+      if (index % 2 == 0) {
+        $(this).css('background-color', '#d1dae6'); // Restore even row color
+      } else {
+        $(this).css('background-color', '#9fb2cb'); // Restore odd row color
+      }
+    }
+  );
+")
+)
+
+```
+
+
+
+
+## Filter observations with `filter()`
+### Boolean Operations
+
+
+
+<div style="text-align: center; width: 53%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/boolean-operations.png" style="width: 53%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"> </p>
+</div>
+
+
+- `x` is the left-hand circle, `y` is the right-hand circle, and the shaded region show which parts each operator selects.
+
+
+
+
+## Filter observations with `filter()`
+### `logical` conditions
+
+<!-- - The `==` is an operator that compares the objects on either side and returns `TRUE` if they have the same values. -->
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```{.r}
+df <- data.frame(
+  num = c(8, 9, 10, 11),
+  chr = c("A", "C", "B", "A"))
+```
+
+
+```{r}
+#| echo: false
+df <- data.frame(
+  num = c(8, 9, 10, 11),
+  chr = c("A", "C", "B", "A"))
+
+# Create a DT datatable without search box and 'Show entries' dropdown
+DT::datatable(df, rownames = FALSE,
+              options = list(
+  dom = 't', # This sets the DOM layout without the search box ('f') and 'Show entries' dropdown ('l')
+  paging = FALSE, # Disable pagination
+  columnDefs = list(list(
+    targets = "_all", # Applies to all columns
+    orderable = FALSE # Disables sorting
+  ))
+), callback = htmlwidgets::JS("
+  // Change header background and text color
+  $('thead th').css('background-color', '#1c4982');
+  $('thead th').css('color', 'white');
+
+  // Loop through each row and alternate background color
+  $('tbody tr').each(function(index) {
+    if (index % 2 == 0) {
+      $(this).css('background-color', '#d1dae6'); // Light color for even rows
+    } else {
+      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows
+    }
+  });
+
+  // Set text color for all rows
+  $('tbody tr').css('color', 'black');
+
+  // Add hover effect
+  $('tbody tr').hover(
+    function() {
+      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row
+    }, 
+    function() {
+      var index = $(this).index();
+      if (index % 2 == 0) {
+        $(this).css('background-color', '#d1dae6'); // Restore even row color
+      } else {
+        $(this).css('background-color', '#9fb2cb'); // Restore odd row color
+      }
+    }
+  );
+")
+)
+```
+
+:::
+
+
+::: {.column width="50%"}
+
+```{.r}
+df |> filter(num > 8 & 
+             num < 11)
+                
+df |> filter(num > 8,
+             num < 11)
+```
+
+<br>
+
+```{r}
+#| echo: false
+# Create a DT datatable without search box and 'Show entries' dropdown
+DT::datatable(df |> filter(num > 8 & 
+                num < 11), rownames = FALSE,
+              options = list(
+  dom = 't', # This sets the DOM layout without the search box ('f') and 'Show entries' dropdown ('l')
+  paging = FALSE, # Disable pagination
+  columnDefs = list(list(
+    targets = "_all", # Applies to all columns
+    orderable = FALSE # Disables sorting
+  ))
+), callback = htmlwidgets::JS("
+  // Change header background and text color
+  $('thead th').css('background-color', '#1c4982');
+  $('thead th').css('color', 'white');
+
+  // Loop through each row and alternate background color
+  $('tbody tr').each(function(index) {
+    if (index % 2 == 0) {
+      $(this).css('background-color', '#d1dae6'); // Light color for even rows
+    } else {
+      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows
+    }
+  });
+
+  // Set text color for all rows
+  $('tbody tr').css('color', 'black');
+
+  // Add hover effect
+  $('tbody tr').hover(
+    function() {
+      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row
+    }, 
+    function() {
+      var index = $(this).index();
+      if (index % 2 == 0) {
+        $(this).css('background-color', '#d1dae6'); // Restore even row color
+      } else {
+        $(this).css('background-color', '#9fb2cb'); // Restore odd row color
+      }
+    }
+  );
+")
+)
+```
+
+:::
+
+::::
+
+
+
+
+
+## Filter observations with `filter()`
+### `logical` conditions
+
+<!-- - The `==` is an operator that compares the objects on either side and returns `TRUE` if they have the same values. -->
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```{.r}
+df <- data.frame(
+  num = c(8, 9, 10, 11),
+  chr = c("A", "C", "B", "A"))
+```
+
+
+```{r}
+#| echo: false
+df <- data.frame(
+  num = c(8, 9, 10, 11),
+  chr = c("A", "C", "B", "A"))
+
+# Create a DT datatable without search box and 'Show entries' dropdown
+DT::datatable(df, rownames = FALSE,
+              options = list(
+  dom = 't', # This sets the DOM layout without the search box ('f') and 'Show entries' dropdown ('l')
+  paging = FALSE, # Disable pagination
+  columnDefs = list(list(
+    targets = "_all", # Applies to all columns
+    orderable = FALSE # Disables sorting
+  ))
+), callback = htmlwidgets::JS("
+  // Change header background and text color
+  $('thead th').css('background-color', '#1c4982');
+  $('thead th').css('color', 'white');
+
+  // Loop through each row and alternate background color
+  $('tbody tr').each(function(index) {
+    if (index % 2 == 0) {
+      $(this).css('background-color', '#d1dae6'); // Light color for even rows
+    } else {
+      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows
+    }
+  });
+
+  // Set text color for all rows
+  $('tbody tr').css('color', 'black');
+
+  // Add hover effect
+  $('tbody tr').hover(
+    function() {
+      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row
+    }, 
+    function() {
+      var index = $(this).index();
+      if (index % 2 == 0) {
+        $(this).css('background-color', '#d1dae6'); // Restore even row color
+      } else {
+        $(this).css('background-color', '#9fb2cb'); // Restore odd row color
+      }
+    }
+  );
+")
+)
+```
+
+:::
+
+
+::: {.column width="50%"}
+
+```{.r}
+df |> filter(num < 10 & 
+             chr == "A")
+
+df |> filter(num < 10, 
+             chr == "A")
+```
+
+<br>
+
+```{r}
+#| echo: false
+# Create a DT datatable without search box and 'Show entries' dropdown
+DT::datatable(df |> filter(num < 10 & 
+                chr == "A"), rownames = FALSE,
+              options = list(
+  dom = 't', # This sets the DOM layout without the search box ('f') and 'Show entries' dropdown ('l')
+  paging = FALSE, # Disable pagination
+  columnDefs = list(list(
+    targets = "_all", # Applies to all columns
+    orderable = FALSE # Disables sorting
+  ))
+), callback = htmlwidgets::JS("
+  // Change header background and text color
+  $('thead th').css('background-color', '#1c4982');
+  $('thead th').css('color', 'white');
+
+  // Loop through each row and alternate background color
+  $('tbody tr').each(function(index) {
+    if (index % 2 == 0) {
+      $(this).css('background-color', '#d1dae6'); // Light color for even rows
+    } else {
+      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows
+    }
+  });
+
+  // Set text color for all rows
+  $('tbody tr').css('color', 'black');
+
+  // Add hover effect
+  $('tbody tr').hover(
+    function() {
+      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row
+    }, 
+    function() {
+      var index = $(this).index();
+      if (index % 2 == 0) {
+        $(this).css('background-color', '#d1dae6'); // Restore even row color
+      } else {
+        $(this).css('background-color', '#9fb2cb'); // Restore odd row color
+      }
+    }
+  );
+")
+)
+```
+
+:::
+
+::::
+
+
+
+
+## Filter observations with `filter()`
+### `logical` conditions
+
+<!-- - The `==` is an operator that compares the objects on either side and returns `TRUE` if they have the same values. -->
+
+:::: {.columns}
+::: {.column width="50%"}
+
+```{.r}
+df <- data.frame(
+  num = c(8, 9, 10, 11),
+  chr = c("A", "C", "B", "A"))
+```
+
+```{r}
+#| echo: false
+df <- data.frame(
+  num = c(8, 9, 10, 11),
+  chr = c("A", "C", "B", "A"))
+
+
+# Create a DT datatable without search box and 'Show entries' dropdown
+DT::datatable(df, rownames = FALSE,
+              options = list(
+  dom = 't', # This sets the DOM layout without the search box ('f') and 'Show entries' dropdown ('l')
+  paging = FALSE, # Disable pagination
+  columnDefs = list(list(
+    targets = "_all", # Applies to all columns
+    orderable = FALSE # Disables sorting
+  ))
+), callback = htmlwidgets::JS("
+  // Change header background and text color
+  $('thead th').css('background-color', '#1c4982');
+  $('thead th').css('color', 'white');
+
+  // Loop through each row and alternate background color
+  $('tbody tr').each(function(index) {
+    if (index % 2 == 0) {
+      $(this).css('background-color', '#d1dae6'); // Light color for even rows
+    } else {
+      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows
+    }
+  });
+
+  // Set text color for all rows
+  $('tbody tr').css('color', 'black');
+
+  // Add hover effect
+  $('tbody tr').hover(
+    function() {
+      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row
+    }, 
+    function() {
+      var index = $(this).index();
+      if (index % 2 == 0) {
+        $(this).css('background-color', '#d1dae6'); // Restore even row color
+      } else {
+        $(this).css('background-color', '#9fb2cb'); // Restore odd row color
+      }
+    }
+  );
+")
+)
+```
+
+:::
+
+
+::: {.column width="50%"}
+
+```{.r}
+df |> filter(num < 10 | 
+             chr == "A")
+```
+
+<br>
+
+```{r}
+#| echo: false
+# Create a DT datatable without search box and 'Show entries' dropdown
+DT::datatable(df |> filter(num < 10 | 
+                chr == "A"), rownames = FALSE,
+              options = list(
+  dom = 't', # This sets the DOM layout without the search box ('f') and 'Show entries' dropdown ('l')
+  paging = FALSE, # Disable pagination
+  columnDefs = list(list(
+    targets = "_all", # Applies to all columns
+    orderable = FALSE # Disables sorting
+  ))
+), callback = htmlwidgets::JS("
+  // Change header background and text color
+  $('thead th').css('background-color', '#1c4982');
+  $('thead th').css('color', 'white');
+
+  // Loop through each row and alternate background color
+  $('tbody tr').each(function(index) {
+    if (index % 2 == 0) {
+      $(this).css('background-color', '#d1dae6'); // Light color for even rows
+    } else {
+      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows
+    }
+  });
+
+  // Set text color for all rows
+  $('tbody tr').css('color', 'black');
+
+  // Add hover effect
+  $('tbody tr').hover(
+    function() {
+      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row
+    }, 
+    function() {
+      var index = $(this).index();
+      if (index % 2 == 0) {
+        $(this).css('background-color', '#d1dae6'); // Restore even row color
+      } else {
+        $(this).css('background-color', '#9fb2cb'); // Restore odd row color
+      }
+    }
+  );
+")
+)
+```
+
+:::
+
+::::
+
+
+
+## Filter observations with `filter()`
+### `%in%` operator
+
+:::{.nonincremental}
+- When the **or** operator `|` is repeatedly used, we can consider using the `%in%` operator instead.
+
+:::
+:::: {.columns}
+::: {.column width="50%"}
+```{.r}
+flights |> 
+  filter( month == 10 | 
+          month == 11 | 
+          month == 12 )
+```
+
+:::
+
+::: {.column width="50%"}
+```{.r}
+flights |> 
+  filter(month %in% c(10, 11, 12))
+```
+
+:::
+::::
+
+
+
+## Filter observations with `filter()`
+### Missing values (`NA`)
+
+:::{.nonincremental}
+- Almost any operation involving an unknown value (`NA`) will also be unknown.
+
+
+```{.r}
+NA > 5
+10 == NA
+NA + 10
+NA / 2
+
+NA == NA
+```
+:::
+
+
+## Filter observations with `filter()`
+### Missing values (`NA`)
+
+:::{.nonincremental}
+
+- Let `x` be Mary's age. We don't know how old she is.
+- Let `y` be John's age. We don't know how old he is.
+- Are John and Mary the same age?
+
+:::
+```{.r}
+x <- NA
+y <- NA
+x == y
+```
+
+
+## Filter observations with `filter()`
+### `is.na()`
+:::{.nonincremental}
+
+- If we want to determine if a value is missing, use `is.na()`.
+- If we want to preserve missing values, ask `filter()` for them explicitly.
+
+:::
+
+:::: {.columns}
+::: {.column width="50%"}
+```{.r}
+x <- NA
+is.na(x) # is x NA?
+
+y <- "missing"
+is.na(y) # is y NA?
+```
+:::
+
+::: {.column width="50%"}
+```{.r}
+df <- data.frame(y = c(1, NA, 3))
+
+df |> 
+  filter(y > 1)
+
+df |> 
+  filter( is.na(y) | y > 1 )
+```
+:::
+
+::::
+
+# Find all unique observations with `distinct()` {background-color="#1c4982"}
+
+## Find all unique observations with `distinct()`
+
+
+:::: {.columns}
+::: {.column width="50%"}
+```{.r}
+# Remove duplicate observations, 
+#  if any
+flights |> 
+  distinct()
+```
+:::
+
+::: {.column width="50%"}
+```{.r}
+# Find all unique 
+#  origin and destination pairs
+flights |> 
+  distinct(origin, dest)
+
+# If we want to keep other variables
+flights |> 
+  distinct(origin, dest, 
+           .keep_all = TRUE)
+```
+:::
+
+::::
+
+- `distinct()` finds all the unique observations in a data.frame. 
+  - We can also optionally provide variable names to `distinct()`.
+  
+
+
+# Arrange observations with `arrange()` {background-color="#1c4982"}
+
+
+## Arrange observations with `arrange()`
+```{.r}
+flights |> 
+  arrange(year, month, day)
+
+# re-order observations by `dep_delay` in descending order.
+flights |> 
+  arrange([?])
+```
+
+
+- `arrange()` sorts out observations.
+  - If we provide more than one variable name, each additional variable will be used to break ties in the values of preceding variables.
+
+- Use `desc()` to re-order by a column in descending order.
+  - Adding `-` before a numeric variable (`-NUMERIC_VARIABLE`) also works.
+
+
+
