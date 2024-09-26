@@ -541,9 +541,10 @@ Byeong-Hak Choe
 <ul>
 <li class="fragment"><strong>Limitation of Hadoop</strong>
 <ul>
-<li class="fragment">Hadoop was originally designed for batch processing.
+<li class="fragment">Hadoop is originally designed for batch processing.
 <ul>
 <li class="fragment"><strong>Batch Processing:</strong> Data or tasks are collected over a period of time and then processed all at once, typically at scheduled times or during periods of low activity.</li>
+<li class="fragment">Results come after the entire dataset is analyzed.</li>
 </ul></li>
 </ul></li>
 <li class="fragment"><strong>Real-Time Processing Limitation:</strong>
@@ -552,7 +553,7 @@ Byeong-Hak Choe
 </ul></li>
 <li class="fragment"><strong>Extending Hadoop’s Capabilities</strong>
 <ul>
-<li class="fragment">Both <em>Apache Storm</em> and <em>Apache Spark</em> can run on top of Hadoop clusters, utilizing HDFS for storage.</li>
+<li class="fragment">Both Apache Storm and Apache Spark can run on top of Hadoop clusters, utilizing HDFS for storage.</li>
 </ul></li>
 </ul>
 </section>
@@ -581,13 +582,42 @@ Byeong-Hak Choe
 <ul>
 <li class="fragment"><strong>Functionality:</strong>
 <ul>
-<li class="fragment">Provides in-memory computations for increased speed.</li>
+<li class="fragment">Provides <em>in-memory computations</em> for increased speed.</li>
 <li class="fragment">Supports both batch and streaming data processing through Spark Streaming.</li>
 </ul></li>
 <li class="fragment"><strong>Use Cases:</strong>
 <ul>
-<li class="fragment">Interactive queries</li>
+<li class="fragment">Interactive queries for quick, on-the-fly data analysis</li>
 <li class="fragment">Machine learning</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="apache-storm-and-apache-spark-1" class="slide level2">
+<h2>Apache Storm and Apache Spark</h2>
+<h3 id="medscape-real-time-medical-news-for-healthcare-professionals">Medscape: Real-Time Medical News for Healthcare Professionals</h3>
+<div>
+<ul>
+<li>A medical news app for smartphones and tablets designed to keep healthcare professionals informed.
+<ul>
+<li>Provides up-to-date medical news and expert perspectives.</li>
+</ul></li>
+</ul>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="text-align: center; width: 100%; margin: auto;">
+<img src="https://bcdanl.github.io/lec_figs/mediscape.png" style="width: 100%; margin-bottom: -20px;">
+<p style="font-weight: bold;">
+</p>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li class="fragment"><strong>Real-Time Updates:</strong>
+<ul>
+<li class="fragment">Uses Apache Storm to process about 500 million tweets per day.</li>
+<li class="fragment">Automatic Twitter feed integration helps users track important medical trends shared by physicians and medical commentators.</li>
 </ul></li>
 </ul>
 </div>
@@ -595,12 +625,15 @@ Byeong-Hak Choe
 </section>
 <section id="references" class="slide level2">
 <h2>References</h2>
+<div>
 <ul>
-<li class="fragment"><a href="https://aws.amazon.com/what-is/data-warehouse/">What is a Data Warehouse?</a></li>
-<li class="fragment"><a href="https://aws.amazon.com/what-is/data-mart/">What is a Data Mart?</a></li>
-<li class="fragment"><a href="https://aws.amazon.com/what-is/data-lake/">What is a Data Lake?</a></li>
-<li class="fragment"><a href="https://aws.amazon.com/what-is/hadoop/">What is Hadoop?</a></li>
+<li><a href="https://aws.amazon.com/what-is/data-warehouse/">What is a Data Warehouse?</a></li>
+<li><a href="https://aws.amazon.com/what-is/data-mart/">What is a Data Mart?</a></li>
+<li><a href="https://aws.amazon.com/what-is/data-lake/">What is a Data Lake?</a></li>
+<li><a href="https://aws.amazon.com/what-is/hadoop/">What is Hadoop?</a></li>
+<li><a href="https://cloud.google.com/learn/what-is-hadoop?hl=en#">What is (Apache) Hadoop?</a></li>
 </ul>
+</div>
 </section></section>
 <section>
 <section id="joining-relational-data.frames-with-left_join" class="title-slide slide level1 center" data-background-color="#1c4982">
@@ -611,14 +644,16 @@ Byeong-Hak Choe
 <h2>Pipe (<code>|&gt;</code>) Operator</h2>
 <!-- ### `dplyr` basics -->
 <ul>
-<li class="fragment"><p><code>tidyverse</code> verbs work well with the <strong>pipe</strong>, <code>|&gt;</code>, because the first argument of a <code>tidyverse</code> verb is a <code>data.frame</code> and the output is a <code>data.frame</code>,</p></li>
-<li class="fragment"><p><strong>Ctrl + Shift + M</strong> for Windows; <strong>command + Shift + M</strong> for Mac.</p></li>
-<li class="fragment"><p>The <strong>pipe</strong> (<code>|&gt;</code>) takes the thing on its left and passes it along to the function on its right so that</p>
+<li class="fragment"><code>tidyverse</code> functions work well with the <strong>pipe</strong>, <code>|&gt;</code>, because the first argument of a <code>tidyverse</code> function is a <code>data.frame</code> and the output is a <code>data.frame</code>.
+<ul>
+<li class="fragment"><strong>Ctrl + Shift + M</strong> for Windows; <strong>command + Shift + M</strong> for Mac.</li>
+</ul></li>
+<li class="fragment">The <strong>pipe</strong> (<code>|&gt;</code>) takes the thing on its left and passes it along to the function on its right so that
 <ul>
 <li class="fragment"><code>f(x, y)</code> is equivalent to <code>x |&gt; f(y)</code>.</li>
-<li class="fragment">e.g., <code>left_join(DATA_FRAME_1, DATA_FRAME_2)</code> is equivalent to <code>DATA_FRAME |&gt;  left_join(DATA_FRAME_2)</code>.</li>
+<li class="fragment">e.g., <code>left_join(DATA_FRAME_1, DATA_FRAME_2)</code> is equivalent to <code>DATA_FRAME_1 |&gt;  left_join(DATA_FRAME_2)</code>.</li>
 </ul></li>
-<li class="fragment"><p>The easiest way to pronounce the <strong>pipe</strong> (<code>|&gt;</code>) is “<strong>then</strong>”.</p>
+<li class="fragment">The easiest way to pronounce the <strong>pipe</strong> (<code>|&gt;</code>) is “<strong>then</strong>”.
 <ul>
 <li class="fragment">The <strong>pipe</strong> (<code>|&gt;</code>) is super useful when we have <u><em>a chain of data transforming operations</em></u> to do.</li>
 </ul></li>
@@ -712,8 +747,8 @@ Byeong-Hak Choe
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item" id="htmlwidget-4e9c7541ad245a01cd1e" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-4e9c7541ad245a01cd1e">{"x":{"filter":"none","vertical":false,"data":[["x &amp; y","x | y","!x"],["Are x and y both TRUE?","Is at least one of x and y TRUE?","Is x FALSE?"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Operator<\/th>\n      <th>Description<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"name":"Operator","targets":0},{"name":"Description","targets":1}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-6a49b52e2d56ce82df06" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-6a49b52e2d56ce82df06">{"x":{"filter":"none","vertical":false,"data":[["x &amp; y","x | y","!x"],["Are x and y both TRUE?","Is at least one of x and y TRUE?","Is x FALSE?"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Operator<\/th>\n      <th>Description<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"name":"Operator","targets":0},{"name":"Description","targets":1}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
 </div>
 </div>
 <ul>
@@ -728,8 +763,8 @@ Byeong-Hak Choe
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item" id="htmlwidget-9c8da20f9fc99b257cb3" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-9c8da20f9fc99b257cb3">{"x":{"filter":"none","vertical":false,"data":[["x == y","x != y","x &gt; y","x &gt;= y","x &lt; y","x &lt;= y"],["Is x equal to y?","Is x not equal to y?","Is x greater than y?","Is x greater than or equal to y?","Is x less than y?","Is x less than or equal to y?"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Operator<\/th>\n      <th>Description<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"name":"Operator","targets":0},{"name":"Description","targets":1}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-7dff861e081b9e96a705" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-7dff861e081b9e96a705">{"x":{"filter":"none","vertical":false,"data":[["x == y","x != y","x &gt; y","x &gt;= y","x &lt; y","x &lt;= y"],["Is x equal to y?","Is x not equal to y?","Is x greater than y?","Is x greater than or equal to y?","Is x less than y?","Is x less than or equal to y?"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>Operator<\/th>\n      <th>Description<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"name":"Operator","targets":0},{"name":"Description","targets":1}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
 </div>
 </div>
 </section>
@@ -757,8 +792,8 @@ Byeong-Hak Choe
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item" id="htmlwidget-23893908983c530e321e" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-23893908983c530e321e">{"x":{"filter":"none","vertical":false,"data":[[8,9,10,11],["A","C","B","A"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>num<\/th>\n      <th>chr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"className":"dt-right","targets":0},{"name":"num","targets":0},{"name":"chr","targets":1}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-e5c1e8e349ee81d413d9" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-e5c1e8e349ee81d413d9">{"x":{"filter":"none","vertical":false,"data":[[8,9,10,11],["A","C","B","A"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>num<\/th>\n      <th>chr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"className":"dt-right","targets":0},{"name":"num","targets":0},{"name":"chr","targets":1}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -771,8 +806,8 @@ Byeong-Hak Choe
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item" id="htmlwidget-e69264e9fa0d31ab44fb" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-e69264e9fa0d31ab44fb">{"x":{"filter":"none","vertical":false,"data":[[9,10],["C","B"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>num<\/th>\n      <th>chr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"className":"dt-right","targets":0},{"name":"num","targets":0},{"name":"chr","targets":1}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-1df314730da848e25fae" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-1df314730da848e25fae">{"x":{"filter":"none","vertical":false,"data":[[9,10],["C","B"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>num<\/th>\n      <th>chr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"className":"dt-right","targets":0},{"name":"num","targets":0},{"name":"chr","targets":1}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -790,8 +825,8 @@ Byeong-Hak Choe
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item" id="htmlwidget-4119373d2bdeff2be844" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-4119373d2bdeff2be844">{"x":{"filter":"none","vertical":false,"data":[[8,9,10,11],["A","C","B","A"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>num<\/th>\n      <th>chr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"className":"dt-right","targets":0},{"name":"num","targets":0},{"name":"chr","targets":1}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-5d1b87a46a86891fa887" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-5d1b87a46a86891fa887">{"x":{"filter":"none","vertical":false,"data":[[8,9,10,11],["A","C","B","A"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>num<\/th>\n      <th>chr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"className":"dt-right","targets":0},{"name":"num","targets":0},{"name":"chr","targets":1}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -804,8 +839,8 @@ Byeong-Hak Choe
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item" id="htmlwidget-f7f0f6297eb248869f1a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-f7f0f6297eb248869f1a">{"x":{"filter":"none","vertical":false,"data":[[8],["A"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>num<\/th>\n      <th>chr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"className":"dt-right","targets":0},{"name":"num","targets":0},{"name":"chr","targets":1}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-556a139245778e617c62" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-556a139245778e617c62">{"x":{"filter":"none","vertical":false,"data":[[8],["A"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>num<\/th>\n      <th>chr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"className":"dt-right","targets":0},{"name":"num","targets":0},{"name":"chr","targets":1}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -823,8 +858,8 @@ Byeong-Hak Choe
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item" id="htmlwidget-7b91e3e137500a60ff37" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-7b91e3e137500a60ff37">{"x":{"filter":"none","vertical":false,"data":[[8,9,10,11],["A","C","B","A"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>num<\/th>\n      <th>chr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"className":"dt-right","targets":0},{"name":"num","targets":0},{"name":"chr","targets":1}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-5f444c638fa0261902cf" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-5f444c638fa0261902cf">{"x":{"filter":"none","vertical":false,"data":[[8,9,10,11],["A","C","B","A"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>num<\/th>\n      <th>chr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"className":"dt-right","targets":0},{"name":"num","targets":0},{"name":"chr","targets":1}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
@@ -834,8 +869,8 @@ Byeong-Hak Choe
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item" id="htmlwidget-7746a1bd66ce40aaff49" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-7746a1bd66ce40aaff49">{"x":{"filter":"none","vertical":false,"data":[[8,9,11],["A","C","A"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>num<\/th>\n      <th>chr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"className":"dt-right","targets":0},{"name":"num","targets":0},{"name":"chr","targets":1}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-30c6f93a7bbe90d0751e" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-30c6f93a7bbe90d0751e">{"x":{"filter":"none","vertical":false,"data":[[8,9,11],["A","C","A"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>num<\/th>\n      <th>chr<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"className":"dt-right","targets":0},{"name":"num","targets":0},{"name":"chr","targets":1}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
 </div>
 </div>
 </div>

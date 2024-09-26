@@ -124,6 +124,7 @@ theme_set(theme_fivethirtyeight()+
   
 
 
+
 ## Hadoop
 ### Hadoop Architecture - MapReduce
 
@@ -132,7 +133,6 @@ theme_set(theme_fivethirtyeight()+
   <img src="https://bcdanl.github.io/lec_figs/map-reduce.png" style="width: 100%; margin-bottom: -20px;">
   <p style="font-weight: bold;"> </p>
 </div>
-
 
 ## Hadoop
 ### How Hadoop Works
@@ -148,19 +148,19 @@ theme_set(theme_fivethirtyeight()+
    - Data replication ensures processing continues even if servers fail.
 
 
-
 ## Hadoop
 ### Extending Hadoop for Real-Time Processing
 
 - **Limitation of Hadoop**
-  - Hadoop was originally designed for batch processing.
+  - Hadoop is originally designed for batch processing.
     - **Batch Processing:** Data or tasks are collected over a period of time and then processed all at once, typically at scheduled times or during periods of low activity.
+    - Results come after the entire dataset is analyzed.
 
 - **Real-Time Processing Limitation:**
   - Hadoop cannot natively process real-time streaming data (e.g., stock prices flowing into stock exchanges, live sensor data)
 
 - **Extending Hadoop's Capabilities**
-  - Both *Apache Storm* and *Apache Spark* can run on top of Hadoop clusters, utilizing HDFS for storage.
+  - Both Apache Storm and Apache Spark can run on top of Hadoop clusters, utilizing HDFS for storage.
 
 ## Hadoop
 ### Apache Storm and Apache Spark
@@ -186,23 +186,54 @@ theme_set(theme_fivethirtyeight()+
 #### **Apache Spark**
 
 - **Functionality:**
-  - Provides in-memory computations for increased speed.
+  - Provides *in-memory computations* for increased speed.
   - Supports both batch and streaming data processing through Spark Streaming.
 - **Use Cases:**
-  - Interactive queries
+  - Interactive queries for quick, on-the-fly data analysis
   - Machine learning
 
 :::
 ::::
 
 
-## References
+## Apache Storm and Apache Spark
+### Medscape: Real-Time Medical News for Healthcare Professionals
 
+:::{.nonincremental}
+- A medical news app for smartphones and tablets designed to keep healthcare professionals informed.
+  - Provides up-to-date medical news and expert perspectives.
+
+:::
+
+:::: {.columns}
+::: {.column width="50%"}
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/mediscape.png" style="width: 100%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"> </p>
+</div>
+
+:::
+
+::: {.column width="50%"}
+
+- **Real-Time Updates:** 
+    - Uses Apache Storm to process about 500 million tweets per day.
+    - Automatic Twitter feed integration helps users track important medical trends shared by physicians and medical commentators.
+
+:::
+::::
+
+  
+  
+## References
+:::{.nonincremental}
 - [What is a Data Warehouse?](https://aws.amazon.com/what-is/data-warehouse/)
 - [What is a Data Mart?](https://aws.amazon.com/what-is/data-mart/)
 - [What is a Data Lake?](https://aws.amazon.com/what-is/data-lake/)
 - [What is Hadoop?](https://aws.amazon.com/what-is/hadoop/)
+- [What is (Apache) Hadoop?](https://cloud.google.com/learn/what-is-hadoop?hl=en#)
 
+:::
 
 
 # Joining Relational `data.frame`s with `left_join()` {background-color="#1c4982"}
@@ -211,13 +242,13 @@ theme_set(theme_fivethirtyeight()+
 ## Pipe (`|>`) Operator
 <!-- ### `dplyr` basics -->
 
--  `tidyverse` verbs work well with the **pipe**, `|>`, because the first argument of a `tidyverse` verb is a `data.frame` and the output is a `data.frame`, 
+- `tidyverse` functions work well with the **pipe**, `|>`, because the first argument of a `tidyverse` function is a `data.frame` and the output is a `data.frame`.
   - **Ctrl + Shift + M** for Windows; **command + Shift + M** for Mac. 
 
 
 - The **pipe** (`|>`) takes the thing on its left and passes it along to the function on its right so that
   - `f(x, y)` is equivalent to `x |> f(y)`. 
-  - e.g., `left_join(DATA_FRAME_1, DATA_FRAME_2)` is equivalent to `DATA_FRAME |>  left_join(DATA_FRAME_2)`.
+  - e.g., `left_join(DATA_FRAME_1, DATA_FRAME_2)` is equivalent to `DATA_FRAME_1 |>  left_join(DATA_FRAME_2)`.
 
 
 - The easiest way to pronounce the **pipe** (`|>`) is “**then**”. 
