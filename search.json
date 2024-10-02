@@ -18,7 +18,7 @@
     "href": "listing-danl-101-cw.html",
     "title": "DANL 101 - Classwork",
     "section": "",
-    "text": "Title\n\n\nSubtitle\n\n\nDate\n\n\n\n\n\n\nfilter(), arrange(), and distinct()\n\n\nClasswork 4\n\n\nSeptember 30, 2024\n\n\n\n\nJoining data.frames\n\n\nClasswork 3\n\n\nSeptember 26, 2024\n\n\n\n\nR Basics II\n\n\nClasswork 2\n\n\nSeptember 18, 2024\n\n\n\n\nR Basics I\n\n\nClasswork 1\n\n\nSeptember 16, 2024\n\n\n\n\n\n\nNo matching items\n\n Back to top"
+    "text": "Title\n\n\nSubtitle\n\n\nDate\n\n\n\n\n\n\nselect(), rename(), and mutate()\n\n\nClasswork 4\n\n\nOctober 2, 2024\n\n\n\n\nfilter(), arrange(), and distinct()\n\n\nClasswork 4\n\n\nOctober 2, 2024\n\n\n\n\nJoining data.frames\n\n\nClasswork 3\n\n\nSeptember 26, 2024\n\n\n\n\nR Basics II\n\n\nClasswork 2\n\n\nSeptember 18, 2024\n\n\n\n\nR Basics I\n\n\nClasswork 1\n\n\nSeptember 16, 2024\n\n\n\n\n\n\nNo matching items\n\n Back to top"
   },
   {
     "objectID": "blog-listing.html",
@@ -1341,7 +1341,7 @@
     "href": "index.html#bullet-classwork",
     "title": "DANL 101-05: Introduction to Data Analytics, Fall 2024",
     "section": "\\(\\bullet\\,\\) Classwork ⌨️",
-    "text": "\\(\\bullet\\,\\) Classwork ⌨️\n\n\n\n\n\n\nTitle\n\n\nDate\n\n\n\n\n\n\nfilter(), arrange(), and distinct()\n\n\nSeptember 30, 2024\n\n\n\n\nJoining data.frames\n\n\nSeptember 26, 2024\n\n\n\n\nR Basics II\n\n\nSeptember 18, 2024\n\n\n\n\nR Basics I\n\n\nSeptember 16, 2024\n\n\n\n\n\n\nNo matching items"
+    "text": "\\(\\bullet\\,\\) Classwork ⌨️\n\n\n\n\n\n\nTitle\n\n\nDate\n\n\n\n\n\n\nselect(), rename(), and mutate()\n\n\nOctober 2, 2024\n\n\n\n\nfilter(), arrange(), and distinct()\n\n\nOctober 2, 2024\n\n\n\n\nJoining data.frames\n\n\nSeptember 26, 2024\n\n\n\n\nR Basics II\n\n\nSeptember 18, 2024\n\n\n\n\nR Basics I\n\n\nSeptember 16, 2024\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html#bullet-homework",
@@ -2972,14 +2972,14 @@
     "href": "danl-cw/danl-101-cw-04.html",
     "title": "filter(), arrange(), and distinct()",
     "section": "",
-    "text": "Find all flights that\n\nHad an arrival delay of two or more hours\nFlew to Houston (IAH or HOU)\nDeparted in summer (July, August, and September)\nArrived more than two hours late, but didn’t leave late\nDeparted between midnight and 6am (inclusive)\n\n\nAnswer:"
+    "text": "Find all flights that had an arrival delay of two or more hours\nFind all flights that flew to Houston (IAH or HOU)\nFind all flights that departed in summer (July, August, and September)\nFind all flights that arrived more than two hours late, but didn’t leave late\nFind all flights that departed between midnight and 6am (inclusive)\n\nAnswer:"
   },
   {
     "objectID": "danl-cw/danl-101-cw-04.html#question-1",
     "href": "danl-cw/danl-101-cw-04.html#question-1",
     "title": "filter(), arrange(), and distinct()",
     "section": "",
-    "text": "Find all flights that\n\nHad an arrival delay of two or more hours\nFlew to Houston (IAH or HOU)\nDeparted in summer (July, August, and September)\nArrived more than two hours late, but didn’t leave late\nDeparted between midnight and 6am (inclusive)\n\n\nAnswer:"
+    "text": "Find all flights that had an arrival delay of two or more hours\nFind all flights that flew to Houston (IAH or HOU)\nFind all flights that departed in summer (July, August, and September)\nFind all flights that arrived more than two hours late, but didn’t leave late\nFind all flights that departed between midnight and 6am (inclusive)\n\nAnswer:"
   },
   {
     "objectID": "danl-cw/danl-101-cw-04.html#question-2",
@@ -3155,5 +3155,47 @@
     "title": "Lecture 15",
     "section": "Arrange observations with arrange()",
     "text": "Arrange observations with arrange()\nDescending order with desc()\n# re-order observations by `dep_delay` in descending order.\nflights |&gt; \n  arrange(desc(dep_delay))\n  \nflights |&gt; \n  arrange(-dep_delay)\n\nUse desc(VARIABLE) to re-order by a VARIABLE in descending order.\n\nAdding - before a numeric variable (-NUMERIC_VARIABLE) also works."
+  },
+  {
+    "objectID": "danl-cw/danl-101-cw-05.html",
+    "href": "danl-cw/danl-101-cw-05.html",
+    "title": "select(), rename(), and mutate()",
+    "section": "",
+    "text": "For this Classwork 4, consider the following data.frame, nyc_payroll_new.\nlibrary(tidyverse)\nnyc_payroll_new &lt;- read_csv(\"https://bcdanl.github.io/data/nyc_payroll_2024.csv\")\nFor detailed descriptions of the variables in this data.frame, please refer to the following link: Citywide Payroll Data (Fiscal Year)"
+  },
+  {
+    "objectID": "danl-cw/danl-101-cw-05.html#question-1",
+    "href": "danl-cw/danl-101-cw-05.html#question-1",
+    "title": "select(), rename(), and mutate()",
+    "section": "Question 1",
+    "text": "Question 1\nCreate a new data.frame, df that keeps only the following five variables—Fiscal_Year, Agency_Name, First_Name, Last_Name, and Base_Salary—from nyc_payroll_new.\nAnswer:"
+  },
+  {
+    "objectID": "danl-cw/danl-101-cw-05.html#question-2",
+    "href": "danl-cw/danl-101-cw-05.html#question-2",
+    "title": "select(), rename(), and mutate()",
+    "section": "Question 2",
+    "text": "Question 2\nGiven the data.frame df with a variable named Agency_Name, how would you rename it to Agency?\nAnswer:"
+  },
+  {
+    "objectID": "danl-cw/danl-101-cw-05.html#question-3",
+    "href": "danl-cw/danl-101-cw-05.html#question-3",
+    "title": "select(), rename(), and mutate()",
+    "section": "Question 3",
+    "text": "Question 3\nGiven the data.frame df with variable Base_Salary, how would you create a new variable Adjusted_Salary that is Base_Salary * 1.1 using mutate()?\nAnswer:"
+  },
+  {
+    "objectID": "danl-cw/danl-101-cw-05.html#question-4",
+    "href": "danl-cw/danl-101-cw-05.html#question-4",
+    "title": "select(), rename(), and mutate()",
+    "section": "Question 4",
+    "text": "Question 4\nHow would you remove the Fiscal_Year variable using select()?\nAnswer:"
+  },
+  {
+    "objectID": "danl-cw/danl-101-cw-05.html#question-5",
+    "href": "danl-cw/danl-101-cw-05.html#question-5",
+    "title": "select(), rename(), and mutate()",
+    "section": "Question 5",
+    "text": "Question 5\nHow would you select only Agency_Name (or Agency) and Base_Salary and then create a new variable Bonus which is 10% of Base_Salary?\nAnswer:"
   }
 ]

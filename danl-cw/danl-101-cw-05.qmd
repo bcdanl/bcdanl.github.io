@@ -1,0 +1,141 @@
+---
+title: "`select()`, `rename()`, and `mutate()`"
+subtitle: Classwork 4
+date: last-modified
+from: markdown+emoji
+
+execute: 
+  eval: true
+  echo: false
+---
+
+For this Classwork 4, consider the following data.frame, `nyc_payroll_new`.
+
+```{r}
+#| echo: true
+library(tidyverse)
+nyc_payroll_new <- read_csv("https://bcdanl.github.io/data/nyc_payroll_2024.csv")
+```
+
+```{r}
+#| echo: false
+DT::datatable(nyc_payroll_new)
+```
+
+<br>
+
+For detailed descriptions of the variables in this data.frame, please refer to the following link: [Citywide Payroll Data (Fiscal Year)](https://data.cityofnewyork.us/City-Government/Citywide-Payroll-Data-Fiscal-Year-/k397-673e/about_data)
+
+<br>
+
+## Question 1
+Create a new data.frame, `df` that keeps only the following five variables---`Fiscal_Year`, `Agency_Name`, `First_Name`, `Last_Name`, and `Base_Salary`---from `nyc_payroll_new`.
+
+**Answer**:
+
+```{r}
+df <- nyc_payroll_new |> 
+  select(Fiscal_Year, Agency_Name,
+         First_Name, Last_Name,
+         Base_Salary)
+```
+
+```{r}
+#| echo: false
+
+DT::datatable(df)
+```
+
+
+<br><br>
+
+## Question 2
+Given the data.frame `df` with a variable named `Agency_Name`, how would you rename it to `Agency`?
+
+**Answer**:
+
+```{r}
+df_renamed <- df |> rename(Agency = Agency_Name)
+```
+
+
+```{r}
+#| echo: false
+
+DT::datatable(df_renamed)
+```
+
+
+<br><br>
+
+## Question 3
+Given the data.frame `df` with variable `Base_Salary`, how would you create a new variable `Adjusted_Salary` that is `Base_Salary` * 1.1 using `mutate()`?
+
+**Answer**:
+```{r}
+df_new <- df |> mutate(Adjusted_Salary = Base_Salary * 1.1)
+```
+
+
+
+```{r}
+#| echo: false
+
+DT::datatable(df_new)
+```
+
+<br><br>
+
+## Question 4
+How would you remove the `Fiscal_Year` variable using `select()`?
+
+**Answer**:
+
+```{r}
+df_dropped <- df |> select(-Fiscal_Year)
+```
+
+
+
+```{r}
+#| echo: false
+
+DT::datatable(df_dropped)
+```
+
+<br><br>
+
+## Question 5
+How would you select only `Agency_Name` (or `Agency`) and `Base_Salary` and then create a new variable `Bonus` which is 10% of `Base_Salary`?
+
+**Answer**:
+```{r}
+df_new <- df |> 
+  select(Agency_Name, Base_Salary) |> 
+  mutate(Bonus = Base_Salary * 0.1)
+```
+
+
+```{r}
+#| echo: false
+
+DT::datatable(df_new)
+```
+
+
+<br><br>
+
+# Discussion 
+
+
+<font size = "5">Welcome to our Classwork 5 Discussion Board! 👋 </font>
+
+
+This space is designed for you to engage with your classmates about the material covered in Classwork 5.
+
+Whether you are looking to delve deeper into the content, share insights, or have questions about the content, this is the perfect place for you.
+
+If you have any specific questions for Byeong-Hak (**@bcdanl**) or peer classmate (@GitHub-Username) regarding the Classwork 1 materials or need clarification on any points, don't hesitate to ask here. 
+
+Let's collaborate and learn from each other!
+
