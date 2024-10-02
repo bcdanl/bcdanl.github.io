@@ -1,5 +1,5 @@
 ---
-title: "`select()`, `rename()`, and `mutate()`"
+title: "`select()` and `rename()`"
 subtitle: Classwork 5
 date: last-modified
 from: markdown+emoji
@@ -69,24 +69,6 @@ DT::datatable(df_renamed)
 <br><br>
 
 ## Question 3
-Given the data.frame `df` with variable `Base_Salary`, how would you create a new variable `Adjusted_Salary` that is `Base_Salary` * 1.1 using `mutate()`?
-
-**Answer**:
-```{r}
-df_new <- df |> mutate(Adjusted_Salary = Base_Salary * 1.1)
-```
-
-
-
-```{r}
-#| echo: false
-
-DT::datatable(df_new)
-```
-
-<br><br>
-
-## Question 4
 How would you remove the `Fiscal_Year` variable using `select()`?
 
 **Answer**:
@@ -102,26 +84,6 @@ df_dropped <- df |> select(-Fiscal_Year)
 
 DT::datatable(df_dropped)
 ```
-
-<br><br>
-
-## Question 5
-How would you select only `Agency_Name` (or `Agency`) and `Base_Salary` and then create a new variable `Bonus` which is 10% of `Base_Salary`?
-
-**Answer**:
-```{r}
-df_new <- df |> 
-  select(Agency_Name, Base_Salary) |> 
-  mutate(Bonus = Base_Salary * 0.1)
-```
-
-
-```{r}
-#| echo: false
-
-DT::datatable(df_new)
-```
-
 
 <br><br>
 
