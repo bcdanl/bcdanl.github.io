@@ -14,7 +14,7 @@ author:
   - name: Byeong-Hak Choe
     email: bchoe@geneseo.edu
     affiliations: SUNY Geneseo
-date: 2024-10-02
+date: 2024-10-04
 execute: 
   eval: true
   echo: false
@@ -67,7 +67,6 @@ theme_set(theme_fivethirtyeight()+
 - `DATA.FRAME |> distinct(VARIABLES)`
 - `DATA.FRAME |> select(VARIABLES)`
 - `DATA.FRAME |> rename(NEW_VARIABLE = EXISTING_VARIABLE)`
-- `DATA.FRAME |> mutate(NEW_VARIABLE = ... )`
 
 - The subsequent arguments describe what to do with the data.frame, mostly using the variable names.
 - The result is a **data.frame**.
@@ -275,61 +274,6 @@ flights |>
   - `DATA_FRAME |> rename(NEW_VARIABLE = EXISTING_VARIABLE)`
 
 :::
-
-
-
-# Add new variables with `mutate()` {background-color="#1c4982"}
-
-
-## Add new variables with `mutate()`
-###  Arithmetic operations
-
-:::{.nonincremental}
-- `mutate()` is useful to add new variables that are functions of existing variables.
-  - New variables can be a result of arithmetic operations.
-  - Arithmetic operators: `+`, `-`, `*`, `/`, `^`
-
-:::
-```{.r}
-flights |> 
-  select(dep_delay, arr_delay) |> 
-  mutate(gain = dep_delay - arr_delay) 
-```
-
-
-
-## Add new variables with `mutate()`
-###  Arithmetic operations
-
-:::{.nonincremental}
-- We can add more than one variables
-
-:::
-```{.r}
-flights |> 
-  select(dep_delay, arr_delay, air_time) |> 
-  mutate(gain = dep_delay - arr_delay,
-         hours = air_time / 60) 
-```
-
-
-
-## Add new variables with `mutate()`
-###  Useful functions
-```{.r}
-df <- data.frame( x = c(1:10) ) |> 
-  mutate(x_log = log(x),
-         x_exp = exp(x),
-         x_sqrt = sqrt(x),
-         x_fct = factor(x),
-         x_chr = as.character(x),
-         x_num = as.numeric(x),
-         x_int = as.integer(x) )
-```
-
-
-- We can use math functions as well as as.DATATYPE functions:
-  - For example, `log()`, `exp()`, `sqrt()`, `factor()`, `as.character()`, `as.numeric()`, and `as.integer()`.
 
 
 
