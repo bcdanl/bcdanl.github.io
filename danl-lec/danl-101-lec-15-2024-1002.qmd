@@ -1,0 +1,335 @@
+---
+title: Lecture 15
+subtitle: Data Preparation and Management with `R`
+format:
+  clean-revealjs:
+    self-contained: false
+    chalkboard: true
+    incremental: true
+    code-annotations: hover
+    scrollable: false
+
+    # logo: logo-title-slide.png
+author:
+  - name: Byeong-Hak Choe
+    email: bchoe@geneseo.edu
+    affiliations: SUNY Geneseo
+date: 2024-10-02
+execute: 
+  eval: true
+  echo: false
+callout-icon: false
+
+from: markdown+emoji
+include-after-body: target-hover.html # effect.html
+
+# bibliography: refs.bib
+---
+
+```{r setup}
+#| include: false
+library(tidyverse)
+library(skimr)
+library(ggthemes)
+library(hrbrthemes)
+
+
+theme_set(theme_fivethirtyeight()+
+          theme(strip.background =element_rect(fill="lightgray"),
+                axis.title.x = 
+                  element_text(angle = 0,
+                               size = rel(1.5),
+                               margin = margin(10,0,0,0)),
+                axis.title.y = 
+                  element_text(angle = 0,
+                               size = rel(1.5),
+                               margin = margin(0,10,0,0)),
+                axis.text.x = element_text(size = rel(1.5)),
+                axis.text.y = element_text(size = rel(1.5)),
+                strip.text = element_text(size = rel(1.5)),
+                legend.position = "top",
+                legend.text = element_text(size = rel(1.5)),
+                legend.title = element_text(size = rel(1.5))
+                )
+          )
+```
+
+
+
+# Data Transformation with R `tidyverse` {background-color="#1c4982"}
+
+
+## Data Transformation
+<!-- ### `dplyr` basics -->
+
+- `DATA.FRAME |> filter(LOGICAL_CONDITIONS)`
+- `DATA.FRAME |> arrange(VARIABLES)`
+- `DATA.FRAME |> distinct(VARIABLES)`
+- `DATA.FRAME |> select(VARIABLES)`
+- `DATA.FRAME |> rename(NEW_VARIABLE = EXISTING_VARIABLE)`
+- `DATA.FRAME |> mutate(NEW_VARIABLE = ... )`
+
+- The subsequent arguments describe what to do with the data.frame, mostly using the variable names.
+- The result is a **data.frame**.
+
+
+
+# Filter observations with `filter()` {background-color="#1c4982"}
+
+## Filter observations with `filter()`
+### Missing values (`NA`)
+
+:::{.nonincremental}
+- Almost any operation involving an unknown value (`NA`) will also be unknown.
+
+
+```{.r}
+NA > 5
+10 == NA
+NA + 10
+NA / 2
+
+NA == NA
+```
+:::
+
+
+## Filter observations with `filter()`
+### Missing values (`NA`)
+
+:::{.nonincremental}
+
+- Let `x` be Mary's age. We don't know how old she is.
+- Let `y` be John's age. We don't know how old he is.
+- Are John and Mary the same age?
+
+:::
+```{.r}
+x <- NA
+y <- NA
+x == y
+```
+
+
+## Filter observations with `filter()`
+### `is.na()`
+:::{.nonincremental}
+
+- If we want to determine if a value is missing, use `is.na()`.
+- If we want to preserve missing values, ask `filter()` for them explicitly.
+
+:::
+
+:::: {.columns}
+::: {.column width="50%"}
+```{.r}
+x <- NA
+is.na(x) # is x NA?
+
+y <- "missing"
+is.na(y) # is y NA?
+```
+:::
+
+::: {.column width="50%"}
+```{.r}
+df <- data.frame(y = c(1, NA, 3))
+
+df |> 
+  filter(y > 1)
+
+df |> 
+  filter( is.na(y) | y > 1 )
+```
+:::
+
+::::
+
+# Find all unique observations with `distinct()` {background-color="#1c4982"}
+
+## Find all unique observations with `distinct()`
+
+
+:::: {.columns}
+::: {.column width="50%"}
+```{.r}
+# Remove duplicate observations, 
+#  if any
+flights |> 
+  distinct()
+```
+:::
+
+::: {.column width="50%"}
+```{.r}
+# Find all unique 
+#  origin and destination pairs
+flights |> 
+  distinct(origin, dest)
+```
+:::
+
+::::
+
+- `distinct()` finds all the unique observations in a data.frame. 
+  - We can also optionally provide variable names to `distinct()`.
+  
+
+
+# Arrange observations with `arrange()` {background-color="#1c4982"}
+
+
+## Arrange observations with `arrange()`
+```{.r}
+flights |> 
+  arrange(year, month, day)
+```
+
+
+- `arrange()` sorts out observations.
+  - If we provide more than one variable name, each additional variable will be used to break ties in the values of preceding variables.
+
+
+## Arrange observations with `arrange()`
+### Descending order with `desc()`
+```{.r}
+# re-order observations by `dep_delay` in descending order.
+flights |> 
+  arrange(desc(dep_delay))
+  
+flights |> 
+  arrange(-dep_delay)
+```
+
+
+- Use `desc(VARIABLE)` to re-order by a `VARIABLE` in descending order.
+  - Adding `-` before a numeric variable (`-NUMERIC_VARIABLE`) also works.
+
+
+
+
+
+# Select variables with `select()` {background-color="#1c4982"}
+
+
+## Select variables with `select()`
+### Basic
+:::{.nonincremental}
+
+- It’s not uncommon to get datasets with hundreds or thousands of variables.
+
+- `select()` allows us to narrow in on the variables we're actually interested in. 
+
+- We can select variables by their names.
+
+:::
+
+```{.r}
+flights |> 
+  select(year, month, day)
+```
+
+
+
+## Select variables with `select()`
+### `VAR_1:VAR_2`
+```{.r}
+flights |> 
+  select(year:day)
+```
+
+:::{.nonincremental}
+
+- With `select(VAR_1:VAR_2)`, we can select all the variables between `VARIABLE_1` and `VARIABLE_2`, inclusively.
+
+:::
+
+## Select variables with `select()`
+### Removal
+```{.r}
+flights |> 
+  select(-year)
+```
+
+:::{.nonincremental}
+
+- With `select(-VARIABLES)`, we can remove variables.
+
+:::
+
+
+# Rename variables with `rename()` {background-color="#1c4982"}
+
+
+## Rename variables with `rename()`
+
+```{.r}
+flights |> 
+  rename( tail_num = tailnum )
+```
+
+:::{.nonincremental}
+
+- `rename()` can be used to rename variables:
+
+  - `DATA_FRAME |> rename(NEW_VARIABLE = EXISTING_VARIABLE)`
+
+:::
+
+
+
+# Add new variables with `mutate()` {background-color="#1c4982"}
+
+
+## Add new variables with `mutate()`
+###  Arithmetic operations
+
+:::{.nonincremental}
+- `mutate()` is useful to add new variables that are functions of existing variables.
+  - New variables can be a result of arithmetic operations.
+  - Arithmetic operators: `+`, `-`, `*`, `/`, `^`
+
+:::
+```{.r}
+flights |> 
+  select(dep_delay, arr_delay) |> 
+  mutate(gain = dep_delay - arr_delay) 
+```
+
+
+
+## Add new variables with `mutate()`
+###  Arithmetic operations
+
+:::{.nonincremental}
+- We can add more than one variables
+
+:::
+```{.r}
+flights |> 
+  select(dep_delay, arr_delay, air_time) |> 
+  mutate(gain = dep_delay - arr_delay,
+         hours = air_time / 60) 
+```
+
+
+
+## Add new variables with `mutate()`
+###  Useful functions
+```{.r}
+df <- data.frame( x = c(1:10) ) |> 
+  mutate(x_log = log(x),
+         x_exp = exp(x),
+         x_sqrt = sqrt(x),
+         x_fct = factor(x),
+         x_chr = as.character(x),
+         x_num = as.numeric(x),
+         x_int = as.integer(x) )
+```
+
+
+- We can use math functions as well as as.DATATYPE functions:
+  - For example, `log()`, `exp()`, `sqrt()`, `factor()`, `as.character()`, `as.numeric()`, and `as.integer()`.
+
+
+
