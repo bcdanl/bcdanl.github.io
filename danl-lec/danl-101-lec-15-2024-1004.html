@@ -507,56 +507,15 @@ Byeong-Hak Choe
 </div>
 </section></section>
 <section>
-<section id="find-all-unique-observations-with-distinct" class="title-slide slide level1 center" data-background-color="#1c4982">
-<h1>Find all unique observations with <code>distinct()</code></h1>
-
-</section>
-<section id="find-all-unique-observations-with-distinct-1" class="slide level2">
-<h2>Find all unique observations with <code>distinct()</code></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="at">v1 =</span> <span class="fu">c</span>(<span class="st">"USA"</span>, <span class="st">"Korea"</span>, <span class="st">"USA"</span>),</span>
-<span id="cb5-3"><a href="#cb5-3"></a>  <span class="at">v2 =</span> <span class="fu">c</span>(<span class="st">"D.C."</span>, <span class="st">"Seoul"</span>, <span class="st">"D.C."</span>) </span>
-<span id="cb5-4"><a href="#cb5-4"></a>  <span class="at">v3 =</span> <span class="fu">c</span>(<span class="st">"Georgetown"</span>, <span class="st">"Gangnam"</span>, </span>
-<span id="cb5-5"><a href="#cb5-5"></a>                       <span class="st">"Georgetown"</span>) </span>
-<span id="cb5-6"><a href="#cb5-6"></a>  )</span>
-<span id="cb5-7"><a href="#cb5-7"></a></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="co"># Remove duplicate observations</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb5-10"><a href="#cb5-10"></a>  <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column" style="width:50%;">
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Remove duplicate observations, </span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="co"># if any</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a></span>
-<span id="cb6-4"><a href="#cb6-4"></a>flights <span class="sc">|&gt;</span> </span>
-<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<ul>
-<li class="fragment"><code>distinct()</code> can find all the unique observations in a data.frame.</li>
-</ul>
-</section>
-<section id="find-all-unique-observations-with-distinct-2" class="slide level2">
-<h2>Find all unique observations with <code>distinct()</code></h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Find all unique </span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="co">#  origin and destination pairs</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a>flights <span class="sc">|&gt;</span> </span>
-<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">distinct</span>(origin, dest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li class="fragment">We can also provide variable names to <code>distinct()</code>.</li>
-</ul>
-</section></section>
-<section>
 <section id="arrange-observations-with-arrange" class="title-slide slide level1 center" data-background-color="#1c4982">
 <h1>Arrange observations with <code>arrange()</code></h1>
 
 </section>
 <section id="arrange-observations-with-arrange-1" class="slide level2">
 <h2>Arrange observations with <code>arrange()</code></h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># arrange observations by `dep_delay` in ascending order.</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>flights <span class="sc">|&gt;</span> </span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">arrange</span>(dep_delay)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># arrange observations by `dep_delay` in ascending order.</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a href="#cb5-3"></a>  <span class="fu">arrange</span>(dep_delay)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment"><code>arrange()</code> sorts out observations.</li>
 </ul>
@@ -564,12 +523,12 @@ Byeong-Hak Choe
 <section id="arrange-observations-with-arrange-2" class="slide level2">
 <h2>Arrange observations with <code>arrange()</code></h2>
 <h3 id="descending-order-with-desc">Descending order with <code>desc()</code></h3>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># arrange observations by `dep_delay` in descending order.</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>flights <span class="sc">|&gt;</span> </span>
-<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(dep_delay))</span>
-<span id="cb9-4"><a href="#cb9-4"></a>  </span>
-<span id="cb9-5"><a href="#cb9-5"></a>flights <span class="sc">|&gt;</span> </span>
-<span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>dep_delay)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># arrange observations by `dep_delay` in descending order.</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(dep_delay))</span>
+<span id="cb6-4"><a href="#cb6-4"></a>  </span>
+<span id="cb6-5"><a href="#cb6-5"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>dep_delay)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">Use <code>desc(VARIABLE)</code> to re-order by a <code>VARIABLE</code> in descending order.
 <ul>
@@ -582,21 +541,21 @@ Byeong-Hak Choe
 <!-- - The `==` is an operator that compares the objects on either side and returns `TRUE` if they have the same values. -->
 <div class="columns">
 <div class="column" style="width:52%;">
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb10-2"><a href="#cb10-2"></a>  <span class="at">year =</span> <span class="fu">c</span>(<span class="dv">2024</span>, <span class="dv">2021</span>, <span class="dv">2024</span>, <span class="dv">2024</span>),</span>
-<span id="cb10-3"><a href="#cb10-3"></a>  <span class="at">month =</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">4</span>),</span>
-<span id="cb10-4"><a href="#cb10-4"></a>  <span class="at">day =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">15</span>, <span class="dv">9</span>)</span>
-<span id="cb10-5"><a href="#cb10-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="at">year =</span> <span class="fu">c</span>(<span class="dv">2024</span>, <span class="dv">2021</span>, <span class="dv">2024</span>, <span class="dv">2024</span>),</span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="at">month =</span> <span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">4</span>),</span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="at">day =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">15</span>, <span class="dv">9</span>)</span>
+<span id="cb7-5"><a href="#cb7-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item" id="htmlwidget-fa6a0c436d49aed0cdab" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-fa6a0c436d49aed0cdab">{"x":{"filter":"none","vertical":false,"data":[[2024,2021,2024,2024],[7,10,7,4],[20,19,15,9]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>year<\/th>\n      <th>month<\/th>\n      <th>day<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"className":"dt-right","targets":[0,1,2]},{"name":"year","targets":0},{"name":"month","targets":1},{"name":"day","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-31c158f5add343b907bb" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-31c158f5add343b907bb">{"x":{"filter":"none","vertical":false,"data":[[2024,2021,2024,2024],[7,10,7,4],[20,19,15,9]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>year<\/th>\n      <th>month<\/th>\n      <th>day<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"className":"dt-right","targets":[0,1,2]},{"name":"year","targets":0},{"name":"month","targets":1},{"name":"day","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
 </div>
 </div>
 </div><div class="column" style="width:48%;">
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">arrange</span>(year, month, day)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">arrange</span>(year, month, day)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <br>
 <div style="display:block; margin:47px;">
 
@@ -604,14 +563,55 @@ Byeong-Hak Choe
 <div class="cell">
 <div class="cell-output-display">
 
-<div class="datatables html-widget html-fill-item" id="htmlwidget-fa379dcfd41563b58d79" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-fa379dcfd41563b58d79">{"x":{"filter":"none","vertical":false,"data":[[2021,2024,2024,2024],[10,4,7,7],[19,9,15,20]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>year<\/th>\n      <th>month<\/th>\n      <th>day<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"className":"dt-right","targets":[0,1,2]},{"name":"year","targets":0},{"name":"month","targets":1},{"name":"day","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-825a6ebd161dd033913e" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-825a6ebd161dd033913e">{"x":{"filter":"none","vertical":false,"data":[[2021,2024,2024,2024],[10,4,7,7],[19,9,15,20]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th>year<\/th>\n      <th>month<\/th>\n      <th>day<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","paging":false,"columnDefs":[{"targets":"_all","orderable":false},{"className":"dt-right","targets":[0,1,2]},{"name":"year","targets":0},{"name":"month","targets":1},{"name":"day","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\n\n  // Change header background and text color\n  $('thead th').css('background-color', '#1c4982');\n  $('thead th').css('color', 'white');\n\n  // Loop through each row and alternate background color\n  $('tbody tr').each(function(index) {\n    if (index % 2 == 0) {\n      $(this).css('background-color', '#d1dae6'); // Light color for even rows\n    } else {\n      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows\n    }\n  });\n\n  // Set text color for all rows\n  $('tbody tr').css('color', 'black');\n\n  // Add hover effect\n  $('tbody tr').hover(\n    function() {\n      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row\n    }, \n    function() {\n      var index = $(this).index();\n      if (index % 2 == 0) {\n        $(this).css('background-color', '#d1dae6'); // Restore even row color\n      } else {\n        $(this).css('background-color', '#9fb2cb'); // Restore odd row color\n      }\n    }\n  );\n\n}","selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["callback"],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
 </div>
 <ul>
 <li class="fragment">If we provide more than one variable name, each additional variable will be used to break ties in the values of preceding variables.</li>
+</ul>
+</section></section>
+<section>
+<section id="find-all-unique-observations-with-distinct" class="title-slide slide level1 center" data-background-color="#1c4982">
+<h1>Find all unique observations with <code>distinct()</code></h1>
+
+</section>
+<section id="find-all-unique-observations-with-distinct-1" class="slide level2">
+<h2>Find all unique observations with <code>distinct()</code></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="at">v1 =</span> <span class="fu">c</span>(<span class="st">"USA"</span>, <span class="st">"Korea"</span>, <span class="st">"USA"</span>),</span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="at">v2 =</span> <span class="fu">c</span>(<span class="st">"D.C."</span>, <span class="st">"Seoul"</span>, <span class="st">"D.C."</span>) </span>
+<span id="cb9-4"><a href="#cb9-4"></a>  <span class="at">v3 =</span> <span class="fu">c</span>(<span class="st">"Georgetown"</span>, <span class="st">"Gangnam"</span>, </span>
+<span id="cb9-5"><a href="#cb9-5"></a>                       <span class="st">"Georgetown"</span>) </span>
+<span id="cb9-6"><a href="#cb9-6"></a>  )</span>
+<span id="cb9-7"><a href="#cb9-7"></a></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="co"># Remove duplicate observations</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb9-10"><a href="#cb9-10"></a>  <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column" style="width:50%;">
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Remove duplicate observations, </span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co"># if any</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a></span>
+<span id="cb10-4"><a href="#cb10-4"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb10-5"><a href="#cb10-5"></a>  <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<ul>
+<li class="fragment"><code>distinct()</code> can find all the unique observations in a data.frame.</li>
+</ul>
+</section>
+<section id="find-all-unique-observations-with-distinct-2" class="slide level2">
+<h2>Find all unique observations with <code>distinct()</code></h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="co"># Find all unique </span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="co">#  origin and destination pairs</span></span>
+<span id="cb11-3"><a href="#cb11-3"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb11-4"><a href="#cb11-4"></a>  <span class="fu">distinct</span>(origin, dest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li class="fragment">We can also provide variable names to <code>distinct()</code>.</li>
 </ul>
 </section></section>
 <section>

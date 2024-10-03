@@ -153,54 +153,6 @@ df |>
 
 
 
-# Find all unique observations with `distinct()` {background-color="#1c4982"}
-
-## Find all unique observations with `distinct()`
-
-
-
-:::: {.columns}
-::: {.column width="50%"}
-```{.r}
-df <- data.frame(
-  v1 = c("USA", "Korea", "USA"),
-  v2 = c("D.C.", "Seoul", "D.C.") 
-  v3 = c("Georgetown", "Gangnam", 
-                       "Georgetown") 
-  )
-
-# Remove duplicate observations
-df |> 
-  distinct()
-```
-:::
-
-::: {.column width="50%"}
-```{.r}
-# Remove duplicate observations, 
-# if any
-
-flights |> 
-  distinct()
-```
-:::
-::::
-
-- `distinct()` can find all the unique observations in a data.frame. 
-
-
-## Find all unique observations with `distinct()`
-
-```{.r}
-# Find all unique 
-#  origin and destination pairs
-flights |> 
-  distinct(origin, dest)
-```
-
-
-- We can also provide variable names to `distinct()`.
-  
 
 
 # Arrange observations with `arrange()` {background-color="#1c4982"}
@@ -380,6 +332,54 @@ DT::datatable(df |>
 - If we provide more than one variable name, each additional variable will be used to break ties in the values of preceding variables.
 
 
+# Find all unique observations with `distinct()` {background-color="#1c4982"}
+
+## Find all unique observations with `distinct()`
+
+
+
+:::: {.columns}
+::: {.column width="50%"}
+```{.r}
+df <- data.frame(
+  v1 = c("USA", "Korea", "USA"),
+  v2 = c("D.C.", "Seoul", "D.C.") 
+  v3 = c("Georgetown", "Gangnam", 
+                       "Georgetown") 
+  )
+
+# Remove duplicate observations
+df |> 
+  distinct()
+```
+:::
+
+::: {.column width="50%"}
+```{.r}
+# Remove duplicate observations, 
+# if any
+
+flights |> 
+  distinct()
+```
+:::
+::::
+
+- `distinct()` can find all the unique observations in a data.frame. 
+
+
+## Find all unique observations with `distinct()`
+
+```{.r}
+# Find all unique 
+#  origin and destination pairs
+flights |> 
+  distinct(origin, dest)
+```
+
+
+- We can also provide variable names to `distinct()`.
+  
 
 
 
