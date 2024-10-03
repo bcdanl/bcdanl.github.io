@@ -43,8 +43,13 @@ Compute the weighted mean of the vector `scores <- c(85, 90, 88, 92, 87)` with c
 
 **Answer**:
 ```{r}
+# Define the scores vector
 scores <- c(85, 90, 88, 92, 87)
+
+# Define the corresponding weights vector
 weights <- c(1, 2, 1, 1, 3)
+
+# Compute the weighted mean by summing the products of scores and weights and dividing by the sum of weights
 weighted_mean <- sum(scores * weights) / sum(weights)
 ```
 
@@ -59,9 +64,16 @@ Compute the interquartile range (IQR) of the following vector `x <- c(5, 7, 6, 9
 
 **Answer**:
 ```{r}
+# Define the data vector
 x <- c(5, 7, 6, 9, 100, 8, 5, 7, 6)
+
+# Compute the first quartile (Q1)
 q1 <- quantile(x, 0.25)
+
+# Compute the third quartile (Q3)
 q3 <- quantile(x, 0.75)
+
+# Calculate the interquartile range (IQR)
 iqr_value <- q3 - q1
 ```
 
@@ -75,9 +87,16 @@ Detect the outliers in the vector `x <- c(5, 7, 6, 9, 100, 8, 5, 7, 6)` using th
 
 **Answer**:
 ```{r}
+# Calculate the lower bound for outliers using Q1 and the IQR
 lower_bound <- q1 - 1.5 * iqr_value
+
+# Calculate the upper bound for outliers using Q3 and the IQR
 upper_bound <- q3 + 1.5 * iqr_value
+
+# Find any values in the data vector that are below the lower bound (lower outliers)
 outliers_lower <- x[x < lower_bound]
+
+# Find any values in the data vector that are above the upper bound (upper outliers)
 outliers_upper <- x[x > upper_bound]
 ```
 
@@ -97,10 +116,19 @@ where $s$ is the standard deviation of the vector `x`.
 
 **Answer**:
 ```{r}
+# Define the data vector
 x <- c(3, 5, 8, 12, 14, 15, 18, 20)
+
+# Calculate the number of elements (n) in the vector
 n <- length(x)
+
+# Compute the mean of the vector
 mean_x <- mean(x)
+
+# Compute the standard deviation of the vector
 sd_x <- sd(x)
+
+# Calculate skewness using the formula provided
 skewness <- ( n / ( (n-1) * (n-2) ) ) * sum( ( (x - mean_x)/sd_x )^3 )
 ```
 
@@ -113,7 +141,10 @@ Calculate `mode_v`, the mode of a numeric vector `v <- c(2, 3, 5, 5, 6, 7, 3)` u
 
 **Answer**:
 ```{r}
+# Define the vector of data
 v <- c(2, 3, 5, 5, 6, 7, 3, 5)
+
+# Use the modeest package's mfv() function to calculate the mode
 mode_v <- modeest::mfv(v)
 ```
 
@@ -122,6 +153,7 @@ To use `modeest::mfv()`, we first install the `modeest` package:
 ```{r}
 #| eval: false
 
+# Install the modeest package
 install.packages("modeest")
 ```
 
@@ -145,7 +177,10 @@ $\quad$ - $z_{i}$: $i^{th}$ value in the vector $z$, the vector of the standardi
 
 **Answer**:
 ```{r}
+# Define the data vector
 x <- c(10, 20, 30, 40, 50)
+
+# Calculate the standardized values (z-scores) for each element in x
 z <- (x - mean(x)) / sd(x)
 ```
 

@@ -197,16 +197,147 @@ flights |>
 
 
 ## Arrange observations with `arrange()`
+
+<!-- - The `==` is an operator that compares the objects on either side and returns `TRUE` if they have the same values. -->
+
+:::: {.columns}
+
+::: {.column width="52%"}
+
 ```{.r}
 df <- data.frame(
-  year = c(2021, 2024, 2024, 2023, 2024),
-  month = c(10, 7, 7, 1, 4),
-  day = c(19, 20, 15, 3, 9)
+  year = c(2024, 2021, 2024, 2024),
+  month = c(7, 10, 7, 4),
+  day = c(20, 19, 15, 9)
 )
+```
 
+
+```{r}
+#| echo: false
+df <- data.frame(
+  year = c(2024, 2021, 2024, 2024),
+  month = c(7, 10, 7, 4),
+  day = c(20, 19, 15, 9)
+)
+# Create a DT datatable without search box and 'Show entries' dropdown
+DT::datatable(df, rownames = FALSE,
+              options = list(
+  dom = 't', # This sets the DOM layout without the search box ('f') and 'Show entries' dropdown ('l')
+  paging = FALSE, # Disable pagination
+  columnDefs = list(list(
+    targets = "_all", # Applies to all columns
+    orderable = FALSE # Disables sorting
+  ))
+), callback = htmlwidgets::JS("
+  // Change header background and text color
+  $('thead th').css('background-color', '#1c4982');
+  $('thead th').css('color', 'white');
+
+  // Loop through each row and alternate background color
+  $('tbody tr').each(function(index) {
+    if (index % 2 == 0) {
+      $(this).css('background-color', '#d1dae6'); // Light color for even rows
+    } else {
+      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows
+    }
+  });
+
+  // Set text color for all rows
+  $('tbody tr').css('color', 'black');
+
+  // Add hover effect
+  $('tbody tr').hover(
+    function() {
+      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row
+    }, 
+    function() {
+      var index = $(this).index();
+      if (index % 2 == 0) {
+        $(this).css('background-color', '#d1dae6'); // Restore even row color
+      } else {
+        $(this).css('background-color', '#9fb2cb'); // Restore odd row color
+      }
+    }
+  );
+")
+)
+```
+
+:::
+
+
+
+
+::: {.column width="48%"}
+
+```{.r}
 df |> 
   arrange(year, month, day)
 ```
+
+<br>
+<div style="display:block; margin:47px;"></div>
+
+```{r}
+#| echo: false
+# Create a DT datatable without search box and 'Show entries' dropdown
+
+df <- data.frame(
+  year = c(2024, 2021, 2024, 2024),
+  month = c(7, 10, 7, 4),
+  day = c(20, 19, 15, 9)
+)
+
+
+
+DT::datatable(df |> 
+  arrange(year, month, day), rownames = FALSE,
+              options = list(
+  dom = 't', # This sets the DOM layout without the search box ('f') and 'Show entries' dropdown ('l')
+  paging = FALSE, # Disable pagination
+  columnDefs = list(list(
+    targets = "_all", # Applies to all columns
+    orderable = FALSE # Disables sorting
+  ))
+), callback = htmlwidgets::JS("
+  // Change header background and text color
+  $('thead th').css('background-color', '#1c4982');
+  $('thead th').css('color', 'white');
+
+  // Loop through each row and alternate background color
+  $('tbody tr').each(function(index) {
+    if (index % 2 == 0) {
+      $(this).css('background-color', '#d1dae6'); // Light color for even rows
+    } else {
+      $(this).css('background-color', '#9fb2cb'); // Dark color for odd rows
+    }
+  });
+
+  // Set text color for all rows
+  $('tbody tr').css('color', 'black');
+
+  // Add hover effect
+  $('tbody tr').hover(
+    function() {
+      $(this).css('background-color', '#607fa7'); // Color when mouse hovers over a row
+    }, 
+    function() {
+      var index = $(this).index();
+      if (index % 2 == 0) {
+        $(this).css('background-color', '#d1dae6'); // Restore even row color
+      } else {
+        $(this).css('background-color', '#9fb2cb'); // Restore odd row color
+      }
+    }
+  );
+")
+)
+```
+
+:::
+
+::::
 
 
 - `arrange()` sorts out observations.
@@ -216,7 +347,7 @@ df |>
 ## Arrange observations with `arrange()`
 ### Descending order with `desc()`
 ```{.r}
-# re-order observations by `dep_delay` in descending order.
+# arrange observations by `dep_delay` in descending order.
 flights |> 
   arrange(desc(dep_delay))
   
