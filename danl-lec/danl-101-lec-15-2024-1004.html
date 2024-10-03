@@ -499,23 +499,35 @@ Byeong-Hak Choe
 <section id="find-all-unique-observations-with-distinct-1" class="slide level2">
 <h2>Find all unique observations with <code>distinct()</code></h2>
 <div class="columns">
-<div class="column" style="width:50%;">
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Remove duplicate observations, </span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="co">#  if any</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a>flights <span class="sc">|&gt;</span> </span>
-<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column" style="width:50%;">
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Find all unique </span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#  origin and destination pairs</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a>flights <span class="sc">|&gt;</span> </span>
-<span id="cb6-4"><a href="#cb6-4"></a>  <span class="fu">distinct</span>(origin, dest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="column" style="width:55%;">
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb5-2"><a href="#cb5-2"></a>        <span class="at">v1 =</span> <span class="fu">c</span>(<span class="st">"USA"</span>, <span class="st">"China"</span>, <span class="st">"USA"</span>),</span>
+<span id="cb5-3"><a href="#cb5-3"></a>        <span class="at">v2 =</span> <span class="fu">c</span>(<span class="st">"D.C."</span>, <span class="st">"Beijing"</span>, <span class="st">"D.C."</span>) </span>
+<span id="cb5-4"><a href="#cb5-4"></a>        )</span>
+<span id="cb5-5"><a href="#cb5-5"></a>        </span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co"># Remove duplicate observations</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb5-8"><a href="#cb5-8"></a>  <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column" style="width:45%;">
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Remove duplicate observations, </span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#  if any</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <ul>
-<li class="fragment"><code>distinct()</code> finds all the unique observations in a data.frame.
+<li class="fragment"><code>distinct()</code> can find all the unique observations in a data.frame.</li>
+</ul>
+</section>
+<section id="find-all-unique-observations-with-distinct-2" class="slide level2">
+<h2>Find all unique observations with <code>distinct()</code></h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Find all unique </span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co">#  origin and destination pairs</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">distinct</span>(origin, dest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
-<li class="fragment">We can also optionally provide variable names to <code>distinct()</code>.</li>
-</ul></li>
+<li class="fragment">We can also provide variable names to <code>distinct()</code>.</li>
 </ul>
 </section></section>
 <section>
@@ -525,8 +537,14 @@ Byeong-Hak Choe
 </section>
 <section id="arrange-observations-with-arrange-1" class="slide level2">
 <h2>Arrange observations with <code>arrange()</code></h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>flights <span class="sc">|&gt;</span> </span>
-<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">arrange</span>(year, month, day)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-2"><a href="#cb8-2"></a>  <span class="at">year =</span> <span class="fu">c</span>(<span class="dv">2021</span>, <span class="dv">2024</span>, <span class="dv">2024</span>, <span class="dv">2023</span>, <span class="dv">2024</span>),</span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="at">month =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">7</span>, <span class="dv">1</span>, <span class="dv">4</span>),</span>
+<span id="cb8-4"><a href="#cb8-4"></a>  <span class="at">day =</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">15</span>, <span class="dv">3</span>, <span class="dv">9</span>)</span>
+<span id="cb8-5"><a href="#cb8-5"></a>)</span>
+<span id="cb8-6"><a href="#cb8-6"></a></span>
+<span id="cb8-7"><a href="#cb8-7"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb8-8"><a href="#cb8-8"></a>  <span class="fu">arrange</span>(year, month, day)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment"><code>arrange()</code> sorts out observations.
 <ul>
@@ -537,12 +555,12 @@ Byeong-Hak Choe
 <section id="arrange-observations-with-arrange-2" class="slide level2">
 <h2>Arrange observations with <code>arrange()</code></h2>
 <h3 id="descending-order-with-desc">Descending order with <code>desc()</code></h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># re-order observations by `dep_delay` in descending order.</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a>flights <span class="sc">|&gt;</span> </span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(dep_delay))</span>
-<span id="cb8-4"><a href="#cb8-4"></a>  </span>
-<span id="cb8-5"><a href="#cb8-5"></a>flights <span class="sc">|&gt;</span> </span>
-<span id="cb8-6"><a href="#cb8-6"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>dep_delay)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># re-order observations by `dep_delay` in descending order.</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(dep_delay))</span>
+<span id="cb9-4"><a href="#cb9-4"></a>  </span>
+<span id="cb9-5"><a href="#cb9-5"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb9-6"><a href="#cb9-6"></a>  <span class="fu">arrange</span>(<span class="sc">-</span>dep_delay)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li class="fragment">Use <code>desc(VARIABLE)</code> to re-order by a <code>VARIABLE</code> in descending order.
 <ul>
@@ -565,14 +583,14 @@ Byeong-Hak Choe
 <li><p>We can select variables by their names.</p></li>
 </ul>
 </div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>flights <span class="sc">|&gt;</span> </span>
-<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">select</span>(year, month, day)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">select</span>(year, month, day)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="select-variables-with-select-2" class="slide level2">
 <h2>Select variables with <code>select()</code></h2>
 <h3 id="removal">Removal</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>flights <span class="sc">|&gt;</span> </span>
-<span id="cb10-2"><a href="#cb10-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">select</span>(<span class="sc">-</span>year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div>
 <ul>
 <li>With <code>select(-VARIABLES)</code>, we can remove variables.</li>
@@ -586,8 +604,8 @@ Byeong-Hak Choe
 </section>
 <section id="rename-variables-with-rename-1" class="slide level2">
 <h2>Rename variables with <code>rename()</code></h2>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>flights <span class="sc">|&gt;</span> </span>
-<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">rename</span>( <span class="at">tail_num =</span> tailnum )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">rename</span>( <span class="at">tail_num =</span> tailnum )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div>
 <ul>
 <li><p><code>rename()</code> can be used to rename variables:</p>

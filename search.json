@@ -3231,14 +3231,14 @@
     "href": "danl-lec/danl-101-lec-15-2024-1004.html#find-all-unique-observations-with-distinct-1",
     "title": "Lecture 15",
     "section": "Find all unique observations with distinct()",
-    "text": "Find all unique observations with distinct()\n\n\n# Remove duplicate observations, \n#  if any\nflights |&gt; \n  distinct()\n\n# Find all unique \n#  origin and destination pairs\nflights |&gt; \n  distinct(origin, dest)\n\n\n\ndistinct() finds all the unique observations in a data.frame.\n\nWe can also optionally provide variable names to distinct()."
+    "text": "Find all unique observations with distinct()\n\n\ndf &lt;- data.frame(\n        v1 = c(\"USA\", \"China\", \"USA\"),\n        v2 = c(\"D.C.\", \"Beijing\", \"D.C.\") \n        )\n        \n# Remove duplicate observations\ndf |&gt; \n  distinct()\n\n# Remove duplicate observations, \n#  if any\n\nflights |&gt; \n  distinct()\n\n\n\ndistinct() can find all the unique observations in a data.frame."
   },
   {
     "objectID": "danl-lec/danl-101-lec-15-2024-1004.html#arrange-observations-with-arrange-1",
     "href": "danl-lec/danl-101-lec-15-2024-1004.html#arrange-observations-with-arrange-1",
     "title": "Lecture 15",
     "section": "Arrange observations with arrange()",
-    "text": "Arrange observations with arrange()\nflights |&gt; \n  arrange(year, month, day)\n\narrange() sorts out observations.\n\nIf we provide more than one variable name, each additional variable will be used to break ties in the values of preceding variables."
+    "text": "Arrange observations with arrange()\ndf &lt;- data.frame(\n  year = c(2021, 2024, 2024, 2023, 2024),\n  month = c(10, 7, 7, 1, 4),\n  day = c(19, 20, 15, 3, 9)\n)\n\ndf |&gt; \n  arrange(year, month, day)\n\narrange() sorts out observations.\n\nIf we provide more than one variable name, each additional variable will be used to break ties in the values of preceding variables."
   },
   {
     "objectID": "danl-lec/danl-101-lec-15-2024-1004.html#arrange-observations-with-arrange-2",
@@ -3274,5 +3274,12 @@
     "title": "Lecture 15",
     "section": "Rename variables with rename()",
     "text": "Rename variables with rename()\nflights |&gt; \n  rename( tail_num = tailnum )\n\n\nrename() can be used to rename variables:\n\nDATA_FRAME |&gt; rename(NEW_VARIABLE = EXISTING_VARIABLE)"
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-15-2024-1004.html#find-all-unique-observations-with-distinct-2",
+    "href": "danl-lec/danl-101-lec-15-2024-1004.html#find-all-unique-observations-with-distinct-2",
+    "title": "Lecture 15",
+    "section": "Find all unique observations with distinct()",
+    "text": "Find all unique observations with distinct()\n# Find all unique \n#  origin and destination pairs\nflights |&gt; \n  distinct(origin, dest)\n\nWe can also provide variable names to distinct()."
   }
 ]
