@@ -35,6 +35,19 @@ q3 <- quantile(x, 0.75)
 iqr_value <- q3 - q1
 ```
 
+# Descriptive Statistics
+
+The following provides the descriptive statistics for each part of the homework, as well as the final score of HW1:
+
+```{r}
+#| echo: false
+#| eval: true
+sum <- readr::read_csv("https://bcdanl.github.io/data/danl-101-hw1-dist-fall-2024.csv")
+DT::datatable(sum, options = list(pageLength = 25))
+```
+
+
+<br><br>
 
 # R Basics
 
@@ -54,6 +67,19 @@ weighted_mean <- sum(scores * weights) / sum(weights)
 ```
 
 Therefore the weighted mean is **88.25**.
+
+
+- To clarify the difference between the arithmetic mean and the weighted mean:
+  - **Arithmetic mean**: This is the simple average where all values are treated equally. You sum all the values and divide by the number of values. 
+  - **Weighted mean**: This takes into account the weights assigned to each value. Each value is multiplied by its corresponding weight, and then the sum of these products is divided by the total sum of the weights.
+
+- Example:
+  - Let's say you have a vector of values: `x <- c(2, 4, 6)`. And corresponding weights: `w <- c(1, 2, 3)`.
+  - For the arithmetic mean, you would ignore the weights and simply find the average of the values:  
+    - `(Arithmetic mean) = (2 + 4 + 6) / 3 = 4`
+  - For the weighted mean, you would multiply each value by its corresponding weight and then divide by the sum of the weights: 
+    - `(Weighted mean) = ( (1 * 2) + (2 * 4) + (3 * 6) ) / ( 1 + 2 + 3 ) = 4.67`
+
 
 <br><br>
 
@@ -94,14 +120,18 @@ lower_bound <- q1 - 1.5 * iqr_value
 upper_bound <- q3 + 1.5 * iqr_value
 
 # Find any values in the data vector that are below the lower bound (lower outliers)
-outliers_lower <- x[x < lower_bound]
+outliers_lower <- x[ x < lower_bound ]
 
 # Find any values in the data vector that are above the upper bound (upper outliers)
-outliers_upper <- x[x > upper_bound]
+outliers_upper <- x[ x > upper_bound ]
 ```
 
 There is one single value, **100**, that belongs to `outliers_upper`. There is no lower outlier.
 
+- This rule is described in [this lecture slide](https://bcdanl.github.io/101/danl-lec/danl-101-lec-06-2024-0912.html?q=box#/measures-of-dispersion-5).
+
+- Although we primarily use `filter()` with data.frame, understanding vector indexing is a fundamental skill in data analysis.
+  - [Lecture 7](https://bcdanl.github.io/101/danl-lec/danl-101-lec-07-2024-0917.html?q=vector%20ind#/title-slide) covers vector indexing.
 
 
 <br><br>
@@ -133,6 +163,11 @@ skewness <- ( n / ( (n-1) * (n-2) ) ) * sum( ( (x - mean_x)/sd_x )^3 )
 ```
 
 Therefore `skewness` is approximately `-0.2337`.
+
+-	You do not need to memorize the formula for skewness in our course.
+  -	The question is about translating a complex formula into R code.
+
+
 
 <br><br>
 
@@ -184,17 +219,19 @@ x <- c(10, 20, 30, 40, 50)
 z <- (x - mean(x)) / sd(x)
 ```
 
+-	Please note that the R objects `mean_x` and `sd_x` defined in Question 4 are not used in this question.
 
 
 <br><br>
 
 # Short-Answer Questions
 
-1.	Data analytics aims to replace traditional business and economics courses. (False)
+## True/False
+1. Data analytics aims to replace traditional business and economics courses. (False)
 	-	Data analytics is seen as a complement to traditional business and economics courses, enhancing decision-making with data-driven insights rather than replacing foundational business knowledge.
 <br><br>
 
-2.	Data analysts are the only professionals who benefit from data analytics skills. (False)
+2. Data analysts are the only professionals who benefit from data analytics skills. (False)
 	-	Many professionals, including marketers, financial analysts, healthcare professionals, and even educators, benefit from data analytics skills as they apply to various fields.
 <br><br>
 
@@ -210,6 +247,7 @@ z <- (x - mean(x)) / sd(x)
 	-	Machine learning algorithms learn patterns from data, meaning they don’t need explicit programming for each task. Instead, they adapt and improve their performance based on the data provided.
 <br><br>
 
+## Multiple Choice
 6.	Which of the following skills is NOT typically covered in traditional business or economics classes?
 	-	Finding and cleaning datasets
 	  -	**Why?**: Data cleaning and preparation are often covered in data analytics but not typically in traditional business or economics courses.
@@ -223,6 +261,10 @@ z <- (x - mean(x)) / sd(x)
 8.	Which question would you ask to analyze season ticket renewals in sports analytics?
 	-	Which type of fan engages most with team merchandise?
 	  -	**Why?**: This question helps to understand fan loyalty and engagement, which are important factors in predicting season ticket renewals.
+
+- While the above might be the most appropriate answer to this question, I also give full credit to the following responses:
+  -	What factors drive last-minute individual seat ticket purchases?
+	-	What are the financial benefits of dynamic pricing?
 <br><br>
 
 9.	Which of the following is a benefit of using Git in software development?
@@ -235,6 +277,7 @@ z <- (x - mean(x)) / sd(x)
 	  -	**Why?**: Data analytics helps retailers optimize store layouts by analyzing customer movement patterns, ultimately improving the customer experience and sales.
 <br><br>
 
+## Short Eassay
 11.	Why are R and Python considered important tools for data analytics?
 	-	R and Python are popular because they have a wide range of libraries and packages for data manipulation, visualization, and machine learning. They also support a large user community and are open-source, making them accessible and adaptable.
 <br><br>
