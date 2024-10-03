@@ -3238,7 +3238,7 @@
     "href": "danl-lec/danl-101-lec-15-2024-1004.html#arrange-observations-with-arrange-1",
     "title": "Lecture 15",
     "section": "Arrange observations with arrange()",
-    "text": "Arrange observations with arrange()\n\n\n\ndf &lt;- data.frame(\n  year = c(2024, 2021, 2024, 2024),\n  month = c(7, 10, 7, 4),\n  day = c(20, 19, 15, 9)\n)\n\n\n\n\n\n\n\n\ndf |&gt; \n  arrange(year, month, day)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\narrange() sorts out observations.\n\nIf we provide more than one variable name, each additional variable will be used to break ties in the values of preceding variables."
+    "text": "Arrange observations with arrange()\n# arrange observations by `dep_delay` in ascending order.\nflights |&gt; \n  arrange(dep_delay)\n\narrange() sorts out observations."
   },
   {
     "objectID": "danl-lec/danl-101-lec-15-2024-1004.html#arrange-observations-with-arrange-2",
@@ -3281,5 +3281,12 @@
     "title": "Lecture 15",
     "section": "Find all unique observations with distinct()",
     "text": "Find all unique observations with distinct()\n# Find all unique \n#  origin and destination pairs\nflights |&gt; \n  distinct(origin, dest)\n\nWe can also provide variable names to distinct()."
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-15-2024-1004.html#arrange-observations-with-arrange-3",
+    "href": "danl-lec/danl-101-lec-15-2024-1004.html#arrange-observations-with-arrange-3",
+    "title": "Lecture 15",
+    "section": "Arrange observations with arrange()",
+    "text": "Arrange observations with arrange()\n\n\n\ndf &lt;- data.frame(\n  year = c(2024, 2021, 2024, 2024),\n  month = c(7, 10, 7, 4),\n  day = c(20, 19, 15, 9)\n)\n\n\n\n\n\n\n\n\ndf |&gt; \n  arrange(year, month, day)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIf we provide more than one variable name, each additional variable will be used to break ties in the values of preceding variables."
   }
 ]

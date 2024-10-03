@@ -197,6 +197,33 @@ flights |>
 
 
 ## Arrange observations with `arrange()`
+```{.r}
+# arrange observations by `dep_delay` in ascending order.
+flights |> 
+  arrange(dep_delay)
+```
+
+- `arrange()` sorts out observations.
+
+
+## Arrange observations with `arrange()`
+### Descending order with `desc()`
+```{.r}
+# arrange observations by `dep_delay` in descending order.
+flights |> 
+  arrange(desc(dep_delay))
+  
+flights |> 
+  arrange(-dep_delay)
+```
+
+
+- Use `desc(VARIABLE)` to re-order by a `VARIABLE` in descending order.
+  - Adding `-` before a numeric variable (`-NUMERIC_VARIABLE`) also works.
+
+
+
+## Arrange observations with `arrange()`
 
 <!-- - The `==` is an operator that compares the objects on either side and returns `TRUE` if they have the same values. -->
 
@@ -340,24 +367,7 @@ DT::datatable(df |>
 ::::
 
 
-- `arrange()` sorts out observations.
-  - If we provide more than one variable name, each additional variable will be used to break ties in the values of preceding variables.
-
-
-## Arrange observations with `arrange()`
-### Descending order with `desc()`
-```{.r}
-# arrange observations by `dep_delay` in descending order.
-flights |> 
-  arrange(desc(dep_delay))
-  
-flights |> 
-  arrange(-dep_delay)
-```
-
-
-- Use `desc(VARIABLE)` to re-order by a `VARIABLE` in descending order.
-  - Adding `-` before a numeric variable (`-NUMERIC_VARIABLE`) also works.
+- If we provide more than one variable name, each additional variable will be used to break ties in the values of preceding variables.
 
 
 
