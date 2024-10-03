@@ -87,7 +87,9 @@ NA > 5
 10 == NA
 NA + 10
 NA / 2
-(1 + 2 + NA) / 3
+(1 + NA + 3) / 3
+mean( c(1, NA, 3) )
+sd( c(1, NA, 3) )
 ```
 :::
 
@@ -119,29 +121,37 @@ x == y
 :::
 
 :::: {.columns}
-::: {.column width="50%"}
+::: {.column width="45%"}
 ```{.r}
 x <- NA
 is.na(x) # is x NA?
 
 y <- "missing"
 is.na(y) # is y NA?
+
+v1 <- c(1, NA, 3)
+is.na(v1) # is v1 NA?
 ```
 :::
 
-::: {.column width="50%"}
+::: {.column width="55%"}
 ```{.r}
-df <- data.frame(y = c(1, NA, 3))
+df <- data.frame(v1 = c(1, NA, 3),
+                 v2 = c(1, 2, 3))
 
 df |> 
-  filter(y > 1)
+  filter( is.na(v1) )
 
 df |> 
-  filter( is.na(y) | y > 1 )
+  filter( !is.na(v1) )
 ```
 :::
 
 ::::
+
+
+
+
 
 # Find all unique observations with `distinct()` {background-color="#1c4982"}
 

@@ -3210,7 +3210,7 @@
     "href": "danl-lec/danl-101-lec-15-2024-1004.html#filter-observations-with-filter-1",
     "title": "Lecture 15",
     "section": "Filter observations with filter()",
-    "text": "Filter observations with filter()\nMissing values (NA)\n\n\nAlmost any operation involving an unknown value (NA) will also be unknown.\n\nNA &gt; 5\n10 == NA\nNA + 10\nNA / 2\n(1 + 2 + NA) / 3"
+    "text": "Filter observations with filter()\nMissing values (NA)\n\n\nAlmost any operation involving an unknown value (NA) will also be unknown.\n\nNA &gt; 5\n10 == NA\nNA + 10\nNA / 2\n(1 + NA + 3) / 3\nmean( c(1, NA, 3) )\nsd( c(1, NA, 3) )"
   },
   {
     "objectID": "danl-lec/danl-101-lec-15-2024-1004.html#filter-observations-with-filter-2",
@@ -3224,7 +3224,7 @@
     "href": "danl-lec/danl-101-lec-15-2024-1004.html#filter-observations-with-filter-3",
     "title": "Lecture 15",
     "section": "Filter observations with filter()",
-    "text": "Filter observations with filter()\nis.na()\n\n\nIf we want to determine if a value is missing, use is.na().\nIf we want to preserve missing values, ask filter() for them explicitly.\n\n\n\n\nx &lt;- NA\nis.na(x) # is x NA?\n\ny &lt;- \"missing\"\nis.na(y) # is y NA?\n\ndf &lt;- data.frame(y = c(1, NA, 3))\n\ndf |&gt; \n  filter(y &gt; 1)\n\ndf |&gt; \n  filter( is.na(y) | y &gt; 1 )"
+    "text": "Filter observations with filter()\nis.na()\n\n\nIf we want to determine if a value is missing, use is.na().\nIf we want to preserve missing values, ask filter() for them explicitly.\n\n\n\n\nx &lt;- NA\nis.na(x) # is x NA?\n\ny &lt;- \"missing\"\nis.na(y) # is y NA?\n\nv1 &lt;- c(1, NA, 3)\nis.na(v1) # is v1 NA?\n\ndf &lt;- data.frame(v1 = c(1, NA, 3),\n                 v2 = c(1, 2, 3))\n\ndf |&gt; \n  filter( is.na(v1) )\n\ndf |&gt; \n  filter( !is.na(v1) )"
   },
   {
     "objectID": "danl-lec/danl-101-lec-15-2024-1004.html#find-all-unique-observations-with-distinct-1",
