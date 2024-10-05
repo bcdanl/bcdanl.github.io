@@ -6,13 +6,28 @@ from: markdown+emoji
 ---
 
 
+```{r}
+#| include: false
+
+library(nycflights13)
+```
+
+
 ## Question 1
 - Install the `nycflights13` R package and load it into your R session in your Posit Cloud project.
 
 *Answer*:
 ```{r}
+#| eval: false
+# Install the nycflights13 package
+install.packages("nycflights13")
 
+# Load the package into your R session
+library(nycflights13)
 ```
+
+**Answer**:
+In this step, we first install the `nycflights13` package using `install.packages()`, which contains datasets related to flights in and out of New York City in 2013. Once installed, we load the package into the R session with `library(nycflights13)`, making the `flights` and `airlines` data.frames available for analysis.
 
 <br><br>
 
@@ -24,24 +39,28 @@ from: markdown+emoji
 
 *Answer*:
 ```{r}
+library(tidyverse)
 
+# Perform left join to merge flights and airlines data.frames
+flight_airline <- flights |> left_join(airlines)
+
+# View the first few rows of the new data.frame
+head(flight_airline)
 ```
+
+**Answer**:
+Here, we use the `left_join()` function from the one of the packages in `tidyverse`. The `left_join()` function merges two data.frames based on a common key variable—in this case, the `carrier` variable, which is present in both the `flights` and `airlines` data.frames. This operation adds the `name` variable (airline name) from the `airlines` data.frame to the `flights` data.frame, while keeping all observations and variables from `flights`. The result is stored in `flight_airline`.
 
 <br><br>
 
-
-
 # Discussion 
 
-
 <font size = "5">Welcome to our Classwork 3 Discussion Board! 👋 </font>
-
 
 This space is designed for you to engage with your classmates about the material covered in Classwork 3.
 
 Whether you are looking to delve deeper into the content, share insights, or have questions about the content, this is the perfect place for you.
 
-If you have any specific questions for Byeong-Hak (**@bcdanl**) or peer classmate (@GitHub-Username) regarding the Classwork 1 materials or need clarification on any points, don't hesitate to ask here. 
+If you have any specific questions for Byeong-Hak (**@bcdanl**) or peer classmate (@GitHub-Username) regarding the Classwork 3 materials or need clarification on any points, don't hesitate to ask here. 
 
 Let's collaborate and learn from each other!
-

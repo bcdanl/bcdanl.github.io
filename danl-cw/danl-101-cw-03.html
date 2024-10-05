@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -211,7 +245,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">October 4, 2024</p>
+      <p class="date-modified">October 5, 2024</p>
     </div>
   </div>
     
@@ -226,6 +260,14 @@ ul.task-list li input[type="checkbox"] {
 <li>Install the <code>nycflights13</code> R package and load it into your R session in your Posit Cloud project.</li>
 </ul>
 <p><em>Answer</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install the nycflights13 package</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"nycflights13"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the package into your R session</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Answer</strong>: In this step, we first install the <code>nycflights13</code> package using <code>install.packages()</code>, which contains datasets related to flights in and out of New York City in 2013. Once installed, we load the package into the R session with <code>library(nycflights13)</code>, making the <code>flights</code> and <code>airlines</code> data.frames available for analysis.</p>
 <p><br><br></p>
 </section>
 <section id="question-2" class="level2">
@@ -238,6 +280,30 @@ ul.task-list li input[type="checkbox"] {
 <li>Use the <code>left_join()</code> function to create a new data.frame, <code>flight_airline</code>, that includes all observations and variables from the <code>flights</code> data.frame, along with the <code>name</code> variable from the <code>airlines</code> data.frame that corresponds to the <code>carrier</code> variable in the <code>flights</code> data.frame.</li>
 </ul>
 <p><em>Answer</em>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform left join to merge flights and airlines data.frames</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>flight_airline <span class="ot">&lt;-</span> flights <span class="sc">|&gt;</span> <span class="fu">left_join</span>(airlines)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># View the first few rows of the new data.frame</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(flight_airline)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 20
+   year month   day dep_time sched_dep_time dep_delay arr_time sched_arr_time
+  &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;          &lt;int&gt;
+1  2013     1     1      517            515         2      830            819
+2  2013     1     1      533            529         4      850            830
+3  2013     1     1      542            540         2      923            850
+4  2013     1     1      544            545        -1     1004           1022
+5  2013     1     1      554            600        -6      812            837
+6  2013     1     1      554            558        -4      740            728
+# ℹ 12 more variables: arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;,
+#   tailnum &lt;chr&gt;, origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;,
+#   hour &lt;dbl&gt;, minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, name &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p><strong>Answer</strong>: Here, we use the <code>left_join()</code> function from the one of the packages in <code>tidyverse</code>. The <code>left_join()</code> function merges two data.frames based on a common key variable—in this case, the <code>carrier</code> variable, which is present in both the <code>flights</code> and <code>airlines</code> data.frames. This operation adds the <code>name</code> variable (airline name) from the <code>airlines</code> data.frame to the <code>flights</code> data.frame, while keeping all observations and variables from <code>flights</code>. The result is stored in <code>flight_airline</code>.</p>
 <p><br><br></p>
 </section>
 <section id="discussion" class="level1">
@@ -245,7 +311,7 @@ ul.task-list li input[type="checkbox"] {
 <p><font size="5">Welcome to our Classwork 3 Discussion Board! 👋 </font></p>
 <p>This space is designed for you to engage with your classmates about the material covered in Classwork 3.</p>
 <p>Whether you are looking to delve deeper into the content, share insights, or have questions about the content, this is the perfect place for you.</p>
-<p>If you have any specific questions for Byeong-Hak (<strong><span class="citation" data-cites="bcdanl">@bcdanl</span></strong>) or peer classmate (<span class="citation" data-cites="GitHub-Username">@GitHub-Username</span>) regarding the Classwork 1 materials or need clarification on any points, don’t hesitate to ask here.</p>
+<p>If you have any specific questions for Byeong-Hak (<strong><span class="citation" data-cites="bcdanl">@bcdanl</span></strong>) or peer classmate (<span class="citation" data-cites="GitHub-Username">@GitHub-Username</span>) regarding the Classwork 3 materials or need clarification on any points, don’t hesitate to ask here.</p>
 <p>Let’s collaborate and learn from each other!</p>
 
 

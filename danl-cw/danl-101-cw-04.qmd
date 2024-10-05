@@ -12,18 +12,42 @@ from: markdown+emoji
 - Find all flights that departed in summer (July, August, and September)
 - Find all flights that arrived more than two hours late, but didn’t leave late
 - Find all flights that departed between midnight and 6am (inclusive)
-  
-*Answer*:
-```{r}
 
+**Answer**:
+```{r}
+library(tidyverse)
+flights <- nycflights13::flights
+
+# Flights with arrival delay of 2 or more hours
+delayed_flights <- flights |> filter(arr_delay >= 120)  # The unit of the `arr_delay` variable is in a minute.
+
+# Flights to Houston (IAH or HOU)
+houston_flights <- flights |> filter( dest == "IAH" | dest == "HOU" )
+
+# Flights that departed in summer (July, August, September)
+summer_flights <- flights |> filter( month == 7 | month == 8 | month == 9 )
+
+# Flights that arrived more than two hours late but didn’t leave late
+late_arrival_on_time_departure <- flights |> filter( arr_delay > 120 & dep_delay <= 0 )
+
+# Flights that departed between midnight and 6am (inclusive)
+early_morning_flights <- flights |> filter( (dep_time >= 0 & dep_time <= 600) | dep_time == 2400 )
 ```
+
+
+- `filter(arr_delay >= 120)`: Finds flights with an arrival delay of two or more hours.
+- `filter( dest == "IAH" | dest == "HOU" )`: Filters flights flying to Houston by checking if the `dest` variable matches "IAH" or "HOU".
+- `filter( month == 7 | month == 8 | month == 9 )`: Filters flights based on the `month` variable for July, August, and September.
+- `filter(arr_delay > 120 & dep_delay <= 0)`: Filters flights that arrived more than two hours late but left on time or early.
+- `filter( (dep_time >= 0 & dep_time <= 600) | dep_time == 2400)`: Filters flights departing between midnight and 6am (using military time). The condition `dep_time == 2400` is included because, in this data.frame, midnight is represented as `2400` rather than `0`.
+	-	This last question involves more advanced techniques, so it won’t be included in the exams at this level.
 
 <br><br>
 
 ## Question 2
 - How many flights have a missing `dep_time`?
 
-*Answer*:
+**Answer**:
 ```{r}
 
 ```
@@ -34,7 +58,7 @@ from: markdown+emoji
 ## Question 3
 - Sort flights to find the most delayed flights. 
 
-*Answer*:
+**Answer**:
 ```{r}
 
 ```
@@ -44,7 +68,7 @@ from: markdown+emoji
 ## Question 4
 - Was there a flight on every day of 2013?
 
-*Answer*:
+**Answer**:
 ```{r}
 
 ```

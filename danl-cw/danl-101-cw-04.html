@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Byeong-Hak Choe">
-<meta name="dcterms.date" content="2024-10-02">
+<meta name="dcterms.date" content="2024-10-05">
 
 <title>filter(), arrange(), and distinct() | Byeong-Hak Choe</title>
 <style>
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -206,14 +240,14 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 2, 2024</p>
+      <p class="date">October 5, 2024</p>
     </div>
   </div>
   
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">October 2, 2024</p>
+      <p class="date-modified">October 5, 2024</p>
     </div>
   </div>
     
@@ -231,7 +265,36 @@ ul.task-list li input[type="checkbox"] {
 <li>Find all flights that arrived more than two hours late, but didn’t leave late</li>
 <li>Find all flights that departed between midnight and 6am (inclusive)</li>
 </ul>
-<p><em>Answer</em>:</p>
+<p><strong>Answer</strong>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>flights <span class="ot">&lt;-</span> nycflights13<span class="sc">::</span>flights</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Flights with arrival delay of 2 or more hours</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>delayed_flights <span class="ot">&lt;-</span> flights <span class="sc">|&gt;</span> <span class="fu">filter</span>(arr_delay <span class="sc">&gt;=</span> <span class="dv">120</span>)  <span class="co"># The unit of the `arr_delay` variable is in a minute.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Flights to Houston (IAH or HOU)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>houston_flights <span class="ot">&lt;-</span> flights <span class="sc">|&gt;</span> <span class="fu">filter</span>( dest <span class="sc">==</span> <span class="st">"IAH"</span> <span class="sc">|</span> dest <span class="sc">==</span> <span class="st">"HOU"</span> )</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Flights that departed in summer (July, August, September)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>summer_flights <span class="ot">&lt;-</span> flights <span class="sc">|&gt;</span> <span class="fu">filter</span>( month <span class="sc">==</span> <span class="dv">7</span> <span class="sc">|</span> month <span class="sc">==</span> <span class="dv">8</span> <span class="sc">|</span> month <span class="sc">==</span> <span class="dv">9</span> )</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Flights that arrived more than two hours late but didn’t leave late</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>late_arrival_on_time_departure <span class="ot">&lt;-</span> flights <span class="sc">|&gt;</span> <span class="fu">filter</span>( arr_delay <span class="sc">&gt;</span> <span class="dv">120</span> <span class="sc">&amp;</span> dep_delay <span class="sc">&lt;=</span> <span class="dv">0</span> )</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Flights that departed between midnight and 6am (inclusive)</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>early_morning_flights <span class="ot">&lt;-</span> flights <span class="sc">|&gt;</span> <span class="fu">filter</span>( (dep_time <span class="sc">&gt;=</span> <span class="dv">0</span> <span class="sc">&amp;</span> dep_time <span class="sc">&lt;=</span> <span class="dv">600</span>) <span class="sc">|</span> dep_time <span class="sc">==</span> <span class="dv">2400</span> )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><code>filter(arr_delay &gt;= 120)</code>: Finds flights with an arrival delay of two or more hours.</li>
+<li><code>filter( dest == "IAH" | dest == "HOU" )</code>: Filters flights flying to Houston by checking if the <code>dest</code> variable matches “IAH” or “HOU”.</li>
+<li><code>filter( month == 7 | month == 8 | month == 9 )</code>: Filters flights based on the <code>month</code> variable for July, August, and September.</li>
+<li><code>filter(arr_delay &gt; 120 &amp; dep_delay &lt;= 0)</code>: Filters flights that arrived more than two hours late but left on time or early.</li>
+<li><code>filter( (dep_time &gt;= 0 &amp; dep_time &lt;= 600) | dep_time == 2400)</code>: Filters flights departing between midnight and 6am (using military time). The condition <code>dep_time == 2400</code> is included because, in this data.frame, midnight is represented as <code>2400</code> rather than <code>0</code>.
+<ul>
+<li>This last question involves more advanced techniques, so it won’t be included in the exams at this level.</li>
+</ul></li>
+</ul>
 <p><br><br></p>
 </section>
 <section id="question-2" class="level2">
@@ -239,7 +302,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>How many flights have a missing <code>dep_time</code>?</li>
 </ul>
-<p><em>Answer</em>:</p>
+<p><strong>Answer</strong>:</p>
 <p><br><br></p>
 </section>
 <section id="question-3" class="level2">
@@ -247,7 +310,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>Sort flights to find the most delayed flights.</li>
 </ul>
-<p><em>Answer</em>:</p>
+<p><strong>Answer</strong>:</p>
 <p><br><br></p>
 </section>
 <section id="question-4" class="level2">
@@ -255,7 +318,7 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>Was there a flight on every day of 2013?</li>
 </ul>
-<p><em>Answer</em>:</p>
+<p><strong>Answer</strong>:</p>
 <p><br><br></p>
 </section>
 <section id="discussion" class="level1">

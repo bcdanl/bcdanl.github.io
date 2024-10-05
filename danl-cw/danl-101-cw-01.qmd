@@ -8,10 +8,15 @@ from: markdown+emoji
 ## Question 1.
 base-R provides the R object `state.name`. Write an R code to assign `state.name` to a variable, `US_states`.
 
-*Answer*:
+**Answer**:
 ```{r}
-
+US_states <- state.name
 ```
+
+- `state.name` is a predefined R object that contains the names of all 50 U.S. states. The code assigns the contents of `state.name` to a new variable `US_states`, effectively storing the state names in this new variable.
+	-	In the general R environment, a variable is a **name** assigned to any object or data stored in memory, whether it’s a simple value, a vector, or a more complex structure like a data frame. For this reason, I often refer to a variable as "the name of this object" in the general R environment.
+	-	In a data.frame, a variable is a **column** that represents a particular attribute of the data.frame.
+
 
 <br><br>
 
@@ -28,10 +33,13 @@ $$
 C = \frac{5}{9}\times(F - 32)
 $$
 
-*Answer*:
+**Answer**:
 ```{r}
-
+temp_F <- c(35, 88, 42, 84, 81, 30)
+temp_C <- (5/9) * (temp_F - 32)
+temp_C
 ```
+The formula to convert Fahrenheit to Celsius is applied element-wise to the temp_F vector, which stores the temperatures in Fahrenheit. The code then assigns the converted Celsius temperatures to the temp_C vector.
 
 <br><br>
 
@@ -46,12 +54,19 @@ x <- 1:25
 - Also, write an R code to test whether the standard deviation you calculate manually above is equal to `sd(x)`.
 
 
-
-*Answer*:
+**Answer**:
 ```{r}
+# Manual calculation of standard deviation
+n <- length(x)
+mean_x <- sum(x) / n
+variance_manual <- sum((x - mean_x)^2) / (n - 1)
+sd_manual <- sqrt(variance_manual)
 
-
+# Test if it is equal to sd(x)
+sd_manual == sd(x)
 ```
+-	The formula for standard deviation is the square root of the variance. Variance is calculated as the sum of the squared differences from the mean, divided by the number of observations minus 1 (for a sample).
+-	The `sd_manual` is then compared to the result of the built-in `sd()` function to ensure correctness.
 
 <br><br>
 
@@ -70,6 +85,21 @@ beers <- c("BUD LIGHT", "BUSCH LIGHT", "COORS LIGHT",
 - Write an R code to filter only the positive values in `my_vec`.
 - Write an R code to access the beers that are in positions 2, 4, and 6 using indexing.
 
+**Answer**:
+```{r}
+# Filtering positive values
+positive_values <- my_vec[my_vec > 0]
+
+# Accessing beers in positions 2, 4, and 6
+beers <- c("BUD LIGHT", "BUSCH LIGHT", "COORS LIGHT", 
+           "GENESEE LIGHT", "MILLER LITE", "NATURAL LIGHT")
+selected_beers <- beers[c(2, 4, 6)]
+
+positive_values
+selected_beers
+```
+
+- The positive values from `my_vec` are filtered using logical indexing (`my_vec > 0`), and the selected beers are accessed using the positions 2, 4, and 6 through direct indexing (`beers[c(2, 4, 6)]`).
 
 <br><br>
 
@@ -78,10 +108,18 @@ beers <- c("BUD LIGHT", "BUSCH LIGHT", "COORS LIGHT",
 ## Question 5.
 - Write an R code to read the CSV file, `https://bcdanl.github.io/data/mlb_teams.csv` using the `tidyverse`'s `read_csv()` function, and assign it to `MLB_teams`.
 
-*Answer*:
+**Answer**:
 ```{r}
+library(tidyverse)  # to use the read_csv() function
+MLB_teams <- read_csv("https://bcdanl.github.io/data/mlb_teams.csv")
 
+DT::datatable(MLB_teams)
 ```
+
+<br>
+
+- The `read_csv()` function from the tidyverse package is used to read the CSV file from the given URL and assign it to the name, `MLB_teams`. This function automatically handles reading in the CSV file and properly parsing the data.
+
 
 <br><br>
 
@@ -90,12 +128,17 @@ beers <- c("BUD LIGHT", "BUSCH LIGHT", "COORS LIGHT",
 
 
 ## Question 6.
-Write an R code to provide summary statistics---mean, standard deviation, minimum, first quartile, median, third quartile, and maximum---for variables in the `MLB_teams` data.frame.
+Write an R code to provide descriptive statistics---mean, standard deviation, minimum, first quartile, median, third quartile, and maximum---for variables in the `MLB_teams` data.frame.
 
-*Answer*:
+**Answer**:
 ```{r}
-
+library(skimr)
+skim(MLB_teams)
 ```
+
+- `skimr::skim()` is a function from the `skimr` package in R, which provides an enhanced and comprehensive summary of data compared to the traditional `summary()` function. 
+  - It generates descriptive statistics for a vector or for each column (variable) in a data.frame, offering an easy-to-read output with more details than basic summaries.
+
 
 <br><br>
 
