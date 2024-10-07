@@ -18,7 +18,7 @@
     "href": "listing-danl-101-cw.html",
     "title": "DANL 101 - Classwork",
     "section": "",
-    "text": "Title\n\n\nSubtitle\n\n\nDate\n\n\n\n\n\n\nQuiz 1 - Addendum\n\n\nClasswork 7\n\n\nOctober 7, 2024\n\n\n\n\nselect() and rename()\n\n\nClasswork 5\n\n\nOctober 5, 2024\n\n\n\n\nfilter(), arrange(), and distinct()\n\n\nClasswork 4\n\n\nOctober 5, 2024\n\n\n\n\nQuiz 1\n\n\nClasswork 5\n\n\nOctober 4, 2024\n\n\n\n\nleft_join()\n\n\nClasswork 3\n\n\nSeptember 26, 2024\n\n\n\n\nR Basics II\n\n\nClasswork 2\n\n\nSeptember 18, 2024\n\n\n\n\nR Basics I\n\n\nClasswork 1\n\n\nSeptember 16, 2024\n\n\n\n\n\n\nNo matching items\n\n Back to top"
+    "text": "Title\n\n\nSubtitle\n\n\nDate\n\n\n\n\n\n\nfilter(), arrange(), and distinct()\n\n\nClasswork 4\n\n\nOctober 7, 2024\n\n\n\n\nselect() and rename()\n\n\nClasswork 6\n\n\nOctober 7, 2024\n\n\n\n\nQuiz 1 - Addendum\n\n\nClasswork 7\n\n\nOctober 7, 2024\n\n\n\n\nQuiz 1\n\n\nClasswork 5\n\n\nOctober 4, 2024\n\n\n\n\nleft_join()\n\n\nClasswork 3\n\n\nSeptember 26, 2024\n\n\n\n\nR Basics II\n\n\nClasswork 2\n\n\nSeptember 18, 2024\n\n\n\n\nR Basics I\n\n\nClasswork 1\n\n\nSeptember 16, 2024\n\n\n\n\n\n\nNo matching items\n\n Back to top"
   },
   {
     "objectID": "blog-listing.html",
@@ -1341,7 +1341,7 @@
     "href": "index.html#bullet-classwork",
     "title": "DANL 101-05: Introduction to Data Analytics, Fall 2024",
     "section": "\\(\\bullet\\,\\) Classwork ⌨️",
-    "text": "\\(\\bullet\\,\\) Classwork ⌨️\n\n\n\n\n\n\nTitle\n\n\nDate\n\n\n\n\n\n\nQuiz 1 - Addendum\n\n\nOctober 7, 2024\n\n\n\n\nselect() and rename()\n\n\nOctober 5, 2024\n\n\n\n\nfilter(), arrange(), and distinct()\n\n\nOctober 5, 2024\n\n\n\n\nQuiz 1\n\n\nOctober 4, 2024\n\n\n\n\nleft_join()\n\n\nSeptember 26, 2024\n\n\n\n\nR Basics II\n\n\nSeptember 18, 2024\n\n\n\n\nR Basics I\n\n\nSeptember 16, 2024\n\n\n\n\n\n\nNo matching items"
+    "text": "\\(\\bullet\\,\\) Classwork ⌨️\n\n\n\n\n\n\nTitle\n\n\nDate\n\n\n\n\n\n\nfilter(), arrange(), and distinct()\n\n\nOctober 7, 2024\n\n\n\n\nselect() and rename()\n\n\nOctober 7, 2024\n\n\n\n\nQuiz 1 - Addendum\n\n\nOctober 7, 2024\n\n\n\n\nQuiz 1\n\n\nOctober 4, 2024\n\n\n\n\nleft_join()\n\n\nSeptember 26, 2024\n\n\n\n\nR Basics II\n\n\nSeptember 18, 2024\n\n\n\n\nR Basics I\n\n\nSeptember 16, 2024\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html#bullet-homework",
@@ -2986,21 +2986,21 @@
     "href": "danl-cw/danl-101-cw-04.html#question-2",
     "title": "filter(), arrange(), and distinct()",
     "section": "Question 2",
-    "text": "Question 2\n\nHow many flights have a missing dep_time?\n\nAnswer:"
+    "text": "Question 2\n\nHow many flights have a missing dep_time?\n\nAnswer:\n\nmissing_dep_time_flights &lt;- flights |&gt; filter(is.na(dep_time))\nn_missing_dep_time &lt;- nrow(missing_dep_time_flights)\nn_missing_dep_time\n\n[1] 8255\n\n\nWe use filter(is.na(dep_time)) to find flights where the dep_time is missing, and nrow() to count the number of such flights."
   },
   {
     "objectID": "danl-cw/danl-101-cw-04.html#question-3",
     "href": "danl-cw/danl-101-cw-04.html#question-3",
     "title": "filter(), arrange(), and distinct()",
     "section": "Question 3",
-    "text": "Question 3\n\nSort flights to find the most delayed flights.\n\nAnswer:"
+    "text": "Question 3\n\nSort flights to find the most delayed flights.\n\nAnswer:\n\n# either dep_delay, arr_delay, or both can be used for this task\nmost_delayed_flights &lt;- flights |&gt; arrange(desc(dep_delay)) \n\narrange(desc(dep_delay)) sorts flights in descending order of departure delay (dep_delay), placing the flights with the longest departure delays at the top."
   },
   {
     "objectID": "danl-cw/danl-101-cw-04.html#question-4",
     "href": "danl-cw/danl-101-cw-04.html#question-4",
     "title": "filter(), arrange(), and distinct()",
     "section": "Question 4",
-    "text": "Question 4\n\nWas there a flight on every day of 2013?\n\nAnswer:"
+    "text": "Question 4\n\nWas there a flight on every day of 2013?\n\nAnswer:\n\n# checking there is only one unique value in year variable, that is 2013.\nflights |&gt; distinct(year) # tibble is another name of data.frame in R tidyverse\n\n# A tibble: 1 × 1\n   year\n  &lt;int&gt;\n1  2013\n\nflights_per_day &lt;- flights |&gt; distinct(month, day)\nnum_days_2013 &lt;- nrow(flights_per_day)\nnum_days_2013 == 365\n\n[1] TRUE\n\n\n\nWe use distinct(month, day) to find unique combinations of month and day, and then count the number of distinct days using nrow(). We check if this equals 365 to determine if there was a flight on every day of the year.\n\nnrow() returns the number of observations in a data.frame."
   },
   {
     "objectID": "danl-hw/danl-101-hw-01-a.html",
@@ -3371,7 +3371,7 @@
     "href": "danl-cw/danl-101-cw-06.html",
     "title": "select() and rename()",
     "section": "",
-    "text": "For this Classwork 5, consider the following data.frame, nyc_payroll_new.\nlibrary(tidyverse)\nnyc_payroll_new &lt;- read_csv(\"https://bcdanl.github.io/data/nyc_payroll_2024.csv\")\nFor detailed descriptions of the variables in this data.frame, please refer to the following link: Citywide Payroll Data (Fiscal Year)"
+    "text": "For this Classwork 6, consider the following data.frame, nyc_payroll_new.\nlibrary(tidyverse)\nnyc_payroll_new &lt;- read_csv(\"https://bcdanl.github.io/data/nyc_payroll_2024.csv\")\nFor detailed descriptions of the variables in this data.frame, please refer to the following link: Citywide Payroll Data (Fiscal Year)"
   },
   {
     "objectID": "danl-lec/danl-101-lec-15-2024-1004.html",
@@ -3385,21 +3385,21 @@
     "href": "danl-cw/danl-101-cw-06.html#question-1",
     "title": "select() and rename()",
     "section": "Question 1",
-    "text": "Question 1\nCreate a new data.frame, df that keeps only the following five variables—Fiscal_Year, Agency_Name, First_Name, Last_Name, and Base_Salary—from the data.frame nyc_payroll_new.\nAnswer:"
+    "text": "Question 1\nCreate a new data.frame, df that keeps only the following five variables—Fiscal_Year, Agency_Name, First_Name, Last_Name, and Base_Salary—from the data.frame nyc_payroll_new.\nAnswer:\nHere, we use the select() function from one of the packages in tidyverse to choose only the specified variables (Fiscal_Year, Agency_Name, First_Name, Last_Name, and Base_Salary) from the nyc_payroll_new data.frame. The result is assigned to a new data.frame name df containing only these variables, reducing the dataset for further analysis."
   },
   {
     "objectID": "danl-cw/danl-101-cw-06.html#question-2",
     "href": "danl-cw/danl-101-cw-06.html#question-2",
     "title": "select() and rename()",
     "section": "Question 2",
-    "text": "Question 2\nGiven the data.frame df with a variable named Agency_Name, how would you rename it to Agency?\nAnswer:"
+    "text": "Question 2\nGiven the data.frame df with a variable named Agency_Name, how would you rename it to Agency?\nAnswer:\nThe rename() function allows us to change the name of an existing variable. In this case, we rename the Agency_Name variable to Agency in the df data.frame. The result is a new data.frame, df_renamed, where Agency_Name is now simply Agency."
   },
   {
     "objectID": "danl-cw/danl-101-cw-06.html#question-3",
     "href": "danl-cw/danl-101-cw-06.html#question-3",
     "title": "select() and rename()",
     "section": "Question 3",
-    "text": "Question 3\nHow would you remove the Fiscal_Year variable using select()?\nAnswer:"
+    "text": "Question 3\nHow would you remove the Fiscal_Year variable using select()?\nAnswer:\nTo remove a column from a data.frame, we use the select() function with the - sign before the variable name. In this case, select(-Fiscal_Year) removes the Fiscal_Year variable from the df data.frame, resulting in df_dropped, which contains all variables except Fiscal_Year."
   },
   {
     "objectID": "danl-cw/danl-101-cw-07.html",

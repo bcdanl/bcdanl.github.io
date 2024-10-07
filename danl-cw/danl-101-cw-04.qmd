@@ -49,19 +49,34 @@ early_morning_flights <- flights |> filter( (dep_time >= 0 & dep_time <= 600) | 
 
 **Answer**:
 ```{r}
-
+missing_dep_time_flights <- flights |> filter(is.na(dep_time))
+n_missing_dep_time <- nrow(missing_dep_time_flights)
+n_missing_dep_time
 ```
+
+
+We use `filter(is.na(dep_time))` to find flights where the `dep_time` is missing, and `nrow()` to count the number of such flights.
 
 <br><br>
 
-
 ## Question 3
-- Sort flights to find the most delayed flights. 
+- Sort flights to find the most delayed flights.
 
 **Answer**:
 ```{r}
-
+# either dep_delay, arr_delay, or both can be used for this task
+most_delayed_flights <- flights |> arrange(desc(dep_delay)) 
 ```
+
+`arrange(desc(dep_delay))` sorts flights in descending order of departure delay (`dep_delay`), placing the flights with the longest departure delays at the top.
+
+
+```{r}
+#| echo: false
+
+DT::datatable(most_delayed_flights |> slice(1:100))
+```
+
 
 <br><br>
 
@@ -70,22 +85,28 @@ early_morning_flights <- flights |> filter( (dep_time >= 0 & dep_time <= 600) | 
 
 **Answer**:
 ```{r}
+# checking there is only one unique value in year variable, that is 2013.
+flights |> distinct(year) # tibble is another name of data.frame in R tidyverse
 
+flights_per_day <- flights |> distinct(month, day)
+num_days_2013 <- nrow(flights_per_day)
+num_days_2013 == 365
 ```
+
+
+- We use `distinct(month, day)` to find unique combinations of `month` and `day`, and then count the number of distinct days using `nrow()`. We check if this equals 365 to determine if there was a flight on every day of the year.
+  -  `nrow()` returns the number of observations in a data.frame.
 
 <br><br>
 
 # Discussion 
 
-
 <font size = "5">Welcome to our Classwork 4 Discussion Board! 👋 </font>
-
 
 This space is designed for you to engage with your classmates about the material covered in Classwork 4.
 
 Whether you are looking to delve deeper into the content, share insights, or have questions about the content, this is the perfect place for you.
 
-If you have any specific questions for Byeong-Hak (**@bcdanl**) or peer classmate (@GitHub-Username) regarding the Classwork 1 materials or need clarification on any points, don't hesitate to ask here. 
+If you have any specific questions for Byeong-Hak (**@bcdanl**) or peer classmate (@GitHub-Username) regarding the Classwork 4 materials or need clarification on any points, don't hesitate to ask here. 
 
 Let's collaborate and learn from each other!
-
