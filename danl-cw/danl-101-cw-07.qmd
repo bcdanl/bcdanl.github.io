@@ -1,0 +1,139 @@
+---
+title: "Quiz 1 - Addendum"
+subtitle: Classwork 7
+date: last-modified
+from: markdown+emoji
+
+execute: 
+  eval: false
+  echo: true
+---
+
+# Descriptive Statistics
+
+The following provides the percentage of the correct answers for each question in Quiz 1 - Addendum:
+
+```{r}
+#| echo: false
+#| eval: true
+
+DT::datatable(data.frame(
+  Question = c('data.frame-variable',
+               'left_join()',
+               '== (equality operator)',
+               '!= (not-equal operator)',
+               '| (or operator)'),
+  Percentage = c(69.23, 60.53, 78.95, 89.47, 72.22)
+))
+
+```
+
+<br><br>
+
+# Question 1. `data.frame`
+In a data frame, what form does a variable take?
+
+**Answer**: Column
+
+- [This slide](https://bcdanl.github.io/danl-lec/danl-101-lec-07-2024-0911.html?q=tidy#/r-basics-9) in Lecture 7 explains what makes a data.frame tidy. In our course, all given data.frames are tidy.
+  - It’s been a while since we discussed variable-column, observation-row, and value-cell terminologies in a tidy data.frame, but these concepts are crucial for conducting data analysis.
+
+- In a data.frame:
+  - A variable takes a column
+  - An observation takes a row
+  - A value takes a cell
+  
+<br><br>
+
+# Question 2. `left_join()`
+```{r}
+df_joined <- df_1 |> ___(df_2)
+```
+
+- Fill in the blank (___) to join the two related data.frames, `df_1` and `df_2`, in a way that keeps all observations and variables in the data.frame `df_1`.
+
+**Answer**: `left_join`
+
+```{r}
+df_joined <- df_1 |> left_join(df_2)
+```
+
+- [This slide](https://bcdanl.github.io/danl-lec/danl-101-lec-14-2024-0930.html?q=left_join#/relational-data) in Lecture 14 and [this slide](https://bcdanl.github.io/danl-lec/danl-101-lec-12-2024-0925.html?q=relational#/relational-databases) in Lecture 12 explain **join** and `left_join()`.
+
+
+<br><br>
+
+# Question 3. `==` (Equality operator)
+```{r}
+df_filtered <- df |> filter(num __ 9) 
+```
+
+- Fill in the blank (___) to keep observations, in which the value of the `num` variable is equal to 9.
+
+**Answer**: `==`
+
+```{r}
+df_filtered <- df |> filter(num == 9) 
+```
+
+- [This slide](https://bcdanl.github.io/danl-lec/danl-101-lec-14-2024-0930.html#/filter-observations-with-filter-4) and [many examples from class R scripts](https://github.com/search?q=repo%3Abcdanl%2F101-05-R%20%3D%3D&type=code) explain this equality operator.
+
+<br><br>
+
+# Question 4. `!=` (Not-equal operator)
+```{r}
+non_dec <- df |> filter(month ___ 12)
+```
+
+- Fill in the blank (___) to keep observations, in which the value of the `month` is not equal to 12 in the data.frame `df`
+
+**Answer**: `!=`
+
+```{r}
+non_dec <- df |> filter(month != 12)
+```
+
+- [This slide](https://bcdanl.github.io/danl-lec/danl-101-lec-14-2024-0930.html#/filter-observations-with-filter-4) and [Line 63-64 in this class R script](https://github.com/search?q=repo%3Abcdanl%2F101-05-R+%21%3D&type=code) in Lecture 14 explain a not-equal operator, `!=` (not equal to).
+
+
+<br><br>
+
+
+
+# Question 5. `|` (Or operator)
+```{r}
+df_filtered <- df |> filter(subject == "DANL" ___ subject == "ECON")
+```
+
+- Fill in the blank (___) to keep observations, in which the value of the `subject` variable is either "DANL" or "ECON"
+
+**Answer**: `|`
+
+```{r}
+df_filtered <- df |> filter(subject == "DANL" | subject == "ECON")
+```
+
+
+- [This slide](https://bcdanl.github.io/danl-lec/danl-101-lec-14-2024-0930.html#/filter-observations-with-filter-2) and [this slide](https://bcdanl.github.io/danl-lec/danl-101-lec-14-2024-0930.html#/filter-observations-with-filter-7) in Lecture 14 explain logical operation, `|` (or).
+
+-	Please note that `|` is not the letter "I" or "l," but a vertical bar character.
+  - On a keyboard, `|` is located above the *Enter/Return* key.
+
+
+<br><br>
+
+
+# Discussion 
+
+
+<font size = "5">Welcome to our Quiz 1 Discussion Board! 👋 </font>
+
+
+This space is designed for you to engage with your classmates about the material covered in Quiz 1.
+
+Whether you are looking to delve deeper into the content, share insights, or have questions about the content, this is the perfect place for you.
+
+If you have any specific questions for Byeong-Hak (**@bcdanl**) or peer classmate (@GitHub-Username) regarding the Quiz 1 materials or need clarification on any points, don't hesitate to ask here. 
+
+Let's collaborate and learn from each other!
+
