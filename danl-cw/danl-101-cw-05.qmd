@@ -1,103 +1,147 @@
 ---
-title: "`select()` and `rename()`"
+title: "Quiz 1"
 subtitle: Classwork 5
-date: last-modified
+date: 2024-10-04
 from: markdown+emoji
 
 execute: 
-  eval: true
-  echo: false
+  eval: false
+  echo: true
 ---
 
-For this Classwork 5, consider the following data.frame, `nyc_payroll_new`.
+# Descriptive Statistics
 
-```{r}
-#| echo: true
-library(tidyverse)
-nyc_payroll_new <- read_csv("https://bcdanl.github.io/data/nyc_payroll_2024.csv")
-```
+The following provides the percentage of the correct answers for each question in Quiz 1:
 
 ```{r}
 #| echo: false
-DT::datatable(nyc_payroll_new)
+#| eval: true
+
+DT::datatable(data.frame(
+  Question = c('data.frame-row',
+               'nrow()',
+               '>= (greater-than-or-equal-to operator)',
+               '! (negation operator)',
+               '& (,) (and operator)'),
+  Percentage = c(61.54, 83.33, 84.62, 79.41, 72.97)
+))
+
 ```
 
-<br>
+<br><br>
 
-For detailed descriptions of the variables in this data.frame, please refer to the following link: [Citywide Payroll Data (Fiscal Year)](https://data.cityofnewyork.us/City-Government/Citywide-Payroll-Data-Fiscal-Year-/k397-673e/about_data)
+# Question 1. `data.frame`
+In a data frame, what form does an observation take?
 
-<br>
+**Answer**: Row
 
-## Question 1
-Create a new data.frame, `df` that keeps only the following five variables---`Fiscal_Year`, `Agency_Name`, `First_Name`, `Last_Name`, and `Base_Salary`---from the data.frame `nyc_payroll_new`.
+- [This slide](https://bcdanl.github.io/danl-lec/danl-101-lec-07-2024-0911.html?q=tidy#/r-basics-9) in Lecture 7 explains what makes a data.frame tidy. In our course, all given data.frames are tidy.
+  - It’s been a while since we discussed variable-column, observation-row, and value-cell terminologies in a tidy data.frame, but these concepts are crucial for conducting data analysis.
 
-**Answer**:
+- In a data.frame:
+  - A variable takes a coulmn
+  - An observation takes a row
+  - A value takes a cell
 
+<br><br>
+
+# Question 2. `nrow()`
 ```{r}
-df <- nyc_payroll_new |> 
-  select(Fiscal_Year, Agency_Name,
-         First_Name, Last_Name,
-         Base_Salary)
+___(df)
 ```
 
-```{r}
-#| echo: false
+- Fill in the blank (___) to calculate the number of observations in the data.frame, `df`.
 
-DT::datatable(df)
+**Answer**: `nrow`
+
+```{r}
+nrow(df)
+```
+
+- [This slide](https://bcdanl.github.io/danl-lec/danl-101-lec-08-2024-0913.html?q=nrow#/r-basics-5) in Lecture 8 and [a couple of class R scripts](https://github.com/search?q=repo%3Abcdanl%2F101-05-R%20nrow&type=code) explain `nrow()`.
+
+- You might have difficulty in this question if you do not recall `nrow()`. 
+  - Full credit is given to answers that imply counting observations.
+
+<br><br>
+
+# Question 3. `>=` (Greater-than-or-equal-to operator)
+```{r}
+df_filtered <- df |> filter(num __ 9)
+```
+
+- Fill in the blank (___) to keep observations, in which the value of the `num` variable is greater than or equal to 9.
+
+**Answer**: `>=`
+
+```{r}
+df_filtered <- df |> filter(num >= 9)
+```
+
+- [This slide](https://bcdanl.github.io/danl-lec/danl-101-lec-14-2024-0930.html#/filter-observations-with-filter-4) in Lecture 14 and [a couple of class R scripts](https://github.com/search?q=repo%3Abcdanl%2F101-05-R+%3E%3D&type=code) explain this inequality operator.
+
+
+<br><br>
+
+# Question 4. `!` (Negation operator)
+```{r}
+non_dec <-  df |> filter( ___(month == 12) )
+```
+
+- Fill in the blank (___) to keep observations, in which the value of the `month` variable is not equal to 12 in the data.frame `df`.
+
+**Answer**: `!`
+
+```{r}
+non_dec <-  df |> filter( !(month == 12) )
+```
+
+- [This slide](https://bcdanl.github.io/danl-lec/danl-101-lec-14-2024-0930.html#/filter-observations-with-filter-2) in Lecture 14 and [Line 56-57 in this class R script](https://github.com/bcdanl/101-05-R/blob/ce65f726aff18f668a25b3fd99b2a8bb8d69daca/danl-101-05-2024-0930.R) explain a negation operator, `!` (not).
+
+- A more natural way to write this line is using `!=` (not-equal operator):
+
+```{r}
+non_dec <-  df |> filter( month != 12 )
 ```
 
 
 <br><br>
 
-## Question 2
-Given the data.frame `df` with a variable named `Agency_Name`, how would you rename it to `Agency`?
 
-**Answer**:
 
+# Question 5. `&` (And operator)
 ```{r}
-df_renamed <- df |> rename(Agency = Agency_Name)
+df_filtered <- df |> filter(subject == "DANL" ___ number == 101)
 ```
 
+- Fill in the blank (___) to keep observations, in which the value of the `subject` variable is "DANL" and the value of the `number` variable is 101.
+
+**Answer**: `&` (`,`)
 
 ```{r}
-#| echo: false
-
-DT::datatable(df_renamed)
+df_filtered <- df |> filter(subject == "DANL" & number == 101)
+df_filtered <- df |> filter(subject == "DANL", number == 101)
 ```
+
+- [This slide](https://bcdanl.github.io/danl-lec/danl-101-lec-14-2024-0930.html#/filter-observations-with-filter-2) and [this slide](https://bcdanl.github.io/danl-lec/danl-101-lec-14-2024-0930.html#/filter-observations-with-filter-5) in Lecture 14 explain logical operation, `&` (and).
+
+
 
 
 <br><br>
 
-## Question 3
-How would you remove the `Fiscal_Year` variable using `select()`?
-
-**Answer**:
-
-```{r}
-df_dropped <- df |> select(-Fiscal_Year)
-```
-
-
-
-```{r}
-#| echo: false
-
-DT::datatable(df_dropped)
-```
-
-<br><br>
 
 # Discussion 
 
 
-<font size = "5">Welcome to our Classwork 5 Discussion Board! 👋 </font>
+<font size = "5">Welcome to our Quiz 1 Discussion Board! 👋 </font>
 
 
-This space is designed for you to engage with your classmates about the material covered in Classwork 5.
+This space is designed for you to engage with your classmates about the material covered in Quiz 1.
 
 Whether you are looking to delve deeper into the content, share insights, or have questions about the content, this is the perfect place for you.
 
-If you have any specific questions for Byeong-Hak (**@bcdanl**) or peer classmate (@GitHub-Username) regarding the Classwork 1 materials or need clarification on any points, don't hesitate to ask here. 
+If you have any specific questions for Byeong-Hak (**@bcdanl**) or peer classmate (@GitHub-Username) regarding the Quiz 1 materials or need clarification on any points, don't hesitate to ask here. 
 
 Let's collaborate and learn from each other!
 
