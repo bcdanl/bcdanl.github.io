@@ -1,0 +1,392 @@
+---
+title: Homework Assignment 2 - Example Answers
+subtitle: ""
+date: last-modified
+from: markdown+emoji
+comments: false
+code-fold: false
+
+execute: 
+  warning: false
+  message: false
+  fig-width: 9
+  fig-height: 7
+  fig-align: center
+  eval: true
+  echo: true
+---
+```{r}
+#| include: false
+
+library(tidyverse)
+library(skimr)
+library(DT)
+library(hrbrthemes)
+
+theme_set(theme_ipsum() +
+          theme(strip.background =element_rect(fill="lightgray"),
+                axis.title.x = element_text(size = rel(1.5)),
+                axis.title.y = element_text(size = rel(1.5)),
+                legend.title = element_text(size=rel(1.25))
+                ))
+
+x <- c(5, 7, 6, 9, 100, 8, 5, 7, 6)
+q1 <- quantile(x, 0.25)
+q3 <- quantile(x, 0.75)
+iqr_value <- q3 - q1
+```
+
+
+# Short-Answer Questions
+
+## True or False
+  1.	A data lake stores data in its raw, unaltered form and uses a schema-on-read approach. (True/False)
+
+Answer: True
+
+Explanation: A data lake does store data in its raw, unaltered form. It employs a schema-on-read approach, meaning the data’s structure is interpreted when it is accessed, not when it is stored. This allows for flexibility in analyzing data in various ways without predefined schemas.
+
+<br>
+
+2.	Apache Hadoop can natively process real-time streaming data without any extensions. (True/False)
+
+Answer: False
+
+Explanation: Apache Hadoop is primarily designed for batch processing of large data sets. It does not natively support real-time streaming data processing. To handle streaming data, extensions like Apache Spark Streaming or Apache Storm are used alongside Hadoop.
+
+<br>
+
+3.	The Extract, Transform, Load (ETL) process involves extracting data from multiple sources, transforming it into a suitable format, and loading it into a data warehouse. (True/False)
+	
+Answer: True
+
+Explanation: The ETL process stands for Extract, Transform, Load. It involves:
+	•	Extracting data from various sources.
+	•	Transforming the data into a suitable format, which includes cleaning and integrating data.
+	•	Loading the transformed data into a data warehouse for analysis.
+
+<br>
+
+4.	Data marts are subsets of data warehouses that are focused on specific business areas or departments. (True/False)
+	
+Answer: True
+
+Explanation: A data mart is a focused subset of a data warehouse, tailored for the specific needs of a particular business area or department. This allows teams to access relevant data more efficiently without sifting through the entire data warehouse.
+
+<br>
+
+5.	‘Structured data’ refers to data that is not organized in a predefined manner and comes from sources like social media, emails, and videos. (True/False)
+
+Answer: False
+
+Explanation: Structured data is highly organized and formatted in a way so it’s easily searchable in relational databases (e.g., tables with rows and columns). Data from social media, emails, and videos are examples of unstructured data, which lacks a predefined data model.
+
+<br>
+
+## Multiple Choice
+
+6.	Which of the following is NOT one of the five key characteristics of big data (the 5 V’s)?
+
+	•	Volume
+	•	Variety
+	•	Validity
+	•	Velocity
+	
+Answer: Validity
+
+Explanation: The traditional 5 V’s of big data are:
+	1.	Volume: The amount of data.
+	2.	Velocity: The speed of data processing.
+	3.	Variety: The different types of data.
+	4.	Veracity: The uncertainty of data.
+	5.	Value: The usefulness of the data.
+	
+Validity is not traditionally included in the 5 V’s of big data.
+
+<br>
+
+7.	In the context of data types, temperature measured in degrees Fahrenheit is an example of:
+
+	•	Nominal Data
+	•	Ordinal Data
+	•	Interval Data
+	•	Ratio Data
+	
+Answer: Interval Data
+
+Explanation: Interval data is numerical data where the intervals between values are meaningful, but there is no true zero point. Temperature in degrees Fahrenheit is interval data because zero degrees does not represent the absence of temperature, and differences between temperatures are consistent.
+
+<br>
+
+8.	Which of the following best describes a ‘data mart’?
+
+	•	A centralized repository for all data across an enterprise.
+	•	A subset of a data warehouse focused on a specific business line or team.
+	•	A collection of unstructured data stored in its raw form.
+	•	An open-source framework for distributed storage and processing of big data.
+	
+Answer: A subset of a data warehouse focused on a specific business line or team.
+
+Explanation: A data mart is a smaller, more focused version of a data warehouse, designed to meet the needs of a specific business line or team. It contains a subset of the organization’s data relevant to a particular group.
+
+<br>
+
+9.	Which of the following is a challenge associated with big data privacy concerns?
+
+	•	Difficulty in finding information due to information overload
+	•	Extensive profiling and user tracking without explicit consent
+	•	Legal penalties for non-compliance with regulations
+	•	Integration complexity of diverse data sources
+
+Answer: Extensive profiling and user tracking without explicit consent
+
+Explanation: One of the major privacy concerns with big data is the potential for extensive profiling and user tracking without explicit consent, which can lead to misuse of personal information and breaches of privacy.
+
+<br>
+
+10.	What is the primary function of the ‘Transform’ stage in the ETL process?
+
+	•	Extracting data from various sources
+	•	Loading data into the data warehouse
+	•	Converting data into a suitable format for analysis
+	•	Deleting obsolete data
+
+Answer: Converting data into a suitable format for analysis
+
+Explanation: The Transform stage involves cleaning, normalizing, and converting the extracted data into a format suitable for analysis and loading into the data warehouse. It ensures data consistency and quality.
+
+<br>
+
+
+## Short Essay
+
+11. Explain how Airbnb’s data management strategy, particularly the development of the Dataportal, contributed to its rapid growth.
+
+Answer:
+
+Airbnb’s development of the Dataportal—a centralized data repository—was pivotal to its rapid growth by democratizing data access across the organization; it enabled employees of all technical levels to make data-driven decisions without heavy reliance on data specialists, leading to improved efficiency, enhanced collaboration between departments, accelerated innovation through rapid testing and iteration, and scalability in handling increasing data volumes, all of which optimized decision-making and operations and significantly contributed to Airbnb’s swift expansion in a competitive market.
+
+<br>
+
+12. Describe the Extract, Transform, Load (ETL) process and explain its importance in populating data warehouses.
+
+Answer:
+
+The Extract, Transform, Load (ETL) process involves extracting data from various sources like databases or data files; transforming the data by cleaning and converting it to ensure consistency and reliability; and loading it into a data warehouse for efficient analysis; this process is crucial for populating data warehouses because it consolidates data from multiple sources into a unified view, enhances data quality through cleansing and standardization, increases efficiency by reducing errors, ensures timeliness by keeping data warehouses updated for real-time analytics, and offers scalability to handle growing data volumes, ultimately enabling accurate reporting and strategic decision-making.
+
+<br>
+
+13. Explain how Hadoop enables the processing of large data sets and discuss the roles of HDFS and MapReduce in this framework.
+
+Answer:
+
+Hadoop enables the processing of large data sets by distributing storage and computation across clusters of computers; the Hadoop Distributed File System (HDFS) splits large files into blocks and distributes them across servers, offering scalability by adding more servers and providing fault tolerance through data replication, while MapReduce enables parallel data processing across the cluster by processing input into key-value pairs (filtering and sorting data) in the Map phase and aggregating results in the Reduce phase, enhancing computation speed and handling task failures; together, HDFS and MapReduce allow Hadoop to manage vast amounts of data through distributed storage and processing, process data where it is stored to improve speed, reduce costs by using commodity hardware, and easily expand capacity by adding servers, providing a scalable and efficient solution for storing and analyzing large data sets to gain valuable insights.
+
+<br>
+
+# Data Transformation with R tidyverse
+For the questions in the R section, consider the data.frame `nyc_payroll_new.` For detailed descriptions of the variables in this data.frame, please refer to the following link: [Citywide Payroll Data (Fiscal Year)](https://data.cityofnewyork.us/City-Government/Citywide-Payroll-Data-Fiscal-Year-/k397-673e/about_data).
+
+```{r}
+library(tidyverse)
+library(skimr)
+nyc_payroll_new <- read_csv("https://bcdanl.github.io/data/nyc_payroll_2024.csv")
+```
+
+```{r}
+#| echo: false
+
+DT::datatable(nyc_payroll_new)
+```
+
+<br>
+
+## Question 1
+How can you filter the data.frame `nyc_payroll_new` to calculate descriptive statistics (mean and standard deviation) of `Base_Salary` for workers in the `Work_Location_Borough` "**MANHATTAN**"? Similarly, how can you filter the data.frame `nyc_payroll_new` to calculate these statistics for workers in the `Work_Location_Borough` "**QUEENS**"?
+
+Provide the R code for performing these calculations and then report the mean and standard deviation of `Base_Salary` for workers in both "**MANHATTAN**" and "**QUEENS**".
+
+**Answer**:
+
+```{r}
+# Filter the dataset for records where the work location is MANHATTAN
+df_manhattan <- nyc_payroll_new |> 
+  filter(Work_Location_Borough == "MANHATTAN")
+
+# Generate descriptive statistics (including mean and standard deviation) for Base_Salary for workers in MANHATTAN
+skim(df_manhattan$Base_Salary) # or skim(df_manhattan)
+```
+
+```{r}
+# Filter the dataset for records where the work location is QUEENS
+df_queens <- nyc_payroll_new |> 
+  filter(Work_Location_Borough == "QUEENS")
+
+# Generate descriptive statistics (including mean and standard deviation) for Base_Salary for workers in QUEENS
+skim(df_queens$Base_Salary) # or skim(df_queens)
+```
+
+<br>
+
+## Question 2
+How can you filter the data.frame `nyc_payroll_new` to show only the records where the `Base_Salary` is greater than or equal to $100,000?
+
+**Answer**:
+
+```{r}
+# Filter the dataset for records where Base_Salary is greater than or equal to $100,000
+q2 <- nyc_payroll_new |> 
+  filter(Base_Salary >= 100000)
+```
+
+
+<br>
+
+## Question 3
+How can you select only distinct combinations of `Agency_Name` and `Title_Description`?
+
+**Answer**:
+
+```{r}
+# Select distinct combinations of Agency_Name and Title_Description from the dataset
+q3 <- nyc_payroll_new |> 
+  distinct(Agency_Name, Title_Description)
+```
+
+```{r}
+#| echo: false
+
+DT::datatable(q3 |> arrange(Agency_Name, Title_Description))
+```
+
+
+<br>
+
+
+## Question 4
+How would you arrange the data by `Regular_Gross_Paid` in descending order, showing the highest paid employees first?
+
+**Answer**:
+```{r}
+# Arrange the dataset by Regular_Gross_Paid in descending order (highest paid employees first)
+q4 <- nyc_payroll_new |> 
+  arrange(desc(Regular_Gross_Paid))
+```
+
+```{r}
+#| echo: false
+
+DT::datatable(q4 |> select(Fiscal_Year, Agency_Name:First_Name, Regular_Gross_Paid))
+```
+
+
+<br>
+
+
+## Question 5
+How can you select and rename the `Title_Description` variable to `Title`?
+
+**Answer**:
+
+```{r}
+# Rename the Title_Description variable to Title in the dataset
+q5 <- nyc_payroll_new |> 
+  rename(Title = Title_Description)
+```
+
+```{r}
+#| echo: false
+
+DT::datatable(q5 |> select(Fiscal_Year, Agency_Name:First_Name, Title))
+```
+
+<br>
+
+
+## Question 6
+How can you filter the data to show only records for the "**POLICE DEPARTMENT**" `Agency_Name` and arrange it by `Total_OT_Paid` in ascending order?
+
+
+**Answer**:
+
+```{r}
+# Filter the dataset for records where Agency_Name is "POLICE DEPARTMENT" and arrange by Total_OT_Paid in ascending order
+q6 <- nyc_payroll_new |> 
+  filter(Agency_Name == "POLICE DEPARTMENT") |> 
+  arrange(Total_OT_Paid)
+```
+
+```{r}
+#| echo: false
+
+DT::datatable(q6 |> select(Fiscal_Year, Agency_Name:First_Name, Total_OT_Paid))
+```
+
+<br>
+
+
+## Question 7
+How can you filter the data to include only those records where the `Pay_Basis` is "**per Annum**" and then select only the `First_Name`, `Last_Name`, and `Base_Salary` variables?
+
+
+**Answer**:
+```{r}
+# Filter the dataset for records where Pay_Basis is "per Annum" and select specific columns: First_Name, Last_Name, and Base_Salary
+q7 <- nyc_payroll_new |> 
+  filter(Pay_Basis == "per Annum") |> 
+  select(First_Name, Last_Name, Base_Salary)
+```
+
+```{r}
+#| echo: false
+
+DT::datatable(q7)
+```
+
+
+<br>
+
+
+## Question 8
+How would you arrange the data.frame by `Work_Location_Borough` in ascending order and `Base_Salary` in descending order?
+
+**Answer**:
+
+```{r}
+# Arrange the dataset by Work_Location_Borough in ascending order and Base_Salary in descending order
+q8 <- nyc_payroll_new |> 
+  arrange(Work_Location_Borough, -Base_Salary)
+```
+
+```{r}
+#| echo: false
+
+DT::datatable(q8 |> select( Work_Location_Borough, Base_Salary))
+
+```
+
+
+- Note that sorting observations by a character variable in ascending order means sorting them in an alphabetical order.
+
+- Note that sorting observations by a character variable in descending order means sorting them in a reverse-alphabetical order.
+
+
+<br>
+
+## Question 9
+How can you filter the `nyc_payroll_new` data.frame to remove observations where the `Base_Salary` variable has `NA` values? After filtering, how would you calculate the total number of remaining observations?
+
+
+**Answer**:
+
+```{r}
+# Filter the dataset to remove observations where Base_Salary is NA
+q9 <- nyc_payroll_new |> 
+  filter(!is.na(Base_Salary))
+
+# Calculate the total number of remaining observations after filtering
+nrow(q9)
+```
+
+
+
