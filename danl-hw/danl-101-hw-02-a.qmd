@@ -37,30 +37,45 @@ iqr_value <- q3 - q1
 ```
 
 
+# Descriptive Statistics
+
+The following provides the descriptive statistics for each part of the homework, as well as the final score of HW2:
+
+```{r}
+#| echo: false
+#| eval: true
+sum <- readr::read_csv("https://bcdanl.github.io/data/danl-101-hw2-dist-fall-2024.csv")
+DT::datatable(sum, options = list(pageLength = 30))
+```
+
+
+<br><br>
+
+
 # Short-Answer Questions
 
 ## True or False
   1.	A data lake stores data in its raw, unaltered form and uses a schema-on-read approach. (True/False)
 
-Answer: True
+**Answer**: True
 
-Explanation: A data lake does store data in its raw, unaltered form. It employs a schema-on-read approach, meaning the data’s structure is interpreted when it is accessed, not when it is stored. This allows for flexibility in analyzing data in various ways without predefined schemas.
+**Explanation**: A data lake does store data in its raw, unaltered form. It employs a schema-on-read approach, meaning the data’s structure is interpreted when it is accessed, not when it is stored. This allows for flexibility in analyzing data in various ways without predefined schemas.
 
 <br>
 
 2.	Apache Hadoop can natively process real-time streaming data without any extensions. (True/False)
 
-Answer: False
+**Answer**: False
 
-Explanation: Apache Hadoop is primarily designed for batch processing of large data sets. It does not natively support real-time streaming data processing. To handle streaming data, extensions like Apache Spark Streaming or Apache Storm are used alongside Hadoop.
+**Explanation**: Apache Hadoop is primarily designed for batch processing of large data sets. It does not natively support real-time streaming data processing. To handle streaming data, extensions like Apache Spark Streaming or Apache Storm are used alongside Hadoop.
 
 <br>
 
 3.	The Extract, Transform, Load (ETL) process involves extracting data from multiple sources, transforming it into a suitable format, and loading it into a data warehouse. (True/False)
 	
-Answer: True
+**Answer**: True
 
-Explanation: The ETL process stands for Extract, Transform, Load. It involves:
+**Explanation**: The ETL process stands for Extract, Transform, Load. It involves:
 	•	Extracting data from various sources.
 	•	Transforming the data into a suitable format, which includes cleaning and integrating data.
 	•	Loading the transformed data into a data warehouse for analysis.
@@ -69,17 +84,17 @@ Explanation: The ETL process stands for Extract, Transform, Load. It involves:
 
 4.	Data marts are subsets of data warehouses that are focused on specific business areas or departments. (True/False)
 	
-Answer: True
+**Answer**: True
 
-Explanation: A data mart is a focused subset of a data warehouse, tailored for the specific needs of a particular business area or department. This allows teams to access relevant data more efficiently without sifting through the entire data warehouse.
+**Explanation**: A data mart is a focused subset of a data warehouse, tailored for the specific needs of a particular business area or department. This allows teams to access relevant data more efficiently without sifting through the entire data warehouse.
 
 <br>
 
 5.	‘Structured data’ refers to data that is not organized in a predefined manner and comes from sources like social media, emails, and videos. (True/False)
 
-Answer: False
+**Answer**: False
 
-Explanation: Structured data is highly organized and formatted in a way so it’s easily searchable in relational databases (e.g., tables with rows and columns). Data from social media, emails, and videos are examples of unstructured data, which lacks a predefined data model.
+**Explanation**: Structured data is highly organized and formatted in a way so it’s easily searchable in relational databases (e.g., tables with rows and columns). Data from social media, emails, and videos are examples of unstructured data, which lacks a predefined data model.
 
 <br>
 
@@ -92,9 +107,9 @@ Explanation: Structured data is highly organized and formatted in a way so it’
 	•	Validity
 	•	Velocity
 	
-Answer: Validity
+**Answer**: Validity
 
-Explanation: The traditional 5 V’s of big data are:
+**Explanation**: The traditional 5 V’s of big data are:
 	1.	Volume: The amount of data.
 	2.	Velocity: The speed of data processing.
 	3.	Variety: The different types of data.
@@ -112,9 +127,9 @@ Validity is not traditionally included in the 5 V’s of big data.
 	•	Interval Data
 	•	Ratio Data
 	
-Answer: Interval Data
+**Answer**: Interval Data
 
-Explanation: Interval data is numerical data where the intervals between values are meaningful, but there is no true zero point. Temperature in degrees Fahrenheit is interval data because zero degrees does not represent the absence of temperature, and differences between temperatures are consistent.
+**Explanation**: Interval data is numerical data where the intervals between values are meaningful, but there is no true zero point. Temperature in degrees Fahrenheit is interval data because zero degrees does not represent the absence of temperature, and differences between temperatures are consistent.
 
 <br>
 
@@ -125,9 +140,9 @@ Explanation: Interval data is numerical data where the intervals between values 
 	•	A collection of unstructured data stored in its raw form.
 	•	An open-source framework for distributed storage and processing of big data.
 	
-Answer: A subset of a data warehouse focused on a specific business line or team.
+**Answer**: A subset of a data warehouse focused on a specific business line or team.
 
-Explanation: A data mart is a smaller, more focused version of a data warehouse, designed to meet the needs of a specific business line or team. It contains a subset of the organization’s data relevant to a particular group.
+**Explanation**: A data mart is a smaller, more focused version of a data warehouse, designed to meet the needs of a specific business line or team. It contains a subset of the organization’s data relevant to a particular group.
 
 <br>
 
@@ -138,9 +153,9 @@ Explanation: A data mart is a smaller, more focused version of a data warehouse,
 	•	Legal penalties for non-compliance with regulations
 	•	Integration complexity of diverse data sources
 
-Answer: Extensive profiling and user tracking without explicit consent
+**Answer**: Extensive profiling and user tracking without explicit consent
 
-Explanation: One of the major privacy concerns with big data is the potential for extensive profiling and user tracking without explicit consent, which can lead to misuse of personal information and breaches of privacy.
+**Explanation**: One of the major privacy concerns with big data is the potential for extensive profiling and user tracking without explicit consent, which can lead to misuse of personal information and breaches of privacy.
 
 <br>
 
@@ -151,9 +166,9 @@ Explanation: One of the major privacy concerns with big data is the potential fo
 	•	Converting data into a suitable format for analysis
 	•	Deleting obsolete data
 
-Answer: Converting data into a suitable format for analysis
+**Answer**: Converting data into a suitable format for analysis
 
-Explanation: The Transform stage involves cleaning, normalizing, and converting the extracted data into a format suitable for analysis and loading into the data warehouse. It ensures data consistency and quality.
+**Explanation**: The Transform stage involves cleaning, normalizing, and converting the extracted data into a format suitable for analysis and loading into the data warehouse. It ensures data consistency and quality.
 
 <br>
 
@@ -162,7 +177,7 @@ Explanation: The Transform stage involves cleaning, normalizing, and converting 
 
 11. Explain how Airbnb’s data management strategy, particularly the development of the Dataportal, contributed to its rapid growth.
 
-Answer:
+**Answer**:
 
 Airbnb’s development of the Dataportal—a centralized data repository—was pivotal to its rapid growth by democratizing data access across the organization; it enabled employees of all technical levels to make data-driven decisions without heavy reliance on data specialists, leading to improved efficiency, enhanced collaboration between departments, accelerated innovation through rapid testing and iteration, and scalability in handling increasing data volumes, all of which optimized decision-making and operations and significantly contributed to Airbnb’s swift expansion in a competitive market.
 
@@ -170,7 +185,7 @@ Airbnb’s development of the Dataportal—a centralized data repository—was p
 
 12. Describe the Extract, Transform, Load (ETL) process and explain its importance in populating data warehouses.
 
-Answer:
+**Answer**:
 
 The Extract, Transform, Load (ETL) process involves extracting data from various sources like databases or data files; transforming the data by cleaning and converting it to ensure consistency and reliability; and loading it into a data warehouse for efficient analysis; this process is crucial for populating data warehouses because it consolidates data from multiple sources into a unified view, enhances data quality through cleansing and standardization, increases efficiency by reducing errors, ensures timeliness by keeping data warehouses updated for real-time analytics, and offers scalability to handle growing data volumes, ultimately enabling accurate reporting and strategic decision-making.
 
@@ -178,7 +193,7 @@ The Extract, Transform, Load (ETL) process involves extracting data from various
 
 13. Explain how Hadoop enables the processing of large data sets and discuss the roles of HDFS and MapReduce in this framework.
 
-Answer:
+**Answer**:
 
 Hadoop enables the processing of large data sets by distributing storage and computation across clusters of computers; the Hadoop Distributed File System (HDFS) splits large files into blocks and distributes them across servers, offering scalability by adding more servers and providing fault tolerance through data replication, while MapReduce enables parallel data processing across the cluster by processing input into key-value pairs (filtering and sorting data) in the Map phase and aggregating results in the Reduce phase, enhancing computation speed and handling task failures; together, HDFS and MapReduce allow Hadoop to manage vast amounts of data through distributed storage and processing, process data where it is stored to improve speed, reduce costs by using commodity hardware, and easily expand capacity by adding servers, providing a scalable and efficient solution for storing and analyzing large data sets to gain valuable insights.
 
