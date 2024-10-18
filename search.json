@@ -3890,5 +3890,138 @@
     "title": "Lecture 18",
     "section": "DANL Career Session",
     "text": "DANL Career Session\nData Analytics-related Certificates on Coursera\n\nGeneral Data Analytics, SQL, and Business Intelligence\n\nGoogle Data Analytics Professional Certificate\nIBM Databases and SQL for Data Science with Python\nTableau Business Intelligence Analyst Professional Certificate\nMicrosoft Power BI Data Analyst Professional Certificate\n\nData Science\n\nIBM Data Science Professional Certificate\n\nGenerative AI\n\nGoogle AI Essentials\nIBM Generative AI: Prompt Engineering Basics"
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-18-2024-1018.html#exploratory-data-analysis",
+    "href": "danl-lec/danl-101-lec-18-2024-1018.html#exploratory-data-analysis",
+    "title": "Lecture 18",
+    "section": "Exploratory Data Analysis",
+    "text": "Exploratory Data Analysis\n\n\n\n\nIn data visualization, you’ll turn data into plots.\nIn data transformation, you’ll learn the key verbs that allow you to select important variables, filter out key observations, create new variables, and compute summaries.\nIn exploratory data analysis, you’ll combine descriptive statistics (skim()), visualization, and transformation with your curiosity and skepticism to ask and answer interesting questions about data."
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-18-2024-1018.html#data-visualization-1",
+    "href": "danl-lec/danl-101-lec-18-2024-1018.html#data-visualization-1",
+    "title": "Lecture 18",
+    "section": "Data visualization",
+    "text": "Data visualization\n\n“The simple graph has brought more information to the data analyst’s mind than any other device.” John Tukey\n\n\nData visualization is the creation and study of the visual representation of data\nMany tools for visualizing data – R is one of them\nMany approaches/systems within R for making data visualizations – ggplot2 is one of them, and that’s what we’re going to use"
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-18-2024-1018.html#grammar-of-graphics",
+    "href": "danl-lec/danl-101-lec-18-2024-1018.html#grammar-of-graphics",
+    "title": "Lecture 18",
+    "section": "Grammar of Graphics",
+    "text": "Grammar of Graphics\n\n\n\n\n\n\nA grammar of graphics is a tool that enables us to concisely describe the components of a graphic."
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-18-2024-1018.html#data-visualization---first-steps",
+    "href": "danl-lec/danl-101-lec-18-2024-1018.html#data-visualization---first-steps",
+    "title": "Lecture 18",
+    "section": "Data Visualization - First Steps",
+    "text": "Data Visualization - First Steps\nlibrary(tidyverse)\nmpg\n?mpg\n\nThe mpg data frame, provided by ggplot2, contains observations collected by the US Environmental Protection Agency on 38 models of car.\nQ. Do cars with big engines use more fuel than cars with small engines?\n\ndispl: a car’s engine size, in liters.\nhwy: a car’s fuel efficiency on the highway, in miles per gallon (mpg).\n\nWhat does the relationship between engine size and fuel efficiency look like?"
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-18-2024-1018.html#data-visualization---first-steps-1",
+    "href": "danl-lec/danl-101-lec-18-2024-1018.html#data-visualization---first-steps-1",
+    "title": "Lecture 18",
+    "section": "Data Visualization - First Steps",
+    "text": "Data Visualization - First Steps\nCreating a ggplot\n\n\nggplot(data = mpg) + \n  geom_point(mapping = \n               aes(x = displ, \n                   y = hwy) )\n\n\n\n\n\n\n\nTo plot mpg, run the above code to put displ on the x-axis and hwy on the y-axis."
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-18-2024-1018.html#data-visualization---first-steps-2",
+    "href": "danl-lec/danl-101-lec-18-2024-1018.html#data-visualization---first-steps-2",
+    "title": "Lecture 18",
+    "section": "Data Visualization - First Steps",
+    "text": "Data Visualization - First Steps\nGraphing Template\nggplot( data = DATA.FRAME ) + \n  GEOM_FUNCTION( mapping = \n                     aes( MAPPINGS ) )\n\nTo make a ggplot plot, replace the capitalized components in the code above with a data.frame, a geom function, or a collection of mappings such as x = variable_1 and y = variable_2."
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings",
+    "href": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings",
+    "title": "Lecture 18",
+    "section": "Aesthetic Mappings",
+    "text": "Aesthetic Mappings"
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-1",
+    "href": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-1",
+    "title": "Lecture 18",
+    "section": "Aesthetic Mappings",
+    "text": "Aesthetic Mappings\n\n\n\n\nIn the plot above, one group of points (highlighted in red) seems to fall outside of the linear trend.\n\nHow can you explain these cars? Are those hybrids?"
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-2",
+    "href": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-2",
+    "title": "Lecture 18",
+    "section": "Aesthetic Mappings",
+    "text": "Aesthetic Mappings\n\n\n\n\nAn aesthetic is a visual property (e.g., size, shape, color) of the objects (e.g., class) in your plot.\nYou can display a point in different ways by changing the values of its aesthetic properties."
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-3",
+    "href": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-3",
+    "title": "Lecture 18",
+    "section": "Aesthetic Mappings",
+    "text": "Aesthetic Mappings\nAdding a color to the plot\n\n\nggplot(data = mpg) + \n  geom_point(mapping = \n               aes(x = displ, \n                   y = hwy, \n                   color = class) )"
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-4",
+    "href": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-4",
+    "title": "Lecture 18",
+    "section": "Aesthetic Mappings",
+    "text": "Aesthetic Mappings\nAdding a shape to the plot\n\n\nggplot(data = mpg) + \n  geom_point(mapping = \n               aes(x = displ, \n                   y = hwy, \n                   shape = class) )"
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-5",
+    "href": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-5",
+    "title": "Lecture 18",
+    "section": "Aesthetic Mappings",
+    "text": "Aesthetic Mappings\nAdding a size to the plot\n\n\nggplot(data = mpg) + \n  geom_point(mapping = \n               aes(x = displ, \n                   y = hwy, \n                   size = class) )"
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-6",
+    "href": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-6",
+    "title": "Lecture 18",
+    "section": "Aesthetic Mappings",
+    "text": "Aesthetic Mappings\nAdding an alpha (transparency) to the plot\n\n\nggplot(data = mpg) + \n  geom_point(mapping = \n               aes(x = displ, \n                   y = hwy, \n                   alpha = class) )"
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-7",
+    "href": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-7",
+    "title": "Lecture 18",
+    "section": "Aesthetic Mappings",
+    "text": "Aesthetic Mappings\nOverplotting problem\n\nMany points overlap each other.\n\nThis problem is known as overplotting.\n\nWhen points overlap, it’s hard to know how many data points are at a particular location.\nOverplotting can obscure patterns and outliers, leading to potentially misleading conclusions.\nWe can set a transparency level (alpha) between 0 (full transparency) and 1 (no transparency)."
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-8",
+    "href": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-8",
+    "title": "Lecture 18",
+    "section": "Aesthetic Mappings",
+    "text": "Aesthetic Mappings\nOverplotting and alpha\n\n\nggplot(data = mpg) + \n  geom_point(mapping = \n               aes(x = displ, \n                   y = hwy),\n             alpha = .2)"
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-9",
+    "href": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-9",
+    "title": "Lecture 18",
+    "section": "Aesthetic Mappings",
+    "text": "Aesthetic Mappings\nSpecifying a color to the plot\n\n\nggplot(data = mpg) + \n  geom_point(mapping = \n               aes(x = displ, \n                   y = hwy), \n             color = \"blue\")"
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-10",
+    "href": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-10",
+    "title": "Lecture 18",
+    "section": "Aesthetic Mappings",
+    "text": "Aesthetic Mappings\n\n\n\n\nTo set an aesthetic manually, set the aesthetic by name as an argument of your geom_ function; i.e. it goes outside of aes().\n\nYou’ll need to pick a level that makes sense for that aesthetic:\n\nThe name of a color as a character string.\nThe size of a point in mm.\nThe shape of a point as a number, as shown below."
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-11",
+    "href": "danl-lec/danl-101-lec-18-2024-1018.html#aesthetic-mappings-11",
+    "title": "Lecture 18",
+    "section": "Aesthetic Mappings",
+    "text": "Aesthetic Mappings\nSpecifying a color to the plot?\n\n\nggplot(data = mpg) + \n  geom_point( mapping = \n                aes(x = displ, \n                    y = hwy, \n                    color = \"blue\") )"
+  },
+  {
+    "objectID": "danl-lec/danl-101-lec-18-2024-1018.html#common-problems-in-ggplot",
+    "href": "danl-lec/danl-101-lec-18-2024-1018.html#common-problems-in-ggplot",
+    "title": "Lecture 18",
+    "section": "Common problems in ggplot()",
+    "text": "Common problems in ggplot()\nggplot(data = mpg) \n + geom_point( mapping = \n                 aes(x = displ, \n                     y = hwy) )\n\nOne common problem when creating ggplot2 graphics is to put the + in the wrong place.\n\nCorrect Approach: Always place the + at the end of the previous line, not at the beginning of the next line."
   }
 ]

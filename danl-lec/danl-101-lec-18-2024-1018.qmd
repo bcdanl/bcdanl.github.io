@@ -5,7 +5,7 @@ format:
   clean-revealjs:
     self-contained: false
     chalkboard: true
-    incremental: false
+    incremental: true
     code-annotations: hover
     scrollable: false
 
@@ -25,6 +25,35 @@ include-after-body: target-hover.html # effect.html
 
 # bibliography: refs.bib
 ---
+
+```{r}
+#| include: false
+
+library(tidyverse)
+library(skimr)
+library(ggthemes)
+library(hrbrthemes)
+
+
+theme_set(theme_fivethirtyeight() +
+            theme(strip.background =element_rect(fill="lightgray"),
+                axis.title.x = 
+                  element_text(angle = 0,
+                               size = rel(1.75),
+                               margin = margin(10,0,0,0)),
+                axis.title.y = 
+                  element_text(angle = 0,
+                               size = rel(1.75),
+                               margin = margin(0,10,0,0)),
+                axis.text.x = element_text(size = rel(1.75)),
+                axis.text.y = element_text(size = rel(1.75)),
+                strip.text = element_text(size = rel(1.5)),
+                legend.position = "top",
+                legend.text = element_text(size = rel(1.5)),
+                legend.title = element_text(size = rel(1.5))
+                )
+          )
+```
 
 
 
@@ -289,4 +318,274 @@ include-after-body: target-hover.html # effect.html
 
 
 # Data Visualization {background-color="#1c4982"}
+
+## Exploratory Data Analysis
+
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/data-science-explore.png">
+</p>
+
+- In data visualization, you'll turn data into plots.
+
+- In data transformation, you'll learn the key verbs that allow you to select important variables, filter out key observations, create new variables, and compute summaries.
+
+- In **exploratory data analysis**, you'll combine descriptive statistics (`skim()`), visualization, and transformation with your curiosity and skepticism to ask and answer interesting questions about data.
+
+
+
+
+
+## Data visualization
+
+> *"The simple graph has brought more information to the data analyst's mind than any other device."  John Tukey*
+
+- Data visualization is the creation and study of the visual representation of data
+
+- Many tools for visualizing data -- R is one of them
+
+- Many approaches/systems within R for making data visualizations -- **ggplot2** is one of them, and that's what we're going to use
+
+
+
+## Grammar of Graphics
+
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/grammar-of-graphics.png" style="width: 75%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
+
+- A **grammar of graphics** is a tool that enables us to concisely describe the components of a graphic.
+  
+## Data Visualization - First Steps
+
+```{.r}
+library(tidyverse)
+mpg
+?mpg
+```
+
+- The `mpg` data frame, provided by `ggplot2`, contains observations collected by the US Environmental Protection Agency on 38 models of car.
+
+- Q. Do cars with big engines use more fuel than cars with small engines?
+  - `displ`: a car's engine size, in liters.
+  - `hwy`: a car's fuel efficiency on the highway, in miles per gallon (mpg). 
+
+
+-  What does the relationship between engine size and fuel efficiency look like?
+
+
+## Data Visualization - First Steps
+### Creating a `ggplot`
+
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+
+ggplot(data = mpg) + 
+  geom_point(mapping = 
+               aes(x = displ, 
+                   y = hwy) )
+```
+
+
+- To plot `mpg`, run the above code to put `displ` on the `x`-axis and `hwy` on the `y`-axis.
+
+
+## Data Visualization - First Steps
+### Graphing Template
+
+```{.r}
+ggplot( data = DATA.FRAME ) + 
+  GEOM_FUNCTION( mapping = 
+                     aes( MAPPINGS ) )
+```
+
+
+- To make a ggplot plot, replace the capitalized components in the code above with a `data.frame`, a `geom` function, or a collection of mappings such as `x = variable_1` and `y = variable_2`.
+
+
+
+# Aesthetic Mappings {background-color="#1c4982"}
+
+
+## Aesthetic Mappings
+
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/r4s_330_1.png" width="600px">
+</p>
+
+
+
+- In the plot above, one group of points (highlighted in red) seems to fall outside of the linear trend. 
+
+  - How can you explain these cars? Are those hybrids?
+
+
+
+## Aesthetic Mappings
+
+
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/r4s_330_2.png" width="600px">
+</p>
+
+- An aesthetic is a visual property (e.g., `size`, `shape`, `color`) of the objects (e.g., `class`) in your plot.
+
+- You can display a point in different ways by changing the values of its aesthetic properties. 
+
+## Aesthetic Mappings
+### Adding a `color` to the plot
+
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+
+ggplot(data = mpg) + 
+  geom_point(mapping = 
+               aes(x = displ, 
+                   y = hwy, 
+                   color = class) )
+```
+
+
+## Aesthetic Mappings
+### Adding a `shape` to the plot
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+
+
+ggplot(data = mpg) + 
+  geom_point(mapping = 
+               aes(x = displ, 
+                   y = hwy, 
+                   shape = class) )
+```
+
+
+
+
+## Aesthetic Mappings
+### Adding a `size` to the plot
+
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+
+ggplot(data = mpg) + 
+  geom_point(mapping = 
+               aes(x = displ, 
+                   y = hwy, 
+                   size = class) )
+```
+
+
+
+
+## Aesthetic Mappings
+### Adding an `alpha` (transparency) to the plot
+
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+
+ggplot(data = mpg) + 
+  geom_point(mapping = 
+               aes(x = displ, 
+                   y = hwy, 
+                   alpha = class) )
+```
+
+
+
+## Aesthetic Mappings
+### Overplotting problem
+
+- Many points overlap each other. 
+  - This problem is known as **overplotting**. 
+
+
+- When points overlap, it's hard to know how many data points are at a particular location. 
+
+
+- Overplotting can obscure patterns and outliers, leading to potentially misleading conclusions. 
+
+- We can set a transparency level (`alpha`) between 0 (full transparency) and 1 (no transparency).
+
+
+## Aesthetic Mappings
+### Overplotting and `alpha`
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+
+
+ggplot(data = mpg) + 
+  geom_point(mapping = 
+               aes(x = displ, 
+                   y = hwy),
+             alpha = .2)
+```
+
+
+
+
+## Aesthetic Mappings
+### Specifying a `color` to the plot
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+ggplot(data = mpg) + 
+  geom_point(mapping = 
+               aes(x = displ, 
+                   y = hwy), 
+             color = "blue")
+```
+
+
+
+
+## Aesthetic Mappings
+
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/r4s_330_3.png" width="600px">
+</p>
+
+
+- To set an aesthetic manually, set the aesthetic by name as an argument of your `geom_` function; i.e. it goes outside of `aes()`. 
+  - You'll need to pick a level that makes sense for that aesthetic:
+    - The name of a `color` as a *character string*.
+    - The `size` of a point in *mm*.
+    - The `shape` of a point as a *number*, as shown below.
+  
+
+
+
+## Common problems in `ggplot()`
+
+
+```{.r}
+ggplot(data = mpg) 
+ + geom_point( mapping = 
+                 aes(x = displ, 
+                     y = hwy) )
+```
+
+- One common problem when creating `ggplot2` graphics is to put the `+` in the wrong place.
+  - **Correct Approach**: Always place the `+` at the end of the previous line, not at the beginning of the next line.
+
 
