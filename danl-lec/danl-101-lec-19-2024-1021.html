@@ -425,28 +425,53 @@ Byeong-Hak Choe
 </p>
 </div>
 <ul>
-<li class="fragment"><strong>Data Visualization</strong>: Convert raw data into meaningful plots for better understanding.</li>
-<li class="fragment"><strong>Data Transformation</strong>: Use key functions to select variables, filter observations, create new variables, and compute summaries.</li>
-<li class="fragment"><strong>Exploratory Data Analysis (EDA)</strong>: Combine descriptive statistics (<code>skim()</code>), visualization, and transformation with curiosity and skepticism to explore and discover insights. <!-- - **Data Storytelling**: Bridge the gap between data and insights by narrating and visualizing findings to help drive data-informed decisions. --></li>
+<li class="fragment"><p><strong>Data Visualization</strong>: Convert raw data into meaningful plots for better understanding.</p></li>
+<li class="fragment"><p><strong>Data Transformation</strong>: Use key functions to filter observations, select variables, create new variables, and compute summaries.</p></li>
+<li class="fragment"><p><strong>Exploratory Data Analysis (EDA)</strong>: Combine <strong>descriptive statistics</strong> (<code>skim()</code>), <strong>visualization</strong>, and <strong>transformation</strong> with curiosity and skepticism to explore and discover insights.</p></li>
 </ul>
-<!-- ## Why story telling with data matters?  -->
-<!-- - Data visualization is transforming complex data into information which is easier to understand.  -->
-<!-- - Data visualizations are created to answer "what" questions, but they don't explain the "why," or provide other contextual information to find the reason. -->
-<!-- - Data storytelling links the visualization with a narrative to answer the "why" question, and conveys credible and compelling insights that is actionable by the decision makers.  -->
-<!-- - Data storytelling connects the visualization and narration/insights to the audience to make data-driven decision. -->
-<!-- > "The narrative is the key vehicle to convey insights, and the visualizations are important proof points to back up the narrative." - Ryan Fuller, general manager at Microsoft and former CEO. -->
+</section>
+<section id="data-storytelling" class="slide level2">
+<h2>Data Storytelling</h2>
+<div style="text-align: center; width: 100%; margin: auto;">
+<img src="https://bcdanl.github.io/lec_figs/data-storytelling.png" style="width: 50%; margin-bottom: -20px;">
+<p style="font-weight: bold;">
+</p>
+</div>
+<ul>
+<li class="fragment"><strong>Data Storytelling</strong>: Bridge the gap between data and insights by narrating and visualizing findings to help drive data-informed decisions.</li>
+</ul>
+</section>
+<section id="data-storytelling-1" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="why-storytelling-with-data-matters">Why storytelling with data matters?</h3>
+<blockquote>
+<p>“The narrative is the key vehicle to convey insights, and the visualizations are important proof points to back up the narrative.” Ryan Fuller, Corporate Vice President, M365 Data Strategy at Microsoft</p>
+</blockquote>
+<ul>
+<li class="fragment"><strong>Data visualizations</strong> are useful for showing “what” is happening in the data.
+<ul>
+<li class="fragment">However, they often fall short in explaining the “why” or providing the necessary context to uncover underlying reasons.</li>
+</ul></li>
+<li class="fragment"><strong>Data storytelling</strong> links the visualization with a narrative to answer the “why” question, and conveys insights to the audience to make data-driven decision.</li>
+</ul>
 </section>
 <section id="data-visualization-1" class="slide level2">
 <h2>Data visualization</h2>
 <h3 id="tools">Tools</h3>
-<blockquote>
-<p><em>“The simple graph has brought more information to the data analyst’s mind than any other device.” John Tukey</em></p>
-</blockquote>
-<!-- - Data visualization is the creation and study of the visual representation of data -->
 <ul>
-<li class="fragment"><p>Many tools for visualizing data – R is one of them</p></li>
-<li class="fragment"><p>Many approaches/systems within R for making data visualizations – <strong>ggplot2</strong> is one of them, and that’s what we’re going to use</p></li>
+<li class="fragment"><p>Many tools for visualizing data – <strong>Power BI</strong>, <strong>Tableau</strong>, <strong>Python</strong>, <strong>R</strong>, and more</p></li>
+<li class="fragment"><p><strong>Power BI</strong> and <strong>Tableau</strong> have <strong>drag-and-drop interfaces</strong>, making them accessible to users with little to no coding experience.</p></li>
+<li class="fragment"><p>In <strong>R</strong>, there are multiple packages for creating data visualizations—<strong>ggplot2</strong> is the most widely used, and it’s the tool we will focus on in this course.</p>
+<ul>
+<li class="fragment">While we will briefly use <strong>Power BI</strong>, the primary visualization tool for this course will be <strong>ggplot2</strong> in R.</li>
+</ul></li>
+<li class="fragment"><p>Using <strong>ggplot2</strong> helps develop important coding and data skills, which are critical for more advanced data analytics work.</p></li>
 </ul>
+<!-- > *"The simple graph has brought more information to the data analyst's mind than any other device."  John Tukey* -->
+<!-- - Data visualization is the creation and study of the visual representation of data -->
+
+<!-- - If you are interested in Power BI or Tableau, you can check out courses in Coursera, LinkedIn Learning, and/or YouTube. -->
+<!--   - They have **drag-and-drop interfaces**, making them accessible to users with little to no coding experience. -->
 </section>
 <section id="grammar-of-graphics" class="slide level2">
 <h2>Grammar of Graphics</h2>
@@ -505,8 +530,8 @@ Byeong-Hak Choe
 <li class="fragment"><p><strong>Three Essential Components</strong>:</p>
 <ol type="1">
 <li class="fragment"><code>data</code>: The data.frame containing the variables of interest.</li>
-<li class="fragment"><code>geom</code>: The geometric object in the plot (e.g., points, lines, bars).</li>
-<li class="fragment"><code>aes</code>: Aesthetic attributes of the geometric object (e.g., x-axis, y-axis, color, shape, size) mapped to variables in the data.frame.</li>
+<li class="fragment"><code>geom_*()</code>: The geometric object in the plot (e.g., points, lines, bars).</li>
+<li class="fragment"><code>aes()</code>: Aesthetic attributes of the geometric object (e.g., x-axis, y-axis, color, shape, size) mapped to variables in the data.frame.</li>
 </ol></li>
 </ul>
 </section></section>
@@ -655,7 +680,7 @@ Byeong-Hak Choe
 <section id="aesthetic-mappings-10" class="slide level2">
 <h2>Aesthetic Mappings</h2>
 <div style="text-align: center; width: 100%; margin: auto;">
-<img src="https://bcdanl.github.io/lec_figs/r4s_330_3.png" style="width: 75%; margin-bottom: -20px;">
+<img src="https://bcdanl.github.io/lec_figs/r4s_330_3.jpg" style="width: 50%; margin-bottom: -20px;">
 <p style="font-weight: bold;">
 </p>
 </div>

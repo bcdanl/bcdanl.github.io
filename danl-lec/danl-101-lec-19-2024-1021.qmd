@@ -67,34 +67,64 @@ theme_set(theme_fivethirtyeight() +
 </div>
 
 - **Data Visualization**: Convert raw data into meaningful plots for better understanding.
-- **Data Transformation**: Use key functions to select variables, filter observations, create new variables, and compute summaries.
-- **Exploratory Data Analysis (EDA)**: Combine descriptive statistics (`skim()`), visualization, and transformation with curiosity and skepticism to explore and discover insights.
-<!-- - **Data Storytelling**: Bridge the gap between data and insights by narrating and visualizing findings to help drive data-informed decisions. -->
 
-<!-- ## Why story telling with data matters?  -->
+- **Data Transformation**: Use key functions to filter observations, select variables, create new variables, and compute summaries.
 
-<!-- - Data visualization is transforming complex data into information which is easier to understand.  -->
+- **Exploratory Data Analysis (EDA)**: Combine **descriptive statistics** (`skim()`), **visualization**, and **transformation** with curiosity and skepticism to explore and discover insights.
 
-<!-- - Data visualizations are created to answer "what" questions, but they don't explain the "why," or provide other contextual information to find the reason. -->
 
-<!-- - Data storytelling links the visualization with a narrative to answer the "why" question, and conveys credible and compelling insights that is actionable by the decision makers.  -->
+## Data Storytelling
 
-<!-- - Data storytelling connects the visualization and narration/insights to the audience to make data-driven decision. -->
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/data-storytelling.png" style="width: 50%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
 
-<!-- > "The narrative is the key vehicle to convey insights, and the visualizations are important proof points to back up the narrative." - Ryan Fuller, general manager at Microsoft and former CEO. -->
+- **Data Storytelling**: Bridge the gap between data and insights by narrating and visualizing findings to help drive data-informed decisions.
 
+
+## Data Storytelling
+### Why storytelling with data matters?
+
+> "The narrative is the key vehicle to convey insights, and the visualizations are important proof points to back up the narrative." Ryan Fuller, Corporate Vice President, M365 Data Strategy at Microsoft
+
+- **Data visualizations** are useful for showing "what" is happening in the data.
+  - However, they often fall short in explaining the "why" or providing the necessary context to uncover underlying reasons.
+
+- **Data storytelling** links the visualization with a narrative to answer the "why" question, and conveys insights to the audience to make data-driven decision.
+
+
+## Data Storytelling.
+
+Data is the **what**. Stories are the **why** and **how**.
 
 
 ## Data visualization
 ### Tools
 
-> *"The simple graph has brought more information to the data analyst's mind than any other device."  John Tukey*
+- Many tools for visualizing data -- **Power BI**, **Tableau**, **Python**, **R**, and more
+
+- **Power BI** and **Tableau** have **drag-and-drop interfaces**, making them accessible to users with little to no coding experience.
+
+- In **R**, there are multiple packages for creating data visualizations—**ggplot2** is the most widely used, and it’s the tool we will focus on in this course.
+  - While we will briefly use **Power BI**, the primary visualization tool for this course will be **ggplot2** in R.
+  
+- Using **ggplot2** helps develop important coding and data skills, which are critical for more advanced data analytics work.
+
+
+<!-- > *"The simple graph has brought more information to the data analyst's mind than any other device."  John Tukey* -->
 
 <!-- - Data visualization is the creation and study of the visual representation of data -->
 
-- Many tools for visualizing data -- R is one of them
 
-- Many approaches/systems within R for making data visualizations -- **ggplot2** is one of them, and that's what we're going to use
+<!-- - If you are interested in Power BI or Tableau, you can check out courses in Coursera, LinkedIn Learning, and/or YouTube. -->
+<!--   - They have **drag-and-drop interfaces**, making them accessible to users with little to no coding experience. -->
+
+
+
+##
+
+
 
 
 
@@ -162,8 +192,8 @@ ggplot( data = DATA.FRAME ) +
 
 - **Three Essential Components**:
   1. `data`: The data.frame containing the variables of interest.
-  2. `geom`: The geometric object in the plot (e.g., points, lines, bars).
-  3. `aes`: Aesthetic attributes of the geometric object (e.g., x-axis, y-axis, color, shape, size) mapped to variables in the data.frame.
+  2. `geom_*()`: The geometric object in the plot (e.g., points, lines, bars).
+  3. `aes()`: Aesthetic attributes of the geometric object (e.g., x-axis, y-axis, color, shape, size) mapped to variables in the data.frame.
 
 
 # Aesthetic Mappings {background-color="#1c4982"}
@@ -319,7 +349,7 @@ ggplot(data = mpg) +
 ## Aesthetic Mappings
 
 <div style="text-align: center; width: 100%; margin: auto;">
-  <img src="https://bcdanl.github.io/lec_figs/r4s_330_3.png" style="width: 75%; margin-bottom: -20px;">
+  <img src="https://bcdanl.github.io/lec_figs/r4s_330_3.jpg" style="width: 50%; margin-bottom: -20px;">
   <p style="font-weight: bold;"></p>
 </div>
 
