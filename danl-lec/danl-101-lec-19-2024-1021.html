@@ -30,71 +30,6 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -413,55 +348,359 @@ Byeong-Hak Choe
   <p class="date">October 21, 2024</p>
 </section>
 <section>
-<section id="data-visualization" class="title-slide slide level1 center" data-background-color="#1c4982">
-<h1>Data Visualization</h1>
+<section id="data-storytelling" class="title-slide slide level1 center" data-background-color="#1c4982">
+<h1>Data Storytelling</h1>
 
-</section>
-<section id="exploratory-data-analysis-eda" class="slide level2">
-<h2>Exploratory Data Analysis (EDA)</h2>
-<div style="text-align: center; width: 100%; margin: auto;">
-<img src="https://bcdanl.github.io/lec_figs/r4ds-fig-communicate.png" style="width: 75%; margin-bottom: -20px;">
-<p style="font-weight: bold;">
-</p>
-</div>
-<ul>
-<li class="fragment"><p><strong>Data Visualization</strong>: Convert raw data into meaningful plots for better understanding.</p></li>
-<li class="fragment"><p><strong>Data Transformation</strong>: Use key functions to filter observations, select variables, create new variables, and compute summaries.</p></li>
-<li class="fragment"><p><strong>Exploratory Data Analysis (EDA)</strong>: Combine <strong>descriptive statistics</strong> (<code>skim()</code>), <strong>visualization</strong>, and <strong>transformation</strong> with curiosity and skepticism to explore and discover insights.</p></li>
-</ul>
-</section>
-<section id="data-storytelling" class="slide level2">
-<h2>Data Storytelling</h2>
-<div style="text-align: center; width: 100%; margin: auto;">
-<img src="https://bcdanl.github.io/lec_figs/data-storytelling.png" style="width: 50%; margin-bottom: -20px;">
-<p style="font-weight: bold;">
-</p>
-</div>
-<ul>
-<li class="fragment"><strong>Data Storytelling</strong>: Bridge the gap between <strong>data</strong> and <strong>insights</strong> by <strong>narrating</strong> and <strong>visualizing</strong> findings within the appropriate <strong>context</strong> to help drive data-informed decisions.</li>
-</ul>
 </section>
 <section id="data-storytelling-1" class="slide level2">
 <h2>Data Storytelling</h2>
-<h3 id="why-storytelling-with-data-matters">Why storytelling with data matters?</h3>
-<blockquote>
-<p>“The narrative is the key vehicle to convey insights, and the visualizations are important proof points to back up the narrative.” Ryan Fuller, Corporate Vice President, M365 Data Strategy at Microsoft</p>
-</blockquote>
+<!-- <div style="text-align: center; width: 100%; margin: auto;"> -->
+<!--   <img src="https://bcdanl.github.io/lec_figs/data-storytelling.png" style="width: 46%; margin-bottom: -20px;"> -->
+<!--   <p style="font-weight: bold;"></p> -->
+<!-- </div> -->
+<!-- - **Data Visualization**: Convert data into meaningful graphics for better understanding of data. -->
+<!-- - **Data Transformation**: Use key functions to filter observations, select variables, create new variables, and compute summaries. -->
+<!-- - **Exploratory Data Analysis (EDA)**: Combine **descriptive statistics** (`skim()`), **visualization**, and **transformation** with curiosity and skepticism to explore and discover insights. -->
 <ul>
-<li class="fragment"><strong>Data visualizations</strong> are useful for showing “what” is happening in the data.
+<li class="fragment"><p><em>“The narrative is the key vehicle to convey insights, and the visualizations are important proof points to back up the narrative.”</em> Ryan Fuller, Corporate Vice President, M365 Data Strategy at Microsoft</p></li>
+<li class="fragment"><p><strong>Data visualizations</strong> are useful for showing “what” is happening in the data.</p>
 <ul>
-<li class="fragment">However, they often fall short in explaining the “why” or providing the necessary context to uncover underlying reasons.</li>
+<li class="fragment">However, they often fall short in explaining the “why” and the “how” or providing the necessary context to uncover underlying reasons.</li>
 </ul></li>
-<li class="fragment"><strong>Data storytelling</strong> links the visualization with a narrative to answer the “why” and the “how” question, and conveys insights to the audience to make data-driven decision.</li>
+<li class="fragment"><p><strong>Data storytelling</strong> links the <strong>visualization</strong> with a <strong>narrative</strong> to answer the “why” and the “how” question, and conveys <strong>insights</strong> to the audience to make data-driven decision.</p></li>
+<li class="fragment"><p><strong>Data Storytelling</strong>: Bridge the gap between <strong>data</strong> and <strong>insights</strong> by incorporating <strong>descriptive statistics</strong>, <strong>visualization</strong>, and <strong>narration</strong> of findings within the appropriate <strong>context</strong> to help drive data-informed decisions.</p></li>
 </ul>
 </section>
-<section id="data-storytelling." class="slide level2">
-<h2>Data Storytelling.</h2>
-<p>Data is the <strong>what</strong>. Stories are the <strong>why</strong> and <strong>how</strong>.</p>
+<section id="data-storytelling-2" class="slide level2">
+<h2>Data Storytelling</h2>
+<div style="text-align: center; width: 100%; margin: auto;">
+<img src="https://bcdanl.github.io/lec_figs/data-storytelling.png" style="width: 60%; margin-bottom: -20px;">
+<p style="font-weight: bold;">
+</p>
+</div>
 </section>
-<section id="data-visualization-1" class="slide level2">
-<h2>Data visualization</h2>
-<h3 id="tools">Tools</h3>
+<section id="data-storytelling-3" class="slide level2">
+<h2>Data Storytelling</h2>
+<div style="text-align: center; width: 100%; margin: auto;">
+<img src="https://bcdanl.github.io/lec_figs/data-storytelling-context.png" style="width: 60%; margin-bottom: -20px;">
+<p style="font-weight: bold;">
+</p>
+</div>
+</section>
+<section id="data-storytelling-4" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="context---who-what-and-how">Context - Who, What, and How</h3>
+<ul>
+<li class="fragment">Before creating a data visualization or communication, it’s essential to spend time understanding the <strong>context</strong> behind your message.</li>
+</ul>
+<ol type="1">
+<li class="fragment"><strong>Who</strong> is your audience?</li>
+<li class="fragment"><strong>What</strong> do you want your audience to understand or act upon?</li>
+<li class="fragment"><strong>How</strong> will you present the data to effectively support your point?</li>
+</ol>
+</section>
+<section id="data-storytelling-5" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="context---who">Context - Who</h3>
+<ol type="1">
+<li class="fragment">To <strong>whom</strong> are you communicating?</li>
+</ol>
+<ul>
+<li class="fragment">It is important to have a good understanding of who your audience is and how they perceive you.</li>
+<li class="fragment">The more specific you can be about who your audience is, the better position you will be in for successful communication.</li>
+</ul>
+</section>
+<section id="data-storytelling-6" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="context---what">Context - What</h3>
+<ol start="2" type="1">
+<li class="fragment"><strong>What</strong> do you need your audience to know or do?</li>
+</ol>
+<ul>
+<li class="fragment">You should think through how to make what you communicate relevant for your audience and form a clear understanding of why they should care about what you say.</li>
+<li class="fragment">Take a more confident stance. If you are the one analyzing and communicating the data, you likely know it best—you are a subject matter expert.</li>
+</ul>
+</section>
+<section id="data-storytelling-7" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="context---how">Context - How</h3>
+<ol start="3" type="1">
+<li class="fragment"><strong>How</strong> would you present your data to help make your point?</li>
+</ol>
+<ul>
+<li class="fragment">What data transformation/visualization will help make my point?</li>
+<li class="fragment">Data becomes supporting evidence of the story you will build and tell.</li>
+</ul>
+</section>
+<section id="data-storytelling-8" class="slide level2">
+<h2>Data Storytelling</h2>
+<div style="text-align: center; width: 100%; margin: auto;">
+<img src="https://bcdanl.github.io/lec_figs/data-storytelling-data.png" style="width: 60%; margin-bottom: -20px;">
+<p style="font-weight: bold;">
+</p>
+</div>
+</section>
+<section id="data-storytelling-9" class="slide level2">
+<h2>Data Storytelling</h2>
+</section>
+<section id="understanding-your-data" class="slide level2">
+<h2>Understanding your data</h2>
+<ul>
+<li class="fragment">Prior to doing any storytelling or analysis, it is critical to understand your data and its limitations
+<ul>
+<li class="fragment">How was the information collected?</li>
+<li class="fragment">What is the source of the data?</li>
+<li class="fragment">What is missing <em>variable</em> from the data?</li>
+<li class="fragment">What is missing <em>observation</em> from the data?</li>
+<li class="fragment">What is missing <em>value</em> (<code>NA</code>) from the data?</li>
+</ul></li>
+</ul>
+<!-- ## Data Storytelling. -->
+<!-- Data is the **what**. Stories are the **why** and **how**. -->
+</section>
+<section id="data-storytelling-10" class="slide level2">
+<h2>Data Storytelling</h2>
+<div style="text-align: center; width: 100%; margin: auto;">
+<img src="https://bcdanl.github.io/lec_figs/data-storytelling-narrative.png" style="width: 60%; margin-bottom: -20px;">
+<p style="font-weight: bold;">
+</p>
+</div>
+</section>
+<section id="the-foundations-of-a-narrative" class="slide level2">
+<h2>The Foundations of a Narrative</h2>
+<h3 id="the-3-minute-story-big-idea">The 3-Minute Story &amp; Big Idea</h3>
+<ul>
+<li class="fragment">Purpose: Boil the “so-what” down to a concise statement</li>
+<li class="fragment">Challenges: Being concise is often more difficult than being verbose</li>
+<li class="fragment">Blaise Pascal: “I would have written a shorter letter, but I did not have the time.”</li>
+</ul>
+</section>
+<section id="the-foundations-of-a-narrative-1" class="slide level2">
+<h2>The Foundations of a Narrative</h2>
+<h3 id="minute-story">3-Minute Story</h3>
+<ul>
+<li class="fragment">If you had only 3 minutes, what would you say?</li>
+<li class="fragment">Goal: Be clear and articulate the key message</li>
+<li class="fragment">Useful in:
+<ul>
+<li class="fragment">Quick updates (e.g., elevator pitches)</li>
+<li class="fragment">Shortened time slots (e.g., 5-minute briefings)</li>
+</ul></li>
+<li class="fragment">Know exactly what to communicate and adjust to the time</li>
+</ul>
+</section>
+<section id="the-foundations-of-a-narrative-2" class="slide level2">
+<h2>The Foundations of a Narrative</h2>
+<h3 id="big-idea">Big Idea</h3>
+<ul>
+<li class="fragment">Concept discussed by Nancy Duarte in <em>Resonate</em></li>
+<li class="fragment">Must meet three criteria:
+<ol type="1">
+<li class="fragment">Articulate your unique point of view</li>
+<li class="fragment">Convey what’s at stake</li>
+<li class="fragment">Be a complete sentence</li>
+</ol></li>
+</ul>
+</section>
+<section id="the-foundations-of-a-narrative-3" class="slide level2">
+<h2>The Foundations of a Narrative</h2>
+<h3 id="illustrative-example">Illustrative Example</h3>
+<h4 id="minute-story-1">3-Minute Story</h4>
+<ul>
+<li class="fragment">Science department initiative: Resolve issues with incoming 4th-graders’ negative attitudes toward science</li>
+<li class="fragment">Piloted a summer learning program with 2nd and 3rd-graders</li>
+<li class="fragment">Survey results: Significant improvement in positive perceptions toward science</li>
+</ul>
+<h4 id="big-idea-1">Big Idea</h4>
+<ul>
+<li class="fragment">“The pilot summer learning program was successful at improving students’ perceptions of science, and we recommend continuing and expanding it.”</li>
+</ul>
+</section>
+<section id="the-foundations-of-a-narrative-4" class="slide level2">
+<h2>The Foundations of a Narrative</h2>
+<h3 id="storyboarding">Storyboarding</h3>
+<ul>
+<li class="fragment">Most important planning step for clear communication</li>
+<li class="fragment">Provides a visual outline for content structure</li>
+<li class="fragment">Allows flexibility and adjustment</li>
+<li class="fragment">Seek stakeholder buy-in at this stage</li>
+</ul>
+</section>
+<section id="the-foundations-of-a-narrative-5" class="slide level2">
+<h2>The Foundations of a Narrative</h2>
+<h3 id="best-practices-for-storyboarding">Best Practices for Storyboarding</h3>
+<ul>
+<li class="fragment">Avoid starting with presentation software
+<ul>
+<li class="fragment">Leads to ineffective content generation</li>
+</ul></li>
+<li class="fragment">Use low-tech tools like whiteboards, Post-its, or plain paper
+<ul>
+<li class="fragment">Easier to adjust and eliminate ideas without attachment</li>
+</ul></li>
+<li class="fragment">Explore different narrative flows with ease</li>
+</ul>
+</section>
+<section id="the-foundations-of-a-narrative-6" class="slide level2">
+<h2>The Foundations of a Narrative</h2>
+<h3 id="summary">Summary</h3>
+<ul>
+<li class="fragment">Concise communication is powerful and challenging</li>
+<li class="fragment">Use the 3-minute story and Big Idea frameworks to clarify your message</li>
+<li class="fragment">Storyboarding ensures content is well-structured and adaptable</li>
+</ul>
+</section>
+<section id="data-storytelling-11" class="slide level2">
+<h2>Data Storytelling</h2>
+<div style="text-align: center; width: 100%; margin: auto;">
+<img src="https://bcdanl.github.io/lec_figs/data-storytelling-visual.png" style="width: 60%; margin-bottom: -20px;">
+<p style="font-weight: bold;">
+</p>
+</div>
+</section>
+<section id="data-storytelling-12" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="visualization">Visualization</h3>
+<ul>
+<li class="fragment"><p><strong>Data Visualization</strong>: Convert data into meaningful graphics for better understanding of data.</p></li>
+<li class="fragment"><p>There are many different graphs and other types of visual displays of information.</p></li>
+<li class="fragment"><p>We will visualize:</p>
+<ul>
+<li class="fragment">The <strong>distribution</strong> of a variable</li>
+<li class="fragment">The <strong>relationship</strong> between two variables</li>
+<li class="fragment">The <strong>time trend</strong> of a variable</li>
+</ul></li>
+</ul>
+</section>
+<section id="data-storytelling-13" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="distribution">Distribution</h3>
+<ul>
+<li class="fragment"><strong>Distribution</strong> refers to how the values of a variable are spread out or grouped within a data.frame.
+<ul>
+<li class="fragment">It visualizes what type of <strong>variation</strong> occurs within a variable.</li>
+</ul></li>
+<li class="fragment"><strong>Variation</strong> is the tendency of the values of a variable to change from measurement to measurement.
+<ul>
+<li class="fragment">We can see variation easily in real life; if we measure any numeric variable twice, we will be likely to get two different numbers.</li>
+<li class="fragment">Which values are the most common? Why?</li>
+<li class="fragment">Which values are rare? Why? Does that match your expectations?</li>
+</ul></li>
+</ul>
+</section>
+<section id="data-storytelling-14" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="distribution-1">Distribution</h3>
+<ul>
+<li class="fragment">How you visualize the distribution of a variable depends on the type of variable: <strong>categorical</strong> or <strong>numerical</strong>.</li>
+</ul>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li class="fragment"><strong>Categorical Variables</strong>: Represent categories or groups (e.g., colors, departments, types)
+<ul>
+<li class="fragment">Common visualizations:<br>
+<strong>Bar charts</strong></li>
+<li class="fragment"><u>Example</u>: Distribution of favorite sports among students</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<ul>
+<li class="fragment"><strong>Numerical Variables</strong>: Represent numbers with meaningful values (e.g., age, income, temperature)
+<ul>
+<li class="fragment">Common visualizations: <strong>Histograms</strong>, <strong>Box plots</strong></li>
+<li class="fragment"><u>Example</u>: Distribution of heights in a class</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="data-storytelling-15" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="bar-chart">Bar Chart</h3>
+
+<img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"></section>
+<section id="data-storytelling-16" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="bar-chart-1">Bar Chart</h3>
+
+<img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
+<section id="data-storytelling-17" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="stacked-bar-chart">Stacked Bar Chart</h3>
+
+<img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section>
+<section id="data-storytelling-18" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="stacked-bar-chart-1">100% Stacked Bar Chart</h3>
+
+<img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch"></section>
+<section id="data-storytelling-19" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="clustered-bar-chart">Clustered Bar Chart</h3>
+
+<img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section>
+<section id="data-storytelling-20" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="histogram">Histogram</h3>
+
+<img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<section id="data-storytelling-21" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="histogram-1">Histogram</h3>
+
+<img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
+<section id="data-storytelling-22" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="boxplot">Boxplot</h3>
+
+<img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
+<section id="data-storytelling-23" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="relationship">Relationship</h3>
+<ul>
+<li class="fragment"><p>From the plots with two numeric variables, we want to see <strong>co-variation</strong>, the tendency for the values of two or more variables to vary together in a <strong>related</strong> way.</p></li>
+<li class="fragment"><p>What type of <strong>co-variation</strong> occurs between variables?</p>
+<ul>
+<li class="fragment">Are they positively associated?</li>
+<li class="fragment">Are they negatively associated?</li>
+<li class="fragment">Are there no association between them?</li>
+</ul></li>
+<li class="fragment"><p>Common visualizations:</p>
+<ul>
+<li class="fragment"><strong>Scatterplot</strong></li>
+<li class="fragment"><strong>Fitted curves/line</strong></li>
+</ul></li>
+</ul>
+</section>
+<section id="data-storytelling-24" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="scatterplot">Scatterplot</h3>
+
+<img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
+<section id="data-storytelling-25" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="scatterplot-with-fitted-line">Scatterplot with Fitted Line</h3>
+
+<img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
+<section id="data-storytelling-26" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="scatterplot-with-fitted-line-1">Scatterplot with Fitted Line</h3>
+
+<img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
+<section id="data-storytelling-27" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="scatterplot-with-fitted-line-2">Scatterplot with Fitted Line</h3>
+
+<img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-13-1.png" width="960" class="r-stretch"></section>
+<section id="data-storytelling-28" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="scatterplot-with-fitted-line-3">Scatterplot with Fitted Line</h3>
+
+<img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"></section>
+<section id="data-storytelling-29" class="slide level2">
+<h2>Data Storytelling</h2>
+<h3 id="visualization-tools">Visualization Tools</h3>
 <ul>
 <li class="fragment"><p>Many tools for visualizing data – <strong>Power BI</strong>, <strong>Tableau</strong>, <strong>Python</strong>, <strong>R</strong>, and more</p></li>
 <li class="fragment"><p><strong>Power BI</strong> and <strong>Tableau</strong> have <strong>drag-and-drop interfaces</strong>, making them accessible to users with little to no coding experience.</p></li>
@@ -470,389 +709,6 @@ Byeong-Hak Choe
 <li class="fragment">While we will briefly use <strong>Power BI</strong>, the primary visualization tool for this course will be <strong>ggplot2</strong> in R.</li>
 </ul></li>
 <li class="fragment"><p>Using <strong>ggplot2</strong> helps develop important coding and data skills, which are critical for more advanced data analytics work.</p></li>
-</ul>
-<!-- > *"The simple graph has brought more information to the data analyst's mind than any other device."  John Tukey* -->
-<!-- - Data visualization is the creation and study of the visual representation of data -->
-
-<!-- - If you are interested in Power BI or Tableau, you can check out courses in Coursera, LinkedIn Learning, and/or YouTube. -->
-<!--   - They have **drag-and-drop interfaces**, making them accessible to users with little to no coding experience. -->
-</section>
-<section id="section" class="slide level2">
-<h2></h2>
-</section>
-<section id="grammar-of-graphics" class="slide level2">
-<h2>Grammar of Graphics</h2>
-<div style="text-align: center; width: 100%; margin: auto;">
-<img src="https://bcdanl.github.io/lec_figs/grammar-of-graphics.png" style="width: 75%; margin-bottom: -20px;">
-<p style="font-weight: bold;">
-</p>
-</div>
-<ul>
-<li class="fragment">A <strong>grammar of graphics</strong> is a tool that enables us to concisely describe the components of a graphic.</li>
-</ul>
-</section>
-<section id="data-visualization---first-steps" class="slide level2">
-<h2>Data Visualization - First Steps</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>mpg</span>
-<span id="cb1-3"><a href="#cb1-3"></a>?mpg</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li class="fragment"><p>The <code>mpg</code> data frame, provided by <code>ggplot2</code>, contains observations collected by the US Environmental Protection Agency on 38 models of car.</p></li>
-<li class="fragment"><p>Q. Do cars with big engines use more fuel than cars with small engines?</p>
-<ul>
-<li class="fragment"><code>displ</code>: a car’s engine size, in liters.</li>
-<li class="fragment"><code>hwy</code>: a car’s fuel efficiency on the highway, in miles per gallon (mpg).</li>
-</ul></li>
-<li class="fragment"><p>What does the relationship between engine size and fuel efficiency look like?</p></li>
-</ul>
-</section>
-<section id="data-visualization---first-steps-1" class="slide level2">
-<h2>Data Visualization - First Steps</h2>
-<h3 id="creating-a-ggplot">Creating a <code>ggplot</code></h3>
-<div class="cell columns column-output-location" data-fig.asp="0.85">
-<div class="column">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb2-2"><a href="#cb2-2"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> </span>
-<span id="cb2-3"><a href="#cb2-3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
-<span id="cb2-4"><a href="#cb2-4"></a>                   <span class="at">y =</span> hwy) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column fragment">
-<div class="cell-output-display">
-<p><img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-2-1.png" width="960"></p>
-</div>
-</div>
-</div>
-<ul>
-<li class="fragment">To plot <code>mpg</code>, run the above code to put <code>displ</code> on the <code>x</code>-axis and <code>hwy</code> on the <code>y</code>-axis.</li>
-</ul>
-</section>
-<section id="data-visualization---first-steps-2" class="slide level2">
-<h2>Data Visualization - First Steps</h2>
-<h3 id="components-of-the-grammar-of-graphics">Components of the Grammar of Graphics</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">ggplot</span>( <span class="at">data =</span> DATA.FRAME ) <span class="sc">+</span> </span>
-<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">GEOM_FUNCTION</span>( <span class="at">mapping =</span> </span>
-<span id="cb3-3"><a href="#cb3-3"></a>                     <span class="fu">aes</span>( MAPPINGS ) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<!-- - To make a ggplot plot, replace the capitalized components in the code above with a `data.frame`, a `geom` function, or a collection of mappings such as `x = variable_1` and `y = variable_2`. -->
-<ul>
-<li class="fragment"><p>A statistical graphic is a <code>mapping</code> of <code>data</code> variables to <code>aes</code>thetic attributes of <code>geom</code>etric objects.</p></li>
-<li class="fragment"><p><strong>Three Essential Components</strong>:</p>
-<ol type="1">
-<li class="fragment"><code>data</code>: The data.frame containing the variables of interest.</li>
-<li class="fragment"><code>geom_*()</code>: The geometric object in the plot (e.g., points, lines, bars).</li>
-<li class="fragment"><code>aes()</code>: Aesthetic attributes of the geometric object (e.g., x-axis, y-axis, color, shape, size) mapped to variables in the data.frame.</li>
-</ol></li>
-</ul>
-</section></section>
-<section>
-<section id="aesthetic-mappings" class="title-slide slide level1 center" data-background-color="#1c4982">
-<h1>Aesthetic Mappings</h1>
-
-</section>
-<section id="aesthetic-mappings-1" class="slide level2">
-<h2>Aesthetic Mappings</h2>
-<p align="center">
-<img src="https://bcdanl.github.io/lec_figs/r4s_330_1.png" width="600px">
-</p>
-<ul>
-<li class="fragment"><p>In the plot above, one group of points (highlighted in red) seems to fall outside of the linear trend.</p>
-<ul>
-<li class="fragment">How can you explain these cars? Are those hybrids?</li>
-</ul></li>
-</ul>
-</section>
-<section id="aesthetic-mappings-2" class="slide level2">
-<h2>Aesthetic Mappings</h2>
-<p align="center">
-<img src="https://bcdanl.github.io/lec_figs/r4s_330_2.png" width="600px">
-</p>
-<ul>
-<li class="fragment"><p>An aesthetic is a visual property (e.g., <code>size</code>, <code>shape</code>, <code>color</code>) of the objects (e.g., <code>class</code>) in your plot.</p></li>
-<li class="fragment"><p>You can display a point in different ways by changing the values of its aesthetic properties.</p></li>
-</ul>
-</section>
-<section id="aesthetic-mappings-3" class="slide level2">
-<h2>Aesthetic Mappings</h2>
-<h3 id="adding-a-color-to-the-plot">Adding a <code>color</code> to the plot</h3>
-<div class="cell columns column-output-location" data-fig.asp="0.85">
-<div class="column">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb4-2"><a href="#cb4-2"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> </span>
-<span id="cb4-3"><a href="#cb4-3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
-<span id="cb4-4"><a href="#cb4-4"></a>                   <span class="at">y =</span> hwy, </span>
-<span id="cb4-5"><a href="#cb4-5"></a>                   <span class="at">color =</span> class) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column fragment">
-<div class="cell-output-display">
-<p><img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-3-1.png" width="960"></p>
-</div>
-</div>
-</div>
-</section>
-<section id="aesthetic-mappings-4" class="slide level2">
-<h2>Aesthetic Mappings</h2>
-<h3 id="adding-a-shape-to-the-plot">Adding a <code>shape</code> to the plot</h3>
-<div class="cell columns column-output-location" data-fig.asp="0.85">
-<div class="column">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb5-2"><a href="#cb5-2"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> </span>
-<span id="cb5-3"><a href="#cb5-3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
-<span id="cb5-4"><a href="#cb5-4"></a>                   <span class="at">y =</span> hwy, </span>
-<span id="cb5-5"><a href="#cb5-5"></a>                   <span class="at">shape =</span> class) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column fragment">
-<div class="cell-output-display">
-<p><img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></p>
-</div>
-</div>
-</div>
-</section>
-<section id="aesthetic-mappings-5" class="slide level2">
-<h2>Aesthetic Mappings</h2>
-<h3 id="adding-a-size-to-the-plot">Adding a <code>size</code> to the plot</h3>
-<div class="cell columns column-output-location" data-fig.asp="0.85">
-<div class="column">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> </span>
-<span id="cb6-3"><a href="#cb6-3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
-<span id="cb6-4"><a href="#cb6-4"></a>                   <span class="at">y =</span> hwy, </span>
-<span id="cb6-5"><a href="#cb6-5"></a>                   <span class="at">size =</span> class) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column fragment">
-<div class="cell-output-display">
-<p><img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-5-1.png" width="960"></p>
-</div>
-</div>
-</div>
-</section>
-<section id="aesthetic-mappings-6" class="slide level2">
-<h2>Aesthetic Mappings</h2>
-<h3 id="adding-an-alpha-transparency-to-the-plot">Adding an <code>alpha</code> (transparency) to the plot</h3>
-<div class="cell columns column-output-location" data-fig.asp="0.85">
-<div class="column">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> </span>
-<span id="cb7-3"><a href="#cb7-3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
-<span id="cb7-4"><a href="#cb7-4"></a>                   <span class="at">y =</span> hwy, </span>
-<span id="cb7-5"><a href="#cb7-5"></a>                   <span class="at">alpha =</span> class) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column fragment">
-<div class="cell-output-display">
-<p><img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-6-1.png" width="960"></p>
-</div>
-</div>
-</div>
-</section>
-<section id="aesthetic-mappings-7" class="slide level2">
-<h2>Aesthetic Mappings</h2>
-<h3 id="overplotting-problem">Overplotting problem</h3>
-<ul>
-<li class="fragment"><p>Many points overlap each other.</p>
-<ul>
-<li class="fragment">This problem is known as <strong>overplotting</strong>.</li>
-</ul></li>
-<li class="fragment"><p>When points overlap, it’s hard to know how many data points are at a particular location.</p></li>
-<li class="fragment"><p>Overplotting can obscure patterns and outliers, leading to potentially misleading conclusions.</p></li>
-<li class="fragment"><p>We can set a transparency level (<code>alpha</code>) between <strong>0</strong> (full transparency) and <strong>1</strong> (no transparency).</p></li>
-</ul>
-</section>
-<section id="aesthetic-mappings-8" class="slide level2">
-<h2>Aesthetic Mappings</h2>
-<h3 id="overplotting-and-alpha">Overplotting and <code>alpha</code></h3>
-<div class="cell columns column-output-location" data-fig.asp="0.85">
-<div class="column">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb8-2"><a href="#cb8-2"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> </span>
-<span id="cb8-3"><a href="#cb8-3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
-<span id="cb8-4"><a href="#cb8-4"></a>                   <span class="at">y =</span> hwy),</span>
-<span id="cb8-5"><a href="#cb8-5"></a>             <span class="at">alpha =</span> .<span class="dv">33</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column fragment">
-<div class="cell-output-display">
-<p><img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
-</div>
-</div>
-</div>
-</section>
-<section id="aesthetic-mappings-9" class="slide level2">
-<h2>Aesthetic Mappings</h2>
-<h3 id="specifying-a-color-to-the-plot">Specifying a <code>color</code> to the plot</h3>
-<div class="cell columns column-output-location" data-fig.asp="0.85">
-<div class="column">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> </span>
-<span id="cb9-3"><a href="#cb9-3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
-<span id="cb9-4"><a href="#cb9-4"></a>                   <span class="at">y =</span> hwy), </span>
-<span id="cb9-5"><a href="#cb9-5"></a>             <span class="at">color =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column fragment">
-<div class="cell-output-display">
-<p><img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-8-1.png" width="960"></p>
-</div>
-</div>
-</div>
-</section>
-<section id="aesthetic-mappings-10" class="slide level2">
-<h2>Aesthetic Mappings</h2>
-<div style="text-align: center; width: 100%; margin: auto;">
-<img src="https://bcdanl.github.io/lec_figs/r4s_330_3.jpg" style="width: 50%; margin-bottom: -20px;">
-<p style="font-weight: bold;">
-</p>
-</div>
-<ul>
-<li class="fragment">To set an aesthetic manually, set the aesthetic by name as an argument of your <code>geom_*()</code> function; i.e.&nbsp;it goes outside of <code>aes()</code>.
-<ul>
-<li class="fragment">You’ll need to pick a level that makes sense for that aesthetic:
-<ul>
-<li class="fragment">The name of a <code>color</code> as a <em>character string</em>.</li>
-<li class="fragment">The <code>size</code> of a point in <em>mm</em>.</li>
-<li class="fragment">The <code>shape</code> of a point as a <em>number</em>, as shown below.</li>
-</ul></li>
-</ul></li>
-</ul>
-</section>
-<section id="common-problems-in-ggplot" class="slide level2">
-<h2>Common problems in <code>ggplot()</code></h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) </span>
-<span id="cb10-2"><a href="#cb10-2"></a> <span class="sc">+</span> <span class="fu">geom_point</span>( <span class="at">mapping =</span> </span>
-<span id="cb10-3"><a href="#cb10-3"></a>                 <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
-<span id="cb10-4"><a href="#cb10-4"></a>                     <span class="at">y =</span> hwy) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<ul>
-<li class="fragment">One common problem when creating <code>ggplot2</code> graphics is to put the <code>+</code> in the wrong place.
-<ul>
-<li class="fragment"><strong>Correct Approach</strong>: Always place the <code>+</code> at the end of the previous line, not at the beginning of the next line.</li>
-</ul></li>
-</ul>
-</section></section>
-<section>
-<section id="geometric-objects" class="title-slide slide level1 center" data-background-color="#1c4982">
-<h1>Geometric Objects</h1>
-
-</section>
-<section id="geometric-objects-1" class="slide level2">
-<h2>Geometric Objects</h2>
-<ul>
-<li class="fragment">In order to keep things simple, we’ll focus only on six different types of geometric objects, each with a commonly given name:
-<ul>
-<li class="fragment">Scatterplot with <code>geom_point()</code></li>
-<li class="fragment">Fitted curve/line with <code>geom_smooth()</code></li>
-<li class="fragment">Histogram with <code>geom_histogram()</code></li>
-<li class="fragment">Bar chart with <code>geom_bar()</code></li>
-<li class="fragment">Boxplot with <code>geom_boxplot()</code></li>
-<li class="fragment">Lineplot with <code>geom_line()</code></li>
-</ul></li>
-</ul>
-</section>
-<section id="geometric-objects-2" class="slide level2">
-<h2>Geometric Objects</h2>
-<h3 id="scatterplot-with-geom_point">Scatterplot with <code>geom_point()</code></h3>
-<div class="cell columns column-output-location" data-fig.asp="0.85">
-<div class="column">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb11-2"><a href="#cb11-2"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> </span>
-<span id="cb11-3"><a href="#cb11-3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
-<span id="cb11-4"><a href="#cb11-4"></a>                   <span class="at">y =</span> hwy),</span>
-<span id="cb11-5"><a href="#cb11-5"></a>             <span class="at">alpha =</span> <span class="fl">0.33</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column fragment">
-<div class="cell-output-display">
-<p><img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-9-1.png" width="960"></p>
-</div>
-</div>
-</div>
-<ul>
-<li class="fragment">A <strong>scatterplot</strong> visualizes <strong>the relationship between two numerical variables</strong>.</li>
-</ul>
-</section>
-<section id="geometric-objects-3" class="slide level2">
-<h2>Geometric Objects</h2>
-<h3 id="fitted-line-with-geom_smooth">Fitted line with <code>geom_smooth()</code></h3>
-<div class="cell columns column-output-location" data-fig.asp="0.85">
-<div class="column">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb12-2"><a href="#cb12-2"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> </span>
-<span id="cb12-3"><a href="#cb12-3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
-<span id="cb12-4"><a href="#cb12-4"></a>                   <span class="at">y =</span> hwy)</span>
-<span id="cb12-5"><a href="#cb12-5"></a>              )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column fragment">
-<div class="cell-output-display">
-<p><img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-10-1.png" width="960"></p>
-</div>
-</div>
-</div>
-<ul>
-<li class="fragment">A <strong>fitted curve</strong> visualizes <strong>the relationship between two numerical variables</strong>.</li>
-</ul>
-</section>
-<section id="geometric-objects-4" class="slide level2">
-<h2>Geometric Objects</h2>
-<h3 id="fitted-line-with-geom_smoothmethod-lm">Fitted line with <code>geom_smooth(method = lm)</code></h3>
-<div class="cell columns column-output-location" data-fig.asp="0.85">
-<div class="column">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> </span>
-<span id="cb13-3"><a href="#cb13-3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
-<span id="cb13-4"><a href="#cb13-4"></a>                   <span class="at">y =</span> hwy),</span>
-<span id="cb13-5"><a href="#cb13-5"></a>              <span class="at">method =</span> lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column fragment">
-<div class="cell-output-display">
-<p><img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-11-1.png" width="960"></p>
-</div>
-</div>
-</div>
-<ul>
-<li class="fragment">Setting <code>method = lm</code> manually in <code>geom_smooth()</code> gives a <em>straight line</em> that fits into data points.</li>
-</ul>
-</section>
-<section id="geometric-objects-5" class="slide level2">
-<h2>Geometric Objects</h2>
-<h3 id="geom_point-with-geom_smoothmethod-lm"><code>geom_point()</code> with <code>geom_smooth(method = lm)</code></h3>
-<div class="cell columns column-output-location" data-fig.asp="0.85">
-<div class="column">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg) <span class="sc">+</span> </span>
-<span id="cb14-2"><a href="#cb14-2"></a>  <span class="fu">geom_point</span>(<span class="at">mapping =</span> </span>
-<span id="cb14-3"><a href="#cb14-3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
-<span id="cb14-4"><a href="#cb14-4"></a>                   <span class="at">y =</span> hwy),</span>
-<span id="cb14-5"><a href="#cb14-5"></a>             <span class="at">alpha =</span> <span class="fl">0.33</span>) <span class="sc">+</span> </span>
-<span id="cb14-6"><a href="#cb14-6"></a>  <span class="fu">geom_smooth</span>(<span class="at">mapping =</span> </span>
-<span id="cb14-7"><a href="#cb14-7"></a>               <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
-<span id="cb14-8"><a href="#cb14-8"></a>                   <span class="at">y =</span> hwy),</span>
-<span id="cb14-9"><a href="#cb14-9"></a>              <span class="at">method =</span> lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column fragment">
-<div class="cell-output-display">
-<p><img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-12-1.png" width="960"></p>
-</div>
-</div>
-</div>
-<ul>
-<li class="fragment">Using <code>geom_point()</code> and <code>geom_smooth()</code> together is an excellent option.</li>
-</ul>
-<p>Here’s a revised version of the slide with some structural improvements and clarifications:</p>
-</section>
-<section id="geometric-objects-6" class="slide level2">
-<h2>Geometric Objects</h2>
-<h3 id="local-vs.-global-aesthetic-mapping">Local vs.&nbsp;Global Aesthetic Mapping</h3>
-<div class="cell columns column-output-location" data-fig.asp="0.85">
-<div class="column">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg,</span>
-<span id="cb15-2"><a href="#cb15-2"></a>       <span class="at">mapping =</span> </span>
-<span id="cb15-3"><a href="#cb15-3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
-<span id="cb15-4"><a href="#cb15-4"></a>                   <span class="at">y =</span> hwy)</span>
-<span id="cb15-5"><a href="#cb15-5"></a>             ) <span class="sc">+</span> </span>
-<span id="cb15-6"><a href="#cb15-6"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.33</span>) <span class="sc">+</span> </span>
-<span id="cb15-7"><a href="#cb15-7"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column fragment">
-<div class="cell-output-display">
-<p><img data-src="danl-101-lec-19-2024-1021_files/figure-revealjs/unnamed-chunk-13-1.png" width="960"></p>
-</div>
-</div>
-</div>
-<ul>
-<li class="fragment"><strong>Global aesthetic mapping</strong>: Defined in the main <code>ggplot()</code> function using <code>aes()</code>, applies to all layers of the plot unless overridden.</li>
-<li class="fragment"><strong>Local aesthetic mapping</strong>: Defined within specific <code>geom_*()</code> layers (e.g., <code>geom_point()</code>, <code>geom_smooth()</code>), allows for layer-specific customizations.</li>
-</ul>
-</section>
-<section id="geometric-objects-7" class="slide level2">
-<h2>Geometric Objects</h2>
-<h3 id="histogram-with-geom_histogram">Histogram with <code>geom_histogram()</code></h3>
-</section>
-<section id="geometric-objects-8" class="slide level2">
-<h2>Geometric Objects</h2>
-<h3 id="bar-chart-with-geom_bar">Bar Chart with <code>geom_bar()</code></h3>
-<ul>
-<li class="fragment"><p>A <strong>bar chart</strong> visualizes <strong>the distribution of a categorical variable</strong>.</p></li>
-<li class="fragment"><p>A <strong>boxplot</strong> visualizes <strong>the distribution of a numerical variable</strong>.</p></li>
 </ul>
 
 <div class="footer footer-default">

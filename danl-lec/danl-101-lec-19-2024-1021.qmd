@@ -33,6 +33,12 @@ library(tidyverse)
 library(skimr)
 library(ggthemes)
 library(hrbrthemes)
+library(viridis)
+
+titanic <- read_csv("https://bcdanl.github.io/data/titanic_cleaned.csv")
+oj <- read_csv("https://bcdanl.github.io/data/dominick_oj_feat.csv")
+nvda <- read_csv("https://bcdanl.github.io/data/nvda_2015_2024.csv")
+nbc <- read_csv("https://bcdanl.github.io/data/nbc_show.csv")
 
 
 theme_set(theme_fivethirtyeight() +
@@ -57,50 +63,517 @@ theme_set(theme_fivethirtyeight() +
 
 
 
-# Data Visualization {background-color="#1c4982"}
-
-## Exploratory Data Analysis (EDA)
-
-<div style="text-align: center; width: 100%; margin: auto;">
-  <img src="https://bcdanl.github.io/lec_figs/r4ds-fig-communicate.png" style="width: 75%; margin-bottom: -20px;">
-  <p style="font-weight: bold;"></p>
-</div>
-
-- **Data Visualization**: Convert raw data into meaningful plots for better understanding.
-
-- **Data Transformation**: Use key functions to filter observations, select variables, create new variables, and compute summaries.
-
-- **Exploratory Data Analysis (EDA)**: Combine **descriptive statistics** (`skim()`), **visualization**, and **transformation** with curiosity and skepticism to explore and discover insights.
-
+# Data Storytelling {background-color="#1c4982"}
 
 ## Data Storytelling
 
-<div style="text-align: center; width: 100%; margin: auto;">
-  <img src="https://bcdanl.github.io/lec_figs/data-storytelling.png" style="width: 50%; margin-bottom: -20px;">
-  <p style="font-weight: bold;"></p>
-</div>
+<!-- <div style="text-align: center; width: 100%; margin: auto;"> -->
+<!--   <img src="https://bcdanl.github.io/lec_figs/data-storytelling.png" style="width: 46%; margin-bottom: -20px;"> -->
+<!--   <p style="font-weight: bold;"></p> -->
+<!-- </div> -->
 
-- **Data Storytelling**: Bridge the gap between **data** and **insights** by **narrating** and **visualizing** findings within the appropriate **context** to help drive data-informed decisions.
+<!-- - **Data Visualization**: Convert data into meaningful graphics for better understanding of data. -->
 
+<!-- - **Data Transformation**: Use key functions to filter observations, select variables, create new variables, and compute summaries. -->
 
-## Data Storytelling
-### Why storytelling with data matters?
+<!-- - **Exploratory Data Analysis (EDA)**: Combine **descriptive statistics** (`skim()`), **visualization**, and **transformation** with curiosity and skepticism to explore and discover insights. -->
 
-> "The narrative is the key vehicle to convey insights, and the visualizations are important proof points to back up the narrative." Ryan Fuller, Corporate Vice President, M365 Data Strategy at Microsoft
+- *"The narrative is the key vehicle to convey insights, and the visualizations are important proof points to back up the narrative."* Ryan Fuller, Corporate Vice President, M365 Data Strategy at Microsoft
 
 - **Data visualizations** are useful for showing "what" is happening in the data.
-  - However, they often fall short in explaining the "why" or providing the necessary context to uncover underlying reasons.
+  - However, they often fall short in explaining the "why" and the "how" or providing the necessary context to uncover underlying reasons.
 
-- **Data storytelling** links the visualization with a narrative to answer the "why" and the "how" question, and conveys insights to the audience to make data-driven decision.
+- **Data storytelling** links the **visualization** with a **narrative** to answer the "why" and the "how" question, and conveys **insights** to the audience to make data-driven decision.
 
-
-## Data Storytelling.
-
-Data is the **what**. Stories are the **why** and **how**.
+-	**Data Storytelling**: Bridge the gap between **data** and **insights** by incorporating **descriptive statistics**, **visualization**, and **narration** of findings within the appropriate **context** to help drive data-informed decisions.
 
 
-## Data visualization
-### Tools
+## Data Storytelling
+
+
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/data-storytelling.png" style="width: 60%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
+
+
+
+## Data Storytelling
+
+
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/data-storytelling-context.png" style="width: 60%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
+
+
+
+## Data Storytelling
+### Context - Who, What, and How
+
+- Before creating a data visualization or communication, it’s essential to spend time understanding the **context** behind your message.
+
+1. **Who** is your audience?
+2. **What** do you want your audience to understand or act upon?
+3. **How** will you present the data to effectively support your point?
+
+
+## Data Storytelling
+### Context - Who
+
+1. To **whom** are you communicating?
+  - It is important to have a good understanding of who your audience is and how they perceive you.
+  - The more specific you can be about who your audience is, the better position you will be in for successful communication.
+
+
+
+
+## Data Storytelling
+### Context - What 
+
+2. **What** do you need your audience to know or do?
+  - You should think through how to make what you communicate relevant for your audience and form a clear understanding of why they should care about what you say.
+  - Take a more confident stance. If you are the one analyzing and communicating the data, you likely know it best—you are a subject matter expert.
+
+
+
+
+## Data Storytelling
+### Context - How
+
+3. **How** would you present your data to help make your point?
+  - What data transformation/visualization will help make my point?
+  - Data becomes supporting evidence of the story you will build and tell.
+
+
+
+
+
+
+## Data Storytelling
+
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/data-storytelling-data.png" style="width: 60%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
+
+
+## Data Storytelling
+## Understanding your data
+
+- Prior to doing any storytelling or analysis, it is critical to understand your data and its limitations
+  - How was the information collected?
+  - What is the source of the data?
+  - What is missing *variable* from the data?
+  - What is missing *observation* from the data?
+  - What is missing *value* (`NA`) from the data?
+
+
+<!-- ## Data Storytelling. -->
+
+<!-- Data is the **what**. Stories are the **why** and **how**. -->
+
+
+## Data Storytelling
+
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/data-storytelling-narrative.png" style="width: 60%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
+
+
+
+## The Foundations of a Narrative
+### The 3-Minute Story & Big Idea
+
+- Purpose: Boil the "so-what" down to a concise statement
+- Challenges: Being concise is often more difficult than being verbose
+- Blaise Pascal: "I would have written a shorter letter, but I did not have the time."
+
+
+## The Foundations of a Narrative
+### 3-Minute Story
+
+- If you had only 3 minutes, what would you say?
+- Goal: Be clear and articulate the key message
+- Useful in:
+  - Quick updates (e.g., elevator pitches)
+  - Shortened time slots (e.g., 5-minute briefings)
+- Know exactly what to communicate and adjust to the time
+
+
+
+## The Foundations of a Narrative
+### Big Idea
+
+- Concept discussed by Nancy Duarte in *Resonate*
+- Must meet three criteria:
+  1. Articulate your unique point of view
+  2. Convey what’s at stake
+  3. Be a complete sentence
+
+
+
+## The Foundations of a Narrative
+### Illustrative Example
+
+#### 3-Minute Story
+
+- Science department initiative: Resolve issues with incoming 4th-graders’ negative attitudes toward science
+- Piloted a summer learning program with 2nd and 3rd-graders
+- Survey results: Significant improvement in positive perceptions toward science
+
+#### Big Idea
+
+- "The pilot summer learning program was successful at improving students’ perceptions of science, and we recommend continuing and expanding it."
+
+
+
+## The Foundations of a Narrative
+### Storyboarding
+
+- Most important planning step for clear communication
+- Provides a visual outline for content structure
+- Allows flexibility and adjustment
+- Seek stakeholder buy-in at this stage
+
+
+
+## The Foundations of a Narrative
+### Best Practices for Storyboarding
+
+- Avoid starting with presentation software
+  - Leads to ineffective content generation
+- Use low-tech tools like whiteboards, Post-its, or plain paper
+  - Easier to adjust and eliminate ideas without attachment
+- Explore different narrative flows with ease
+
+
+
+## The Foundations of a Narrative
+### Summary
+
+- Concise communication is powerful and challenging
+- Use the 3-minute story and Big Idea frameworks to clarify your message
+- Storyboarding ensures content is well-structured and adaptable
+
+
+
+
+
+## Data Storytelling
+
+
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/data-storytelling-visual.png" style="width: 60%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
+
+
+## Data Storytelling
+### Visualization
+
+- **Data Visualization**: Convert data into meaningful graphics for better understanding of data.
+
+- There are many different graphs and other types of visual displays of information.
+
+- We will visualize: 
+  - The **distribution** of a variable
+  - The **relationship** between two variables
+  - The **time trend** of a variable
+
+
+## Data Storytelling
+### Distribution
+
+- **Distribution** refers to how the values of a variable are spread out or grouped within a data.frame.
+  - It visualizes what type of **variation** occurs within a variable.
+
+
+- **Variation** is the tendency of the values of a variable to change from measurement to measurement. 
+  - We can see variation easily in real life; if we measure any numeric variable twice, we will be likely to get two different numbers.
+  - Which values are the most common? Why?
+  - Which values are rare? Why? Does that match your expectations?
+
+
+
+## Data Storytelling
+### Distribution
+- How you visualize the distribution of a variable depends on the type of variable: **categorical** or **numerical**.
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- **Categorical Variables**: Represent categories or groups (e.g., colors, departments, types)
+  - Common visualizations:\
+  **Bar charts**
+  - <u>Example</u>: Distribution of favorite sports among students
+
+:::
+::: {.column width="50%"}  
+- **Numerical Variables**: Represent numbers with meaningful values (e.g., age, income, temperature)
+  - Common visualizations: **Histograms**, **Box plots**
+  - <u>Example</u>: Distribution of heights in a class
+
+:::
+::::
+
+
+## Data Storytelling
+### Bar Chart
+
+```{r}
+#| echo: false
+
+ggplot(data = titanic) + 
+  geom_bar(mapping = 
+               aes(x = survived, fill = survived ),
+           show.legend = F) +
+  labs(x = "Ticket\n Class",
+       y = "Number of\n People",
+       title = "How is the distribution of survival status in Titanic?") + 
+  scale_fill_viridis_d()
+```
+
+
+
+## Data Storytelling
+### Bar Chart
+
+```{r}
+#| echo: false
+
+ggplot(data = titanic) + 
+  geom_bar(mapping = 
+               aes(y = survived, fill = survived ),
+           show.legend = F) +
+  labs(y = "Ticket\n Class",
+       x = "Number of\n People",
+       title = "How is the distribution of survival status in Titanic?") + 
+  scale_fill_viridis_d()
+```
+
+
+
+## Data Storytelling
+### Stacked Bar Chart
+
+```{r}
+#| echo: false
+
+ggplot(data = titanic) + 
+  geom_bar(mapping = 
+               aes(y = class, fill = survived ) ) +
+  labs(y = "Ticket\n Class",
+       x = "Number of\n People",
+       fill = "Survival Status",
+       title = "How does the distribution of survival status varies by ticket class\n in Titanic?") + 
+  scale_fill_viridis_d()
+```
+
+
+
+## Data Storytelling
+### 100% Stacked Bar Chart
+
+```{r}
+#| echo: false
+
+ggplot(data = titanic) + 
+  geom_bar(mapping = 
+               aes(y = class, fill = survived ),
+           position = "fill") +
+  labs(y = "Ticket\n Class",
+       x = "Number of\n People",
+       fill = "Survival Status",
+       title = "How does the distribution of survival status varies by ticket class\n in Titanic?") + 
+  scale_fill_viridis_d()
+```
+
+
+
+## Data Storytelling
+### Clustered Bar Chart
+
+```{r}
+#| echo: false
+
+ggplot(data = titanic) + 
+  geom_bar(mapping = 
+               aes(y = class, fill = survived ),
+           position = "dodge") +
+  labs(y = "Ticket\n Class",
+       x = "Number of\n People",
+       fill = "Survival Status",
+       title = "How does the distribution of survival status varies by ticket class\n in Titanic?") + 
+  scale_fill_viridis_d()
+
+```
+
+
+
+
+## Data Storytelling
+### Histogram
+
+```{r}
+#| echo: false
+
+ggplot(data = titanic) + 
+  geom_histogram(mapping = 
+               aes(x = age, fill = age )) +
+  labs(y = "Number of\n People",
+       x = "Age",
+       title = "How is the distribution of age in Titanic?") + 
+  scale_fill_viridis_c()
+```
+
+
+## Data Storytelling
+### Histogram
+
+```{r}
+#| echo: false
+
+ggplot(data = titanic) + 
+  geom_histogram(mapping = 
+               aes(x = age, fill = survived ),
+               show.legend = F) +
+  facet_grid(.~survived) +
+  labs(y = "Number of\n People",
+       x = "Age",
+       title = "How does the distribution of age varies by survival status\n in Titanic?") + 
+  scale_fill_viridis_d()
+```
+
+
+
+## Data Storytelling
+### Boxplot
+
+```{r}
+#| echo: false
+
+ggplot(data = titanic) + 
+  geom_boxplot(mapping = 
+               aes(x = age, y = survived )
+               ) +
+  labs(y = "Number of\n People",
+       x = "Age",
+       title = "How does the distribution of age varies by survival status\n in Titanic?") 
+```
+
+
+
+## Data Storytelling
+### Relationship
+- From the plots with two numeric variables, we want to see **co-variation**, the tendency for the values of two or more variables to vary together in a **related** way. 
+
+- What type of **co-variation** occurs between variables?
+  - Are they positively associated?
+  - Are they negatively associated?
+  - Are there no association between them?
+
+- Common visualizations: 
+  - **Scatterplot**
+  - **Fitted curves/line**
+  
+
+## Data Storytelling
+### Scatterplot
+```{r}
+#| echo: false
+
+ggplot(data = oj) + 
+  geom_point(mapping = 
+               aes(x = log(sales), y = log(price) ),
+             alpha = .05
+               ) +
+  labs(y = "Price (in log)",
+       x = "Quantity (in log)",
+       title = "How is the quantity of OJ sales is related to its price?") 
+```
+
+
+## Data Storytelling
+### Scatterplot with Fitted Line
+```{r}
+#| echo: false
+
+ggplot(data = oj,
+       mapping = 
+               aes(x = log(sales), y = log(price) )
+             ) + 
+  geom_point(alpha = .05) +
+  geom_smooth(method = lm) +
+  labs(y = "Price (in log)",
+       x = "Quantity (in log)",
+       title = "How is the quantity of OJ sales is related to its price?") 
+```
+
+
+
+
+## Data Storytelling
+### Scatterplot with Fitted Line
+```{r}
+#| echo: false
+
+ggplot(data = oj,
+       mapping = 
+               aes(x = log(sales), y = log(price),
+                   color = brand)
+             ) + 
+  geom_point(alpha = .025) +
+  geom_smooth(method = lm) +
+  labs(y = "Price (in log)",
+       x = "Quantity (in log)",
+       title = "How does the relationship between OJ sales and its price\n varies by brand?") +
+  scale_color_viridis_d()
+```
+
+
+## Data Storytelling
+### Scatterplot with Fitted Line
+```{r}
+#| echo: false
+
+ggplot(data = mpg,
+       mapping = 
+               aes(x = cty, y = hwy)
+             ) + 
+  geom_point(alpha = .33) +
+  geom_smooth(method = lm) +
+  labs(y = "City MPG",
+       x = "Highway MPG",
+       title = "How is city MPG related to highway MPG?") 
+```
+
+
+
+
+## Data Storytelling
+### Scatterplot with Fitted Line
+```{r}
+#| echo: false
+
+ggplot(data = nbc,
+       mapping = 
+               aes(x = PE, y = GRP)
+             ) + 
+  geom_point() +
+  geom_smooth(method = lm) +
+  labs(y = "Audience Size",
+       x = "Audience Engagement",
+       title = "How is audience size related to audience engagement\n in NBC shows?") 
+```
+
+
+
+
+## Data Storytelling
+### Visualization Tools
 
 - Many tools for visualizing data -- **Power BI**, **Tableau**, **Python**, **R**, and more
 
@@ -110,393 +583,6 @@ Data is the **what**. Stories are the **why** and **how**.
   - While we will briefly use **Power BI**, the primary visualization tool for this course will be **ggplot2** in R.
   
 - Using **ggplot2** helps develop important coding and data skills, which are critical for more advanced data analytics work.
-
-
-<!-- > *"The simple graph has brought more information to the data analyst's mind than any other device."  John Tukey* -->
-
-<!-- - Data visualization is the creation and study of the visual representation of data -->
-
-
-<!-- - If you are interested in Power BI or Tableau, you can check out courses in Coursera, LinkedIn Learning, and/or YouTube. -->
-<!--   - They have **drag-and-drop interfaces**, making them accessible to users with little to no coding experience. -->
-
-
-
-##
-
-
-
-
-
-## Grammar of Graphics
-
-<div style="text-align: center; width: 100%; margin: auto;">
-  <img src="https://bcdanl.github.io/lec_figs/grammar-of-graphics.png" style="width: 75%; margin-bottom: -20px;">
-  <p style="font-weight: bold;"></p>
-</div>
-
-- A **grammar of graphics** is a tool that enables us to concisely describe the components of a graphic.
-  
-## Data Visualization - First Steps
-
-```{.r}
-library(tidyverse)
-mpg
-?mpg
-```
-
-- The `mpg` data frame, provided by `ggplot2`, contains observations collected by the US Environmental Protection Agency on 38 models of car.
-
-- Q. Do cars with big engines use more fuel than cars with small engines?
-  - `displ`: a car's engine size, in liters.
-  - `hwy`: a car's fuel efficiency on the highway, in miles per gallon (mpg). 
-
-
--  What does the relationship between engine size and fuel efficiency look like?
-
-
-## Data Visualization - First Steps
-### Creating a `ggplot`
-
-
-```{r}
-#| echo: true
-#| fig-asp: .85
-#| output-location: column-fragment
-
-ggplot(data = mpg) + 
-  geom_point(mapping = 
-               aes(x = displ, 
-                   y = hwy) )
-```
-
-
-- To plot `mpg`, run the above code to put `displ` on the `x`-axis and `hwy` on the `y`-axis.
-
-
-## Data Visualization - First Steps
-### Components of the Grammar of Graphics
-
-
-```{.r}
-ggplot( data = DATA.FRAME ) + 
-  GEOM_FUNCTION( mapping = 
-                     aes( MAPPINGS ) )
-```
-
-
-<!-- - To make a ggplot plot, replace the capitalized components in the code above with a `data.frame`, a `geom` function, or a collection of mappings such as `x = variable_1` and `y = variable_2`. -->
-
-- A statistical graphic is a `mapping` of `data` variables to `aes`thetic attributes of `geom`etric objects.
-
-
-- **Three Essential Components**:
-  1. `data`: The data.frame containing the variables of interest.
-  2. `geom_*()`: The geometric object in the plot (e.g., points, lines, bars).
-  3. `aes()`: Aesthetic attributes of the geometric object (e.g., x-axis, y-axis, color, shape, size) mapped to variables in the data.frame.
-
-
-# Aesthetic Mappings {background-color="#1c4982"}
-
-## Aesthetic Mappings
-
-<p align="center">
-  <img src="https://bcdanl.github.io/lec_figs/r4s_330_1.png" width="600px">
-</p>
-
-
-
-- In the plot above, one group of points (highlighted in red) seems to fall outside of the linear trend. 
-
-  - How can you explain these cars? Are those hybrids?
-
-
-
-## Aesthetic Mappings
-
-
-<p align="center">
-  <img src="https://bcdanl.github.io/lec_figs/r4s_330_2.png" width="600px">
-</p>
-
-- An aesthetic is a visual property (e.g., `size`, `shape`, `color`) of the objects (e.g., `class`) in your plot.
-
-- You can display a point in different ways by changing the values of its aesthetic properties. 
-
-## Aesthetic Mappings
-### Adding a `color` to the plot
-
-
-```{r}
-#| echo: true
-#| fig-asp: .85
-#| output-location: column-fragment
-
-ggplot(data = mpg) + 
-  geom_point(mapping = 
-               aes(x = displ, 
-                   y = hwy, 
-                   color = class) )
-```
-
-
-## Aesthetic Mappings
-### Adding a `shape` to the plot
-
-```{r}
-#| echo: true
-#| fig-asp: .85
-#| output-location: column-fragment
-
-
-ggplot(data = mpg) + 
-  geom_point(mapping = 
-               aes(x = displ, 
-                   y = hwy, 
-                   shape = class) )
-```
-
-
-
-
-## Aesthetic Mappings
-### Adding a `size` to the plot
-
-
-```{r}
-#| echo: true
-#| fig-asp: .85
-#| output-location: column-fragment
-
-ggplot(data = mpg) + 
-  geom_point(mapping = 
-               aes(x = displ, 
-                   y = hwy, 
-                   size = class) )
-```
-
-
-
-
-## Aesthetic Mappings
-### Adding an `alpha` (transparency) to the plot
-
-
-```{r}
-#| echo: true
-#| fig-asp: .85
-#| output-location: column-fragment
-
-ggplot(data = mpg) + 
-  geom_point(mapping = 
-               aes(x = displ, 
-                   y = hwy, 
-                   alpha = class) )
-```
-
-
-
-## Aesthetic Mappings
-### Overplotting problem
-
-- Many points overlap each other. 
-  - This problem is known as **overplotting**. 
-
-
-- When points overlap, it's hard to know how many data points are at a particular location. 
-
-
-- Overplotting can obscure patterns and outliers, leading to potentially misleading conclusions. 
-
-- We can set a transparency level (`alpha`) between **0** (full transparency) and **1** (no transparency).
-
-
-## Aesthetic Mappings
-### Overplotting and `alpha`
-
-```{r}
-#| echo: true
-#| fig-asp: .85
-#| output-location: column-fragment
-
-ggplot(data = mpg) + 
-  geom_point(mapping = 
-               aes(x = displ, 
-                   y = hwy),
-             alpha = .33)
-```
-
-
-
-
-## Aesthetic Mappings
-### Specifying a `color` to the plot
-
-```{r}
-#| echo: true
-#| fig-asp: .85
-#| output-location: column-fragment
-ggplot(data = mpg) + 
-  geom_point(mapping = 
-               aes(x = displ, 
-                   y = hwy), 
-             color = "blue")
-```
-
-
-
-
-## Aesthetic Mappings
-
-<div style="text-align: center; width: 100%; margin: auto;">
-  <img src="https://bcdanl.github.io/lec_figs/r4s_330_3.jpg" style="width: 50%; margin-bottom: -20px;">
-  <p style="font-weight: bold;"></p>
-</div>
-
-- To set an aesthetic manually, set the aesthetic by name as an argument of your `geom_*()` function; i.e. it goes outside of `aes()`. 
-  - You'll need to pick a level that makes sense for that aesthetic:
-    - The name of a `color` as a *character string*.
-    - The `size` of a point in *mm*.
-    - The `shape` of a point as a *number*, as shown below.
-  
-
-
-
-## Common problems in `ggplot()`
-
-
-```{.r}
-ggplot(data = mpg) 
- + geom_point( mapping = 
-                 aes(x = displ, 
-                     y = hwy) )
-```
-
-- One common problem when creating `ggplot2` graphics is to put the `+` in the wrong place.
-  - **Correct Approach**: Always place the `+` at the end of the previous line, not at the beginning of the next line.
-
-
-# Geometric Objects {background-color="#1c4982"}
-
-## Geometric Objects
-- In order to keep things simple, we'll focus only on six different types of geometric objects, each with a commonly given name:
-  - Scatterplot with `geom_point()`
-  - Fitted curve/line with `geom_smooth()`
-  - Histogram with `geom_histogram()`
-  - Bar chart with `geom_bar()`
-  - Boxplot with `geom_boxplot()`
-  - Lineplot with `geom_line()`
-
-
-## Geometric Objects
-### Scatterplot with `geom_point()`
-
-```{r}
-#| echo: true
-#| fig-asp: .85
-#| output-location: column-fragment
-ggplot(data = mpg) + 
-  geom_point(mapping = 
-               aes(x = displ, 
-                   y = hwy),
-             alpha = 0.33)
-```
-
-- A **scatterplot** visualizes **the relationship between two numerical variables**.
-
-
-## Geometric Objects
-### Fitted line with `geom_smooth()`
-
-```{r}
-#| echo: true
-#| fig-asp: .85
-#| output-location: column-fragment
-ggplot(data = mpg) + 
-  geom_smooth(mapping = 
-               aes(x = displ, 
-                   y = hwy)
-              )
-```
-
-- A **fitted curve** visualizes **the relationship between two numerical variables**.
-
-
-## Geometric Objects
-### Fitted line with `geom_smooth(method = lm)`
-
-```{r}
-#| echo: true
-#| fig-asp: .85
-#| output-location: column-fragment
-ggplot(data = mpg) + 
-  geom_smooth(mapping = 
-               aes(x = displ, 
-                   y = hwy),
-              method = lm)
-```
-
-- Setting `method = lm` manually in `geom_smooth()` gives a *straight line* that fits into data points.
-
-
-## Geometric Objects
-### `geom_point()` with `geom_smooth(method = lm)`
-
-```{r}
-#| echo: true
-#| fig-asp: .85
-#| output-location: column-fragment
-ggplot(data = mpg) + 
-  geom_point(mapping = 
-               aes(x = displ, 
-                   y = hwy),
-             alpha = 0.33) + 
-  geom_smooth(mapping = 
-               aes(x = displ, 
-                   y = hwy),
-              method = lm)
-```
-
-- Using `geom_point()` and `geom_smooth()` together is an excellent option.
-
-
-
-Here’s a revised version of the slide with some structural improvements and clarifications:
-
-## Geometric Objects
-### Local vs. Global Aesthetic Mapping
-
-```{r}
-#| echo: true
-#| fig-asp: .85
-#| output-location: column-fragment
-ggplot(data = mpg,
-       mapping = 
-               aes(x = displ, 
-                   y = hwy)
-             ) + 
-  geom_point(alpha = 0.33) + 
-  geom_smooth(method = lm)
-```
-
-- **Global aesthetic mapping**: Defined in the main `ggplot()` function using `aes()`, applies to all layers of the plot unless overridden.
-- **Local aesthetic mapping**: Defined within specific `geom_*()` layers (e.g., `geom_point()`, `geom_smooth()`), allows for layer-specific customizations.
-
-## Geometric Objects
-### Histogram with `geom_histogram()`
-
-
-
-
-## Geometric Objects
-### Bar Chart with `geom_bar()`
-
-
-
-- A **bar chart** visualizes **the distribution of a categorical variable**.
-
-- A **boxplot** visualizes **the distribution of a numerical variable**.
-
 
 
 
