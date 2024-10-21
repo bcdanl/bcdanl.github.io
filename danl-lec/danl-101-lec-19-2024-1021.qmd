@@ -1,6 +1,6 @@
 ---
 title: Lecture 19
-subtitle: Data Visualization
+subtitle: Data Storytelling
 format:
   clean-revealjs:
     self-contained: false
@@ -30,6 +30,7 @@ include-after-body: target-hover.html # effect.html
 #| include: false
 
 library(tidyverse)
+library(lubridate)
 library(skimr)
 library(ggthemes)
 library(hrbrthemes)
@@ -39,7 +40,7 @@ titanic <- read_csv("https://bcdanl.github.io/data/titanic_cleaned.csv")
 oj <- read_csv("https://bcdanl.github.io/data/dominick_oj_feat.csv")
 nvda <- read_csv("https://bcdanl.github.io/data/nvda_2015_2024.csv")
 nbc <- read_csv("https://bcdanl.github.io/data/nbc_show.csv")
-
+weather_indep <- read_csv("https://bcdanl.github.io/data/Completely_Independent_Variables__Rainfall_and_Temperature.csv")
 
 theme_set(theme_fivethirtyeight() +
             theme(strip.background =element_rect(fill="lightgray"),
@@ -544,12 +545,11 @@ ggplot(data = mpg,
                aes(x = cty, y = hwy)
              ) + 
   geom_point(alpha = .33) +
-  geom_smooth(method = lm) +
+  geom_smooth(method = lm, se = F) +
   labs(y = "City MPG",
        x = "Highway MPG",
        title = "How is city MPG related to highway MPG?") 
 ```
-
 
 
 
@@ -558,16 +558,47 @@ ggplot(data = mpg,
 ```{r}
 #| echo: false
 
-ggplot(data = nbc,
+ggplot(data = weather_indep,
        mapping = 
-               aes(x = PE, y = GRP)
+               aes(x = rainfall, y = temperature)
              ) + 
   geom_point() +
-  geom_smooth(method = lm) +
-  labs(y = "Audience Size",
-       x = "Audience Engagement",
-       title = "How is audience size related to audience engagement\n in NBC shows?") 
+  geom_smooth(method = lm, se = F) +
+  labs(y = "Temperature",
+       x = "Rainfall",
+       title = "How is rainfall related to temperature?") 
 ```
+
+
+
+## Data Storytelling
+### Time Trend
+
+- A **time trend** plot, (also known as a *time series* plot), is used to visualize trends, patterns, and fluctuations in a variable over a specific time period. 
+  - The x-axis typically represents time, while the y-axis represents the variable being measured. 
+
+- We can check the overall direction in which the time-series variable are **moving—upwards**, **downwards**, or **staying relatively constant** over time.
+
+- Common visualizations: 
+  - **Line chart**
+  
+
+## Data Storytelling
+### Line charts
+
+```{r}
+#| echo: false
+ggplot(data = nvda,
+       mapping = 
+                aes(x = Date, 
+                    y = Close)) + 
+  geom_line() +
+  geom_point(size = .1) +
+  labs(x = "Date",
+       y = "Price",
+       title = "How is the daily trend of Nvidia's stock price since 2015?")
+```
+
 
 
 
