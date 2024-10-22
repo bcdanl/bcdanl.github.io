@@ -1,0 +1,554 @@
+---
+title: Midterm Exam 1
+subtitle: Classwork 8
+date: last-modified
+from: markdown+emoji
+
+execute: 
+  eval: false
+  echo: true
+---
+
+```{r}
+#| include: false
+
+library(tidyverse)
+```
+
+
+# Section 1. True or False
+
+## Question 1
+Structured data has a predefined format and fits into traditional databases.
+
+a. **True**
+b. False
+
+
+**Explanation:**  
+Structured data refers to data that is organized in a fixed format, typically in rows and columns, making it easily stored and queried in traditional relational databases. Its predefined schema ensures consistency and facilitates efficient data management.
+
+
+## Question 2
+Dynamic pricing in sports ticket sales is influenced only by fixed factors, such as seating location and time of purchase, and is not heavily affected by real-time factors like demand, weather, or team performance.
+
+a. True
+b. **False**
+
+**Explanation:**  
+Dynamic pricing in sports ticket sales is influenced by both fixed factors (e.g., seating location, time of purchase) and real-time factors (e.g., current demand, weather conditions, team performance). Real-time data allows for adjustments in pricing to maximize revenue and respond to changing circumstances.
+
+
+<br>
+
+
+# Section 2. Multiple Choice
+
+
+## Question 3
+In retail analytics, market basket analysis is used to:
+
+a. Determine the optimal store location.
+b. **Understand which products to combine in a bundle offer.**
+c. Predict customer churn rates.
+d. Analyze video footage for customer demographics.
+
+**Explanation:**  
+Market basket analysis identifies patterns of items that frequently co-occur in transactions. This insight helps retailers create effective bundle offers, enhance cross-selling strategies, and optimize product placements to increase sales.
+
+
+
+## Question 4
+Which of the following best describes a CSV file?
+
+a. A binary file format for images.
+b. **A text file where values are separated by commas.**
+c. A proprietary spreadsheet format.
+d. A database file format.
+d. Privacy concerns
+
+**Explanation:**  
+CSV (Comma-Separated Values) files are plain text files that store tabular data, where each line represents a data record and each record consists of fields separated by commas. They are widely used for data exchange between different applications.
+
+
+## Question 5
+Which of the following is a challenge associated with the Load stage of the ETL process?
+
+a. Data validation errors due to missing values
+b. Dealing with heterogeneous data formats
+c. **Loading large data volumes can take days**
+d. Converting data into a standardized format
+
+**Explanation:**  
+The Load stage involves transferring transformed data into the data warehouse. Handling large volumes of data can be time-consuming, potentially taking days to complete, which poses a significant challenge in maintaining timely data availability.
+
+
+## Question 6-8
+For **Questions 6-8**, consider the following data.frame, `twitter_data`, displayed below:
+```{r}
+#| echo: false
+#| eval: true
+
+library(dplyr)
+# Create a data.frame with hypothetical social media data
+twitter_data <- data.frame(
+  UserID = 1:10,
+  Age = c(22, 27, 34, 19, 45, 31, 28, 23, 37, 29),  # Ratio
+  Gender = c("Female", "Male", "Female", "Male", "Female", "Male", "Female", "Male", "Male", "Female"),  # Nominal
+  AccountType = factor(c("Standard", "Premium", "Standard", "Premium", "Standard", "Standard", "Premium", "Standard", "Premium", "Premium"),
+                       levels = c("Standard", "Premium"), ordered = TRUE),  # Ordinal
+  Country = c("USA", "Canada", "USA", "UK", "Australia", "USA", "India", "Canada", "USA", "UK"),  # Nominal
+  FollowersCount = c(1500, 2300, 800, 5000, 300, 1200, 4500, 600, 3500, 900),  # Ratio
+  LastLoginHour = c(22.5, 14.2, 9.8, 18.3, 2.7, 12.1, 16.4, 20.0, 7.5, 23.0),  # Interval (hours since midnight)
+  AccountAgeDays = c(365, 730, 180, 1095, 60, 540, 850, 275, 400, 660),  # Ratio
+  SatisfactionLevel = factor(c("Very Satisfied", "Satisfied", "Neutral", "Very Satisfied", "Dissatisfied", "Satisfied", "Very Satisfied", "Neutral", "Satisfied", "Very Satisfied"),
+                             levels = c("Very Dissatisfied", "Dissatisfied", "Neutral", "Satisfied", "Very Satisfied"), ordered = TRUE),  # Ordinal
+  PostsPerWeek = c(5, 12, 3, 20, 1, 8, 15, 4, 18, 6),  # Ratio
+  GroupsJoined = c(10, 5, 12, 7, 3, 8, 15, 4, 9, 6),  # Ratio
+  IsVerified = c("Yes", "No", "No", "Yes", "No", "No", "Yes", "No", "Yes", "No")  # Nominal
+)
+
+
+knitr::kable(twitter_data |> select(UserID:LastLoginHour))
+
+knitr::kable(twitter_data |> select(AccountAgeDays:IsVerified) )
+
+```
+
+### Description of Variables in `twitter_data`:
+
+1.	`UserID`: Identifier for each user
+2.	`Age`: Age of the user in years
+3.	`Gender`: Gender of the user
+4.	`AccountType`: Type of social media account
+5.	`Country`: Country of residence
+6.	`FollowersCount`: Number of followers
+7.	`LastLoginHour`: Time of last login in hours since midnight
+8.	`AccountAgeDays`: Age of the account in days
+9.	`SatisfactionLevel`: User satisfaction level
+10.	`PostsPerWeek`: Number of posts per week
+11.	`GroupsJoined`: Number of groups joined
+12.	`IsVerified`: Whether the user account is verified
+
+
+
+### Question 6
+What type of variable is `Country` in the dataset?
+
+a. **Nominal**
+b. Ordinal
+c. Interval
+d. Ratio
+
+**Explanation:**  
+The `Country` variable categorizes data based on different countries without any inherent order or ranking, making it a nominal variable.
+
+
+### Question 7
+What type of variable is `LastLoginHour` in the dataset?
+
+a. Nominal
+b. Ordinal
+c. **Interval**
+d. Ratio
+
+**Explanation:**  
+`LastLoginHour` represents the time of the last login measured in hours since midnight. While it has meaningful differences between values, it does not have a true zero point in this context, categorizing it as an interval variable.
+
+
+### Question 8
+What type of variable is `SatisfactionLevel` in the dataset?
+
+a. Nominal
+b. **Ordinal**
+c. Interval
+d. Ratio
+
+
+**Explanation:**  
+`SatisfactionLevel` is an ordered categorical variable with levels such as "Very Dissatisfied," "Dissatisfied," "Neutral," "Satisfied," and "Very Satisfied," indicating a ranked relationship among categories.
+
+<br>
+
+# Section 3. Filling-in-the-Blanks
+
+
+## Question 9
+The Royal Swedish Academy of Sciences has decided to award the 2024 Nobel Prize in Physics to U.S. scientist John J. Hopfield and British-Canadian Geoffrey E. Hinton for discoveries and inventions in **machine learning**, a field that enables computers to learn from and make predictions or decisions based on data, which paved the way for the artificial intelligence boom.
+
+## Question 10
+In sport analytics, we discussed a machine learning model called **decision tree** that makes decisions by splitting data into branches based on input variables.
+
+## Question 11
+The five V’s of big data are Volume, Velocity, Value, Veracity, and **Variety**.
+
+
+## Question 12
+The process of inserting transformed data into the data warehouse is part of the **load** stage in ETL.
+
+## Question 13
+**Generative AI** refers to a category of artificial intelligence capable of generating new content, such as text, images, videos, music, and code.
+
+
+<br>
+
+# Section 4. Data Analysis with R
+
+## Question 14
+
+Which of the following R code correctly assigns the data.frame `nycflights13::airlines` to the variable `airlines_df`? (Note that `airlines_df` is simply the name of the R object and can be any valid name in R.)
+
+a. `nycflights13::airlines <- airlines_df`
+b. `airlines_df <- nycflights13::airlines`
+c. `nycflights13::airlines >= airlines_df`
+d. `airlines_df == nycflights13::airlines`
+e. All of the above
+
+**Answer:** b
+
+**Explanation:**  
+Option b correctly assigns the `airlines` data.frame from the `nycflights13` package to the variable `airlines_df` using the assignment operator `<-`. The other options either reverse the assignment or use incorrect operators.
+
+
+## Question 15
+
+Write the R code to create a new variable called `total` and assign to it the sum of 8 and 12 in R.
+
+**Answer:** `total <- 8 + 12`
+
+
+## Question 16
+
+Given the data.frame `df` with variables `height` and `name`, which of the following expressions returns a vector containing the values in the `height` variable?
+
+a. `df:height`
+b. `df::height`
+c. `df$height`
+d. Both b and c
+
+
+**Answer:** c
+
+**Explanation**:
+The `$` operator is used to extract a specific variable from a data.frame. Option b uses the `::` operator incorrectly, which is meant for accessing functions from packages.
+
+## Question 17
+
+The expression `as.numeric("456")` will return the numeric value 456.
+
+a. **True**
+b. False
+
+
+**Explanation**:
+The `as.numeric()` function converts the string “456” to the numeric value 456.
+
+
+## Question 18
+
+What is the result of the expression `(1 + 2 * 3) ^ 2` in R?
+
+a. `36`
+b. `49`
+c. `81`
+
+**Answer:** b
+
+
+## Question 19
+
+Given vectors `a <- c(2, 4, 6)` and `b <- c(1, 3, 5)`, what is the result of `a + b`?
+
+a. `c(3, 7, 11)`
+b. `c(2, 4, 6, 1, 3, 5)`
+c. `c(1, 2, 3, 4, 5, 6)`
+d. `Error`
+
+**Answer:** a
+
+**Explanation**:
+Element-wise addition of vectors a and b results in:
+- 2 + 1 = 3
+- 4 + 3 = 7
+- 6 + 5 = 11
+
+## Question 20
+
+To use the function `read_csv()` from the `readr` package, one of the packages in `tidyverse`, you first need to load the package using the R code ________.
+
+a. `library(readr)`
+b. `library(skimr)`
+c. `library(tidyverse)`
+d. All of the above
+e. **Both a and c**
+f. Both b and c
+g. **Both a and c**
+
+
+**Explanation**:
+You can load the readr package specifically using `library(readr)`, or load the entire `tidyverse` suite (which includes `readr`) using `library(tidyverse)`.
+
+## Question 21
+
+Consider the following data.frame `df0`:
+
+```{r}
+#| echo: false
+#| eval: true
+
+df0 <- data.frame(
+  x = c("Na", 2, 3),
+  y = c(7, NA, 9)
+)
+
+knitr::kable(df0)
+```
+
+
+What is the result of `mean(df0$y)`?
+
+a. `7`
+b. `NA`
+c. `8`
+d. `9`
+
+**Answer:** b
+
+**Explanation**:
+By default, the `mean()` function in R returns `NA` if there are any missing values (`NA`) in the data (unless the option, `na.rm = TRUE`, is specified).
+
+
+## Questions 22-23
+
+Consider the following data.frame `df` for **Questions 22-23**:
+
+```{r}
+#| echo: false
+#| eval: true
+df <- data.frame(
+  id = 1:5,
+  name = c("Anna", "Ben", "Carl", "Dana", "Ella"),
+  age = c(22, 28, NA, 35, 40),
+  score = c(90, 85, 95, NA, 80)
+)
+
+knitr::kable(df)
+```
+
+
+### Question 22
+
+Which of the following code snippets filters observations where `score` is strictly between 85 and 95 (i.e., excluding 85 and 95)?
+
+a. `df |> filter(score >= 85 | score <= 95)`
+b. `df |> filter(score > 85 | score < 95)`
+c. `df |> filter(score > 85 & score < 95)`
+d. `df |> filter(score >= 85 & score <= 95)`
+
+**Answer:** c
+
+**Explanation:**
+This code correctly filters rows where score is greater than 85 and less than 95, excluding the boundary values.
+
+### Question 23
+
+Which of the following expressions correctly keeps observations from df where the `age` variable does not have any missing values?
+
+a. `df |> filter(is.na(age))`
+b. `df |> filter(!is.na(age))`
+c. `df |> filter(age == NA)`
+d. `df |> filter(age != NA)`
+e. Both a and c
+f. Both b and d
+
+**Answer:** b
+
+**Explanation:**
+The expression `!is.na(age)` filters out rows where `age` is `NA`, keeping only those with non-missing values.
+
+
+## Question 24
+
+Consider the following data.frame `df3`:
+
+```{r}
+#| echo: false
+#| eval: true
+
+df3 <- data.frame(
+  id = c(1, 1, 2, 3, 3, 4, 5),
+  value = c(15, 15, 25, 35, 35, 45, 55)
+)
+
+knitr::kable(df3)
+```
+
+
+Which of the following code snippets returns a data.frame of unique `id` values from `df3`?
+
+a. `df3 |> select(id) |> distinct()`
+b. `df3 |> distinct(value)`
+c. `df3 |> distinct(id)`
+d. **Both a and c**
+
+**Explanation:**
+
+-	Option a: `df3 |> select(id) |> distinct()`
+This code first selects the `id` variable from `df3` and then applies `distinct()` to remove duplicate entries, resulting in a data.frame of unique `id` values.
+-	Option c: `df3 |> distinct(id)`
+This code directly applies `distinct()` to the `id` variable, achieving the same result as option a by returning unique `id` values.
+-	Option d: Both a and c correctly return a data.frame of unique `id` values.
+
+## Question 25
+
+Which of the following code snippets correctly renames the variable `name` to `first_name` in `df`?
+
+a. `df |> rename(first_name = name)`
+b. `df |> rename(name = first_name)`
+c. `df |> rename("name" = "first_name")`
+d. `df |> rename_variable(name = first_name)`
+
+
+**Answer:** a
+
+**Explanation:**
+-	Option a: `df |> rename(first_name = name)`
+This syntax correctly renames the existing column name to first_name using the rename() function from the dplyr package. The format is new_name = old_name.
+
+
+## Question 26
+
+Which of the following code snippets correctly removes the `score` variable from `df`?
+
+a. `df |> select(-score)`
+b. `df |> select(-"score")`
+c. `df |> select(!score)`
+d. `df |> select(, -score)`
+e. `df |> select(desc(score))`
+
+
+**Answer:** either a or b
+
+**Explanation:**
+-	Option a: `df |> select(-score)`
+This is the correct and most straightforward way to remove the `score` variable from `df` using the `select()` function with the minus (`-`) sign to indicate exclusion.
+-	Option b: `df |> select(-"score")`
+While this can work in some cases, it’s less conventional and may lead to issues depending on the version of `dplyr` or specific usage contexts.
+
+
+## Question 27
+
+Which of the following code snippets filters observations where `age` is not `NA`, then arranges them in ascending order of `age`, and then selects the `name` and `age` variables?
+
+a. `df |> filter(!is.na(age)) |> arrange(age) |> select(name, age)`
+b. `df |> select(name, age) |> arrange(age) |> filter(!is.na(age))`
+c. `df |> arrange(age) |> filter(!is.na(age)) |> select(name, age)`
+d. `df |> filter(is.na(age)) |> arrange(desc(age)) |> select(name, age)`
+e. All of the above
+
+**Answer:** a
+
+**Explanation:**
+- Option a:
+	-	`filter(!is.na(age))`: Removes rows where `age` is `NA`.
+	-	`arrange(age)`: Sorts the remaining data in ascending order based on `age`.
+	-	`select(name, age)`: Selects only the `name` and `age` variables.
+- This sequence correctly performs all required operations in the specified order.
+
+
+## Question 28
+Consider the two related data.frames, `students` and `majors`:
+
+- `students`
+
+```{r}
+#| echo: false
+#| eval: true
+students <- data.frame(
+  student_id = c(1, 2, 4),
+  name = c("Brad", "Jason", "Marcie"),
+  age = c(20, 22, 21)
+)
+
+knitr::kable(students)
+```
+
+- `majors`
+
+```{r}
+#| echo: false
+#| eval: true
+
+majors <- data.frame(
+  student_id = 1:3,
+  major = c("Business Administration", "Economics", "Data Analytics")
+)
+
+knitr::kable(majors)
+```
+
+Which of the following R code correctly joins the two related data.frames, `students` and `majors`, to produce the resulting data.frame shown below?
+
+```{r}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+
+students <- data.frame(
+  student_id = c(1, 2, 4),
+  name = c("Brad", "Jason", "Marcie"),
+  age = c(20, 22, 21)
+)
+
+majors <- data.frame(
+  student_id = 1:3,
+  major = c("Business Administration", "Economics", "Data Analytics")
+)
+
+result_df <- majors |> left_join(students)
+
+knitr::kable(result_df)
+```
+
+a. `students |> left_join(majors)`
+b. `majors |> left_join(students)`
+c. Both a and b
+
+**Answer:** b
+
+**Explanation:**
+
+-	Option b: `majors |> left_join(students)`
+- This correctly sets majors as the left data.frame, ensuring all records from `majors` are retained. For the value of `student_id` `3`, which does not exist in `students`, the `name` and `age` variables are filled with `NA`, matching the provided in the resulting data.frame.
+
+<br>
+
+# Section 4. Short Essay
+
+## Question 29
+In R, what does the function `sd(x)` compute, and why can it be more useful than `var(x)`?
+
+**Answer**:
+
+The function `sd(x)` in R computes the standard deviation of the numeric vector `x`. Standard deviation measures the amount of variation or dispersion in a set of values reference to its mean. It is more useful than `var(x)`—which calculates the variance—because standard deviation is expressed in the **same units** as the original data `x`, making it more interpretable. For example, if the data represents heights in centimeters, the standard deviation will also be in centimeters, allowing for direct understanding of variability. In contrast, variance is in squared units, which can be less intuitive.
+
+
+
+## Question 30
+List at least four applications of data analytics in sports analytics mentioned in the lecture, and briefly describe each one.
+
+**Answer**:
+
+1. Player Performance Analysis:
+  - Data analytics is used to evaluate individual player statistics, such as scoring efficiency, defensive actions, and endurance. This helps in identifying strengths and areas for improvement, informing coaching decisions and player development programs.
+2. Injury Prediction and Prevention:
+  - By analyzing data on player movements, workloads, and physiological metrics, teams can predict potential injuries before they occur. This proactive approach allows for tailored training regimens and rest periods to minimize injury risks.
+3. Strategic Decision Making:
+  - Coaches and managers use data analytics to inform game strategies, such as optimal player lineups, tactical adjustments, and in-game decision-making. Analyzing opponents’ data also aids in developing effective game plans.
+4. Fan Engagement and Marketing:
+  - Teams leverage data analytics to understand fan behavior and preferences, enabling personalized marketing campaigns, enhanced in-stadium experiences, and targeted promotions. This fosters stronger fan loyalty and increases revenue through merchandise and ticket sales.
+5. Scouting and Recruitment:
+  - Data-driven scouting identifies talent by analyzing player statistics, performance metrics, and potential. This objective approach enhances the recruitment process, ensuring that teams acquire players who fit their strategic needs and have the potential for future success.
+6. Revenue Optimization:
+  - Teams use analytics to optimize ticket pricing, merchandise sales, and concession offerings. By understanding demand patterns and consumer behavior, they can implement dynamic pricing strategies and tailor products to maximize revenue.
