@@ -115,6 +115,20 @@ theme_set(theme_fivethirtyeight() +
 
 
 ## Data Visualization
+### Skewness
+
+:::{.nonincremental}
+- For a **histogram**, we can consider a measure of the asymmetry of the distribution---**skewness**.
+
+:::
+
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/skewness.jpg" style="width: 75%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
+
+
+## Data Visualization
 ### Titanic
 
 ```{r}
@@ -253,19 +267,6 @@ ggplot(data = titanic) +
 ```
 
 
-## Data Visualization
-### Distribution
-
-:::{.nonincremental}
-- For a histogram, we can consider a measure of the asymmetry of the distribution---**skewness**.
-
-:::
-
-<div style="text-align: center; width: 100%; margin: auto;">
-  <img src="https://bcdanl.github.io/lec_figs/skewness.png" style="width: 75%; margin-bottom: -20px;">
-  <p style="font-weight: bold;"></p>
-</div>
-
 
 ## Data Visualization
 ### Boxplot
@@ -289,13 +290,14 @@ ggplot(data = titanic) +
 - From the plots with two numeric variables, we want to see **co-variation**, the tendency for the values of two or more variables to vary together in a **related** way. 
 
 - What type of **co-variation** occurs between variables?
-  - Are they positively associated?
-  - Are they negatively associated?
-  - Are there no association between them?
+  - Are they **positively** associated?
+  - Are they **negatively** associated?
+  - Are there **no association** between them?
 
 - Common visualizations: 
   - **Scatterplot**
   - **Fitted curves/line**
+
 
 
 
@@ -541,10 +543,10 @@ mpg
 #| fig-asp: .85
 #| output-location: column-fragment
 
-ggplot(data = mpg,
-       mapping = 
-         aes(x = displ, 
-             y = hwy)) + 
+ggplot( data = mpg,
+        mapping = 
+          aes(x = displ, 
+              y = hwy) ) + 
   geom_point()
 ```
 
@@ -611,11 +613,11 @@ ggplot( data = DATA.FRAME,
 #| fig-asp: .85
 #| output-location: column-fragment
 
-ggplot(data = mpg,
-       mapping = 
-         aes(x = displ,
-             y = hwy, 
-             color = class) ) + 
+ggplot( data = mpg,
+        mapping = 
+          aes(x = displ,
+              y = hwy, 
+              color = class) ) + 
   geom_point()
 ```
 
@@ -628,11 +630,11 @@ ggplot(data = mpg,
 #| fig-asp: .85
 #| output-location: column-fragment
 
-ggplot(data = mpg,
-       mapping = 
-         aes(x = displ,
-             y = hwy, 
-             shape = class) ) + 
+ggplot( data = mpg,
+        mapping = 
+          aes(x = displ,
+              y = hwy, 
+              shape = class) ) + 
   geom_point()
 ```
 
@@ -677,6 +679,38 @@ ggplot(data = mpg,
 ```
 
 
+## Aesthetic Mappings
+### Specifying a `color` to the plot, manually
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+ggplot(data = mpg,
+       mapping = 
+         aes(x = displ, 
+             y = hwy) ) + 
+  geom_point(color = "blue")
+```
+
+
+
+
+## Aesthetic Mappings
+
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/r4s_330_3.jpg" style="width: 50%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
+
+- To set an aesthetic manually, set the aesthetic by name as an argument of your `geom_*()` function; i.e. it goes outside of `aes()`. 
+  - You'll need to pick a level that makes sense for that aesthetic:
+    - The name of a `color` as a *character string*.
+    - The `size` of a point in *mm*.
+    - The `shape` of a point as a *number*, as shown below.
+  
+
+
 
 ## Aesthetic Mappings
 ### Overplotting problem
@@ -701,61 +735,29 @@ ggplot(data = mpg,
 #| fig-asp: .85
 #| output-location: column-fragment
 
-ggplot(data = mpg) + 
-  geom_point(mapping = 
-               aes(x = displ, 
-                   y = hwy),
-             alpha = .33)
+ggplot(data = mpg,
+       mapping = 
+         aes(x = displ, 
+             y = hwy) ) + 
+  geom_point(alpha = .33)
 ```
-
-
-
-
-## Aesthetic Mappings
-### Specifying a `color` to the plot
-
-```{r}
-#| echo: true
-#| fig-asp: .85
-#| output-location: column-fragment
-ggplot(data = mpg) + 
-  geom_point(mapping = 
-               aes(x = displ, 
-                   y = hwy), 
-             color = "blue")
-```
-
-
-
-
-## Aesthetic Mappings
-
-<div style="text-align: center; width: 100%; margin: auto;">
-  <img src="https://bcdanl.github.io/lec_figs/r4s_330_3.jpg" style="width: 50%; margin-bottom: -20px;">
-  <p style="font-weight: bold;"></p>
-</div>
-
-- To set an aesthetic manually, set the aesthetic by name as an argument of your `geom_*()` function; i.e. it goes outside of `aes()`. 
-  - You'll need to pick a level that makes sense for that aesthetic:
-    - The name of a `color` as a *character string*.
-    - The `size` of a point in *mm*.
-    - The `shape` of a point as a *number*, as shown below.
-  
 
 
 
 ## Common problems in `ggplot()`
 
-
 ```{.r}
-ggplot(data = mpg) 
- + geom_point( mapping = 
-                 aes(x = displ, 
-                     y = hwy) )
+ggplot(data = mpg,
+       mapping = 
+          aes(x = displ, 
+              y = hwy) ) 
+ + geom_point()
 ```
 
 - One common problem when creating `ggplot2` graphics is to put the `+` in the wrong place.
   - **Correct Approach**: Always place the `+` at the end of the previous line, not at the beginning of the next line.
+
+
 
 
 # Geometric Objects {background-color="#1c4982"}
@@ -777,11 +779,11 @@ ggplot(data = mpg)
 #| echo: true
 #| fig-asp: .85
 #| output-location: column-fragment
-ggplot(data = mpg) + 
-  geom_point(mapping = 
-               aes(x = displ, 
-                   y = hwy),
-             alpha = 0.33)
+ggplot(data = mpg,
+       mapping = 
+         aes(x = displ, 
+             y = hwy) ) + 
+  geom_point(alpha = 0.33)
 ```
 
 - A **scatterplot** visualizes **the relationship between two numerical variables**.
@@ -794,31 +796,15 @@ ggplot(data = mpg) +
 #| echo: true
 #| fig-asp: .85
 #| output-location: column-fragment
-ggplot(data = mpg) + 
-  geom_smooth(mapping = 
-               aes(x = displ, 
-                   y = hwy)
-              )
+ggplot(data = mpg,
+       mapping = 
+         aes(x = displ, 
+             y = hwy) ) + 
+  geom_smooth()
 ```
 
 - A **fitted curve** visualizes **the relationship between two numerical variables**.
 
-
-## Geometric Objects
-### Fitted line with `geom_smooth(method = lm)`
-
-```{r}
-#| echo: true
-#| fig-asp: .85
-#| output-location: column-fragment
-ggplot(data = mpg) + 
-  geom_smooth(mapping = 
-               aes(x = displ, 
-                   y = hwy),
-              method = lm)
-```
-
-- Setting `method = lm` manually in `geom_smooth()` gives a *straight line* that fits into data points.
 
 
 ## Geometric Objects
@@ -828,41 +814,13 @@ ggplot(data = mpg) +
 #| echo: true
 #| fig-asp: .85
 #| output-location: column-fragment
-ggplot(data = mpg) + 
-  geom_point(mapping = 
-               aes(x = displ, 
-                   y = hwy),
-             alpha = 0.33) + 
-  geom_smooth(mapping = 
-               aes(x = displ, 
-                   y = hwy),
-              method = lm)
-```
-
-- Using `geom_point()` and `geom_smooth()` together is an excellent option.
-
-
-
-Here’s a revised version of the slide with some structural improvements and clarifications:
-
-## Geometric Objects
-### Local vs. Global Aesthetic Mapping
-
-```{r}
-#| echo: true
-#| fig-asp: .85
-#| output-location: column-fragment
 ggplot(data = mpg,
        mapping = 
-               aes(x = displ, 
-                   y = hwy)
-             ) + 
+         aes(x = displ,
+             y = hwy)) + 
   geom_point(alpha = 0.33) + 
   geom_smooth(method = lm)
 ```
 
-- **Global aesthetic mapping**: Defined in the main `ggplot()` function using `aes()`, applies to all layers of the plot unless overridden.
-- **Local aesthetic mapping**: Defined within specific `geom_*()` layers (e.g., `geom_point()`, `geom_smooth()`), allows for layer-specific customizations.
-
-
+- Using `geom_point()` and `geom_smooth()` together is an excellent option.
 
