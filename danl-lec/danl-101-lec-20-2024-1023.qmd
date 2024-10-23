@@ -1,0 +1,868 @@
+---
+title: Lecture 19
+subtitle: Data Visualization
+format:
+  clean-revealjs:
+    self-contained: false
+    chalkboard: true
+    incremental: true
+    code-annotations: hover
+    scrollable: false
+
+    # logo: logo-title-slide.png
+author:
+  - name: Byeong-Hak Choe
+    email: bchoe@geneseo.edu
+    affiliations: SUNY Geneseo
+date: 2024-10-21
+execute: 
+  eval: true
+  echo: false
+callout-icon: false
+
+from: markdown+emoji
+include-after-body: target-hover.html # effect.html
+
+# bibliography: refs.bib
+---
+
+```{r}
+#| include: false
+
+library(tidyverse)
+library(lubridate)
+library(skimr)
+library(ggthemes)
+library(hrbrthemes)
+library(viridis)
+
+titanic <- read_csv("https://bcdanl.github.io/data/titanic_cleaned.csv")
+oj <- read_csv("https://bcdanl.github.io/data/dominick_oj_feat.csv")
+nvda <- read_csv("https://bcdanl.github.io/data/nvda_2015_2024.csv")
+nbc <- read_csv("https://bcdanl.github.io/data/nbc_show.csv")
+weather_indep <- read_csv("https://bcdanl.github.io/data/Completely_Independent_Variables__Rainfall_and_Temperature.csv")
+
+theme_set(theme_fivethirtyeight() +
+            theme(strip.background =element_rect(fill="lightgray"),
+                axis.title.x = 
+                  element_text(angle = 0,
+                               size = rel(1.75),
+                               margin = margin(10,0,0,0)),
+                axis.title.y = 
+                  element_text(angle = 0,
+                               size = rel(1.75),
+                               margin = margin(0,10,0,0)),
+                axis.text.x = element_text(size = rel(1.75)),
+                axis.text.y = element_text(size = rel(1.75)),
+                strip.text = element_text(size = rel(1.5)),
+                legend.position = "top",
+                legend.text = element_text(size = rel(1.5)),
+                legend.title = element_text(size = rel(1.5))
+                )
+          )
+```
+
+
+
+## Data Visualization
+
+- **Data Visualization**: Convert data into meaningful graphics for better understanding of data.
+
+- There are many different graphs and other types of visual displays of information.
+
+- We will visualize: 
+  - The **distribution** of a categorical/numeric variable
+  - The **relationship** between two numeric variables
+  - The **time trend** of a numeric variable
+
+
+## Data Visualization
+### Distribution
+
+- **Distribution** refers to how the values of a variable are spread out or grouped within a data.frame.
+  - It visualizes what type of **variation** occurs within a variable.
+
+
+- **Variation** is the tendency of the values of a variable to change from measurement to measurement. 
+  - We can see variation easily in real life; if we measure any numeric variable twice, we will be likely to get two different numbers.
+  - Which values are the most common? Why?
+    - The **mode** of a variable is the value that appears most frequently within the set of that variable's values.
+  - Which values are rare? Why? Does that match your expectations?
+
+
+
+## Data Visualization
+### Distribution
+- How you visualize the distribution of a variable depends on the type of variable: **categorical** or **numerical**.
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- **Categorical Variables**: Represent categories or groups (e.g., colors, departments, types)
+  - Common visualizations:\
+  **Bar charts**
+  - <u>Example</u>: Distribution of favorite sports among students
+
+:::
+::: {.column width="50%"}  
+- **Numerical Variables**: Represent numbers with meaningful values (e.g., age, income, temperature)
+  - Common visualizations: **Histograms**, **Box plots**
+  - <u>Example</u>: Distribution of heights in a class
+
+:::
+::::
+
+
+## Data Visualization
+### Titanic
+
+```{r}
+#| results: asis
+DT::datatable(titanic, options = list(
+  pageLength = 5
+))
+```
+
+
+## Data Visualization
+### Bar Chart
+
+```{r}
+#| echo: false
+
+ggplot(data = titanic) + 
+  geom_bar(mapping = 
+               aes(x = survived, fill = survived ),
+           show.legend = F) +
+  labs(x = "Survival Status",
+       y = "Number of\n People",
+       title = "How is the distribution of survival status in Titanic?") + 
+  scale_fill_viridis_d()
+```
+
+
+
+## Data Visualization
+### Bar Chart
+
+```{r}
+#| echo: false
+
+ggplot(data = titanic) + 
+  geom_bar(mapping = 
+               aes(y = survived, fill = survived ),
+           show.legend = F) +
+  labs(y = "Survival Status",
+       x = "Number of\n People",
+       title = "How is the distribution of survival status in Titanic?") + 
+  scale_fill_viridis_d()
+```
+
+
+
+## Data Visualization
+### Stacked Bar Chart
+
+```{r}
+#| echo: false
+
+ggplot(data = titanic) + 
+  geom_bar(mapping = 
+               aes(y = class, fill = survived ) ) +
+  labs(y = "Ticket\n Class",
+       x = "Number of\n People",
+       fill = "Survival Status",
+       title = "How does the distribution of survival status varies by ticket class\n in Titanic?") + 
+  scale_fill_viridis_d()
+```
+
+
+
+## Data Visualization
+### 100% Stacked Bar Chart
+
+```{r}
+#| echo: false
+
+ggplot(data = titanic) + 
+  geom_bar(mapping = 
+               aes(y = class, fill = survived ),
+           position = "fill") +
+  labs(y = "Ticket\n Class",
+       x = "Number of\n People",
+       fill = "Survival Status",
+       title = "How does the distribution of survival status varies by ticket class\n in Titanic?") + 
+  scale_fill_viridis_d()
+```
+
+
+
+## Data Visualization
+### Clustered Bar Chart
+
+```{r}
+#| echo: false
+
+ggplot(data = titanic) + 
+  geom_bar(mapping = 
+               aes(y = class, fill = survived ),
+           position = "dodge") +
+  labs(y = "Ticket\n Class",
+       x = "Number of\n People",
+       fill = "Survival Status",
+       title = "How does the distribution of survival status varies by ticket class\n in Titanic?") + 
+  scale_fill_viridis_d()
+
+```
+
+
+
+
+## Data Visualization
+### Histogram
+
+```{r}
+#| echo: false
+
+ggplot(data = titanic) + 
+  geom_histogram(mapping = 
+               aes(x = age, fill = age )) +
+  labs(y = "Number of\n People",
+       x = "Age",
+       title = "How is the distribution of age in Titanic?") + 
+  scale_fill_viridis_c()
+```
+
+
+## Data Visualization
+### Histogram
+
+```{r}
+#| echo: false
+
+ggplot(data = titanic) + 
+  geom_histogram(mapping = 
+               aes(x = age, fill = survived ),
+               show.legend = F) +
+  facet_grid(.~survived) +
+  labs(y = "Number of\n People",
+       x = "Age",
+       title = "How does the distribution of age varies by survival status\n in Titanic?") + 
+  scale_fill_viridis_d()
+```
+
+
+## Data Visualization
+### Distribution
+
+:::{.nonincremental}
+- For a histogram, we can consider a measure of the asymmetry of the distribution---**skewness**.
+
+:::
+
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/skewness.png" style="width: 75%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
+
+
+## Data Visualization
+### Boxplot
+
+```{r}
+#| echo: false
+
+ggplot(data = titanic) + 
+  geom_boxplot(mapping = 
+               aes(x = age, y = survived)
+               ) +
+  labs(y = "Number of\n People",
+       x = "Age",
+       title = "How does the distribution of age varies by survival status\n in Titanic?") 
+```
+
+
+
+## Data Visualization
+### Relationship
+- From the plots with two numeric variables, we want to see **co-variation**, the tendency for the values of two or more variables to vary together in a **related** way. 
+
+- What type of **co-variation** occurs between variables?
+  - Are they positively associated?
+  - Are they negatively associated?
+  - Are there no association between them?
+
+- Common visualizations: 
+  - **Scatterplot**
+  - **Fitted curves/line**
+
+
+
+## Data Visualization
+### Orange Juice Sales
+
+```{r}
+#| results: asis
+DT::datatable(oj, options = list(
+  pageLength = 5
+))
+```
+  
+
+## Data Visualization
+### Scatterplot
+```{r}
+#| echo: false
+
+ggplot(data = oj) + 
+  geom_point(mapping = 
+               aes(x = log(sales), y = log(price) ),
+             alpha = .05
+               ) +
+  labs(y = "Price (in log)",
+       x = "Quantity (in log)",
+       title = "How is the quantity of OJ sales is related to its price?") 
+```
+
+
+## Data Visualization
+### Scatterplot with Fitted Line
+```{r}
+#| echo: false
+
+ggplot(data = oj,
+       mapping = 
+               aes(x = log(sales), y = log(price) )
+             ) + 
+  geom_point(alpha = .05) +
+  geom_smooth(method = lm) +
+  labs(y = "Price (in log)",
+       x = "Quantity (in log)",
+       title = "How is the quantity of OJ sales is related to its price?") 
+```
+
+
+
+
+## Data Visualization
+### Scatterplot with Fitted Line
+```{r}
+#| echo: false
+
+ggplot(data = oj,
+       mapping = 
+               aes(x = log(sales), y = log(price),
+                   color = brand)
+             ) + 
+  geom_point(alpha = .025) +
+  geom_smooth(method = lm) +
+  labs(y = "Price (in log)",
+       x = "Quantity (in log)",
+       title = "How does the relationship between OJ sales and its price\n varies by brand?") +
+  scale_color_viridis_d()
+```
+
+
+
+
+## Data Visualization
+### MPG
+
+```{r}
+#| results: asis
+DT::datatable(mpg, options = list(
+  pageLength = 5
+))
+```
+  
+  
+## Data Visualization
+### Scatterplot with Fitted Line
+```{r}
+#| echo: false
+
+ggplot(data = mpg,
+       mapping = 
+               aes(x = cty, y = hwy)
+             ) + 
+  geom_point(alpha = .33) +
+  geom_smooth(method = lm, se = F) +
+  labs(y = "City MPG",
+       x = "Highway MPG",
+       title = "How is city MPG related to highway MPG?") 
+```
+
+
+
+## Data Visualization
+### Weather
+
+```{r}
+#| results: asis
+DT::datatable(weather_indep, options = list(
+  pageLength = 5
+))
+```
+  
+  
+## Data Visualization
+### Scatterplot with Fitted Line
+```{r}
+#| echo: false
+
+ggplot(data = weather_indep,
+       mapping = 
+               aes(x = rainfall, y = temperature)
+             ) + 
+  geom_point() +
+  geom_smooth(method = lm, se = F) +
+  labs(y = "Temperature",
+       x = "Rainfall",
+       title = "How is rainfall related to temperature?") 
+```
+
+
+
+## Data Visualization
+### Time Trend
+
+- A **time trend** plot, (also known as a *time series* plot), is used to visualize trends, patterns, and fluctuations in a variable over a specific time period. 
+  - The x-axis typically represents time, while the y-axis represents the variable being measured. 
+
+- We can check the overall direction in which the time-series variable are **moving—upwards**, **downwards**, or **staying relatively constant** over time.
+
+- Common visualizations: 
+  - **Line chart**
+  - **Fitted Curve**
+  
+
+
+## Data Visualization
+### NVDA Stock Price
+
+```{r}
+#| results: asis
+DT::datatable(nvda |> select(Date, Close), options = list(
+  pageLength = 5
+))
+```
+  
+  
+## Data Visualization
+### Line Chart
+
+```{r}
+#| echo: false
+ggplot(data = nvda,
+       mapping = 
+                aes(x = Date, 
+                    y = Close)) + 
+  geom_line() +
+  geom_point(size = .1) +
+  labs(x = "Date",
+       y = "Price",
+       title = "How is the daily trend of Nvidia's stock price since 2015?")
+```
+
+
+  
+## Data Visualization
+### Line Chart with Fitted Curve
+
+```{r}
+#| echo: false
+ggplot(data = nvda,
+       mapping = 
+                aes(x = Date, 
+                    y = Close)) + 
+  geom_line() +
+  geom_smooth() +
+  geom_point(size = .1) +
+  labs(x = "Date",
+       y = "Price",
+       title = "How is the daily trend of Nvidia's stock price since 2015?")
+```
+
+
+
+
+
+## Data Visualization
+### Visualization Tools
+
+- Many tools for visualizing data -- **Power BI**, **Tableau**, **Excel**, **Python**, **R**, and more
+
+- **Power BI** and **Tableau** have **drag-and-drop interfaces**, making them accessible to users with little to no coding experience.
+
+- In **R**, there are multiple packages for creating data visualizations—**ggplot2** is the most widely used one.
+  - While we will briefly use **Power BI** and **Excel** for visualization, the primary visualization tool for this course will be **ggplot2** in **R**.
+  
+- Using **ggplot2** helps develop important coding and data skills, which are critical for more advanced data analytics work.
+
+
+
+
+# Data Visualization with `ggplot` {background-color="#1c4982"}
+
+## Grammar of Graphics
+
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/grammar-of-graphics.png" style="width: 75%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
+
+- A **grammar of graphics** is a tool that enables us to concisely describe the components of a graphic.
+  
+## Data Visualization - First Steps
+
+```{.r}
+library(tidyverse)
+mpg
+?mpg
+```
+
+- The `mpg` data frame, provided by `ggplot2`, contains observations collected by the US Environmental Protection Agency on 38 models of car.
+
+- Q. Do cars with big engines use more fuel than cars with small engines?
+  - `displ`: a car's engine size, in liters.
+  - `hwy`: a car's fuel efficiency on the highway, in miles per gallon (mpg). 
+
+
+-  What does the relationship between engine size and fuel efficiency look like?
+
+
+## Data Visualization - First Steps
+### Creating a `ggplot`
+
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+
+ggplot(data = mpg,
+       mapping = 
+         aes(x = displ, 
+             y = hwy)) + 
+  geom_point()
+```
+
+
+- To plot `mpg`, run the above code to put `displ` on the `x`-axis and `hwy` on the `y`-axis.
+
+
+## Data Visualization - First Steps
+### Components of the Grammar of Graphics
+
+
+```{.r}
+ggplot( data = DATA.FRAME,
+        mapping = 
+          aes( MAPPINGS ) ) + 
+  GEOM_FUNCTION()
+```
+
+
+<!-- - To make a ggplot plot, replace the capitalized components in the code above with a `data.frame`, a `geom` function, or a collection of mappings such as `x = variable_1` and `y = variable_2`. -->
+
+- A statistical graphic is a `mapping` of `data` variables to `aes`thetic attributes of `geom`etric objects.
+
+
+- **Three Essential Components**:
+  1. `data`: The data.frame containing the variables of interest.
+  2. `geom_*()`: The geometric object in the plot (e.g., points, lines, bars).
+  3. `aes()`: Aesthetic attributes of the geometric object (e.g., x-axis, y-axis, color, shape, size) mapped to variables in the data.frame.
+
+
+# Aesthetic Mappings {background-color="#1c4982"}
+
+## Aesthetic Mappings
+
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/r4s_330_1.png" width="600px">
+</p>
+
+
+
+- In the plot above, one group of points (highlighted in red) seems to fall outside of the linear trend. 
+
+  - How can you explain these cars? Are those hybrids?
+
+
+
+## Aesthetic Mappings
+
+
+<p align="center">
+  <img src="https://bcdanl.github.io/lec_figs/r4s_330_2.png" width="600px">
+</p>
+
+- An aesthetic is a visual property (e.g., `size`, `shape`, `color`) of the objects (e.g., `class`) in your plot.
+
+- You can display a point in different ways by changing the values of its aesthetic properties. 
+
+## Aesthetic Mappings
+### Adding a `color` to the plot
+
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+
+ggplot(data = mpg,
+       mapping = 
+         aes(x = displ,
+             y = hwy, 
+             color = class) ) + 
+  geom_point()
+```
+
+
+## Aesthetic Mappings
+### Adding a `shape` to the plot
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+
+ggplot(data = mpg,
+       mapping = 
+         aes(x = displ,
+             y = hwy, 
+             shape = class) ) + 
+  geom_point()
+```
+
+
+
+
+## Aesthetic Mappings
+### Adding a `size` to the plot
+
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+
+ggplot(data = mpg,
+       mapping = 
+         aes(x = displ,
+             y = hwy, 
+             size = class) ) + 
+  geom_point()
+```
+
+
+
+
+## Aesthetic Mappings
+### Adding an `alpha` (transparency) to the plot
+
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+
+ggplot(data = mpg,
+       mapping = 
+         aes(x = displ,
+             y = hwy, 
+             alpha = class) ) + 
+  geom_point()
+```
+
+
+
+## Aesthetic Mappings
+### Overplotting problem
+
+- Many points overlap each other. 
+  - This problem is known as **overplotting**. 
+
+
+- When points overlap, it's hard to know how many data points are at a particular location. 
+
+
+- Overplotting can obscure patterns and outliers, leading to potentially misleading conclusions. 
+
+- We can set a transparency level (`alpha`) between **0** (full transparency) and **1** (no transparency).
+
+
+## Aesthetic Mappings
+### Overplotting and `alpha`
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+
+ggplot(data = mpg) + 
+  geom_point(mapping = 
+               aes(x = displ, 
+                   y = hwy),
+             alpha = .33)
+```
+
+
+
+
+## Aesthetic Mappings
+### Specifying a `color` to the plot
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+ggplot(data = mpg) + 
+  geom_point(mapping = 
+               aes(x = displ, 
+                   y = hwy), 
+             color = "blue")
+```
+
+
+
+
+## Aesthetic Mappings
+
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/r4s_330_3.jpg" style="width: 50%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
+
+- To set an aesthetic manually, set the aesthetic by name as an argument of your `geom_*()` function; i.e. it goes outside of `aes()`. 
+  - You'll need to pick a level that makes sense for that aesthetic:
+    - The name of a `color` as a *character string*.
+    - The `size` of a point in *mm*.
+    - The `shape` of a point as a *number*, as shown below.
+  
+
+
+
+## Common problems in `ggplot()`
+
+
+```{.r}
+ggplot(data = mpg) 
+ + geom_point( mapping = 
+                 aes(x = displ, 
+                     y = hwy) )
+```
+
+- One common problem when creating `ggplot2` graphics is to put the `+` in the wrong place.
+  - **Correct Approach**: Always place the `+` at the end of the previous line, not at the beginning of the next line.
+
+
+# Geometric Objects {background-color="#1c4982"}
+
+## Geometric Objects
+- In order to keep things simple, we'll focus only on six different types of geometric objects, each with a commonly given name:
+  - Scatterplot with `geom_point()`
+  - Fitted curve/line with `geom_smooth()`
+  - Histogram with `geom_histogram()`
+  - Bar chart with `geom_bar()`
+  - Boxplot with `geom_boxplot()`
+  - Lineplot with `geom_line()`
+
+
+## Geometric Objects
+### Scatterplot with `geom_point()`
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+ggplot(data = mpg) + 
+  geom_point(mapping = 
+               aes(x = displ, 
+                   y = hwy),
+             alpha = 0.33)
+```
+
+- A **scatterplot** visualizes **the relationship between two numerical variables**.
+
+
+## Geometric Objects
+### Fitted line with `geom_smooth()`
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+ggplot(data = mpg) + 
+  geom_smooth(mapping = 
+               aes(x = displ, 
+                   y = hwy)
+              )
+```
+
+- A **fitted curve** visualizes **the relationship between two numerical variables**.
+
+
+## Geometric Objects
+### Fitted line with `geom_smooth(method = lm)`
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+ggplot(data = mpg) + 
+  geom_smooth(mapping = 
+               aes(x = displ, 
+                   y = hwy),
+              method = lm)
+```
+
+- Setting `method = lm` manually in `geom_smooth()` gives a *straight line* that fits into data points.
+
+
+## Geometric Objects
+### `geom_point()` with `geom_smooth(method = lm)`
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+ggplot(data = mpg) + 
+  geom_point(mapping = 
+               aes(x = displ, 
+                   y = hwy),
+             alpha = 0.33) + 
+  geom_smooth(mapping = 
+               aes(x = displ, 
+                   y = hwy),
+              method = lm)
+```
+
+- Using `geom_point()` and `geom_smooth()` together is an excellent option.
+
+
+
+Here’s a revised version of the slide with some structural improvements and clarifications:
+
+## Geometric Objects
+### Local vs. Global Aesthetic Mapping
+
+```{r}
+#| echo: true
+#| fig-asp: .85
+#| output-location: column-fragment
+ggplot(data = mpg,
+       mapping = 
+               aes(x = displ, 
+                   y = hwy)
+             ) + 
+  geom_point(alpha = 0.33) + 
+  geom_smooth(method = lm)
+```
+
+- **Global aesthetic mapping**: Defined in the main `ggplot()` function using `aes()`, applies to all layers of the plot unless overridden.
+- **Local aesthetic mapping**: Defined within specific `geom_*()` layers (e.g., `geom_point()`, `geom_smooth()`), allows for layer-specific customizations.
+
+
+
