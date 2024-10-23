@@ -328,6 +328,7 @@ ggplot(data = oj) +
 ```
 
 
+
 ## Data Visualization
 ### Scatterplot with Fitted Line
 ```{r}
@@ -577,6 +578,33 @@ ggplot( data = DATA.FRAME,
   3. `aes()`: Aesthetic attributes of the geometric object (e.g., x-axis, y-axis, color, shape, size) mapped to variables in the data.frame.
 
 
+
+
+## Scatterplot
+
+- **Be mindful of the variable placement on the axes.**
+  - It’s common practice to place the **input variable** along the x-axis and the **outcome variable** along the y-axis.
+
+
+-	**Input Variable**: It’s like the "cause."
+-	**Outcome Variable**: It’s like the "effect."
+  - **Example**: a company’s advertising budget and sales revenue.
+  
+  
+
+## Scatterplot
+### Correlation does not imply causation
+
+<div style="text-align: center; width: 100%; margin: auto;">
+  <img src="https://bcdanl.github.io/lec_figs/corr-causal.png" style="width: 50%; margin-bottom: -20px;">
+  <p style="font-weight: bold;"></p>
+</div>
+
+- Just because you uncover a relationship doesn't mean you've identified the "causal" relationship.
+
+
+
+
 # Aesthetic Mappings {background-color="#1c4982"}
 
 ## Aesthetic Mappings
@@ -606,7 +634,6 @@ ggplot( data = DATA.FRAME,
 
 ## Aesthetic Mappings
 ### Adding a `color` to the plot
-
 
 ```{r}
 #| echo: true
@@ -643,7 +670,6 @@ ggplot( data = mpg,
 
 ## Aesthetic Mappings
 ### Adding a `size` to the plot
-
 
 ```{r}
 #| echo: true
@@ -712,7 +738,7 @@ ggplot(data = mpg,
 
 
 
-## Aesthetic Mappings
+## Scatterplot
 ### Overplotting problem
 
 - Many points overlap each other. 
@@ -721,13 +747,12 @@ ggplot(data = mpg,
 
 - When points overlap, it's hard to know how many data points are at a particular location. 
 
-
 - Overplotting can obscure patterns and outliers, leading to potentially misleading conclusions. 
 
 - We can set a transparency level (`alpha`) between **0** (full transparency) and **1** (no transparency).
 
 
-## Aesthetic Mappings
+## Scatterplot
 ### Overplotting and `alpha`
 
 ```{r}
