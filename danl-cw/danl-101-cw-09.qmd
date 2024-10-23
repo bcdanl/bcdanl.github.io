@@ -5,7 +5,7 @@ date: last-modified
 from: markdown+emoji
 
 execute: 
-  eval: false
+  eval: true
   echo: true
 ---
 
@@ -34,7 +34,10 @@ gapminder::gapminder
 ```
 
 ```{r}
-DT::datatable(gapminder)
+#| echo: false
+DT::datatable(gapminder, options = list(
+  pageLength = 12
+))
 ```
 
 <br>
@@ -50,7 +53,7 @@ DT::datatable(gapminder)
 
 # Question 1.
 
-- Visualize the relationship between GDP per capita (`gdpPercap`) and life expectancy (`lifeExp`)
+- Describe the relationship between GDP per capita (`gdpPercap`) and life expectancy (`lifeExp`)
   - Map `gdpPercap` to `x` (horizontal axis).
   - Map `lifeExp` to `y` (vertical axis).
 
